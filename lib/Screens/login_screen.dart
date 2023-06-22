@@ -213,7 +213,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             addHeight(30),
                             CommonButton(title: 'Login',onPressed: (){
-                              Get.toNamed(MyRouters.homePageScreen);
+                              // Get.toNamed(MyRouters.homePageScreen);
+                              // Get.toNamed(MyRouters.thankYouScreen);
+                              Get.toNamed(MyRouters.myCartScreen);
                             },),
                             addHeight(30),
                             Row(

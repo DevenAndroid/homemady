@@ -41,7 +41,9 @@ dependencies:
   smooth_page_indicator:
   google_fonts:
   pinput: ^2.2.21
-
+  form_field_validator:
+  intl: ^0.17.0
+  flutter_slidable: 
 
 dev_dependencies:
   flutter_test:

@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/Screens/homedetails_tabbar.dart';
+import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
-import 'package:homemady/widgets/dimenestion.dart';
 
 
 class HomeDetailsScreen extends StatefulWidget {
@@ -142,7 +141,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProv
                              children: [
                                Image.asset('assets/images/truckimg.png',height: 20,color: const Color(0xFF6AC643),),
                                addWidth(7),
-                               Text('25-40 Min',
+                               Text('Delivery Only',
                                    style: GoogleFonts.poppins(
                                      fontSize: 12,
                                      color: const Color(0xFF4E5F64),
@@ -366,23 +365,47 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProv
                  ),
                ],
              ),
-             TabBar(
-               indicatorColor: const Color(0xFF7ED957),
-               labelColor: const Color(0xff7ED957),
-               unselectedLabelColor: const Color(0xff616A75),
-               controller: tabController,
-               isScrollable: true,
-               tabs: const[
-                 Tab(
-                   text: 'A la carte',
+             Card(
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+               elevation: 0,
+               child: Container(
+                 decoration: BoxDecoration(
+                   color: Colors.white,
+                   borderRadius: BorderRadius.circular(12),
+                   boxShadow: [
+                     BoxShadow(
+                       color: const Color(0xFF37C666).withOpacity(0.10),
+                       offset: const Offset(.1, .1,
+                       ),
+                       blurRadius: 20.0,
+                       spreadRadius: 1.0,
+                     ),
+                   ],
                  ),
-                 Tab(
-                   text: 'Catering',
+                 child: TabBar(
+                   indicator: BoxDecoration(
+                     borderRadius: BorderRadius.circular(100),
+                     color: Colors.green
+                   ),
+                   // indicatorColor: const Color(0xFF7ED957),
+                   // labelColor: const Color(0xff7ED957),
+                   labelPadding: EdgeInsets.symmetric(horizontal: 30),
+                   unselectedLabelColor: const Color(0xff616A75),
+                   controller: tabController,
+                   isScrollable: true,
+                   tabs: const[
+                     Tab(
+                       text: 'A la carte',
+                     ),
+                     Tab(
+                       text: 'Catering',
+                     ),
+                     Tab(
+                       text: 'Meal Prep',
+                     ),
+                   ],
                  ),
-                 Tab(
-                   text: 'Meal Prep',
-                 ),
-               ],
+               ),
              ),
              addHeight(10),
              Expanded(
@@ -415,6 +438,213 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProv
                                    ),
                                    child: Padding(
                                      padding: const EdgeInsets.all(15.0),
+                                     child: InkWell(
+                                       onTap: (){
+                                         Get.toNamed(MyRouters.myCartScreen);
+                                       },
+                                       child: Row(
+                                         crossAxisAlignment: CrossAxisAlignment.start,
+                                         mainAxisAlignment: MainAxisAlignment.start,
+                                         children: [
+                                           Image.asset('assets/images/Rectangle 39762.png',height: 68,),
+                                           addWidth(10),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text('Special Burger',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize: 14,
+                                                          color: const Color(0xFF21283D)
+                                                      ),),
+                                                      addWidth(110),
+                                                      Text('€6.99',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize: 14,
+                                                          color: const Color(0xFF70CC49)
+                                                      ),),
+
+                                                  ],
+                                                ),
+                                                addHeight(3),
+                                                Text('Size: 200gm',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w300,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF364A4F)
+                                                  ),),
+                                                addHeight(4),
+                                                Row(
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text('spiciness',
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w300,
+                                                              fontSize: 8,
+                                                              color: const Color(0xFF1F2D30)
+                                                          ),),
+                                                        addWidth(4),
+                                                        Text('Mildly Spicy',
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w500,
+                                                              fontSize: 8,
+                                                              color: const Color(0xFF6CC844)
+                                                          ),),
+                                                      ],
+                                                    ),
+                                                    addWidth(30),
+                                                    Row(
+                                                      children: [
+                                                        Text('spiciness',
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w300,
+                                                              fontSize: 8,
+                                                              color: const Color(0xFF1F2D30)
+                                                          ),),
+                                                        addWidth(4),
+                                                        Text('Mildly Spicy',
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w500,
+                                                              fontSize: 8,
+                                                              color: const Color(0xFF6CC844)
+                                                          ),),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                addHeight(6),
+                                                IntrinsicHeight(
+                                                  child:
+                                                  Row(
+                                                    children: [
+                                                      InkWell(
+                                                        onTap:
+                                                            () {
+                                                        },
+                                                        child:
+                                                        Container(
+                                                          decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+                                                          alignment: Alignment.center,
+                                                          child: const Padding(
+                                                            padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                            child: Text(
+                                                              '-',
+                                                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
+                                                              textAlign: TextAlign.center,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        alignment:
+                                                        Alignment.center,
+                                                        child:
+                                                       const Padding(
+                                                          padding: EdgeInsets.only(left: 14.0, right: 14.0),
+                                                          child: Text(
+                                                              '1'
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      InkWell(
+                                                        onTap:
+                                                            () {
+
+                                                        },
+                                                        child:
+                                                        Container(
+                                                            decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+                                                          alignment: Alignment.center,
+                                                          child: const Padding(
+                                                            padding:  EdgeInsets.symmetric(horizontal: 8),
+                                                            child: Text(
+                                                              '+',
+                                                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Color(0xFF72CD4A)),
+                                                              textAlign: TextAlign.center,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                addHeight(6),
+                                               Container(
+                                                 color: Color(0xFFE9E9E9),
+                                                 width: 250,
+                                                 height: 1,
+                                               ),
+                                                addHeight(4),
+                                                Row(
+                                                  children: [
+                                                    Image.asset('assets/images/helpimg.png',height: 12,),
+                                                    addWidth(4),
+                                                    Text('Can cook more units by: 30th June 2023',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w300,
+                                                          fontSize: 10,
+                                                          color: const Color(0xFF364A4F)
+                                                      ),),
+                                                  ],
+                                                ),
+                                                addHeight(4),
+                                                Row(
+                                                  children: [
+                                                    Image.asset('assets/images/helpimg.png',height: 12,),
+                                                    addWidth(4),
+                                                    Text('Can cook more units by: 30th June 2023',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w300,
+                                                          fontSize: 10,
+                                                          color: const Color(0xFF364A4F)
+                                                      ),),
+                                                  ],
+                                                ),
+                                              ],
+                                            )
+                                         ],
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+                               );
+                            },
+                        ),
+                     ],
+                   ),
+                 ),
+                 SingleChildScrollView(
+                   child: Column(
+                     children: [
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 3,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                               return Padding(
+                                 padding: const EdgeInsets.all(8.0),
+                                 child: Container(
+                                   decoration: BoxDecoration(
+                                     color: Colors.white,
+                                       boxShadow: [
+                                           BoxShadow(
+                                             color: const Color(0xFF37C666).withOpacity(0.10),
+                                             offset: const Offset(.1, .1,
+                                             ),
+                                             blurRadius: 20.0,
+                                             spreadRadius: 1.0,
+                                           ),
+                                         ],
+                                     borderRadius: BorderRadius.circular(12)
+                                   ),
+                                   child: Padding(
+                                     padding: const EdgeInsets.all(15.0),
                                      child: Row(
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        mainAxisAlignment: MainAxisAlignment.start,
@@ -502,27 +732,23 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProv
                                                       },
                                                       child:
                                                       Container(
-                                                        decoration: BoxDecoration(border: Border.all(color: Color(0xFFA1A1A1)), borderRadius: BorderRadius.only(topLeft: Radius.circular(5), bottomLeft: Radius.circular(5))),
+                                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
                                                         alignment: Alignment.center,
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                        child: const Padding(
+                                                          padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                                           child: Text(
                                                             '-',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFFA1A1A1)),
+                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color:const Color(0xFF72CD4A)),
                                                             textAlign: TextAlign.center,
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                     Container(
-                                                      decoration:
-                                                      BoxDecoration(
-                                                        border: Border.all(color: Color(0xFFA1A1A1)),
-                                                      ),
                                                       alignment:
                                                       Alignment.center,
                                                       child:
-                                                      Padding(
+                                                      const Padding(
                                                         padding: EdgeInsets.only(left: 14.0, right: 14.0),
                                                         child: Text(
                                                             '1'
@@ -536,16 +762,13 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProv
                                                       },
                                                       child:
                                                       Container(
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(topRight: Radius.circular(5), bottomRight: Radius.circular(5)),
-                                                          border: Border.all(color: Color(0xFFA1A1A1)),
-                                                        ),
+                                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
                                                         alignment: Alignment.center,
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                        child: const Padding(
+                                                          padding:  EdgeInsets.symmetric(horizontal: 8),
                                                           child: Text(
                                                             '+',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFFA1A1A1)),
+                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
                                                             textAlign: TextAlign.center,
                                                           ),
                                                         ),
@@ -711,27 +934,23 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProv
                                                       },
                                                       child:
                                                       Container(
-                                                        decoration: BoxDecoration(border: Border.all(color: Color(0xFFA1A1A1)), borderRadius: BorderRadius.only(topLeft: Radius.circular(5), bottomLeft: Radius.circular(5))),
+                                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
                                                         alignment: Alignment.center,
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                        child: const Padding(
+                                                          padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                                           child: Text(
                                                             '-',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFFA1A1A1)),
+                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
                                                             textAlign: TextAlign.center,
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                     Container(
-                                                      decoration:
-                                                      BoxDecoration(
-                                                        border: Border.all(color: Color(0xFFA1A1A1)),
-                                                      ),
                                                       alignment:
                                                       Alignment.center,
                                                       child:
-                                                      Padding(
+                                                      const Padding(
                                                         padding: EdgeInsets.only(left: 14.0, right: 14.0),
                                                         child: Text(
                                                             '1'
@@ -745,225 +964,13 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProv
                                                       },
                                                       child:
                                                       Container(
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(topRight: Radius.circular(5), bottomRight: Radius.circular(5)),
-                                                          border: Border.all(color: Color(0xFFA1A1A1)),
-                                                        ),
+                                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
                                                         alignment: Alignment.center,
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                        child: const Padding(
+                                                          padding:  EdgeInsets.symmetric(horizontal: 8),
                                                           child: Text(
                                                             '+',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFFA1A1A1)),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              addHeight(6),
-                                             Container(
-                                               color: Color(0xFFE9E9E9),
-                                               width: 250,
-                                               height: 1,
-                                             ),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Image.asset('assets/images/helpimg.png',height: 12,),
-                                                  addWidth(4),
-                                                  Text('Can cook more units by: 30th June 2023',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 10,
-                                                        color: const Color(0xFF364A4F)
-                                                    ),),
-                                                ],
-                                              ),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Image.asset('assets/images/helpimg.png',height: 12,),
-                                                  addWidth(4),
-                                                  Text('Can cook more units by: 30th June 2023',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 10,
-                                                        color: const Color(0xFF364A4F)
-                                                    ),),
-                                                ],
-                                              ),
-                                            ],
-                                          )
-                                       ],
-                                     ),
-                                   ),
-                                 ),
-                               );
-                            },
-                        ),
-                     ],
-                   ),
-                 ),
-                 SingleChildScrollView(
-                   child: Column(
-                     children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 3,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                               return Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Container(
-                                   decoration: BoxDecoration(
-                                     color: Colors.white,
-                                       boxShadow: [
-                                           BoxShadow(
-                                             color: const Color(0xFF37C666).withOpacity(0.10),
-                                             offset: const Offset(.1, .1,
-                                             ),
-                                             blurRadius: 20.0,
-                                             spreadRadius: 1.0,
-                                           ),
-                                         ],
-                                     borderRadius: BorderRadius.circular(12)
-                                   ),
-                                   child: Padding(
-                                     padding: const EdgeInsets.all(15.0),
-                                     child: Row(
-                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                         Image.asset('assets/images/Rectangle 39762.png',height: 68,),
-                                         addWidth(10),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text('Special Burger',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 14,
-                                                        color: const Color(0xFF21283D)
-                                                    ),),
-                                                    addWidth(110),
-                                                    Text('€6.99',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 14,
-                                                        color: const Color(0xFF70CC49)
-                                                    ),),
-
-                                                ],
-                                              ),
-                                              addHeight(3),
-                                              Text('Size: 200gm',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 10,
-                                                    color: const Color(0xFF364A4F)
-                                                ),),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Text('spiciness',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w300,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF1F2D30)
-                                                        ),),
-                                                      addWidth(4),
-                                                      Text('Mildly Spicy',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF6CC844)
-                                                        ),),
-                                                    ],
-                                                  ),
-                                                  addWidth(30),
-                                                  Row(
-                                                    children: [
-                                                      Text('spiciness',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w300,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF1F2D30)
-                                                        ),),
-                                                      addWidth(4),
-                                                      Text('Mildly Spicy',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF6CC844)
-                                                        ),),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              addHeight(6),
-                                              IntrinsicHeight(
-                                                child:
-                                                Row(
-                                                  children: [
-                                                    InkWell(
-                                                      onTap:
-                                                          () {
-                                                      },
-                                                      child:
-                                                      Container(
-                                                        decoration: BoxDecoration(border: Border.all(color: Color(0xFFA1A1A1)), borderRadius: BorderRadius.only(topLeft: Radius.circular(5), bottomLeft: Radius.circular(5))),
-                                                        alignment: Alignment.center,
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                          child: Text(
-                                                            '-',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFFA1A1A1)),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      decoration:
-                                                      BoxDecoration(
-                                                        border: Border.all(color: Color(0xFFA1A1A1)),
-                                                      ),
-                                                      alignment:
-                                                      Alignment.center,
-                                                      child:
-                                                      Padding(
-                                                        padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                                                        child: Text(
-                                                            '1'
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap:
-                                                          () {
-
-                                                      },
-                                                      child:
-                                                      Container(
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(topRight: Radius.circular(5), bottomRight: Radius.circular(5)),
-                                                          border: Border.all(color: Color(0xFFA1A1A1)),
-                                                        ),
-                                                        alignment: Alignment.center,
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                                                          child: Text(
-                                                            '+',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFFA1A1A1)),
+                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Color(0xFF72CD4A)),
                                                             textAlign: TextAlign.center,
                                                           ),
                                                         ),

@@ -162,24 +162,26 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(page1[index].des22,style: const TextStyle(color: Color(0xFF7ED957),fontSize: 20),),
-                                        RichText(
-                                          text: TextSpan(
-                                            text:  page1[index].description2,
-                                            style: GoogleFonts.alegreyaSans(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 20,
-                                            color: const Color(0xFF131A38),
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                            children:  <TextSpan>[
-                                              TextSpan(text:  page1[index].description3,
-                                                style: GoogleFonts.alegreyaSans(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 20,
-                                            color: const Color(0xFF131A38),
-                                            fontStyle: FontStyle.italic,
-                                          ),),
-                                            ],
+                                        Expanded(
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text:  page1[index].description2,
+                                              style: GoogleFonts.alegreyaSans(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 20,
+                                              color: const Color(0xFF131A38),
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                              children:  <TextSpan>[
+                                                TextSpan(text:  page1[index].description3,
+                                                  style: GoogleFonts.alegreyaSans(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 20,
+                                              color: const Color(0xFF131A38),
+                                              fontStyle: FontStyle.italic,
+                                            ),),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -209,9 +211,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF5F5F5F).withOpacity(0.4),
-                        offset: const Offset(0.0, 0.5),
-                        blurRadius: 5,),
+                        color: Colors.grey.shade400,
+                        offset: const Offset(.1, .1,
+                        ),
+                        blurRadius: 20.0,
+                        spreadRadius: 1.0,
+                      ),
                     ]
                 ),
                 child: InkWell(

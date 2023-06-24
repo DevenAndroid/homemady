@@ -470,7 +470,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           },
                           child: Container(
                             height: 44,
-                            width: 160,
+                            width: AddSize.screenWidth / 2.3,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
                                 border: Border.all(
@@ -542,7 +542,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           },
                           child: Container(
                             height: 44,
-                            width: 160,
+                            width: AddSize.screenWidth / 2.3,
                             decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.zero,
                                 color: Color(0xFF7ED957)

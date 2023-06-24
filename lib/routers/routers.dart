@@ -1,6 +1,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:homemady/Screens/checkoutScreen.dart';
 import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/homedetails_Screen.dart';
+import 'package:homemady/Screens/myAddressScreen.dart';
 import 'package:homemady/Screens/mycart_Screen.dart';
 import 'package:homemady/Screens/notificationScreen.dart';
 import 'package:homemady/Screens/otpScreen.dart';
@@ -22,6 +24,8 @@ class MyRouters {
   static var thankYouScreen = "/thankYouScreen";
   static var myCartScreen = "/myCartScreen";
   static var homeDetailsScreen = "/homeDetailsScreen";
+  static var checkOutScreen = "/checkOutScreen";
+  static var myAddressScreen = "/myAddressScreen";
 
 
   static var route = [
@@ -35,6 +39,8 @@ class MyRouters {
   GetPage(name: '/thankYouScreen', page: () => const ThankYouScreen()),
   GetPage(name: '/myCartScreen', page: () => const MyCartScreen()),
   GetPage(name: '/homeDetailsScreen', page: () => const HomeDetailsScreen()),
+  GetPage(name: '/checkOutScreen', page: () => const CheckOutScreen()),
+  GetPage(name: '/myAddressScreen', page: () => const MyAddressScreen()),
 
 
 

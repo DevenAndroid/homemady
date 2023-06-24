@@ -118,6 +118,241 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 }
 
+class CustomTextField1 extends StatefulWidget {
+  final TextEditingController? controller;
+  final FormFieldValidator<String>? validator;
+  RxBool? obSecure;
+  final bool readOnly;
+  final VoidCallback? onTap;
+  final VoidCallback? onEditingCompleted;
+  final TextInputType keyboardType;
+  final ValueChanged<String>? onChanged;
+  final FormFieldSetter<String>? onSaved;
+  final ValueChanged<String>? onFieldSubmitted;
+  final bool isMulti;
+  final bool autofocus;
+  final bool enabled;
+  final String? errorText;
+  final String? labelText;
+  final RxString hintText;
+  final Widget? suffixIcon;
+  final Widget? prefix;
+
+  List<TextInputFormatter>? inputFormatters1 = [];
+
+  CustomTextField1({
+    this.controller,
+    this.validator,
+    this.keyboardType = TextInputType.text,
+    required this.obSecure,
+    this.onTap,
+    this.isMulti = false,
+    this.readOnly = false,
+    this.autofocus = false,
+    this.errorText,
+    required this.hintText,
+    this.suffixIcon,
+    this.prefix,
+    this.enabled = true,
+    this.onEditingCompleted,
+    this.onChanged,
+    this.onSaved,
+    this.labelText,
+    this.inputFormatters1,
+    this.onFieldSubmitted,
+  });
+
+  @override
+  State<CustomTextField1> createState() => _CustomTextField1State();
+}
+
+class _CustomTextField1State extends State<CustomTextField1> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      return TextFormField(
+          cursorColor: const Color(0xFF7ED957),
+        // autovalidateMode: AutovalidateMode.onUserInteraction,
+          textInputAction: TextInputAction.next,
+          onFieldSubmitted: widget.onFieldSubmitted,
+          inputFormatters: widget.inputFormatters1,
+          onChanged: widget.onChanged,
+          onEditingComplete: widget.onEditingCompleted,
+          obscureText: widget.obSecure!.value,
+          minLines: widget.isMulti ? 4 : 1,
+          maxLines: widget.isMulti ? null : 1,
+          onTap: widget.onTap,
+          enabled: widget.enabled,
+          readOnly: widget.readOnly,
+          keyboardType: widget.keyboardType,
+          controller: widget.controller,
+          decoration: InputDecoration(
+            counter: const Offstage(),
+            filled: true,
+            errorMaxLines: 2,
+            enabled: widget.enabled,
+            fillColor: Colors.transparent,
+            hintText: widget.hintText.value,
+            errorText: widget.errorText,
+            labelText: widget.labelText,
+            labelStyle: const TextStyle(color: Colors.black),
+            prefixIcon: widget.prefix,
+            suffixIcon: widget.suffixIcon,
+            hintStyle: GoogleFonts.poppins(
+              color: const Color(0xff2F353F),
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
+            ),
+            /*errorStyle: const TextStyle(
+              overflow: TextOverflow.clip,
+            ),*/
+            contentPadding: const EdgeInsets.only(left: 10, top: 15),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color(0xFF34472C).withOpacity(0.21),
+              ),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color(0xFF34472C).withOpacity(0.21),
+              ),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: const Color(0xFF34472C).withOpacity(0.21),
+                ),
+                borderRadius: BorderRadius.circular(100.0)),
+          ),
+          validator: widget.validator);
+    });
+  }
+}
+
+
+class CustomTextField2 extends StatefulWidget {
+  final TextEditingController? controller;
+  final FormFieldValidator<String>? validator;
+  RxBool? obSecure;
+  final bool readOnly;
+  final VoidCallback? onTap;
+  final VoidCallback? onEditingCompleted;
+  final TextInputType keyboardType;
+  final ValueChanged<String>? onChanged;
+  final FormFieldSetter<String>? onSaved;
+  final ValueChanged<String>? onFieldSubmitted;
+  final bool isMulti;
+  final bool autofocus;
+  final bool enabled;
+  final String? errorText;
+  final String? labelText;
+  final RxString hintText;
+  final Widget? suffixIcon;
+  final Widget? prefix;
+
+  List<TextInputFormatter>? inputFormatters1 = [];
+
+  CustomTextField2({
+    this.controller,
+    this.validator,
+    this.keyboardType = TextInputType.text,
+    required this.obSecure,
+    this.onTap,
+    this.isMulti = false,
+    this.readOnly = false,
+    this.autofocus = false,
+    this.errorText,
+    required this.hintText,
+    this.suffixIcon,
+    this.prefix,
+    this.enabled = true,
+    this.onEditingCompleted,
+    this.onChanged,
+    this.onSaved,
+    this.labelText,
+    this.inputFormatters1,
+    this.onFieldSubmitted,
+  });
+
+  @override
+  State<CustomTextField2> createState() => _CustomTextField2State();
+}
+
+class _CustomTextField2State extends State<CustomTextField2> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      return TextFormField(
+          cursorColor: const Color(0xFF7ED957),
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
+          textInputAction: TextInputAction.next,
+          onFieldSubmitted: widget.onFieldSubmitted,
+          inputFormatters: widget.inputFormatters1,
+          onChanged: widget.onChanged,
+          onEditingComplete: widget.onEditingCompleted,
+          obscureText: widget.obSecure!.value,
+          minLines: widget.isMulti ? 4 : 1,
+          maxLines: widget.isMulti ? null : 1,
+          onTap: widget.onTap,
+          enabled: widget.enabled,
+          readOnly: widget.readOnly,
+          keyboardType: widget.keyboardType,
+          controller: widget.controller,
+          decoration: InputDecoration(
+            counter: const Offstage(),
+            filled: true,
+            errorMaxLines: 2,
+            enabled: widget.enabled,
+            fillColor: Colors.transparent,
+            hintText: widget.hintText.value,
+            errorText: widget.errorText,
+            labelText: widget.labelText,
+            labelStyle: const TextStyle(color: Colors.black),
+            prefixIcon: widget.prefix,
+            suffixIcon: widget.suffixIcon,
+            hintStyle: GoogleFonts.poppins(
+              color: const Color(0xff2F353F),
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
+            ),
+            /*errorStyle: const TextStyle(
+              overflow: TextOverflow.clip,
+            ),*/
+            contentPadding: const EdgeInsets.only(left: 10, top: 60),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color(0xFF34472C).withOpacity(0.21),
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: const Color(0xFF34472C).withOpacity(0.21),
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: const Color(0xFF34472C).withOpacity(0.21),
+                ),
+                borderRadius: BorderRadius.circular(10.0)),
+          ),
+          validator: widget.validator);
+    });
+  }
+}
+
 
 // custom button
 
@@ -133,12 +368,12 @@ class CommonButton extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           gradient: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              // begin: Alignment.topCenter,
+              // end: Alignment.bottomCenter,
               colors: [
                Color(0xFF7ED957),
                 Color(0xff6BD13F)]
-          )
+          ),
       ),
       child: ElevatedButton(
           onPressed: onPressed,

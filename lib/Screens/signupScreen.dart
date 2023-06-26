@@ -89,13 +89,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ],
                                     color: Colors.white
                                 ),
-                                child: CustomTextField(
-                                  hintText: 'Name'.obs,
-                                  obSecure: false.obs,
+                                child: CommonTextFieldWidget(
+                                  hint: 'Name',
                                   controller: nameController,
                                 ),
                               ),
-                              addHeight(15),
+                             addHeight(20),
                               Container(
                                 width: screenWidth,
                                 decoration: BoxDecoration(
@@ -111,13 +110,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ],
                                     color: Colors.white
                                 ),
-                                child: CustomTextField(
-                                  hintText: 'Email'.obs,
-                                  obSecure: false.obs,
-
+                                child: CommonTextFieldWidget(
+                                  hint: 'Email',
                                 ),
                               ),
-                              addHeight(15),
+                              addHeight(20),
                               Container(
                                 width: screenWidth,
                                 decoration: BoxDecoration(
@@ -133,13 +130,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ],
                                     color: Colors.white
                                 ),
-                                child: CustomTextField(
-                                  hintText: 'Phone'.obs,
-                                  obSecure: false.obs,
+                                child: CommonTextFieldWidget(
+                                  hint: 'Phone',
                                   controller: phoneController,
                                 ),
                               ),
-                              addHeight(15),
+                              addHeight(20),
                               Container(
                                 width: screenWidth,
                                 decoration: BoxDecoration(
@@ -155,13 +151,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ],
                                     color: Colors.white
                                 ),
-                                child: CustomTextField(
-                                  hintText: 'Password'.obs,
-                                  obSecure: false.obs,
+                                child: CommonTextFieldWidget(
+                                  hint: 'Password',
                                   controller: passwordController,
                                 ),
                               ),
-                              addHeight(15),
+                              addHeight(20),
                               Container(
                                 width: screenWidth,
                                 decoration: BoxDecoration(
@@ -177,9 +172,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ],
                                     color: Colors.white
                                 ),
-                                child: CustomTextField(
-                                  hintText: 'Confirm Password'.obs,
-                                  obSecure: false.obs,
+                                child: CommonTextFieldWidget(
+                                  hint: 'Confirm Password',
                                   controller: confirmController,
                                 ),
                               ),
@@ -248,7 +242,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   ),
                                   InkWell(
                                     onTap: (){
-                                      Get.toNamed(MyRouters.loginScreen,);
+                                      Get.back();
                                     },
                                     child:
                                     Text(' Login',

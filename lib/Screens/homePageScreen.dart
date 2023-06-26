@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
+import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:intl/intl.dart';
 
@@ -350,7 +351,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: AddSize.screenWidth*.60,
+                          width: AddSize.screenWidth*.64,
                           height: 42,
                           child: Container(
                             decoration: BoxDecoration(
@@ -366,33 +367,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ],
                                 color: Colors.white
                             ),
-                            child: TextFormField(
-                              onChanged: (value){
+                            child: CommonTextFieldWidget(
+                              hint: 'Search Your Food',
+                              prefix: Icon(Icons.search,size: 19,color: const Color(0xFF000000).withOpacity(0.56),),
+                              onChanged: (val){
                                 _showSimpleDialog2(context);
                               },
-                              cursorColor: Colors.black,
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior
-                                    .never,
-                                border: InputBorder.none,
-                                contentPadding: const EdgeInsets.all(8),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                fillColor: Colors.black,
-                                //focusColor: Colors.black,
-                                labelText: 'Search',
-                                labelStyle: const TextStyle(
-                                    color: Color(0xFFABB1BA)),
-                                prefixIcon: const Icon(Icons.search_rounded,
-                                  color: Color(0xFFABB1BA), size: 18,),
-
-                              ),
-                              //suffix: Icon(Icons.search),
-                              //hint: 'search',
-                              // prefix: Icon(Icons.camera_alt_outlined),
-                            ),
+                            )
                           ),
                         ),
                         const Spacer(),
@@ -468,13 +449,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           onTap: () {
 
                           },
-                          child: Container(
+                          child:
+                          Container(
                             height: 44,
                             width: AddSize.screenWidth / 2.3,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
                                 border: Border.all(
-                                    color: const Color(0xFF7ED957)
+                                    color: const Color(0xFF7ED957),
+                                  width: 2
                                 )
                             ),
                             child: Row(
@@ -540,7 +523,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               });
                             } else {}
                           },
-                          child: Container(
+                          child:
+                          Container(
                             height: 44,
                             width: AddSize.screenWidth / 2.3,
                             decoration: const BoxDecoration(
@@ -570,7 +554,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       ],
                     ),
                     addHeight(20),
-
                     ListView.builder(
                       shrinkWrap: true,
                       itemCount: 2,
@@ -612,7 +595,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             addHeight(6),
                                             Text('Burger King with Pizza',
                                               style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w600,
+                                                  fontWeight: FontWeight.w700,
                                                   fontSize: 16,
                                                   color: const Color(0xFF21283D)
                                               ),),
@@ -637,26 +620,26 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ),
                                     ),
                                     Positioned(
-                                        top: 75,
+                                        top: 80,
                                         // bottom: 0,
-                                        left: 18,
-                                        right: 15,
+                                        left: 20,
+                                        right: 20,
                                         //   bottom: 0,
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment
                                               .spaceBetween,
                                           children: const [
                                             Icon(Icons.arrow_back_ios,
-                                              color: Colors.white,),
+                                              color: Colors.white,size: 20,),
                                             Icon(Icons.arrow_forward_ios,
-                                              color: Colors.white,)
+                                              color: Colors.white,size: 20,)
                                           ],
                                         )
                                     ),
                                     Positioned(
-                                        top: 125,
+                                        top: 135,
                                         bottom: 0,
-                                        left: 235,
+                                        left: 255,
                                         right: 0,
                                         //   bottom: 0,
                                         child: Column(
@@ -705,7 +688,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     Positioned(
                                         top: 16,
                                         bottom: 0,
-                                        left: 260,
+                                        left: 290,
                                         right: 0,
                                         //   bottom: 0,
 
@@ -713,7 +696,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           children: [
                                             Obx(() {
                                               return Container(
-                                                  height: 30,
+                                                  height: 33,
                                                   decoration: const BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: Colors.white
@@ -784,7 +767,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     }
                                                 );
                                               },
-                                                child: Image.asset('assets/images/topChef.png',width: 40,)),
+                                                child: Image.asset('assets/images/topChef.png',width: 50,)),
                                             InkWell(
                                                 onTap: (){
                                                   showGeneralDialog(
@@ -816,7 +799,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       }
                                                   );
                                                 },
-                                                child: Image.asset('assets/images/topChef.png',width: 40,)),
+                                                child: Image.asset('assets/images/topChef.png',width: 50,)),
                                           ],
                                         )
                                     ),
@@ -992,7 +975,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.zero
             ),
-            insetPadding: const EdgeInsets.only(bottom: 0,top: 218),
+            insetPadding: const EdgeInsets.only(bottom: 0,top: 230),
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: ListView.builder(
@@ -1023,59 +1006,64 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .start,
-                                  children: [
-                                    Image.asset(
-                                        'assets/images/murgaImg.png'),
-                                    addHeight(6),
-                                    Text('Burger King with Pizza',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: const Color(0xFF21283D)
-                                      ),),
-                                    addHeight(6),
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/truckimg.png',
-                                          height: 22,
-                                          color: const Color(0xFF04666E),),
-                                        addWidth(10),
-                                        Text('Delivery Only 25 mins',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 12,
-                                              color: const Color(0xFF606573)
-                                          ),),
-                                      ],
-                                    )
-                                  ],
+                                child: InkWell(
+                                  onTap: (){
+                                    Get.toNamed(MyRouters.homeDetailsScreen);
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .start,
+                                    children: [
+                                      Image.asset(
+                                          'assets/images/Rectangle 2171.png'),
+                                      addHeight(6),
+                                      Text('Burger King with Pizza',
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: const Color(0xFF21283D)
+                                        ),),
+                                      addHeight(6),
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/truckimg.png',
+                                            height: 22,
+                                            color: const Color(0xFF04666E),),
+                                          addWidth(10),
+                                          Text('Delivery Only 25 mins',
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                                color: const Color(0xFF606573)
+                                            ),),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               Positioned(
-                                  top: 75,
+                                  top: 80,
                                   // bottom: 0,
-                                  left: 18,
-                                  right: 15,
+                                  left: 20,
+                                  right: 20,
                                   //   bottom: 0,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment
                                         .spaceBetween,
                                     children: const [
                                       Icon(Icons.arrow_back_ios,
-                                        color: Colors.white,),
+                                        color: Colors.white,size: 20,),
                                       Icon(Icons.arrow_forward_ios,
-                                        color: Colors.white,)
+                                        color: Colors.white,size: 20,)
                                     ],
                                   )
                               ),
                               Positioned(
-                                  top: 125,
+                                  top: 140,
                                   bottom: 0,
-                                  left: 235,
+                                  left: 260,
                                   right: 0,
                                   //   bottom: 0,
                                   child: Column(
@@ -1124,7 +1112,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               Positioned(
                                   top: 16,
                                   bottom: 0,
-                                  left: 260,
+                                  left: 290,
                                   right: 0,
                                   //   bottom: 0,
 
@@ -1132,7 +1120,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     children: [
                                       Obx(() {
                                         return Container(
-                                            height: 30,
+                                            height: 33,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color: Colors.white
@@ -1203,7 +1191,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 }
                                             );
                                           },
-                                          child: Image.asset('assets/images/topChef.png',width: 40,)),
+                                          child: Image.asset('assets/images/topChef.png',width: 50,)),
                                       InkWell(
                                           onTap: (){
                                             showGeneralDialog(
@@ -1235,7 +1223,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 }
                                             );
                                           },
-                                          child: Image.asset('assets/images/topChef.png',width: 40,)),
+                                          child: Image.asset('assets/images/topChef.png',width: 50,)),
                                     ],
                                   )
                               ),

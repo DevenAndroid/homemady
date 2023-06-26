@@ -29,7 +29,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: size.height*.9,
+              height: size.height*.88,
               child: PageView.builder(
                   itemCount: page1.length,
                   controller: controller,
@@ -45,7 +45,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const SizedBox(
-
                                 height: 50,
                               ),
                               Center(
@@ -85,10 +84,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                       padding: const EdgeInsets.all(12.0),
                                       child: Text(
                                         page1[index].title,
-                                        style: GoogleFonts.alegreyaSans(
-                                          fontWeight: FontWeight.w400,
+                                        style:const TextStyle(
+                                          fontWeight: FontWeight.w500,
                                           fontSize: 26,
-                                          color: const Color(0xFF131A38),
+                                          fontFamily: 'alegreyaSans',
+                                          color:  Color(0xFF131A38),
                                             fontStyle: FontStyle.italic,
                                         ),
                                         textAlign: TextAlign.center,
@@ -97,26 +97,32 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     const SizedBox(
                                       height: 8,
                                     ),
+                                    if(page1[index].des22!= '')
                                     Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                       Text(page1[index].des22,style: const TextStyle(color: Color(0xFF7ED957),fontSize: 20),),
+                                        Image(
+                                          image: AssetImage(page1[index].des22,),width: 16,height: 16,
+                                        ),
+                                        addWidth(5),
                                         RichText(
                                           text: TextSpan(
                                             text:  page1[index].description,
-                                            style: GoogleFonts.alegreyaSans(
-                                              fontWeight: FontWeight.w400,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
                                               fontSize: 20,
-                                              color: const Color(0xFF131A38),
+                                              fontFamily: 'alegreyaSans',
+                                              color:  Color(0xFF131A38),
                                               fontStyle: FontStyle.italic,
                                             ),
                                             children:  <TextSpan>[
                                               TextSpan(text:  page1[index].des1,
-                                                style: GoogleFonts.alegreyaSans(
-                                                  fontWeight: FontWeight.w300,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily:'alegreyaSans',
                                                   fontSize: 20,
-                                                  color: const Color(0xFF131A38),
+                                                  color:  Color(0xFF131A38),
                                                   fontStyle: FontStyle.italic,
                                                 ),),
                                             ],
@@ -125,28 +131,34 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 2,
+                                      height: 5,
                                     ),
+                                    if(page1[index].des22!= '')
                                     Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(page1[index].des22,style: const TextStyle(color: Color(0xFF7ED957),fontSize: 20),),
+                                        Image(
+                                          image: AssetImage(page1[index].des22,),width: 16,height: 16,
+                                        ),
+                                        addWidth(5),
                                         RichText(
                                           text: TextSpan(
                                             text:  page1[index].description1,
-                                            style: GoogleFonts.alegreyaSans(
-                                              fontWeight: FontWeight.w400,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
                                               fontSize: 20,
-                                              color: const Color(0xFF131A38),
+                                              fontFamily: 'alegreyaSans',
+                                              color:  Color(0xFF131A38),
                                               fontStyle: FontStyle.italic,
                                             ),
                                             children:  <TextSpan>[
                                               TextSpan(text:  page1[index].des2,
-                                                style: GoogleFonts.alegreyaSans(
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 20,
-                                                  color: const Color(0xFF131A38),
+                                                  fontFamily: 'alegreyaSans',
+                                                  color:  Color(0xFF646774),
                                                   fontStyle: FontStyle.italic,
                                                 ),),
                                             ],
@@ -155,39 +167,40 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 2,
+                                      height: 5,
                                     ),
+                                    if(page1[index].des22!= '')
                                     Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(page1[index].des22,style: const TextStyle(color: Color(0xFF7ED957),fontSize: 20),),
-                                        Expanded(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text:  page1[index].description2,
-                                              style: GoogleFonts.alegreyaSans(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 20,
-                                              color: const Color(0xFF131A38),
-                                              fontStyle: FontStyle.italic,
-                                            ),
-                                              children:  <TextSpan>[
-                                                TextSpan(text:  page1[index].description3,
-                                                  style: GoogleFonts.alegreyaSans(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: 20,
-                                              color: const Color(0xFF131A38),
-                                              fontStyle: FontStyle.italic,
-                                            ),),
-                                              ],
-                                            ),
+                                        Image(
+                                          image: AssetImage(page1[index].des22,),width: 16,height: 16,
+                                        ),
+                                        addWidth(5),
+                                        RichText(
+                                          text: TextSpan(
+                                            text:  page1[index].description2,
+                                            style: const TextStyle(
+                                              fontFamily: 'alegreyaSans',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 20,
+                                            color:  Color(0xFF131A38),
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                            children:  <TextSpan>[
+                                              TextSpan(text:  page1[index].description3,
+                                                style: const TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 20,
+                                            fontFamily: 'alegreyaSans',
+                                            color:  Color(0xFF646774),
+                                            fontStyle: FontStyle.italic,
+                                          ),),
+                                            ],
                                           ),
                                         ),
                                       ],
-                                    ),
-                                    const SizedBox(
-                                      height: 12,
                                     ),
 
                                   ]
@@ -198,14 +211,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   }
               ),
             ),
-            const SizedBox(
-              height: 0,
-            ),
 
             Center(
               child: Container(
-                width: 60,
-                height: 56,
+                width: 67,
+                height: 67,
                 decoration: BoxDecoration(
                   color: const Color(0xFF7ED957),
                   shape: BoxShape.circle,
@@ -227,15 +237,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
               ),
             )
-            // InkWell(
-            //     onTap: (){
-            //       // Get.toNamed(MyRouters.mobileNumber);
-            //     },
-            //     child: CustomOutlineButton(title: "Open free account",)),
-            // SizedBox(height: 15,),
-            // const CustomOutlineBoder(title: "I have an account", backgroundColor: Colors.white,textColor: AppTheme.buttonColor),
-
-
           ],
         ),
       ),

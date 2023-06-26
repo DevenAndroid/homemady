@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 
@@ -18,7 +21,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(14.0),
             child: Column(
                children: [
                  addHeight(62),
@@ -83,7 +86,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                  addHeight(140),
                  InkWell(
                    onTap: () {
-                     // Get.back();
+                     Get.toNamed(MyRouters.orderDetailsScreen);
                    },
                    child: Container(
                      height: 55,

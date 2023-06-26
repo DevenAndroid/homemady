@@ -39,16 +39,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       addHeight(45),
                       Image.asset('assets/images/AppLogo.png',width: 203,),
-                      addHeight(60),
-                      Center(
+                      addHeight(85),
+                      const Center(
                         child: Text('Login To Your Account',
-                          style: GoogleFonts.poppins(
+                          style: TextStyle(
                           fontSize: 18,
+                          fontFamily: 'poppins',
                           fontWeight: FontWeight.w500,
-                          color: const Color(0xFF66656B),
+                          color:  Color(0xFF66656B),
                         ),),
                       ),
                     ],
@@ -57,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               Positioned(
-                  top: 290,
+                  top: 330,
                   bottom: 0,
                   right: 0,
                   left: 0,
@@ -83,9 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ],
                                   color: Colors.white
                               ),
-                              child: CustomTextField(
-                                hintText: 'Enter your email or phone number'.obs,
-                                obSecure: false.obs,
+                              child: CommonTextFieldWidget(
+                                hint: 'Enter your email or phone number',
                                 controller: emailController,
                                 validator: (value) {
 
@@ -108,24 +109,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ],
                                   color: Colors.white
                               ),
-                              child: CustomTextField(
-                                hintText: 'Password'.obs,
-                                obSecure: false.obs,
+                              child: CommonTextFieldWidget(
+                                hint: 'Password',
                                 controller: passwordController,
 
                               ),
                             ),
-                            addHeight(20),
-                            Center(
+                            addHeight(30),
+                          const Center(
                               child: Text(
-                                'Or Continue With',style: GoogleFonts.poppins(
+                                'Or Continue With',
+                                style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
-                                color: const Color(0xFF333848)
+                                fontFamily: 'poppins',
+                                color:  Color(0xFF333848),
                               ),
                               ),
                             ),
-                            addHeight(16),
+                            addHeight(23),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -145,20 +147,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ],
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                         const Icon(Icons.facebook,color: Colors.blue,),
-                                        addWidth(10),
-                                        Text('Facebook',style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xFF4C5369)
-                                        ),)
-                                      ],
-                                    ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                       const Icon(Icons.facebook,color: Colors.blue,size: 30,),
+                                      addWidth(10),
+                                      Text('Facebook',style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xFF4C5369)
+                                      ),)
+                                    ],
                                   ),
                                 ),
                                 Container(
@@ -177,33 +176,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ],
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                         Image.asset('assets/images/google.png',height: 20,),
-                                        addWidth(10),
-                                        Text('Facebook',style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xFF4C5369)
-                                        ),)
-                                      ],
-                                    ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                       Image.asset('assets/images/google.png',height: 25,),
+                                      addWidth(10),
+                                      Text('Google',
+                                        style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xFF4C5369)
+                                      ),)
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                            addHeight(20),
-
+                            addHeight(25),
                             InkWell(
                               onTap: (){
                                   Get.toNamed(MyRouters.otpScreen);
                               },
                               child: Center(
                                 child: Text(
-                                  'Forget your Password?',style: GoogleFonts.poppins(
+                                  'Forget your Password?',
+                                  style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14,
                                     color: const Color(0xFF7ED957)
@@ -211,13 +208,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            addHeight(30),
+                            addHeight(34),
                             CommonButton(title: 'Login',onPressed: (){
-                              // Get.toNamed(MyRouters.homePageScreen);
-                              // Get.toNamed(MyRouters.thankYouScreen);
-                              Get.toNamed(MyRouters.homePageScreen);
+                              Get.toNamed(MyRouters.bottomNavbar);
                             },),
-                            addHeight(30),
+                            addHeight(36),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -233,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Get.toNamed(MyRouters.signupScreen);
                                   },
                                   child:
-                                  Text('Signup',
+                                  Text('  Signup',
                                     style: GoogleFonts.poppins(
                                         color: const Color(0xFF69C541),
                                         fontWeight: FontWeight.w600,

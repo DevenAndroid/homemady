@@ -55,7 +55,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Row(
                     children: [
                       Radio<String>(
-                        value: 'other',
+                        value: 'pickup',
                         activeColor:Colors.green,
                         groupValue: _selectedGender,
 
@@ -72,7 +72,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),),
                     addWidth(40),
                       Radio<String>(
-                        value: 'other',
+                        value: 'delivery',
                         activeColor:Colors.green,
                         groupValue: _selectedGender,
 
@@ -100,7 +100,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Row(
                     children: [
                       Radio<String>(
-                        value: 'other',
+                        value: 'date',
                         activeColor:Colors.green,
                         groupValue: _selectedGender,
 
@@ -117,7 +117,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),),
                       addWidth(64),
                       Radio<String>(
-                        value: 'other',
+                        value: 'now',
                         activeColor:Colors.green,
                         groupValue: _selectedGender,
 
@@ -127,11 +127,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           });
                         },
                       ),
-                      Text('Specify Time/Date',style: GoogleFonts.poppins(
-                          color: Color(0xFF000000),
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16
-                      ),)
+                      Expanded(
+                        child: Text('Specify Time/Date',style: GoogleFonts.poppins(
+                            color: Color(0xFF000000),
+                            fontWeight: FontWeight.w300,
+                            fontSize: 16
+                        ),),
+                      )
                     ],
                   ),
                   addHeight(25),
@@ -142,11 +144,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         color: const Color(0xff1A2E33)
                     ),),
                   addHeight(15),
-
-                  CustomTextField2(
-                    obSecure: false.obs,
-                  hintText: 'Type Name'.obs,
-                  )
+                 const RegistrationTextField(
+                    hint: 'Type Name',
+                    minLines: 3,
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,),
                 ],
               ),
             ),
@@ -355,9 +357,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   ),
                                 ),
                                 Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Image.asset('assets/images/edit_icon.png',height: 20,),
+                                InkWell(
+                                  onTap: (){
+                                    Get.toNamed(MyRouters.myOrderScreen);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Image.asset('assets/images/edit_icon.png',height: 20,),
+                                  ),
                                 ),
                               ],
                             ),

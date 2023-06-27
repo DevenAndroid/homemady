@@ -50,27 +50,20 @@ body: SingleChildScrollView(
                    child: Padding(
                      padding: const EdgeInsets.all(16.0),
                      child: Row(
-                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
                          Image.asset('assets/images/Group 1000004233.png',height: 40,),
                          addWidth(10),
                          Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
                            children: [
-                             Row(
-                               mainAxisAlignment: MainAxisAlignment.center,
-                               crossAxisAlignment: CrossAxisAlignment.center,
-                               children: [
-                                 Text('Home',
-                                   style: GoogleFonts.poppins(
-                                       fontSize: 18,
-                                       fontWeight: FontWeight.w500,
-                                       color: const Color(0xff1A2E33)
-                                   ),),
-                                 addWidth(200),
-                                 Image.asset('assets/images/edit_alt.png',height: 24,)
-                               ],
-                             ),
+                             Text('Home',
+                               style: GoogleFonts.poppins(
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w500,
+                                   color: const Color(0xff1A2E33)
+                               ),),
                              Text('4295 Shinn Avenue, Indiana, States',
                                style: GoogleFonts.poppins(
                                    fontSize: 14,
@@ -79,8 +72,7 @@ body: SingleChildScrollView(
                                ),),
                            ],
                          ),
-                         Spacer(),
-
+                         Image.asset('assets/images/edit_alt.png',height: 24,)
                        ],
                      ),
                    ),

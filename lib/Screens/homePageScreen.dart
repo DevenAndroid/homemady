@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -19,10 +21,69 @@ class _HomePageScreenState extends State<HomePageScreen> {
   RxBool isSelect = false.obs;
   int currentDrawer = 0;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  String selectedDate = 'Delivery Now';
   @override
   Widget build(BuildContext context) {
-    TextEditingController dateOfBirthController = TextEditingController();
     return Scaffold(
+      appBar: AppBar(
+        title:   Row(
+          children: [
+            Image.asset('assets/images/avtarImg.png', height: 45,),
+            addWidth(6),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Address', style: GoogleFonts.poppins(
+                  color: const Color(0xFF636869),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                ),),
+                addHeight(3),
+                Row(
+                  children: [
+                    Image.asset('assets/images/location.png',
+                      height: 13,),
+                    addWidth(4),
+                    Text('News Work City', style: GoogleFonts.poppins(
+                      color: const Color(0xFF000000),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),),
+                    addWidth(4),
+                    GestureDetector(
+                      onTap: (){
+                        Get.toNamed(MyRouters.myAddressScreen);
+                      },
+                      child: Image.asset('assets/images/pencilImg.png',
+                        height: 13,),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const Spacer(),
+            InkWell(
+              child: Container(
+                height: 42,
+                width: 42,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color(0xFF7ED957)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset('assets/images/shoppingImg.png',
+                    height: 30,),
+                ),
+              ),
+            ),
+          ],
+        ),
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 70,
+      ),
       key: _scaffoldKey,
       drawer:Drawer(
         child: ListView(
@@ -268,60 +329,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(padding: const EdgeInsets.all(20),
-                child: Row(
-                  children: [
-                    Image.asset('assets/images/avtarImg.png', height: 45,),
-                    addWidth(6),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Address', style: GoogleFonts.poppins(
-                          color: const Color(0xFF636869),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                        ),),
-                        addHeight(3),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/location.png',
-                              height: 13,),
-                            addWidth(4),
-                            Text('News Work City', style: GoogleFonts.poppins(
-                              color: const Color(0xFF000000),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),),
-                            addWidth(4),
-                            Image.asset('assets/images/pencilImg.png',
-                              height: 13,),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    InkWell(
-                      child: Container(
-                        height: 42,
-                        width: 42,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color(0xFF7ED957)
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset('assets/images/shoppingImg.png',
-                            height: 30,),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(padding: const EdgeInsets.only(left: 19, top: 15),
+              Padding(padding: const EdgeInsets.only(left: 14, top: 18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -350,15 +362,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          width: AddSize.screenWidth*.64,
-                          height: 42,
+                        Expanded(
                           child: Container(
+                            height: 42,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.grey.shade300,
+                                    color: const Color(0xFF37C666).withOpacity(0.10),
                                     offset: const Offset(.1, .1,
                                     ),
                                     blurRadius: 20.0,
@@ -367,16 +378,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ],
                                 color: Colors.white
                             ),
-                            child: CommonTextFieldWidget(
+                            child: CommonTextFieldWidget1(
                               hint: 'Search Your Food',
                               prefix: Icon(Icons.search,size: 19,color: const Color(0xFF000000).withOpacity(0.56),),
                               onChanged: (val){
-                                _showSimpleDialog2(context);
+                                _showSimpleDialog3(context);
                               },
                             )
                           ),
                         ),
-                        const Spacer(),
+                    addWidth(10),
                         InkWell(
                           onTap: () {
                             _showSimpleDialog();
@@ -385,8 +396,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             height: 40,
                             width: 40,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xFF7ED957)
+                                borderRadius: BorderRadius.circular(4),
+                                color: const Color(0xFF7ED957),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF37C666).withOpacity(0.30),
+                                  offset: const Offset(.1, .1,
+                                  ),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 1.0,
+                                ),
+                              ],
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -404,7 +424,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             height: 40,
                             width: 40,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(4),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF37C666).withOpacity(0.10),
+                                    offset: const Offset(.1, .1,
+                                    ),
+                                    blurRadius: 20.0,
+                                    spreadRadius: 1.0,
+                                  ),
+                                ],
                                 border: Border.all(
                                     color: const Color(0xFF7ED957)
                                 )
@@ -418,7 +447,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             ),
                           ),
                         ),
-                        addWidth(22)
+                        addWidth(10),
                       ],
                     ),
                     addHeight(26),
@@ -433,7 +462,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           return Row(
                             children: [
                               Container(
-                                child: Image.asset('assets/images/slider.png'),
+                                child: Image.asset('assets/images/slider.png',width: 226,),
                               ),
                               addWidth(20)
                             ],
@@ -442,116 +471,134 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       ),
                     ),
                     addHeight(14),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () {
 
-                          },
-                          child:
-                          Container(
-                            height: 44,
-                            width: AddSize.screenWidth / 2.3,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: const Color(0xFF7ED957),
-                                  width: 2
-                                )
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'assets/images/clockImg.png', height: 18,),
-                                ),
-                                Text('Delivery Now',
-                                  style: GoogleFonts.poppins(
-                                    color: const Color(0xFF7ED957),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        addWidth(10),
-                        InkWell(
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                              builder: (context, child) {
-                                return Theme(
-                                  data: Theme.of(context).copyWith(
-                                    colorScheme: const ColorScheme.light(
-                                        primary: Color(0xFF7ED957),
-                                        // header background color
-                                        onPrimary: Colors.white,
-                                        // header text color
-                                        onSurface: Color(0xFF7ED957),// body text color
-                                    ),
-                                    textButtonTheme: TextButtonThemeData(
-                                      style: TextButton.styleFrom(
-                                        foregroundColor: const Color(0xFF7ED957), // button text color
-                                      ),
-                                    ),
-                                  ),
-                                  child: child!,
-                                );
+                    Padding(
+                      padding: const EdgeInsets.only(right: 9.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
                               },
-
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1950),
-                              //DateTime.now() - not to allow to choose before today.
-                              lastDate: DateTime.now(),);
-
-                            if (pickedDate != null) {
-                              print(
-                                  pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                              String formattedDate = DateFormat('yyyy-MM-dd')
-                                  .format(pickedDate);
-                              print(
-                                  formattedDate); //formatted date output using intl package =>  2021-03-16
-                              setState(() {
-                                dateOfBirthController.text =
-                                    formattedDate; //set output date to TextField value.
-                              });
-                            } else {}
-                          },
-                          child:
-                          Container(
-                            height: 44,
-                            width: AddSize.screenWidth / 2.3,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.zero,
-                                color: Color(0xFF7ED957)
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'assets/images/truckimg.png', height: 18,),
+                              child:
+                              Container(
+                                height: 44,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(
+                                        color: const Color(0xFF7ED957),
+                                      width: 2
+                                    )
                                 ),
-                                Text('Pick a Date',
-                                  style: GoogleFonts.poppins(
-                                    color: const Color(0xFFFFFFFF),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                )
-                              ],
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        'assets/images/clockImg.png', height: 18,),
+                                    ),
+                                    Expanded(
+                                      child: Text(selectedDate,
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF7ED957),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          addWidth(10),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: const ColorScheme.light(
+                                            primary: Color(0xFF7ED957),
+                                            // header background color
+                                            onPrimary: Colors.white,
+                                            // header text color
+                                            onSurface: Color(0xFF7ED957),// body text color
+                                        ),
+                                        textButtonTheme: TextButtonThemeData(
+                                          style: TextButton.styleFrom(
+                                            foregroundColor: const Color(0xFF7ED957), // button text color
+                                          ),
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  },
+
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1950),
+                                  //DateTime.now() - not to allow to choose before today.
+                                  lastDate: DateTime(2025),
+                                ).then((value) {
+                                  // setState(() {
+                                  //   _dateTime = value!;
+                                  // });
+
+                                  if (value != null) {
+                                    String formattedDate = DateFormat(
+                                        'yyyy/MM/dd').format(value);
+                                    setState(() {
+                                      selectedDate =
+                                          formattedDate; //set output date to TextField value.
+                                      log("Seleted Date     $selectedDate");
+                                    });
+                                  }
+                                });
+
+                                if (pickedDate != null) {
+                                  String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
+                                  setState(() {
+                                    selectedDate = formattedDate; //set output date to TextField value.
+                                    log("Seleted Date     $selectedDate");
+                                  });
+                                }
+                              },
+                              child:
+                              Container(
+                                height: 44,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: Color(0xFF7ED957),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        'assets/images/truckimg.png', height: 18,),
+                                    ),
+                                    Text('Pick a Date',
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xFFFFFFFF),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     addHeight(20),
                     ListView.builder(
@@ -637,10 +684,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         )
                                     ),
                                     Positioned(
-                                        top: 135,
-                                        bottom: 0,
-                                        left: 255,
-                                        right: 0,
+                                        bottom: 10,
+                                        right: 20,
                                         //   bottom: 0,
                                         child: Column(
                                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -660,7 +705,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             addHeight(3),
                                             Text('Jack Smith',
                                               style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w400,
+                                                  fontWeight: FontWeight.w500,
                                                   fontSize: 12,
                                                   color: const Color(0xFF21283D)
                                               ),),
@@ -672,12 +717,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               children: [
                                                 const Icon(Icons.star,
                                                   color: Color(0xFFFFC529),
-                                                  size: 12,),
+                                                  size: 14,),
                                                 addWidth(3),
                                                 Text('4.95 (35)',
                                                   style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w400,
-                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 11,
                                                       color: const Color(0xFF6A7080)
                                                   ),),
                                               ],
@@ -687,9 +732,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     ),
                                     Positioned(
                                         top: 16,
-                                        bottom: 0,
-                                        left: 290,
-                                        right: 0,
+                                        // bottom: 0,
+                                        // left: 290,
+                                        right: 10,
                                         //   bottom: 0,
 
                                         child: Column(
@@ -749,18 +794,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                            Center(child: Image.asset('assets/images/dialogboximg.png')),
                                                            Positioned(
                                                              right: 18,
-                                                             top: 50,
+                                                             top: 30,
                                                              child: Container(
-                                                             height: 50,
+                                                               padding: EdgeInsets.all(10),
+                                                             height: 80,
                                                              decoration: const BoxDecoration(
                                                                  color: Colors.white,
                                                                  shape: BoxShape.circle
                                                              ),
-                                                             child:  IconButton(
-                                                                 onPressed: (){
-                                                                   Get.back();
-                                                                 },
-                                                                 icon: const Icon(Icons.clear)),
+                                                             child:  Icon(Icons.clear)
                                                            ),)
                                                          ],
                                                        );
@@ -783,16 +825,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                               right: 18,
                                                               top: 50,
                                                               child: Container(
+                                                                  padding: EdgeInsets.all(10),
                                                                 height: 50,
                                                                 decoration: const BoxDecoration(
                                                                     color: Colors.white,
                                                                     shape: BoxShape.circle
                                                                 ),
-                                                                child:  IconButton(
-                                                                    onPressed: (){
-                                                                      Get.back();
-                                                                    },
-                                                                    icon: const Icon(Icons.clear)),
+                                                                child:  Icon(Icons.clear)
                                                               ),)
                                                           ],
                                                         );
@@ -833,7 +872,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: <Widget>[
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog2(context);
                 },
                 child: Text('Gluten Free',
                   style: GoogleFonts.poppins(
@@ -843,7 +883,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               )),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog2(context);
                 },
           child: Text('Halal',
             style: GoogleFonts.poppins(
@@ -854,7 +895,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog2(context);
                 },
                 child: Text('Vegan',
                   style: GoogleFonts.poppins(
@@ -864,7 +906,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               )),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog2(context);
                 },
           child: Text('Vegetarian',
             style: GoogleFonts.poppins(
@@ -875,7 +918,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog2(context);
                 },
           child: Text('Pescatarian',
           style: GoogleFonts.poppins(
@@ -899,7 +943,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: <Widget>[
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog3(context);
                 },
                 child: Text('Sustainable Packaging',
                   style: GoogleFonts.poppins(
@@ -909,7 +954,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               )),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog3(context);
                 },
           child: Text('Top Chefs',
             style: GoogleFonts.poppins(
@@ -920,7 +966,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog3(context);
                 },
                 child: Text('Rating',
                   style: GoogleFonts.poppins(
@@ -930,7 +977,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               )),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog3(context);
                 },
           child: Text('Distance',
             style: GoogleFonts.poppins(
@@ -941,7 +989,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog3(context);
                 },
           child: Text('Quickest Delivery',
           style: GoogleFonts.poppins(
@@ -952,7 +1001,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
+                  _showSimpleDialog3(context);
                 },
           child: Text('Recommended',
           style: GoogleFonts.poppins(
@@ -968,25 +1018,27 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Future<void> _showSimpleDialog2(BuildContext context) async {
     await showDialog(
         barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
         context: context,
-        barrierColor: const Color(0x01000000),
+        barrierColor: null,
         builder: (context) {
           return Dialog(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.zero
             ),
-            insetPadding: const EdgeInsets.only(bottom: 0,top: 230),
+            insetPadding: const EdgeInsets.only(bottom: 0,top: 220),
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              child: ListView.builder(
+              child:   ListView.builder(
                 shrinkWrap: true,
-                itemCount: 4,
+                itemCount: 5,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all( 8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -1061,10 +1113,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   )
                               ),
                               Positioned(
-                                  top: 140,
-                                  bottom: 0,
-                                  left: 260,
-                                  right: 0,
+                                  bottom: 10,
+                                  right: 20,
                                   //   bottom: 0,
                                   child: Column(
                                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1084,7 +1134,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       addHeight(3),
                                       Text('Jack Smith',
                                         style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w500,
                                             fontSize: 12,
                                             color: const Color(0xFF21283D)
                                         ),),
@@ -1096,12 +1146,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         children: [
                                           const Icon(Icons.star,
                                             color: Color(0xFFFFC529),
-                                            size: 12,),
+                                            size: 14,),
                                           addWidth(3),
                                           Text('4.95 (35)',
                                             style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 10,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 11,
                                                 color: const Color(0xFF6A7080)
                                             ),),
                                         ],
@@ -1111,9 +1161,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               ),
                               Positioned(
                                   top: 16,
-                                  bottom: 0,
-                                  left: 290,
-                                  right: 0,
+                                  // bottom: 0,
+                                  // left: 290,
+                                  right: 10,
                                   //   bottom: 0,
 
                                   child: Column(
@@ -1173,18 +1223,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       Center(child: Image.asset('assets/images/dialogboximg.png')),
                                                       Positioned(
                                                         right: 18,
-                                                        top: 50,
+                                                        top: 30,
                                                         child: Container(
-                                                          height: 50,
-                                                          decoration: const BoxDecoration(
-                                                              color: Colors.white,
-                                                              shape: BoxShape.circle
-                                                          ),
-                                                          child:  IconButton(
-                                                              onPressed: (){
-                                                                Get.back();
-                                                              },
-                                                              icon: const Icon(Icons.clear)),
+                                                            padding: EdgeInsets.all(10),
+                                                            height: 80,
+                                                            decoration: const BoxDecoration(
+                                                                color: Colors.white,
+                                                                shape: BoxShape.circle
+                                                            ),
+                                                            child:  Icon(Icons.clear)
                                                         ),)
                                                     ],
                                                   );
@@ -1207,16 +1254,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         right: 18,
                                                         top: 50,
                                                         child: Container(
-                                                          height: 50,
-                                                          decoration: const BoxDecoration(
-                                                              color: Colors.white,
-                                                              shape: BoxShape.circle
-                                                          ),
-                                                          child:  IconButton(
-                                                              onPressed: (){
-                                                                Get.back();
-                                                              },
-                                                              icon: const Icon(Icons.clear)),
+                                                            padding: EdgeInsets.all(10),
+                                                            height: 50,
+                                                            decoration: const BoxDecoration(
+                                                                color: Colors.white,
+                                                                shape: BoxShape.circle
+                                                            ),
+                                                            child:  Icon(Icons.clear)
                                                         ),)
                                                     ],
                                                   );
@@ -1231,12 +1275,236 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 15,)
+                      const SizedBox(height: 5,)
                     ],
                   );
                 },
-              ),
+              )
             ),
+          );
+        }
+    );
+  }
+  Future<void> _showSimpleDialog3(BuildContext context) async {
+    await showDialog(
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
+        context: context,
+        barrierColor: const Color(0x01000000),
+        builder: (context) {
+          return Dialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero
+            ),
+            insetPadding: const EdgeInsets.only(bottom: 0,top: 220),
+            child: ListView.builder(
+              itemCount: 6,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF37C666).withOpacity(0.10),
+                                    offset: const Offset(.1, .1,
+                                    ),
+                                    blurRadius: 20.0,
+                                    spreadRadius: 1.0,
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(12)
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(child: Image.asset('assets/images/Rectangle 39762.png',height: 80,width: 70,)),
+                                    addWidth(10),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Special Burger',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 14,
+                                              color: const Color(0xFF21283D)
+                                          ),),
+                                        addHeight(3),
+                                        Text('Size: 200gm',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)
+                                          ),),
+                                        addHeight(3),
+                                        Row(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text('spiciness :',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF1F2D30)
+                                                  ),),
+                                                addWidth(4),
+                                                Text('Mildly Spicy',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF6CC844)
+                                                  ),),
+                                              ],
+                                            ),
+                                            addWidth(10),
+                                            Row(
+                                              children: [
+                                                Text('Allergens :',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF1F2D30)
+                                                  ),),
+                                                addWidth(4),
+                                                Text('Crustaceans',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF6CC844)
+                                                  ),),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        addHeight(6),
+                                        IntrinsicHeight(
+                                          child:
+                                          Row(
+                                            children: [
+                                              InkWell(
+                                                onTap:
+                                                    () {
+                                                },
+                                                child:
+                                                Container(
+                                                  decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+                                                  alignment: Alignment.center,
+                                                  child: const Padding(
+                                                    padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                    child: Text(
+                                                      '-',
+                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                alignment:
+                                                Alignment.center,
+                                                child:
+                                                const Padding(
+                                                  padding: EdgeInsets.only(left: 14.0, right: 14.0),
+                                                  child: Text(
+                                                      '1'
+                                                  ),
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap:
+                                                    () {
+
+                                                },
+                                                child:
+                                                Container(
+                                                  decoration: BoxDecoration(color: const Color(0xFF72CD4A),border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+                                                  alignment: Alignment.center,
+                                                  child: const Padding(
+                                                    padding:  EdgeInsets.symmetric(horizontal: 8),
+                                                    child: Text(
+                                                      '+',
+                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Colors.white),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                addHeight(5),
+                                Container(
+                                  margin: EdgeInsets.only(left: 75),
+                                  color: Color(0xFFE9E9E9),
+                                  width: AddSize.screenWidth,
+                                  height: 1,
+                                ),
+                                addHeight(7),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    addWidth(80),
+                                    Image.asset('assets/images/helpimg.png',height: 13,),
+                                    addWidth(4),
+                                    Text('Can cook more units by: 30th June 2023',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 11,
+                                          color: const Color(0xFF364A4F)
+                                      ),),
+                                  ],
+                                ),
+                                addHeight(4), Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    addWidth(80),
+                                    Image.asset('assets/images/helpimg.png',height: 13,),
+                                    addWidth(4),
+                                    Text('Can cook more units by: 30th June 2023',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 11,
+                                          color: const Color(0xFF364A4F)
+                                      ),),
+                                  ],
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 14,
+                            right: 20,
+                            child:  Text('€6.99',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15,
+                                  color: const Color(0xFF70CC49)
+                              ),),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },),
           );
         }
     );

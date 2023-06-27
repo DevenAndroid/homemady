@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
+import 'package:homemady/widgets/dimenestion.dart';
 
 
 class MyCartScreen extends StatefulWidget {
@@ -232,13 +233,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
               ),
             ),
             addHeight(39),
-
              Padding(
                padding:  EdgeInsets.only(left: 8.0,right: 8.0),
                child: CommonButton(title: 'Check out',onPressed: (){
                    Get.toNamed(MyRouters.checkOutScreen);
                },),
-             )
+             ),
+
+            addHeight(20),
           ],
         ),
       ),

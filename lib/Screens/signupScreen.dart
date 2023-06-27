@@ -181,12 +181,12 @@ class _SignupScreenState extends State<SignupScreen> {
                               Row(
                                 children: [
                                   Transform.scale(
-                                    scale: 1.1,
+                                    scale: 1.2,
                                     child: Theme(
                                       data: ThemeData(
                                           unselectedWidgetColor: checkboxColor.value == false
-                                              ? Colors.grey
-                                              : Colors.grey
+                                              ? Color(0xFF64646F)
+                                              : Color(0xFF64646F)
                                       ),
                                       child: Checkbox(
                                           shape: CircleBorder(),
@@ -204,7 +204,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   Text(
                                       'Keep Me Signed In.',
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                           fontSize: 12,
                                           color: const Color(0xFF64646F))),
                                 ],

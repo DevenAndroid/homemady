@@ -48,8 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text('Login To Your Account',
                           style: TextStyle(
                           fontSize: 18,
-                          fontFamily: 'poppins',
-                          fontWeight: FontWeight.w500,
+                          fontFamily: 'poppinsSans',
+                          fontWeight: FontWeight.w600,
                           color:  Color(0xFF66656B),
                         ),),
                       ),
@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
-                                fontFamily: 'poppins',
+                                fontFamily: 'poppinsSans',
                                 color:  Color(0xFF333848),
                               ),
                               ),

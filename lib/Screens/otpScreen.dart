@@ -130,7 +130,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         padding: const EdgeInsets.only(left: 24.0,right: 24,top: 70),
                         child: CommonButton(title: 'Verify OTP',
                          onPressed: (){
-                          Get.toNamed(MyRouters.homePageScreen);
+                           Get.toNamed(MyRouters.bottomNavbar);
                          },
                         ),
                       ),

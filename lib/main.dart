@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Poppins',
+        // useMaterial3: true,
+        fontFamily: 'poppinsSans',
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,

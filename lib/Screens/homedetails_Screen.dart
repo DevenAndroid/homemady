@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
+import 'package:homemady/singlecookDetails/carte.dart';
+import 'package:homemady/singlecookDetails/cartingScreen.dart';
+import 'package:homemady/singlecookDetails/mealPrepScreen.dart';
+import 'package:homemady/widgets/dimenestion.dart';
+import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/custome_size.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:share_plus/share_plus.dart';
 
 
 class HomeDetailsScreen extends StatefulWidget {
@@ -14,9 +20,11 @@ class HomeDetailsScreen extends StatefulWidget {
   State<HomeDetailsScreen> createState() => _HomeDetailsScreenState();
 }
 
-class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProviderStateMixin{
+class _HomeDetailsScreenState extends State<HomeDetailsScreen>
+    with TickerProviderStateMixin {
   RxBool isSelect = false.obs;
- late TabController tabController;
+  late TabController tabController;
+
   @override
   void initState() {
     super.initState();
@@ -25,998 +33,1668 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>   with TickerProv
     tabController = TabController(length: 3, vsync: this);
   }
 
+  final autoController = AutoScrollController();
+
   @override
   void dispose() {
     tabController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-       body: SafeArea(
-         child: Column(
-           children: [
-             SingleChildScrollView(
-               child: Stack(
-                 children: [
-                   Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment
-                           .start,
-                       children: [
-                         Image.asset(
-                             'assets/images/Rectangle 23007.png'),
-                         addHeight(20),
-                         Text('Burger King with Pizza',
-                           style: GoogleFonts.poppins(
-                               fontWeight: FontWeight.w600,
-                               fontSize: 16,
-                               color: const Color(0xFF21283D)
-                           ),),
-                         addHeight(10),
-                         Text('Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book',
-                           style: GoogleFonts.poppins(
-                               fontWeight: FontWeight.w300,
-                               fontSize: 12,
-                               color: const Color(0xFF364A4F)
-                           ),),
-                         addHeight(20),
-                        const Divider(
-                           color: Color(0xFFF2F2F2),
-                           thickness: 2,
-                           height: 1,
-                         ),
-                         addHeight(5),
-                         Row(
-                           children: [
-                              Image.asset('assets/images/favImg.png',height: 18,),
-                             addWidth(7),
-                             Text('5.0',
-                                 style: GoogleFonts.poppins(
-                                   fontSize: 16,
-                                   color: const Color(0xFF1A2E33),
-                                   fontWeight: FontWeight.w500,)),
-                             addWidth(7),
-                             Text('(4.8k reviews)',
-                                 style: GoogleFonts.poppins(
-                                   fontSize: 12,
-                                   color: const Color(0xFF4E5F64),
-                                   fontWeight: FontWeight.w400,)),
-                             const Spacer(),
-                             IconButton(
-                                 onPressed: (){},
-                                 icon: const Icon(Icons.arrow_forward_ios,size: 13,))
+    return SafeArea(
+      child: Scaffold(
+          body: VerticalScrollableTabView(
+            physics: BouncingScrollPhysics(),
+            autoScrollController: autoController,
+            // scrollbarThumbVisibility: true,
+            tabController: tabController,
+            listItemData: const [
+              carteScreen(),
+              carteingScreen(),
+              mealPrepScreen()
+            ],
+            verticalScrollPosition: VerticalScrollPosition.begin,
+            eachItemChild: (object, index) => object,
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    SingleChildScrollView(
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment
+                                  .start,
+                              children: [
+                                Image.asset(
+                                    'assets/images/Rectangle 23007.png'),
+                                addHeight(20),
+                                const Text('Burger King with Pizza',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                      color: Color(0xFF21283D)
+                                  ),),
+                                addHeight(10),
+                                const Text(
+                                  'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 12,
+                                      color: const Color(0xFF364A4F)
+                                  ),),
+                                addHeight(20),
+                                const Divider(
+                                  color: Color(0xFFF2F2F2),
+                                  thickness: 2,
+                                  height: 1,
+                                ),
+                                addHeight(15),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/favImg.png', height: 18,),
+                                    addWidth(7),
+                                    const Text('5.0',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Color(0xFF1A2E33),
+                                          fontWeight: FontWeight.w700,)),
+                                    addWidth(7),
+                                    const Text('(4.8k reviews)',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: Color(0xFF4E5F64),
+                                          fontWeight: FontWeight.w400,)),
+                                    const Spacer(),
+                                    InkWell(
+                                      onTap: (){},
+                                        child: const Icon(
+                                          Icons.arrow_forward_ios, size: 13,
+                                          color: Color(0xFF000000),))
 
-                           ],
-                         ),
-                         addHeight(5),
-                         const Divider(
-                           color: Color(0xFFF2F2F2),
-                           thickness: 2,
-                           height: 1,
-                         ),
-                         addHeight(15),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             Image.asset('assets/images/location-my.png',height: 20,color: const Color(0xFF6AC643),),
-                             Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               children: [
-                                 Text('10.km',
-                                     style: GoogleFonts.poppins(
-                                       fontSize: 16,
-                                       color: const Color(0xFF1A2E33),
-                                       fontWeight: FontWeight.w600,)),
-                                 Text('Delivery Now',
-                                     style: GoogleFonts.poppins(
-                                       fontSize: 12,
-                                       color: const Color(0xFF4E5F64),
-                                       fontWeight: FontWeight.w400,)),
+                                  ],
+                                ),
+                                addHeight(15),
+                                const Divider(
+                                  color: Color(0xFFF2F2F2),
+                                  thickness: 2,
+                                  height: 1,
+                                ),
+                                addHeight(15),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Image.asset('assets/images/locationImg.png',
+                                      height: 20,
+                                      color: const Color(0xFF6AC643),),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .start,
+                                      children: [
+                                        Text('10.km',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              color: const Color(0xFF1A2E33),
+                                              fontWeight: FontWeight.w600,)),
+                                        Text('Delivery Now',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 12,
+                                              color: const Color(0xFF4E5F64),
+                                              fontWeight: FontWeight.w400,)),
 
-                               ],
-                             ),
-                             Container(
-                               width: 1.5,
-                               height: 30,
-                               color: const Color(0xFFE7E7E7),
-                             ),
-                             Row(
-                               children: [
-                                 Image.asset('assets/images/clockImg.png',height: 20,),
-                                 addWidth(7),
-                                 Text('25-40 Min',
-                                     style: GoogleFonts.poppins(
-                                       fontSize: 12,
-                                       color: const Color(0xFF4E5F64),
-                                       fontWeight: FontWeight.w400,)),
-                               ],
-                             ),
-                             Container(
-                               width: 1.5,
-                               height: 30,
-                               color: const Color(0xFFE7E7E7),
-                             ),
-                             Row(
-                               children: [
-                                 Image.asset('assets/images/truckimg.png',height: 20,color: const Color(0xFF6AC643),),
-                                 addWidth(7),
-                                 Text('Delivery Only',
-                                     style: GoogleFonts.poppins(
-                                       fontSize: 12,
-                                       color: const Color(0xFF4E5F64),
-                                       fontWeight: FontWeight.w400,)),
-                               ],
-                             ),
-                           ],
-                         ),
-                         addHeight(16),
-                       ],
-                     ),
-                   ),
-                   Positioned(
-                       top: 223,
-                       // bottom: 0,
-                       left: 240,
-                       right: 0,
-                       //   bottom: 0,
-                       child: Column(
-                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: [
-                           Container(
-                               height: 67,
-                               decoration: const BoxDecoration(
-                                   shape: BoxShape.circle,
-                                   color: Colors.white
-                               ),
-                               child: Padding(
-                                 padding: const EdgeInsets.all(3),
-                                 child: Image.asset(
-                                     'assets/images/avtarImg.png'),
-                               )
-                           ),
-                           addHeight(3),
-                         ],
-                       )
-                   ),
-                   Positioned(
-                       top: 20,
-                       // right: 0,
-                     left: 10,
-                       child: Container(
-                           height: 35,
-                           decoration: const BoxDecoration(
-                               shape: BoxShape.circle,
-                               color: Colors.white
-                           ),
-                           child: Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
-                             child: InkWell(
-                               onTap: () {
-                                 Get.back();
-                               },
-                               child: const Icon(Icons.arrow_back,
-                                 color: Colors.black),
-                             ),
-                           )
-                       ),
-                   ),
-                   Positioned(
-                       top: 20,
-                       right: 14,
-                       child: Obx(() {
-                         return Row(
-                           children: [
-                             Container(
-                                 height: 35,
-                                 decoration: const BoxDecoration(
-                                     shape: BoxShape.circle,
-                                     color: Colors.white
-                                 ),
-                                 child: Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
-                                   child: Center(
-                                     child: InkWell(
-                                       onTap: () {
-                                       },
-                                       child: const Icon(Icons.search,
-                                         color: Color(
-                                             0xFF54C523),),
-                                     ),
-                                   ),
-                                 )
-                             ),
-                             Container(
-                                 height: 35,
-                                 decoration: const BoxDecoration(
-                                     shape: BoxShape.circle,
-                                     color: Colors.white
-                                 ),
-                                 child:
-                                 Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
-                                   child: Center(
-                                     child: InkWell(
-                                       onTap: () {
-                                       },
-                                       child: const Icon(Icons.share,
-                                         color: Color(
-                                             0xFF54C523),size: 20,),
-                                     ),
-                                   ),
-                                 )
-                             ),
-                             Container(
-                                 height: 35,
-                                 decoration: const BoxDecoration(
-                                     shape: BoxShape.circle,
-                                     color: Colors.white
-                                 ),
-                                 child: Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
-                                   child: Center(
-                                     child: InkWell(
-                                       onTap: () {
-                                         isSelect.value =
-                                         !isSelect.value;
-                                       },
-                                       child: isSelect.value ==
-                                           true
-                                           ? const Icon(
-                                         Icons.favorite,
-                                         color: Color(0xFF54C523),)
-                                           :
-                                       const Icon(Icons.favorite_outline,
-                                         color: Color(
-                                             0xFF54C523),),
-                                     ),
-                                   ),
-                                 )
-                             ),
-                           ],
-                         );
-                       })
-                   ),
-                   Positioned(
-                       top: 210,
-                       // bottom: 0,
-                       left: 10,
-                       right: 15,
-                       //   bottom: 0,
-                       child: Row(
-                         children:  [
+                                      ],
+                                    ),
+                                    Container(
+                                      width: 1.5,
+                                      height: 30,
+                                      color: const Color(0xFFE7E7E7),
+                                    ),
 
-                           InkWell(
-                               onTap: (){
-                                 showGeneralDialog(
-                                     context: context,
-                                     barrierDismissible: true,
-                                     barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                     pageBuilder: (BuildContext context,Animation first, Animation second){
-                                       return  Stack(
-                                         children: [
-                                           Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                           Positioned(
-                                             right: 18,
-                                             top: 50,
-                                             child: Container(
-                                               height: 50,
-                                               decoration: const BoxDecoration(
-                                                   color: Colors.white,
-                                                   shape: BoxShape.circle
-                                               ),
-                                               child:  IconButton(
-                                                   onPressed: (){
-                                                     Get.back();
-                                                   },
-                                                   icon: const Icon(Icons.clear)),
-                                             ),)
-                                         ],
-                                       );
-                                     }
-                                 );
-                               },
-                               child: Image.asset('assets/images/topChef.png',width: 40,)),
-                           InkWell(
-                               onTap: (){
-                                 showGeneralDialog(
-                                     context: context,
-                                     barrierDismissible: true,
-                                     barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                     pageBuilder: (BuildContext context,Animation first, Animation second){
-                                       return  Stack(
-                                         children: [
-                                           Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                           Positioned(
-                                             right: 18,
-                                             top: 50,
-                                             child: Container(
-                                               height: 50,
-                                               decoration: const BoxDecoration(
-                                                   color: Colors.white,
-                                                   shape: BoxShape.circle
-                                               ),
-                                               child:  IconButton(
-                                                   onPressed: (){
-                                                     Get.back();
-                                                   },
-                                                   icon: const Icon(Icons.clear)),
-                                             ),)
-                                         ],
-                                       );
-                                     }
-                                 );
-                               },
-                               child: Image.asset('assets/images/topChef.png',width: 40,)),
-                         ],
-                       )
-                   ),
-                 ],
-               ),
-             ),
-             Card(
-               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-               elevation: 0,
-               child: Container(
-                 decoration: BoxDecoration(
-                   color: Colors.white,
-                   borderRadius: BorderRadius.circular(12),
-                   boxShadow: [
-                     BoxShadow(
-                       color: const Color(0xFF37C666).withOpacity(0.10),
-                       offset: const Offset(.1, .1,
-                       ),
-                       blurRadius: 20.0,
-                       spreadRadius: 1.0,
-                     ),
-                   ],
-                 ),
-                 child:
-                 TabBar(
-                   indicator: BoxDecoration(
-                     borderRadius: BorderRadius.circular(100),
-                     color: Colors.green
-                   ),
-                   // indicatorColor: const Color(0xFF7ED957),
-                   // labelColor: const Color(0xff7ED957),
-                   labelPadding: EdgeInsets.symmetric(horizontal: 30),
-                   unselectedLabelColor: const Color(0xff616A75),
-                   controller: tabController,
-                   isScrollable: true,
-                   tabs: const[
-                     Tab(
-                       text: 'A la carte',
-                     ),
-                     Tab(
-                       text: 'Catering',
-                     ),
-                     Tab(
-                       text: 'Meal Prep',
-                     ),
-                   ],
-                 ),
-               ),
-             ),
-             addHeight(10),
-             Expanded(
-               child: TabBarView(
-                 physics: const BouncingScrollPhysics(),
-                   controller: tabController, children: <Widget>[
-                 SingleChildScrollView(
-                   child: Column(
-                     children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 3,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                               return Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Container(
-                                   decoration: BoxDecoration(
-                                     color: Colors.white,
-                                       boxShadow: [
-                                           BoxShadow(
-                                             color: const Color(0xFF37C666).withOpacity(0.10),
-                                             offset: const Offset(.1, .1,
-                                             ),
-                                             blurRadius: 20.0,
-                                             spreadRadius: 1.0,
-                                           ),
-                                         ],
-                                     borderRadius: BorderRadius.circular(12)
-                                   ),
-                                   child: Padding(
-                                     padding: const EdgeInsets.all(15.0),
-                                     child: InkWell(
-                                       onTap: (){
-                                         Get.toNamed(MyRouters.myCartScreen);
-                                       },
-                                       child: Row(
-                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                         mainAxisAlignment: MainAxisAlignment.start,
-                                         children: [
-                                           Image.asset('assets/images/Rectangle 39762.png',height: 68,),
-                                           addWidth(10),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/clockImg.png',
+                                          height: 24,),
+                                        addWidth(7),
+                                        const Text('25-40 Min',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0xFF4E5F64),
+                                              fontWeight: FontWeight.w400,)),
+                                      ],
+                                    ),
+                                    Container(
+                                      width: 1.5,
+                                      height: 30,
+                                      color: const Color(0xFFE7E7E7),
+                                    ),
+
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/truckimg.png',
+                                          height: 24,
+                                          color: const Color(0xFF6AC643),),
+                                        addWidth(7),
+                                        const Text('Delivery Only',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0xFF4E5F64),
+                                              fontWeight: FontWeight.w400,)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                addHeight(16),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                              top: 210,
+                              right: 26,
+                              child: Column(
+                                children: [
+                                  Container(
+                                      height: 67,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(3),
+                                        child: Image.asset(
+                                            'assets/images/avtarImg.png'),
+                                      )
+                                  ),
+                                  addHeight(3),
+                                ],
+                              )
+                          ),
+                          Positioned(
+                            top: 20,
+                            // right: 0,
+                            left: 10,
+                            child: Container(
+                                height: 35,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 14),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: const Icon(Icons.arrow_back,
+                                        color: Colors.black),
+                                  ),
+                                )
+                            ),
+                          ),
+                          Positioned(
+                              top: 20,
+                              right: 14,
+                              child: Row(
+                                children: [
+                                  Container(
+                                      height: 35,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 14),
+                                        child: Center(
+                                          child: InkWell(
+                                            onTap: () {
+                                              _showSimpleDialog3(context);
+                                            },
+                                            child: const Icon(Icons.search,
+                                              color: Color(
+                                                  0xFF54C523),),
+                                          ),
+                                        ),
+                                      )
+                                  ),
+                                  Container(
+                                      height: 35,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white
+                                      ),
+                                      child:
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 14),
+                                        child: Center(
+                                          child: InkWell(
+                                            onTap: () async {
+                                              await Share.share('HomeMady ');
+                                            },
+                                            child: const Icon(
+                                              Icons.share_outlined,
+                                              color: Color(
+                                                  0xFF54C523), size: 20,),
+                                          ),
+                                        ),
+                                      )
+                                  ),
+                                  Container(
+                                      height: 35,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 14),
+                                        child: Center(
+                                          child: Obx(() {
+                                            return InkWell(
+                                              onTap: () {
+                                                isSelect.value =
+                                                !isSelect.value;
+                                              },
+                                              child: isSelect.value ==
+                                                  true
+                                                  ? const Icon(
+                                                Icons.favorite,
+                                                color: Color(0xFF54C523),)
+                                                  :
+                                              const Icon(Icons.favorite_outline,
+                                                color: Color(
+                                                    0xFF54C523),),
+                                            );
+                                          }),
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              )
+                          ),
+                          Positioned(
+                              top: 200,
+                              left: 10,
+                              right: 15,
+                              //   bottom: 0,
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        showGeneralDialog(
+                                            context: context,
+                                            barrierDismissible: true,
+                                            barrierColor: const Color(
+                                                0xFF000000).withOpacity(0.58),
+                                            barrierLabel: MaterialLocalizations
+                                                .of(context)
+                                                .modalBarrierDismissLabel,
+                                            pageBuilder: (BuildContext context,
+                                                Animation first,
+                                                Animation second) {
+                                              return Stack(
+                                                children: [
+                                                  Center(child: Image.asset(
+                                                      'assets/images/dialogboximg.png')),
+                                                  Positioned(
+                                                    right: 18,
+                                                    top: 30,
+                                                    child: Container(
+                                                        padding: EdgeInsets.all(
+                                                            10),
+                                                        height: 80,
+                                                        decoration: const BoxDecoration(
+                                                            color: Colors.white,
+                                                            shape: BoxShape
+                                                                .circle
+                                                        ),
+                                                        child: Icon(Icons.clear)
+                                                    ),)
+                                                ],
+                                              );
+                                            }
+                                        );
+                                      },
+                                      child: Image.asset(
+                                        'assets/images/topChef.png',
+                                        width: 50,)),
+                                  InkWell(
+                                      onTap: () {
+                                        showGeneralDialog(
+                                            context: context,
+                                            barrierDismissible: true,
+                                            barrierColor: const Color(
+                                                0xFF000000).withOpacity(0.58),
+                                            barrierLabel: MaterialLocalizations
+                                                .of(context)
+                                                .modalBarrierDismissLabel,
+                                            pageBuilder: (BuildContext context,
+                                                Animation first,
+                                                Animation second) {
+                                              return Stack(
+                                                children: [
+                                                  Center(child: Image.asset(
+                                                      'assets/images/dialogboximg.png')),
+                                                  Positioned(
+                                                    right: 18,
+                                                    top: 30,
+                                                    child: Container(
+                                                        padding: EdgeInsets.all(
+                                                            10),
+                                                        height: 80,
+                                                        decoration: const BoxDecoration(
+                                                            color: Colors.white,
+                                                            shape: BoxShape
+                                                                .circle
+                                                        ),
+                                                        child: Icon(Icons.clear)
+                                                    ),)
+                                                ],
+                                              );
+                                            }
+                                        );
+                                      },
+                                      child: Image.asset(
+                                        'assets/images/topChef.png',
+                                        width: 50,)),
+                                ],
+                              )
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+              SliverAppBar(
+                  pinned: true,
+                  floating: true,
+                  toolbarHeight: 0,
+                  backgroundColor: Colors.white,
+                  bottom: TabBar(
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+                    onTap: (value) {
+                      autoController
+                          .scrollToIndex(
+                          value, preferPosition: AutoScrollPosition.begin);
+                    },
+                    isScrollable: false,
+                    unselectedLabelColor: const Color(0xFF1A2E33),
+                    labelColor:   Colors.white,
+                    indicatorColor: Colors.transparent,
+                    tabs: [
+                      Container(
+                        height: 37,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFF7ED957),
+                              Color(0xFF68C541),
+                            ]
+                          ),
+                          borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: Tab(
+                          text: 'A la carte',
+                        ),
+                      ),
+                      Tab(
+                        text: 'Catering',
+                      ),
+                      Tab(
+                        text: 'Meal Prep',
+                      ),
+                    ],
+                    controller: tabController,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                  )),
+            ],
+          )
+
+
+        // SafeArea(
+        //   child: Column(
+        //     children: [
+        //       SingleChildScrollView(
+        //         child: Stack(
+        //           children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(8.0),
+        //               child: Column(
+        //                 crossAxisAlignment: CrossAxisAlignment
+        //                     .start,
+        //                 children: [
+        //                   Image.asset(
+        //                       'assets/images/Rectangle 23007.png'),
+        //                   addHeight(20),
+        //                   const Text('Burger King with Pizza',
+        //                     style:TextStyle(
+        //                         fontWeight: FontWeight.w600,
+        //                         fontSize: 20,
+        //                         color:  Color(0xFF21283D)
+        //                     ),),
+        //                   addHeight(10),
+        //                  const Text('Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book',
+        //                     style: TextStyle(
+        //                         fontWeight: FontWeight.w300,
+        //                         fontSize: 12,
+        //                         color: const Color(0xFF364A4F)
+        //                     ),),
+        //                   addHeight(20),
+        //                  const Divider(
+        //                     color: Color(0xFFF2F2F2),
+        //                     thickness: 2,
+        //                     height: 1,
+        //                   ),
+        //                   addHeight(5),
+        //                   Row(
+        //                     children: [
+        //                        Image.asset('assets/images/favImg.png',height: 18,),
+        //                       addWidth(7),
+        //                      const Text('5.0',
+        //                           style: TextStyle(
+        //                             fontSize: 16,
+        //                             color:  Color(0xFF1A2E33),
+        //                             fontWeight: FontWeight.w700,)),
+        //                       addWidth(7),
+        //                      const Text('(4.8k reviews)',
+        //                           style: TextStyle(
+        //                             fontSize: 13,
+        //                             color:  Color(0xFF4E5F64),
+        //                             fontWeight: FontWeight.w400,)),
+        //                       const Spacer(),
+        //                       IconButton(
+        //                           onPressed: (){},
+        //                           icon: const Icon(Icons.arrow_forward_ios,size: 13,color: Color(0xFF000000),))
+        //
+        //                     ],
+        //                   ),
+        //                   addHeight(5),
+        //                   const Divider(
+        //                     color: Color(0xFFF2F2F2),
+        //                     thickness: 2,
+        //                     height: 1,
+        //                   ),
+        //                   addHeight(15),
+        //                   Row(
+        //                     crossAxisAlignment: CrossAxisAlignment.center,
+        //                     mainAxisAlignment: MainAxisAlignment.start,
+        //                     children: [
+        //                       Image.asset('assets/images/locationImg.png',height: 20,color: const Color(0xFF6AC643),),
+        //                       addWidth(9),
+        //                       Column(
+        //                         crossAxisAlignment: CrossAxisAlignment.start,
+        //                         mainAxisAlignment: MainAxisAlignment.start,
+        //                         children: [
+        //                           Text('10.km',
+        //                               style: GoogleFonts.poppins(
+        //                                 fontSize: 16,
+        //                                 color: const Color(0xFF1A2E33),
+        //                                 fontWeight: FontWeight.w600,)),
+        //                           Text('Delivery Now',
+        //                               style: GoogleFonts.poppins(
+        //                                 fontSize: 12,
+        //                                 color: const Color(0xFF4E5F64),
+        //                                 fontWeight: FontWeight.w400,)),
+        //
+        //                         ],
+        //                       ),
+        //                       addWidth(16),
+        //                       Container(
+        //                         width: 1.5,
+        //                         height: 30,
+        //                         color: const Color(0xFFE7E7E7),
+        //                       ),
+        //                       addWidth(14),
+        //                       Row(
+        //                         children: [
+        //                           Image.asset('assets/images/clockImg.png',height: 24,),
+        //                           addWidth(7),
+        //                           const Text('25-40 Min',
+        //                               style: TextStyle(
+        //                                 fontSize: 14,
+        //                                 color:  Color(0xFF4E5F64),
+        //                                 fontWeight: FontWeight.w400,)),
+        //                         ],
+        //                       ),
+        //                       addWidth(14),
+        //                       Container(
+        //                         width: 1.5,
+        //                         height: 30,
+        //                         color: const Color(0xFFE7E7E7),
+        //                       ),
+        //                       addWidth(14),
+        //                       Row(
+        //                         children: [
+        //                           Image.asset('assets/images/truckimg.png',height: 24,color: const Color(0xFF6AC643),),
+        //                           addWidth(7),
+        //                          const Text('Delivery Only',
+        //                               style: TextStyle(
+        //                                 fontSize: 14,
+        //                                 color:  Color(0xFF4E5F64),
+        //                                 fontWeight: FontWeight.w400,)),
+        //                         ],
+        //                       ),
+        //                     ],
+        //                   ),
+        //                   addHeight(16),
+        //                 ],
+        //               ),
+        //             ),
+        //             Positioned(
+        //                 top: 230,
+        //                 right: 26,
+        //                 child: Column(
+        //                   children: [
+        //                     Container(
+        //                         height: 67,
+        //                         decoration: const BoxDecoration(
+        //                             shape: BoxShape.circle,
+        //                             color: Colors.white
+        //                         ),
+        //                         child: Padding(
+        //                           padding: const EdgeInsets.all(3),
+        //                           child: Image.asset(
+        //                               'assets/images/avtarImg.png'),
+        //                         )
+        //                     ),
+        //                     addHeight(3),
+        //                   ],
+        //                 )
+        //             ),
+        //             Positioned(
+        //                 top: 20,
+        //                 // right: 0,
+        //               left: 10,
+        //                 child: Container(
+        //                     height: 35,
+        //                     decoration: const BoxDecoration(
+        //                         shape: BoxShape.circle,
+        //                         color: Colors.white
+        //                     ),
+        //                     child: Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
+        //                       child: InkWell(
+        //                         onTap: () {
+        //                           Get.back();
+        //                         },
+        //                         child: const Icon(Icons.arrow_back,
+        //                           color: Colors.black),
+        //                       ),
+        //                     )
+        //                 ),
+        //             ),
+        //             Positioned(
+        //                 top: 20,
+        //                 right: 14,
+        //                 child:  Row(
+        //                   children: [
+        //                     Container(
+        //                         height: 35,
+        //                         decoration: const BoxDecoration(
+        //                             shape: BoxShape.circle,
+        //                             color: Colors.white
+        //                         ),
+        //                         child: Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
+        //                           child: Center(
+        //                             child: InkWell(
+        //                               onTap: () {
+        //                               },
+        //                               child: const Icon(Icons.search,
+        //                                 color: Color(
+        //                                     0xFF54C523),),
+        //                             ),
+        //                           ),
+        //                         )
+        //                     ),
+        //                     Container(
+        //                         height: 35,
+        //                         decoration: const BoxDecoration(
+        //                             shape: BoxShape.circle,
+        //                             color: Colors.white
+        //                         ),
+        //                         child:
+        //                         Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
+        //                           child: Center(
+        //                             child: InkWell(
+        //                               onTap: () {
+        //                               },
+        //                               child: const Icon(Icons.share,
+        //                                 color: Color(
+        //                                     0xFF54C523),size: 20,),
+        //                             ),
+        //                           ),
+        //                         )
+        //                     ),
+        //                     Container(
+        //                         height: 35,
+        //                         decoration: const BoxDecoration(
+        //                             shape: BoxShape.circle,
+        //                             color: Colors.white
+        //                         ),
+        //                         child: Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
+        //                           child: Center(
+        //                             child: InkWell(
+        //                               onTap: () {
+        //                                 isSelect.value =
+        //                                 !isSelect.value;
+        //                               },
+        //                               child: isSelect.value ==
+        //                                   true
+        //                                   ? const Icon(
+        //                                 Icons.favorite,
+        //                                 color: Color(0xFF54C523),)
+        //                                   :
+        //                               const Icon(Icons.favorite_outline,
+        //                                 color: Color(
+        //                                     0xFF54C523),),
+        //                             ),
+        //                           ),
+        //                         )
+        //                     ),
+        //                   ],
+        //                 )
+        //             ),
+        //             Positioned(
+        //                 top: 210,
+        //                 left: 10,
+        //                 right: 15,
+        //                 //   bottom: 0,
+        //                 child: Row(
+        //                   children:  [
+        //                     InkWell(
+        //                         onTap: (){
+        //                           showGeneralDialog(
+        //                               context: context,
+        //                               barrierDismissible: true,
+        //                               barrierColor: const Color(0xFF000000).withOpacity(0.58),
+        //                               barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        //                               pageBuilder: (BuildContext context,Animation first, Animation second){
+        //                                 return  Stack(
+        //                                   children: [
+        //                                     Center(child: Image.asset('assets/images/dialogboximg.png')),
+        //                                     Positioned(
+        //                                       right: 18,
+        //                                       top: 30,
+        //                                       child: Container(
+        //                                           padding: EdgeInsets.all(10),
+        //                                           height: 80,
+        //                                           decoration: const BoxDecoration(
+        //                                               color: Colors.white,
+        //                                               shape: BoxShape.circle
+        //                                           ),
+        //                                           child:  Icon(Icons.clear)
+        //                                       ),)
+        //                                   ],
+        //                                 );
+        //                               }
+        //                           );
+        //                         },
+        //                         child: Image.asset('assets/images/topChef.png',width: 50,)),
+        //                     InkWell(
+        //                         onTap: (){
+        //                           showGeneralDialog(
+        //                               context: context,
+        //                               barrierDismissible: true,
+        //                               barrierColor: const Color(0xFF000000).withOpacity(0.58),
+        //                               barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        //                               pageBuilder: (BuildContext context,Animation first, Animation second){
+        //                                 return  Stack(
+        //                                   children: [
+        //                                     Center(child: Image.asset('assets/images/dialogboximg.png')),
+        //                                     Positioned(
+        //                                       right: 18,
+        //                                       top: 30,
+        //                                       child: Container(
+        //                                           padding: EdgeInsets.all(10),
+        //                                           height: 80,
+        //                                           decoration: const BoxDecoration(
+        //                                               color: Colors.white,
+        //                                               shape: BoxShape.circle
+        //                                           ),
+        //                                           child:  Icon(Icons.clear)
+        //                                       ),)
+        //                                   ],
+        //                                 );
+        //                               }
+        //                           );
+        //                         },
+        //                         child: Image.asset('assets/images/topChef.png',width: 50,)),
+        //                   ],
+        //                 )
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //
+        //       Card(
+        //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        //         elevation: 0,
+        //         child: Container(
+        //           decoration: BoxDecoration(
+        //             color: Colors.white,
+        //             borderRadius: BorderRadius.circular(12),
+        //             boxShadow: [
+        //               BoxShadow(
+        //                 color: const Color(0xFF37C666).withOpacity(0.10),
+        //                 offset: const Offset(.1, .1,
+        //                 ),
+        //                 blurRadius: 20.0,
+        //                 spreadRadius: 1.0,
+        //               ),
+        //             ],
+        //           ),
+        //           child:
+        //           TabBar(
+        //             indicator: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(100),
+        //               color: Colors.green
+        //             ),
+        //             // indicatorColor: const Color(0xFF7ED957),
+        //             // labelColor: const Color(0xff7ED957),
+        //             labelPadding: EdgeInsets.symmetric(horizontal: 30),
+        //             unselectedLabelColor: const Color(0xff616A75),
+        //             controller: tabController,
+        //             isScrollable: true,
+        //             tabs: const[
+        //               Tab(
+        //                 text: 'A la carte',
+        //               ),
+        //               Tab(
+        //                 text: 'Catering',
+        //               ),
+        //               Tab(
+        //                 text: 'Meal Prep',
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //       addHeight(10),
+        //       Expanded(
+        //         child: TabBarView(
+        //           physics: const BouncingScrollPhysics(),
+        //             controller: tabController, children: <Widget>[
+        //           SingleChildScrollView(
+        //             child: Column(
+        //               children: [
+        //                 Padding(
+        //                   padding: const EdgeInsets.all(8.0),
+        //                   child: ListView.builder(
+        //                     itemCount: 1,
+        //                     shrinkWrap: true,
+        //                     itemBuilder: (context, index) {
+        //                       return Column(
+        //                         children: [
+        //                           Stack(
+        //                             children: [
+        //                               Container(
+        //                                 padding: const EdgeInsets.all(14),
+        //                                 decoration: BoxDecoration(
+        //                                     color: Colors.white,
+        //                                     boxShadow: [
+        //                                       BoxShadow(
+        //                                         color: const Color(0xFF37C666).withOpacity(0.10),
+        //                                         offset: const Offset(.1, .1,
+        //                                         ),
+        //                                         blurRadius: 20.0,
+        //                                         spreadRadius: 1.0,
+        //                                       ),
+        //                                     ],
+        //                                     borderRadius: BorderRadius.circular(12)
+        //                                 ),
+        //                                 child: Column(
+        //                                   children: [
+        //                                     Row(
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       children: [
+        //                                         Container(child: Image.asset('assets/images/Rectangle 39762.png',height: 80,width: 70,)),
+        //                                         addWidth(10),
+        //                                         Column(
+        //                                           crossAxisAlignment: CrossAxisAlignment.start,
+        //                                           children: [
+        //                                             Text('Special Burger',
+        //                                               style: GoogleFonts.poppins(
+        //                                                   fontWeight: FontWeight.w700,
+        //                                                   fontSize: 14,
+        //                                                   color: const Color(0xFF21283D)
+        //                                               ),),
+        //                                             addHeight(3),
+        //                                             Text('Size: 200gm',
+        //                                               style: GoogleFonts.poppins(
+        //                                                   fontWeight: FontWeight.w300,
+        //                                                   fontSize: 11,
+        //                                                   color: const Color(0xFF364A4F)
+        //                                               ),),
+        //                                             addHeight(3),
+        //                                             Row(
+        //                                               children: [
+        //                                                 Row(
+        //                                                   children: [
+        //                                                     Text('spiciness :',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF1F2D30)
+        //                                                       ),),
+        //                                                     addWidth(4),
+        //                                                     Text('Mildly Spicy',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF6CC844)
+        //                                                       ),),
+        //                                                   ],
+        //                                                 ),
+        //                                                 addWidth(30),
+        //                                                 Row(
+        //                                                   children: [
+        //                                                     Text('Allergens :',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF1F2D30)
+        //                                                       ),),
+        //                                                     addWidth(4),
+        //                                                     Text('Crustaceans',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF6CC844)
+        //                                                       ),),
+        //                                                   ],
+        //                                                 ),
+        //                                               ],
+        //                                             ),
+        //                                             addHeight(6),
+        //                                             IntrinsicHeight(
+        //                                               child:
+        //                                               Row(
+        //                                                 children: [
+        //                                                   InkWell(
+        //                                                     onTap:
+        //                                                         () {
+        //                                                     },
+        //                                                     child:
+        //                                                     Container(
+        //                                                       decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+        //                                                       alignment: Alignment.center,
+        //                                                       child: const Padding(
+        //                                                         padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        //                                                         child: Text(
+        //                                                           '-',
+        //                                                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
+        //                                                           textAlign: TextAlign.center,
+        //                                                         ),
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                   Container(
+        //                                                     alignment:
+        //                                                     Alignment.center,
+        //                                                     child:
+        //                                                     const Padding(
+        //                                                       padding: EdgeInsets.only(left: 14.0, right: 14.0),
+        //                                                       child: Text(
+        //                                                           '1'
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                   InkWell(
+        //                                                     onTap:
+        //                                                         () {
+        //
+        //                                                     },
+        //                                                     child:
+        //                                                     Container(
+        //                                                       decoration: BoxDecoration(color: const Color(0xFF72CD4A),border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+        //                                                       alignment: Alignment.center,
+        //                                                       child: const Padding(
+        //                                                         padding:  EdgeInsets.symmetric(horizontal: 8),
+        //                                                         child: Text(
+        //                                                           '+',
+        //                                                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Colors.white),
+        //                                                           textAlign: TextAlign.center,
+        //                                                         ),
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                 ],
+        //                                               ),
+        //                                             ),
+        //                                           ],
+        //                                         ),
+        //                                       ],
+        //                                     ),
+        //                                     addHeight(5),
+        //                                     Container(
+        //                                       margin: EdgeInsets.only(left: 75),
+        //                                       color: Color(0xFFE9E9E9),
+        //                                       width: AddSize.screenWidth,
+        //                                       height: 1,
+        //                                     ),
+        //                                     addHeight(7),
+        //                                     Row(
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       children: [
+        //                                         addWidth(80),
+        //                                         Image.asset('assets/images/helpimg.png',height: 13,),
+        //                                         addWidth(4),
+        //                                         Text('Can cook more units by: 30th June 2023',
+        //                                           style: GoogleFonts.poppins(
+        //                                               fontWeight: FontWeight.w300,
+        //                                               fontSize: 11,
+        //                                               color: const Color(0xFF364A4F)
+        //                                           ),),
+        //                                       ],
+        //                                     ),
+        //                                     addHeight(4), Row(
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       children: [
+        //                                         addWidth(80),
+        //                                         Image.asset('assets/images/helpimg.png',height: 13,),
+        //                                         addWidth(4),
+        //                                         Text('Can cook more units by: 30th June 2023',
+        //                                           style: GoogleFonts.poppins(
+        //                                               fontWeight: FontWeight.w300,
+        //                                               fontSize: 11,
+        //                                               color: const Color(0xFF364A4F)
+        //                                           ),),
+        //                                       ],
+        //                                     ),
+        //
+        //                                   ],
+        //                                 ),
+        //                               ),
+        //                               Positioned(
+        //                                 top: 14,
+        //                                 right: 20,
+        //                                 child:  Text('€6.99',
+        //                                 style: GoogleFonts.poppins(
+        //                                     fontWeight: FontWeight.w700,
+        //                                     fontSize: 15,
+        //                                     color: const Color(0xFF70CC49)
+        //                                 ),),
+        //                               )
+        //                             ],
+        //                           ),
+        //                         ],
+        //                       );
+        //                     },),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //           SingleChildScrollView(
+        //             child: Column(
+        //               children: [
+        //                 Padding(
+        //                   padding: const EdgeInsets.all(8.0),
+        //                   child: ListView.builder(
+        //                     itemCount: 1,
+        //                     shrinkWrap: true,
+        //                     itemBuilder: (context, index) {
+        //                       return Column(
+        //                         children: [
+        //                           Stack(
+        //                             children: [
+        //                               Container(
+        //                                 padding: const EdgeInsets.all(14),
+        //                                 decoration: BoxDecoration(
+        //                                     color: Colors.white,
+        //                                     boxShadow: [
+        //                                       BoxShadow(
+        //                                         color: const Color(0xFF37C666).withOpacity(0.10),
+        //                                         offset: const Offset(.1, .1,
+        //                                         ),
+        //                                         blurRadius: 20.0,
+        //                                         spreadRadius: 1.0,
+        //                                       ),
+        //                                     ],
+        //                                     borderRadius: BorderRadius.circular(12)
+        //                                 ),
+        //                                 child: Column(
+        //                                   children: [
+        //                                     Row(
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       children: [
+        //                                         Container(child: Image.asset('assets/images/Rectangle 39762.png',height: 80,width: 70,)),
+        //                                         addWidth(10),
+        //                                         Column(
+        //                                           crossAxisAlignment: CrossAxisAlignment.start,
+        //                                           children: [
+        //                                             Text('Special Burger',
+        //                                               style: GoogleFonts.poppins(
+        //                                                   fontWeight: FontWeight.w700,
+        //                                                   fontSize: 14,
+        //                                                   color: const Color(0xFF21283D)
+        //                                               ),),
+        //                                             addHeight(3),
+        //                                             Text('Size: 200gm',
+        //                                               style: GoogleFonts.poppins(
+        //                                                   fontWeight: FontWeight.w300,
+        //                                                   fontSize: 11,
+        //                                                   color: const Color(0xFF364A4F)
+        //                                               ),),
+        //                                             addHeight(3),
+        //                                             Row(
+        //                                               children: [
+        //                                                 Row(
+        //                                                   children: [
+        //                                                     Text('spiciness :',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF1F2D30)
+        //                                                       ),),
+        //                                                     addWidth(4),
+        //                                                     Text('Mildly Spicy',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF6CC844)
+        //                                                       ),),
+        //                                                   ],
+        //                                                 ),
+        //                                                 addWidth(30),
+        //                                                 Row(
+        //                                                   children: [
+        //                                                     Text('Allergens :',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF1F2D30)
+        //                                                       ),),
+        //                                                     addWidth(4),
+        //                                                     Text('Crustaceans',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF6CC844)
+        //                                                       ),),
+        //                                                   ],
+        //                                                 ),
+        //                                               ],
+        //                                             ),
+        //                                             addHeight(6),
+        //                                             IntrinsicHeight(
+        //                                               child:
+        //                                               Row(
+        //                                                 children: [
+        //                                                   InkWell(
+        //                                                     onTap:
+        //                                                         () {
+        //                                                     },
+        //                                                     child:
+        //                                                     Container(
+        //                                                       decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+        //                                                       alignment: Alignment.center,
+        //                                                       child: const Padding(
+        //                                                         padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        //                                                         child: Text(
+        //                                                           '-',
+        //                                                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
+        //                                                           textAlign: TextAlign.center,
+        //                                                         ),
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                   Container(
+        //                                                     alignment:
+        //                                                     Alignment.center,
+        //                                                     child:
+        //                                                     const Padding(
+        //                                                       padding: EdgeInsets.only(left: 14.0, right: 14.0),
+        //                                                       child: Text(
+        //                                                           '1'
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                   InkWell(
+        //                                                     onTap:
+        //                                                         () {
+        //
+        //                                                     },
+        //                                                     child:
+        //                                                     Container(
+        //                                                       decoration: BoxDecoration(color: const Color(0xFF72CD4A),border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+        //                                                       alignment: Alignment.center,
+        //                                                       child: const Padding(
+        //                                                         padding:  EdgeInsets.symmetric(horizontal: 8),
+        //                                                         child: Text(
+        //                                                           '+',
+        //                                                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Colors.white),
+        //                                                           textAlign: TextAlign.center,
+        //                                                         ),
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                 ],
+        //                                               ),
+        //                                             ),
+        //                                           ],
+        //                                         ),
+        //                                       ],
+        //                                     ),
+        //                                     addHeight(5),
+        //                                     Container(
+        //                                       margin: EdgeInsets.only(left: 75),
+        //                                       color: Color(0xFFE9E9E9),
+        //                                       width: AddSize.screenWidth,
+        //                                       height: 1,
+        //                                     ),
+        //                                     addHeight(7),
+        //                                     Row(
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       children: [
+        //                                         addWidth(80),
+        //                                         Image.asset('assets/images/helpimg.png',height: 13,),
+        //                                         addWidth(4),
+        //                                         Text('Can cook more units by: 30th June 2023',
+        //                                           style: GoogleFonts.poppins(
+        //                                               fontWeight: FontWeight.w300,
+        //                                               fontSize: 11,
+        //                                               color: const Color(0xFF364A4F)
+        //                                           ),),
+        //                                       ],
+        //                                     ),
+        //                                     addHeight(4), Row(
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       children: [
+        //                                         addWidth(80),
+        //                                         Image.asset('assets/images/helpimg.png',height: 13,),
+        //                                         addWidth(4),
+        //                                         Text('Can cook more units by: 30th June 2023',
+        //                                           style: GoogleFonts.poppins(
+        //                                               fontWeight: FontWeight.w300,
+        //                                               fontSize: 11,
+        //                                               color: const Color(0xFF364A4F)
+        //                                           ),),
+        //                                       ],
+        //                                     ),
+        //
+        //                                   ],
+        //                                 ),
+        //                               ),
+        //                               Positioned(
+        //                                 top: 14,
+        //                                 right: 20,
+        //                                 child:  Text('€6.99',
+        //                                   style: GoogleFonts.poppins(
+        //                                       fontWeight: FontWeight.w700,
+        //                                       fontSize: 15,
+        //                                       color: const Color(0xFF70CC49)
+        //                                   ),),
+        //                               )
+        //                             ],
+        //                           ),
+        //                         ],
+        //                       );
+        //                     },),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //           SingleChildScrollView(
+        //             child: Column(
+        //               children: [
+        //                 Padding(
+        //                   padding: const EdgeInsets.all(8.0),
+        //                   child: ListView.builder(
+        //                     itemCount: 1,
+        //                     shrinkWrap: true,
+        //                     itemBuilder: (context, index) {
+        //                       return Column(
+        //                         children: [
+        //                           Stack(
+        //                             children: [
+        //                               Container(
+        //                                 padding: const EdgeInsets.all(14),
+        //                                 decoration: BoxDecoration(
+        //                                     color: Colors.white,
+        //                                     boxShadow: [
+        //                                       BoxShadow(
+        //                                         color: const Color(0xFF37C666).withOpacity(0.10),
+        //                                         offset: const Offset(.1, .1,
+        //                                         ),
+        //                                         blurRadius: 20.0,
+        //                                         spreadRadius: 1.0,
+        //                                       ),
+        //                                     ],
+        //                                     borderRadius: BorderRadius.circular(12)
+        //                                 ),
+        //                                 child: Column(
+        //                                   children: [
+        //                                     Row(
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       children: [
+        //                                         Container(child: Image.asset('assets/images/Rectangle 39762.png',height: 80,width: 70,)),
+        //                                         addWidth(10),
+        //                                         Column(
+        //                                           crossAxisAlignment: CrossAxisAlignment.start,
+        //                                           children: [
+        //                                             Text('Special Burger',
+        //                                               style: GoogleFonts.poppins(
+        //                                                   fontWeight: FontWeight.w700,
+        //                                                   fontSize: 14,
+        //                                                   color: const Color(0xFF21283D)
+        //                                               ),),
+        //                                             addHeight(3),
+        //                                             Text('Size: 200gm',
+        //                                               style: GoogleFonts.poppins(
+        //                                                   fontWeight: FontWeight.w300,
+        //                                                   fontSize: 11,
+        //                                                   color: const Color(0xFF364A4F)
+        //                                               ),),
+        //                                             addHeight(3),
+        //                                             Row(
+        //                                               children: [
+        //                                                 Row(
+        //                                                   children: [
+        //                                                     Text('spiciness :',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF1F2D30)
+        //                                                       ),),
+        //                                                     addWidth(4),
+        //                                                     Text('Mildly Spicy',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF6CC844)
+        //                                                       ),),
+        //                                                   ],
+        //                                                 ),
+        //                                                 addWidth(30),
+        //                                                 Row(
+        //                                                   children: [
+        //                                                     Text('Allergens :',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF1F2D30)
+        //                                                       ),),
+        //                                                     addWidth(4),
+        //                                                     Text('Crustaceans',
+        //                                                       style: GoogleFonts.poppins(
+        //                                                           fontWeight: FontWeight.w500,
+        //                                                           fontSize: 10,
+        //                                                           color: const Color(0xFF6CC844)
+        //                                                       ),),
+        //                                                   ],
+        //                                                 ),
+        //                                               ],
+        //                                             ),
+        //                                             addHeight(6),
+        //                                             IntrinsicHeight(
+        //                                               child:
+        //                                               Row(
+        //                                                 children: [
+        //                                                   InkWell(
+        //                                                     onTap:
+        //                                                         () {
+        //                                                     },
+        //                                                     child:
+        //                                                     Container(
+        //                                                       decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+        //                                                       alignment: Alignment.center,
+        //                                                       child: const Padding(
+        //                                                         padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        //                                                         child: Text(
+        //                                                           '-',
+        //                                                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
+        //                                                           textAlign: TextAlign.center,
+        //                                                         ),
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                   Container(
+        //                                                     alignment:
+        //                                                     Alignment.center,
+        //                                                     child:
+        //                                                     const Padding(
+        //                                                       padding: EdgeInsets.only(left: 14.0, right: 14.0),
+        //                                                       child: Text(
+        //                                                           '1'
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                   InkWell(
+        //                                                     onTap:
+        //                                                         () {
+        //
+        //                                                     },
+        //                                                     child:
+        //                                                     Container(
+        //                                                       decoration: BoxDecoration(color: const Color(0xFF72CD4A),border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+        //                                                       alignment: Alignment.center,
+        //                                                       child: const Padding(
+        //                                                         padding:  EdgeInsets.symmetric(horizontal: 8),
+        //                                                         child: Text(
+        //                                                           '+',
+        //                                                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Colors.white),
+        //                                                           textAlign: TextAlign.center,
+        //                                                         ),
+        //                                                       ),
+        //                                                     ),
+        //                                                   ),
+        //                                                 ],
+        //                                               ),
+        //                                             ),
+        //                                           ],
+        //                                         ),
+        //                                       ],
+        //                                     ),
+        //                                     addHeight(5),
+        //                                     Container(
+        //                                       margin: EdgeInsets.only(left: 75),
+        //                                       color: Color(0xFFE9E9E9),
+        //                                       width: AddSize.screenWidth,
+        //                                       height: 1,
+        //                                     ),
+        //                                     addHeight(7),
+        //                                     Row(
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       children: [
+        //                                         addWidth(80),
+        //                                         Image.asset('assets/images/helpimg.png',height: 13,),
+        //                                         addWidth(4),
+        //                                         Text('Can cook more units by: 30th June 2023',
+        //                                           style: GoogleFonts.poppins(
+        //                                               fontWeight: FontWeight.w300,
+        //                                               fontSize: 11,
+        //                                               color: const Color(0xFF364A4F)
+        //                                           ),),
+        //                                       ],
+        //                                     ),
+        //                                     addHeight(4), Row(
+        //                                       crossAxisAlignment: CrossAxisAlignment.start,
+        //                                       mainAxisAlignment: MainAxisAlignment.start,
+        //                                       children: [
+        //                                         addWidth(80),
+        //                                         Image.asset('assets/images/helpimg.png',height: 13,),
+        //                                         addWidth(4),
+        //                                         Text('Can cook more units by: 30th June 2023',
+        //                                           style: GoogleFonts.poppins(
+        //                                               fontWeight: FontWeight.w300,
+        //                                               fontSize: 11,
+        //                                               color: const Color(0xFF364A4F)
+        //                                           ),),
+        //                                       ],
+        //                                     ),
+        //
+        //                                   ],
+        //                                 ),
+        //                               ),
+        //                               Positioned(
+        //                                 top: 14,
+        //                                 right: 20,
+        //                                 child:  Text('€6.99',
+        //                                   style: GoogleFonts.poppins(
+        //                                       fontWeight: FontWeight.w700,
+        //                                       fontSize: 15,
+        //                                       color: const Color(0xFF70CC49)
+        //                                   ),),
+        //                               )
+        //                             ],
+        //                           ),
+        //                         ],
+        //                       );
+        //                     },),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //         ]),
+        //       )
+        //     ],
+        //   ),
+        // ),
+      ),
+    );
+  }
+  Future<void> _showSimpleDialog3(BuildContext context) async {
+    await showDialog(
+        barrierDismissible: true,
+        context: context,
+        barrierColor: const Color(0x01000000),
+        builder: (context) {
+          return Dialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero
+            ),
+            insetPadding: const EdgeInsets.only(bottom: 0,top: 80),
+            child: ListView.builder(
+              itemCount: 6,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF37C666).withOpacity(0.10),
+                                    offset: const Offset(.1, .1,
+                                    ),
+                                    blurRadius: 20.0,
+                                    spreadRadius: 1.0,
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(12)
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(child: Image.asset('assets/images/Rectangle 39762.png',height: 80,width: 70,)),
+                                    addWidth(10),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Special Burger',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 14,
+                                              color: const Color(0xFF21283D)
+                                          ),),
+                                        addHeight(3),
+                                        Text('Size: 200gm',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)
+                                          ),),
+                                        addHeight(3),
+                                        Row(
+                                          children: [
+                                            Row(
                                               children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text('Special Burger',
-                                                      style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w600,
-                                                          fontSize: 14,
-                                                          color: const Color(0xFF21283D)
-                                                      ),),
-                                                      addWidth(90),
-                                                      Text('€6.99',
-                                                      style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w600,
-                                                          fontSize: 14,
-                                                          color: const Color(0xFF70CC49)
-                                                      ),),
-
-                                                  ],
-                                                ),
-                                                addHeight(3),
-                                                Text('Size: 200gm',
+                                                Text('spiciness :',
                                                   style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w300,
+                                                      fontWeight: FontWeight.w500,
                                                       fontSize: 10,
-                                                      color: const Color(0xFF364A4F)
+                                                      color: const Color(0xFF1F2D30)
                                                   ),),
-                                                addHeight(4),
-                                                Row(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text('spiciness',
-                                                          style: GoogleFonts.poppins(
-                                                              fontWeight: FontWeight.w300,
-                                                              fontSize: 8,
-                                                              color: const Color(0xFF1F2D30)
-                                                          ),),
-                                                        addWidth(4),
-                                                        Text('Mildly Spicy',
-                                                          style: GoogleFonts.poppins(
-                                                              fontWeight: FontWeight.w500,
-                                                              fontSize: 8,
-                                                              color: const Color(0xFF6CC844)
-                                                          ),),
-                                                      ],
-                                                    ),
-                                                    addWidth(30),
-                                                    Row(
-                                                      children: [
-                                                        Text('spiciness',
-                                                          style: GoogleFonts.poppins(
-                                                              fontWeight: FontWeight.w300,
-                                                              fontSize: 8,
-                                                              color: const Color(0xFF1F2D30)
-                                                          ),),
-                                                        addWidth(4),
-                                                        Text('Mildly Spicy',
-                                                          style: GoogleFonts.poppins(
-                                                              fontWeight: FontWeight.w500,
-                                                              fontSize: 8,
-                                                              color: const Color(0xFF6CC844)
-                                                          ),),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                addHeight(6),
-                                                IntrinsicHeight(
-                                                  child:
-                                                  Row(
-                                                    children: [
-                                                      InkWell(
-                                                        onTap:
-                                                            () {
-                                                        },
-                                                        child:
-                                                        Container(
-                                                          decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
-                                                          alignment: Alignment.center,
-                                                          child: const Padding(
-                                                            padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                            child: Text(
-                                                              '-',
-                                                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        alignment:
-                                                        Alignment.center,
-                                                        child:
-                                                       const Padding(
-                                                          padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                                                          child: Text(
-                                                              '1'
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      InkWell(
-                                                        onTap:
-                                                            () {
-
-                                                        },
-                                                        child:
-                                                        Container(
-                                                            decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
-                                                          alignment: Alignment.center,
-                                                          child: const Padding(
-                                                            padding:  EdgeInsets.symmetric(horizontal: 8),
-                                                            child: Text(
-                                                              '+',
-                                                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Color(0xFF72CD4A)),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                addHeight(6),
-                                               Container(
-                                                 color: Color(0xFFE9E9E9),
-                                                 width: 250,
-                                                 height: 1,
-                                               ),
-                                                addHeight(4),
-                                                Row(
-                                                  children: [
-                                                    Image.asset('assets/images/helpimg.png',height: 12,),
-                                                    addWidth(4),
-                                                    Text('Can cook more units by: 30th June 2023',
-                                                      style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w300,
-                                                          fontSize: 10,
-                                                          color: const Color(0xFF364A4F)
-                                                      ),),
-                                                  ],
-                                                ),
-                                                addHeight(4),
-                                                Row(
-                                                  children: [
-                                                    Image.asset('assets/images/helpimg.png',height: 12,),
-                                                    addWidth(4),
-                                                    Text('Can cook more units by: 30th June 2023',
-                                                      style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w300,
-                                                          fontSize: 10,
-                                                          color: const Color(0xFF364A4F)
-                                                      ),),
-                                                  ],
-                                                ),
+                                                addWidth(4),
+                                                Text('Mildly Spicy',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF6CC844)
+                                                  ),),
                                               ],
-                                            )
-                                         ],
-                                       ),
-                                     ),
-                                   ),
-                                 ),
-                               );
-                            },
-                        ),
-                     ],
-                   ),
-                 ),
-                 SingleChildScrollView(
-                   child: Column(
-                     children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 3,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                               return Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Container(
-                                   decoration: BoxDecoration(
-                                     color: Colors.white,
-                                       boxShadow: [
-                                           BoxShadow(
-                                             color: const Color(0xFF37C666).withOpacity(0.10),
-                                             offset: const Offset(.1, .1,
-                                             ),
-                                             blurRadius: 20.0,
-                                             spreadRadius: 1.0,
-                                           ),
-                                         ],
-                                     borderRadius: BorderRadius.circular(12)
-                                   ),
-                                   child: Padding(
-                                     padding: const EdgeInsets.all(15.0),
-                                     child: Row(
-                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                         Image.asset('assets/images/Rectangle 39762.png',height: 68,),
-                                         addWidth(10),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            ),
+                                            addWidth(10),
+                                            Row(
+                                              children: [
+                                                Text('Allergens :',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF1F2D30)
+                                                  ),),
+                                                addWidth(4),
+                                                Text('Crustaceans',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF6CC844)
+                                                  ),),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        addHeight(6),
+                                        IntrinsicHeight(
+                                          child:
+                                          Row(
                                             children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text('Special Burger',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 14,
-                                                        color: const Color(0xFF21283D)
-                                                    ),),
-                                                    addWidth(90),
-                                                    Text('€6.99',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 14,
-                                                        color: const Color(0xFF70CC49)
-                                                    ),),
-
-                                                ],
-                                              ),
-                                              addHeight(3),
-                                              Text('Size: 200gm',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 10,
-                                                    color: const Color(0xFF364A4F)
-                                                ),),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Text('spiciness',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w300,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF1F2D30)
-                                                        ),),
-                                                      addWidth(4),
-                                                      Text('Mildly Spicy',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF6CC844)
-                                                        ),),
-                                                    ],
-                                                  ),
-                                                  addWidth(30),
-                                                  Row(
-                                                    children: [
-                                                      Text('spiciness',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w300,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF1F2D30)
-                                                        ),),
-                                                      addWidth(4),
-                                                      Text('Mildly Spicy',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF6CC844)
-                                                        ),),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              addHeight(6),
-                                              IntrinsicHeight(
+                                              InkWell(
+                                                onTap:
+                                                    () {
+                                                },
                                                 child:
-                                                Row(
-                                                  children: [
-                                                    InkWell(
-                                                      onTap:
-                                                          () {
-                                                      },
-                                                      child:
-                                                      Container(
-                                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
-                                                        alignment: Alignment.center,
-                                                        child: const Padding(
-                                                          padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                          child: Text(
-                                                            '-',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color:const Color(0xFF72CD4A)),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ),
-                                                      ),
+                                                Container(
+                                                  decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+                                                  alignment: Alignment.center,
+                                                  child: const Padding(
+                                                    padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                    child: Text(
+                                                      '-',
+                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
+                                                      textAlign: TextAlign.center,
                                                     ),
-                                                    Container(
-                                                      alignment:
-                                                      Alignment.center,
-                                                      child:
-                                                      const Padding(
-                                                        padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                                                        child: Text(
-                                                            '1'
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap:
-                                                          () {
-
-                                                      },
-                                                      child:
-                                                      Container(
-                                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
-                                                        alignment: Alignment.center,
-                                                        child: const Padding(
-                                                          padding:  EdgeInsets.symmetric(horizontal: 8),
-                                                          child: Text(
-                                                            '+',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
-                                              addHeight(6),
-                                             Container(
-                                               color: Color(0xFFE9E9E9),
-                                               width: 250,
-                                               height: 1,
-                                             ),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Image.asset('assets/images/helpimg.png',height: 12,),
-                                                  addWidth(4),
-                                                  Text('Can cook more units by: 30th June 2023',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 10,
-                                                        color: const Color(0xFF364A4F)
-                                                    ),),
-                                                ],
-                                              ),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Image.asset('assets/images/helpimg.png',height: 12,),
-                                                  addWidth(4),
-                                                  Text('Can cook more units by: 30th June 2023',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 10,
-                                                        color: const Color(0xFF364A4F)
-                                                    ),),
-                                                ],
-                                              ),
-                                            ],
-                                          )
-                                       ],
-                                     ),
-                                   ),
-                                 ),
-                               );
-                            },
-                        ),
-                     ],
-                   ),
-                 ),
-                 SingleChildScrollView(
-                   child: Column(
-                     children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 3,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                               return Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Container(
-                                   decoration: BoxDecoration(
-                                     color: Colors.white,
-                                       boxShadow: [
-                                           BoxShadow(
-                                             color: const Color(0xFF37C666).withOpacity(0.10),
-                                             offset: const Offset(.1, .1,
-                                             ),
-                                             blurRadius: 20.0,
-                                             spreadRadius: 1.0,
-                                           ),
-                                         ],
-                                     borderRadius: BorderRadius.circular(12)
-                                   ),
-                                   child: Padding(
-                                     padding: const EdgeInsets.all(15.0),
-                                     child: Row(
-                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                         Image.asset('assets/images/Rectangle 39762.png',height: 68,),
-                                         addWidth(10),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text('Special Burger',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 14,
-                                                        color: const Color(0xFF21283D)
-                                                    ),),
-                                                    addWidth(90),
-                                                    Text('€6.99',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 14,
-                                                        color: const Color(0xFF70CC49)
-                                                    ),),
-
-                                                ],
-                                              ),
-                                              addHeight(3),
-                                              Text('Size: 200gm',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 10,
-                                                    color: const Color(0xFF364A4F)
-                                                ),),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Text('spiciness',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w300,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF1F2D30)
-                                                        ),),
-                                                      addWidth(4),
-                                                      Text('Mildly Spicy',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF6CC844)
-                                                        ),),
-                                                    ],
-                                                  ),
-                                                  addWidth(30),
-                                                  Row(
-                                                    children: [
-                                                      Text('spiciness',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w300,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF1F2D30)
-                                                        ),),
-                                                      addWidth(4),
-                                                      Text('Mildly Spicy',
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 8,
-                                                            color: const Color(0xFF6CC844)
-                                                        ),),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              addHeight(6),
-                                              IntrinsicHeight(
+                                              Container(
+                                                alignment:
+                                                Alignment.center,
                                                 child:
-                                                Row(
-                                                  children: [
-                                                    InkWell(
-                                                      onTap:
-                                                          () {
-                                                      },
-                                                      child:
-                                                      Container(
-                                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
-                                                        alignment: Alignment.center,
-                                                        child: const Padding(
-                                                          padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                          child: Text(
-                                                            '-',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                      Alignment.center,
-                                                      child:
-                                                      const Padding(
-                                                        padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                                                        child: Text(
-                                                            '1'
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap:
-                                                          () {
-
-                                                      },
-                                                      child:
-                                                      Container(
-                                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
-                                                        alignment: Alignment.center,
-                                                        child: const Padding(
-                                                          padding:  EdgeInsets.symmetric(horizontal: 8),
-                                                          child: Text(
-                                                            '+',
-                                                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Color(0xFF72CD4A)),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                const Padding(
+                                                  padding: EdgeInsets.only(left: 14.0, right: 14.0),
+                                                  child: Text(
+                                                      '1'
+                                                  ),
                                                 ),
                                               ),
-                                              addHeight(6),
-                                             Container(
-                                               color: Color(0xFFE9E9E9),
-                                               width: 250,
-                                               height: 1,
-                                             ),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Image.asset('assets/images/helpimg.png',height: 12,),
-                                                  addWidth(4),
-                                                  Text('Can cook more units by: 30th June 2023',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 10,
-                                                        color: const Color(0xFF364A4F)
-                                                    ),),
-                                                ],
-                                              ),
-                                              addHeight(4),
-                                              Row(
-                                                children: [
-                                                  Image.asset('assets/images/helpimg.png',height: 12,),
-                                                  addWidth(4),
-                                                  Text('Can cook more units by: 30th June 2023',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 10,
-                                                        color: const Color(0xFF364A4F)
-                                                    ),),
-                                                ],
+                                              InkWell(
+                                                onTap:
+                                                    () {
+
+                                                },
+                                                child:
+                                                Container(
+                                                  decoration: BoxDecoration(color: const Color(0xFF72CD4A),border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+                                                  alignment: Alignment.center,
+                                                  child: const Padding(
+                                                    padding:  EdgeInsets.symmetric(horizontal: 8),
+                                                    child: Text(
+                                                      '+',
+                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Colors.white),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ],
-                                          )
-                                       ],
-                                     ),
-                                   ),
-                                 ),
-                               );
-                            },
-                        ),
-                     ],
-                   ),
-                 ),
-               ]),
-             )
-           ],
-         ),
-       ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                addHeight(5),
+                                Container(
+                                  margin: EdgeInsets.only(left: 75),
+                                  color: Color(0xFFE9E9E9),
+                                  width: AddSize.screenWidth,
+                                  height: 1,
+                                ),
+                                addHeight(7),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    addWidth(80),
+                                    Image.asset('assets/images/helpimg.png',height: 13,),
+                                    addWidth(4),
+                                    Text('Can cook more units by: 30th June 2023',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 11,
+                                          color: const Color(0xFF364A4F)
+                                      ),),
+                                  ],
+                                ),
+                                addHeight(4), Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    addWidth(80),
+                                    Image.asset('assets/images/helpimg.png',height: 13,),
+                                    addWidth(4),
+                                    Text('Can cook more units by: 30th June 2023',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 11,
+                                          color: const Color(0xFF364A4F)
+                                      ),),
+                                  ],
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 14,
+                            right: 20,
+                            child:  Text('€6.99',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15,
+                                  color: const Color(0xFF70CC49)
+                              ),),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },),
+          );
+        }
     );
   }
 }

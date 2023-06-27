@@ -63,7 +63,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
           ),
           child: Column(
             children: [
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -75,24 +74,29 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
                       },
 
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
                           bottomController. pageIndex.value == 0
-                              ?  Image.asset('assets/images/home.png',
+                              ?  Container(
+                            height: 35,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF7ED957),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Image.asset('assets/images/home.png',
                             color: Colors.white,
-                            height: 10,
-                          )
+                            height: 20,
+                          ),
+                                ),
+                              )
                               : Image.asset('assets/images/home.png',
                             color: const Color(0xFF4E5B5F),
-                            height: 10,
+                            height: 20,
                           ),
 
-
-                          bottomController. pageIndex.value == 0
-                              ?
-                          Text("  Home",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400),):Text("")
+                         const Center(child: Text("  Home",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.w400),))
 
                         ],
                       ),
@@ -104,18 +108,27 @@ class _BottomNavbarState extends State<BottomNavbar> {
                       onPressed: () {
                         bottomController.updateIndexValue(1);
 
-
                       },
                       child: Column(
                         children: [
 
                           bottomController. pageIndex.value == 1
-                              ? Image.asset('assets/images/featured_ic_video.png',
-                            color: Colors.white, height: 10,
-                          )
-                              :  Image.asset('assets/images/featured_ic_video.png', height: 10,
+                              ? Container(
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                                child: Center(
+                                  child: Image.asset('assets/images/featured_ic_video.png',
+                            height: 20,
+                          ),
+                                ),
+                              )
+                              :  Image.asset('assets/images/featured_ic_video.png', height: 20,
                           ),
 
+                          Text("  Featured",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.w400),)
 
                         ],
                       ),
@@ -138,12 +151,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
                             bottomController.pageIndex.value == 2
                                 ?  Image.asset('assets/images/order_icon.png',
-                              color: Colors.white, height: 10,
+                             height: 20,
                             )
                                 :Image.asset('assets/images/order_icon.png',
-                            height: 10,
+                            height: 20,
                             ),
-
+                            Text("  Orders",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.w400),)
                           ],
                         ),
                       ),
@@ -160,11 +173,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
                           bottomController. pageIndex.value == 3
                               ?  Image.asset('assets/images/setting.png',
-                            color: Colors.white, height: 10,
+                     height: 20,
                           )
-                              : Image.asset('assets/images/setting.png', height: 10,
+                              : Image.asset('assets/images/setting.png', height: 20,
                           ),
-
+                          Text("  Settings",style: TextStyle(color: Colors.black,fontSize: 13,fontWeight: FontWeight.w400),)
 
                         ],
                       ),

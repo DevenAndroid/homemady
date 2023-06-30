@@ -72,7 +72,11 @@ body: SingleChildScrollView(
                                ),),
                            ],
                          ),
-                         Image.asset('assets/images/edit_alt.png',height: 24,)
+                         GestureDetector(
+                           onTap: (){
+                             Get.toNamed(MyRouters.chooseAddress);
+                           },
+                             child: Image.asset('assets/images/edit_alt.png',height: 24,))
                        ],
                      ),
                    ),

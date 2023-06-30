@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:homemady/routers/routers.dart';
-import 'package:homemady/widgets/custome_size.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../routers/routers.dart';
+import '../widgets/custome_size.dart';
 import '../widgets/onborading_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 class OnBoardingScreen extends StatefulWidget {

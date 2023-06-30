@@ -1,21 +1,31 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:homemady/Screens/add_new_card.dart';
+import 'package:homemady/Screens/address_select.dart';
+import 'package:homemady/Screens/change_password_screen.dart';
+import 'package:homemady/Screens/chat_message.dart';
+import 'package:homemady/Screens/chat_screen.dart';
 import 'package:homemady/Screens/checkoutScreen.dart';
+import 'package:homemady/Screens/email_verification2.dart';
+import 'package:homemady/Screens/email_verification_screen.dart';
 import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/homedetails_Screen.dart';
 import 'package:homemady/Screens/myAddressScreen.dart';
 import 'package:homemady/Screens/myOrderScreen.dart';
+import 'package:homemady/Screens/my_addresss.dart';
 import 'package:homemady/Screens/mycart_Screen.dart';
 import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:homemady/Screens/notificationScreen.dart';
+import 'package:homemady/Screens/onborading_screen.dart';
 import 'package:homemady/Screens/orderDetailsScreen.dart';
 import 'package:homemady/Screens/otpScreen.dart';
+import 'package:homemady/Screens/otp_forgot.dart';
 import 'package:homemady/Screens/signupScreen.dart';
+import 'package:homemady/Screens/splash_screen.dart';
 import 'package:homemady/Screens/thankyou_Screen.dart';
 import 'package:homemady/myorderScreens/activeScreen.dart';
 import 'package:homemady/widgets/customeNavbar.dart';
-import '../Screens/onborading_screen.dart';
-import '../Screens/splash_screen.dart';
 import '../Screens/login_screen.dart';
+
 
 
 class MyRouters {
@@ -36,6 +46,15 @@ class MyRouters {
   static var activeScreen = "/activeScreen";
   static var myProfileScreen = "/myProfileScreen";
   static var orderDetailsScreen = "/orderDetailsScreen";
+  static var emailVerificationScreen = "/emailVerificationScreen";
+  static var changePasswordScreen = "/changePasswordScreen";
+  static var emailVerificationScreen2 = "/emailVerificationScreen2";
+  static var otpForgotScreen = "/otpForgotScreen";
+  static var addNewCardScreen = "/addNewCardScreen";
+  static var selectAddressScreen = "/selectAddressScreen";
+  static var chooseAddress = "/chooseAddress";
+  static var chatScreen = "/chatScreen";
+  static var chatMessageScreen = "/chatMessageScreen";
 
 
   static var route = [
@@ -56,6 +75,16 @@ class MyRouters {
   GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
   GetPage(name: '/myProfileScreen', page: () => const MyProfileScreen()),
   GetPage(name: '/orderDetailsScreen', page: () => const OrderDetailsScreen()),
+  GetPage(name: '/emailVerificationScreen', page: () => const EmailVerificationScreen()),
+  GetPage(name: '/changePasswordScreen', page: () => const ChangePasswordScreen()),
+  GetPage(name: '/emailVerificationScreen2', page: () => const EmailVerificationScreen2()),
+  GetPage(name: '/otpForgotScreen', page: () => const OtpForgotScreen()),
+  GetPage(name: '/addNewCardScreen', page: () => const AddNewCardScreen()),
+  GetPage(name: '/selectAddressScreen', page: () => const SelectAddressScreen()),
+  GetPage(name: '/chooseAddress', page: () => const ChooseAddress()),
+  GetPage(name: '/chatScreen', page: () => const ChatScreen()),
+  GetPage(name: '/chatMessageScreen', page: () => const ChatMessageScreen()),
+
 
 
 

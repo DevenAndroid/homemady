@@ -17,12 +17,14 @@ class CheckOutScreen extends StatefulWidget {
 class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   String _selectedGender = 'male';
+  String _selectedValue = 'one';
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: backAppBar(title: 'Checkout', context: context),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
               addHeight(15),
@@ -41,47 +43,65 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Delivery Option',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff1A2E33)
-                    ),),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 9.0),
+                    child: Text('Delivery Option',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xff1A2E33)
+                      ),),
+                  ),
                   addHeight(10),
                   Row(
                     children: [
-                      Radio<String>(
-                        value: 'pickup',
-                        activeColor:Colors.green,
-                        groupValue: _selectedGender,
+                  Theme(
+                  data: ThemeData(
+                         unselectedWidgetColor: Colors.green,),
+                        child: Radio<String>(
+                          visualDensity: const VisualDensity(
+                              horizontal: -4,
+                              vertical: -1),
+                          value: 'pickup',
+                          activeColor:Colors.green,
+                          groupValue: _selectedGender,
 
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedGender = value!;
-                          });
-                        },
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
                       ),
+                      addWidth(5),
                       Text('Delivery',style: GoogleFonts.poppins(
                         color: Color(0xFF000000),
                         fontWeight: FontWeight.w300,
                         fontSize: 16
                       ),),
                     addWidth(40),
-                      Radio<String>(
-                        value: 'delivery',
-                        activeColor:Colors.green,
-                        groupValue: _selectedGender,
-
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedGender = value!;
-                          });
-                        },
+                          Theme(
+                            data: ThemeData(
+                              unselectedWidgetColor: Colors.green,),
+                        child: Radio<String>(
+                          visualDensity: const VisualDensity(
+                              horizontal: -4,
+                              vertical: -4),
+                          value: 'delivery',
+                          activeColor:Colors.green,
+                          groupValue: _selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
                       ),
+                      addWidth(5),
                       Text('Pickup',style: GoogleFonts.poppins(
                         color: Color(0xFF000000),
                         fontWeight: FontWeight.w300,
@@ -89,43 +109,62 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),)
                     ],
                   ),
-                  addHeight(26),
-                  Text('When',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff1A2E33)
-                    ),),
-                  addHeight(10),
+                  addHeight(20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 9.0),
+                    child: Text('When',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xff1A2E33)
+                      ),),
+                  ),
+                  addHeight(5),
                   Row(
                     children: [
-                      Radio<String>(
-                        value: 'date',
-                        activeColor:Colors.green,
-                        groupValue: _selectedGender,
+                  Theme(
+                  data: ThemeData(
+                  //here change to your color
+                  unselectedWidgetColor: Colors.green,
+                  ),
+                        child: Radio<String>(
+                          visualDensity: const VisualDensity(
+                              horizontal: -4,
+                              vertical: -1),
+                          value: 'date',
+                          activeColor:Colors.green,
+                          groupValue: _selectedValue,
 
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedGender = value!;
-                          });
-                        },
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                        ),
                       ),
+                      addWidth(5),
                       Text('Now',style: GoogleFonts.poppins(
                           color: Color(0xFF000000),
                           fontWeight: FontWeight.w300,
                           fontSize: 16
                       ),),
-                      addWidth(64),
-                      Radio<String>(
-                        value: 'now',
-                        activeColor:Colors.green,
-                        groupValue: _selectedGender,
+                      addWidth(56),
+                      Theme(
+                        data: ThemeData(
+                          //here change to your color
+                          unselectedWidgetColor: Colors.green,
+                        ),
+                        child: Radio<String>(
+                          value: 'now',
+                          activeColor:Colors.green,
+                          groupValue: _selectedValue,
 
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedGender = value!;
-                          });
-                        },
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                        ),
                       ),
                       Expanded(
                         child: Text('Specify Time/Date',style: GoogleFonts.poppins(
@@ -136,19 +175,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       )
                     ],
                   ),
-                  addHeight(25),
-                  Text('Special Request',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xff1A2E33)
-                    ),),
+                  addHeight(20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 9.0),
+                    child: Text('Special Request',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xff1A2E33)
+                      ),),
+                  ),
                   addHeight(15),
-                 const RegistrationTextField(
-                    hint: 'Type Name',
-                    minLines: 3,
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,),
+                const Padding(
+                   padding:  EdgeInsets.symmetric(horizontal: 9.0),
+                   child:  RegistrationTextFieldChk(
+                      hint: 'Type Name',
+                      minLines: 3,
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,),
+                 ),
                 ],
               ),
             ),
@@ -169,11 +214,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomTextField1(obSecure: false.obs,
+              padding: const EdgeInsets.only(left: 8,right: 8,top: 14,bottom: 5),
+              child: CustomTextField1(
+                obSecure: false.obs,
                 hintText: 'Apply Promo Code'.obs,
                 suffixIcon: Padding(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(10),
                   child: Container(
                     height: 36,
                     width: 94,
@@ -216,28 +262,29 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ),
             ],
           ),
-            child:    Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Deliver to',
+            child:    Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0,vertical: 12),
+                  child: Text('Deliver to',
                     style: GoogleFonts.poppins(
                         fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         color: const Color(0xff1A2E33)
                     ),),
-                  addHeight(14),
-                  const Divider(
-                    color: Color(0xFFF2F2F2),
-                    height: 1,
-                    thickness: 1.2,
-                  ),
-                  addHeight(14),
-                  InkWell(
-                    onTap: (){
-                      Get.toNamed(MyRouters.myAddressScreen);
-                    },
+                ),
+                const Divider(
+                  color: Color(0xFFF2F2F2),
+                  height: 1,
+                  thickness: 1.2,
+                ),
+                InkWell(
+                  onTap: (){
+                    Get.toNamed(MyRouters.myAddressScreen);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20,top: 10,bottom: 15,right: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -261,12 +308,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ],
                           ),
                           Spacer(),
-                          Icon(Icons.arrow_forward_ios,color: Color(0xFF04666E),size: 15,)
+                          const Icon(Icons.arrow_forward_ios,color: Color(0xFF04666E),size: 17,)
                       ],
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
               addHeight(15),
@@ -285,7 +332,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ],
           ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 15),
               child: Column(
                 children: [
                   Row(
@@ -294,7 +341,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       Text('Order Summary',
                         style: GoogleFonts.poppins(
                             fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w600,
                             color: const Color(0xff1A2E33)
                         ),),
                       InkWell(
@@ -304,7 +351,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             borderRadius: BorderRadius.circular(30)
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 7),
                             child: Text('Add items',
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
@@ -316,7 +363,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                     ],
                   ),
-                  addHeight(23),
+                 addHeight(18),
                  const Divider(
                     color: Color(0xFFF2F2F2),
                     height: 1,
@@ -335,7 +382,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Image.asset('assets/images/Rectangle 39702.png',height: 76,),
+                                Image.asset('assets/images/Rectangle 39702.png',height: 70,),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8.0,left: 20),
                                   child: Column(
@@ -343,13 +390,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     children: [
                                       Text('Panna Onion Pasta',
                                         style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w700,
                                             fontSize: 16,
                                             color: const Color(0xFF21283D)
                                         ),),
+                                      addHeight(2),
                                       Text('\$12.00',
                                         style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.w600,
                                             fontSize: 16,
                                             color: const Color(0xFF7DD856)
                                         ),),
@@ -408,7 +456,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Text('Payment Method',
                     style: GoogleFonts.alegreyaSans(
                         fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w800,
                         color: const Color(0xff000000)
                     ),),
                   addHeight(14),
@@ -416,14 +464,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 41,
-                        height: 57,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(42),
-                          border: Border.all(color: const Color(0xFFF2F2F2))
+                      InkWell(
+                        onTap: (){
+                          Get.toNamed(MyRouters.addNewCardScreen);
+                        },
+                        child: Container(
+                          width: 41,
+                          height: 57,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(42),
+                            border: Border.all(color: const Color(0xFFF2F2F2))
+                          ),
+                          child: const Center(child: Icon(Icons.add,color: Color(0xFF7DD856),)),
                         ),
-                        child: const Center(child: Icon(Icons.add,color: Color(0xFF7DD856),)),
                       ),
                       Container(
                         height: 60,
@@ -491,7 +544,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Subtotal:',
+                            Text('Subtotal',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -501,7 +554,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             Text( '€12.99',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                   color: const Color(0xff3A3A3A)
                               ),),
                           ],
@@ -512,7 +565,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Delivery fee:',
+                            Text('Delivery fee',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -522,7 +575,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             Text( '€5.00',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                   color: const Color(0xff3A3A3A)
                               ),),
                           ],
@@ -541,17 +594,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Total:',
+                            Text('Total',
                               style: GoogleFonts.poppins(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                   color: const Color(0xff1A2E33)
                               ),),
                             Spacer(),
                             Text( '€17.99',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                   color: const Color(0xff3A3A3A)
                               ),),
                           ],

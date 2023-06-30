@@ -150,14 +150,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           Text('Subtotal:',
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: const Color(0xff1A2E33)
                             ),),
                           Spacer(),
                           Text( '€12.99',
                             style: GoogleFonts.poppins(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: const Color(0xff486769)
                             ),),
                         ],
@@ -171,14 +171,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           Text('Tax and fee:',
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: Color(0xff1A2E33)
                             ),),
                           Spacer(),
                           Text( '€5.00',
                             style: GoogleFonts.poppins(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: Color(0xff486769)
                             ),),
                         ],
@@ -192,14 +192,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           Text('Delivery:',
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: Color(0xff1A2E33)
                             ),),
                           Spacer(),
-                          Text( '€17.99',
+                          Text( 'Free',
                             style: GoogleFonts.poppins(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: Color(0xff486769)
                             ),),
                         ],
@@ -214,13 +214,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
-                                color: const Color(0xff1A2E33)
+                                color: const Color(0xff6BC744)
                             ),),
                           Spacer(),
                           Text( '€17.99',
                             style: GoogleFonts.poppins(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: const Color(0xff6BC744)
                             ),),
                         ],

@@ -5,6 +5,7 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/singlecookDetails/carte.dart';
 import 'package:homemady/singlecookDetails/cartingScreen.dart';
 import 'package:homemady/singlecookDetails/mealPrepScreen.dart';
+import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -199,7 +200,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                             ),
                           ),
                           Positioned(
-                              top: 210,
+                              top: AddSize.screenHeight*.29,
                               right: 26,
                               child: Column(
                                 children: [
@@ -425,7 +426,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                   toolbarHeight: 0,
                   backgroundColor: Colors.white,
                   bottom: TabBar(
-                    labelPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 20.0),
                     onTap: (value) {
                       autoController
                           .scrollToIndex(
@@ -435,22 +436,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                     unselectedLabelColor: const Color(0xFF1A2E33),
                     labelColor:   Colors.white,
                     indicatorColor: Colors.transparent,
-                    tabs: [
-                      Container(
-                        height: 37,
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color(0xFF7ED957),
-                              Color(0xFF68C541),
-                            ]
-                          ),
-                          borderRadius: BorderRadius.circular(100)
-                        ),
-                        child: Tab(
-                          text: 'A la carte',
-                        ),
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: const Color(0xFF7ED957),
+
+                    ),
+                    tabs: const[
+                      Tab(
+                        text: 'A la carte',
                       ),
                       Tab(
                         text: 'Catering',
@@ -1485,7 +1478,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.zero
             ),
-            insetPadding: const EdgeInsets.only(bottom: 0,top: 80),
+            insetPadding: const EdgeInsets.only(bottom: 0,top: 0),
             child: ListView.builder(
               itemCount: 6,
               shrinkWrap: true,

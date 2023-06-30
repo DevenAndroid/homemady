@@ -66,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -195,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             addHeight(25),
                             InkWell(
                               onTap: (){
-                                  Get.toNamed(MyRouters.otpScreen);
+                                  Get.toNamed(MyRouters.emailVerificationScreen2);
                               },
                               child: Center(
                                 child: Text(

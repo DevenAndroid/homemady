@@ -20,21 +20,22 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(14.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
                children: [
                  addHeight(62),
                   Image.asset('assets/images/thankyouImg.png',width: 232,),
                  addHeight(15),
                  Text('Thank You!',
-                 style: GoogleFonts.poppins(
+                 style: GoogleFonts.ramaraja(
                    fontSize: 65,
                    fontWeight: FontWeight.w400,
                    color: Color(0xFF423E5E),
                  ),
                  ),
-                 addHeight(5),
                  Text('Your Order Has Been Successfull',
                    style: GoogleFonts.poppins(
                      fontSize: 14,
@@ -67,7 +68,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                          Text('Order ID:',
                            style: GoogleFonts.poppins(
                              fontSize: 16,
-                             fontWeight: FontWeight.w500,
+                             fontWeight: FontWeight.w600,
                              color: Color(0xFF1A2E33),
                            ),
                          ),
@@ -92,7 +93,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                      height: 55,
                      width: AddSize.screenWidth,
                      decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(4),
+                         borderRadius: BorderRadius.circular(10),
                          border: Border.all(
                              color: const Color(0xFF7ED957)
                          )
@@ -111,12 +112,14 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                  ),
                  addHeight(10),
                  InkWell(
-                   onTap: () {},
+                   onTap: () {
+                     Get.toNamed(MyRouters.bottomNavbar);
+                   },
                    child: Container(
                      height: 55,
                      width: AddSize.screenWidth,
                      decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(4),
+                         borderRadius: BorderRadius.circular(10),
                          color: const Color(0xFF7ED957)
                      ),
                      child:

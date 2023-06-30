@@ -9,14 +9,14 @@ import 'package:homemady/widgets/dimenestion.dart';
 import 'package:pinput/pinput.dart';
 
 
-class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+class OtpForgotScreen extends StatefulWidget {
+  const OtpForgotScreen({Key? key}) : super(key: key);
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<OtpForgotScreen> createState() => _OtpForgotScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _OtpForgotScreenState extends State<OtpForgotScreen> {
   TextEditingController otpController = TextEditingController();
   final formKey99 = GlobalKey<FormState>();
   @override
@@ -39,47 +39,47 @@ class _OtpScreenState extends State<OtpScreen> {
     return Scaffold(
       body: Stack(
         children: [
-           Column(
-             children: [
-               Container(
-                 height: AddSize.screenHeight,
-                 decoration: const BoxDecoration(
-                   gradient: LinearGradient
-                     (
-                       begin: Alignment.topCenter,
-                       end: Alignment.bottomCenter,
-                       colors: [
-                     Color(0xFF7ED957),
-                     Color(0xFF6BD13F)
-                   ])
-                 ),
-                 ),
-             ],
-           ),
+          Column(
+            children: [
+              Container(
+                height: AddSize.screenHeight,
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient
+                      (
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFF7ED957),
+                          Color(0xFF6BD13F)
+                        ])
+                ),
+              ),
+            ],
+          ),
           Positioned(
-            top: 60,
-            left: 0,
+              top: 60,
+              left: 0,
               right: 0,
               child: Column(
-             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/otpScreen.png',height: 152,),
-              addHeight(20),
-              Text('OTP Verification',style: GoogleFonts.poppins(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-              ),),
-              addHeight(18),
-              Text('Enter the OTP Send to Your Email',style: GoogleFonts.poppins(
-                color: Colors.white,
-                fontWeight: FontWeight.w300,
-                fontSize: 16,
-              ),)
-            ],
-          )),
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/otpScreen.png',height: 152,),
+                  addHeight(20),
+                  Text('OTP Verification',style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 24,
+                  ),),
+                  addHeight(18),
+                  Text('Enter the OTP Send to Your Email',style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 16,
+                  ),)
+                ],
+              )),
           Positioned(
-            top: 370,
+              top: 370,
               left: 0,
               right: 0,
               bottom: 0,
@@ -87,8 +87,8 @@ class _OtpScreenState extends State<OtpScreen> {
                 width: AddSize.screenWidth,
                 height: AddSize.screenHeight/2,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(88))
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(88))
                 ),
                 child: SingleChildScrollView(
                   child: Column(
@@ -111,8 +111,8 @@ class _OtpScreenState extends State<OtpScreen> {
                       Center(
                         child: Text('Didn\'t you receive the OTP?',style: GoogleFonts.poppins(
                             fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                          color: const Color(0xFF3D4260)
+                            fontWeight: FontWeight.w300,
+                            color: const Color(0xFF3D4260)
                         )),
                       ),
                       addHeight(30),
@@ -129,9 +129,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 24.0,right: 24,top: 70,bottom: 20),
                         child: CommonButton(title: 'Verify OTP',
-                         onPressed: (){
-                           Get.toNamed(MyRouters.bottomNavbar);
-                         },
+                          onPressed: (){
+                            Get.toNamed(MyRouters.changePasswordScreen);
+                          },
                         ),
                       ),
                     ],

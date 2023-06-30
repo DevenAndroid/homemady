@@ -48,6 +48,14 @@ dependencies:
   vertical_scrollable_tabview:
   scroll_to_index:
   share_plus:
+  file_picker:
+  flutter_google_places:
+  flutter_google_places_hoc081098:
+  geocoding:
+  google_maps_flutter:
+  google_maps_webservice:
+  geolocator:
+  convex_bottom_bar: ^3.2.0
 
 dev_dependencies:
   flutter_test:

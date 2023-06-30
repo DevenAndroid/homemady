@@ -19,6 +19,7 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   RxBool isSelect = false.obs;
+  RxBool selectIcon = false.obs;
   int currentDrawer = 0;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String selectedDate = 'Delivery Now';
@@ -85,251 +86,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
         toolbarHeight: 70,
       ),
       key: _scaffoldKey,
-      drawer:Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            SizedBox(
-              height: 230,
-              child: DrawerHeader(
-                decoration: const BoxDecoration(
-                   gradient: LinearGradient(
-                     colors: [
-                       Color(0xFF7ED957),
-                       Color(0xFF68C541),
-                     ],
-                   )
-                ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/images/Ellipse 67.png',
-                          height: 100,
-                        ),
-                        Text('Williams Jones',
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              color: const Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.w600,)),
-                        Text('williamsjones@gmail.com',
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              color: const Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.w400,)),
-                      ],
-                    ),
-                  )),
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/note-2.png',
-                height: 20,
-              ),
-              title:  Text('My Orders',
-                  style: GoogleFonts.poppins(
-                fontSize: 15,
-                color: const Color(0xFF4F535E),
-                fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 0;
-                  Get.back();
-                });
-              },
-            ),
-           const Divider(
-              height: 5,
-              color: Color(0xffEFEFEF),
-              thickness: 1,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/personImg.png',
-                height: 20,
-              ),
-              title:  Text('My profile',
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: const Color(0xFF4F535E),
-                    fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 1;
-                  // Get.to(VendorOrderList());
-                });
-              },
-            ),
-           const Divider(
-              height: 5,
-              color: Color(0xffEFEFEF),
-              thickness: 1,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/notification-img.png',
-                height: 20,
-              ),
-              title:  Text('Notification',
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: const Color(0xFF4F535E),
-                    fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 2;
-                  // Get.to(VendorProductScreen());
-                });
-              },
-            ),
-            const Divider(
-              height: 5,
-              color: Color(0xffEFEFEF),
-              thickness: 1,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/location-my.png',
-                height: 20,
-              ),
-              title:  Text('My Address',
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: const Color(0xFF4F535E),
-                    fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 3;
-                  // Get.to(VendorDiscountScreen());
-                });
-              },
-            ),
-            const Divider(
-              height: 5,
-              color: Color(0xffEFEFEF),
-              thickness: 1,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/notebook_reference.png',
-                height: 20,
-              ),
-              title:  Text('Refer and Earn',
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: const Color(0xFF4F535E),
-                    fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 4;
-                  // Get.to(VendorNotificationScreen());
-                });
-              },
-            ),
-            const Divider(
-              height: 5,
-              color: Color(0xffEFEFEF),
-              thickness: 1,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/bx_wallet.png',
-                height: 20,
-              ),
-              title:  Text('My Wallet',
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: const Color(0xFF4F535E),
-                    fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 5;
-                  // Get.to(VendorAnalysticsScreen());
-                });
-              },
-            ),
-            const Divider(
-              height: 5,
-              color: Color(0xffEFEFEF),
-              thickness: 1,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/metro-security.png',
-                height: 20,
-              ),
-              title:  Text('Privacy Policy',
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: const Color(0xFF4F535E),
-                    fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 6;
-                  // Get.to(VendorHelpCenterScreen());
-                });
-              },
-            ),
-            const Divider(
-              height: 5,
-              color: Color(0xffEFEFEF),
-              thickness: 1,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/chatchatting.png',
-                height: 20,
-              ),
-              title:  Text('Message',
-                    style: GoogleFonts.poppins(
-                fontSize: 15,
-                color: const Color(0xFF4F535E),
-                fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 7;
-                  // Get.to(SettingScreenVendor());
-                });
-              },
-            ),
-            const Divider(
-              height: 5,
-              color: Color(0xffEFEFEF),
-              thickness: 1,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              leading: Image.asset(
-                'assets/images/logout.png',
-                height: 16,
-              ),
-              title:  Text('Logout',
-                    style: GoogleFonts.poppins(
-                fontSize: 15,
-                color: const Color(0xFF4F535E),
-                fontWeight: FontWeight.w400,)),
-              onTap: () {
-                setState(() {
-                  currentDrawer = 7;
-                  // Get.to(SettingScreenVendor());
-                });
-              },
-            ),
-          ],
-        ),
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -388,6 +147,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           ),
                         ),
                     addWidth(10),
+
                         InkWell(
                           onTap: () {
                             _showSimpleDialog();
@@ -477,7 +237,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-
                           Expanded(
                             child: InkWell(
                               onTap: () {
@@ -487,27 +246,37 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 height: 44,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
+                                    border:  selectedDate == 'Delivery Now' ? Border.all(
                                         color: const Color(0xFF7ED957),
                                       width: 2
+                                    ) :  Border.all(
+                                        color: const Color(0xFF717171).withOpacity(0.22),
+                                        width: 1
                                     )
                                 ),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Padding(
+                                    selectedDate == 'Delivery Now' ?  Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Image.asset(
                                         'assets/images/clockImg.png', height: 18,),
-                                    ),
-                                    Expanded(
-                                      child: Text(selectedDate,
-                                        style: GoogleFonts.poppins(
-                                          color: const Color(0xFF7ED957),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                    ):   Padding(
+                                             padding: const EdgeInsets.all(8.0),
+                                             child: Image.asset('assets/images/calendar_date.png', height: 18,   color: const Color(0xFF262626).withOpacity(0.62),),),
+                                    selectedDate == 'Delivery Now' ?
+                                    Text(selectedDate,
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xFF7ED957),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ): Text(selectedDate,
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xFF262626).withOpacity(0.62),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     )
                                   ],
@@ -564,19 +333,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 if (pickedDate != null) {
                                   String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
                                   setState(() {
-                                    selectedDate = formattedDate; //set output date to TextField value.
+                                    selectedDate = formattedDate;
                                     log("Seleted Date     $selectedDate");
                                   });
                                 }
                               },
-                              child:
-                              Container(
+                              child: Container(
                                 height: 44,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),
                                     color: Color(0xFF7ED957),
                                 ),
-                                child: Row(
+                                child: selectedDate == 'Delivery Now' ?
+                                Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -593,7 +362,24 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ),
                                     )
                                   ],
-                                ),
+                                ) :  Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        'assets/images/calendar_date.png', height: 18,),
+                                    ),
+                                    Text('Change Date',
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xFFFFFFFF),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
+                                )
                               ),
                             ),
                           ),
@@ -854,16 +640,20 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
       ),
     );
   }
+  
   Future<void> _showSimpleDialog() async {
     await showDialog<void>(
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
         context: context,
+        barrierColor: null,
         builder: (BuildContext context) {
           return SimpleDialog(
             shape: const RoundedRectangleBorder(
@@ -872,7 +662,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: <Widget>[
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog2(context);
                 },
                 child: Text('Gluten Free',
@@ -883,7 +672,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               )),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog2(context);
                 },
           child: Text('Halal',
@@ -895,7 +683,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog2(context);
                 },
                 child: Text('Vegan',
@@ -906,7 +693,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               )),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog2(context);
                 },
           child: Text('Vegetarian',
@@ -918,7 +704,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog2(context);
                 },
           child: Text('Pescatarian',
@@ -934,7 +719,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
   Future<void> _showSimpleDialog1() async {
     await showDialog<void>(
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
         context: context,
+        barrierColor: null,
         builder: (BuildContext context) {
           return SimpleDialog(
             shape: const RoundedRectangleBorder(
@@ -943,7 +732,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: <Widget>[
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog3(context);
                 },
                 child: Text('Sustainable Packaging',
@@ -954,7 +742,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               )),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog3(context);
                 },
           child: Text('Top Chefs',
@@ -966,7 +753,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog3(context);
                 },
                 child: Text('Rating',
@@ -977,7 +763,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               )),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog3(context);
                 },
           child: Text('Distance',
@@ -989,7 +774,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
+
                   _showSimpleDialog3(context);
                 },
           child: Text('Quickest Delivery',
@@ -1001,7 +786,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  Get.back();
                   _showSimpleDialog3(context);
                 },
           child: Text('Recommended',

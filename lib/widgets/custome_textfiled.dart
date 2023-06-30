@@ -211,7 +211,7 @@ class _CustomTextField1State extends State<CustomTextField1> {
             /*errorStyle: const TextStyle(
               overflow: TextOverflow.clip,
             ),*/
-            contentPadding: const EdgeInsets.only(left: 10, top: 15),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 1),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: const Color(0xFF34472C).withOpacity(0.21),
@@ -392,6 +392,45 @@ class CommonButton extends StatelessWidget {
                   color: Colors.white,
                   letterSpacing: .5,
                   fontSize: 22))),
+    );
+  }
+}
+class CommonButton1 extends StatelessWidget {
+  final String title;
+  final VoidCallback? onPressed;
+
+  const CommonButton1({Key? key, required this.title, this.onPressed}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: const LinearGradient(
+              // begin: Alignment.topCenter,
+              // end: Alignment.bottomCenter,
+              colors: [
+               Color(0xFF7ED957),
+                Color(0xff6BD13F)]
+          ),
+      ),
+      child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(AddSize.screenWidth, AddSize.size50*1.2),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12), // <-- Radius
+            ),
+            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+          child: Text(title,
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                  // letterSpacing: .5,
+                  fontSize: 19))),
     );
   }
 }
@@ -621,7 +660,94 @@ class CommonTextFieldWidget1 extends StatelessWidget {
     );
   }
 }
+class RegistrationTextFieldChk extends StatelessWidget {
+  final IconData? suffixIcon;
+  final IconData? prefixIcon;
+  final Widget? suffix;
+  final Widget? prefix;
+  final Color? bgColor;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final String? hint;
+  final Iterable<String>? autofillHints;
+  final TextEditingController? controller;
+  final bool? readOnly;
+  final dynamic value = 0;
+  final dynamic minLines;
+  final dynamic maxLines;
+  final bool? obscureText;
+  final bool? enable;
+  final VoidCallback? onTap;
+  final length;
 
+  const RegistrationTextFieldChk({
+    Key? key,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.hint,
+    this.keyboardType,
+    this.textInputAction,
+    this.controller,
+    this.bgColor,
+    this.validator,
+    this.suffix,
+    this.autofillHints,
+    this.prefix,
+    this.minLines = 1,
+    this.maxLines = 1,
+    this.obscureText = false,
+    this.readOnly = false,
+    this.onTap,
+    this.enable,
+    this.length,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTap: onTap,
+      readOnly: readOnly!,
+      controller: controller,
+      obscureText: hint == hint ? obscureText! : false,
+      autofillHints: autofillHints,
+      validator: validator,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      minLines: minLines,
+      maxLines: maxLines,
+      enabled: enable,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(length),
+      ],
+      decoration: InputDecoration(
+          hintText: hint,
+          focusColor: Colors.green,
+          hintStyle: GoogleFonts.poppins(
+            color: const Color(0x000000).withOpacity(0.57),
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+          ),
+          filled: true,
+
+          fillColor: Color(0xFFFFFFFF),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+          // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderRadius: const BorderRadius.all(Radius.circular(10.0))),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade300, width: 3.0),
+              borderRadius: BorderRadius.circular(15.0)),
+          suffixIcon: suffix,
+          prefixIcon: prefix),
+    );
+  }
+}
 class RegistrationTextField extends StatelessWidget {
   final IconData? suffixIcon;
   final IconData? prefixIcon;

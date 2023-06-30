@@ -70,6 +70,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
                         child: Form(
                           key: _formKey1,
                           child: Column(
@@ -225,7 +226,7 @@ class _SignupScreenState extends State<SignupScreen> {
                              else {
                                setState(() {
                                  showErrorMessage = false;
-                                 Get.toNamed(MyRouters.otpScreen);
+                                 Get.toNamed(MyRouters.emailVerificationScreen);
                                });
                              }
                               }),

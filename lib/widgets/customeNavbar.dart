@@ -274,7 +274,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 onTap: () {
                   setState(() {
                     currentDrawer = 7;
-                    // Get.to(SettingScreenVendor());
+                    Get.toNamed(MyRouters.chatScreen);
                   });
                 },
               ),

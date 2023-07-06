@@ -57,7 +57,8 @@ dependencies:
   geolocator:
   convex_bottom_bar: ^3.2.0
   url_launcher:
-
+  flutter_rating_bar:
+  dotted_line:
 
 dev_dependencies:
   flutter_test:

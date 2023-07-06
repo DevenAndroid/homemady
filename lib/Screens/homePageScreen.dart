@@ -203,6 +203,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               color: Color(0xffEFEFEF),
               thickness: 1,
             ),
+
             ListTile(
               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
               leading: Image.asset(

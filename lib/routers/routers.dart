@@ -19,6 +19,7 @@ import 'package:homemady/Screens/onborading_screen.dart';
 import 'package:homemady/Screens/orderDetailsScreen.dart';
 import 'package:homemady/Screens/otpScreen.dart';
 import 'package:homemady/Screens/otp_forgot.dart';
+import 'package:homemady/Screens/review_screen.dart';
 import 'package:homemady/Screens/signupScreen.dart';
 import 'package:homemady/Screens/splash_screen.dart';
 import 'package:homemady/Screens/thankyou_Screen.dart';
@@ -55,6 +56,7 @@ class MyRouters {
   static var chooseAddress = "/chooseAddress";
   static var chatScreen = "/chatScreen";
   static var chatMessageScreen = "/chatMessageScreen";
+  static var reviewScreen = "/reviewScreen";
 
 
   static var route = [
@@ -84,6 +86,7 @@ class MyRouters {
   GetPage(name: '/chooseAddress', page: () => const ChooseAddress()),
   GetPage(name: '/chatScreen', page: () => const ChatScreen()),
   GetPage(name: '/chatMessageScreen', page: () => const ChatMessageScreen()),
+  GetPage(name: '/reviewScreen', page: () => const ReviewScreen()),
 
 
 

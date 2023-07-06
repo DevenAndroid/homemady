@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:homemady/Screens/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../routers/routers.dart';
 import '../widgets/custome_size.dart';
@@ -231,7 +232,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
                 child: InkWell(
                   onTap: (){
-                    Get.toNamed(MyRouters.loginScreen);
+                    controller.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease);
+                    if (currentIndex == 2) {
+                      Get.toNamed(MyRouters.loginScreen);
+                    }
                   },
                   child: const Icon(Icons.arrow_forward,size: 30,color: Colors.white,),
                 ),

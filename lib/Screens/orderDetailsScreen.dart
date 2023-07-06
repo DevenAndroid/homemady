@@ -384,7 +384,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                   fontSize: 14),
                                             ),
                                             Text(
-                                              "Punjab",
+                                              "United",
                                               style: TextStyle(
                                                   height: 1.5,
                                                   fontWeight: FontWeight.w600,
@@ -557,7 +557,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                     ),
                     SizedBox(height: AddSize.size20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(MyRouters.reviewScreen);
+                      },
                       child: Container(
                         height: 56,
                         width: AddSize.screenWidth / 1.1,
@@ -580,7 +582,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                     ),
                     SizedBox(height: AddSize.size20),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(MyRouters.reviewScreen);
+                    },
                     child: Container(
                       height: 56,
                       width: AddSize.screenWidth / 1.1,
@@ -737,7 +741,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                   fontSize: 14),
                                             ),
                                             Text(
-                                              "Punjab",
+                                              "United",
                                               style: TextStyle(
                                                   height: 1.5,
                                                   fontWeight: FontWeight.w600,
@@ -908,7 +912,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                     ),
                     SizedBox(height: AddSize.size20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(MyRouters.reviewScreen);
+                      },
                       child: Container(
                         height: 56,
                         width: AddSize.screenWidth / 1.1,
@@ -931,7 +937,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                     ),
                     SizedBox(height: AddSize.size20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(MyRouters.reviewScreen);
+                      },
                       child: Container(
                         height: 56,
                         width: AddSize.screenWidth / 1.1,

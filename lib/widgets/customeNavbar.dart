@@ -186,29 +186,29 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   });
                 },
               ),
-              // const Divider(
-              //   height: 5,
-              //   color: Color(0xffEFEFEF),
-              //   thickness: 1,
-              // ),
-              // ListTile(
-              //   visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              //   leading: Image.asset(
-              //     'assets/images/notebook_reference.png',
-              //     height: 20,
-              //   ),
-              //   title:  Text('Refer and Earn',
-              //       style: GoogleFonts.poppins(
-              //         fontSize: 15,
-              //         color: const Color(0xFF4F535E),
-              //         fontWeight: FontWeight.w400,)),
-              //   onTap: () {
-              //     setState(() {
-              //       currentDrawer = 4;
-              //       // Get.to(VendorNotificationScreen());
-              //     });
-              //   },
-              // ),
+              const Divider(
+                height: 5,
+                color: Color(0xffEFEFEF),
+                thickness: 1,
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+                leading: Image.asset(
+                  'assets/images/notebook_reference.png',
+                  height: 20,
+                ),
+                title:  Text('Refer and Earn',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      color: const Color(0xFF4F535E),
+                      fontWeight: FontWeight.w400,)),
+                onTap: () {
+                  setState(() {
+                    currentDrawer = 4;
+                    Get.toNamed(MyRouters.referAndEarn);
+                  });
+                },
+              ),
               // const Divider(
               //   height: 5,
               //   color: Color(0xffEFEFEF),
@@ -251,7 +251,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 onTap: () {
                   setState(() {
                     currentDrawer = 6;
-                    // Get.to(VendorHelpCenterScreen());
+                    Get.toNamed(MyRouters.privacyPolicy);
                   });
                 },
               ),

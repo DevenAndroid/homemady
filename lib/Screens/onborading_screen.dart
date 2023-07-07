@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/Screens/login_screen.dart';
+import 'package:homemady/widgets/app_theme.dart';
+import 'package:homemady/widgets/dimenestion.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../routers/routers.dart';
 import '../widgets/custome_size.dart';
@@ -17,6 +19,9 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   PageController controller = PageController();
   int currentIndex = 0;
+  RxInt currentIndex12 = 0.obs;
+  RxBool currentIndex1 = false.obs;
+   bool isActive = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery
@@ -64,7 +69,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     axisDirection: Axis.horizontal,
                                     controller: controller,
                                     count: page1.length,
-                                    effect: const WormEffect(
+                                    effect: const ExpandingDotsEffect(
                                       activeDotColor: Color(0xFFFFC529),
                                       dotWidth: 10,
                                       dotHeight: 10,

@@ -152,29 +152,29 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 });
               },
             ),
-            // const Divider(
-            //   height: 5,
-            //   color: Color(0xffEFEFEF),
-            //   thickness: 1,
-            // ),
-            // ListTile(
-            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-            //   leading: Image.asset(
-            //     'assets/images/notebook_reference.png',
-            //     height: 20,
-            //   ),
-            //   title:  Text('Refer and Earn',
-            //       style: GoogleFonts.poppins(
-            //         fontSize: 15,
-            //         color: const Color(0xFF4F535E),
-            //         fontWeight: FontWeight.w400,)),
-            //   onTap: () {
-            //     setState(() {
-            //       currentDrawer = 4;
-            //       // Get.to(VendorNotificationScreen());
-            //     });
-            //   },
-            // ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/notebook_reference.png',
+                height: 20,
+              ),
+              title:  Text('Refer and Earn',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 4;
+                 Get.toNamed(MyRouters.referAndEarn);
+                });
+              },
+            ),
             // const Divider(
             //   height: 5,
             //   color: Color(0xffEFEFEF),
@@ -218,7 +218,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               onTap: () {
                 setState(() {
                   currentDrawer = 6;
-                  // Get.to(VendorHelpCenterScreen());
+                 Get.toNamed(MyRouters.privacyPolicy);
                 });
               },
             ),
@@ -345,24 +345,39 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Hello',
-                          style: GoogleFonts.poppins(
-                              color: const Color(0xFF676767),
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('Hello',
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF676767),
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16
+                              ),
+                            ),
+                            Text('Alexandra',
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF353535),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 22
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 18.0),
+                          child: InkWell(
+                            onTap: (){
+                              Get.toNamed(MyRouters.favouriteScreen);
+                            },
+                            child: const Icon(Icons.favorite_outline,color: Color(0xFF7ED957),size: 30,),
                           ),
                         ),
-                        Text('Alexandra',
-                          style: GoogleFonts.poppins(
-                              color: const Color(0xFF353535),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22
-                          ),
-                        ),
+
                       ],
                     ),
                     addHeight(20),

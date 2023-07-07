@@ -7,6 +7,7 @@ import 'package:homemady/Screens/chat_screen.dart';
 import 'package:homemady/Screens/checkoutScreen.dart';
 import 'package:homemady/Screens/email_verification2.dart';
 import 'package:homemady/Screens/email_verification_screen.dart';
+import 'package:homemady/Screens/favourite_screen.dart';
 import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/homedetails_Screen.dart';
 import 'package:homemady/Screens/myAddressScreen.dart';
@@ -19,6 +20,8 @@ import 'package:homemady/Screens/onborading_screen.dart';
 import 'package:homemady/Screens/orderDetailsScreen.dart';
 import 'package:homemady/Screens/otpScreen.dart';
 import 'package:homemady/Screens/otp_forgot.dart';
+import 'package:homemady/Screens/privacy_policies.dart';
+import 'package:homemady/Screens/refer_and_earn.dart';
 import 'package:homemady/Screens/review_screen.dart';
 import 'package:homemady/Screens/signupScreen.dart';
 import 'package:homemady/Screens/splash_screen.dart';
@@ -57,6 +60,9 @@ class MyRouters {
   static var chatScreen = "/chatScreen";
   static var chatMessageScreen = "/chatMessageScreen";
   static var reviewScreen = "/reviewScreen";
+  static var favouriteScreen = "/favouriteScreen";
+  static var referAndEarn = "/referAndEarn";
+  static var privacyPolicy = "/privacyPolicy";
 
 
   static var route = [
@@ -87,6 +93,9 @@ class MyRouters {
   GetPage(name: '/chatScreen', page: () => const ChatScreen()),
   GetPage(name: '/chatMessageScreen', page: () => const ChatMessageScreen()),
   GetPage(name: '/reviewScreen', page: () => const ReviewScreen()),
+  GetPage(name: '/favouriteScreen', page: () => const FavouriteScreen()),
+  GetPage(name: '/referAndEarn', page: () => const ReferAndEarn()),
+  GetPage(name: '/privacyPolicy', page: () => const PrivacyPolicy()),
 
 
 

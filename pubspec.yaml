@@ -59,6 +59,9 @@ dependencies:
   url_launcher:
   flutter_rating_bar:
   dotted_line:
+  percent_indicator:
+  badges:
+
 
 dev_dependencies:
   flutter_test:

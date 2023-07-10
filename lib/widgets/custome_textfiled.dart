@@ -569,10 +569,10 @@ class CommonButton extends StatelessWidget {
           ),
           child: Text(title,
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   color: Colors.white,
                   letterSpacing: .5,
-                  fontSize: 22))),
+                  fontSize: 18))),
     );
   }
 }

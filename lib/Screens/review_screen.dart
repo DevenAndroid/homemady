@@ -1,6 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -34,9 +35,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
                  fontSize: 15
                ),),
               addHeight(16),
+
               RatingBar.builder(
                 initialRating: 4,
-                glowColor: Colors.transparent,
+                glowColor: Colors.white10,
                 minRating: 1,
                 unratedColor: const Color(0xFFE0DEDA),
                 itemCount: 5,
@@ -77,15 +79,21 @@ class _ReviewScreenState extends State<ReviewScreen> {
               ),
               addHeight(25),
               CommonButton(title: 'Publish Feedback',onPressed: (){
+                Get.toNamed(MyRouters.feedBackScreen);
+                  print("object");
+              },),
+              addHeight(15),
+              CommonButton(title: 'Skip',onPressed: (){
+                Get.toNamed(MyRouters.bottomNavbar);
                   print("object");
               },),
               addHeight(16),
-              const Text('Your review will be posted to the Google Play store.',
-                style: TextStyle(
-                    color: Color(0xFFA3A29E),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13
-                ),),
+              // const Text('Your review will be posted to the Google Play store.',
+              //   style: TextStyle(
+              //       color: Color(0xFFA3A29E),
+              //       fontWeight: FontWeight.w600,
+              //       fontSize: 13
+              //   ),),
             ],
           ),
         ),

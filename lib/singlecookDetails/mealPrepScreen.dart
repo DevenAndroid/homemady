@@ -16,6 +16,24 @@ class mealPrepScreen extends StatefulWidget {
 
 class _mealPrepScreenState extends State<mealPrepScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _decrement();
+    _increment();
+  }
+  int count = 0;
+  void _increment() {
+    setState(() {
+      count++;
+    });
+  }
+  void _decrement() {
+    setState(() {
+      count--;
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -121,6 +139,7 @@ class _mealPrepScreenState extends State<mealPrepScreen> {
                                             InkWell(
                                               onTap:
                                                   () {
+                                                _decrement();
                                               },
                                               child:
                                               Container(
@@ -139,18 +158,17 @@ class _mealPrepScreenState extends State<mealPrepScreen> {
                                             Container(
                                               alignment:
                                               Alignment.center,
-                                              child:
-                                              const Padding(
-                                                padding: EdgeInsets.only(left: 14.0, right: 14.0),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 14.0, right: 14.0),
                                                 child: Text(
-                                                    '1'
+                                                    '${count}'
                                                 ),
                                               ),
                                             ),
                                             InkWell(
                                               onTap:
                                                   () {
-
+                                                _increment();
                                               },
                                               child:
                                               Container(
@@ -196,21 +214,29 @@ class _mealPrepScreenState extends State<mealPrepScreen> {
                                     ),),
                                 ],
                               ),
-                              addHeight(4), Row(
+                              addHeight(4),
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   addWidth(80),
                                   Image.asset('assets/images/helpimg.png',height: 13,),
                                   addWidth(4),
-                                  Text('Can cook more units by: 30th June 2023',
+                                  Text('Available stock: ',
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 11,
                                         color: const Color(0xFF364A4F)
                                     ),),
+                                  Text(' 3 units',
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 11,
+                                        color: const Color(0xFF364A4F)
+                                    ),),
                                 ],
                               ),
+
 
                             ],
                           ),

@@ -164,7 +164,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                   ]),
                                 ),
                                 GestureDetector(
-                                  onTap: () {
+                                  onTap: () async{
+                                      await Share.share('HomeMady ');
                                    // onShare(controller.referAndEarnModel.value.data!.referCode.toString(),context);
                                   },
                                   child: const Icon(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +7,7 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
-import 'package:pinput/pinput.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 
 class OtpScreen extends StatefulWidget {
@@ -21,21 +22,21 @@ class _OtpScreenState extends State<OtpScreen> {
   final formKey99 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final defaultPinTheme =  PinTheme(
-        width: 56,
-        height: 56,
-        textStyle: const TextStyle(
-          fontSize: 22,
-          color: Color.fromRGBO(30, 60, 87, 1),
-        ),
-        decoration: BoxDecoration(
-            border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey.shade300,
-                  width: 4.0,
-                )
-            )
-        ));
+    // final defaultPinTheme =  PinTheme(
+    //     width: 56,
+    //     height: 56,
+    //     textStyle: const TextStyle(
+    //       fontSize: 22,
+    //       color: Color.fromRGBO(30, 60, 87, 1),
+    //     ),
+    //     decoration: BoxDecoration(
+    //         border: Border(
+    //             bottom: BorderSide(
+    //               color: Colors.grey.shade300,
+    //               width: 4.0,
+    //             )
+    //         )
+    //     ));
     return Scaffold(
       body: Stack(
         children: [
@@ -98,13 +99,54 @@ class _OtpScreenState extends State<OtpScreen> {
                         padding: const EdgeInsets.only(left: 29.0,right: 29),
                         child: Form(
                           key: formKey99,
-                          child:  Pinput(
+                          child:  PinCodeTextField(
+                            appContext: context,
+                            textStyle: const TextStyle(color: Colors.black),
                             controller: otpController,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            pastedTextStyle: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            animationType: AnimationType.fade,
+                            validator: (v) {
+                              if (v!.isEmpty) {
+                                return "OTP code Required";
+                              } else if (v.length != 4) {
+                                return "Enter complete OTP code";
+                              }
+                              return null;
+                            },
                             length: 4,
-                            defaultPinTheme: defaultPinTheme,
+                            pinTheme: PinTheme(
+                                shape: PinCodeFieldShape.underline,
+                                // borderRadius: BorderRadius.circular(5),
+                                fieldWidth: 60,
+                                fieldHeight: 50,
+                                activeFillColor: Colors.black,
+                                inactiveColor:  Colors.grey.shade300,
+                                inactiveFillColor: Colors.green,
+                                selectedFillColor: Colors.deepPurple,
+                                selectedColor: Colors.green,
+                                activeColor: Colors.grey.shade300
+                            ),
+                            cursorColor: Colors.green,
+                            keyboardType: TextInputType.number,
+                            onChanged: (v) {
+                              setState(() {
+                                // currentText = v;
+                              });
+                            },
                           ),
+                          // Pinput(
+                          //   controller: otpController,
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   keyboardType: TextInputType.number,
+                          //   length: 4,
+                          //   defaultPinTheme: defaultPinTheme,
+                          // ),
                         ),
                       ),
                       addHeight(40),

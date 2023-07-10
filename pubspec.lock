@@ -166,7 +166,7 @@ packages:
       name: flutter_lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -246,7 +246,7 @@ packages:
       name: geolocator_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.9"
+    version: "4.2.0"
   geolocator_apple:
     dependency: transitive
     description:
@@ -337,7 +337,7 @@ packages:
       name: google_maps_flutter_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0+1"
+    version: "0.5.1"
   google_maps_webservice:
     dependency: "direct main"
     description:
@@ -372,7 +372,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.9"
+    version: "1.0.0"
   image_picker_android:
     dependency: transitive
     description:
@@ -562,13 +562,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.3"
-  pinput:
+  pin_code_fields:
     dependency: "direct main"
     description:
-      name: pinput
+      name: pin_code_fields
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.21"
+    version: "8.0.1"
   platform:
     dependency: transitive
     description:
@@ -638,61 +638,54 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.2.0"
   shared_preferences_android:
     dependency: transitive
     description:
       name: shared_preferences_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.4"
+    version: "2.2.0"
   shared_preferences_foundation:
     dependency: transitive
     description:
       name: shared_preferences_foundation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.2"
+    version: "2.3.1"
   shared_preferences_linux:
     dependency: transitive
     description:
       name: shared_preferences_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   shared_preferences_platform_interface:
     dependency: transitive
     description:
       name: shared_preferences_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   shared_preferences_web:
     dependency: transitive
     description:
       name: shared_preferences_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   shared_preferences_windows:
     dependency: transitive
     description:
       name: shared_preferences_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   sky_engine:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.99"
-  smart_auth:
-    dependency: transitive
-    description:
-      name: smart_auth
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.8"
   smooth_page_indicator:
     dependency: "direct main"
     description:
@@ -804,14 +797,14 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.17"
+    version: "2.0.18"
   url_launcher_windows:
     dependency: transitive
     description:
       name: url_launcher_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.6"
+    version: "3.0.7"
   uuid:
     dependency: transitive
     description:

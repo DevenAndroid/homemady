@@ -30,7 +30,9 @@ class _ChatScreenState extends State<ChatScreen> {
         titleSpacing: 30,
         backgroundColor: Colors.white,
         leading: IconButton(
-          onPressed: (){},
+          onPressed: (){
+            Get.back();
+          },
           icon: const Icon(Icons.arrow_back,color: Colors.black,),
         ),
         leadingWidth: AddSize.size40 * 0.9,

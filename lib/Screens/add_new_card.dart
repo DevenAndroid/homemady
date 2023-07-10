@@ -155,7 +155,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                   else {
                     setState(() {
                       showErrorMessage = false;
-                      Get.toNamed(MyRouters.emailVerificationScreen);
+                      // Get.toNamed(MyRouters.emailVerificationScreen);
                     });
                   }
                 }),

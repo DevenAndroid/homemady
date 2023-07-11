@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:pinput/pinput.dart';
+
+import '../repository/signup_repository.dart';
 
 
 class OtpScreen extends StatefulWidget {
@@ -130,7 +133,18 @@ class _OtpScreenState extends State<OtpScreen> {
                         padding: const EdgeInsets.only(left: 24.0,right: 24,top: 70,bottom: 20),
                         child: CommonButton(title: 'Verify OTP',
                          onPressed: (){
-                           Get.toNamed(MyRouters.bottomNavbar);
+                          print("Hello");
+                          if(formKey99.currentState!.validate()){
+                            verifyOTPPassword(Get.arguments[0],otpController.text,context).then((value){
+                              if(value.status==true){
+                                showToast(value.message);
+                                Get.toNamed(MyRouters.loginScreen);
+                              }
+                              else{
+                                showToast(value.message);
+                              }
+                            });
+                          }
                          },
                         ),
                       ),

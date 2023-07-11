@@ -9,6 +9,7 @@ import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:homemady/controller/bottomNavbarController.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
@@ -295,9 +296,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
                       color: const Color(0xFF4F535E),
                       fontWeight: FontWeight.w400,)),
                 onTap: () {
-                  setState(() {
-                    currentDrawer = 7;
-                    // Get.to(SettingScreenVendor());
+                  setState(() async {
+                    SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                    await preferences.clear();
+                    Get.offAllNamed(MyRouters.loginScreen);
                   });
                 },
               ),
@@ -310,7 +313,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         bottomNavigationBar:  ConvexAppBar(
           backgroundColor: Colors.white,
             color: const Color(0xFF4E5B5F),
-            height: 45,
+            // height: 45,
             activeColor: Colors.green,
             onTap: (int index) => currentIndex.value = index,
             items: [

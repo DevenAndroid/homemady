@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../repository/login_repository.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -89,8 +95,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: CommonTextFieldWidget(
                                 hint: 'Enter your email or phone number',
                                 controller: emailController,
-                                validator: (value) {
-
+                                validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Email or Phone is required";
+                                  }
+                                  else{
+                                    return null;
+                                  }
                                 },
                               ),
                             ),
@@ -113,7 +124,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: CommonTextFieldWidget(
                                 hint: 'Password',
                                 controller: passwordController,
-
+                                  validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Password is required";
+                                  }
+                                  else{
+                                    return null;
+                                  }
+                                  },
                               ),
                             ),
                             addHeight(30),
@@ -210,8 +228,33 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             addHeight(34),
-                            CommonButton(title: 'Login',onPressed: (){
-                              Get.toNamed(MyRouters.bottomNavbar);
+                            CommonButton(title: 'Login',onPressed: ()  {
+                              // var fcmToken = await FirebaseMessaging
+                              //     .instance
+                              //     .getToken();
+                              if(_formKey.currentState!.validate()){
+
+                                loginRepo(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  context: context
+                                ).then((value) async {
+                                  if(value.status==true){
+                                    SharedPreferences pref =
+                                        await SharedPreferences
+                                        .getInstance();
+                                    pref.setString(
+                                        'user_info', jsonEncode(value));
+                                    showToast(value.message);
+                                    Get.offAllNamed(MyRouters.bottomNavbar);
+                                  }
+                                  else if(value.status==false){
+                                    showToast(value.message);
+                                  }
+                                });
+
+                              }
+
                             },),
                             addHeight(36),
                             Row(

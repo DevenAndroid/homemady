@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
+
+import '../repository/signup_repository.dart';
 
 
 class SignupScreen extends StatefulWidget {
@@ -93,6 +97,13 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: CommonTextFieldWidget(
                                   hint: 'Name',
                                   controller: nameController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Name is required";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
                                 ),
                               ),
                              addHeight(20),
@@ -111,8 +122,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ],
                                     color: Colors.white
                                 ),
-                                child: CommonTextFieldWidget(
+                                child:  CommonTextFieldWidget(
                                   hint: 'Email',
+                                  controller: emailController,
+                                  validator: MultiValidator([
+                                    EmailValidator(
+                                        errorText:
+                                        'enter a valid email address'),
+                                    RequiredValidator(
+                                        errorText: 'Email is required')
+                                  ]),
                                 ),
                               ),
                               addHeight(20),
@@ -132,8 +151,17 @@ class _SignupScreenState extends State<SignupScreen> {
                                     color: Colors.white
                                 ),
                                 child: CommonTextFieldWidget(
+                                  keyboardType: TextInputType.number,
+                                  length: 10,
                                   hint: 'Phone',
                                   controller: phoneController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "phone is required";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
                                 ),
                               ),
                               addHeight(20),
@@ -155,6 +183,13 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: CommonTextFieldWidget(
                                   hint: 'Password',
                                   controller: passwordController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Password is required";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
                                 ),
                               ),
                               addHeight(20),
@@ -176,6 +211,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: CommonTextFieldWidget(
                                   hint: 'Confirm Password',
                                   controller: confirmController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "confirm the password";
+                                    } else if (confirmController.text !=
+                                        passwordController.text) {
+                                      return "Confirm password should be match";
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
                               addHeight(23),
@@ -186,14 +230,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                     child: Theme(
                                       data: ThemeData(
                                           unselectedWidgetColor: checkboxColor.value == false
-                                              ? Color(0xFF64646F)
-                                              : Color(0xFF64646F)
+                                              ? const Color(0xFF64646F)
+                                              : const Color(0xFF64646F)
                                       ),
                                       child: Checkbox(
-                                          shape: CircleBorder(),
+                                          shape: const CircleBorder(),
                                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                           value: value,
-                                          activeColor: Color(0xFF7ED957),
+                                          activeColor: const Color(0xFF7ED957),
                                           onChanged: (newValue) {
                                             setState(() {
                                               value = newValue!;
@@ -211,24 +255,47 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ],
                               ),
                               addHeight(26),
-                              CommonButton(title: 'Signup',onPressed: (){
-                             if (value != true) {
-                                 setState(() {
-                                   showErrorMessage = true;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                   const SnackBar(
-                                    content: Text(
-                                     "Agree to our terms of Service"),
-                                  ));
+                              CommonButton(
+                                  title: 'Signup',
+                                  onPressed: (){
+
+                                if(_formKey1.currentState!.validate()){
+                                  //print("Hello");
+                                  register(
+                                    nameController.text,
+                                    emailController.text,
+                                    phoneController.text,
+                                    passwordController.text,
+                                    confirmController.text,
+                                    '2',
+                                    context
+                                  ).then((value){
+                                    if(value.status==true){
+                                      showToast(value.message);
+                                      Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text]);
+                                    }else{
+                                      showToast(value.message);
+                                    }
+                                  });
                                 }
-                                );
-                              }
-                             else {
-                               setState(() {
-                                 showErrorMessage = false;
-                                 Get.toNamed(MyRouters.emailVerificationScreen);
-                               });
-                             }
+
+                             // if (value != true) {
+                             //     setState(() {
+                             //       showErrorMessage = true;
+                             //      ScaffoldMessenger.of(context).showSnackBar(
+                             //       const SnackBar(
+                             //        content: Text(
+                             //         "Agree to our terms of Service"),
+                             //      ));
+                             //    }
+                             //    );
+                             //  }
+                             // else {
+                             //   setState(() {
+                             //     showErrorMessage = false;
+                             //     Get.toNamed(MyRouters.emailVerificationScreen);
+                             //   });
+                             // }
                               }),
                               addHeight(26),
                               Row(

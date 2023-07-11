@@ -40,7 +40,7 @@ dependencies:
   shared_preferences:
   smooth_page_indicator:
   google_fonts:
-  pinput: ^2.2.21
+  pinput: ^2.2.31
   form_field_validator:
   intl: ^0.17.0
   flutter_slidable:
@@ -55,6 +55,7 @@ dependencies:
   google_maps_flutter:
   google_maps_webservice:
   geolocator:
+  fluttertoast:
   convex_bottom_bar: ^3.2.0
 
 dev_dependencies:

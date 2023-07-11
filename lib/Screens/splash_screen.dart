@@ -17,15 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(seconds: 5), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
-      // if(pref.getInt("role") == 0){
-      Get.offAllNamed(MyRouters.onBoardingScreen);
-      // }
-      // else if(pref.getInt("role") == 1 ){
-      //   Get.offAllNamed(MyRouters.);
-      // }else{
-      //   Get.offAllNamed(MyRouters.);
-      // }
-
+      if (pref.getString('user_info') != null) {
+        Get.offAllNamed(MyRouters.bottomNavbar);
+      }
+      else{
+        Get.offAllNamed(MyRouters.onBoardingScreen);
+      }
     }
     );
   }

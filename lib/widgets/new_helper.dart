@@ -1,7 +1,12 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'app_theme.dart';
 
 class NewHelper {
   Future addFilePicker() async {
@@ -48,5 +53,32 @@ class NewHelper {
     } on PlatformException catch (e) {
       throw Exception(e);
     }
+  }
+  static OverlayEntry overlayLoader(context) {
+    OverlayEntry loader = OverlayEntry(builder: (context) {
+      final size = MediaQuery.of(context).size;
+      return Positioned(
+        height: size.height,
+        width: size.width,
+        top: 0,
+        left: 0,
+        child:  Material(
+          color: AppTheme.primaryColor.withOpacity(0.02),
+          //color:  Color(0xFF7ED957),
+          child: CupertinoActivityIndicator(
+            radius: 30,
+          ),
+        ),
+      );
+    });
+    return loader;
+  }
+  static hideLoader(OverlayEntry loader) {
+    Timer(const Duration(milliseconds: 250), () {
+      try {
+        loader.remove();
+        // ignore: empty_catches
+      } catch (e) {}
+    });
   }
 }

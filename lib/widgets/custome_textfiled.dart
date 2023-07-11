@@ -352,8 +352,189 @@ class _CustomTextField2State extends State<CustomTextField2> {
     });
   }
 }
+class CommonTextFieldWidgetSearch extends StatelessWidget {
+  final IconData? suffixIcon;
+  final IconData? prefixIcon;
+  final Widget? suffix;
+  final Widget? prefix;
+  final Color? bgColor;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final String? hint;
+  final Iterable<String>? autofillHints;
+  final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
+  final bool? readOnly;
+  final dynamic value = 0;
+  final dynamic minLines;
+  final dynamic maxLines;
+  final bool? obscureText;
+  final VoidCallback? onTap;
+  final length;
 
+  const CommonTextFieldWidgetSearch({
+    Key? key,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.onChanged,
+    this.hint,
+    this.keyboardType,
+    this.textInputAction,
+    this.controller,
+    this.bgColor,
+    this.validator,
+    this.suffix,
+    this.autofillHints,
+    this.prefix,
+    this.minLines = 1,
+    this.maxLines = 1,
+    this.obscureText = false,
+    this.readOnly = false,
+    this.onTap,
+    this.length,
+  }) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTap: onTap,
+      onChanged: onChanged,
+      readOnly: readOnly!,
+      controller: controller,
+      obscureText: hint == hint ? obscureText! : false,
+      autofillHints: autofillHints,
+      validator: validator,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      minLines: minLines,
+      maxLines: maxLines,
+      cursorColor: const Color(0xFF7ED957),
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(length),
+      ],
+      decoration: InputDecoration(
+          hintText: hint,
+          focusColor: Colors.black,
+          hintStyle: const TextStyle(
+            color:  Color(0xff2F353F),
+            fontSize: 14,
+            fontFamily: 'poppins',
+            fontWeight: FontWeight.w300,
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding:
+          const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.all(Radius.circular(50.0))),
+          border: OutlineInputBorder(
+              borderSide:
+              BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
+              borderRadius: BorderRadius.circular(50.0)),
+          suffixIcon: suffix,
+          prefixIcon: prefix),
+    );
+  }
+}
+
+class CommonTextFieldWidgetSearch1 extends StatelessWidget {
+  final IconData? suffixIcon;
+  final IconData? prefixIcon;
+  final Widget? suffix;
+  final Widget? prefix;
+  final Color? bgColor;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final String? hint;
+  final Iterable<String>? autofillHints;
+  final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
+  final bool? readOnly;
+  final dynamic value = 0;
+  final dynamic minLines;
+  final dynamic maxLines;
+  final bool? obscureText;
+  final VoidCallback? onTap;
+  final length;
+
+  const CommonTextFieldWidgetSearch1({
+    Key? key,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.onChanged,
+    this.hint,
+    this.keyboardType,
+    this.textInputAction,
+    this.controller,
+    this.bgColor,
+    this.validator,
+    this.suffix,
+    this.autofillHints,
+    this.prefix,
+    this.minLines = 1,
+    this.maxLines = 1,
+    this.obscureText = false,
+    this.readOnly = false,
+    this.onTap,
+    this.length,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTap: onTap,
+      onChanged: onChanged,
+      readOnly: readOnly!,
+      controller: controller,
+      obscureText: hint == hint ? obscureText! : false,
+      autofillHints: autofillHints,
+      validator: validator,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      minLines: minLines,
+      maxLines: maxLines,
+      cursorColor: const Color(0xFF7ED957),
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(length),
+      ],
+      decoration: InputDecoration(
+          hintText: hint,
+          focusColor: Colors.black,
+          hintStyle: const TextStyle(
+            color:  Color(0xff2F353F),
+            fontSize: 14,
+            fontFamily: 'poppins',
+            fontWeight: FontWeight.w300,
+          ),
+          filled: true,
+          fillColor: Color(0xFFF8F8F8),
+          contentPadding:
+          const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.all(Radius.circular(50.0))),
+          border: OutlineInputBorder(
+              borderSide:
+              BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
+              borderRadius: BorderRadius.circular(50.0)),
+          suffixIcon: suffix,
+          prefixIcon: prefix),
+    );
+  }
+}
 // custom button
 
 class CommonButton extends StatelessWidget {
@@ -388,10 +569,10 @@ class CommonButton extends StatelessWidget {
           ),
           child: Text(title,
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   color: Colors.white,
                   letterSpacing: .5,
-                  fontSize: 22))),
+                  fontSize: 18))),
     );
   }
 }

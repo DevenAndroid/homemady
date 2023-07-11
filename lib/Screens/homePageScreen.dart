@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -21,15 +21,284 @@ class _HomePageScreenState extends State<HomePageScreen> {
   RxBool isSelect = false.obs;
   RxBool selectIcon = false.obs;
   int currentDrawer = 0;
+  RxInt count = 0.obs;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String selectedDate = 'Delivery Now';
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _decrement();
+    _increment();
+  }
+
+  void _increment() {
+    setState(() {
+      count++;
+    });
+  }
+
+  void _decrement() {
+    setState(() {
+      count--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:   Row(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            Image.asset('assets/images/avtarImg.png', height: 45,),
+            SizedBox(
+              height: 230,
+              child: DrawerHeader(
+                  decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xFF7ED957),
+                          Color(0xFF68C541),
+                        ],
+                      )
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/Ellipse 67.png',
+                          height: 100,
+                        ),
+                        Text('Williams Jones',
+                            style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              color: const Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w600,)),
+                        Text('williamsjones@gmail.com',
+                            style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              color: const Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w400,)),
+                      ],
+                    ),
+                  )),
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/note-2.png',
+                height: 20,
+              ),
+              title: Text('My Orders',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 0;
+                  Get.toNamed(MyRouters.myOrderScreen);
+                });
+              },
+            ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/personImg.png',
+                height: 20,
+              ),
+              title: Text('My profile',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 1;
+                  Get.toNamed(MyRouters.myProfileScreen);
+                  // Get.to(VendorOrderList());
+                });
+              },
+            ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/notification-img.png',
+                height: 20,
+              ),
+              title: Text('Notification',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 2;
+                  Get.toNamed(MyRouters.notificationScreen);
+                });
+              },
+            ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/location-my.png',
+                height: 20,
+              ),
+              title: Text('My Address',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 3;
+                  Get.toNamed(MyRouters.myAddressScreen);
+                });
+              },
+            ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/notebook_reference.png',
+                height: 20,
+              ),
+              title: Text('Refer and Earn',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 4;
+                  Get.toNamed(MyRouters.referAndEarn);
+                });
+              },
+            ),
+            // const Divider(
+            //   height: 5,
+            //   color: Color(0xffEFEFEF),
+            //   thickness: 1,
+            // ),
+            // ListTile(
+            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+            //   leading: Image.asset(
+            //     'assets/images/bx_wallet.png',
+            //     height: 20,
+            //   ),
+            //   title:  Text('My Wallet',
+            //       style: GoogleFonts.poppins(
+            //         fontSize: 15,
+            //         color: const Color(0xFF4F535E),
+            //         fontWeight: FontWeight.w400,)),
+            //   onTap: () {
+            //     setState(() {
+            //       currentDrawer = 5;
+            //       Get.toNamed(MyRouters.myCartScreen);
+            //     });
+            //   },
+            // ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/metro-security.png',
+                height: 20,
+              ),
+              title: Text('Privacy Policy',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 6;
+                  Get.toNamed(MyRouters.privacyPolicy);
+                });
+              },
+            ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/chatchatting.png',
+                height: 20,
+              ),
+              title: Text('Message',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 7;
+                  Get.toNamed(MyRouters.chatScreen);
+                });
+              },
+            ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
+                'assets/images/logout.png',
+                height: 16,
+              ),
+              title: Text('Logout',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 7;
+                  // Get.to(SettingScreenVendor());
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            InkWell(
+                onTap: () {
+                  _scaffoldKey.currentState!.openDrawer();
+                },
+                child: Image.asset('assets/images/avtarImg.png', height: 45,)),
             addWidth(6),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +321,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),),
                     addWidth(4),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Get.toNamed(MyRouters.myAddressScreen);
                       },
                       child: Image.asset('assets/images/pencilImg.png',
@@ -63,21 +332,27 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ],
             ),
             const Spacer(),
-            InkWell(
-              child: Container(
-                height: 42,
-                width: 42,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xFF7ED957)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('assets/images/shoppingImg.png',
-                    height: 30,),
-                ),
-              ),
-            ),
+            // Badge(
+            //   badgeStyle: BadgeStyle(
+            //       padding: EdgeInsets.all(7)
+            //   ),
+            //   badgeContent: Text('${count}', style: TextStyle(color: Colors.white),),
+            //   child: InkWell(
+            //     child: Container(
+            //       height: 42,
+            //       width: 42,
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(10),
+            //           color: const Color(0xFF7ED957)
+            //       ),
+            //       child: Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Image.asset('assets/images/shoppingImg.png',
+            //           height: 30,),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -96,24 +371,41 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Hello',
-                          style: GoogleFonts.poppins(
-                              color: const Color(0xFF676767),
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('Hello',
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF676767),
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16
+                              ),
+                            ),
+                            Text('Alexandra',
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF353535),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 22
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 18.0),
+                          child: InkWell(
+                            onTap: () {
+                              Get.toNamed(MyRouters.favouriteScreen);
+                            },
+                            child: const Icon(
+                              Icons.favorite_outline, color: Color(0xFF7ED957),
+                              size: 30,),
                           ),
                         ),
-                        Text('Alexandra',
-                          style: GoogleFonts.poppins(
-                              color: const Color(0xFF353535),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22
-                          ),
-                        ),
+
                       ],
                     ),
                     addHeight(20),
@@ -123,30 +415,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         Expanded(
                           child: Container(
-                            height: 42,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF37C666).withOpacity(0.10),
-                                    offset: const Offset(.1, .1,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF37C666)
+                                          .withOpacity(0.10),
+                                      offset: const Offset(.1, .1,
+                                      ),
+                                      blurRadius: 20.0,
+                                      spreadRadius: 1.0,
                                     ),
-                                    blurRadius: 20.0,
-                                    spreadRadius: 1.0,
-                                  ),
-                                ],
-                                color: Colors.white
-                            ),
-                            child: CommonTextFieldWidget1(
-                              hint: 'Search Your Food',
-                              prefix: Icon(Icons.search,size: 19,color: const Color(0xFF000000).withOpacity(0.56),),
-                              onChanged: (val){
-                                _showSimpleDialog3(context);
-                              },
-                            )
+                                  ],
+                                  color: Colors.white
+                              ),
+                              child: CommonTextFieldWidget1(
+                                hint: 'Search Your Food',
+                                prefix: Icon(Icons.search, size: 19,
+                                  color: const Color(0xFF000000).withOpacity(
+                                      0.56),),
+                                onChanged: (val) {
+                                  _showSimpleDialog3(context);
+                                },
+                              )
                           ),
                         ),
-                    addWidth(10),
+                        addWidth(10),
 
                         InkWell(
                           onTap: () {
@@ -156,11 +451,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             height: 40,
                             width: 40,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: const Color(0xFF7ED957),
+                              borderRadius: BorderRadius.circular(4),
+                              color: const Color(0xFF7ED957),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(0xFF37C666).withOpacity(0.30),
+                                  color: const Color(0xFF37C666).withOpacity(
+                                      0.30),
                                   offset: const Offset(.1, .1,
                                   ),
                                   blurRadius: 20.0,
@@ -187,7 +483,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 borderRadius: BorderRadius.circular(4),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: const Color(0xFF37C666).withOpacity(0.10),
+                                    color: const Color(0xFF37C666).withOpacity(
+                                        0.10),
                                     offset: const Offset(.1, .1,
                                     ),
                                     blurRadius: 20.0,
@@ -222,7 +519,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           return Row(
                             children: [
                               Container(
-                                child: Image.asset('assets/images/slider.png',width: 226,),
+                                child: Image.asset(
+                                  'assets/images/slider.png', width: 226,),
                               ),
                               addWidth(20)
                             ],
@@ -239,18 +537,20 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         children: [
                           Expanded(
                             child: InkWell(
-                              onTap: () {
-                              },
+                              onTap: () {},
                               child:
                               Container(
                                 height: 44,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),
-                                    border:  selectedDate == 'Delivery Now' ? Border.all(
+                                    border: selectedDate == 'Delivery Now'
+                                        ? Border.all(
                                         color: const Color(0xFF7ED957),
-                                      width: 2
-                                    ) :  Border.all(
-                                        color: const Color(0xFF717171).withOpacity(0.22),
+                                        width: 2
+                                    )
+                                        : Border.all(
+                                        color: const Color(0xFF717171)
+                                            .withOpacity(0.22),
                                         width: 1
                                     )
                                 ),
@@ -258,13 +558,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    selectedDate == 'Delivery Now' ?  Padding(
+                                    selectedDate == 'Delivery Now' ? Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Image.asset(
-                                        'assets/images/clockImg.png', height: 18,),
-                                    ):   Padding(
-                                             padding: const EdgeInsets.all(8.0),
-                                             child: Image.asset('assets/images/calendar_date.png', height: 18,   color: const Color(0xFF262626).withOpacity(0.62),),),
+                                        'assets/images/clockImg.png',
+                                        height: 18,),
+                                    ) : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        'assets/images/calendar_date.png',
+                                        height: 18,
+                                        color: const Color(0xFF262626)
+                                            .withOpacity(0.62),),),
                                     selectedDate == 'Delivery Now' ?
                                     Text(selectedDate,
                                       style: GoogleFonts.poppins(
@@ -272,9 +577,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
                                       ),
-                                    ): Text(selectedDate,
+                                    ) : Text(selectedDate,
                                       style: GoogleFonts.poppins(
-                                        color: const Color(0xFF262626).withOpacity(0.62),
+                                        color: const Color(0xFF262626)
+                                            .withOpacity(0.62),
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
                                       ),
@@ -293,15 +599,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     return Theme(
                                       data: Theme.of(context).copyWith(
                                         colorScheme: const ColorScheme.light(
-                                            primary: Color(0xFF7ED957),
-                                            // header background color
-                                            onPrimary: Colors.white,
-                                            // header text color
-                                            onSurface: Color(0xFF7ED957),// body text color
+                                          primary: Color(0xFF7ED957),
+                                          // header background color
+                                          onPrimary: Colors.white,
+                                          // header text color
+                                          onSurface: Color(
+                                              0xFF7ED957), // body text color
                                         ),
                                         textButtonTheme: TextButtonThemeData(
                                           style: TextButton.styleFrom(
-                                            foregroundColor: const Color(0xFF7ED957), // button text color
+                                            foregroundColor: const Color(
+                                                0xFF7ED957), // button text color
                                           ),
                                         ),
                                       ),
@@ -331,7 +639,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 });
 
                                 if (pickedDate != null) {
-                                  String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
+                                  String formattedDate = DateFormat(
+                                      'yyyy/MM/dd').format(pickedDate);
                                   setState(() {
                                     selectedDate = formattedDate;
                                     log("Seleted Date     $selectedDate");
@@ -339,47 +648,51 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 }
                               },
                               child: Container(
-                                height: 44,
-                                decoration: BoxDecoration(
+                                  height: 44,
+                                  decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),
                                     color: Color(0xFF7ED957),
-                                ),
-                                child: selectedDate == 'Delivery Now' ?
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.asset(
-                                        'assets/images/truckimg.png', height: 18,),
-                                    ),
-                                    Text('Pick a Date',
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xFFFFFFFF),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
+                                  ),
+                                  child: selectedDate == 'Delivery Now' ?
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          'assets/images/truckimg.png',
+                                          height: 18,),
                                       ),
-                                    )
-                                  ],
-                                ) :  Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.asset(
-                                        'assets/images/calendar_date.png', height: 18,),
-                                    ),
-                                    Text('Change Date',
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xFFFFFFFF),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
+                                      Text('Pick a Date',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFFFFFFFF),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
+                                    ],
+                                  ) : Row(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          'assets/images/calendar_date.png',
+                                          height: 18,),
                                       ),
-                                    )
-                                  ],
-                                )
+                                      Text('Change Date',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFFFFFFFF),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
+                                    ],
+                                  )
                               ),
                             ),
                           ),
@@ -402,7 +715,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: const Color(0xFF37C666).withOpacity(
+                                      color: const Color(0xFF37C666)
+                                          .withOpacity(
                                           0.15),
                                       offset: const Offset(.3, .3,
                                       ),
@@ -416,8 +730,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
-                                        onTap: (){
-                                          Get.toNamed(MyRouters.homeDetailsScreen);
+                                        onTap: () {
+                                          Get.toNamed(
+                                              MyRouters.homeDetailsScreen);
                                         },
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment
@@ -438,13 +753,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 Image.asset(
                                                   'assets/images/truckimg.png',
                                                   height: 22,
-                                                  color: const Color(0xFF04666E),),
+                                                  color: const Color(
+                                                      0xFF04666E),),
                                                 addWidth(10),
                                                 Text('Delivery Only 25 mins',
                                                   style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight: FontWeight
+                                                          .w400,
                                                       fontSize: 12,
-                                                      color: const Color(0xFF606573)
+                                                      color: const Color(
+                                                          0xFF606573)
                                                   ),),
                                               ],
                                             )
@@ -463,9 +781,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               .spaceBetween,
                                           children: const [
                                             Icon(Icons.arrow_back_ios,
-                                              color: Colors.white,size: 20,),
+                                              color: Colors.white, size: 20,),
                                             Icon(Icons.arrow_forward_ios,
-                                              color: Colors.white,size: 20,)
+                                              color: Colors.white, size: 20,)
                                           ],
                                         )
                                     ),
@@ -483,7 +801,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     color: Colors.white
                                                 ),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(3),
+                                                  padding: const EdgeInsets.all(
+                                                      3),
                                                   child: Image.asset(
                                                       'assets/images/avtarImg.png'),
                                                 )
@@ -507,9 +826,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 addWidth(3),
                                                 Text('4.95 (35)',
                                                   style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight: FontWeight
+                                                          .w500,
                                                       fontSize: 11,
-                                                      color: const Color(0xFF6A7080)
+                                                      color: const Color(
+                                                          0xFF6A7080)
                                                   ),),
                                               ],
                                             )
@@ -533,25 +854,27 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       color: Colors.white
                                                   ),
                                                   child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .only(left: 10,
-                                                          right: 10,
-                                                          top: 3),
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          isSelect.value =
-                                                          !isSelect.value;
-                                                        },
-                                                        child: isSelect.value ==
-                                                            true
-                                                            ? const Icon(
-                                                          Icons.favorite,
-                                                          color: Color(0xFF54C523),)
-                                                            :
-                                                        const Icon(Icons.favorite_outline,
-                                                          color: Color(
-                                                              0xFF54C523),),
-                                                      ),
+                                                    padding: const EdgeInsets
+                                                        .only(left: 10,
+                                                        right: 10,
+                                                        top: 3),
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        isSelect.value =
+                                                        !isSelect.value;
+                                                      },
+                                                      child: isSelect.value ==
+                                                          true
+                                                          ? const Icon(
+                                                        Icons.favorite,
+                                                        color: Color(
+                                                            0xFF54C523),)
+                                                          :
+                                                      const Icon(
+                                                        Icons.favorite_outline,
+                                                        color: Color(
+                                                            0xFF54C523),),
+                                                    ),
                                                   )
                                               );
                                             }),
@@ -565,66 +888,108 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         right: 15,
                                         //   bottom: 0,
                                         child: Row(
-                                          children:  [
+                                          children: [
 
                                             InkWell(
-                                              onTap: (){
-                                                showGeneralDialog(
-                                                    context: context,
-                                                    barrierDismissible: true,
-                                                    barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                    pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                       return  Stack(
-                                                         children: [
-                                                           Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                           Positioned(
-                                                             right: 18,
-                                                             top: 30,
-                                                             child: Container(
-                                                               padding: EdgeInsets.all(10),
-                                                             height: 80,
-                                                             decoration: const BoxDecoration(
-                                                                 color: Colors.white,
-                                                                 shape: BoxShape.circle
-                                                             ),
-                                                             child:  Icon(Icons.clear)
-                                                           ),)
-                                                         ],
-                                                       );
-                                                    }
-                                                );
-                                              },
-                                                child: Image.asset('assets/images/topChef.png',width: 50,)),
-                                            InkWell(
-                                                onTap: (){
+                                                onTap: () {
                                                   showGeneralDialog(
                                                       context: context,
                                                       barrierDismissible: true,
-                                                      barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                      pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                        return  Stack(
+                                                      barrierColor: const Color(
+                                                          0xFF000000)
+                                                          .withOpacity(0.58),
+                                                      barrierLabel: MaterialLocalizations
+                                                          .of(context)
+                                                          .modalBarrierDismissLabel,
+                                                      pageBuilder: (
+                                                          BuildContext context,
+                                                          Animation first,
+                                                          Animation second) {
+                                                        return Stack(
                                                           children: [
-                                                            Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                                            Center(child: Image
+                                                                .asset(
+                                                                'assets/images/dialogboximg.png')),
                                                             Positioned(
                                                               right: 18,
-                                                              top: 50,
+                                                              top: 30,
                                                               child: Container(
-                                                                  padding: EdgeInsets.all(10),
-                                                                height: 50,
-                                                                decoration: const BoxDecoration(
-                                                                    color: Colors.white,
-                                                                    shape: BoxShape.circle
-                                                                ),
-                                                                child:  Icon(Icons.clear)
+                                                                  padding: EdgeInsets
+                                                                      .all(10),
+                                                                  height: 80,
+                                                                  decoration: const BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      shape: BoxShape
+                                                                          .circle
+                                                                  ),
+                                                                  child: GestureDetector(
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .clear),
+                                                                    onTap: () {
+                                                                      Get
+                                                                          .back();
+                                                                    },)
                                                               ),)
                                                           ],
                                                         );
                                                       }
                                                   );
                                                 },
-                                                child: Image.asset('assets/images/topChef.png',width: 50,)),
+                                                child: Image.asset(
+                                                  'assets/images/topChef.png',
+                                                  width: 50,)),
+                                            InkWell(
+                                                onTap: () {
+                                                  showGeneralDialog(
+                                                      context: context,
+                                                      barrierDismissible: true,
+                                                      barrierColor: const Color(
+                                                          0xFF000000)
+                                                          .withOpacity(0.58),
+                                                      barrierLabel: MaterialLocalizations
+                                                          .of(context)
+                                                          .modalBarrierDismissLabel,
+                                                      pageBuilder: (
+                                                          BuildContext context,
+                                                          Animation first,
+                                                          Animation second) {
+                                                        return Stack(
+                                                          children: [
+                                                            Center(child: Image
+                                                                .asset(
+                                                                'assets/images/dialogboximg.png')),
+                                                            Positioned(
+                                                              right: 18,
+                                                              top: 50,
+                                                              child: Container(
+                                                                  padding: EdgeInsets
+                                                                      .all(10),
+                                                                  height: 50,
+                                                                  decoration: const BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      shape: BoxShape
+                                                                          .circle
+                                                                  ),
+                                                                  child: GestureDetector(
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .clear),
+                                                                    onTap: () {
+                                                                      Get
+                                                                          .back();
+                                                                    },)
+                                                              ),)
+                                                          ],
+                                                        );
+                                                      }
+                                                  );
+                                                },
+                                                child: Image.asset(
+                                                  'assets/images/topChef.png',
+                                                  width: 50,)),
                                           ],
                                         )
                                     ),
@@ -632,7 +997,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ),
                               ),
                             ),
-                           const SizedBox(height: 15,)
+                            const SizedBox(height: 15,)
                           ],
                         );
                       },
@@ -646,163 +1011,167 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
     );
   }
-  
+
   Future<void> _showSimpleDialog() async {
     await showDialog<void>(
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context)
+        barrierLabel: MaterialLocalizations
+            .of(context)
             .modalBarrierDismissLabel,
         context: context,
         barrierColor: null,
         builder: (BuildContext context) {
           return SimpleDialog(
             shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero
+                borderRadius: BorderRadius.zero
             ),
             children: <Widget>[
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog2(context);
-                },
-                child: Text('Gluten Free',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 18,
-                    color: const Color(0xFF425159),),
-              )),
+                  onPressed: () {
+                    _showSimpleDialog2(context);
+                  },
+                  child: Text('Gluten Free',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )),
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog2(context);
-                },
-          child: Text('Halal',
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w300,
-              fontSize: 18,
-              color: const Color(0xFF425159),),
-          )
+                  onPressed: () {
+                    _showSimpleDialog2(context);
+                  },
+                  child: Text('Halal',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )
               ),
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog2(context);
-                },
-                child: Text('Vegan',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 18,
-                    color: const Color(0xFF425159),),
-              )),
+                  onPressed: () {
+                    _showSimpleDialog2(context);
+                  },
+                  child: Text('Vegan',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )),
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog2(context);
-                },
-          child: Text('Vegetarian',
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w300,
-              fontSize: 18,
-              color: const Color(0xFF425159),),
-          )
+                  onPressed: () {
+                    _showSimpleDialog2(context);
+                  },
+                  child: Text('Vegetarian',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )
               ),
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog2(context);
-                },
-          child: Text('Pescatarian',
-          style: GoogleFonts.poppins(
-          fontWeight: FontWeight.w300,
-          fontSize: 18,
-          color: const Color(0xFF425159),),
-          )
+                  onPressed: () {
+                    _showSimpleDialog2(context);
+                  },
+                  child: Text('Pescatarian',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )
               ),
             ],
           );
         });
   }
+
   Future<void> _showSimpleDialog1() async {
     await showDialog<void>(
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context)
+        barrierLabel: MaterialLocalizations
+            .of(context)
             .modalBarrierDismissLabel,
         context: context,
         barrierColor: null,
         builder: (BuildContext context) {
           return SimpleDialog(
             shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero
+                borderRadius: BorderRadius.zero
             ),
             children: <Widget>[
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog3(context);
-                },
-                child: Text('Sustainable Packaging',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 18,
-                    color: const Color(0xFF425159),),
-              )),
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text('Sustainable Packaging',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )),
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog3(context);
-                },
-          child: Text('Top Chefs',
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w300,
-              fontSize: 18,
-              color: const Color(0xFF425159),),
-          )
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text('Top Chefs',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )
               ),
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog3(context);
-                },
-                child: Text('Rating',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 18,
-                    color: const Color(0xFF425159),),
-              )),
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text('Rating',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )),
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog3(context);
-                },
-          child: Text('Distance',
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w300,
-              fontSize: 18,
-              color: const Color(0xFF425159),),
-          )
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text('Distance',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )
               ),
               SimpleDialogOption(
-                onPressed: () {
-
-                  _showSimpleDialog3(context);
-                },
-          child: Text('Quickest Delivery',
-          style: GoogleFonts.poppins(
-          fontWeight: FontWeight.w300,
-          fontSize: 18,
-          color: const Color(0xFF425159),),
-          )
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text('Quickest Delivery',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )
               ),
               SimpleDialogOption(
-                onPressed: () {
-                  _showSimpleDialog3(context);
-                },
-          child: Text('Recommended',
-          style: GoogleFonts.poppins(
-          fontWeight: FontWeight.w300,
-          fontSize: 18,
-          color: const Color(0xFF425159),),
-          )
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text('Recommended',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      color: const Color(0xFF425159),),
+                  )
               ),
             ],
           );
         });
   }
+
   Future<void> _showSimpleDialog2(BuildContext context) async {
     await showDialog(
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context)
+        barrierLabel: MaterialLocalizations
+            .of(context)
             .modalBarrierDismissLabel,
         context: context,
         barrierColor: null,
@@ -811,268 +1180,311 @@ class _HomePageScreenState extends State<HomePageScreen> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.zero
             ),
-            insetPadding: const EdgeInsets.only(bottom: 0,top: 220),
+            insetPadding: const EdgeInsets.only(bottom: 0, top: 220),
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child:   ListView.builder(
-                shrinkWrap: true,
-                itemCount: 5,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF37C666).withOpacity(
-                                    0.15),
-                                offset: const Offset(.3, .3,
+                physics: const BouncingScrollPhysics(),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF37C666).withOpacity(
+                                      0.15),
+                                  offset: const Offset(.3, .3,
+                                  ),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 1.0,
                                 ),
-                                blurRadius: 20.0,
-                                spreadRadius: 1.0,
-                              ),
-                            ],
-                          ),
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: InkWell(
-                                  onTap: (){
-                                    Get.toNamed(MyRouters.homeDetailsScreen);
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .start,
-                                    children: [
-                                      Image.asset(
-                                          'assets/images/Rectangle 2171.png'),
-                                      addHeight(6),
-                                      Text('Burger King with Pizza',
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 16,
-                                            color: const Color(0xFF21283D)
-                                        ),),
-                                      addHeight(6),
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            'assets/images/truckimg.png',
-                                            height: 22,
-                                            color: const Color(0xFF04666E),),
-                                          addWidth(10),
-                                          Text('Delivery Only 25 mins',
-                                            style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12,
-                                                color: const Color(0xFF606573)
-                                            ),),
-                                        ],
-                                      )
-                                    ],
+                              ],
+                            ),
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.toNamed(MyRouters.homeDetailsScreen);
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      children: [
+                                        Image.asset(
+                                            'assets/images/Rectangle 2171.png'),
+                                        addHeight(6),
+                                        Text('Burger King with Pizza',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 16,
+                                              color: const Color(0xFF21283D)
+                                          ),),
+                                        addHeight(6),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/truckimg.png',
+                                              height: 22,
+                                              color: const Color(0xFF04666E),),
+                                            addWidth(10),
+                                            Text('Delivery Only 25 mins',
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12,
+                                                  color: const Color(0xFF606573)
+                                              ),),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Positioned(
-                                  top: 80,
-                                  // bottom: 0,
-                                  left: 20,
-                                  right: 20,
-                                  //   bottom: 0,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .spaceBetween,
-                                    children: const [
-                                      Icon(Icons.arrow_back_ios,
-                                        color: Colors.white,size: 20,),
-                                      Icon(Icons.arrow_forward_ios,
-                                        color: Colors.white,size: 20,)
-                                    ],
-                                  )
-                              ),
-                              Positioned(
-                                  bottom: 10,
-                                  right: 20,
-                                  //   bottom: 0,
-                                  child: Column(
-                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                          height: 48,
-                                          decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(3),
-                                            child: Image.asset(
-                                                'assets/images/avtarImg.png'),
-                                          )
-                                      ),
-                                      addHeight(3),
-                                      Text('Jack Smith',
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12,
-                                            color: const Color(0xFF21283D)
-                                        ),),
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .center,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
-                                        children: [
-                                          const Icon(Icons.star,
-                                            color: Color(0xFFFFC529),
-                                            size: 14,),
-                                          addWidth(3),
-                                          Text('4.95 (35)',
-                                            style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 11,
-                                                color: const Color(0xFF6A7080)
-                                            ),),
-                                        ],
-                                      )
-                                    ],
-                                  )
-                              ),
-                              Positioned(
-                                  top: 16,
-                                  // bottom: 0,
-                                  // left: 290,
-                                  right: 10,
-                                  //   bottom: 0,
-
-                                  child: Column(
-                                    children: [
-                                      Obx(() {
-                                        return Container(
-                                            height: 33,
+                                Positioned(
+                                    top: 80,
+                                    // bottom: 0,
+                                    left: 20,
+                                    right: 20,
+                                    //   bottom: 0,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceBetween,
+                                      children: const [
+                                        Icon(Icons.arrow_back_ios,
+                                          color: Colors.white, size: 20,),
+                                        Icon(Icons.arrow_forward_ios,
+                                          color: Colors.white, size: 20,)
+                                      ],
+                                    )
+                                ),
+                                Positioned(
+                                    bottom: 10,
+                                    right: 20,
+                                    //   bottom: 0,
+                                    child: Column(
+                                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                            height: 48,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color: Colors.white
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsets
-                                                  .only(left: 10,
-                                                  right: 10,
-                                                  top: 3),
-                                              child: InkWell(
-                                                onTap: () {
-                                                  isSelect.value =
-                                                  !isSelect.value;
-                                                },
-                                                child: isSelect.value ==
-                                                    true
-                                                    ? const Icon(
-                                                  Icons.favorite,
-                                                  color: Color(0xFF54C523),)
-                                                    :
-                                                const Icon(Icons.favorite_outline,
-                                                  color: Color(
-                                                      0xFF54C523),),
-                                              ),
+                                              padding: const EdgeInsets.all(3),
+                                              child: Image.asset(
+                                                  'assets/images/avtarImg.png'),
                                             )
-                                        );
-                                      }),
-                                    ],
-                                  )
-                              ),
-                              Positioned(
-                                  top: 14,
-                                  // bottom: 0,
-                                  left: 10,
-                                  right: 15,
-                                  //   bottom: 0,
-                                  child: Row(
-                                    children:  [
+                                        ),
+                                        addHeight(3),
+                                        Text('Jack Smith',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12,
+                                              color: const Color(0xFF21283D)
+                                          ),),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .center,
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .center,
+                                          children: [
+                                            const Icon(Icons.star,
+                                              color: Color(0xFFFFC529),
+                                              size: 14,),
+                                            addWidth(3),
+                                            Text('4.95 (35)',
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 11,
+                                                  color: const Color(0xFF6A7080)
+                                              ),),
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                ),
+                                Positioned(
+                                    top: 16,
+                                    // bottom: 0,
+                                    // left: 290,
+                                    right: 10,
+                                    //   bottom: 0,
 
-                                      InkWell(
-                                          onTap: (){
-                                            showGeneralDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                  return  Stack(
-                                                    children: [
-                                                      Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                      Positioned(
-                                                        right: 18,
-                                                        top: 30,
-                                                        child: Container(
-                                                            padding: EdgeInsets.all(10),
-                                                            height: 80,
-                                                            decoration: const BoxDecoration(
-                                                                color: Colors.white,
-                                                                shape: BoxShape.circle
-                                                            ),
-                                                            child:  Icon(Icons.clear)
-                                                        ),)
-                                                    ],
-                                                  );
-                                                }
-                                            );
-                                          },
-                                          child: Image.asset('assets/images/topChef.png',width: 50,)),
-                                      InkWell(
-                                          onTap: (){
-                                            showGeneralDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                  return  Stack(
-                                                    children: [
-                                                      Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                      Positioned(
-                                                        right: 18,
-                                                        top: 50,
-                                                        child: Container(
-                                                            padding: EdgeInsets.all(10),
-                                                            height: 50,
-                                                            decoration: const BoxDecoration(
-                                                                color: Colors.white,
-                                                                shape: BoxShape.circle
-                                                            ),
-                                                            child:  Icon(Icons.clear)
-                                                        ),)
-                                                    ],
-                                                  );
-                                                }
-                                            );
-                                          },
-                                          child: Image.asset('assets/images/topChef.png',width: 50,)),
-                                    ],
-                                  )
-                              ),
-                            ],
+                                    child: Column(
+                                      children: [
+                                        Obx(() {
+                                          return Container(
+                                              height: 33,
+                                              decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.white
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets
+                                                    .only(left: 10,
+                                                    right: 10,
+                                                    top: 3),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    isSelect.value =
+                                                    !isSelect.value;
+                                                  },
+                                                  child: isSelect.value ==
+                                                      true
+                                                      ? const Icon(
+                                                    Icons.favorite,
+                                                    color: Color(0xFF54C523),)
+                                                      :
+                                                  const Icon(
+                                                    Icons.favorite_outline,
+                                                    color: Color(
+                                                        0xFF54C523),),
+                                                ),
+                                              )
+                                          );
+                                        }),
+                                      ],
+                                    )
+                                ),
+                                Positioned(
+                                    top: 14,
+                                    // bottom: 0,
+                                    left: 10,
+                                    right: 15,
+                                    //   bottom: 0,
+                                    child: Row(
+                                      children: [
+
+                                        InkWell(
+                                            onTap: () {
+                                              showGeneralDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  barrierColor: const Color(
+                                                      0xFF000000).withOpacity(
+                                                      0.58),
+                                                  barrierLabel: MaterialLocalizations
+                                                      .of(context)
+                                                      .modalBarrierDismissLabel,
+                                                  pageBuilder: (
+                                                      BuildContext context,
+                                                      Animation first,
+                                                      Animation second) {
+                                                    return Stack(
+                                                      children: [
+                                                        Center(
+                                                            child: Image.asset(
+                                                                'assets/images/dialogboximg.png')),
+                                                        Positioned(
+                                                          right: 18,
+                                                          top: 30,
+                                                          child: Container(
+                                                              padding: EdgeInsets
+                                                                  .all(10),
+                                                              height: 80,
+                                                              decoration: const BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  shape: BoxShape
+                                                                      .circle
+                                                              ),
+                                                              child: GestureDetector(
+                                                                child: Icon(
+                                                                    Icons
+                                                                        .clear),
+                                                                onTap: () {
+                                                                  Get.back();
+                                                                },)
+                                                          ),)
+                                                      ],
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                            child: Image.asset(
+                                              'assets/images/topChef.png',
+                                              width: 50,)),
+                                        InkWell(
+                                            onTap: () {
+                                              showGeneralDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  barrierColor: const Color(
+                                                      0xFF000000).withOpacity(
+                                                      0.58),
+                                                  barrierLabel: MaterialLocalizations
+                                                      .of(context)
+                                                      .modalBarrierDismissLabel,
+                                                  pageBuilder: (
+                                                      BuildContext context,
+                                                      Animation first,
+                                                      Animation second) {
+                                                    return Stack(
+                                                      children: [
+                                                        Center(
+                                                            child: Image.asset(
+                                                                'assets/images/dialogboximg.png')),
+                                                        Positioned(
+                                                          right: 18,
+                                                          top: 50,
+                                                          child: Container(
+                                                              padding: EdgeInsets
+                                                                  .all(10),
+                                                              height: 50,
+                                                              decoration: const BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  shape: BoxShape
+                                                                      .circle
+                                                              ),
+                                                              child: GestureDetector(
+                                                                child: Icon(
+                                                                    Icons
+                                                                        .clear),
+                                                                onTap: () {
+                                                                  Get.back();
+                                                                },)
+                                                          ),)
+                                                      ],
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                            child: Image.asset(
+                                              'assets/images/topChef.png',
+                                              width: 50,)),
+                                      ],
+                                    )
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 5,)
-                    ],
-                  );
-                },
-              )
+                        const SizedBox(height: 5,)
+                      ],
+                    );
+                  },
+                )
             ),
           );
         }
     );
   }
+
   Future<void> _showSimpleDialog3(BuildContext context) async {
     await showDialog(
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context)
+        barrierLabel: MaterialLocalizations
+            .of(context)
             .modalBarrierDismissLabel,
         context: context,
         barrierColor: const Color(0x01000000),
@@ -1081,211 +1493,267 @@ class _HomePageScreenState extends State<HomePageScreen> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.zero
             ),
-            insetPadding: const EdgeInsets.only(bottom: 0,top: 220),
+            insetPadding: const EdgeInsets.only(bottom: 0, top: 220),
             child: ListView.builder(
               itemCount: 6,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF37C666).withOpacity(0.10),
-                                    offset: const Offset(.1, .1,
+                return GestureDetector(
+                  onTap: (){
+                    Get.toNamed(MyRouters.homeDetailsScreen);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF37C666).withOpacity(
+                                          0.10),
+                                      offset: const Offset(.1, .1,
+                                      ),
+                                      blurRadius: 20.0,
+                                      spreadRadius: 1.0,
                                     ),
-                                    blurRadius: 20.0,
-                                    spreadRadius: 1.0,
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(12)
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(child: Image.asset('assets/images/Rectangle 39762.png',height: 80,width: 70,)),
-                                    addWidth(10),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text('Special Burger',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14,
-                                              color: const Color(0xFF21283D)
-                                          ),),
-                                        addHeight(3),
-                                        Text('Size: 200gm',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: 11,
-                                              color: const Color(0xFF364A4F)
-                                          ),),
-                                        addHeight(3),
-                                        Row(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text('spiciness :',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF1F2D30)
-                                                  ),),
-                                                addWidth(4),
-                                                Text('Mildly Spicy',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF6CC844)
-                                                  ),),
-                                              ],
-                                            ),
-                                            addWidth(10),
-                                            Row(
-                                              children: [
-                                                Text('Allergens :',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF1F2D30)
-                                                  ),),
-                                                addWidth(4),
-                                                Text('Crustaceans',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF6CC844)
-                                                  ),),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        addHeight(6),
-                                        IntrinsicHeight(
-                                          child:
+                                  ],
+                                  borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(child: Image.asset(
+                                        'assets/images/Rectangle 39762.png',
+                                        height: 80, width: 70,)),
+                                      addWidth(10),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Text('Special Burger',
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                                color: const Color(0xFF21283D)
+                                            ),),
+                                          addHeight(3),
+                                          Text('Size: 200gm',
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 11,
+                                                color: const Color(0xFF364A4F)
+                                            ),),
+                                          addHeight(3),
                                           Row(
                                             children: [
-                                              InkWell(
-                                                onTap:
-                                                    () {
-                                                },
-                                                child:
-                                                Container(
-                                                  decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
-                                                  alignment: Alignment.center,
-                                                  child: const Padding(
-                                                    padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                    child: Text(
-                                                      '-',
-                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ),
-                                                ),
+                                              Row(
+                                                children: [
+                                                  Text('spiciness :',
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight
+                                                            .w500,
+                                                        fontSize: 10,
+                                                        color: const Color(
+                                                            0xFF1F2D30)
+                                                    ),),
+                                                  addWidth(4),
+                                                  Text('Mildly Spicy',
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight
+                                                            .w500,
+                                                        fontSize: 10,
+                                                        color: const Color(
+                                                            0xFF6CC844)
+                                                    ),),
+                                                ],
                                               ),
-                                              Container(
-                                                alignment:
-                                                Alignment.center,
-                                                child:
-                                                const Padding(
-                                                  padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                                                  child: Text(
-                                                      '1'
-                                                  ),
-                                                ),
-                                              ),
-                                              InkWell(
-                                                onTap:
-                                                    () {
-
-                                                },
-                                                child:
-                                                Container(
-                                                  decoration: BoxDecoration(color: const Color(0xFF72CD4A),border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
-                                                  alignment: Alignment.center,
-                                                  child: const Padding(
-                                                    padding:  EdgeInsets.symmetric(horizontal: 8),
-                                                    child: Text(
-                                                      '+',
-                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Colors.white),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ),
-                                                ),
+                                              addWidth(10),
+                                              Row(
+                                                children: [
+                                                  Text('Allergens :',
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight
+                                                            .w500,
+                                                        fontSize: 10,
+                                                        color: const Color(
+                                                            0xFF1F2D30)
+                                                    ),),
+                                                  addWidth(4),
+                                                  Text('Crustaceans',
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight
+                                                            .w500,
+                                                        fontSize: 10,
+                                                        color: const Color(
+                                                            0xFF6CC844)
+                                                    ),),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                addHeight(5),
-                                Container(
-                                  margin: EdgeInsets.only(left: 75),
-                                  color: Color(0xFFE9E9E9),
-                                  width: AddSize.screenWidth,
-                                  height: 1,
-                                ),
-                                addHeight(7),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    addWidth(80),
-                                    Image.asset('assets/images/helpimg.png',height: 13,),
-                                    addWidth(4),
-                                    Text('Can cook more units by: 30th June 2023',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 11,
-                                          color: const Color(0xFF364A4F)
-                                      ),),
-                                  ],
-                                ),
-                                addHeight(4), Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    addWidth(80),
-                                    Image.asset('assets/images/helpimg.png',height: 13,),
-                                    addWidth(4),
-                                    Text('Can cook more units by: 30th June 2023',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 11,
-                                          color: const Color(0xFF364A4F)
-                                      ),),
-                                  ],
-                                ),
+                                          addHeight(6),
+                                          IntrinsicHeight(
+                                            child:
+                                            Row(
+                                              children: [
+                                                InkWell(
+                                                  onTap:
+                                                      () {
+                                                    _decrement();
+                                                  },
+                                                  child:
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: const Color(
+                                                                0xFF72CD4A)),
+                                                        shape: BoxShape.circle),
+                                                    alignment: Alignment.center,
+                                                    child: const Padding(
+                                                      padding: EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 8,
+                                                          vertical: 3),
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight
+                                                                .w600,
+                                                            fontSize: 16,
+                                                            color: Color(
+                                                                0xFF72CD4A)),
+                                                        textAlign: TextAlign
+                                                            .center,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Obx(() {
+                                                  return Container(
+                                                    alignment:
+                                                    Alignment.center,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .only(left: 14.0,
+                                                          right: 14.0),
+                                                      child: Text(
+                                                          '${count}'
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                                GestureDetector(
+                                                  onTap:
+                                                      () {
+                                                    _increment();
+                                                  },
+                                                  child:
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        color: const Color(
+                                                            0xFF72CD4A),
+                                                        border: Border.all(
+                                                            color: const Color(
+                                                                0xFF72CD4A)),
+                                                        shape: BoxShape.circle),
+                                                    alignment: Alignment.center,
+                                                    child: const Padding(
+                                                      padding: EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 8),
+                                                      child: Text(
+                                                        '+',
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight
+                                                                .w600,
+                                                            fontSize: 16,
+                                                            color: Colors.white),
+                                                        textAlign: TextAlign
+                                                            .center,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  addHeight(5),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 75),
+                                    color: Color(0xFFE9E9E9),
+                                    width: AddSize.screenWidth,
+                                    height: 1,
+                                  ),
+                                  addHeight(7),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      addWidth(80),
+                                      Image.asset(
+                                        'assets/images/helpimg.png', height: 13,),
+                                      addWidth(4),
+                                      Text(
+                                        'Can cook more units by: 30th June 2023',
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 11,
+                                            color: const Color(0xFF364A4F)
+                                        ),),
+                                    ],
+                                  ),
+                                  addHeight(4),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      addWidth(80),
+                                      Image.asset('assets/images/helpimg.png',height: 13,),
+                                      addWidth(4),
+                                      Text('Available stock: ',
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 11,
+                                            color: const Color(0xFF364A4F)
+                                        ),),
+                                      Text(' 3 units',
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 11,
+                                            color: const Color(0xFF364A4F)
+                                        ),),
+                                    ],
+                                  ),
 
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Positioned(
-                            top: 14,
-                            right: 20,
-                            child:  Text('€6.99',
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 15,
-                                  color: const Color(0xFF70CC49)
-                              ),),
-                          )
-                        ],
-                      ),
-                    ],
+                            Positioned(
+                              top: 14,
+                              right: 20,
+                              child: Text('€6.99',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                    color: const Color(0xFF70CC49)
+                                ),),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },),

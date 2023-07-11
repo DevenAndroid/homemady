@@ -464,14 +464,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 41,
-                        height: 57,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(42),
-                          border: Border.all(color: const Color(0xFFF2F2F2))
+                      InkWell(
+                        onTap: (){
+                          Get.toNamed(MyRouters.addNewCardScreen);
+                        },
+                        child: Container(
+                          width: 41,
+                          height: 57,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(42),
+                            border: Border.all(color: const Color(0xFFF2F2F2))
+                          ),
+                          child: const Center(child: Icon(Icons.add,color: Color(0xFF7DD856),)),
                         ),
-                        child: const Center(child: Icon(Icons.add,color: Color(0xFF7DD856),)),
                       ),
                       Container(
                         height: 60,

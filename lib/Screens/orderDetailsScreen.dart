@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   const OrderDetailsScreen({Key? key}) : super(key: key);
@@ -23,7 +27,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
     // vendorOrderListController.vendorOrderListData();
     tabController = TabController(length: 2, vsync: this);
   }
-
+  _makingPhoneCall(call) async {
+    var url = Uri.parse(call);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   @override
   void dispose() {
     tabController.dispose();
@@ -336,7 +347,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                     ),
                                   ]),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      _makingPhoneCall("tel:+916565656545");
+                                    },
                                     child: Container(
                                         height: AddSize.size45,
                                         width: AddSize.size45,
@@ -371,7 +384,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                   fontSize: 14),
                                             ),
                                             Text(
-                                              "Punjab",
+                                              "United",
                                               style: TextStyle(
                                                   height: 1.5,
                                                   fontWeight: FontWeight.w600,
@@ -386,7 +399,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                     ]),
                                   ),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.toNamed(MyRouters.chooseAddress);
+                                    },
                                     child: Container(
                                       height: AddSize.size45,
                                       width: AddSize.size45,
@@ -542,7 +557,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                     ),
                     SizedBox(height: AddSize.size20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(MyRouters.reviewScreen);
+                      },
                       child: Container(
                         height: 56,
                         width: AddSize.screenWidth / 1.1,
@@ -565,7 +582,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                     ),
                     SizedBox(height: AddSize.size20),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(MyRouters.reviewScreen);
+                    },
                     child: Container(
                       height: 56,
                       width: AddSize.screenWidth / 1.1,
@@ -722,7 +741,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                   fontSize: 14),
                                             ),
                                             Text(
-                                              "Punjab",
+                                              "United",
                                               style: TextStyle(
                                                   height: 1.5,
                                                   fontWeight: FontWeight.w600,
@@ -893,7 +912,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                     ),
                     SizedBox(height: AddSize.size20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(MyRouters.reviewScreen);
+                      },
                       child: Container(
                         height: 56,
                         width: AddSize.screenWidth / 1.1,
@@ -916,7 +937,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                     ),
                     SizedBox(height: AddSize.size20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(MyRouters.reviewScreen);
+                      },
                       child: Container(
                         height: 56,
                         width: AddSize.screenWidth / 1.1,

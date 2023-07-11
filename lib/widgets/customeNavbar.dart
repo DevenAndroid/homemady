@@ -9,7 +9,6 @@ import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:homemady/controller/bottomNavbarController.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
@@ -187,29 +186,29 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   });
                 },
               ),
-              // const Divider(
-              //   height: 5,
-              //   color: Color(0xffEFEFEF),
-              //   thickness: 1,
-              // ),
-              // ListTile(
-              //   visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              //   leading: Image.asset(
-              //     'assets/images/notebook_reference.png',
-              //     height: 20,
-              //   ),
-              //   title:  Text('Refer and Earn',
-              //       style: GoogleFonts.poppins(
-              //         fontSize: 15,
-              //         color: const Color(0xFF4F535E),
-              //         fontWeight: FontWeight.w400,)),
-              //   onTap: () {
-              //     setState(() {
-              //       currentDrawer = 4;
-              //       // Get.to(VendorNotificationScreen());
-              //     });
-              //   },
-              // ),
+              const Divider(
+                height: 5,
+                color: Color(0xffEFEFEF),
+                thickness: 1,
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+                leading: Image.asset(
+                  'assets/images/notebook_reference.png',
+                  height: 20,
+                ),
+                title:  Text('Refer and Earn',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      color: const Color(0xFF4F535E),
+                      fontWeight: FontWeight.w400,)),
+                onTap: () {
+                  setState(() {
+                    currentDrawer = 4;
+                    Get.toNamed(MyRouters.referAndEarn);
+                  });
+                },
+              ),
               // const Divider(
               //   height: 5,
               //   color: Color(0xffEFEFEF),
@@ -252,7 +251,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 onTap: () {
                   setState(() {
                     currentDrawer = 6;
-                    // Get.to(VendorHelpCenterScreen());
+                    Get.toNamed(MyRouters.privacyPolicy);
                   });
                 },
               ),
@@ -275,7 +274,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 onTap: () {
                   setState(() {
                     currentDrawer = 7;
-                    // Get.to(SettingScreenVendor());
+                    Get.toNamed(MyRouters.chatScreen);
                   });
                 },
               ),
@@ -296,11 +295,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                       color: const Color(0xFF4F535E),
                       fontWeight: FontWeight.w400,)),
                 onTap: () {
-                  setState(() async {
-                    SharedPreferences preferences =
-                        await SharedPreferences.getInstance();
-                    await preferences.clear();
-                    Get.offAllNamed(MyRouters.loginScreen);
+                  setState(() {
+                    currentDrawer = 7;
+                    // Get.to(SettingScreenVendor());
                   });
                 },
               ),
@@ -313,7 +310,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         bottomNavigationBar:  ConvexAppBar(
           backgroundColor: Colors.white,
             color: const Color(0xFF4E5B5F),
-            // height: 45,
+            height: 50,
             activeColor: Colors.green,
             onTap: (int index) => currentIndex.value = index,
             items: [

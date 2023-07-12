@@ -273,6 +273,29 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ListTile(
               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
               leading: Image.asset(
+                'assets/images/helpICon.png',
+                height: 20,
+              ),
+              title: Text('Help Center',
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: const Color(0xFF4F535E),
+                    fontWeight: FontWeight.w400,)),
+              onTap: () {
+                setState(() {
+                  currentDrawer = 8;
+                  Get.toNamed(MyRouters.helpCenterScreen);
+                });
+              },
+            ),
+            const Divider(
+              height: 5,
+              color: Color(0xffEFEFEF),
+              thickness: 1,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+              leading: Image.asset(
                 'assets/images/logout.png',
                 height: 16,
               ),

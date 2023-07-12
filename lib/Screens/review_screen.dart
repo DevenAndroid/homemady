@@ -225,7 +225,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   print("object");
               },),
               addHeight(15),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Skip",style: TextStyle(

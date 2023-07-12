@@ -44,6 +44,7 @@ dependencies:
   form_field_validator:
   intl: ^0.17.0
   flutter_slidable:
+  fluttertoast:
   image_picker:
   vertical_scrollable_tabview:
   scroll_to_index:

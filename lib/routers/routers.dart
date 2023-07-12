@@ -29,6 +29,7 @@ import 'package:homemady/Screens/splash_screen.dart';
 import 'package:homemady/Screens/thankyou_Screen.dart';
 import 'package:homemady/myorderScreens/activeScreen.dart';
 import 'package:homemady/widgets/customeNavbar.dart';
+import '../Screens/help_center_screen.dart';
 import '../Screens/login_screen.dart';
 
 
@@ -65,6 +66,7 @@ class MyRouters {
   static var referAndEarn = "/referAndEarn";
   static var privacyPolicy = "/privacyPolicy";
   static var feedBackScreen = "/feedBackScreen";
+  static var helpCenterScreen = "/helpCenterScreen";
 
 
   static var route = [
@@ -99,6 +101,7 @@ class MyRouters {
   GetPage(name: '/referAndEarn', page: () => const ReferAndEarn()),
   GetPage(name: '/privacyPolicy', page: () => const PrivacyPolicy()),
   GetPage(name: '/feedBackScreen', page: () => const FeedBackScreen()),
+  GetPage(name: '/helpCenterScreen', page: () => const HelpCenterScreen()),
 
 
 

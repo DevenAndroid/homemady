@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
-import 'package:homemady/widgets/dimenestion.dart';
 
 
 class MyCartScreen extends StatefulWidget {
@@ -17,6 +16,7 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
+  bool? _isValue = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,6 +123,72 @@ class _MyCartScreenState extends State<MyCartScreen> {
                   },
                 ),
               ),
+            Padding(
+              padding: const EdgeInsets.only(left:6.0,top:15,right: 6),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF37C666).withOpacity(0.10),
+                      offset: const Offset(.1, .1,
+                      ),
+                      blurRadius: 20.0,
+                      spreadRadius: 1.0,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15,18,14,0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Eater get one free delivery automatically\napplied to the 11th order.',
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xff303D46)
+                            ),),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15,10,14,0),
+                      child: Wrap(
+
+                        children: List.generate(10, (index){
+                          return Expanded(
+                            child: Transform.scale(
+                              scale: 1.5,
+                              child: Checkbox(
+                                  activeColor: const Color(0xff7ED957),
+                                  // focusColor: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                    // side: BorderSide(color: Colors.grey),
+                                      borderRadius:
+                                      BorderRadius.circular(3)),
+                                  value: _isValue,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      _isValue = value;
+                                    });
+                                  }),
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                    addHeight(20)
+                  ],
+
+                ),
+              ),
+            ),
+            addHeight(10),
             Padding(
               padding: const EdgeInsets.only(left:6.0,top:15,right: 6),
               child: Container(

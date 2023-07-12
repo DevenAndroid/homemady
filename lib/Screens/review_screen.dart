@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/routers/routers.dart';
+import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -17,12 +18,13 @@ class ReviewScreen extends StatefulWidget {
 
 class _ReviewScreenState extends State<ReviewScreen> {
   double fullRating = 0;
+  bool? _isValue = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: backAppBar(title: 'Send Feedback', context: context),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Padding(
            padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 10),
           child: Column(
@@ -43,7 +45,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 unratedColor: const Color(0xFFE0DEDA),
                 itemCount: 5,
                 itemSize: 48.0,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                 updateOnDrag: true,
                 allowHalfRating: true,
                 itemBuilder: (context, index) =>
@@ -56,6 +58,146 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   });
                 },
               ),
+              addHeight(20),
+          //     ...List.generate(5, (index)
+          //        {
+          //       return Column(
+          //   children: [
+          //     Row(
+          //       children: [
+          //         Checkbox(
+          //             activeColor: AppTheme.primaryColor,
+          //             shape: RoundedRectangleBorder(
+          //                 borderRadius:
+          //                 BorderRadius.circular(5)),
+          //             value: _isValue,
+          //             onChanged: (bool? value) {
+          //               setState(() {
+          //                 _isValue = value;
+          //               });
+          //             }),
+          //       ],
+          //     ),
+          //   ],
+          // );
+          //        }
+          //
+          //     ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Transform.scale(
+                        scale: 1.5,
+
+                        child: Checkbox(
+                            activeColor: Color(0xff7ED957),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(3)),
+                            value: _isValue,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _isValue = value;
+                              });
+                            }),
+                      ),
+                      const Text("Food Quality",style: TextStyle(
+                          color: Color(0xFF969AA3),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18
+                      ),),
+                      SizedBox(width: 35,),
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Checkbox(
+                            activeColor: Color(0xff7ED957),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(3)),
+                            value: _isValue,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _isValue = value;
+                              });
+                            }),
+                      ),
+                      const Text(" Food Quantity",style: TextStyle(
+                          color: Color(0xFF969AA3),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18
+                      ),)
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Checkbox(
+                            activeColor: Color(0xff7ED957),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(3)),
+                            value: _isValue,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _isValue = value;
+                              });
+                            }),
+                      ),
+                      const Text("Communication",style: TextStyle(
+                          color: Color(0xFF969AA3),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18
+                      ),),
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Checkbox(
+                            activeColor: Color(0xff7ED957),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(3)),
+                            value: _isValue,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _isValue = value;
+                              });
+                            }),
+                      ),
+                      const Text("Hygiene",style: TextStyle(
+                          color: Color(0xFF969AA3),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18
+                      ),)
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Checkbox(
+                            activeColor: Color(0xff7ED957),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(3)),
+                            value: _isValue,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _isValue = value;
+                              });
+                            }),
+                      ),
+                      const Text("Delivery",style: TextStyle(
+                          color: Color(0xFF969AA3),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18
+                      ),),
+
+                    ],
+                  ),
+                ],
+              ),
+
               addHeight(50),
               DottedLine(
               dashColor: Colors.grey.shade300,
@@ -83,10 +225,20 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   print("object");
               },),
               addHeight(15),
-              CommonButton(title: 'Skip',onPressed: (){
-                Get.toNamed(MyRouters.bottomNavbar);
-                  print("object");
-              },),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Skip",style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 19
+                  ),),
+                ],
+              ),
+              // CommonButton(title: 'Skip',onPressed: (){
+              //   Get.toNamed(MyRouters.bottomNavbar);
+              //     print("object");
+              // },),
               addHeight(16),
               // const Text('Your review will be posted to the Google Play store.',
               //   style: TextStyle(

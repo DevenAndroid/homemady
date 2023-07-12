@@ -20,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 5), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       if (pref.getString('user_info') != null) {
+
         Get.offAllNamed(MyRouters.bottomNavbar);
       }
       else{

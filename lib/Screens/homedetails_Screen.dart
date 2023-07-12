@@ -117,7 +117,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                             fontWeight: FontWeight.w400,)),
                                       const Spacer(),
                                       InkWell(
-                                        onTap: (){},
+                                        onTap: (){
+                                          Get.toNamed(MyRouters.reviewScreen);
+                                        },
                                           child: const Icon(
                                             Icons.arrow_forward_ios, size: 13,
                                             color: Color(0xFF000000),))

@@ -642,7 +642,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Row(children: [
+                                   Row(children: [
                                     Column(
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
@@ -683,7 +683,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Row(children: [
+                                   Row(children: [
                                     Column(
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
@@ -726,7 +726,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Expanded(
+                                   Expanded(
                                     child: Row(children: [
                                       Expanded(
                                         child: Column(

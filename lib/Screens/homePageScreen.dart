@@ -376,17 +376,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
             //     ),
             //   ),
             // ),
+      InkWell(
+        onTap: (){},
+            child: Container(
+              height: 42,
+              width: 42,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color(0xFF7ED957)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset('assets/images/shoppingImg.png',
+                  height: 30,),
+              ),
+            ),
+      ),
           ],
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 70,
       ),
       key: _scaffoldKey,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

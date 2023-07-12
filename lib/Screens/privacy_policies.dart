@@ -17,7 +17,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
        body: SingleChildScrollView(
          physics: BouncingScrollPhysics(),
          child: Padding(
-           padding: EdgeInsets.symmetric(horizontal: 10,vertical: 16),
+           padding: EdgeInsets.symmetric(horizontal: 15,vertical: 16),
            child: Column(
              children: [
           const Text.rich(

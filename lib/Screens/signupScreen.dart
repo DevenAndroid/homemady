@@ -92,9 +92,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                         spreadRadius: 1.0,
                                       ),
                                     ],
-                                    color: Colors.white
                                 ),
                                 child: CommonTextFieldWidget(
+                                  textInputAction: TextInputAction.next,
                                   hint: 'Name',
                                   controller: nameController,
                                   validator: (value) {
@@ -120,9 +120,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                         spreadRadius: 1.0,
                                       ),
                                     ],
-                                    color: Colors.white
                                 ),
                                 child:  CommonTextFieldWidget(
+                                  textInputAction: TextInputAction.next,
                                   hint: 'Email',
                                   controller: emailController,
                                   validator: MultiValidator([
@@ -148,9 +148,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                         spreadRadius: 1.0,
                                       ),
                                     ],
-                                    color: Colors.white
                                 ),
                                 child: CommonTextFieldWidget(
+                                  textInputAction: TextInputAction.next,
                                   keyboardType: TextInputType.number,
                                   length: 10,
                                   hint: 'Phone',
@@ -178,9 +178,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                         spreadRadius: 1.0,
                                       ),
                                     ],
-                                    color: Colors.white
                                 ),
                                 child: CommonTextFieldWidget(
+                                  textInputAction: TextInputAction.next,
                                   hint: 'Password',
                                   controller: passwordController,
                                   validator: (value) {
@@ -206,7 +206,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                         spreadRadius: 1.0,
                                       ),
                                     ],
-                                    color: Colors.white
                                 ),
                                 child: CommonTextFieldWidget(
                                   hint: 'Confirm Password',

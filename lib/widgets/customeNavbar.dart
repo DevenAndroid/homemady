@@ -9,6 +9,7 @@ import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:homemady/controller/bottomNavbarController.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
@@ -286,6 +287,28 @@ class _BottomNavbarState extends State<BottomNavbar> {
               ListTile(
                 visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
                 leading: Image.asset(
+                  'assets/images/help_centerD.png',
+                  height: 18,
+                ),
+                title:  Text('Help Center',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      color: const Color(0xFF4F535E),
+                      fontWeight: FontWeight.w400,)),
+                onTap: () {
+                  setState(() {
+                    Get.toNamed(MyRouters.helpCenterScreen);
+                  });
+                },
+              ),
+              const Divider(
+                height: 5,
+                color: Color(0xffEFEFEF),
+                thickness: 1,
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+                leading: Image.asset(
                   'assets/images/logout.png',
                   height: 16,
                 ),
@@ -295,8 +318,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
                       color: const Color(0xFF4F535E),
                       fontWeight: FontWeight.w400,)),
                 onTap: () {
-                  setState(() {
-                    currentDrawer = 7;
+                  setState(() async{
+                    SharedPreferences pref = await SharedPreferences.getInstance();
+                    pref.clear();
+                    Get.toNamed(MyRouters.loginScreen);
                     // Get.to(SettingScreenVendor());
                   });
                 },

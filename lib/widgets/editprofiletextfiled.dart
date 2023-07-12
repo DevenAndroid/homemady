@@ -74,7 +74,7 @@ class EditProfileTextFieldWidget extends StatelessWidget {
           labelText: label,
           labelStyle: TextStyle(color: AppTheme.userText, fontSize: AddSize.font14),
           filled: true,
-          fillColor: const Color(0xFFF3F3F3),
+          fillColor: Colors.transparent,
           contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
           focusedBorder: OutlineInputBorder(

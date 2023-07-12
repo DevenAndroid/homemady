@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +7,6 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../repository/login_repository.dart';
 
 
@@ -47,9 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      addHeight(45),
+                      addHeight(20),
                       Image.asset('assets/images/AppLogo.png',width: 203,),
-                      addHeight(85),
+                      addHeight(40),
                       const Center(
                         child: Text('Login To Your Account',
                           style: TextStyle(
@@ -65,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               Positioned(
-                  top: 330,
+                  top: 260,
                   bottom: 0,
                   right: 0,
                   left: 0,
@@ -90,9 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       spreadRadius: 1.0,
                                     ),
                                   ],
-                                  color: Colors.white
                               ),
                               child: CommonTextFieldWidget(
+                                textInputAction: TextInputAction.next,
                                 hint: 'Enter your email or phone number',
                                 controller: emailController,
                                 validator: (value){
@@ -119,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       spreadRadius: 1.0,
                                     ),
                                   ],
-                                  color: Colors.white
                               ),
                               child: CommonTextFieldWidget(
                                 hint: 'Password',
@@ -227,13 +224,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            addHeight(34),
+                            addHeight(20),
                             CommonButton(title: 'Login',onPressed: ()  {
                               // var fcmToken = await FirebaseMessaging
                               //     .instance
                               //     .getToken();
                               if(_formKey.currentState!.validate()){
-
                                 loginRepo(
                                   email: emailController.text,
                                   password: passwordController.text,
@@ -256,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
 
                             },),
-                            addHeight(36),
+                            addHeight(26),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

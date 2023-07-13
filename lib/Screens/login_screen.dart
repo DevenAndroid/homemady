@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Container(
                   width: screenWidth,
-                  height: screenHeight*.50,
+                  height: screenHeight*.35,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/LoginBackground.png'),
@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       addHeight(20),
                       Image.asset('assets/images/AppLogo.png',width: 203,),
-                      addHeight(40),
+                      addHeight(28),
                       const Center(
                         child: Text('Login To Your Account',
                           style: TextStyle(
@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               Positioned(
-                  top: 260,
+                  top: 240,
                   bottom: 0,
                   right: 0,
                   left: 0,
@@ -168,7 +168,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     children: [
                                        const Icon(Icons.facebook,color: Colors.blue,size: 30,),
                                       addWidth(10),
-                                      Text('Facebook',style: GoogleFonts.poppins(
+                                      Text('Facebook',
+                                        style: GoogleFonts.poppins(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
                                         color: const Color(0xFF4C5369)

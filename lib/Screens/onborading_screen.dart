@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/widgets/dimenestion.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../routers/routers.dart';
 import '../widgets/app_theme.dart';
 import '../widgets/custome_size.dart';
 import '../widgets/onborading_list.dart';
+import 'login_screen.dart';
 
 
 class OnBoardingScreen extends StatefulWidget {
@@ -20,6 +17,7 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   PageController controller = PageController();
   final RxInt _pageIndex = 0.obs;
+  bool loginLoaded = false;
 
   @override
   void initState() {
@@ -44,20 +42,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           child: Stack(
             children: [
               PageView.builder(
-                  itemCount: page1.length,
+                  itemCount: OnBoardingData.length + 1,
                   controller: controller,
-//                     onPageChanged: (newValue) {
-//                       setState(() {
-//                         currentIndex = newValue;
-//                       });
-//                     },
+                  physics: loginLoaded ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
                   pageSnapping: true,
                   onPageChanged: (index) {
                     setState(() {
                       _pageIndex.value = index;
+                      if (OnBoardingData.length == index) {
+                        loginLoaded = true;
+                      }
+                      else {
+                        loginLoaded = false;
+                      }
                     });
                   },
                   itemBuilder: (context, index) {
+                    if (OnBoardingData.length == index) {
+                      loginLoaded = true;
+                      return const LoginScreen();
+                    }
+
+                    loginLoaded = false;
                     return OnboardContent(
                       controller : controller,
                       indexValue: _pageIndex.value,

@@ -81,7 +81,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                     imageUrl: controller.model.value.data!.storeDetails!.storeImage.toString(),
                                     fit: BoxFit.cover,
                                     errorWidget: (_, __, ___) => Image.asset(
-                                      'assets/images/error_image.png',
+                                      'assets/images/Rectangle 23007.png',
                                     ),
                                     placeholder: (_, __) =>
                                         Center(child: CircularProgressIndicator()),
@@ -124,7 +124,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                               color: Color(0xFF1A2E33),
                                               fontWeight: FontWeight.w700,)),
                                         addWidth(7),
-                                         Text('${controller.model.value.data!.storeDetails!.reviewCount.toString()} reviews',
+                                         Text('(${controller.model.value.data!.storeDetails!.reviewCount.toString()}k reviews)',
                                             style: const TextStyle(
                                               fontSize: 13,
                                               color: Color(0xFF4E5F64),
@@ -159,7 +159,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                         mainAxisAlignment: MainAxisAlignment
                                             .start,
                                         children: [
-                                          Text(controller.model.value.data!.storeDetails!.deliveryType.toString(),
+                                          Text(controller.model.value.data!.storeDetails!.deliveryType.toString().replaceAll('Delivery Now', ''),
                                               style: GoogleFonts.poppins(
                                                 fontSize: 16,
                                                 color: const Color(0xFF1A2E33),
@@ -234,7 +234,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                             imageUrl: controller.model.value.data!.storeDetails!.profileImage.toString(),
                                             fit: BoxFit.cover,
                                             errorWidget: (_, __, ___) => Image.asset(
-                                              'assets/images/error_image.png',
+                                              'assets/images/Ellipse 67.png',
                                             ),
                                             placeholder: (_, __) =>
                                                 Center(child: CircularProgressIndicator()),

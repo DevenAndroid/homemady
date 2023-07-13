@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class VendorStoreSingleModel {
   bool? status;
   String? message;
@@ -25,7 +27,7 @@ class VendorStoreSingleModel {
 class Data {
   StoreDetails? storeDetails;
   List<LatestProducts>? latestProducts;
- // List<Null>? reviews;
+  //List<Null>? reviews;
 
   Data({this.storeDetails, this.latestProducts, //this.reviews
   });
@@ -40,7 +42,7 @@ class Data {
         latestProducts!.add(new LatestProducts.fromJson(v));
       });
     }
-   /* if (json['Reviews'] != null) {
+    /*if (json['Reviews'] != null) {
       reviews = <Null>[];
       json['Reviews'].forEach((v) {
         reviews!.add(new Null.fromJson(v));
@@ -57,7 +59,7 @@ class Data {
       data['LatestProducts'] =
           this.latestProducts!.map((v) => v.toJson()).toList();
     }
-  /*  if (this.reviews != null) {
+    /*if (this.reviews != null) {
       data['Reviews'] = this.reviews!.map((v) => v.toJson()).toList();
     }*/
     return data;
@@ -123,13 +125,18 @@ class LatestProducts {
   String? name;
   int? qty;
   String? qtyType;
+  bool ? value;
   String? minQty;
   String? maxQty;
   String? price;
   String? content;
   String? image;
+  int? cookUnitDays;
+  String? size;
+  String? sizeId;
   String? discountOff;
   Null? avgRating;
+  RxInt buttonCount = 1.obs;
 
   LatestProducts(
       {this.id,
@@ -142,6 +149,9 @@ class LatestProducts {
         this.price,
         this.content,
         this.image,
+        this.cookUnitDays,
+        this.size,
+        this.sizeId,
         this.discountOff,
         this.avgRating});
 
@@ -156,6 +166,9 @@ class LatestProducts {
     price = json['price'];
     content = json['content'];
     image = json['image'];
+    cookUnitDays = json['cook_unit_days'];
+    size = json['size'];
+    sizeId = json['size_id'];
     discountOff = json['discount_off'];
     avgRating = json['avg_rating'];
   }
@@ -172,6 +185,9 @@ class LatestProducts {
     data['price'] = this.price;
     data['content'] = this.content;
     data['image'] = this.image;
+    data['cook_unit_days'] = this.cookUnitDays;
+    data['size'] = this.size;
+    data['size_id'] = this.sizeId;
     data['discount_off'] = this.discountOff;
     data['avg_rating'] = this.avgRating;
     return data;

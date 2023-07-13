@@ -777,7 +777,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 imageUrl: homeController.model.value.data!.stores![index].image.toString(),
                                                 fit: BoxFit.cover,
                                                 errorWidget: (_, __, ___) => Image.asset(
-                                                  'assets/images/error_image.png',
+                                                  'assets/images/Rectangle 23007.png',
                                                 ),
                                                 placeholder: (_, __) =>
                                                     Center(child: CircularProgressIndicator()),
@@ -850,7 +850,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   )
                                               ),
                                               addHeight(3),
-                                              Text((homeController.model.value.data!.stores![index].cookName).toString(),
+                                              Text((homeController.model.value.data!.stores![index].cookName!.isEmpty ?  'Test' : homeController.model.value.data!.stores![index].cookName).toString(),
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 12,
@@ -874,7 +874,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         color: const Color(
                                                             0xFF6A7080)
                                                     ),),
-                                                  Text('(${(homeController.model.value.data!.stores![index].countReviewData ?? '55').toString()})',
+                                                  Text('(${(homeController.model.value.data!.stores![index].countReviewData!.isEmpty ? '3' :'').toString()})',
                                                     style: GoogleFonts.poppins(
                                                         fontWeight: FontWeight
                                                             .w500,

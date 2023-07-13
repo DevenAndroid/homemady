@@ -5,5 +5,10 @@ class ApiUrl {
   static const otpApi = "${baseUrl}verify-otp";
   static const homePageApi = "${baseUrl}home";
   static const singleStoreApi = "${baseUrl}store-details";
+  static const addCartApi = "${baseUrl}add-cart";
+  static const myCartApi = "${baseUrl}my-cart";
+  static const removeCartItemUrl = "${baseUrl}remove-cart-item";
+  static const updateCartUrl = "${baseUrl}update-cart";
+
 
 }

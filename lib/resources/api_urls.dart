@@ -9,6 +9,12 @@ class ApiUrl {
   static const myCartApi = "${baseUrl}my-cart";
   static const removeCartItemUrl = "${baseUrl}remove-cart-item";
   static const updateCartUrl = "${baseUrl}update-cart";
+  static const addAddressUrl = "${baseUrl}add-address";
+  static const myAddressUrl = "${baseUrl}my-address";
+  static const editAddressUrl = "${baseUrl}edit-address";
+  static const chooseOrderAddressUrl = "${baseUrl}choose-order-address";
+
+
 
 
 }

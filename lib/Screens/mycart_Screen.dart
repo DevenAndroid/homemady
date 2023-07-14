@@ -73,7 +73,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       onPressed: (context) {
                                         removeCartItemRepo(cart_item_id: controller.model.value.data!.cartItems![index].id.toString(),context: context).then((value) {
                                           if(value.status == true){
-                                            showToast(value.message.toString());
+                                            showToast('Cart Removed Successfully');
                                             print(controller.model.value.data!.cartItems![index].id.toString());
                                             setState(() {
                                               controller.getData();

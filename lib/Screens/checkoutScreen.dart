@@ -6,6 +6,9 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
+import '../controller/my_address_controller.dart';
+import '../model/my_address_model.dart';
+
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({Key? key}) : super(key: key);
@@ -15,6 +18,8 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
+  final myAddressController = Get.put(MyAddressController());
+  Rx<AddressData> addressModel = AddressData().obs;
   @override
   String _selectedGender = 'male';
   String _selectedValue = 'one';
@@ -293,18 +298,29 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Home',
+                              Text(addressModel.value.addressType.toString(),
                                 style: GoogleFonts.poppins(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
                                     color: const Color(0xff1A2E33)
                                 ),),
-                              Text('4295 Shinn Avenue, Indiana, States',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0xff5C5C60)
-                                ),),
+                              Row(
+                                children: [
+                                  Text(addressModel.value.flatNo.toString(),
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff5C5C60)
+                                    ),),
+                                  addWidth(5),
+                                  Text(addressModel.value.landmark.toString(),
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff5C5C60)
+                                    ),),
+                                ],
+                              )
                             ],
                           ),
                           Spacer(),

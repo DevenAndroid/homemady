@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/custome_size.dart';
+
+import '../controller/my_order_controller.dart';
 
 class CancelledScreen extends StatefulWidget {
   const CancelledScreen({Key? key}) : super(key: key);
@@ -10,6 +14,8 @@ class CancelledScreen extends StatefulWidget {
 }
 
 class _CancelledScreenState extends State<CancelledScreen> {
+  final controller = Get.put(MyOrderController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,7 +59,7 @@ class _CancelledScreenState extends State<CancelledScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text('Panna Onion Pasta',
+                                Text(controller.model.value.data![index].orderItems![index].productName.toString(),
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18,
@@ -62,7 +68,7 @@ class _CancelledScreenState extends State<CancelledScreen> {
                                 addHeight(3),
                                 Row(
                                   children: [
-                                    Text('3 Items ',
+                                    Text(controller.model.value.data![index].orderItems![index].qty.toString(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
@@ -86,7 +92,7 @@ class _CancelledScreenState extends State<CancelledScreen> {
                                 addHeight(5),
                                 Row(
                                   children: [
-                                    Text('€6.99',
+                                    Text('€ ${controller.model.value.data![index].orderItems![index].price.toString()}',
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,

@@ -8,6 +8,8 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/my_address_controller.dart';
 import '../model/my_address_model.dart';
+import '../repository/checkout_order_repo.dart';
+import '../resources/add_text.dart';
 
 
 class CheckOutScreen extends StatefulWidget {
@@ -635,7 +637,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               addHeight(40),
               CommonButton(title: 'Place Order'.toUpperCase(),
               onPressed: (){
-                Get.toNamed(MyRouters.thankYouScreen);
+                checkOut(context: context,payment_type: 'cod').then((value) {
+                  if(value.status == true){
+                    showToast(value.message.toString());
+                    Get.toNamed(MyRouters.thankYouScreen,arguments: [value.data!.orderId]);
+                    myAddressController.getData();
+                  }
+                });
+              //  Get.toNamed(MyRouters.thankYouScreen);
               },
               ),
             ],

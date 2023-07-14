@@ -13,6 +13,8 @@ class ApiUrl {
   static const myAddressUrl = "${baseUrl}my-address";
   static const editAddressUrl = "${baseUrl}edit-address";
   static const chooseOrderAddressUrl = "${baseUrl}choose-order-address";
+  static const checkOutUrl = "${baseUrl}order";
+  static const myOrderApi = "${baseUrl}my-orders";
 
 
 

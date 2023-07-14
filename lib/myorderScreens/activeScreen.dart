@@ -6,6 +6,8 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 
+import '../controller/my_order_controller.dart';
+
 
 class ActiveScreen extends StatefulWidget {
   const ActiveScreen({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class ActiveScreen extends StatefulWidget {
 }
 
 class _ActiveScreenState extends State<ActiveScreen> {
+  final controller = Get.put(MyOrderController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(

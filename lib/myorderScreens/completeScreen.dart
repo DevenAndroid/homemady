@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/custome_size.dart';
+
+import '../controller/my_order_controller.dart';
 
 
 class CompleteScreen extends StatefulWidget {
@@ -11,6 +15,8 @@ class CompleteScreen extends StatefulWidget {
 }
 
 class _CompleteScreenState extends State<CompleteScreen> {
+  final controller = Get.put(MyOrderController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

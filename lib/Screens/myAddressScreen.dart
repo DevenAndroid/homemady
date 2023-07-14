@@ -57,7 +57,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                         showToast(value.message.toString());
                         controller.getData();
                        // Get.back();
-                        //Get.toNamed(MyRouters.checkOutScreen);
+                        Get.toNamed(MyRouters.checkOutScreen);
                       }
                     });
                     print(myAddressController.model.value.data![index].id.toString());

@@ -46,7 +46,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
     return SafeArea(
       child: Scaffold(
           body: VerticalScrollableTabView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             autoScrollController: autoController,
             // scrollbarThumbVisibility: true,
             tabController: tabController,

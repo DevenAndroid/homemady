@@ -171,7 +171,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -186,7 +186,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -201,7 +201,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -216,7 +216,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -231,7 +231,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -246,7 +246,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -261,7 +261,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -276,7 +276,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -291,7 +291,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -306,7 +306,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         scale: 1.5,
                         child: Checkbox(
                             side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                            activeColor: Color(0xff7ED957),
+                            activeColor: const Color(0xff7ED957),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(3)),
@@ -377,7 +377,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               fontWeight: FontWeight.w600,
                               color: const Color(0xff1A2E33)
                           ),),
-                        Spacer(),
+                        const Spacer(),
                         Text( '€12.99',
                           style: GoogleFonts.poppins(
                               fontSize: 14,
@@ -394,14 +394,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xff1A2E33)
+                              color: const Color(0xff1A2E33)
                           ),),
-                        Spacer(),
+                        const Spacer(),
                         Text( '€5.00',
                           style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xff486769)
+                              color: const Color(0xff486769)
                           ),),
                       ],
                     ),
@@ -413,14 +413,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xff1A2E33)
+                              color: const Color(0xff1A2E33)
                           ),),
-                        Spacer(),
+                        const Spacer(),
                         Text( 'Free',
                           style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xff486769)
+                              color: const Color(0xff486769)
                           ),),
                       ],
                     ),
@@ -434,7 +434,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               fontWeight: FontWeight.w700,
                               color: const Color(0xff6BC744)
                           ),),
-                        Spacer(),
+                        const Spacer(),
                         Text( '€17.99',
                           style: GoogleFonts.poppins(
                               fontSize: 14,

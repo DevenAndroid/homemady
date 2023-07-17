@@ -1,14 +1,13 @@
 import 'dart:developer';
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -305,9 +304,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     color: const Color(0xFF4F535E),
                     fontWeight: FontWeight.w400,)),
               onTap: () {
-                setState(() {
-                  currentDrawer = 7;
-                  // Get.to(SettingScreenVendor());
+                setState(() async{
+                   SharedPreferences pref = await SharedPreferences.getInstance();
+                   pref.clear();
+                   Get.toNamed(MyRouters.loginScreen);
                 });
               },
             ),
@@ -326,7 +326,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Address', style: GoogleFonts.poppins(
+                Text('Address',
+                  style: GoogleFonts.poppins(
                   color: const Color(0xFF636869),
                   fontSize: 12,
                   fontWeight: FontWeight.w300,

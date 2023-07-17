@@ -201,23 +201,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                               vertical: AddSize.screenHeight * .005),
                           child: TabBar(
                             physics: const BouncingScrollPhysics(),
-                            tabs:  [
+                            tabs:  const[
                               Tab(
                                 child: Text(
-                                  "Driver  Detail",
+                                  "Driver Detail",
                                   textAlign: TextAlign.center,
-                                  style:GoogleFonts.poppins(
+                                  style:TextStyle(
                                       fontSize: 16,
-                                      fontWeight: FontWeight.w500),
+                                      fontFamily: 'poppinsSans',
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                               Tab(
                                 child: Text(
                                   "Home Cook Detail",
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
+                                  style:TextStyle(
                                       fontSize: 16,
-                                      fontWeight: FontWeight.w500),
+                                      fontFamily: 'poppinsSans',
+                                      fontWeight: FontWeight.w600),
                                 ),
                               )
                             ],
@@ -308,14 +310,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                   Container(
                                     height: AddSize.size45,
                                     width: AddSize.size45,
+                                    padding: const EdgeInsets.all(9),
                                     decoration: const ShapeDecoration(
                                         color: Color(0xFFFE7E73),
                                         shape: CircleBorder()),
-                                    child: const Center(
-                                        child: Icon(
-                                      Icons.person_rounded,
-                                      color: AppTheme.backgroundcolor,
-                                    )),
+                                    child:  Center(
+                                        child: Image.asset('assets/images/bubble_message_text.png')),
                                   ),
                                 ],
                               ),
@@ -667,14 +667,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                   Container(
                                     height: AddSize.size45,
                                     width: AddSize.size45,
+                                    padding: const EdgeInsets.all(9),
                                     decoration: const ShapeDecoration(
                                         color: Color(0xFFFE7E73),
                                         shape: CircleBorder()),
-                                    child: const Center(
-                                        child: Icon(
-                                          Icons.person_rounded,
-                                          color: AppTheme.backgroundcolor,
-                                        )),
+                                    child:  Center(
+                                        child: Image.asset('assets/images/bubble_message_text.png')),
                                   ),
                                 ],
                               ),

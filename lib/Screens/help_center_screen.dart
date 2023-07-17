@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/widgets/custome_size.dart';
+import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
+
+import '../routers/routers.dart';
 
 
 
@@ -16,32 +22,29 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
-        toolbarHeight: 80,
-        //elevation: 1,
-        //shadowColor: Colors.grey.shade300,
-        titleSpacing: 30,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: (){},
-          icon: const Icon(Icons.arrow_back,color: Colors.black,),
-        ),
-        leadingWidth: AddSize.size40 * 0.9,
-        title: const Text( 'Help Center',
-          style:TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-              color: Color(0xFF303D48)
-          ),
-        ),
-      ),
-      body:  Column(
-        children: [
-
-         Card(
-           child: Padding(
-             padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 10),
-             child: Row(
+      appBar: backAppBar(title: 'Help Center', context: context),
+      body:  Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 20),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF37C666).withOpacity(0.10),
+                    offset: const Offset(
+                      .1,
+                      .1,
+                    ),
+                    blurRadius: 20.0,
+                    spreadRadius: 1.0,
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+              child: Row(
                children: [
                  Image.asset(
                    'assets/images/helpMsg.png',
@@ -57,12 +60,24 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                ],
              ),
            ),
-         ),
-         Card(
-           color: const Color(0xffFFFFFF),
-           surfaceTintColor: Color(0xffFFFFFF),
-           child: Padding(
-             padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 10),
+           addHeight(15),
+           Container(
+             decoration: BoxDecoration(
+               color: Colors.white,
+               borderRadius: BorderRadius.circular(4),
+               boxShadow: [
+                 BoxShadow(
+                   color: const Color(0xFF37C666).withOpacity(0.10),
+                   offset: const Offset(
+                     .1,
+                     .1,
+                   ),
+                   blurRadius: 20.0,
+                   spreadRadius: 1.0,
+                 ),
+               ],
+             ),
+             padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
              child: Row(
                children: [
                  Image.asset(
@@ -79,28 +94,47 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                ],
              ),
            ),
-         ),
-         Card(
-           child: Padding(
-             padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 10),
-             child: Row(
-               children: [
-                 Image.asset(
-                   'assets/images/faq.png',
-                   width: 52,
-                   height:40,
-                 ),
-                 SizedBox(width: 20,),
-                 Text("FAQ", style:GoogleFonts.poppins(
-                     fontWeight: FontWeight.w500,
-                     fontSize: 19,
-                     color: Color(0xFF1A2E33)
-                 ),),
-               ],
-             ),
+            addHeight(15),
+            GestureDetector(
+              onTap: (){
+                Get.toNamed(MyRouters.faqsScreen);
+              },
+              child: Container(
+               decoration: BoxDecoration(
+                 color: Colors.white,
+                 borderRadius: BorderRadius.circular(4),
+                 boxShadow: [
+                   BoxShadow(
+                     color: const Color(0xFF37C666).withOpacity(0.10),
+                     offset: const Offset(
+                       .1,
+                       .1,
+                     ),
+                     blurRadius: 20.0,
+                     spreadRadius: 1.0,
+                   ),
+                 ],
+               ),
+               padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+               child: Row(
+                 children: [
+                   Image.asset(
+                     'assets/images/faq.png',
+                     width: 52,
+                     height:40,
+                   ),
+                   SizedBox(width: 20,),
+                   Text("FAQ", style:GoogleFonts.poppins(
+                       fontWeight: FontWeight.w500,
+                       fontSize: 19,
+                       color: Color(0xFF1A2E33)
+                   ),),
+                 ],
+               ),
            ),
-         ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

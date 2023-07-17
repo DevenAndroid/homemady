@@ -1,15 +1,17 @@
 import 'dart:developer';
+
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/homepage_controller.dart';
 
@@ -311,9 +313,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     color: const Color(0xFF4F535E),
                     fontWeight: FontWeight.w400,)),
               onTap: () {
-                setState(() {
-                  currentDrawer = 7;
-                  // Get.to(SettingScreenVendor());
+                setState(() async{
+                   SharedPreferences pref = await SharedPreferences.getInstance();
+                   pref.clear();
+                   Get.toNamed(MyRouters.loginScreen);
                 });
               },
             ),
@@ -332,7 +335,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Address', style: GoogleFonts.poppins(
+                Text('Address',
+                  style: GoogleFonts.poppins(
                   color: const Color(0xFF636869),
                   fontSize: 12,
                   fontWeight: FontWeight.w300,
@@ -382,14 +386,31 @@ class _HomePageScreenState extends State<HomePageScreen> {
             //     ),
             //   ),
             // ),
+      InkWell(
+        onTap: (){},
+            child: Container(
+              height: 42,
+              width: 42,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color(0xFF7ED957)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset('assets/images/shoppingImg.png',
+                  height: 30,),
+              ),
+            ),
+      ),
           ],
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 70,
       ),
       key: _scaffoldKey,
+
       body: Obx(() {
         return SafeArea(
           child: homeController.isDataLoading.value ?
@@ -415,6 +436,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     fontWeight: FontWeight.w300,
                                     fontSize: 16
                                 ),
+
                               ),
                               Text('Alexandra',
                                 style: GoogleFonts.poppins(

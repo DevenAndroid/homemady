@@ -27,7 +27,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                Row(
                  crossAxisAlignment: CrossAxisAlignment.center,
                  children: [
-                   const Text('4.8',style: TextStyle(
+                   const Text('6.8',style: TextStyle(
                       color: Color(0xFF1B233A),
                       fontSize: 48,
                       fontWeight: FontWeight.w600,

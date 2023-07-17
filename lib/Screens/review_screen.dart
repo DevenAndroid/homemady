@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/routers/routers.dart';
-import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,6 +18,10 @@ class ReviewScreen extends StatefulWidget {
 class _ReviewScreenState extends State<ReviewScreen> {
   double fullRating = 0;
   bool? _isValue = false;
+  bool? _isValue1 = false;
+  bool? _isValue2 = false;
+  bool? _isValue3 = false;
+  bool? _isValue4 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,22 +33,24 @@ class _ReviewScreenState extends State<ReviewScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               const Text('How did we do?',
-                 style: TextStyle(
-                 color: Color(0xFF1A1917),
-                 fontWeight: FontWeight.w900,
-                 fontSize: 15
-               ),),
-              addHeight(16),
-
+              const Padding(
+                 padding:  EdgeInsets.symmetric(horizontal: 8.0),
+                 child:  Text('How did we do?',
+                   style: TextStyle(
+                   color: Color(0xFF1A1917),
+                   fontWeight: FontWeight.w700,
+                   fontSize: 15
+                 ),),
+               ),
+              addHeight(20),
               RatingBar.builder(
-                initialRating: 4,
+                initialRating: 6,
                 glowColor: Colors.white10,
                 minRating: 1,
                 unratedColor: const Color(0xFFE0DEDA),
-                itemCount: 5,
-                itemSize: 48.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                itemCount: 7,
+                itemSize: 34.0,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
                 updateOnDrag: true,
                 allowHalfRating: true,
                 itemBuilder: (context, index) =>
@@ -58,7 +63,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   });
                 },
               ),
-              addHeight(20),
+              addHeight(25),
           //     ...List.generate(5, (index)
           //        {
           //       return Column(
@@ -83,132 +88,135 @@ class _ReviewScreenState extends State<ReviewScreen> {
           //        }
           //
           //     ),
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Transform.scale(
-                        scale: 1.5,
-
-                        child: Checkbox(
-                            activeColor: Color(0xff7ED957),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(3)),
-                            value: _isValue,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isValue = value;
-                              });
-                            }),
-                      ),
-                      const Text("Food Quality",style: TextStyle(
-                          color: Color(0xFF969AA3),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18
-                      ),),
-                      SizedBox(width: 35,),
-                      Transform.scale(
-                        scale: 1.5,
-                        child: Checkbox(
-                            activeColor: Color(0xff7ED957),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(3)),
-                            value: _isValue,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isValue = value;
-                              });
-                            }),
-                      ),
-                      const Text(" Food Quantity",style: TextStyle(
-                          color: Color(0xFF969AA3),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18
-                      ),)
-                    ],
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Checkbox(
+                        side: BorderSide(color: Colors.grey.shade300,width: 1.4),
+                        activeColor: Color(0xff7ED957),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(3)),
+                        value: _isValue,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isValue = value;
+                          });
+                        }),
                   ),
-                  Row(
-                    children: [
-                      Transform.scale(
-                        scale: 1.5,
-                        child: Checkbox(
-                            activeColor: Color(0xff7ED957),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(3)),
-                            value: _isValue,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isValue = value;
-                              });
-                            }),
-                      ),
-                      const Text("Communication",style: TextStyle(
-                          color: Color(0xFF969AA3),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18
-                      ),),
-                      Transform.scale(
-                        scale: 1.5,
-                        child: Checkbox(
-                            activeColor: Color(0xff7ED957),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(3)),
-                            value: _isValue,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isValue = value;
-                              });
-                            }),
-                      ),
-                      const Text("Hygiene",style: TextStyle(
-                          color: Color(0xFF969AA3),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18
-                      ),)
-                    ],
+                  const Text("Food Quality",style: TextStyle(
+                      color: Color(0xFF969AA3),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15
+                  ),),
+                  const SizedBox(width: 35,),
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Checkbox(
+                        side: BorderSide(color: Colors.grey.shade300,width: 1.4),
+                        activeColor: Color(0xff7ED957),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(3)),
+                        value: _isValue1,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isValue1 = value;
+                          });
+                        }),
                   ),
-                  Row(
-                    children: [
-                      Transform.scale(
-                        scale: 1.5,
-                        child: Checkbox(
-                            activeColor: Color(0xff7ED957),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(3)),
-                            value: _isValue,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isValue = value;
-                              });
-                            }),
-                      ),
-                      const Text("Delivery",style: TextStyle(
-                          color: Color(0xFF969AA3),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18
-                      ),),
-
-                    ],
-                  ),
+                  const Text(" Food Quantity",style: TextStyle(
+                      color: Color(0xFF969AA3),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15
+                  ),)
                 ],
               ),
+              Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Checkbox(
+                        side: BorderSide(color: Colors.grey.shade300,width: 1.4),
+                        activeColor: Color(0xff7ED957),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(3)),
+                        value: _isValue2,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isValue2 = value;
+                          });
+                        }),
+                  ),
+                  const Text("Communication",style: TextStyle(
+                      color: Color(0xFF969AA3),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15
+                  ),),
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Checkbox(
+                        side: BorderSide(color: Colors.grey.shade300,width: 1.4),
+                        activeColor: Color(0xff7ED957),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(3)),
+                        value: _isValue3,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isValue3 = value;
+                          });
+                        }),
+                  ),
+                  const Text("Hygiene",style: TextStyle(
+                      color: Color(0xFF969AA3),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15
+                  ),)
+                ],
+              ),
+              Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Checkbox(
+                        side: BorderSide(color: Colors.grey.shade300,width: 1.4),
+                        activeColor: Color(0xff7ED957),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(3)),
+                        value: _isValue4,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isValue4 = value;
+                          });
+                        }),
+                  ),
+                  const Text("Delivery",style: TextStyle(
+                      color: Color(0xFF969AA3),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15
+                  ),),
 
-              addHeight(50),
+                ],
+              ),
+              addHeight(30),
               DottedLine(
               dashColor: Colors.grey.shade300,
               ),
               addHeight(20),
-              const Text('Care to share more about it?',
-                style: TextStyle(
-                    color: Color(0xFF1A1917),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14
-                ),),
+              const Padding(
+                 padding:  EdgeInsets.symmetric(horizontal: 8.0),
+                 child: Text('Care to share more about it?',
+                  style: TextStyle(
+                      color: Color(0xFF1A1917),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15
+                  ),),
+               ),
               addHeight(10),
               EditProfileTextFieldWidget(
                 onTap: (){},
@@ -216,25 +224,23 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 maxLines: null,
               ),
               addHeight(25),
-              DottedLine(
-                dashColor: Colors.grey.shade300,
-              ),
-              addHeight(25),
               CommonButton(title: 'Publish Feedback',onPressed: (){
                 Get.toNamed(MyRouters.feedBackScreen);
                   print("object");
               },),
-              addHeight(15),
-               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Skip",style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 19
-                  ),),
-                ],
-              ),
+              addHeight(25),
+               Center(
+                 child: GestureDetector(
+                   onTap: (){
+                     Get.back();
+                   },
+                   child: Text("Skip",style: TextStyle(
+                       color: Colors.black,
+                       fontWeight: FontWeight.w700,
+                       fontSize: 19
+                   ),),
+                 ),
+               ),
               // CommonButton(title: 'Skip',onPressed: (){
               //   Get.toNamed(MyRouters.bottomNavbar);
               //     print("object");

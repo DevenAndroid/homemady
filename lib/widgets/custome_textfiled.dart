@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dimenestion.dart';
 
@@ -436,7 +433,7 @@ class CommonTextFieldWidgetSearch extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(50.0))),
           border: OutlineInputBorder(
               borderSide:
-              BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
+              const BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
               borderRadius: BorderRadius.circular(50.0)),
           suffixIcon: suffix,
           prefixIcon: prefix),
@@ -515,7 +512,7 @@ class CommonTextFieldWidgetSearch1 extends StatelessWidget {
             fontWeight: FontWeight.w300,
           ),
           filled: true,
-          fillColor: Color(0xFFF8F8F8),
+          fillColor: const Color(0xFFF8F8F8),
           contentPadding:
           const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
@@ -528,7 +525,7 @@ class CommonTextFieldWidgetSearch1 extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(50.0))),
           border: OutlineInputBorder(
               borderSide:
-              BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
+              const BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
               borderRadius: BorderRadius.circular(50.0)),
           suffixIcon: suffix,
           prefixIcon: prefix),
@@ -652,7 +649,7 @@ AppBar backAppBar(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               icon ??
-                  Icon(Icons.arrow_back_rounded,color: Colors.black,)
+                  const Icon(Icons.arrow_back_rounded,color: Colors.black,)
             ],
           )),
     ),
@@ -724,14 +721,14 @@ class CommonTextFieldWidget extends StatelessWidget {
           focusColor: Colors.black,
           hintStyle: const TextStyle(
             color:  Color(0xff2F353F),
-            fontSize: 14,
-            fontFamily: 'poppins',
+            fontSize: 13,
+            // fontFamily: 'poppins',
             fontWeight: FontWeight.w300,
           ),
           filled: true,
           fillColor: Colors.white,
           contentPadding:
-          const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white),
@@ -741,8 +738,7 @@ class CommonTextFieldWidget extends StatelessWidget {
               borderSide: BorderSide(color: Colors.white),
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           border: OutlineInputBorder(
-              borderSide:
-              BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
+              borderSide: const BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
               borderRadius: BorderRadius.circular(15.0)),
           suffixIcon: suffix,
           prefixIcon: prefix),
@@ -834,7 +830,7 @@ class CommonTextFieldWidget1 extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           border: OutlineInputBorder(
               borderSide:
-              BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
+              const BorderSide(color: Color(0xFFD8DCDD), width: 3.0),
               borderRadius: BorderRadius.circular(15.0)),
           suffixIcon: suffix,
           prefixIcon: prefix),
@@ -911,8 +907,8 @@ class RegistrationTextFieldChk extends StatelessWidget {
           ),
           filled: true,
 
-          fillColor: Color(0xFFFFFFFF),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+          fillColor: const Color(0xFFFFFFFF),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
           // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade300),
@@ -999,8 +995,8 @@ class RegistrationTextField extends StatelessWidget {
           ),
           filled: true,
 
-          fillColor: Color(0xFFFFFFFF),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          fillColor: const Color(0xFFFFFFFF),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade300),

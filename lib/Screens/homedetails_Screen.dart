@@ -49,6 +49,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+
       child: Obx(() {
         return Scaffold(
             body: controller.isDataLoading.value ?
@@ -82,6 +83,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                     fit: BoxFit.cover,
                                     errorWidget: (_, __, ___) => Image.asset(
                                       'assets/images/Rectangle 23007.png',
+
                                     ),
                                     placeholder: (_, __) =>
                                         Center(child: CircularProgressIndicator()),

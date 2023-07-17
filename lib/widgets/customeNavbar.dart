@@ -9,6 +9,7 @@ import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:homemady/controller/bottomNavbarController.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   int currentDrawer = 0;
+  int selectedTab = 0;
   Rx<int> currentIndex = 0.obs;
   // final itemss = <Widget>[
   //   Image.asset('assets/images/home.png',height: 20,color: Colors.black,),
@@ -286,6 +288,28 @@ class _BottomNavbarState extends State<BottomNavbar> {
               ListTile(
                 visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
                 leading: Image.asset(
+                  'assets/images/help_centerD.png',
+                  height: 18,
+                ),
+                title:  Text('Help Center',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      color: const Color(0xFF4F535E),
+                      fontWeight: FontWeight.w400,)),
+                onTap: () {
+                  setState(() {
+                    Get.toNamed(MyRouters.helpCenterScreen);
+                  });
+                },
+              ),
+              const Divider(
+                height: 5,
+                color: Color(0xffEFEFEF),
+                thickness: 1,
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+                leading: Image.asset(
                   'assets/images/logout.png',
                   height: 16,
                 ),
@@ -295,8 +319,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
                       color: const Color(0xFF4F535E),
                       fontWeight: FontWeight.w400,)),
                 onTap: () {
-                  setState(() {
-                    currentDrawer = 7;
+                  setState(() async{
+                    SharedPreferences pref = await SharedPreferences.getInstance();
+                    pref.clear();
+                    Get.toNamed(MyRouters.loginScreen);
                     // Get.to(SettingScreenVendor());
                   });
                 },
@@ -310,46 +336,44 @@ class _BottomNavbarState extends State<BottomNavbar> {
         bottomNavigationBar:  ConvexAppBar(
           backgroundColor: Colors.white,
             color: const Color(0xFF4E5B5F),
-            height: 50,
-            activeColor: Colors.green,
+            height: 52,
+            top: -18,
+            activeColor: const Color(0xFF68C541),
             onTap: (int index) => currentIndex.value = index,
             items: [
             TabItem(
-                icon : Image.asset('assets/images/home1.png',color: const Color(0xFF4E5B5F),),
+                icon : Image.asset('assets/images/navbarhome.png',color: const Color(0xFF4E5B5F).withOpacity(0.60),),
                 title: 'Home',
-              activeIcon: Image.asset('assets/images/home1.png')
+              activeIcon: Padding(
+                padding: const EdgeInsets.all(13.0),
+                child: Image.asset('assets/images/navbarhome.png',),
+              ),
               ),
               TabItem(
-                icon: Icons.featured_video,
+                icon:  Image.asset('assets/images/featured_ic_video_icon.png'),
                 title: 'Featured',
+                activeIcon: Padding(
+                  padding: const EdgeInsets.all(13.0),
+                  child: Image.asset('assets/images/featured_ic_video_icon.png',color: Colors.white,),
+                ),
               ),
               TabItem(
-                icon: Icons.list_alt,
+                icon : Image.asset('assets/images/order_icon1.png'),
                 title: 'Orders',
+                activeIcon: Padding(
+                  padding: const EdgeInsets.all(13.0),
+                  child: Image.asset('assets/images/order_icon1.png',color: Colors.white,),
+                ),
               ),
               TabItem(
-                icon: Icons.settings,
+                icon : Image.asset('assets/images/setting.png'),
                 title: 'Settings',
+                activeIcon: Padding(
+                  padding: const EdgeInsets.all(13.0),
+                  child: Image.asset('assets/images/setting.png',color: Colors.white,),
+                ),
               ),
             ]
-
-        //   BottomBarInspiredInside(
-        //   height: 40.0,
-        //   items: items,
-        //   backgroundColor:   Colors.white,
-        //   color: const Color(0xFF4E5B5F),
-        //   titleStyle: GoogleFonts.plusJakartaSans(
-        //       fontSize: 10,
-        //       fontWeight: FontWeight.w400,
-        //       color: const Color(0xFF4E5B5F)),
-        //   colorSelected: Colors.white,
-        //   indexSelected: currentIndex.value,
-        //   onTap: (int index) => currentIndex.value = index,
-        //   chipStyle: const ChipStyle(convexBridge: true),
-        //   itemStyle: ItemStyle.circle,
-        //   animated: true,
-        //
-        // );
       ));
     });
   }

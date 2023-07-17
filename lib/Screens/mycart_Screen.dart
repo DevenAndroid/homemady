@@ -28,8 +28,18 @@ class _MyCartScreenState extends State<MyCartScreen> {
     controller.getData();
   }
   bool? _isValue = false;
+  bool? _isValue1 = false;
+  bool? _isValue2 = false;
+  bool? _isValue3 = false;
+  bool? _isValue4 = false;
+  bool? _isValue5 = false;
+  bool? _isValue6 = false;
+  bool? _isValue7 = false;
+  bool? _isValue8 = false;
+  bool? _isValue9 = false;
   @override
   Widget build(BuildContext context) {
+
     return Obx(() {
       return Scaffold(
         appBar: backAppBar(title: 'My Cart', context: context),
@@ -323,9 +333,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       addHeight(20)
                     ],
 
+
                   ),
                 ),
               ),
+
               addHeight(39),
               Padding(
                 padding:  EdgeInsets.only(left: 8.0,right: 8.0),
@@ -340,5 +352,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
         ):Center(child: Text('Cart Empty',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,),)) :Center(child: CircularProgressIndicator()),
       );
     });
+
   }
 }

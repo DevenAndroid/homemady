@@ -3,15 +3,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/Screens/chat_message.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import '../widgets/custome_size.dart';
-
-
-
-
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -109,24 +104,28 @@ class _ChatScreenState extends State<ChatScreen> {
                                 children: [
                                   ClipOval(child: Image.asset('assets/images/IMG_6897.png',height: 50,)),
                                   addWidth(10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text('Prateek Saini',
-                                        style: GoogleFonts.plusJakartaSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                            color: const Color(0xFF3D4260)
-                                        ),),
-                                      addHeight(3),
-                                      Text('Of course, what can I help you...',
-                                        style: GoogleFonts.plusJakartaSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14,
-                                            color: const Color(0xFF486769).withOpacity(0.70)
-                                        ),),
-                                    ],
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text('Prateek Saini',
+                                          style: GoogleFonts.plusJakartaSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              color: const Color(0xFF3D4260)
+                                          ),),
+                                        addHeight(3),
+                                        Text('Of course, what can I help you...',
+                                          style: GoogleFonts.plusJakartaSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: const Color(0xFF486769).withOpacity(0.70)
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -200,24 +199,28 @@ class _ChatScreenState extends State<ChatScreen> {
                                 children: [
                                   ClipOval(child: Image.asset('assets/images/IMG_6896.png',height: 50,)),
                                   addWidth(10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text('Prateek Saini',
-                                        style: GoogleFonts.plusJakartaSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                            color: const Color(0xFF3D4260)
-                                        ),),
-                                      addHeight(3),
-                                      Text('Of course, what can I help you...',
-                                        style: GoogleFonts.plusJakartaSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14,
-                                            color: const Color(0xFF486769).withOpacity(0.70)
-                                        ),),
-                                    ],
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text('Prateek Saini',
+                                          style: GoogleFonts.plusJakartaSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              color: const Color(0xFF3D4260)
+                                          ),),
+                                        addHeight(3),
+                                        Text('Of course, what can I help you...',
+                                          style: GoogleFonts.plusJakartaSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: const Color(0xFF486769).withOpacity(0.70)
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -233,7 +236,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                     Image.asset('assets/images/Layer 2.png',height: 11,)
                                     ],
                                   ),
-
                                 ],
                               ),
                             )

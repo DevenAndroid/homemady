@@ -53,7 +53,7 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
                         ),
                       ))),
               TabBar(
-                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorSize: TabBarIndicatorSize.label,
                 labelColor: const Color(0xff7ED957),
                 physics: const BouncingScrollPhysics(),
                 labelStyle: const TextStyle(
@@ -70,13 +70,13 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
                 ),
                 tabs: const [
                   Tab(
-                   text: 'Active',
+                   text: '   Active   ',
                   ),
                   Tab(
-                   text: 'Completed',
+                   text: '  Completed  ',
                   ),
                   Tab(
-                   text: 'Cancelled',
+                   text: '  Cancelled  ',
                   ),
 
                 ],

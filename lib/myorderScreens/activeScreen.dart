@@ -153,9 +153,9 @@ class _ActiveScreenState extends State<ActiveScreen> {
                               height: 1,
                             ),
                           ),
-                          addHeight(10),
+                          addHeight(5),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Row(
                               children: [
                                 Container(
@@ -198,7 +198,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                               ],
                             ),
                           ),
-                          addHeight(15),
+                          addHeight(18),
                         ],
                       ),
                     ),

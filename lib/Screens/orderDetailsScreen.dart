@@ -191,6 +191,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                          ),
                                        ),
 
+
                                      ],
                                    );
                                  },),
@@ -258,6 +259,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                    controller: tabController,
                    children: [
 
+
                      Obx(() {
                        return SingleChildScrollView(
                          physics: const BouncingScrollPhysics(),
@@ -265,6 +267,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                            padding: EdgeInsets.symmetric(
                              horizontal: AddSize.padding16,
                            ),
+
                            child: controller.isDataLoading.value ? controller.model.value.data!.driver.isBlank!  ?
                            Column(
                                children: [
@@ -984,6 +987,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
 
 
              )
+
 
 
     );

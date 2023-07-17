@@ -13,7 +13,7 @@ import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/homedetails_Screen.dart';
 import 'package:homemady/Screens/myAddressScreen.dart';
 import 'package:homemady/Screens/myOrderScreen.dart';
-import 'package:homemady/Screens/my_addresss.dart';
+import 'package:homemady/Screens/choose_address.dart';
 import 'package:homemady/Screens/mycart_Screen.dart';
 import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:homemady/Screens/notificationScreen.dart';

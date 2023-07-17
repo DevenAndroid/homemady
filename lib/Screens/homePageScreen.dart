@@ -1,4 +1,8 @@
 import 'dart:developer';
+
+import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +13,8 @@ import 'package:homemady/widgets/dimenestion.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/homepage_controller.dart';
+
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
 
@@ -17,6 +23,8 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
+
+  final homeController = Get.put(HomePageController());
   RxBool isSelect = false.obs;
   RxBool selectIcon = false.obs;
   int currentDrawer = 0;
@@ -27,6 +35,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+   homeController.getData();
     _decrement();
     _increment();
   }
@@ -317,7 +326,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       appBar: AppBar(
         title: Row(
           children: [
-            InkWell(
+            GestureDetector(
                 onTap: () {
                   _scaffoldKey.currentState!.openDrawer();
                 },
@@ -401,654 +410,681 @@ class _HomePageScreenState extends State<HomePageScreen> {
         toolbarHeight: 70,
       ),
       key: _scaffoldKey,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(padding: const EdgeInsets.only(left: 14, top: 18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('Hello',
-                              style: GoogleFonts.poppins(
-                                  color: const Color(0xFF676767),
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 16
-                              ),
-                            ),
-                            Text('Alexandra',
-                              style: GoogleFonts.poppins(
-                                  color: const Color(0xFF353535),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 22
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 18.0),
-                          child: InkWell(
-                            onTap: () {
-                              Get.toNamed(MyRouters.favouriteScreen);
-                            },
-                            child: const Icon(
-                              Icons.favorite_outline, color: Color(0xFF7ED957),
-                              size: 30,),
-                          ),
-                        ),
 
-                      ],
-                    ),
-                    addHeight(20),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Container(
-                              height: 42,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xFF37C666)
-                                          .withOpacity(0.10),
-                                      offset: const Offset(.1, .1,
-                                      ),
-                                      blurRadius: 20.0,
-                                      spreadRadius: 1.0,
-                                    ),
-                                  ],
-                                  color: Colors.white
-                              ),
-                              child: CommonTextFieldWidget1(
-                                hint: 'Search Your Food',
-                                prefix: Icon(Icons.search, size: 19,
-                                  color: const Color(0xFF000000).withOpacity(
-                                      0.56),),
-                                onChanged: (val) {
-                                  _showSimpleDialog3(context);
-                                },
-                              )
-                          ),
-                        ),
-                        addWidth(10),
-
-                        InkWell(
-                          onTap: () {
-                            _showSimpleDialog();
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: const Color(0xFF7ED957),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF37C666).withOpacity(
-                                      0.30),
-                                  offset: const Offset(.1, .1,
-                                  ),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 1.0,
+      body: Obx(() {
+        return SafeArea(
+          child: homeController.isDataLoading.value ?
+          SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(padding: const EdgeInsets.only(left: 14, top: 18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text('Hello',
+                                style: GoogleFonts.poppins(
+                                    color: const Color(0xFF676767),
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 16
                                 ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/filterImg.png', height: 18,),
+
+                              ),
+                              Text('Alexandra',
+                                style: GoogleFonts.poppins(
+                                    color: const Color(0xFF353535),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 22
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 18.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(MyRouters.favouriteScreen);
+                              },
+                              child: const Icon(
+                                Icons.favorite_outline, color: Color(0xFF7ED957),
+                                size: 30,),
                             ),
                           ),
-                        ),
-                        addWidth(5),
-                        InkWell(
-                          onTap: () {
-                            _showSimpleDialog1();
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
+
+                        ],
+                      ),
+                      addHeight(20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
+                                height: 42,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xFF37C666)
+                                            .withOpacity(0.10),
+                                        offset: const Offset(.1, .1,
+                                        ),
+                                        blurRadius: 20.0,
+                                        spreadRadius: 1.0,
+                                      ),
+                                    ],
+                                    color: Colors.white
+                                ),
+                                child: CommonTextFieldWidget1(
+                                  hint: 'Search Your Food',
+                                  prefix: Icon(Icons.search, size: 19,
+                                    color: const Color(0xFF000000).withOpacity(
+                                        0.56),),
+                                  onChanged: (val) {
+                                    _showSimpleDialog3(context);
+                                  },
+                                )
+                            ),
+                          ),
+                          addWidth(10),
+
+                          GestureDetector(
+                            onTap: () {
+                              _showSimpleDialog();
+                            },
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
+                                color: const Color(0xFF7ED957),
                                 boxShadow: [
                                   BoxShadow(
                                     color: const Color(0xFF37C666).withOpacity(
-                                        0.10),
+                                        0.30),
                                     offset: const Offset(.1, .1,
                                     ),
                                     blurRadius: 20.0,
                                     spreadRadius: 1.0,
                                   ),
                                 ],
-                                border: Border.all(
-                                    color: const Color(0xFF7ED957)
-                                )
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/sort-descending.png',
-                                height: 18,),
-
-                            ),
-                          ),
-                        ),
-                        addWidth(10),
-                      ],
-                    ),
-                    addHeight(26),
-                    SizedBox(
-                      height: 144,
-                      child: ListView.builder(
-                        itemCount: 3,
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              Container(
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Image.asset(
-                                  'assets/images/slider.png', width: 226,),
-                              ),
-                              addWidth(20)
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                    addHeight(14),
-
-                    Padding(
-                      padding: const EdgeInsets.only(right: 9.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {},
-                              child:
-                              Container(
-                                height: 44,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: selectedDate == 'Delivery Now'
-                                        ? Border.all(
-                                        color: const Color(0xFF7ED957),
-                                        width: 2
-                                    )
-                                        : Border.all(
-                                        color: const Color(0xFF717171)
-                                            .withOpacity(0.22),
-                                        width: 1
-                                    )
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    selectedDate == 'Delivery Now' ? Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.asset(
-                                        'assets/images/clockImg.png',
-                                        height: 18,),
-                                    ) : Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.asset(
-                                        'assets/images/calendar_date.png',
-                                        height: 18,
-                                        color: const Color(0xFF262626)
-                                            .withOpacity(0.62),),),
-                                    selectedDate == 'Delivery Now' ?
-                                    Text(selectedDate,
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xFF7ED957),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ) : Text(selectedDate,
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xFF262626)
-                                            .withOpacity(0.62),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  'assets/images/filterImg.png', height: 18,),
                               ),
                             ),
                           ),
-                          addWidth(10),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () async {
-                                DateTime? pickedDate = await showDatePicker(
-                                  builder: (context, child) {
-                                    return Theme(
-                                      data: Theme.of(context).copyWith(
-                                        colorScheme: const ColorScheme.light(
-                                          primary: Color(0xFF7ED957),
-                                          // header background color
-                                          onPrimary: Colors.white,
-                                          // header text color
-                                          onSurface: Color(
-                                              0xFF7ED957), // body text color
-                                        ),
-                                        textButtonTheme: TextButtonThemeData(
-                                          style: TextButton.styleFrom(
-                                            foregroundColor: const Color(
-                                                0xFF7ED957), // button text color
-                                          ),
-                                        ),
-                                      ),
-                                      child: child!,
-                                    );
-                                  },
-
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1950),
-                                  //DateTime.now() - not to allow to choose before today.
-                                  lastDate: DateTime(2025),
-                                ).then((value) {
-                                  // setState(() {
-                                  //   _dateTime = value!;
-                                  // });
-
-                                  if (value != null) {
-                                    String formattedDate = DateFormat(
-                                        'yyyy/MM/dd').format(value);
-                                    setState(() {
-                                      selectedDate =
-                                          formattedDate; //set output date to TextField value.
-                                      log("Seleted Date     $selectedDate");
-                                    });
-                                  }
-                                });
-
-                                if (pickedDate != null) {
-                                  String formattedDate = DateFormat(
-                                      'yyyy/MM/dd').format(pickedDate);
-                                  setState(() {
-                                    selectedDate = formattedDate;
-                                    log("Seleted Date     $selectedDate");
-                                  });
-                                }
-                              },
-                              child: Container(
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: Color(0xFF7ED957),
-                                  ),
-                                  child: selectedDate == 'Delivery Now' ?
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          'assets/images/truckimg.png',
-                                          height: 18,),
-                                      ),
-                                      Text('Pick a Date',
-                                        style: GoogleFonts.poppins(
-                                          color: const Color(0xFFFFFFFF),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      )
-                                    ],
-                                  ) : Row(
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          'assets/images/calendar_date.png',
-                                          height: 18,),
-                                      ),
-                                      Text('Change Date',
-                                        style: GoogleFonts.poppins(
-                                          color: const Color(0xFFFFFFFF),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    addHeight(20),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                          addWidth(5),
+                          GestureDetector(
+                            onTap: () {
+                              _showSimpleDialog1();
+                            },
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: const Color(0xFF37C666)
-                                          .withOpacity(
-                                          0.15),
-                                      offset: const Offset(.3, .3,
+                                      color: const Color(0xFF37C666).withOpacity(
+                                          0.10),
+                                      offset: const Offset(.1, .1,
                                       ),
                                       blurRadius: 20.0,
                                       spreadRadius: 1.0,
                                     ),
                                   ],
+                                  border: Border.all(
+                                      color: const Color(0xFF7ED957)
+                                  )
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  'assets/images/sort-descending.png',
+                                  height: 18,),
+
+                              ),
+                            ),
+                          ),
+                          addWidth(10),
+                        ],
+                      ),
+                      addHeight(26),
+                      SizedBox(
+                        height: 144,
+                        child: ListView.builder(
+                          itemCount: homeController.model.value.data!.sliderData!.length,
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Row(
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: homeController.model.value.data!.sliderData![index].image.toString(),
+                                  fit: BoxFit.cover,
+                                  errorWidget: (_, __, ___) => Image.asset(
+                                  'assets/images/Ellipse 67.png',
                                 ),
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Get.toNamed(
-                                              MyRouters.homeDetailsScreen);
-                                        },
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start,
-                                          children: [
-                                            Image.asset(
-                                                'assets/images/Rectangle 2171.png'),
-                                            addHeight(6),
-                                            Text('Burger King with Pizza',
-                                              style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 16,
-                                                  color: const Color(0xFF21283D)
-                                              ),),
-                                            addHeight(6),
-                                            Row(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/truckimg.png',
-                                                  height: 22,
-                                                  color: const Color(
-                                                      0xFF04666E),),
-                                                addWidth(10),
-                                                Text('Delivery Only 25 mins',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight
-                                                          .w400,
-                                                      fontSize: 12,
-                                                      color: const Color(
-                                                          0xFF606573)
-                                                  ),),
-                                              ],
-                                            )
-                                          ],
+                                  placeholder: (_, __) =>
+                                    Center(child: CircularProgressIndicator()),
+                                ),
+                                addWidth(20)
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                      addHeight(14),
+
+                      Padding(
+                        padding: const EdgeInsets.only(right: 9.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {},
+                                child:
+                                Container(
+                                  height: 44,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: selectedDate == 'Delivery Now'
+                                          ? Border.all(
+                                          color: const Color(0xFF7ED957),
+                                          width: 2
+                                      )
+                                          : Border.all(
+                                          color: const Color(0xFF717171)
+                                              .withOpacity(0.22),
+                                          width: 1
+                                      )
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      selectedDate == 'Delivery Now' ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          'assets/images/clockImg.png',
+                                          height: 18,),
+                                      ) : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          'assets/images/calendar_date.png',
+                                          height: 18,
+                                          color: const Color(0xFF262626)
+                                              .withOpacity(0.62),),),
+                                      selectedDate == 'Delivery Now' ?
+                                      Text(selectedDate,
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF7ED957),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ) : Text(selectedDate,
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF262626)
+                                              .withOpacity(0.62),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            addWidth(10),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    builder: (context, child) {
+                                      return Theme(
+                                        data: Theme.of(context).copyWith(
+                                          colorScheme: const ColorScheme.light(
+                                            primary: Color(0xFF7ED957),
+                                            // header background color
+                                            onPrimary: Colors.white,
+                                            // header text color
+                                            onSurface: Color(
+                                                0xFF7ED957), // body text color
+                                          ),
+                                          textButtonTheme: TextButtonThemeData(
+                                            style: TextButton.styleFrom(
+                                              foregroundColor: const Color(
+                                                  0xFF7ED957), // button text color
+                                            ),
+                                          ),
+                                        ),
+                                        child: child!,
+                                      );
+                                    },
+
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1950),
+                                    //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2025),
+                                  ).then((value) {
+                                    // setState(() {
+                                    //   _dateTime = value!;
+                                    // });
+
+                                    if (value != null) {
+                                      String formattedDate = DateFormat(
+                                          'yyyy/MM/dd').format(value);
+                                      setState(() {
+                                        selectedDate =
+                                            formattedDate; //set output date to TextField value.
+                                        log("Seleted Date     $selectedDate");
+                                      });
+                                    }
+                                  });
+
+                                  if (pickedDate != null) {
+                                    String formattedDate = DateFormat(
+                                        'yyyy/MM/dd').format(pickedDate);
+                                    setState(() {
+                                      selectedDate = formattedDate;
+                                      log("Seleted Date     $selectedDate");
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                    height: 44,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: Color(0xFF7ED957),
+                                    ),
+                                    child: selectedDate == 'Delivery Now' ?
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.asset(
+                                            'assets/images/truckimg.png',
+                                            height: 18,),
+                                        ),
+                                        Text('Pick a Date',
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFFFFFFFF),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        )
+                                      ],
+                                    ) : Row(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.asset(
+                                            'assets/images/calendar_date.png',
+                                            height: 18,),
+                                        ),
+                                        Text('Change Date',
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFFFFFFFF),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      addHeight(20),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: homeController.model.value.data!.stores!.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xFF37C666)
+                                            .withOpacity(
+                                            0.15),
+                                        offset: const Offset(.3, .3,
+                                        ),
+                                        blurRadius: 20.0,
+                                        spreadRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Get.toNamed(MyRouters.homeDetailsScreen,arguments: [homeController.model.value.data!.stores![index].id.toString()]);
+                                          },
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment
+                                                .start,
+                                            children: [
+                                              /*CachedNetworkImage(
+                                                imageUrl: homeController.model.value.data!.stores![index].image.toString(),
+                                                fit: BoxFit.cover,
+                                                errorWidget: (_, __, ___) => Image.asset(
+                                                  'assets/images/Rectangle 23007.png',
+                                                ),
+                                                placeholder: (_, __) =>
+                                                    Center(child: CircularProgressIndicator()),
+                                              ),*/
+                                              Image.asset(
+                                                'assets/images/Rectangle 23007.png',
+                                              ),
+                                              addHeight(6),
+                                              Text(homeController.model.value.data!.stores![index].name.toString(),
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 16,
+                                                    color: const Color(0xFF21283D)
+                                                ),),
+                                              addHeight(6),
+                                              Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/images/truckimg.png',
+                                                    height: 22,
+                                                    color: const Color(
+                                                        0xFF04666E),),
+                                                  addWidth(10),
+                                                  Text('Delivery Only 25 mins',
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight
+                                                            .w400,
+                                                        fontSize: 12,
+                                                        color: const Color(
+                                                            0xFF606573)
+                                                    ),),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Positioned(
-                                        top: 80,
-                                        // bottom: 0,
-                                        left: 20,
-                                        right: 20,
-                                        //   bottom: 0,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceBetween,
-                                          children: const [
-                                            Icon(Icons.arrow_back_ios,
-                                              color: Colors.white, size: 20,),
-                                            Icon(Icons.arrow_forward_ios,
-                                              color: Colors.white, size: 20,)
-                                          ],
-                                        )
-                                    ),
-                                    Positioned(
-                                        bottom: 10,
-                                        right: 20,
-                                        //   bottom: 0,
-                                        child: Column(
-                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                                height: 48,
-                                                decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.white
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      3),
-                                                  child: Image.asset(
-                                                      'assets/images/avtarImg.png'),
-                                                )
-                                            ),
-                                            addHeight(3),
-                                            Text('Jack Smith',
-                                              style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 12,
-                                                  color: const Color(0xFF21283D)
-                                              ),),
-                                            Row(
-                                              crossAxisAlignment: CrossAxisAlignment
-                                                  .center,
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .center,
-                                              children: [
-                                                const Icon(Icons.star,
-                                                  color: Color(0xFFFFC529),
-                                                  size: 14,),
-                                                addWidth(3),
-                                                Text('4.95 (35)',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight
-                                                          .w500,
-                                                      fontSize: 11,
-                                                      color: const Color(
-                                                          0xFF6A7080)
-                                                  ),),
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                    ),
-                                    Positioned(
-                                        top: 16,
-                                        // bottom: 0,
-                                        // left: 290,
-                                        right: 10,
-                                        //   bottom: 0,
-
-                                        child: Column(
-                                          children: [
-                                            Obx(() {
-                                              return Container(
-                                                  height: 33,
+                                      Positioned(
+                                          top: 80,
+                                          // bottom: 0,
+                                          left: 20,
+                                          right: 20,
+                                          //   bottom: 0,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .spaceBetween,
+                                            children: const [
+                                              Icon(Icons.arrow_back_ios,
+                                                color: Colors.white, size: 20,),
+                                              Icon(Icons.arrow_forward_ios,
+                                                color: Colors.white, size: 20,)
+                                            ],
+                                          )
+                                      ),
+                                      Positioned(
+                                          bottom: 10,
+                                          right: 20,
+                                          //   bottom: 0,
+                                          child: Column(
+                                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                  height: 48,
                                                   decoration: const BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: Colors.white
                                                   ),
                                                   child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .only(left: 10,
-                                                        right: 10,
-                                                        top: 3),
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        isSelect.value =
-                                                        !isSelect.value;
-                                                      },
-                                                      child: isSelect.value ==
-                                                          true
-                                                          ? const Icon(
-                                                        Icons.favorite,
-                                                        color: Color(
-                                                            0xFF54C523),)
-                                                          :
-                                                      const Icon(
-                                                        Icons.favorite_outline,
-                                                        color: Color(
-                                                            0xFF54C523),),
-                                                    ),
+                                                    padding: const EdgeInsets.all(
+                                                        3),
+                                                    child: Image.asset(
+                                                        'assets/images/avtarImg.png'),
                                                   )
-                                              );
-                                            }),
-                                          ],
-                                        )
-                                    ),
-                                    Positioned(
-                                        top: 14,
-                                        // bottom: 0,
-                                        left: 10,
-                                        right: 15,
-                                        //   bottom: 0,
-                                        child: Row(
-                                          children: [
+                                              ),
+                                              addHeight(3),
+                                              Text((homeController.model.value.data!.stores![index].cookName!.isEmpty ?  'Test' : homeController.model.value.data!.stores![index].cookName).toString(),
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 12,
+                                                    color: const Color(0xFF21283D)
+                                                ),),
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment
+                                                    .center,
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .center,
+                                                children: [
+                                                  const Icon(Icons.star,
+                                                    color: Color(0xFFFFC529),
+                                                    size: 14,),
+                                                  addWidth(3),
+                                                  Text(homeController.model.value.data!.stores![index].rating.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight
+                                                            .w500,
+                                                        fontSize: 11,
+                                                        color: const Color(
+                                                            0xFF6A7080)
+                                                    ),),
+                                                  Text('(${(homeController.model.value.data!.stores![index].countReviewData!.isEmpty ? '3' :'').toString()})',
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight
+                                                            .w500,
+                                                        fontSize: 11,
+                                                        color: const Color(
+                                                            0xFF6A7080)
+                                                    ),),
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                      ),
+                                      Positioned(
+                                          top: 16,
+                                          // bottom: 0,
+                                          // left: 290,
+                                          right: 10,
+                                          //   bottom: 0,
 
-                                            InkWell(
-                                                onTap: () {
-                                                  showGeneralDialog(
-                                                      context: context,
-                                                      barrierDismissible: true,
-                                                      barrierColor: const Color(
-                                                          0xFF000000)
-                                                          .withOpacity(0.58),
-                                                      barrierLabel: MaterialLocalizations
-                                                          .of(context)
-                                                          .modalBarrierDismissLabel,
-                                                      pageBuilder: (
-                                                          BuildContext context,
-                                                          Animation first,
-                                                          Animation second) {
-                                                        return Stack(
-                                                          children: [
-                                                            Center(child: Image
-                                                                .asset(
-                                                                'assets/images/dialogboximg.png')),
-                                                            Positioned(
-                                                              right: 18,
-                                                              top: 30,
-                                                              child: Container(
-                                                                  padding: EdgeInsets
-                                                                      .all(10),
-                                                                  height: 80,
-                                                                  decoration: const BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      shape: BoxShape
-                                                                          .circle
-                                                                  ),
-                                                                  child: GestureDetector(
-                                                                    child: Icon(
-                                                                        Icons
-                                                                            .clear),
-                                                                    onTap: () {
-                                                                      Get
-                                                                          .back();
-                                                                    },)
-                                                              ),)
-                                                          ],
-                                                        );
-                                                      }
-                                                  );
-                                                },
-                                                child: Image.asset(
-                                                  'assets/images/topChef.png',
-                                                  width: 50,)),
-                                            InkWell(
-                                                onTap: () {
-                                                  showGeneralDialog(
-                                                      context: context,
-                                                      barrierDismissible: true,
-                                                      barrierColor: const Color(
-                                                          0xFF000000)
-                                                          .withOpacity(0.58),
-                                                      barrierLabel: MaterialLocalizations
-                                                          .of(context)
-                                                          .modalBarrierDismissLabel,
-                                                      pageBuilder: (
-                                                          BuildContext context,
-                                                          Animation first,
-                                                          Animation second) {
-                                                        return Stack(
-                                                          children: [
-                                                            Center(child: Image
-                                                                .asset(
-                                                                'assets/images/dialogboximg.png')),
-                                                            Positioned(
-                                                              right: 18,
-                                                              top: 50,
-                                                              child: Container(
-                                                                  padding: EdgeInsets
-                                                                      .all(10),
-                                                                  height: 50,
-                                                                  decoration: const BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      shape: BoxShape
-                                                                          .circle
-                                                                  ),
-                                                                  child: GestureDetector(
-                                                                    child: Icon(
-                                                                        Icons
-                                                                            .clear),
-                                                                    onTap: () {
-                                                                      Get
-                                                                          .back();
-                                                                    },)
-                                                              ),)
-                                                          ],
-                                                        );
-                                                      }
-                                                  );
-                                                },
-                                                child: Image.asset(
-                                                  'assets/images/topChef.png',
-                                                  width: 50,)),
-                                          ],
-                                        )
-                                    ),
-                                  ],
+                                          child: Column(
+                                            children: [
+                                              Obx(() {
+                                                return Container(
+                                                    height: 33,
+                                                    decoration: const BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Colors.white
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .only(left: 10,
+                                                          right: 10,
+                                                          top: 3),
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          isSelect.value =
+                                                          !isSelect.value;
+                                                        },
+                                                        child: isSelect.value ==
+                                                            true
+                                                            ? const Icon(
+                                                          Icons.favorite,
+                                                          color: Color(
+                                                              0xFF54C523),)
+                                                            :
+                                                        const Icon(
+                                                          Icons.favorite_outline,
+                                                          color: Color(
+                                                              0xFF54C523),),
+                                                      ),
+                                                    )
+                                                );
+                                              }),
+                                            ],
+                                          )
+                                      ),
+                                      Positioned(
+                                          top: 14,
+                                          // bottom: 0,
+                                          left: 10,
+                                          right: 15,
+                                          //   bottom: 0,
+                                          child: Row(
+                                            children: [
+
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    showGeneralDialog(
+                                                        context: context,
+                                                        barrierDismissible: true,
+                                                        barrierColor: const Color(
+                                                            0xFF000000)
+                                                            .withOpacity(0.58),
+                                                        barrierLabel: MaterialLocalizations
+                                                            .of(context)
+                                                            .modalBarrierDismissLabel,
+                                                        pageBuilder: (
+                                                            BuildContext context,
+                                                            Animation first,
+                                                            Animation second) {
+                                                          return Stack(
+                                                            children: [
+                                                              Center(child: Image
+                                                                  .asset(
+                                                                  'assets/images/dialogboximg.png')),
+                                                              Positioned(
+                                                                right: 18,
+                                                                top: 30,
+                                                                child: Container(
+                                                                    padding: EdgeInsets
+                                                                        .all(10),
+                                                                    height: 80,
+                                                                    decoration: const BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        shape: BoxShape
+                                                                            .circle
+                                                                    ),
+                                                                    child: GestureDetector(
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .clear),
+                                                                      onTap: () {
+                                                                        Get
+                                                                            .back();
+                                                                      },)
+                                                                ),)
+                                                            ],
+                                                          );
+                                                        }
+                                                    );
+                                                  },
+                                                  child: Image.asset(
+                                                    'assets/images/topChef.png',
+                                                    width: 50,)),
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    showGeneralDialog(
+                                                        context: context,
+                                                        barrierDismissible: true,
+                                                        barrierColor: const Color(
+                                                            0xFF000000)
+                                                            .withOpacity(0.58),
+                                                        barrierLabel: MaterialLocalizations
+                                                            .of(context)
+                                                            .modalBarrierDismissLabel,
+                                                        pageBuilder: (
+                                                            BuildContext context,
+                                                            Animation first,
+                                                            Animation second) {
+                                                          return Stack(
+                                                            children: [
+                                                              Center(child: Image
+                                                                  .asset(
+                                                                  'assets/images/dialogboximg.png')),
+                                                              Positioned(
+                                                                right: 18,
+                                                                top: 50,
+                                                                child: Container(
+                                                                    padding: EdgeInsets
+                                                                        .all(10),
+                                                                    height: 50,
+                                                                    decoration: const BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        shape: BoxShape
+                                                                            .circle
+                                                                    ),
+                                                                    child: GestureDetector(
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .clear),
+                                                                      onTap: () {
+                                                                        Get
+                                                                            .back();
+                                                                      },)
+                                                                ),)
+                                                            ],
+                                                          );
+                                                        }
+                                                    );
+                                                  },
+                                                  child: Image.asset(
+                                                    'assets/images/topChef.png',
+                                                    width: 50,)),
+                                            ],
+                                          )
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 15,)
-                          ],
-                        );
-                      },
-                    )
-                  ],
+                              const SizedBox(height: 15,)
+                            ],
+                          );
+                        },
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
+              ],
+            ),
+          ): Center(child: CircularProgressIndicator()),
+        );
+      })
     );
   }
 
@@ -1251,7 +1287,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
+                                  child: GestureDetector(
                                     onTap: () {
                                       Get.toNamed(MyRouters.homeDetailsScreen);
                                     },
@@ -1373,7 +1409,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     .only(left: 10,
                                                     right: 10,
                                                     top: 3),
-                                                child: InkWell(
+                                                child: GestureDetector(
                                                   onTap: () {
                                                     isSelect.value =
                                                     !isSelect.value;
@@ -1404,7 +1440,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     child: Row(
                                       children: [
 
-                                        InkWell(
+                                        GestureDetector(
                                             onTap: () {
                                               showGeneralDialog(
                                                   context: context,
@@ -1453,7 +1489,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             child: Image.asset(
                                               'assets/images/topChef.png',
                                               width: 50,)),
-                                        InkWell(
+                                        GestureDetector(
                                             onTap: () {
                                               showGeneralDialog(
                                                   context: context,
@@ -1644,7 +1680,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             child:
                                             Row(
                                               children: [
-                                                InkWell(
+                                                GestureDetector(
                                                   onTap:
                                                       () {
                                                     _decrement();

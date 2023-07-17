@@ -773,7 +773,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             crossAxisAlignment: CrossAxisAlignment
                                                 .start,
                                             children: [
-                                              CachedNetworkImage(
+                                              /*CachedNetworkImage(
                                                 imageUrl: homeController.model.value.data!.stores![index].image.toString(),
                                                 fit: BoxFit.cover,
                                                 errorWidget: (_, __, ___) => Image.asset(
@@ -781,6 +781,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 ),
                                                 placeholder: (_, __) =>
                                                     Center(child: CircularProgressIndicator()),
+                                              ),*/
+                                              Image.asset(
+                                                'assets/images/Rectangle 23007.png',
                                               ),
                                               addHeight(6),
                                               Text(homeController.model.value.data!.stores![index].name.toString(),

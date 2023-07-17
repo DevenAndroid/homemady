@@ -7,6 +7,7 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 
 import '../controller/my_order_controller.dart';
+import '../controller/order_details_controller.dart';
 
 
 class ActiveScreen extends StatefulWidget {
@@ -17,21 +18,35 @@ class ActiveScreen extends StatefulWidget {
 }
 
 class _ActiveScreenState extends State<ActiveScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      controller.getData();
+      // Add Your Code here.
+
+    });
+  }
   final controller = Get.put(MyOrderController());
+  final orderDetailsController = Get.put(OrderDetailsController());
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Obx(() {
+      return SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
+          child: controller.isDataLoading.value ? ListView.builder(
             shrinkWrap: true,
-            itemCount: 1,
+            itemCount: controller.model.value.data![0].orderItems!.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   InkWell(
                     onTap: (){
-                      Get.toNamed(MyRouters.orderDetailsScreen);
+                      orderDetailsController.id.value = controller.model.value.data![index].orderId.toString();
+                      print( orderDetailsController.id.value);
+                      Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -56,16 +71,16 @@ class _ActiveScreenState extends State<ActiveScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(17)
-                                  ),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(17)
+                                    ),
                                     child: Image.asset('assets/images/Rectangle 39702.png',height: 76,width: 76,)),
                                 addWidth(10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text('Panna Onion Pasta',
+                                    Text(controller.model.value.data![index].orderItems![index].productName.toString(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,
@@ -74,7 +89,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                     addHeight(3),
                                     Row(
                                       children: [
-                                        Text('3 Items ',
+                                        Text('${controller.model.value.data![index].orderItems![index].qty.toString()} items',
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w400,
                                               fontSize: 12,
@@ -98,7 +113,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                     addHeight(5),
                                     Row(
                                       children: [
-                                        Text('€6.99',
+                                        Text('€ ${controller.model.value.data![index].orderItems![index].price.toString()}',
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16,
@@ -114,7 +129,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                           ),
                                           child:
                                           Center(
-                                            child: Text('Paid',
+                                            child: Text(controller.model.value.data![index].orderItems![index].status.toString(),
                                               style: GoogleFonts.poppins(
                                                 color: const Color(0xFFFFFFFF),
                                                 fontSize: 12,
@@ -170,15 +185,15 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                       borderRadius: BorderRadius.circular(14),
                                       color: Color(0xFF7ED957)
                                   ),
-                                   child: Center(
+                                  child: Center(
                                     child: Text('Track Driver',
-                                    style: GoogleFonts.poppins(
-                                    color: const Color(0xFFFFFFFF),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                 ),
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xFFFFFFFF),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
                                   ),
-                                 ),
                                 ),
                               ],
                             ),
@@ -192,8 +207,9 @@ class _ActiveScreenState extends State<ActiveScreen> {
                 ],
               );
             },
-          ),
+          ) : const Center(child: CircularProgressIndicator()),
         ),
-    );
+      );
+    });
   }
 }

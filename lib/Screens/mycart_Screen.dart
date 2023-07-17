@@ -25,7 +25,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller.getData();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      controller.getData();
+      // Add Your Code here.
+
+    });
   }
   bool? _isValue = false;
   bool? _isValue1 = false;

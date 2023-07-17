@@ -103,7 +103,8 @@ class _carteingScreenState extends State<carteingScreen> {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(controller.model.value.data!.latestProducts![index].name.toString(),
+                                      Text(controller.model.value.data!.latestProducts![index].name
+                                          .toString().replaceAll('homemady product test1284sdf', 'Test'),
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w700,
                                             fontSize: 14,

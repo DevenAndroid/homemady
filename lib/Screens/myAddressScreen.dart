@@ -96,14 +96,29 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        myAddressController
-                                            .model.value.data![index].addressType
-                                            .toString(),
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff1A2E33)),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            myAddressController
+                                                .model.value.data![index].addressType
+                                                .toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xff1A2E33)),
+                                          ),
+                                          GestureDetector(
+                                              onTap: () {
+                                                myAddressController.id.value = myAddressController.model.value.data![index].id.toString();
+                                                Get.toNamed(MyRouters.chooseAddress,arguments: [myAddressController.model.value.data![index]]);
+                                                print(myAddressController.model.value.data![index].id.toString());
+                                              },
+                                              child: Image.asset(
+                                                'assets/images/edit_alt.png',
+                                                height: 24,
+                                              ))
+                                        ],
                                       ),
                                       Row(
                                         children: [
@@ -119,12 +134,22 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                           addWidth(5),
                                           Text(
                                             myAddressController
-                                                .model.value.data![index].location
+                                                .model.value.data![index].landmark
                                                 .toString(),
                                             style: GoogleFonts.poppins(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400,
                                                 color: const Color(0xff5C5C60)),
+                                          ),
+                                          addWidth(5),
+                                          Text(
+                                            myAddressController
+                                                .model.value.data![index].location
+                                                .toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xff5C5C60),),maxLines: 2,
                                           ),
                                           /*Text('4295 Shinn Avenue, Indiana, States',
                                      style: GoogleFonts.poppins(
@@ -136,17 +161,6 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                       ),
                                     ],
                                   ),
-                                  Spacer(),
-                                  GestureDetector(
-                                      onTap: () {
-                                        myAddressController.id.value = myAddressController.model.value.data![index].id.toString();
-                                        Get.toNamed(MyRouters.chooseAddress,arguments: [myAddressController.model.value.data![index]]);
-                                        print(myAddressController.model.value.data![index].id.toString());
-                                      },
-                                      child: Image.asset(
-                                        'assets/images/edit_alt.png',
-                                        height: 24,
-                                      ))
                                 ],
                               ),
                             ),

@@ -120,11 +120,11 @@ class _carteScreenState extends State<carteScreen> {
                                         Text(
                                           controller.model.value.data!
                                               .latestProducts![index].name
-                                              .toString(),
+                                              .toString().replaceAll('homemady product test1284sdf', 'Test'),
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w700,
                                               fontSize: 14,
-                                              color: const Color(0xFF21283D)),
+                                              color: const Color(0xFF21283D)),maxLines: 2,
                                         ),
                                         addHeight(3),
                                         Text(
@@ -436,4 +436,5 @@ class _carteScreenState extends State<carteScreen> {
       );
     });
   }
+
 }

@@ -36,9 +36,10 @@ class _ActiveScreenState extends State<ActiveScreen> {
       return SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: controller.isDataLoading.value ? ListView.builder(
+          child: controller.isDataLoading.value ? controller.model.value.data!.isNotEmpty ?
+          ListView.builder(
             shrinkWrap: true,
-            itemCount: controller.model.value.data![0].orderItems!.length,
+            itemCount: controller.model.value.data!.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [
@@ -80,7 +81,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(controller.model.value.data![index].orderItems![index].productName.toString(),
+                                    Text((controller.model.value.data![index].vendor!.name ?? 'Test').toString(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,
@@ -89,7 +90,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                     addHeight(3),
                                     Row(
                                       children: [
-                                        Text('${controller.model.value.data![index].orderItems![index].qty.toString()} items',
+                                        Text('${controller.model.value.data![index].itemCount.toString()} items',
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w400,
                                               fontSize: 12,
@@ -113,7 +114,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                     addHeight(5),
                                     Row(
                                       children: [
-                                        Text('€ ${controller.model.value.data![index].orderItems![index].price.toString()}',
+                                        Text('€ ${controller.model.value.data![index].grandTotal.toString()}',
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16,
@@ -129,7 +130,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                           ),
                                           child:
                                           Center(
-                                            child: Text(controller.model.value.data![index].orderItems![index].status.toString(),
+                                            child: Text(controller.model.value.data![index].deliveryStatus.toString(),
                                               style: GoogleFonts.poppins(
                                                 color: const Color(0xFFFFFFFF),
                                                 fontSize: 12,
@@ -207,7 +208,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                 ],
               );
             },
-          ) : const Center(child: CircularProgressIndicator()),
+          ) :Center(child: Text('No Order')) : const Center(child: CircularProgressIndicator()),
         ),
       );
     });

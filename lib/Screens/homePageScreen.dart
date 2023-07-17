@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/homepage_controller.dart';
+import '../controller/my_cart_controller.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -25,6 +26,8 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
 
   final homeController = Get.put(HomePageController());
+
+
   RxBool isSelect = false.obs;
   RxBool selectIcon = false.obs;
   int currentDrawer = 0;
@@ -804,8 +807,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 placeholder: (_, __) =>
                                                     Center(child: CircularProgressIndicator()),
                                               ),*/
-                                              Image.asset(
-                                                'assets/images/Rectangle 23007.png',
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(8),
+                                                child: Image.asset(
+                                                  'assets/images/Rectangle 23007.png',fit: BoxFit.cover,
+                                                  height: 140,width: AddSize.screenWidth,
+                                                ),
                                               ),
                                               addHeight(6),
                                               Text(homeController.model.value.data!.stores![index].name.toString(),
@@ -1085,6 +1092,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           ): Center(child: CircularProgressIndicator()),
         );
       })
+        //bottomNavigationBar: ,
     );
   }
 

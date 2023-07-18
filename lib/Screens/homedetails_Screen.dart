@@ -17,6 +17,7 @@ import '../controller/my_cart_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../model/My_Cart_Model.dart';
 import '../model/vendor_store_single_model.dart';
+import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
 
 
@@ -32,96 +33,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
   final controller = Get.put(VendorSingleStoreController());
   final myCartController = Get.put(MyCartListController());
   Rx<CartItems> model = CartItems().obs;
-  addCartSection(CartItems model){
-    final myCartController = Get.put(MyCartListController());
-    return BottomAppBar(
-        elevation: 0,
-        color: Colors.transparent,
-        child: Obx(() {
-          return myCartController.isDataLoading.value
-              ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(MyRouters.myCartScreen,);
-                    /*Get.back();
-                    Get.back();
-                    Get.back();
-                    Get.back();
-                    Get.back();
-                    Get.back();
-                    controller.onItemTap(1);*/
-                  },
-                  style: ElevatedButton.styleFrom(
-                      minimumSize:
-                      Size(double.maxFinite, AddSize.size30 * 2),
-                     // primary: AppTheme.primaryColor,
-                      foregroundColor: const Color(0xFF72CD4A),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      textStyle: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w600)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children:  [
-                              Text(
-                               "${(model.cartItemQty.toString()?? "").toString()} Items",
-                               // 'k',
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    color: AppTheme.backgroundcolor,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              Text(
-                                "€${(model.price.toString() ?? "").toString()}",
-                                //'sgdhs',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppTheme.backgroundcolor,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          children: const [
-                            Text(
-                              "View Cart",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppTheme.backgroundcolor,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            Icon(
-                              Icons.arrow_right,
-                              size: 30,
-                              color: Colors.white,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: AddSize.size20,
-              ),
-            ],
-          )
-              : SizedBox();
-        }));
-  }
+
 
   final
   RxBool isSelect = false.obs;
@@ -590,7 +502,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
             ) : Center(child: CircularProgressIndicator()),
           bottomNavigationBar: myCartController.isDataLoading.value &&
               myCartController.model.value.data!.cartItems!.isNotEmpty ?
-          addCartSection(CartItems()) : null,
+          addCartSection() : null,
         );
       }),
     );

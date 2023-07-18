@@ -49,7 +49,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
     return Scaffold(
       appBar: backAppBar(title: 'Order Details', context: context),
       body:
-
               NestedScrollView(
                headerSliverBuilder: (_, __){
                  return [
@@ -833,7 +832,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                ),
                                                child: Center(
                                                  child: Text(
-                                                   'COD',
+                                                   controller.model.value.data!.orderType.toString(),
                                                    style: GoogleFonts.poppins(
                                                        color: Colors.white,
                                                        fontSize: 13,
@@ -854,7 +853,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: const Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( '€12.99',
+                                             Text('€ ${controller.model.value.data!.itemTotal.toString()}',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -873,7 +872,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( '€5.00',
+                                             Text( '€ ${controller.model.value.data!.tax.toString()}',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -892,7 +891,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( 'Free',
+                                             Text( controller.model.value.data!.deliveryCharges.toString(),
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -911,7 +910,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: const Color(0xff6BC744)
                                                ),),
                                              Spacer(),
-                                             Text( '€17.99',
+                                             Text('€ ${controller.model.value.data!.grandTotal.toString()}',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -952,30 +951,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                  ),
                                ),
                                SizedBox(height: AddSize.size20),
-                               // InkWell(
-                               //   onTap: () {
-                               //     Get.toNamed(MyRouters.reviewScreen);
-                               //   },
-                               //   child: Container(
-                               //     height: 56,
-                               //     width: AddSize.screenWidth / 1.1,
-                               //     decoration: BoxDecoration(
-                               //         borderRadius: BorderRadius.circular(10),
-                               //         border: Border.all(
-                               //             color: const Color(0xFFFE724C), width: 2)),
-                               //     child: Center(
-                               //       child: Text(
-                               //         'Send Feedback For Driver',
-                               //         style: GoogleFonts.poppins(
-                               //           color: const Color(0xFFFE724C),
-                               //           fontSize: 16,
-                               //           fontWeight: FontWeight.w700,
-                               //         ),
-                               //         textAlign: TextAlign.center,
-                               //       ),
-                               //     ),
-                               //   ),
-                               // ),
                              ],
                            ):  Center(child: Text('NO Vendor Information')) : const Center(child: CircularProgressIndicator()),
                          ),

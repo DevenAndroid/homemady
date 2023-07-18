@@ -25,7 +25,7 @@ class MyCartModel {
 class Data {
   List<CartItems>? cartItems;
   CartPaymentSummary? cartPaymentSummary;
-  Null? orderAddress;
+  dynamic orderAddress;
 
   Data({this.cartItems, this.cartPaymentSummary, this.orderAddress});
 

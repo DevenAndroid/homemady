@@ -12,6 +12,11 @@ import 'package:homemady/widgets/editprofiletextfiled.dart';
 import 'package:homemady/widgets/new_helper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../controller/user_profile_controller.dart';
+import '../repository/update_profile_repo.dart';
+import '../repository/user_profile_repo.dart';
+import '../resources/add_text.dart';
+
 
 
 class MyProfileScreen extends StatefulWidget {
@@ -22,7 +27,17 @@ class MyProfileScreen extends StatefulWidget {
 }
 
 class _MyProfileScreenState extends State<MyProfileScreen> {
-  // final controller = Get.put(ProfileController());
+   final controller = Get.put(UserProfileController());
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.getData();
+    });
+
+
+  }
   final _formKey = GlobalKey<FormState>();
   Rx<File> image = File("").obs;
   final ImagePicker picker = ImagePicker();
@@ -95,7 +110,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffF9F9F9),
       body: Obx(() {
-        return Column(
+        return  controller.isDataLoading.value
+            ? Column(
           children: [
             Expanded(
               child: Stack(
@@ -159,10 +175,24 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 shape: CircleBorder(),
                                 // color: Colors.white,
                               ),
-                              child: image.value.path == "" ?
-                                  ClipOval(child: Image.asset('assets/images/image 13.png',height: 98,))
+                              child: controller.image.value.path == "" ?
+                                  controller.model.value.data!.profileImage!.isEmpty ||
+                                      controller.model.value.data!.profileImage! == 'https://homemady.eoxyslive.com/uploads/profile-images/1689241368-wtp.jpg' ?
+                                  const SizedBox(
+                                    height: 100,
+                                    width: 100,
+                                  ) :
+                                  Image.network(
+                                    controller.model.value.data!
+                                        .profileImage
+                                        .toString(),
+                                    fit: BoxFit.cover,
+                                    height: 100,
+                                    width: 100,
+                                  )
+                                  //ClipOval(child: Image.asset('assets/images/image 13.png',height: 98,))
                                   : Image.file(
-                                image.value,
+                                controller.image.value,
                                 fit: BoxFit.cover,
                                 height: 100,
                                 width: 100,
@@ -198,152 +228,172 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                       child: Form(
                         key: _formKey,
-                        child: Container(
-                          //color: Color(0xffF9F9F9),
-                          child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              addHeight(20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Eljad Eendaz",
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            addHeight(20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  controller.model.value.data!.name == null ? 'Test Customer' :
+                                    '${controller.model.value.data!.name}',
+                                  style: GoogleFonts.alegreyaSans(
+                                    color: const Color(0xFF000000),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700
+                                  )
+                                ),
+                                addHeight(2),
+                                Text(
+                                  "Edit Profile",
                                     style: GoogleFonts.alegreyaSans(
-                                      color: const Color(0xFF000000),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700
+                                        color: const Color(0xFFADADB8),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500
                                     )
-                                  ),
-                                  addHeight(2),
-                                  Text(
-                                    "Edit Profile",
-                                      style: GoogleFonts.alegreyaSans(
-                                          color: const Color(0xFFADADB8),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500
-                                      )
-                                  ),
-                                  // const SizedBox(
-                                  //   height: 20,
-                                  // ),
-                                ],
-                              ),
-                              SizedBox(height: height* .02,),
-                              Expanded(
-                                child: SingleChildScrollView(
-                                  physics: BouncingScrollPhysics(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 12),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-
-                                              Text(
-                                                "First name".tr,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5!
-                                                    .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 15,color: const Color(0xff828282)),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              const EditProfileTextFieldWidget(
-                                                hint: "Eljad ",
-                                                // controller: controller.firstNameController,
-                                                // validator: validateName,
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Text(
-                                                "Last name".tr,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5!
-                                                    .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 15,color: const Color(0xff828282)),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              const EditProfileTextFieldWidget(
-                                                hint: "Eendaz ",
-                                                // controller: controller.lastNameController,
-                                                // validator: validateName,
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Text(
-                                                "E-mail".tr,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5!
-                                                    .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 15,color: const Color(0xff828282)),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              const EditProfileTextFieldWidget(
-                                                hint: "mamun210@gmail.com",
-                                                // controller: controller.emailController,
-                                                readOnly: true,
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Text(
-                                                "Mobile Number".tr,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5!
-                                                    .copyWith(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 15,color: const Color(0xff828282)),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              const EditProfileTextFieldWidget(
-                                                hint: "018 49862746",
-                                                // controller: mobileController,
-                                                // validator: validateMobile,
-                                                keyboardType: TextInputType.number,
-                                                length: 10,
-                                              ),
-                                              const SizedBox(
-                                                height: 40,
-                                              ),
-                                              CommonButton(title: 'Save',onPressed: (){},),
-                                              SizedBox(
-                                                height: 90,
-                                              )
-                                            ],
-                                          ),
+                                ),
+                                // const SizedBox(
+                                //   height: 20,
+                                // ),
+                              ],
+                            ),
+                            SizedBox(height: height* .02,),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 12),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
                                         ),
-                                      ],
-                                    ),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            /*Text(
+                                              "First name".tr,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5!
+                                                  .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 15,color: const Color(0xff828282)),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            const EditProfileTextFieldWidget(
+                                              hint: "Eljad ",
+                                              // controller: controller.firstNameController,
+                                              // validator: validateName,
+                                            ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),*/
+                                            Text(
+                                              "Name",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5!
+                                                  .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 15,color: const Color(0xff828282)),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                             EditProfileTextFieldWidget(
+                                              hint: "Enter Your Name",
+                                               controller: controller.nameController,
+                                               validator: validateName,
+                                            ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              "E-mail",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5!
+                                                  .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 15,color: const Color(0xff828282)),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                             EditProfileTextFieldWidget(
+                                              hint: "Enter Your Email",
+                                              controller: controller.emailController,
+                                              readOnly: true,
+                                               validator: validateEmail,
+                                            ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              "Mobile Number",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5!
+                                                  .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 15,color: const Color(0xff828282)),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                             EditProfileTextFieldWidget(
+                                              hint: "Enter Your Mobile Number",
+                                               controller: controller.mobileController,
+                                               validator: validateMobile,
+                                              keyboardType: TextInputType.number,
+                                              length: 10,
+                                            ),
+                                            const SizedBox(
+                                              height: 40,
+                                            ),
+                                            CommonButton(title: 'Save',onPressed: (){
+                                              if(_formKey.currentState!.validate()){
+                                                Map<String,String> mapData ={
+                                                  'name' : controller.nameController.text,
+                                                  'email' : controller.emailController.text,
+                                                  'phone' : controller.mobileController.text,
+                                                };
+                                                editUserProfileRepo(
+                                                  context: context,
+                                                  mapData: mapData,
+                                                  fieldName1: 'profile_image',
+                                                  file1: controller.image.value).then((value) {
+                                                  showToast(value.message);
+                                                  if(value.status == true){
+                                                    controller.getData();
+                                                  }
+                                                  else{
+                                                    showToast(value.message);
+                                                  }
+                                                });
+                                              }
+                                              else {}
+                                            },),
+                                            const SizedBox(
+                                              height: 90,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              )
+                              ),
+                            )
 
-                            ],
-                          ),
+                          ],
                         ),
                       ),
                     ),)
@@ -352,10 +402,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             ),
 
           ],
-        );
+        ) : const Center(child:  CircularProgressIndicator()) ;
       }),
     );
   }
+
 }
 
 

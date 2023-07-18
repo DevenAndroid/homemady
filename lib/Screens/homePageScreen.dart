@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/homepage_controller.dart';
 import '../controller/my_cart_controller.dart';
+import '../controller/user_profile_controller.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -26,6 +27,8 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
 
   final homeController = Get.put(HomePageController());
+  final profileController = Get.put(UserProfileController());
+
 
 
   RxBool isSelect = false.obs;
@@ -39,6 +42,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     // TODO: implement initState
     super.initState();
    homeController.getData();
+   profileController.getData();
     _decrement();
     _increment();
   }
@@ -333,7 +337,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 onTap: () {
                   _scaffoldKey.currentState!.openDrawer();
                 },
-                child: Image.asset('assets/images/avtarImg.png', height: 45,)),
+                child:
+                /*ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child:  CachedNetworkImage(
+                    imageUrl: (profileController.model.value.data!.profileImage).toString(),
+                    fit: BoxFit.cover,
+                    errorWidget: (_, __, ___) => Image.asset(
+                      'assets/images/Ellipse 67.png',
+                      fit: BoxFit.cover,
+                    ),
+                    placeholder: (_, __) =>
+                        Center(child: CircularProgressIndicator()),
+                  ),
+                ),*/
+                Image.asset('assets/images/avtarImg.png', height: 45,)
+            ),
             addWidth(6),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -345,25 +364,25 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   fontWeight: FontWeight.w300,
                 ),),
                 addHeight(3),
-                Row(
-                  children: [
-                    Image.asset('assets/images/location.png',
-                      height: 13,),
-                    addWidth(4),
-                    Text('News Work City', style: GoogleFonts.poppins(
-                      color: const Color(0xFF000000),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),),
-                    addWidth(4),
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(MyRouters.myAddressScreen);
-                      },
-                      child: Image.asset('assets/images/pencilImg.png',
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(MyRouters.chooseAddress);
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/location.png',
                         height: 13,),
-                    ),
-                  ],
+                      addWidth(4),
+                      Text('News Work City', style: GoogleFonts.poppins(
+                        color: const Color(0xFF000000),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),),
+                      addWidth(4),
+                      Image.asset('assets/images/pencilImg.png',
+                        height: 13,),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -389,8 +408,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
             //     ),
             //   ),
             // ),
-      InkWell(
-        onTap: (){},
+      GestureDetector(
+        onTap: (){
+          Get.toNamed(MyRouters.myCartScreen);
+        },
             child: Container(
               height: 42,
               width: 42,
@@ -416,9 +437,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
       body: Obx(() {
         return SafeArea(
-          child: homeController.isDataLoading.value ?
+          child: homeController.isDataLoading.value && profileController.isDataLoading.value ?
           SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -441,7 +462,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ),
 
                               ),
-                              Text('Alexandra',
+                              Text(profileController.model.value.data!.name.toString(),
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xFF353535),
                                     fontWeight: FontWeight.w600,

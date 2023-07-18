@@ -7,6 +7,7 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/my_address_controller.dart';
+import '../controller/my_cart_controller.dart';
 import '../model/my_address_model.dart';
 import '../repository/checkout_order_repo.dart';
 import '../resources/add_text.dart';
@@ -21,6 +22,8 @@ class CheckOutScreen extends StatefulWidget {
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   final myAddressController = Get.put(MyAddressController());
+  final myCartController = Get.put(MyCartListController());
+
   Rx<AddressData> addressModel = AddressData().obs;
   @override
   String _selectedGender = 'male';
@@ -273,13 +276,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0,vertical: 12),
-                  child: Text('Deliver to',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xff1A2E33)
-                    ),),
+                  padding: const EdgeInsets.only(left: 25,top: 10,bottom: 10,right: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Deliver to',
+                        style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xff1A2E33)
+                        ),),
+                      GestureDetector(
+                        onTap: (){
+                          Get.toNamed(MyRouters.chooseAddress);
+                        },
+                        child: Image.asset('assets/images/pencilImg.png',
+                          height: 13,),
+                      ),
+                    ],
+                  ),
                 ),
                 const Divider(
                   color: Color(0xFFF2F2F2),
@@ -293,14 +308,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20,top: 10,bottom: 15,right: 5),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                           Image.asset('assets/images/Group 1000004233.png',height: 36,),
                           addWidth(10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(addressModel.value.addressType.toString(),
+                              Text('Home',
                                 style: GoogleFonts.poppins(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
@@ -308,14 +323,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),),
                               Row(
                                 children: [
-                                  Text(addressModel.value.flatNo.toString(),
+                                  Text('sdjfg',
                                     style: GoogleFonts.poppins(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: const Color(0xff5C5C60)
                                     ),),
                                   addWidth(5),
-                                  Text(addressModel.value.landmark.toString(),
+                                  Text('fgfg',
                                     style: GoogleFonts.poppins(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -637,10 +652,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               addHeight(40),
               CommonButton(title: 'Place Order'.toUpperCase(),
               onPressed: (){
+
                 checkOut(context: context,payment_type: 'cod').then((value) {
                   if(value.status == true){
+                    print('order id is...${value.data!.orderId}');
                     showToast(value.message.toString());
                     Get.toNamed(MyRouters.thankYouScreen,arguments: [value.data!.orderId]);
+
                     myAddressController.getData();
                   }
                 });

@@ -55,7 +55,9 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                     chooseOrderAddress(context: context,addressId: myAddressController.model.value.data![index].id.toString()).then((value) {
                       if(value.status == true){
                         showToast(value.message.toString());
-                        controller.getData();
+                        setState(() {
+
+                        });
                        // Get.back();
                         Get.toNamed(MyRouters.checkOutScreen);
                       }
@@ -86,7 +88,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                               padding: const EdgeInsets.all(16.0),
                               child: Row(
                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                //crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Image.asset(
                                     'assets/images/Group 1000004233.png',
@@ -185,7 +187,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
               addHeight(30)
             ],
           ),
-        ): const Text('Address Empty',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),) : const Center(child: CircularProgressIndicator()),
+        ): Center(child: const Text('Address Empty',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),)) : const Center(child: CircularProgressIndicator()),
       );
     });
   }

@@ -23,21 +23,21 @@ class CheckoutOrderModel {
 }
 
 class Data {
-  int? orderId;
-  int? itemTotal;
-  int? tax;
-  int? deliveryCharges;
-  int? packingFee;
-  Null? couponDiscount;
-  int? grandTotal;
-  User? user;
+  dynamic orderId;
+  dynamic itemTotal;
+  dynamic tax;
+  dynamic deliveryCharges;
+  dynamic packingFee;
+  dynamic couponDiscount;
+  dynamic grandTotal;
+  dynamic user;
   Null? vendor;
   Null? driver;
-  Address? address;
-  String? orderType;
-  String? deliveryStatus;
+  dynamic address;
+  dynamic orderType;
+  dynamic deliveryStatus;
   List<OrderItems>? orderItems;
-  String? placedAt;
+  dynamic placedAt;
 
   Data(
       {this.orderId,
@@ -108,7 +108,7 @@ class Data {
 }
 
 class User {
-  int? id;
+  dynamic id;
   bool? isDriver;
   bool? isVendor;
   String? latitude;
@@ -205,7 +205,7 @@ class User {
 }
 
 class Address {
-  int? id;
+  dynamic id;
   int? userId;
   String? latitude;
   String? longitude;
@@ -262,7 +262,7 @@ class Address {
 }
 
 class OrderItems {
-  int? id;
+  dynamic id;
   int? productId;
   String? productName;
   int? price;

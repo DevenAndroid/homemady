@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -5,6 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
+
+import '../controller/homepage_controller.dart';
+import '../controller/my_cart_controller.dart';
+import '../controller/vendor_single_store_controller.dart';
+import '../repository/add_cart_repo.dart';
+import '../repository/update_cart_repo.dart';
+import '../resources/add_text.dart';
 
 
 class carteingScreen extends StatefulWidget {
@@ -15,6 +23,11 @@ class carteingScreen extends StatefulWidget {
 }
 
 class _carteingScreenState extends State<carteingScreen> {
+  final controller = Get.put(VendorSingleStoreController());
+  final cartListController = Get.put(MyCartListController());
+
+  RxInt buttonCount = 0.obs;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -41,7 +54,7 @@ class _carteingScreenState extends State<carteingScreen> {
           padding: const EdgeInsets.all(13.0),
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: 4,
+            itemCount: controller.model.value.data!.latestProducts!.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return Column(
@@ -73,19 +86,31 @@ class _carteingScreenState extends State<carteingScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(child: Image.asset('assets/images/Rectangle 39762.png',height: 80,width: 70,)),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: CachedNetworkImage(
+                                      imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
+                                      fit: BoxFit.cover,
+                                      height: 80,width: 70,
+                                      errorWidget: (_, __, ___) => Image.asset(
+                                        'assets/images/Rectangle 23007.png',
+                                      ),
+                                      placeholder: (_, __) =>
+                                          Center(child: CircularProgressIndicator()),
+                                    ),
+                                  ),
                                   addWidth(10),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Special Burger',
+                                      Text(controller.model.value.data!.latestProducts![index].name.toString(),
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w700,
                                             fontSize: 14,
                                             color: const Color(0xFF21283D)
                                         ),),
                                       addHeight(3),
-                                      Text('Size: 200gm',
+                                      Text(controller.model.value.data!.latestProducts![index].size.toString(),
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w300,
                                             fontSize: 11,
@@ -139,8 +164,49 @@ class _carteingScreenState extends State<carteingScreen> {
                                             InkWell(
                                               onTap:
                                                   () {
-                                                _decrement();
-                                              },
+                                                    /*if (buttonCount.value > 1) {
+                                                      buttonCount.value--;
+                                                    }*/
+                                                    updateCartRepo(
+                                                        cartListController
+                                                            .model
+                                                            .value
+                                                            .data!
+                                                            .cartItems![index]
+                                                            .id
+                                                            .toString(),
+                                                        int.parse(controller
+                                                            .model
+                                                            .value
+                                                            .data!
+                                                            .latestProducts![
+                                                        index]
+                                                            .buttonCount
+                                                            .value
+                                                            .toString()),
+                                                        context)
+                                                        .then((value) {
+                                                      if (value.status == true) {
+                                                        controller
+                                                            .model
+                                                            .value
+                                                            .data!
+                                                            .latestProducts![
+                                                        index]
+                                                            .buttonCount
+                                                            .value--;
+                                                        showToast(value.message
+                                                            .toString());
+                                                        cartListController
+                                                            .getData();
+                                                        print(
+                                                            "buttonCount ${controller.model.value.data!.latestProducts![index].qty.toString()}");
+                                                      }
+                                                      setState(() {
+
+                                                      });
+                                                    });
+                                                  },
                                               child:
                                               Container(
                                                 decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
@@ -161,15 +227,66 @@ class _carteingScreenState extends State<carteingScreen> {
                                               child: Padding(
                                                 padding: const EdgeInsets.only(left: 14.0, right: 14.0),
                                                 child: Text(
-                                                    '${count}'
+                                                  controller
+                                                      .model
+                                                      .value
+                                                      .data!
+                                                      .latestProducts![index]
+                                                      .buttonCount
+                                                      .value
+                                                      .toString(),
                                                 ),
                                               ),
                                             ),
                                             InkWell(
                                               onTap:
                                                   () {
-                                                _increment();
-                                              },
+                                                    // buttonCount.value++;
+
+
+                                                    addToCartRepo(
+                                                        product_id: controller
+                                                            .model
+                                                            .value
+                                                            .data!
+                                                            .latestProducts![
+                                                        index]
+                                                            .id
+                                                            .toString(),
+                                                        qty: controller
+                                                            .model
+                                                            .value
+                                                            .data!
+                                                            .latestProducts![
+                                                        index]
+                                                            .buttonCount
+                                                            .value,
+                                                        context: context)
+                                                        .then((value1) {
+                                                      if (value1.status == true) {
+                                                        controller
+                                                            .model
+                                                            .value
+                                                            .data!
+                                                            .latestProducts![
+                                                        index]
+                                                            .value = true;
+                                                        controller
+                                                            .model
+                                                            .value
+                                                            .data!
+                                                            .latestProducts![
+                                                        index]
+                                                            .buttonCount
+                                                            .value++;
+                                                        showToast(value1.message
+                                                            .toString());
+                                                        cartListController
+                                                            .getData();
+                                                      }
+                                                    });
+
+                                                  },
                                               child:
                                               Container(
                                                 decoration: BoxDecoration(color: const Color(0xFF72CD4A),border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
@@ -228,7 +345,7 @@ class _carteingScreenState extends State<carteingScreen> {
                                         fontSize: 11,
                                         color: const Color(0xFF364A4F)
                                     ),),
-                                  Text(' 3 units',
+                                  Text('${controller.model.value.data!.latestProducts![index].cookUnitDays.toString()} Units',
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 11,
@@ -244,7 +361,7 @@ class _carteingScreenState extends State<carteingScreen> {
                       Positioned(
                         top: 14,
                         right: 20,
-                        child:  Text('€6.99',
+                        child:  Text('€ ${controller.model.value.data!.latestProducts![index].price.toString()}',
                           style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w700,
                               fontSize: 15,

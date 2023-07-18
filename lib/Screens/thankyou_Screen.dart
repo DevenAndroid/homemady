@@ -73,7 +73,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                            ),
                          ),
 
-                         Text('#254600',
+                         Text(Get.arguments[0],
                            style: GoogleFonts.poppins(
                              fontSize: 14,
                              fontWeight: FontWeight.w400,

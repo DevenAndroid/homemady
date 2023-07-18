@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get:
   shared_preferences:
+  cached_network_image:
   smooth_page_indicator:
   google_fonts:
 #  pinput: ^2.2.31

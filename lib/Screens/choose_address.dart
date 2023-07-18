@@ -12,11 +12,19 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:homemady/resources/add_text.dart';
+import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/app_assets.dart';
 import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:homemady/widgets/editprofiletextfiled.dart';
+
+import '../controller/my_address_controller.dart';
+import '../model/My_Cart_Model.dart';
+import '../model/my_address_model.dart';
+import '../repository/add_address_repo.dart';
+import '../repository/edit_address_repo.dart';
 
 
 class ChooseAddress extends StatefulWidget {
@@ -28,6 +36,8 @@ class ChooseAddress extends StatefulWidget {
 }
 
 class _ChooseAddressState extends State<ChooseAddress> {
+  final myAddressController = Get.put(MyAddressController());
+  Rx<AddressData> addressModel = AddressData().obs;
   final _formKey = GlobalKey<FormState>();
   //  final addressController = Get.put(MyAddressController());
   // Rx<AddressData> addressModel = AddressData().obs;
@@ -112,11 +122,16 @@ class _ChooseAddressState extends State<ChooseAddress> {
   }
 
   final TextEditingController otherController = TextEditingController();
-  showChangeAddressSheet() {
-    final TextEditingController flatNoController = TextEditingController();
-    final TextEditingController streetController = TextEditingController();
-    final TextEditingController recipientController = TextEditingController();
-    // otherController.text = addressModel.addressType ?? "Home";
+ // final TextEditingController flatNoController = TextEditingController();
+//  final TextEditingController streetController = TextEditingController();
+ // final TextEditingController recipientController = TextEditingController();
+  // otherController.text = addressModel.addressType ?? "Home";
+  showChangeAddressSheet(AddressData addressModel) {
+    final TextEditingController flatNoController = TextEditingController(text: addressModel.flatNo ?? '');
+    final TextEditingController streetController = TextEditingController(text: addressModel.landmark ?? '');
+    final TextEditingController recipientController = TextEditingController(text:  addressModel.name ?? '');
+    selectedChip.value = addressModel.addressType ?? "Home";
+
     // selectedChip.value = addressModel.addressType ?? "Home";
     showModalBottomSheet(
         context: context,
@@ -246,7 +261,29 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                   SizedBox(
                                     height: AddSize.size20,
                                   ),
-                                  CommonButton1(title: 'save address'.toUpperCase()),
+                                  CommonButton1(title: 'save address'.toUpperCase(),
+                                    onPressed: (){
+                                      if(_formKey.currentState!.validate()){
+                                       addressModel.landmark != null && addressModel.flatNo != null && addressModel.name != null ?
+                                           editAddress(context: context,location: _address,address_type:selectedChip.value,name: recipientController.text,
+                                           flat_no: flatNoController.text,landmark: streetController.text,
+                                           address_id: addressModel.id.toString()).then((value) {
+                                             if(value.status == true){
+                                               showToast('Address Edited Successfully');
+                                               Get.toNamed(MyRouters.myAddressScreen);
+                                               myAddressController.getData();
+                                             }
+                                           }) :
+                                        addAddress(flat_no: flatNoController.text,landmark: streetController.text,name: recipientController.text,context: context,
+                                            address_type: selectedChip.value,location: _address).then((value1) {
+                                          if(value1.status == true){
+                                            showToast(value1.message.toString());
+                                            Get.toNamed(MyRouters.myAddressScreen);
+                                            myAddressController.getData();
+                                          }
+                                        });
+                                      }
+                                  },),
                                   // ElevatedButton(
                                   //     onPressed: () {
                                   //       // if (_formKey.currentState!.validate()) {
@@ -351,9 +388,10 @@ class _ChooseAddressState extends State<ChooseAddress> {
     super.initState();
     //checkGps();
     _getCurrentPosition();
-    // if (Get.arguments != null) {
-    //   addressModel.value = Get.arguments[0];
-    // }
+    if (Get.arguments != null) {
+      addressModel.value = Get.arguments[0];
+      print(Get.arguments[0]);
+    }
   }
 
   String googleApikey = "AIzaSyDDl-_JOy_bj4MyQhYbKbGkZ0sfpbTZDNU";
@@ -590,7 +628,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                 _isValue.value = !_isValue.value;
                                 selectedChip.value = "Home";
                               });
-                              showChangeAddressSheet();
+                              showChangeAddressSheet(addressModel.value);
                               // Get.toNamed(MyRouter.chooseAddressScreen);
                             },
                           ),

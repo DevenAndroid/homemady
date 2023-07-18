@@ -35,16 +35,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 Stack(
                   children: [
                     SizedBox(
-                        height: 280,
+                        height: screenHeight*.35,
                         width: double.maxFinite,
                         child: Image.asset('assets/images/LoginBackground.png',fit: BoxFit.cover,)),
                     SizedBox(
                       width: screenWidth,
                       child: Column(
                         children: [
-                          addHeight(40),
+                          SizedBox(
+                            height: screenHeight * .02,
+                          ),
                           Image.asset('assets/images/AppLogo.png',width: 203,),
-                          addHeight(35),
+                          SizedBox(
+                            height: screenHeight * .05,
+                          ),
                           const Center(
                             child: Text('Login To Your Account',
                               style: TextStyle(
@@ -54,7 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color:  Color(0xFF66656B),
                               ),),
                           ),
-                          addHeight(20),
+                          SizedBox(
+                            height: screenHeight * .03,
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child:  Container(
@@ -86,7 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          addHeight(20),
+                          SizedBox(
+                            height: screenHeight * .02,
+                          ),
                         ],
                       ),
                     ),
@@ -122,7 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                     ),
-                    addHeight(30),
+                    SizedBox(
+                      height: screenHeight * .03,
+                    ),
                     const Center(
                       child: Text(
                         'Or Continue With',
@@ -134,7 +144,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    addHeight(23),
+                    SizedBox(
+                      height: screenHeight * .03,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -200,7 +212,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    addHeight(25),
+                    SizedBox(
+                      height: screenHeight * .03,
+                    ),
                     InkWell(
                       onTap: (){
                         Get.toNamed(MyRouters.emailVerificationScreen2);
@@ -211,12 +225,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 13,
+                              letterSpacing: 0.5,
                               color:  Color(0xFF7ED957)
                           ),
                         ),
                       ),
                     ),
-                    addHeight(20),
+                    SizedBox(
+                      height: screenHeight * .03,
+                    ),
                     CommonButton(title: 'Login',onPressed: () async{
                       // var fcmToken = await FirebaseMessaging
                       //     .instance
@@ -244,7 +261,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
 
                     },),
-                    addHeight(26),
+                    SizedBox(
+                      height: screenHeight * .03,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

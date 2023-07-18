@@ -135,24 +135,25 @@ class OnboardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return  SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-          children:[
-            Container(
-              height: height * .43,
-              width: width,
-              decoration: BoxDecoration(
-                  image:
-                  DecorationImage(image: AssetImage(image), fit: BoxFit.contain,)),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                 // height: height * .40,
-                child: Column(
+    return  Column(
+        children:[
+          Expanded(
+            child: Column(
+              children: [
+                Flexible(
+                  child: SizedBox(
+                    height: height * .42,
+                    width: width,
+                    child: Image.asset(image,fit: BoxFit.contain,),
+                    // decoration: BoxDecoration(
+                    //     image: DecorationImage(image: AssetImage(image), fit: BoxFit.contain,)),
+                  ),
+                ),
+                Column(
                   children: [
-                    addHeight(10),
+                    SizedBox(
+                      height: height*.02,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,7 +181,7 @@ class OnboardContent extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      height: height * .03,
+                      height: height * .02,
                     ),
                     if (des22 != '')
                       Row(
@@ -304,223 +305,226 @@ class OnboardContent extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              ],
             ),
-            Container(
-                height: height * .08,
-                width: width * .95,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: ElevatedButton(
-                    onPressed: () {
-                      controller.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease);
-                      if (indexValue == 2) {
-                        Get.toNamed(MyRouters.loginScreen);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: CircleBorder(),
-                        primary: const Color(0xFF7ED957),
-                        textStyle: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
-                    child: Icon(Icons.arrow_forward,size: 35,)
-                )),
-            // Positioned(
-            //   bottom: 10,
-            //   left: 0,
-            //   right: 0,
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Container(
-            //       height: height * .48,
-            //       child: Column(
-            //         children: [
-            //           Row(
-            //             mainAxisAlignment: MainAxisAlignment.center,
-            //             crossAxisAlignment: CrossAxisAlignment.center,
-            //             children: [
-            //               ...List.generate(
-            //                   OnBoardingData.length,
-            //                       (index) => Padding(
-            //                     padding: const EdgeInsets.only(right: 10.0),
-            //                     child: CustomIndicator(
-            //                       isActive: index == indexValue,
-            //                     ),
-            //                   )),
-            //             ],
-            //           ),
-            //           SizedBox(height: height* .03,),
-            //
-            //           Text(
-            //             title,
-            //         style: const TextStyle(
-            //           fontWeight: FontWeight.w500,
-            //           fontSize: 26,
-            //           fontFamily: 'alegreyaSans',
-            //           color: Color(0xFF131A38),
-            //           fontStyle: FontStyle.italic,
-            //         ),
-            //         textAlign: TextAlign.center,
-            //       ),
-            //           SizedBox(
-            //             height: height * .03,
-            //           ),
-            //       if (des22 != '')
-            //         Row(
-            //           crossAxisAlignment: CrossAxisAlignment.center,
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: [
-            //             Image(
-            //               image: AssetImage(
-            //                 des22,
-            //               ),
-            //               width: 16,
-            //               height: 16,
-            //             ),
-            //             addWidth(5),
-            //             RichText(
-            //               text: TextSpan(
-            //                 text: description,
-            //                 style: const TextStyle(
-            //                   fontWeight: FontWeight.w500,
-            //                   fontSize: 20,
-            //                   fontFamily: 'alegreyaSans',
-            //                   color: Color(0xFF131A38),
-            //                   fontStyle: FontStyle.italic,
-            //                 ),
-            //                 children: <TextSpan>[
-            //                   TextSpan(
-            //                     text: des1,
-            //                     style: const TextStyle(
-            //                       fontWeight: FontWeight.w500,
-            //                       fontFamily: 'alegreyaSans',
-            //                       fontSize: 20,
-            //                       color: Color(0xFF131A38),
-            //                       fontStyle: FontStyle.italic,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       if (des22 != '')
-            //         Row(
-            //           crossAxisAlignment: CrossAxisAlignment.center,
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: [
-            //             Image(
-            //               image: AssetImage(
-            //                 des22,
-            //               ),
-            //               width: 16,
-            //               height: 16,
-            //             ),
-            //             addWidth(5),
-            //             RichText(
-            //               text: TextSpan(
-            //                 text: description1,
-            //                 style: const TextStyle(
-            //                   fontWeight: FontWeight.w500,
-            //                   fontSize: 20,
-            //                   fontFamily: 'alegreyaSans',
-            //                   color: Color(0xFF131A38),
-            //                   fontStyle: FontStyle.italic,
-            //                 ),
-            //                 children: <TextSpan>[
-            //                   TextSpan(
-            //                     text: des2,
-            //                     style: const TextStyle(
-            //                       fontWeight: FontWeight.w300,
-            //                       fontSize: 20,
-            //                       fontFamily: 'alegreyaSans',
-            //                       color: Color(0xFF646774),
-            //                       fontStyle: FontStyle.italic,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       if (des22 != '')
-            //         Row(
-            //           crossAxisAlignment: CrossAxisAlignment.center,
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: [
-            //             Image(
-            //               image: AssetImage(
-            //                 des22,
-            //               ),
-            //               width: 16,
-            //               height: 16,
-            //             ),
-            //             addWidth(5),
-            //             RichText(
-            //               text: TextSpan(
-            //                 text: description2,
-            //                 style: const TextStyle(
-            //                   fontFamily: 'alegreyaSans',
-            //                   fontWeight: FontWeight.w500,
-            //                   fontSize: 20,
-            //                   color: Color(0xFF131A38),
-            //                   fontStyle: FontStyle.italic,
-            //                 ),
-            //                 children: <TextSpan>[
-            //                   TextSpan(
-            //                     text: description3,
-            //                     style: const TextStyle(
-            //                       fontWeight: FontWeight.w300,
-            //                       fontSize: 20,
-            //                       fontFamily: 'alegreyaSans',
-            //                       color: Color(0xFF646774),
-            //                       fontStyle: FontStyle.italic,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       SizedBox(
-            //         height: height * .06,
-            //       ),
-            //     ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Positioned(
-            //   bottom: 10,
-            //   left: 0,
-            //   right: 0,
-            //   child: Container(
-            //       height: height * .08,
-            //       width: width * .95,
-            //       decoration: BoxDecoration(
-            //         shape: BoxShape.circle,
-            //       ),
-            //       child: ElevatedButton(
-            //           onPressed: () {
-            //             controller.nextPage(
-            //                 duration: const Duration(milliseconds: 300),
-            //                 curve: Curves.ease);
-            //             if (indexValue == 2) {
-            //               Get.toNamed(MyRouters.loginScreen);
-            //             }
-            //           },
-            //           style: ElevatedButton.styleFrom(
-            //               shape: CircleBorder(),
-            //               primary: const Color(0xFF7ED957),
-            //               textStyle: const TextStyle(
-            //                   fontSize: 18, fontWeight: FontWeight.w500)),
-            //           child: Icon(Icons.arrow_forward,size: 35,)
-            //       )),)
-          ]),
-    );
+          ),
+          Container(
+              height: height * .08,
+              width: width * .95,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              child: ElevatedButton(
+                  onPressed: () {
+                    controller.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease);
+                    if (indexValue == 2) {
+                      Get.toNamed(MyRouters.loginScreen);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: CircleBorder(),
+                      primary: const Color(0xFF7ED957),
+                      textStyle: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500)),
+                  child: Icon(Icons.arrow_forward,size: 35,)
+              )),
+          SizedBox(
+            height: height * .007,
+          ),
+          // Positioned(
+          //   bottom: 10,
+          //   left: 0,
+          //   right: 0,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: Container(
+          //       height: height * .48,
+          //       child: Column(
+          //         children: [
+          //           Row(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             children: [
+          //               ...List.generate(
+          //                   OnBoardingData.length,
+          //                       (index) => Padding(
+          //                     padding: const EdgeInsets.only(right: 10.0),
+          //                     child: CustomIndicator(
+          //                       isActive: index == indexValue,
+          //                     ),
+          //                   )),
+          //             ],
+          //           ),
+          //           SizedBox(height: height* .03,),
+          //
+          //           Text(
+          //             title,
+          //         style: const TextStyle(
+          //           fontWeight: FontWeight.w500,
+          //           fontSize: 26,
+          //           fontFamily: 'alegreyaSans',
+          //           color: Color(0xFF131A38),
+          //           fontStyle: FontStyle.italic,
+          //         ),
+          //         textAlign: TextAlign.center,
+          //       ),
+          //           SizedBox(
+          //             height: height * .03,
+          //           ),
+          //       if (des22 != '')
+          //         Row(
+          //           crossAxisAlignment: CrossAxisAlignment.center,
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Image(
+          //               image: AssetImage(
+          //                 des22,
+          //               ),
+          //               width: 16,
+          //               height: 16,
+          //             ),
+          //             addWidth(5),
+          //             RichText(
+          //               text: TextSpan(
+          //                 text: description,
+          //                 style: const TextStyle(
+          //                   fontWeight: FontWeight.w500,
+          //                   fontSize: 20,
+          //                   fontFamily: 'alegreyaSans',
+          //                   color: Color(0xFF131A38),
+          //                   fontStyle: FontStyle.italic,
+          //                 ),
+          //                 children: <TextSpan>[
+          //                   TextSpan(
+          //                     text: des1,
+          //                     style: const TextStyle(
+          //                       fontWeight: FontWeight.w500,
+          //                       fontFamily: 'alegreyaSans',
+          //                       fontSize: 20,
+          //                       color: Color(0xFF131A38),
+          //                       fontStyle: FontStyle.italic,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       if (des22 != '')
+          //         Row(
+          //           crossAxisAlignment: CrossAxisAlignment.center,
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Image(
+          //               image: AssetImage(
+          //                 des22,
+          //               ),
+          //               width: 16,
+          //               height: 16,
+          //             ),
+          //             addWidth(5),
+          //             RichText(
+          //               text: TextSpan(
+          //                 text: description1,
+          //                 style: const TextStyle(
+          //                   fontWeight: FontWeight.w500,
+          //                   fontSize: 20,
+          //                   fontFamily: 'alegreyaSans',
+          //                   color: Color(0xFF131A38),
+          //                   fontStyle: FontStyle.italic,
+          //                 ),
+          //                 children: <TextSpan>[
+          //                   TextSpan(
+          //                     text: des2,
+          //                     style: const TextStyle(
+          //                       fontWeight: FontWeight.w300,
+          //                       fontSize: 20,
+          //                       fontFamily: 'alegreyaSans',
+          //                       color: Color(0xFF646774),
+          //                       fontStyle: FontStyle.italic,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       if (des22 != '')
+          //         Row(
+          //           crossAxisAlignment: CrossAxisAlignment.center,
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Image(
+          //               image: AssetImage(
+          //                 des22,
+          //               ),
+          //               width: 16,
+          //               height: 16,
+          //             ),
+          //             addWidth(5),
+          //             RichText(
+          //               text: TextSpan(
+          //                 text: description2,
+          //                 style: const TextStyle(
+          //                   fontFamily: 'alegreyaSans',
+          //                   fontWeight: FontWeight.w500,
+          //                   fontSize: 20,
+          //                   color: Color(0xFF131A38),
+          //                   fontStyle: FontStyle.italic,
+          //                 ),
+          //                 children: <TextSpan>[
+          //                   TextSpan(
+          //                     text: description3,
+          //                     style: const TextStyle(
+          //                       fontWeight: FontWeight.w300,
+          //                       fontSize: 20,
+          //                       fontFamily: 'alegreyaSans',
+          //                       color: Color(0xFF646774),
+          //                       fontStyle: FontStyle.italic,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       SizedBox(
+          //         height: height * .06,
+          //       ),
+          //     ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // Positioned(
+          //   bottom: 10,
+          //   left: 0,
+          //   right: 0,
+          //   child: Container(
+          //       height: height * .08,
+          //       width: width * .95,
+          //       decoration: BoxDecoration(
+          //         shape: BoxShape.circle,
+          //       ),
+          //       child: ElevatedButton(
+          //           onPressed: () {
+          //             controller.nextPage(
+          //                 duration: const Duration(milliseconds: 300),
+          //                 curve: Curves.ease);
+          //             if (indexValue == 2) {
+          //               Get.toNamed(MyRouters.loginScreen);
+          //             }
+          //           },
+          //           style: ElevatedButton.styleFrom(
+          //               shape: CircleBorder(),
+          //               primary: const Color(0xFF7ED957),
+          //               textStyle: const TextStyle(
+          //                   fontSize: 18, fontWeight: FontWeight.w500)),
+          //           child: Icon(Icons.arrow_forward,size: 35,)
+          //       )),)
+        ]);
   }
 }
 //   @override

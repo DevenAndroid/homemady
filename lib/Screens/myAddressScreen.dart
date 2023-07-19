@@ -144,7 +144,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                 color: const Color(0xff5C5C60)),
                                           ),
                                           addWidth(5),
-                                          Text(
+                                         /* Text(
                                             myAddressController
                                                 .model.value.data![index].location
                                                 .toString(),
@@ -152,7 +152,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400,
                                                 color: const Color(0xff5C5C60),),maxLines: 2,
-                                          ),
+                                          ),*/
                                           /*Text('4295 Shinn Avenue, Indiana, States',
                                      style: GoogleFonts.poppins(
                                          fontSize: 14,

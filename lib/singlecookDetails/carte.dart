@@ -104,7 +104,7 @@ class _carteScreenState extends State<carteScreen> {
                                             .toString(),
                                         fit: BoxFit.cover,
                                         height: 80,
-                                        width: 70,
+                                        width: 60,
                                         errorWidget: (_, __, ___) => Image.asset(
                                           'assets/images/Rectangle 23007.png',
                                         ),

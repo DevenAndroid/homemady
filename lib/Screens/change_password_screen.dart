@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/repository/reset_password_repo.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
@@ -14,9 +17,19 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  @override
+
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(Get.arguments);
+    text = Get.arguments;
+  }
+  String text = '';
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -78,10 +91,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 ),
                                 child: CommonTextFieldWidget(
                                   hint: 'New Password',
-                                  controller: emailController,
-                                  validator: (value) {
+                                  controller: newPasswordController,
+                                  validator: MultiValidator([
+                                   /* EmailValidator(
+                                        errorText:
+                                        'enter a valid email address'),*/
+                                    RequiredValidator(
+                                        errorText: 'Please enter a password')
+                                  ]),
 
-                                  },
                                 ),
                               ),
                               addHeight(15),
@@ -102,14 +120,30 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 ),
                                 child: CommonTextFieldWidget(
                                   hint: 'Confirm New Password',
-                                  controller: passwordController,
-
+                                  controller: confirmPasswordController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "confirm the password";
+                                    } else if (newPasswordController.text !=
+                                        confirmPasswordController.text) {
+                                      return "Confirm password should be match";
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
 
                               addHeight(34),
                               CommonButton(title: 'Continue',onPressed: (){
-                                Get.toNamed(MyRouters.loginScreen);
+                                if(_formKey.currentState!.validate()){
+                                  resetPasswordRepo(email: text,password: newPasswordController.text, confirmPassword: confirmPasswordController.text, context: context,).then((value) {
+                                    if(value.status == true){
+                                      showToast(value.message);
+                                      Get.offAllNamed(MyRouters.loginScreen);
+                                    }
+                                  });
+                                }
+                               // Get.toNamed(MyRouters.loginScreen);
                               },),
                               addHeight(36),
                             ],

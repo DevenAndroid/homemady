@@ -88,15 +88,20 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                 crossAxisAlignment: CrossAxisAlignment
                                     .start,
                                 children: [
-                                  CachedNetworkImage(
-                                    imageUrl: controller.model.value.data!.storeDetails!.storeImage.toString(),
-                                    fit: BoxFit.cover,
-                                    errorWidget: (_, __, ___) => Image.asset(
-                                      'assets/images/Rectangle 23007.png',
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                      imageUrl: controller.model.value.data!.storeDetails!.storeImage.toString(),
+                                      fit: BoxFit.cover,
+                                      height: 240,
+                                      errorWidget: (_, __, ___) => Image.asset(
+                                        'assets/images/Rectangle 23007.png',
+                                        height: 240,
 
+                                      ),
+                                      placeholder: (_, __) =>
+                                          Center(child: CircularProgressIndicator()),
                                     ),
-                                    placeholder: (_, __) =>
-                                        Center(child: CircularProgressIndicator()),
                                   ),
                                   addHeight(20),
                                    Text(controller.model.value.data!.storeDetails!.name.toString(),
@@ -461,6 +466,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                     ],
                   ),
                 ),
+
                 SliverAppBar(
                     pinned: true,
                     floating: true,

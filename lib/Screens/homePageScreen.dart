@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
@@ -16,6 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/homepage_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/user_profile_controller.dart';
+import '../repository/wishlist_repo.dart';
+import '../resources/add_text.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -28,6 +30,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   final homeController = Get.put(HomePageController());
   final profileController = Get.put(UserProfileController());
+  final myCartController = Get.put(MyCartListController());
+  String dateInput11 = "";
+
 
 
 
@@ -43,6 +48,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     super.initState();
    homeController.getData();
    profileController.getData();
+    myCartController.getData();
     _decrement();
     _increment();
   }
@@ -368,47 +374,56 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   onTap: (){
                     Get.toNamed(MyRouters.chooseAddress);
                   },
-                  child: Row(
-                    children: [
-                      Image.asset('assets/images/location.png',
-                        height: 13,),
-                      addWidth(4),
-                      Text('News Work City', style: GoogleFonts.poppins(
-                        color: const Color(0xFF000000),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),),
-                      addWidth(4),
-                      Image.asset('assets/images/pencilImg.png',
-                        height: 13,),
-                    ],
-                  ),
+                  child: Obx(() {
+                    return Row(
+                      children: [
+                        Image.asset('assets/images/location.png',
+                          height: 13,),
+                        addWidth(4),
+                        myCartController.isDataLoading.value ?
+                        Text(myCartController.model.value.data!.orderAddress == null ?
+                        'Select Address' : myCartController.model.value.data!.orderAddress!.location , style: GoogleFonts.poppins(
+                          color: const Color(0xFF000000),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),): CircularProgressIndicator(),
+                        addWidth(4),
+                        Image.asset('assets/images/pencilImg.png',
+                          height: 13,),
+                      ],
+                    );
+                  })
                 ),
               ],
             ),
             const Spacer(),
-            // Badge(
-            //   badgeStyle: BadgeStyle(
-            //       padding: EdgeInsets.all(7)
-            //   ),
-            //   badgeContent: Text('${count}', style: TextStyle(color: Colors.white),),
-            //   child: InkWell(
-            //     child: Container(
-            //       height: 42,
-            //       width: 42,
-            //       decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(10),
-            //           color: const Color(0xFF7ED957)
-            //       ),
-            //       child: Padding(
-            //         padding: const EdgeInsets.all(8.0),
-            //         child: Image.asset('assets/images/shoppingImg.png',
-            //           height: 30,),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-      GestureDetector(
+            Badge(
+              badgeStyle: BadgeStyle(
+                  padding: EdgeInsets.all(7)
+              ),
+              badgeContent: Obx(() {
+                return Text(myCartController.isDataLoading.value ? myCartController.sum.value.toString(): '0', style: TextStyle(color: Colors.white),);
+              }),
+              child: GestureDetector(
+                onTap: (){
+                  Get.toNamed(MyRouters.myCartScreen);
+                },
+                child: Container(
+                  height: 42,
+                  width: 42,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0xFF7ED957)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset('assets/images/shoppingImg.png',
+                      height: 30,),
+                  ),
+                ),
+              ),
+            ),
+      /*GestureDetector(
         onTap: (){
           Get.toNamed(MyRouters.myCartScreen);
         },
@@ -425,7 +440,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   height: 30,),
               ),
             ),
-      ),
+      ),*/
           ],
         ),
         automaticallyImplyLeading: false,
@@ -675,8 +690,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             addWidth(10),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () async {
-                                  DateTime? pickedDate = await showDatePicker(
+                                onTap: ()  async {
+                                  DateTime? _selectedDate = await showDatePicker(
                                     builder: (context, child) {
                                       return Theme(
                                         data: Theme.of(context).copyWith(
@@ -698,35 +713,31 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         child: child!,
                                       );
                                     },
-
                                     context: context,
-                                    initialDate: DateTime.now(),
+                                    initialDate: DateTime.now().subtract(Duration()),
                                     firstDate: DateTime(1950),
                                     //DateTime.now() - not to allow to choose before today.
-                                    lastDate: DateTime(2025),
-                                  ).then((value) {
-                                    // setState(() {
-                                    //   _dateTime = value!;
-                                    // });
+                                    lastDate: DateTime.now().subtract(Duration(),
+                                  ));
+                                  if (_selectedDate != null) {
+                                    print(_selectedDate);
+                                    dateInput11 =
+                                        _selectedDate.toString();
+                                    print(dateInput11);
+                                    String formattedDate =
+                                    DateFormat('dd/MM/yyyy')
+                                        .format(_selectedDate)
+                                        .toString();
 
-                                    if (value != null) {
-                                      String formattedDate = DateFormat(
-                                          'yyyy/MM/dd').format(value);
-                                      setState(() {
-                                        selectedDate =
-                                            formattedDate; //set output date to TextField value.
-                                        log("Seleted Date     $selectedDate");
-                                      });
-                                    }
-                                  });
-
-                                  if (pickedDate != null) {
-                                    String formattedDate = DateFormat(
-                                        'yyyy/MM/dd').format(pickedDate);
-                                    setState(() {
-                                      selectedDate = formattedDate;
-                                      log("Seleted Date     $selectedDate");
-                                    });
+                                    print(formattedDate);
+                                   /* setState(() {
+                                      dobController.text =
+                                          formattedDate; //set output date to TextField value.
+                                      dobController.text =
+                                          formattedDate;
+                                    });*/
+                                  } else {
+                                    print("Date is not selected");
                                   }
                                 },
                                 child: Container(
@@ -819,22 +830,30 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             crossAxisAlignment: CrossAxisAlignment
                                                 .start,
                                             children: [
-                                              /*CachedNetworkImage(
-                                                imageUrl: homeController.model.value.data!.stores![index].image.toString(),
-                                                fit: BoxFit.cover,
-                                                errorWidget: (_, __, ___) => Image.asset(
-                                                  'assets/images/Rectangle 23007.png',
-                                                ),
-                                                placeholder: (_, __) =>
-                                                    Center(child: CircularProgressIndicator()),
-                                              ),*/
                                               ClipRRect(
+                                                borderRadius: BorderRadius.circular(8),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: homeController.model.value.data!.stores![index].image.toString(),
+                                                  fit: BoxFit.cover,
+                                                  height: 150,
+                                                  width: AddSize.screenWidth,
+                                                  errorWidget: (_, __, ___) => Image.asset(
+                                                    'assets/images/Rectangle 23007.png',
+                                                    fit: BoxFit.cover,
+                                                    height: 150,
+                                                    width: AddSize.screenWidth,
+                                                  ),
+                                                  placeholder: (_, __) =>
+                                                      const Center(child: CircularProgressIndicator()),
+                                                ),
+                                              ),
+                                              /*ClipRRect(
                                                 borderRadius: BorderRadius.circular(8),
                                                 child: Image.asset(
                                                   'assets/images/Rectangle 23007.png',fit: BoxFit.cover,
                                                   height: 140,width: AddSize.screenWidth,
                                                 ),
-                                              ),
+                                              ),*/
                                               addHeight(6),
                                               Text(homeController.model.value.data!.stores![index].name.toString(),
                                                 style: GoogleFonts.poppins(
@@ -963,12 +982,26 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           top: 3),
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          isSelect.value =
-                                                          !isSelect.value;
+                                                       /*   isSelect.value =
+                                                          !isSelect.value;*/
+                                                          print(homeController.model.value.data!.stores![index].id.toString());
+                                                          wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString()).then((value) {
+                                                           if(value.status == true){
+                                                             if(value.message.toString() == 'global.WISHLIST_REMOVED'){
+                                                               homeController.model.value.data!.stores![index].wishlist = false;
+                                                             }else{
+                                                               homeController.model.value.data!.stores![index].wishlist = true;
+                                                             }
+
+                                                             showToast(value.message.toString());
+                                                            // homeController.getData();
+                                                             setState(() {
+
+                                                             });
+                                                           }
+                                                          });
                                                         },
-                                                        child: isSelect.value ==
-                                                            true
-                                                            ? const Icon(
+                                                        child: homeController.model.value.data!.stores![index].wishlist! ?  const Icon(
                                                           Icons.favorite,
                                                           color: Color(
                                                               0xFF54C523),)
@@ -992,7 +1025,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           //   bottom: 0,
                                           child: Row(
                                             children: [
-
                                               GestureDetector(
                                                   onTap: () {
                                                     showGeneralDialog(

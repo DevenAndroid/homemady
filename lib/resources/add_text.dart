@@ -56,72 +56,77 @@ addCartSection(){
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(MyRouters.myCartScreen,);
-                  /*Get.back();
-                    Get.back();
-                    Get.back();
-                    Get.back();
-                    Get.back();
-                    Get.back();
-                    controller.onItemTap(1);*/
-                },
-                style: ElevatedButton.styleFrom(
-                    minimumSize:
-                    Size(double.maxFinite, AddSize.size30 * 2),
-                    // primary: AppTheme.primaryColor,
-                    foregroundColor: const Color(0xFF72CD4A),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    textStyle: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:  [
+              child: Container(
+                decoration:  BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                    // begin: Alignment.topCenter,
+                    // end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF7ED957),
+                        Color(0xFF68C541)]
+                  ),
+                ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed(MyRouters.myCartScreen,);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      minimumSize:
+                      Size(double.maxFinite, AddSize.size30 * 2),
+                      // primary: AppTheme.primaryColor,
+                      foregroundColor: Colors.transparent,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w600)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  [
+                              Text(
+                                "${(myCartController.sum.value ?? '' ).toString()} Items",
+                                // 'k',
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: AppTheme.backgroundcolor,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                "€${(myCartController.model.value.data!.cartPaymentSummary!.subTotal ?? '').toString()}",
+                                //'sgdhs',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: AppTheme.backgroundcolor,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: const [
                             Text(
-                              "${(myCartController.sum.value ?? '' ).toString()} Items",
-                              // 'k',
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  color: AppTheme.backgroundcolor,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              "€${(myCartController.model.value.data!.cartPaymentSummary!.subTotal ?? '').toString()}",
-                              //'sgdhs',
+                              "View Cart",
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   color: AppTheme.backgroundcolor,
                                   fontWeight: FontWeight.w600),
                             ),
+                            Icon(
+                              Icons.arrow_right,
+                              size: 30,
+                              color: Colors.white,
+                            )
                           ],
-                        ),
-                      ),
-                      Row(
-                        children: const [
-                          Text(
-                            "View Cart",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: AppTheme.backgroundcolor,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Icon(
-                            Icons.arrow_right,
-                            size: 30,
-                            color: Colors.white,
-                          )
-                        ],
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

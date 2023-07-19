@@ -187,7 +187,17 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
               addHeight(30)
             ],
           ),
-        ): Center(child: const Text('Address Empty',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),)) : const Center(child: CircularProgressIndicator()),
+        ):   Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: CommonButton(
+              title: 'Add Address',
+              onPressed: () {
+                Get.toNamed(MyRouters.chooseAddress);
+              },
+            ),
+          ),
+        ) : const Center(child: CircularProgressIndicator()),
       );
     });
   }

@@ -20,6 +20,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final _formKey1 = GlobalKey<FormState>();
   RxBool checkboxColor = false.obs;
   bool showErrorMessage = false;
+  var obscureText = true;
+  var obscureText1 = true;
   bool value = false;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -83,7 +85,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 controller: nameController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "Name is required";
+                                    return "Please enter a name";
                                   } else {
                                     return null;
                                   }
@@ -124,7 +126,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 errorText:
                                 'enter a valid email address'),
                             RequiredValidator(
-                                errorText: 'Email is required')
+                                errorText: 'Please enter a email')
                           ]),
                         ),
                       ),
@@ -151,7 +153,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           controller: phoneController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "phone is required";
+                              return "Please enter a phone number";
                             } else {
                               return null;
                             }
@@ -176,14 +178,34 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: CommonTextFieldWidget(
                           textInputAction: TextInputAction.next,
                           hint: 'Password',
+                          obscureText: obscureText,
+                          suffix: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  obscureText = !obscureText;
+                                });
+                              },
+                              child: obscureText
+                                  ? const Icon(
+                                Icons.visibility_off,
+                                color: Colors.grey,
+                              )
+                                  : const Icon(
+                                Icons.visibility,
+                                color: Color(0xFF53B176),
+                              )),
                           controller: passwordController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Password is required";
-                            } else {
-                              return null;
-                            }
-                          },
+                          validator: MultiValidator([
+                            RequiredValidator(
+                                errorText: 'Please Enter a Password'),
+                            MinLengthValidator(6,
+                                errorText:
+                                'Password must be at least 6 digits long'),
+                            PatternValidator(
+                                r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
+                                errorText:
+                                'Password must be minimum 6 characters, with 1 \nCapital letter 1 special character & 1 numerical.')
+                          ]),
                         ),
                       ),
                       addHeight(20),
@@ -203,10 +225,26 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         child: CommonTextFieldWidget(
                           hint: 'Confirm Password',
+                          obscureText: obscureText1,
                           controller: confirmController,
+                          suffix: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  obscureText1 = !obscureText1;
+                                });
+                              },
+                              child: obscureText1
+                                  ? const Icon(
+                                Icons.visibility_off,
+                                color: Colors.grey,
+                              )
+                                  : const Icon(
+                                Icons.visibility,
+                                color: Color(0xFF53B176),
+                              )),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "confirm the password";
+                              return "Please enter a password";
                             } else if (confirmController.text !=
                                 passwordController.text) {
                               return "Confirm password should be match";

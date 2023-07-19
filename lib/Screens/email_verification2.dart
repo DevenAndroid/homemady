@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/Screens/otp_forgot.dart';
 import 'package:homemady/Screens/otp_forgot.dart';
+import 'package:homemady/repository/forgot_password_repo.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
@@ -91,14 +94,25 @@ class _EmailVerificationScreen2State extends State<EmailVerificationScreen2> {
                                 child: CommonTextFieldWidget(
                                   hint: 'Email',
                                   controller: emailController,
-                                  validator: (value) {
-
-                                  },
+                                  validator: MultiValidator([
+                                    EmailValidator(
+                                        errorText:
+                                        'enter a valid email address'),
+                                    RequiredValidator(
+                                        errorText: 'Please enter a email')
+                                  ]),
                                 ),
                               ),
                               addHeight(25),
                               CommonButton(title: 'Send',onPressed: (){
-                                Get.toNamed(MyRouters.otpForgotScreen);
+                                if(_formKey.currentState!.validate()){
+                                  forgotPasswordRepo(email: emailController.text, context: context).then((value) {
+                                    if(value.status == true){
+                                      showToast(value.message.toString());
+                                      Get.toNamed(MyRouters.otpForgotScreen,arguments: emailController.text);
+                                    }
+                                  });
+                                }
                               },),
                             ],
                           ),

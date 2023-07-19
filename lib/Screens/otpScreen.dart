@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/repository/resend_otp_repo.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
@@ -21,6 +22,14 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(Get.arguments);
+    text = Get.arguments;
+  }
+  String text = '';
   TextEditingController otpController = TextEditingController();
   final formKey99 = GlobalKey<FormState>();
   @override
@@ -162,9 +171,16 @@ class _OtpScreenState extends State<OtpScreen> {
                       ),
                       addHeight(30),
                       InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          resendOtpRepo(email: text, context: context).then((value) {
+                            if(value.status == true){
+                              showToast(value.message.toString());
+                              Get.toNamed(MyRouters.otpScreen);
+                            }
+                          });
+                        },
                         child: Center(
-                          child:  Text(' Resend OTP',style: GoogleFonts.poppins(
+                          child:  Text('Resend OTP',style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: const Color(0xFF578AE8)
@@ -175,7 +191,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         padding: const EdgeInsets.only(left: 24.0,right: 24,top: 70,bottom: 20),
                         child: CommonButton(title: 'Verify OTP',
                          onPressed: (){
-                          print("Hello");
+                          //print("Hello");
                           if(formKey99.currentState!.validate()){
                             verifyOTPPassword(Get.arguments[0],otpController.text,context).then((value){
                               if(value.status==true){

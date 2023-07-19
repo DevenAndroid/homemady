@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/repository/reset_pass_otp_repo.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
@@ -19,6 +21,15 @@ class OtpForgotScreen extends StatefulWidget {
 
 class _OtpForgotScreenState extends State<OtpForgotScreen> {
   TextEditingController otpController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(Get.arguments);
+    text = Get.arguments;
+  }
+  String text = "";
   final formKey99 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -172,7 +183,16 @@ class _OtpForgotScreenState extends State<OtpForgotScreen> {
                         padding: const EdgeInsets.only(left: 24.0,right: 24,top: 70,bottom: 20),
                         child: CommonButton(title: 'Verify OTP',
                           onPressed: (){
-                            Get.toNamed(MyRouters.changePasswordScreen);
+                            print(text);
+                          if(formKey99.currentState!.validate()){
+                            verifyResetRepo(email: text, otp: otpController.text, context: context).then((value) {
+                              if(value.status == true){
+                                showToast(value.message);
+                                Get.toNamed(MyRouters.changePasswordScreen,arguments: text);
+                              }
+                            });
+                          }
+                           // Get.toNamed(MyRouters.changePasswordScreen);
                           },
                         ),
                       ),

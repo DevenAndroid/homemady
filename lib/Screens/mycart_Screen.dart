@@ -28,19 +28,18 @@ class _MyCartScreenState extends State<MyCartScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_){
       controller.getData();
       // Add Your Code here.
-
     });
   }
-  bool? _isValue = false;
-  bool? _isValue1 = false;
-  bool? _isValue2 = false;
-  bool? _isValue3 = false;
-  bool? _isValue4 = false;
-  bool? _isValue5 = false;
-  bool? _isValue6 = false;
-  bool? _isValue7 = false;
-  bool? _isValue8 = false;
-  bool? _isValue9 = false;
+  RxBool isSelect = false.obs;
+  RxBool isSelect1 = false.obs;
+  RxBool isSelect2 = true.obs;
+  RxBool isSelect3 = true.obs;
+  RxBool isSelect4 = false.obs;
+  RxBool isSelect5 = true.obs;
+  RxBool isSelect6 = true.obs;
+  RxBool isSelect7 = false.obs;
+  RxBool isSelect8 = true.obs;
+  RxBool isSelect9 = true.obs;
   @override
   Widget build(BuildContext context) {
 
@@ -136,7 +135,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                 color: Colors.grey,
                                               ),
                                               addWidth(10),
-                                              Text('',
+                                              Text('${controller.model.value.data!.cartItems![index].distance.toString()} km',
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 12,
@@ -198,36 +197,517 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           ],
                         ),
                       ),
+                      addHeight(20),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(15,10,14,0),
-                        child: Wrap(
+                        padding: const EdgeInsets.symmetric(horizontal: 15,),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect.value =! isSelect.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                               // addHeight(5),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect1.value =! isSelect1.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect1.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect1.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                               // addHeight(5),
+                                /*const Text('Mo',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect2.value =! isSelect2.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect2.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect2.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                               // addHeight(5),
+                               /* const Text('Tu',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect3.value =! isSelect3.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect3.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect3.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                                /*addHeight(5),
+                                const Text('We',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect4.value =! isSelect4.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect4.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect4.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                               /* addHeight(5),
+                                const Text('Th',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect5.value =! isSelect5.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect5.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect5.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                               /* addHeight(5),
+                                const Text('Fr',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect6.value =! isSelect6.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect6.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect6.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                               /* addHeight(5),
+                                const Text('Sa',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      addHeight(20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15,),
+                        child: Row(
+                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect7.value =! isSelect7.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect7.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect7.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                                /*addHeight(5),
+                                const Text('Su',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
+                            addWidth(20),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect8.value =! isSelect8.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect8.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect8.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                                /*addHeight(5),
+                                const Text('Mo',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
+                            addWidth(20),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    isSelect9.value =! isSelect9.value;
+                                  },
+                                  child: Container(
+                                    height: 28,
+                                    width: 28,
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: isSelect9.value == true ?
+                                    BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ) : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      color: const Color(0xFF7ED957),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          offset: const Offset(.1, .1,
+                                          ),
+                                          blurRadius: 19.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child:   isSelect9.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                                    ),
+                                  ),
+                                ),
+                               /* addHeight(5),
+                                const Text('Tu',style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF303C5E)
+                                ),)*/
+                              ],
+                            ),
 
-                          children: List.generate(10, (index){
-                            return Expanded(
-                              child: Transform.scale(
-                                scale: 1.5,
-                                child: Checkbox(
-                                    activeColor: const Color(0xff7ED957),
-                                    // focusColor: Colors.black,
-                                    shape: RoundedRectangleBorder(
-                                      // side: BorderSide(color: Colors.grey),
-                                        borderRadius:
-                                        BorderRadius.circular(3)),
-                                    value: _isValue,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _isValue = value;
-                                      });
-                                    }),
-                              ),
-                            );
-                          }),
+                          ],
                         ),
                       ),
                       addHeight(20)
                     ],
 
-                  ),
+                  )
+
                 ),
               ),
               addHeight(10),

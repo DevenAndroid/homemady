@@ -177,7 +177,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               ),
                               child: controller.image.value.path == "" ?
                                   controller.model.value.data!.profileImage!.isEmpty ||
-                                      controller.model.value.data!.profileImage! == 'https://homemady.eoxyslive.com/uploads/profile-images/1689241368-wtp.jpg' ?
+                                      controller.model.value.data!.profileImage! == '' ?
                                   const SizedBox(
                                     height: 100,
                                     width: 100,

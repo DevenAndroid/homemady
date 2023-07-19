@@ -20,6 +20,17 @@ class ApiUrl {
   static const notificationUrl = "${baseUrl}notification-list";
   static const userProfileUrl = "${baseUrl}user-profile";
   static const updateProfileUrl = "${baseUrl}update-profile";
+  static const forgotPasswordUrl = "${baseUrl}forget-password";
+  static const resetPasswordUrl = "${baseUrl}reset-password";
+  static const resetVerifyUrl = "${baseUrl}reset-verify-otp";
+  static const faqListUrl = "${baseUrl}faq-list";
+  static const wishlistUrl = "${baseUrl}add-remove-wishlist";
+  static const resendOtpUrl = "${baseUrl}resend-otp";
+
+
+
+
+
 
 
 

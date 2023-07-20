@@ -71,7 +71,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                   fontSize: AddSize.font14)),
                           onPressed: () {
                             NewHelper().addFilePicker().then((value) {
-                              image.value = value!;
+                              controller.image.value = value!;
                             });
                             Get.back();
                           },
@@ -86,7 +86,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             NewHelper()
                                 .addImagePicker(imageSource: ImageSource.camera)
                                 .then((value) {
-                              image.value = value!;
+                              controller.image.value = value!;
                             });
                             Get.back();
                           },
@@ -167,7 +167,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         width: 120,
                         child: CircleAvatar(
                             backgroundColor: AppTheme.peachColor,
-                            radius: 20,
+                            radius: 60,
                             child: Container(
                               // margin: const EdgeInsets.only(bottom: 32),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -176,8 +176,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 // color: Colors.white,
                               ),
                               child: controller.image.value.path == "" ?
-                                  controller.model.value.data!.profileImage!.isEmpty ||
-                                      controller.model.value.data!.profileImage! == '' ?
+                                      controller.model.value.data!.profileImage! == 'https://homemady.eoxyslive.com/uploads/profile-images' ?
                                   const SizedBox(
                                     height: 100,
                                     width: 100,

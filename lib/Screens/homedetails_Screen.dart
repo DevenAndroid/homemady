@@ -94,10 +94,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                       imageUrl: controller.model.value.data!.storeDetails!.storeImage.toString(),
                                       fit: BoxFit.cover,
                                       height: 240,
+                                      width: AddSize.screenWidth,
                                       errorWidget: (_, __, ___) => Image.asset(
                                         'assets/images/Rectangle 23007.png',
                                         height: 240,
-
+                                        width: AddSize.screenWidth,
                                       ),
                                       placeholder: (_, __) =>
                                           Center(child: CircularProgressIndicator()),

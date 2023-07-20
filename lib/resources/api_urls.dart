@@ -26,6 +26,8 @@ class ApiUrl {
   static const faqListUrl = "${baseUrl}faq-list";
   static const wishlistUrl = "${baseUrl}add-remove-wishlist";
   static const resendOtpUrl = "${baseUrl}resend-otp";
+  static const favoriteListUrl = "${baseUrl}list";
+
 
 
 

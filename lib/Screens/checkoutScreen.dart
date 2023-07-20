@@ -334,19 +334,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),),
                               Row(
                                 children: [
-                                  Text((myCartController.model.value.data!.orderAddress == null ? 'Select address' : myCartController.model.value.data!.orderAddress!.location).toString(),
+                                  Text((myCartController.model.value.data!.orderAddress == null ?
+                                  'Select address' : myCartController.model.value.data!.orderAddress!.location).toString(),
                                     style: GoogleFonts.poppins(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: const Color(0xff5C5C60)
                                     ),),
                                   addWidth(5),
-                                 /* Text((myCartController.model.value.data!.orderAddress!.landmark).toString(),
+                                  Text((myCartController.model.value.data!.orderAddress!.landmark).toString(),
                                     style: GoogleFonts.poppins(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: const Color(0xff5C5C60)
-                                    ),),*/
+                                    ),),
                                 ],
                               )
                             ],

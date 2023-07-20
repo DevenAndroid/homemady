@@ -8,6 +8,8 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
+import '../controller/favorite_controller.dart';
+
 class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({Key? key}) : super(key: key);
 
@@ -18,13 +20,22 @@ class FavouriteScreen extends StatefulWidget {
 class _FavouriteScreenState extends State<FavouriteScreen> {
   RxBool isSelect1 = false.obs;
   RxBool isSelect = false.obs;
-
+  final controller = FavoriteListController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.get();
+  }
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Scaffold(
+    return
+      Obx(() {
+      return
+        Scaffold(
         appBar: backAppBar(title: 'My Favorites', context: context),
-        body: SingleChildScrollView(
+        body: controller.isDataLoading.value ? controller.model.value.data!.store!.isNotEmpty ?
+        SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -105,7 +116,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 addHeight(20),
                 isSelect1.value == true ?   ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 4,
+                  itemCount: controller.model.value.data!.store!.length,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Column(
@@ -142,7 +153,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                         Image.asset(
                                             'assets/images/Rectangle 2171.png'),
                                         addHeight(6),
-                                        Text('Burger King with Pizza',
+                                        Text(controller.model.value.data!.store![index].name.toString(),
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w700,
                                               fontSize: 16,
@@ -205,7 +216,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                             )
                                         ),
                                         addHeight(3),
-                                        Text('Jack Smith',
+                                        Text(controller.model.value.data!.store![index].cookName.toString(),
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 12,
@@ -221,7 +232,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                               color: Color(0xFFFFC529),
                                               size: 14,),
                                             addWidth(3),
-                                            Text('4.95 (35)',
+                                            Text(controller.model.value.data!.store![index].rating.toString(),
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 11,
+                                                  color: const Color(0xFF6A7080)
+                                              ),),
+                                            addWidth(5),
+                                            Text('(${controller.model.value.data!.store![index].countReviewData.toString()})',
                                               style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 11,
@@ -354,7 +372,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 ):
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 4,
+                  itemCount: controller.model.value.data!.store!.length,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     return SingleChildScrollView(
@@ -392,7 +410,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                           Image.asset(
                                               'assets/images/Rectangle 2171.png'),
                                           addHeight(6),
-                                          Text('Burger King with Pizza',
+                                          Text(controller.model.value.data!.store![index].name.toString(),
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 16,
@@ -455,7 +473,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                               )
                                           ),
                                           addHeight(3),
-                                          Text('Jack Smith',
+                                          Text(controller.model.value.data!.store![index].cookName.toString(),
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 12,
@@ -471,7 +489,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                                 color: Color(0xFFFFC529),
                                                 size: 14,),
                                               addWidth(3),
-                                              Text('4.95 (35)',
+                                              Text(controller.model.value.data!.store![index].rating.toString(),
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 11,
+                                                    color: const Color(0xFF6A7080)
+                                                ),),
+                                              addWidth(3),
+                                              Text(controller.model.value.data!.store![index].countReviewData.toString(),
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 11,
@@ -606,7 +631,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               ],
             ),
           ),
-        ),
+        ): const Center(child: Text('No Favorites')):const Center(child: CircularProgressIndicator()),
       );
     });
   }

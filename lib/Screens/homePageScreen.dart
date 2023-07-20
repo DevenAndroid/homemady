@@ -47,7 +47,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
     // TODO: implement initState
     super.initState();
    homeController.getData();
-   profileController.getData();
+  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    profileController.getData();
+  });
+
     myCartController.getData();
     _decrement();
     _increment();
@@ -344,20 +347,26 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   _scaffoldKey.currentState!.openDrawer();
                 },
                 child:
-                /*ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child:  CachedNetworkImage(
-                    imageUrl: (profileController.model.value.data!.profileImage).toString(),
-                    fit: BoxFit.cover,
-                    errorWidget: (_, __, ___) => Image.asset(
-                      'assets/images/Ellipse 67.png',
+                Obx(() {
+                 return ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child:  CachedNetworkImage(
+                      imageUrl: profileController.model.value.data!.profileImage.toString(),
                       fit: BoxFit.cover,
+                      height: 50,
+                      width: 50,
+                      errorWidget: (_, __, ___) => Image.asset(
+                        'assets/images/Ellipse 67.png',
+                        fit: BoxFit.cover,
+                        height: 50,
+                        width: 50,
+                      ),
+                      placeholder: (_, __) =>
+                      const Center(child: CircularProgressIndicator()),
                     ),
-                    placeholder: (_, __) =>
-                        Center(child: CircularProgressIndicator()),
-                  ),
-                ),*/
-                Image.asset('assets/images/avtarImg.png', height: 45,)
+                  );
+                })
+               // Image.asset('assets/images/avtarImg.png', height: 45,)
             ),
             addWidth(6),
             Column(
@@ -968,8 +977,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                           child: Column(
                                             children: [
-                                              Obx(() {
-                                                return Container(
+                                            //  Obx(() {
+                                             //   return
+                                                  Container(
                                                     height: 33,
                                                     decoration: const BoxDecoration(
                                                         shape: BoxShape.circle,
@@ -984,7 +994,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         onTap: () {
                                                        /*   isSelect.value =
                                                           !isSelect.value;*/
-                                                          print(homeController.model.value.data!.stores![index].id.toString());
+                                                       /*   print(homeController.model.value.data!.stores![index].id.toString());
                                                           wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString()).then((value) {
                                                            if(value.status == true){
                                                              if(value.message.toString() == 'global.WISHLIST_REMOVED'){
@@ -999,21 +1009,23 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                                              });
                                                            }
-                                                          });
+                                                          });*/
                                                         },
-                                                        child: homeController.model.value.data!.stores![index].wishlist! ?  const Icon(
+                                                        child:
+                                                        //homeController.model.value.data!.stores![index].wishlist! ?
+                                                        const Icon(
                                                           Icons.favorite,
                                                           color: Color(
                                                               0xFF54C523),)
-                                                            :
-                                                        const Icon(
+                                                          //  :
+                                                      /*  const Icon(
                                                           Icons.favorite_outline,
                                                           color: Color(
-                                                              0xFF54C523),),
+                                                              0xFF54C523),),*/
                                                       ),
                                                     )
-                                                );
-                                              }),
+                                                ),
+                                           //   }),
                                             ],
                                           )
                                       ),

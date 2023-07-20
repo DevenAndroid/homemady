@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,8 @@ import 'package:homemady/routers/routers.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/user_profile_controller.dart';
+
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
 
@@ -19,6 +22,8 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
+  final profileController = Get.put(UserProfileController());
+
   int currentDrawer = 0;
   int selectedTab = 0;
   Rx<int> currentIndex = 0.obs;
@@ -57,7 +62,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const MyProfileScreen(),
   ];
 
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    profileController.getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +92,24 @@ class _BottomNavbarState extends State<BottomNavbar> {
                       alignment: Alignment.center,
                       child: Column(
                         children: [
-                          Image.asset(
-                            'assets/images/Ellipse 67.png',
-                            height: 100,
-                          ),
+                         profileController.isDataLoading.value ?
+                         ClipRRect(
+                           borderRadius: BorderRadius.circular(50),
+                           child: CachedNetworkImage(
+                              imageUrl: profileController.model.value.data!.profileImage.toString(),
+                              fit: BoxFit.cover,
+                              height: 75,
+                              width: 75,
+                              errorWidget: (_, __, ___) => Image.asset(
+                                'assets/images/Ellipse 67.png',
+                                fit: BoxFit.cover,
+                                height: 75,
+                                width: 75,
+                              ),
+                              placeholder: (_, __) =>
+                              const Center(child: CircularProgressIndicator()),
+                            ),
+                         ) :  Center(child: CircularProgressIndicator()),
                           Text('Williams Jones',
                               style: GoogleFonts.poppins(
                                 fontSize: 18,

@@ -41,7 +41,6 @@ dependencies:
   cached_network_image:
   smooth_page_indicator:
   google_fonts:
-#  pinput: ^2.2.31
   form_field_validator:
   intl: ^0.17.0
   flutter_slidable:

@@ -12,6 +12,8 @@ import 'package:homemady/widgets/dimenestion.dart';
 // import 'package:pinput/pinput.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../repository/resend_otp_repo.dart';
+
 class OtpForgotScreen extends StatefulWidget {
   const OtpForgotScreen({Key? key}) : super(key: key);
 
@@ -170,7 +172,14 @@ class _OtpForgotScreenState extends State<OtpForgotScreen> {
                       ),
                       addHeight(30),
                       InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          resendOtpRepo(email: text, context: context).then((value) {
+                            if(value.status == true){
+                              showToast(value.message.toString());
+                              Get.toNamed(MyRouters.otpScreen);
+                            }
+                          });
+                        },
                         child: Center(
                           child:  Text(' Resend OTP',style: GoogleFonts.poppins(
                               fontSize: 16,

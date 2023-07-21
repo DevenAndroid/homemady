@@ -46,8 +46,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   homeController.getData();
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    homeController.getData();
     profileController.getData();
   });
 
@@ -348,10 +348,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 },
                 child:
                 Obx(() {
-                 return ClipRRect(
+                 return
+                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child:  CachedNetworkImage(
-                      imageUrl: profileController.model.value.data!.profileImage.toString(),
+                      imageUrl:  profileController.isDataLoading.value ?
+                      (profileController.model.value.data!.profileImage).toString() : '',
                       fit: BoxFit.cover,
                       height: 50,
                       width: 50,
@@ -369,41 +371,45 @@ class _HomePageScreenState extends State<HomePageScreen> {
                // Image.asset('assets/images/avtarImg.png', height: 45,)
             ),
             addWidth(6),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Address',
-                  style: GoogleFonts.poppins(
-                  color: const Color(0xFF636869),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w300,
-                ),),
-                addHeight(3),
-                GestureDetector(
-                  onTap: (){
-                    Get.toNamed(MyRouters.chooseAddress);
-                  },
-                  child: Obx(() {
-                    return Row(
-                      children: [
-                        Image.asset('assets/images/location.png',
-                          height: 13,),
-                        addWidth(4),
-                        myCartController.isDataLoading.value ?
-                        Text(myCartController.model.value.data!.orderAddress == null ?
-                        'Select Address' : myCartController.model.value.data!.orderAddress!.location , style: GoogleFonts.poppins(
-                          color: const Color(0xFF000000),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),): CircularProgressIndicator(),
-                        addWidth(4),
-                        Image.asset('assets/images/pencilImg.png',
-                          height: 13,),
-                      ],
-                    );
-                  })
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Address',
+                    style: GoogleFonts.poppins(
+                    color: const Color(0xFF636869),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),),
+                  addHeight(3),
+                  GestureDetector(
+                    onTap: (){
+                      Get.toNamed(MyRouters.chooseAddress);
+                    },
+                    child: Obx(() {
+                      return Row(
+                        children: [
+                          Image.asset('assets/images/location.png',
+                            height: 13,),
+                          addWidth(4),
+                          myCartController.isDataLoading.value ?
+                          Expanded(
+                            child: Text(myCartController.model.value.data!.orderAddress == null ?
+                            'Select Address' : myCartController.model.value.data!.orderAddress!.location , style: GoogleFonts.poppins(
+                              color: const Color(0xFF000000),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),),
+                          ): CircularProgressIndicator(),
+                          addWidth(4),
+                          Image.asset('assets/images/pencilImg.png',
+                            height: 13,),
+                        ],
+                      );
+                    })
+                  ),
+                ],
+              ),
             ),
             const Spacer(),
             Badge(
@@ -458,7 +464,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
         toolbarHeight: 70,
       ),
       key: _scaffoldKey,
-
       body: Obx(() {
         return SafeArea(
           child: homeController.isDataLoading.value && profileController.isDataLoading.value ?
@@ -543,7 +548,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             ),
                           ),
                           addWidth(10),
-
                           GestureDetector(
                             onTap: () {
                               _showSimpleDialog();
@@ -992,9 +996,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           top: 3),
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                       /*   isSelect.value =
-                                                          !isSelect.value;*/
-                                                       /*   print(homeController.model.value.data!.stores![index].id.toString());
+                                                          isSelect.value =
+                                                          !isSelect.value;
+                                                          print(homeController.model.value.data!.stores![index].id.toString());
                                                           wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString()).then((value) {
                                                            if(value.status == true){
                                                              if(value.message.toString() == 'global.WISHLIST_REMOVED'){
@@ -1009,19 +1013,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                                              });
                                                            }
-                                                          });*/
+                                                          });
                                                         },
                                                         child:
-                                                        //homeController.model.value.data!.stores![index].wishlist! ?
+                                                        homeController.model.value.data!.stores![index].wishlist! ?
                                                         const Icon(
                                                           Icons.favorite,
                                                           color: Color(
                                                               0xFF54C523),)
-                                                          //  :
-                                                      /*  const Icon(
+                                                           :
+                                                        const Icon(
                                                           Icons.favorite_outline,
                                                           color: Color(
-                                                              0xFF54C523),),*/
+                                                              0xFF54C523),),
                                                       ),
                                                     )
                                                 ),

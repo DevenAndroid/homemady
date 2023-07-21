@@ -22,6 +22,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  var obscureText = true;
+  var obscureText1 = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -92,6 +95,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 child: CommonTextFieldWidget(
                                   hint: 'New Password',
                                   controller: newPasswordController,
+                                  obscureText: obscureText,
+                                  suffix: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          obscureText = !obscureText;
+                                        });
+                                      },
+                                      child: obscureText
+                                          ? const Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.grey,
+                                      )
+                                          : const Icon(
+                                        Icons.visibility,
+                                        color: Color(0xFF53B176),
+                                      )),
                                   validator: MultiValidator([
                                    /* EmailValidator(
                                         errorText:
@@ -121,6 +140,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 child: CommonTextFieldWidget(
                                   hint: 'Confirm New Password',
                                   controller: confirmPasswordController,
+                                  obscureText: obscureText1,
+                                  suffix: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          obscureText1 = !obscureText1;
+                                        });
+                                      },
+                                      child: obscureText1
+                                          ? const Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.grey,
+                                      )
+                                          : const Icon(
+                                        Icons.visibility,
+                                        color: Color(0xFF53B176),
+                                      )),
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return "confirm the password";

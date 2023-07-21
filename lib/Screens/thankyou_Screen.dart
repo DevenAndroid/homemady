@@ -113,7 +113,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                  addHeight(10),
                  InkWell(
                    onTap: () {
-                     Get.toNamed(MyRouters.bottomNavbar);
+                     Get.offAllNamed(MyRouters.bottomNavbar);
                    },
                    child: Container(
                      height: 55,

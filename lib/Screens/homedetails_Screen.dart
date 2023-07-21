@@ -42,10 +42,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
   @override
   void initState() {
     super.initState();
-    controller.getData();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.getData();
+      tabController = TabController(length: 3, vsync: this);
+    });
+
     // vendorOrderListController.filter.value = "";
     // vendorOrderListController.vendorOrderListData();
-    tabController = TabController(length: 3, vsync: this);
+
   }
 
   final autoController = AutoScrollController();
@@ -58,8 +62,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return SafeArea(
-
       child: Obx(() {
         return Scaffold(
             body: controller.isDataLoading.value ?
@@ -101,7 +106,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                         width: AddSize.screenWidth,
                                       ),
                                       placeholder: (_, __) =>
-                                          Center(child: CircularProgressIndicator()),
+                                          const Center(child: CircularProgressIndicator()),
                                     ),
                                   ),
                                   addHeight(20),
@@ -203,7 +208,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                             height: 24,),
                                           addWidth(7),
                                            Text(controller.model.value.data!.storeDetails!.deliveryTime.toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 14,
                                                 color: Color(0xFF4E5F64),
                                                 fontWeight: FontWeight.w400,)),
@@ -467,7 +472,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                     ],
                   ),
                 ),
-
                 SliverAppBar(
                     pinned: true,
                     floating: true,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -107,7 +108,22 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Image.asset('assets/images/Rectangle 39768.png',height: 74,),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: CachedNetworkImage(
+                                    imageUrl: controller.model.value.data!.cartItems![index].image.toString(),
+                                    fit: BoxFit.cover,
+                                    width: 65,
+                                    height: 75,
+                                    errorWidget: (_, __, ___) => Image.asset(
+                                      'assets/images/Ellipse 67.png',
+                                      width: 74,
+                                      height: 82,
+                                    ),
+                                    placeholder: (_, __) =>
+                                        const Center(child: CircularProgressIndicator()),
+                                ),
+                                  ),
                                       addWidth(10),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,7 +151,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                 color: Colors.grey,
                                               ),
                                               addWidth(10),
-                                              Text('${controller.model.value.data!.cartItems![index].distance.toString()} km',
+                                              Text('${(controller.model.value.data!.cartItems![index].distance ?? '5').toString()} km',
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 12,
@@ -188,12 +204,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Eater get one free delivery automatically\napplied to the 11th order.',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff303D46)
-                              ),),
+                            Expanded(
+                              child: Text('Eater get one free delivery automatically applied to the 11th order.',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xff303D46)
+                                ),),
+                            ),
                           ],
                         ),
                       ),

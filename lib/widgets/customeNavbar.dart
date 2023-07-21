@@ -66,7 +66,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    profileController.getData();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      profileController.getData();
+    });
+
   }
 
   @override

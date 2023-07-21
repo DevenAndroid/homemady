@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "583798062201",
+    "project_id": "homemady-7cdc6",
+    "storage_bucket": "homemady-7cdc6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583798062201:android:b928c662cdd39cfd6068a8",
+        "android_client_info": {
+          "package_name": "com.example.homemady"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583798062201-43cja3cg5j0s94khk7cotpu3npajn2gd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1JeOBxmrSj-MJunI6IkbmRslcIf04qX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583798062201-43cja3cg5j0s94khk7cotpu3npajn2gd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

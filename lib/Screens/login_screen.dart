@@ -3,8 +3,12 @@
 
 
 import 'dart:convert';
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
@@ -22,8 +26,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  var obscureText1 = true;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -124,6 +132,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: CommonTextFieldWidget(
                         hint: 'Password',
                         controller: passwordController,
+                        obscureText: obscureText1,
+                        suffix: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                obscureText1 = !obscureText1;
+                              });
+                            },
+                            child: obscureText1
+                                ? const Icon(
+                              Icons.visibility_off,
+                              color: Colors.grey,
+                            )
+                                : const Icon(
+                              Icons.visibility,
+                              color: Color(0xFF53B176),
+                            )),
                         validator: (value){
                           if(value!.isEmpty){
                             return "Password is required";
@@ -184,34 +208,39 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-                        Container(
-                          width: 152,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF37C666).withOpacity(0.10),
-                                offset: const Offset(.1, .1,
+                        GestureDetector(
+                          onTap: (){
+                            signInWithGoogle();
+                          },
+                          child: Container(
+                            width: 152,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF37C666).withOpacity(0.10),
+                                  offset: const Offset(.1, .1,
+                                  ),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 1.0,
                                 ),
-                                blurRadius: 20.0,
-                                spreadRadius: 1.0,
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/images/google.png',height: 25,),
-                              addWidth(10),
-                              const Text('Google',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color:  Color(0xFF4C5369)
-                                ),)
-                            ],
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/images/google.png',height: 25,),
+                                addWidth(10),
+                                const Text('Google',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color:  Color(0xFF4C5369)
+                                  ),)
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -302,5 +331,30 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  signInWithGoogle() async {
+    await GoogleSignIn().signOut();
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+    print("Token---------${googleAuth.accessToken}");
+    final value = await FirebaseAuth.instance.signInWithCredential(credential);
+    log(value.credential!.accessToken!);
+    //log(value.additionalUserInfo.a);
+    var fromToken = await FirebaseMessaging.instance.getToken();
+
+ /*   socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+      if (value.status == true) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('user_info', jsonEncode(value));
+        showToast(value.message);
+        Get.offAllNamed(MyRouters.bottomNavbar);
+      } else {
+        showToast(value.message);
+      }
+    });*/
   }
 }

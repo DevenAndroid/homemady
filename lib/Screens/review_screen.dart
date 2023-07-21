@@ -48,7 +48,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 glowColor: Colors.white10,
                 minRating: 1,
                 unratedColor: const Color(0xFFE0DEDA),
-                itemCount: 7,
+                itemCount: 6,
                 itemSize: 34.0,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
                 updateOnDrag: true,

@@ -27,7 +27,7 @@ class _OtpScreenState extends State<OtpScreen> {
     // TODO: implement initState
     super.initState();
     print(Get.arguments);
-    text = Get.arguments;
+    text = Get.arguments[0];
   }
   String text = '';
   TextEditingController otpController = TextEditingController();
@@ -172,7 +172,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       addHeight(30),
                       InkWell(
                         onTap: (){
-                          resendOtpRepo(email: text, context: context).then((value) {
+                          resendOtpRepo(email: Get.arguments[0], context: context).then((value) {
                             if(value.status == true){
                               showToast(value.message.toString());
                               Get.toNamed(MyRouters.otpScreen);

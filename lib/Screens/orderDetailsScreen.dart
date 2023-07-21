@@ -257,8 +257,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                    physics: const BouncingScrollPhysics(),
                    controller: tabController,
                    children: [
-
-
                      Obx(() {
                        return SingleChildScrollView(
                          physics: const BouncingScrollPhysics(),
@@ -959,9 +957,34 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
 
                    ],
                  )
-
-
-             )
+             ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: InkWell(
+          onTap: () {
+            Get.toNamed(MyRouters.reviewScreen);
+          },
+          child: Container(
+            height: 56,
+            width: AddSize.screenWidth / 1.1,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: const Color(0xFFFF6B6B)
+            ),
+            child: Center(
+              child: Text(
+                'Send Feedback For Order',
+                style: GoogleFonts.poppins(
+                  color:  Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+      ),
 
 
 

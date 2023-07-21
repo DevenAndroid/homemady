@@ -28,25 +28,25 @@ class MyOrderModel {
 }
 
 class Data {
-  int? orderId;
-  int? itemTotal;
-  int? surcharge;
-  int? tax;
-  int? deliveryCharges;
-  int? packingFee;
+  dynamic orderId;
+  dynamic itemTotal;
+  dynamic surcharge;
+  dynamic tax;
+  dynamic deliveryCharges;
+  dynamic packingFee;
   Null? couponDiscount;
-  int? grandTotal;
+  dynamic grandTotal;
   User? user;
   Vendor? vendor;
   Null? driver;
-  Address? address;
-  String? orderType;
-  String? deliveryType;
-  String? deliveryStatus;
-  int? itemCount;
+  dynamic  address;
+  dynamic orderType;
+  dynamic deliveryType;
+  dynamic deliveryStatus;
+  dynamic itemCount;
   List<OrderItems>? orderItems;
-  String? image;
-  String? placedAt;
+  dynamic image;
+  dynamic placedAt;
 
   Data(
       {this.orderId,
@@ -132,19 +132,19 @@ class Data {
 }
 
 class User {
-  int? id;
-  int? isDriver;
-  int? isVendor;
-  int? marketingBalance;
-  int? walletBalance;
-  int? earnedBalance;
-  String? name;
+  dynamic id;
+  dynamic isDriver;
+  dynamic isVendor;
+  dynamic marketingBalance;
+  dynamic walletBalance;
+  dynamic earnedBalance;
+  dynamic name;
   Null? lastName;
-  String? phone;
-  String? email;
+  dynamic phone;
+  dynamic email;
   Null? otp;
   Null? otpCreatedAt;
-  int? otpVerified;
+  dynamic otpVerified;
   Null? profileImage;
   Null? latitude;
   Null? longitude;
@@ -153,21 +153,21 @@ class User {
   Null? referalCode;
   Null? deviceToken;
   Null? deviceId;
-  int? isDriverOnline;
-  int? isVendorOnline;
-  int? deliveryRange;
-  int? selfDelivery;
-  int? collectionStatus;
+  dynamic isDriverOnline;
+  dynamic isVendorOnline;
+  dynamic deliveryRange;
+  dynamic selfDelivery;
+  dynamic collectionStatus;
   Null? adminCommissionType;
   Null? adminCommission;
-  int? asDriverVerified;
-  int? asVendorVerified;
-  int? featuredStore;
+  dynamic asDriverVerified;
+  dynamic asVendorVerified;
+  dynamic featuredStore;
   Null? emailVerifiedAt;
-  int? status;
-  int? isProfileComplete;
-  String? createdAt;
-  String? updatedAt;
+  dynamic status;
+  dynamic isProfileComplete;
+  dynamic? createdAt;
+  dynamic? updatedAt;
   Null? deletedAt;
 
   User(
@@ -454,16 +454,16 @@ class Vendor {
 }
 
 class Address {
-  int? id;
-  int? userId;
-  String? latitude;
-  String? longitude;
-  String? location;
-  String? flatNo;
-  String? landmark;
-  String? addressType;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic userId;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic flatNo;
+  dynamic landmark;
+  dynamic addressType;
+  dynamic createdAt;
+  dynamic updatedAt;
   Null? deletedAt;
 
   Address(
@@ -511,14 +511,14 @@ class Address {
 }
 
 class OrderItems {
-  int? id;
-  int? productId;
-  String? productName;
-  int? price;
-  int? qty;
-  int? totalPrice;
-  String? status;
-  String? specialRequets;
+  dynamic id;
+  dynamic productId;
+  dynamic productName;
+  dynamic price;
+  dynamic qty;
+  dynamic totalPrice;
+  dynamic status;
+  dynamic specialRequets;
 
   OrderItems(
       {this.id,

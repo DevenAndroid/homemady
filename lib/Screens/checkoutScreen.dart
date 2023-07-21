@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -334,20 +335,22 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),),
                               Row(
                                 children: [
-                                  Text((myCartController.model.value.data!.orderAddress == null ?
-                                  'Select address' : myCartController.model.value.data!.orderAddress!.location).toString(),
+                                  Obx(() {
+                                    return Text((myCartController.model.value.data!.orderAddress == null ?
+                                    'Select address' : myCartController.model.value.data!.orderAddress!.location).toString(),
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: const Color(0xff5C5C60)
+                                      ),);
+                                  })
+                                 // addWidth(5),
+                                 /* Text((myCartController.model.value.data!.orderAddress!.landmark).toString(),
                                     style: GoogleFonts.poppins(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: const Color(0xff5C5C60)
-                                    ),),
-                                  addWidth(5),
-                                  Text((myCartController.model.value.data!.orderAddress!.landmark).toString(),
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff5C5C60)
-                                    ),),
+                                    ),),*/
                                 ],
                               )
                             ],
@@ -416,9 +419,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   addHeight(10),
                   ListView.builder(
-                    itemCount: 3,
+                    itemCount: myCartController.model.value.data!.cartItems!.length,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -427,20 +430,35 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Image.asset('assets/images/Rectangle 39702.png',height: 70,),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: CachedNetworkImage(
+                                    imageUrl: myCartController.model.value.data!.cartItems![index].image.toString(),
+                                    fit: BoxFit.cover,
+                                    height: 76,
+                                    width: 76,
+                                    errorWidget: (_, __, ___) => Image.asset(
+                                      'assets/images/Rectangle 39702.png',
+                                      height: 76,
+                                      width: 76,
+                                    ),
+                                    placeholder: (_, __) =>
+                                        const Center(child: CircularProgressIndicator()),
+                                  ),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8.0,left: 20),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Panna Onion Pasta',
+                                      Text(myCartController.model.value.data!.cartItems![index].name.toString(),
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16,
                                             color: const Color(0xFF21283D)
                                         ),),
                                       addHeight(2),
-                                      Text('\$12.00',
+                                      Text('€ ${myCartController.model.value.data!.cartItems![index].totalPrice.toString()}',
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16,
@@ -596,7 +614,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   color: const Color(0xff1A2E33)
                               ),),
                             Spacer(),
-                            Text( '€12.99',
+                            Text( '€ ${myCartController.model.value.data!.cartPaymentSummary!.subTotal.toString()}.00',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -617,7 +635,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   color: Color(0xff1A2E33)
                               ),),
                             Spacer(),
-                            Text( '€5.00',
+                            Text( '€ ${myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}.00',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -646,7 +664,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   color: const Color(0xff1A2E33)
                               ),),
                             Spacer(),
-                            Text( '€17.99',
+                            Text( '€ ${myCartController.model.value.data!.cartPaymentSummary!.total.toString()}.00',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

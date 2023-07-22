@@ -31,8 +31,8 @@ class Data {
   dynamic couponDiscount;
   dynamic grandTotal;
   dynamic user;
-  Null? vendor;
-  Null? driver;
+ /* Null? vendor;
+  Null? driver;*/
   dynamic address;
   dynamic orderType;
   dynamic deliveryStatus;
@@ -48,8 +48,8 @@ class Data {
         this.couponDiscount,
         this.grandTotal,
         this.user,
-        this.vendor,
-        this.driver,
+       // this.vendor,
+       // this.driver,
         this.address,
         this.orderType,
         this.deliveryStatus,
@@ -65,8 +65,8 @@ class Data {
     couponDiscount = json['coupon_discount'];
     grandTotal = json['grand_total'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    vendor = json['vendor'];
-    driver = json['driver'];
+   // vendor = json['vendor'];
+   // driver = json['driver'];
     address =
     json['address'] != null ? new Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
@@ -92,8 +92,8 @@ class Data {
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
-    data['vendor'] = this.vendor;
-    data['driver'] = this.driver;
+   // data['vendor'] = this.vendor;
+   // data['driver'] = this.driver;
     if (this.address != null) {
       data['address'] = this.address!.toJson();
     }

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/homepage_controller.dart';
 import '../controller/my_cart_controller.dart';
+import '../controller/search_store_conbtroller.dart';
 import '../controller/user_profile_controller.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
@@ -31,11 +33,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final homeController = Get.put(HomePageController());
   final profileController = Get.put(UserProfileController());
   final myCartController = Get.put(MyCartListController());
+  final searchController = Get.put(SearchStoreController());
+
   String dateInput11 = "";
+  RxBool isValue = false.obs;
 
-
-
-
+  final scrollController = ScrollController();
   RxBool isSelect = false.obs;
   RxBool selectIcon = false.obs;
   int currentDrawer = 0;
@@ -47,13 +50,23 @@ class _HomePageScreenState extends State<HomePageScreen> {
     // TODO: implement initState
     super.initState();
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    homeController.getData();
     profileController.getData();
+    scrollController.addListener((_scrollListener));
   });
-
+    homeController.getData();
     myCartController.getData();
     _decrement();
     _increment();
+  }
+  void _scrollListener() {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      searchController.page.value = searchController.page.value + 1;
+      searchController.getSearchData();
+    } else {
+      if (kDebugMode) {
+        print("Dont call");
+      }
+    }
   }
 
   void _increment() {
@@ -467,7 +480,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
       body: Obx(() {
         return SafeArea(
           child: homeController.isDataLoading.value && profileController.isDataLoading.value ?
-          SingleChildScrollView(
+          RefreshIndicator(onRefresh: (){
+            return homeController.getData();
+
+          }, child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -479,26 +495,28 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('Hello',
-                                style: GoogleFonts.poppins(
-                                    color: const Color(0xFF676767),
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 16
-                                ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('Hello',
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xFF676767),
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 16
+                                  ),
 
-                              ),
-                              Text(profileController.model.value.data!.name.toString(),
-                                style: GoogleFonts.poppins(
-                                    color: const Color(0xFF353535),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 22
                                 ),
-                              ),
-                            ],
+                                Text(profileController.model.value.data!.name.toString(),
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xFF353535),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 22
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 18.0),
@@ -538,10 +556,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ),
                                 child: CommonTextFieldWidget1(
                                   hint: 'Search Your Food',
+                                  controller: searchController.searchController1,
                                   prefix: Icon(Icons.search, size: 19,
                                     color: const Color(0xFF000000).withOpacity(
                                         0.56),),
                                   onChanged: (val) {
+                                    isValue.value = true;
+                                    searchController.getSearchData();
+                                    setState(() {
+
+                                    });
                                     _showSimpleDialog3(context);
                                   },
                                 )
@@ -627,10 +651,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   imageUrl: homeController.model.value.data!.sliderData![index].image.toString(),
                                   fit: BoxFit.cover,
                                   errorWidget: (_, __, ___) => Image.asset(
-                                  'assets/images/Ellipse 67.png',
-                                ),
+                                    'assets/images/Ellipse 67.png',
+                                  ),
                                   placeholder: (_, __) =>
-                                    Center(child: CircularProgressIndicator()),
+                                      Center(child: CircularProgressIndicator()),
                                 ),
                                 addWidth(20)
                               ],
@@ -705,33 +729,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               child: GestureDetector(
                                 onTap: ()  async {
                                   DateTime? _selectedDate = await showDatePicker(
-                                    builder: (context, child) {
-                                      return Theme(
-                                        data: Theme.of(context).copyWith(
-                                          colorScheme: const ColorScheme.light(
-                                            primary: Color(0xFF7ED957),
-                                            // header background color
-                                            onPrimary: Colors.white,
-                                            // header text color
-                                            onSurface: Color(
-                                                0xFF7ED957), // body text color
-                                          ),
-                                          textButtonTheme: TextButtonThemeData(
-                                            style: TextButton.styleFrom(
-                                              foregroundColor: const Color(
-                                                  0xFF7ED957), // button text color
+                                      builder: (context, child) {
+                                        return Theme(
+                                          data: Theme.of(context).copyWith(
+                                            colorScheme: const ColorScheme.light(
+                                              primary: Color(0xFF7ED957),
+                                              // header background color
+                                              onPrimary: Colors.white,
+                                              // header text color
+                                              onSurface: Color(
+                                                  0xFF7ED957), // body text color
+                                            ),
+                                            textButtonTheme: TextButtonThemeData(
+                                              style: TextButton.styleFrom(
+                                                foregroundColor: const Color(
+                                                    0xFF7ED957), // button text color
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        child: child!,
-                                      );
-                                    },
-                                    context: context,
-                                    initialDate: DateTime.now().subtract(Duration()),
-                                    firstDate: DateTime(1950),
-                                    //DateTime.now() - not to allow to choose before today.
-                                    lastDate: DateTime.now().subtract(Duration(),
-                                  ));
+                                          child: child!,
+                                        );
+                                      },
+                                      context: context,
+                                      initialDate: DateTime.now().subtract(Duration()),
+                                      firstDate: DateTime(1950),
+                                      //DateTime.now() - not to allow to choose before today.
+                                      lastDate: DateTime.now().subtract(Duration(),
+                                      ));
                                   if (_selectedDate != null) {
                                     print(_selectedDate);
                                     dateInput11 =
@@ -743,7 +767,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         .toString();
 
                                     print(formattedDate);
-                                   /* setState(() {
+                                    /* setState(() {
                                       dobController.text =
                                           formattedDate; //set output date to TextField value.
                                       dobController.text =
@@ -857,7 +881,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     width: AddSize.screenWidth,
                                                   ),
                                                   placeholder: (_, __) =>
-                                                      const Center(child: CircularProgressIndicator()),
+                                                  const Center(child: CircularProgressIndicator()),
                                                 ),
                                               ),
                                               /*ClipRRect(
@@ -981,55 +1005,55 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                           child: Column(
                                             children: [
-                                            //  Obx(() {
-                                             //   return
-                                                  Container(
-                                                    height: 33,
-                                                    decoration: const BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: Colors.white
-                                                    ),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .only(left: 10,
-                                                          right: 10,
-                                                          top: 3),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          isSelect.value =
-                                                          !isSelect.value;
-                                                          print(homeController.model.value.data!.stores![index].id.toString());
-                                                          wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString()).then((value) {
-                                                           if(value.status == true){
-                                                             if(value.message.toString() == 'global.WISHLIST_REMOVED'){
-                                                               homeController.model.value.data!.stores![index].wishlist = false;
-                                                             }else{
-                                                               homeController.model.value.data!.stores![index].wishlist = true;
-                                                             }
+                                              //  Obx(() {
+                                              //   return
+                                              Container(
+                                                  height: 33,
+                                                  decoration: const BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.white
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .only(left: 10,
+                                                        right: 10,
+                                                        top: 3),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        isSelect.value =
+                                                        !isSelect.value;
+                                                        print(homeController.model.value.data!.stores![index].id.toString());
+                                                        wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString()).then((value) {
+                                                          if(value.status == true){
+                                                            if(value.message.toString() == 'global.WISHLIST_REMOVED'){
+                                                              homeController.model.value.data!.stores![index].wishlist = false;
+                                                            }else{
+                                                              homeController.model.value.data!.stores![index].wishlist = true;
+                                                            }
 
-                                                             showToast(value.message.toString());
+                                                            showToast(value.message.toString());
                                                             // homeController.getData();
-                                                             setState(() {
+                                                            setState(() {
 
-                                                             });
-                                                           }
-                                                          });
-                                                        },
-                                                        child:
-                                                        homeController.model.value.data!.stores![index].wishlist! ?
-                                                        const Icon(
-                                                          Icons.favorite,
-                                                          color: Color(
-                                                              0xFF54C523),)
-                                                           :
-                                                        const Icon(
-                                                          Icons.favorite_outline,
-                                                          color: Color(
-                                                              0xFF54C523),),
-                                                      ),
-                                                    )
-                                                ),
-                                           //   }),
+                                                            });
+                                                          }
+                                                        });
+                                                      },
+                                                      child:
+                                                      homeController.model.value.data!.stores![index].wishlist! ?
+                                                      const Icon(
+                                                        Icons.favorite,
+                                                        color: Color(
+                                                            0xFF54C523),)
+                                                          :
+                                                      const Icon(
+                                                        Icons.favorite_outline,
+                                                        color: Color(
+                                                            0xFF54C523),),
+                                                    ),
+                                                  )
+                                              ),
+                                              //   }),
                                             ],
                                           )
                                       ),
@@ -1158,7 +1182,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 ),
               ],
             ),
-          ): Center(child: CircularProgressIndicator()),
+          ),): Center(child: CircularProgressIndicator()),
         );
       })
         //bottomNavigationBar: ,
@@ -1327,308 +1351,281 @@ class _HomePageScreenState extends State<HomePageScreen> {
             .of(context)
             .modalBarrierDismissLabel,
         context: context,
-        barrierColor: null,
+        barrierColor: const Color(0x01000000),
         builder: (context) {
-          return Dialog(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero
-            ),
-            insetPadding: const EdgeInsets.only(bottom: 0, top: 220),
-            child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF37C666).withOpacity(
-                                      0.15),
-                                  offset: const Offset(.3, .3,
-                                  ),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 1.0,
+          return Obx(() {
+            return Dialog(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero
+              ),
+              insetPadding: const EdgeInsets.only(bottom: 0, top: 220),
+              child:  searchController.isDataLoading.value ?
+              searchController.searchDataModel.value.data!.isNotEmpty ?
+              ListView.builder(
+                itemCount: searchController.searchDataModel.value.data!.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: (){
+                      Get.toNamed(MyRouters.homeDetailsScreen);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(14),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xFF37C666).withOpacity(
+                                            0.10),
+                                        offset: const Offset(.1, .1,
+                                        ),
+                                        blurRadius: 20.0,
+                                        spreadRadius: 1.0,
+                                      ),
+                                    ],
+                                    borderRadius: BorderRadius.circular(12)
                                 ),
-                              ],
-                            ),
-                            child: Stack(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(MyRouters.homeDetailsScreen);
-                                    },
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Image.asset(
-                                            'assets/images/Rectangle 2171.png'),
-                                        addHeight(6),
-                                        Text('Burger King with Pizza',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 16,
-                                              color: const Color(0xFF21283D)
-                                          ),),
-                                        addHeight(6),
-                                        Row(
+                                        Container(child: Image.asset(
+                                          'assets/images/Rectangle 39762.png',
+                                          height: 80, width: 70,)),
+                                        addWidth(10),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .start,
                                           children: [
-                                            Image.asset(
-                                              'assets/images/truckimg.png',
-                                              height: 22,
-                                              color: const Color(0xFF04666E),),
-                                            addWidth(10),
-                                            Text('Delivery Only 25 mins',
+                                            Text(searchController.searchDataModel.value.data![index].name.toString(),
                                               style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 12,
-                                                  color: const Color(0xFF606573)
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 14,
+                                                  color: const Color(0xFF21283D)
                                               ),),
+                                            addHeight(3),
+                                            Text(searchController.searchDataModel.value.data![index].size.toString(),
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 11,
+                                                  color: const Color(0xFF364A4F)
+                                              ),),
+                                            addHeight(3),
+                                            Row(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text('spiciness :',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight
+                                                              .w500,
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xFF1F2D30)
+                                                      ),),
+                                                    addWidth(4),
+                                                    Text('Mildly Spicy',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight
+                                                              .w500,
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xFF6CC844)
+                                                      ),),
+                                                  ],
+                                                ),
+                                                addWidth(10),
+                                                Row(
+                                                  children: [
+                                                    Text('Allergens :',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight
+                                                              .w500,
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xFF1F2D30)
+                                                      ),),
+                                                    addWidth(4),
+                                                    Text('Crustaceans',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight
+                                                              .w500,
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xFF6CC844)
+                                                      ),),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            addHeight(6),
+                                            IntrinsicHeight(
+                                              child:
+                                              Row(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap:
+                                                        () {
+                                                      _decrement();
+                                                    },
+                                                    child:
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: const Color(
+                                                                  0xFF72CD4A)),
+                                                          shape: BoxShape.circle),
+                                                      alignment: Alignment.center,
+                                                      child: const Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 8,
+                                                            vertical: 3),
+                                                        child: Text(
+                                                          '-',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight
+                                                                  .w600,
+                                                              fontSize: 16,
+                                                              color: Color(
+                                                                  0xFF72CD4A)),
+                                                          textAlign: TextAlign
+                                                              .center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Obx(() {
+                                                    return Container(
+                                                      alignment:
+                                                      Alignment.center,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets
+                                                            .only(left: 14.0,
+                                                            right: 14.0),
+                                                        child: Text(
+                                                            '${count}'
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }),
+                                                  GestureDetector(
+                                                    onTap:
+                                                        () {
+                                                      _increment();
+                                                    },
+                                                    child:
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xFF72CD4A),
+                                                          border: Border.all(
+                                                              color: const Color(
+                                                                  0xFF72CD4A)),
+                                                          shape: BoxShape.circle),
+                                                      alignment: Alignment.center,
+                                                      child: const Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 8),
+                                                        child: Text(
+                                                          '+',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight
+                                                                  .w600,
+                                                              fontSize: 16,
+                                                              color: Colors.white),
+                                                          textAlign: TextAlign
+                                                              .center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ],
-                                        )
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                                Positioned(
-                                    top: 80,
-                                    // bottom: 0,
-                                    left: 20,
-                                    right: 20,
-                                    //   bottom: 0,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      children: const [
-                                        Icon(Icons.arrow_back_ios,
-                                          color: Colors.white, size: 20,),
-                                        Icon(Icons.arrow_forward_ios,
-                                          color: Colors.white, size: 20,)
-                                      ],
-                                    )
-                                ),
-                                Positioned(
-                                    bottom: 10,
-                                    right: 20,
-                                    //   bottom: 0,
-                                    child: Column(
-                                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    addHeight(5),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 75),
+                                      color: Color(0xFFE9E9E9),
+                                      width: AddSize.screenWidth,
+                                      height: 1,
+                                    ),
+                                    addHeight(7),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Container(
-                                            height: 48,
-                                            decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.white
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(3),
-                                              child: Image.asset(
-                                                  'assets/images/avtarImg.png'),
-                                            )
-                                        ),
-                                        addHeight(3),
-                                        Text('Jack Smith',
+                                        addWidth(80),
+                                        Image.asset(
+                                          'assets/images/helpimg.png', height: 13,),
+                                        addWidth(4),
+                                        Text(
+                                          'Can cook more units by: 30th June 2023',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)
+                                          ),),
+                                      ],
+                                    ),
+                                    addHeight(4),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        addWidth(80),
+                                        Image.asset('assets/images/helpimg.png',height: 13,),
+                                        addWidth(4),
+                                        Text('Available stock: ',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)
+                                          ),),
+                                        Text(' 3 units',
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w500,
-                                              fontSize: 12,
-                                              color: const Color(0xFF21283D)
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)
                                           ),),
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .center,
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .center,
-                                          children: [
-                                            const Icon(Icons.star,
-                                              color: Color(0xFFFFC529),
-                                              size: 14,),
-                                            addWidth(3),
-                                            Text('4.95 (35)',
-                                              style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 11,
-                                                  color: const Color(0xFF6A7080)
-                                              ),),
-                                          ],
-                                        )
                                       ],
-                                    )
-                                ),
-                                Positioned(
-                                    top: 16,
-                                    // bottom: 0,
-                                    // left: 290,
-                                    right: 10,
-                                    //   bottom: 0,
+                                    ),
 
-                                    child: Column(
-                                      children: [
-                                        Obx(() {
-                                          return Container(
-                                              height: 33,
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.white
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets
-                                                    .only(left: 10,
-                                                    right: 10,
-                                                    top: 3),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    isSelect.value =
-                                                    !isSelect.value;
-                                                  },
-                                                  child: isSelect.value ==
-                                                      true
-                                                      ? const Icon(
-                                                    Icons.favorite,
-                                                    color: Color(0xFF54C523),)
-                                                      :
-                                                  const Icon(
-                                                    Icons.favorite_outline,
-                                                    color: Color(
-                                                        0xFF54C523),),
-                                                ),
-                                              )
-                                          );
-                                        }),
-                                      ],
-                                    )
+                                  ],
                                 ),
-                                Positioned(
-                                    top: 14,
-                                    // bottom: 0,
-                                    left: 10,
-                                    right: 15,
-                                    //   bottom: 0,
-                                    child: Row(
-                                      children: [
-
-                                        GestureDetector(
-                                            onTap: () {
-                                              showGeneralDialog(
-                                                  context: context,
-                                                  barrierDismissible: true,
-                                                  barrierColor: const Color(
-                                                      0xFF000000).withOpacity(
-                                                      0.58),
-                                                  barrierLabel: MaterialLocalizations
-                                                      .of(context)
-                                                      .modalBarrierDismissLabel,
-                                                  pageBuilder: (
-                                                      BuildContext context,
-                                                      Animation first,
-                                                      Animation second) {
-                                                    return Stack(
-                                                      children: [
-                                                        Center(
-                                                            child: Image.asset(
-                                                                'assets/images/dialogboximg.png')),
-                                                        Positioned(
-                                                          right: 18,
-                                                          top: 30,
-                                                          child: Container(
-                                                              padding: EdgeInsets
-                                                                  .all(10),
-                                                              height: 80,
-                                                              decoration: const BoxDecoration(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  shape: BoxShape
-                                                                      .circle
-                                                              ),
-                                                              child: GestureDetector(
-                                                                child: Icon(
-                                                                    Icons
-                                                                        .clear),
-                                                                onTap: () {
-                                                                  Get.back();
-                                                                },)
-                                                          ),)
-                                                      ],
-                                                    );
-                                                  }
-                                              );
-                                            },
-                                            child: Image.asset(
-                                              'assets/images/topChef.png',
-                                              width: 50,)),
-                                        GestureDetector(
-                                            onTap: () {
-                                              showGeneralDialog(
-                                                  context: context,
-                                                  barrierDismissible: true,
-                                                  barrierColor: const Color(
-                                                      0xFF000000).withOpacity(
-                                                      0.58),
-                                                  barrierLabel: MaterialLocalizations
-                                                      .of(context)
-                                                      .modalBarrierDismissLabel,
-                                                  pageBuilder: (
-                                                      BuildContext context,
-                                                      Animation first,
-                                                      Animation second) {
-                                                    return Stack(
-                                                      children: [
-                                                        Center(
-                                                            child: Image.asset(
-                                                                'assets/images/dialogboximg.png')),
-                                                        Positioned(
-                                                          right: 18,
-                                                          top: 50,
-                                                          child: Container(
-                                                              padding: EdgeInsets
-                                                                  .all(10),
-                                                              height: 50,
-                                                              decoration: const BoxDecoration(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  shape: BoxShape
-                                                                      .circle
-                                                              ),
-                                                              child: GestureDetector(
-                                                                child: Icon(
-                                                                    Icons
-                                                                        .clear),
-                                                                onTap: () {
-                                                                  Get.back();
-                                                                },)
-                                                          ),)
-                                                      ],
-                                                    );
-                                                  }
-                                              );
-                                            },
-                                            child: Image.asset(
-                                              'assets/images/topChef.png',
-                                              width: 50,)),
-                                      ],
-                                    )
-                                ),
-                              ],
-                            ),
+                              ),
+                              Positioned(
+                                top: 14,
+                                right: 20,
+                                child: Text(searchController.searchDataModel.value.data![index].price.toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 15,
+                                      color: const Color(0xFF70CC49)
+                                  ),),
+                              )
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 5,)
-                      ],
-                    );
-                  },
-                )
-            ),
-          );
+                        ],
+                      ),
+                    ),
+                  );
+                },) : Center(child: Text('No Search')): Center(child: const CircularProgressIndicator()),
+            );
+          });
         }
     );
   }
@@ -1642,275 +1639,279 @@ class _HomePageScreenState extends State<HomePageScreen> {
         context: context,
         barrierColor: const Color(0x01000000),
         builder: (context) {
-          return Dialog(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero
-            ),
-            insetPadding: const EdgeInsets.only(bottom: 0, top: 220),
-            child: ListView.builder(
-              itemCount: 6,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: (){
-                    Get.toNamed(MyRouters.homeDetailsScreen);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Stack(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(14),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xFF37C666).withOpacity(
-                                          0.10),
-                                      offset: const Offset(.1, .1,
+          return Obx(() {
+           return Dialog(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero
+              ),
+              insetPadding: const EdgeInsets.only(bottom: 0, top: 220),
+              child:  searchController.isDataLoading.value ?
+              searchController.searchDataModel.value.data!.isNotEmpty ?
+              ListView.builder(
+                itemCount: searchController.searchDataModel.value.data!.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: (){
+                      Get.toNamed(MyRouters.homeDetailsScreen);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(14),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xFF37C666).withOpacity(
+                                            0.10),
+                                        offset: const Offset(.1, .1,
+                                        ),
+                                        blurRadius: 20.0,
+                                        spreadRadius: 1.0,
                                       ),
-                                      blurRadius: 20.0,
-                                      spreadRadius: 1.0,
-                                    ),
-                                  ],
-                                  borderRadius: BorderRadius.circular(12)
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(child: Image.asset(
-                                        'assets/images/Rectangle 39762.png',
-                                        height: 80, width: 70,)),
-                                      addWidth(10),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
-                                        children: [
-                                          Text('Special Burger',
-                                            style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 14,
-                                                color: const Color(0xFF21283D)
-                                            ),),
-                                          addHeight(3),
-                                          Text('Size: 200gm',
-                                            style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 11,
-                                                color: const Color(0xFF364A4F)
-                                            ),),
-                                          addHeight(3),
-                                          Row(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text('spiciness :',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight
-                                                            .w500,
-                                                        fontSize: 10,
-                                                        color: const Color(
-                                                            0xFF1F2D30)
-                                                    ),),
-                                                  addWidth(4),
-                                                  Text('Mildly Spicy',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight
-                                                            .w500,
-                                                        fontSize: 10,
-                                                        color: const Color(
-                                                            0xFF6CC844)
-                                                    ),),
-                                                ],
-                                              ),
-                                              addWidth(10),
-                                              Row(
-                                                children: [
-                                                  Text('Allergens :',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight
-                                                            .w500,
-                                                        fontSize: 10,
-                                                        color: const Color(
-                                                            0xFF1F2D30)
-                                                    ),),
-                                                  addWidth(4),
-                                                  Text('Crustaceans',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight
-                                                            .w500,
-                                                        fontSize: 10,
-                                                        color: const Color(
-                                                            0xFF6CC844)
-                                                    ),),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          addHeight(6),
-                                          IntrinsicHeight(
-                                            child:
+                                    ],
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(child: Image.asset(
+                                          'assets/images/Rectangle 39762.png',
+                                          height: 80, width: 70,)),
+                                        addWidth(10),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .start,
+                                          children: [
+                                            Text(searchController.searchDataModel.value.data![index].name.toString(),
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 14,
+                                                  color: const Color(0xFF21283D)
+                                              ),),
+                                            addHeight(3),
+                                            Text(searchController.searchDataModel.value.data![index].size.toString(),
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 11,
+                                                  color: const Color(0xFF364A4F)
+                                              ),),
+                                            addHeight(3),
                                             Row(
                                               children: [
-                                                GestureDetector(
-                                                  onTap:
-                                                      () {
-                                                    _decrement();
-                                                  },
-                                                  child:
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xFF72CD4A)),
-                                                        shape: BoxShape.circle),
-                                                    alignment: Alignment.center,
-                                                    child: const Padding(
-                                                      padding: EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 8,
-                                                          vertical: 3),
-                                                      child: Text(
-                                                        '-',
-                                                        style: TextStyle(
-                                                            fontWeight: FontWeight
-                                                                .w600,
-                                                            fontSize: 16,
-                                                            color: Color(
-                                                                0xFF72CD4A)),
-                                                        textAlign: TextAlign
-                                                            .center,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                Row(
+                                                  children: [
+                                                    Text('spiciness :',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight
+                                                              .w500,
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xFF1F2D30)
+                                                      ),),
+                                                    addWidth(4),
+                                                    Text('Mildly Spicy',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight
+                                                              .w500,
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xFF6CC844)
+                                                      ),),
+                                                  ],
                                                 ),
-                                                Obx(() {
-                                                  return Container(
-                                                    alignment:
-                                                    Alignment.center,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .only(left: 14.0,
-                                                          right: 14.0),
-                                                      child: Text(
-                                                          '${count}'
-                                                      ),
-                                                    ),
-                                                  );
-                                                }),
-                                                GestureDetector(
-                                                  onTap:
-                                                      () {
-                                                    _increment();
-                                                  },
-                                                  child:
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        color: const Color(
-                                                            0xFF72CD4A),
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xFF72CD4A)),
-                                                        shape: BoxShape.circle),
-                                                    alignment: Alignment.center,
-                                                    child: const Padding(
-                                                      padding: EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 8),
-                                                      child: Text(
-                                                        '+',
-                                                        style: TextStyle(
-                                                            fontWeight: FontWeight
-                                                                .w600,
-                                                            fontSize: 16,
-                                                            color: Colors.white),
-                                                        textAlign: TextAlign
-                                                            .center,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                addWidth(10),
+                                                Row(
+                                                  children: [
+                                                    Text('Allergens :',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight
+                                                              .w500,
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xFF1F2D30)
+                                                      ),),
+                                                    addWidth(4),
+                                                    Text('Crustaceans',
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight
+                                                              .w500,
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xFF6CC844)
+                                                      ),),
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  addHeight(5),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 75),
-                                    color: Color(0xFFE9E9E9),
-                                    width: AddSize.screenWidth,
-                                    height: 1,
-                                  ),
-                                  addHeight(7),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      addWidth(80),
-                                      Image.asset(
-                                        'assets/images/helpimg.png', height: 13,),
-                                      addWidth(4),
-                                      Text(
-                                        'Can cook more units by: 30th June 2023',
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 11,
-                                            color: const Color(0xFF364A4F)
-                                        ),),
-                                    ],
-                                  ),
-                                  addHeight(4),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      addWidth(80),
-                                      Image.asset('assets/images/helpimg.png',height: 13,),
-                                      addWidth(4),
-                                      Text('Available stock: ',
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 11,
-                                            color: const Color(0xFF364A4F)
-                                        ),),
-                                      Text(' 3 units',
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 11,
-                                            color: const Color(0xFF364A4F)
-                                        ),),
-                                    ],
-                                  ),
+                                            addHeight(6),
+                                            IntrinsicHeight(
+                                              child:
+                                              Row(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap:
+                                                        () {
+                                                      _decrement();
+                                                    },
+                                                    child:
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: const Color(
+                                                                  0xFF72CD4A)),
+                                                          shape: BoxShape.circle),
+                                                      alignment: Alignment.center,
+                                                      child: const Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 8,
+                                                            vertical: 3),
+                                                        child: Text(
+                                                          '-',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight
+                                                                  .w600,
+                                                              fontSize: 16,
+                                                              color: Color(
+                                                                  0xFF72CD4A)),
+                                                          textAlign: TextAlign
+                                                              .center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Obx(() {
+                                                    return Container(
+                                                      alignment:
+                                                      Alignment.center,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets
+                                                            .only(left: 14.0,
+                                                            right: 14.0),
+                                                        child: Text(
+                                                            '${count}'
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }),
+                                                  GestureDetector(
+                                                    onTap:
+                                                        () {
+                                                      _increment();
+                                                    },
+                                                    child:
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xFF72CD4A),
+                                                          border: Border.all(
+                                                              color: const Color(
+                                                                  0xFF72CD4A)),
+                                                          shape: BoxShape.circle),
+                                                      alignment: Alignment.center,
+                                                      child: const Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 8),
+                                                        child: Text(
+                                                          '+',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight
+                                                                  .w600,
+                                                              fontSize: 16,
+                                                              color: Colors.white),
+                                                          textAlign: TextAlign
+                                                              .center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    addHeight(5),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 75),
+                                      color: Color(0xFFE9E9E9),
+                                      width: AddSize.screenWidth,
+                                      height: 1,
+                                    ),
+                                    addHeight(7),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        addWidth(80),
+                                        Image.asset(
+                                          'assets/images/helpimg.png', height: 13,),
+                                        addWidth(4),
+                                        Text(
+                                          'Can cook more units by: 30th June 2023',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)
+                                          ),),
+                                      ],
+                                    ),
+                                    addHeight(4),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        addWidth(80),
+                                        Image.asset('assets/images/helpimg.png',height: 13,),
+                                        addWidth(4),
+                                        Text('Available stock: ',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)
+                                          ),),
+                                        Text(' 3 units',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)
+                                          ),),
+                                      ],
+                                    ),
 
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            Positioned(
-                              top: 14,
-                              right: 20,
-                              child: Text('€6.99',
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 15,
-                                    color: const Color(0xFF70CC49)
-                                ),),
-                            )
-                          ],
-                        ),
-                      ],
+                              Positioned(
+                                top: 14,
+                                right: 20,
+                                child: Text(searchController.searchDataModel.value.data![index].price.toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 15,
+                                      color: const Color(0xFF70CC49)
+                                  ),),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },),
-          );
+                  );
+                },) : Center(child: Text('No Data Found')): Center(child: const CircularProgressIndicator()),
+            );
+          });
         }
     );
   }

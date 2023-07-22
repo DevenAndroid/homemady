@@ -15,6 +15,7 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../repository/login_repository.dart';
+import '../repository/social_login_repo.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -346,7 +347,7 @@ class _LoginScreenState extends State<LoginScreen> {
     //log(value.additionalUserInfo.a);
     var fromToken = await FirebaseMessaging.instance.getToken();
 
- /*   socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+    socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
@@ -355,6 +356,6 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         showToast(value.message);
       }
-    });*/
+    });
   }
 }

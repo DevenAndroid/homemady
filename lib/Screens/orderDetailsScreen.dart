@@ -754,7 +754,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                              fontSize: 14),
                                                        ),
                                                        Text(
-                                                           controller.model.value.data!.vendor!.address.toString(),
+                                                           controller.model.value.data!.vendor!.location.toString(),
                                                          style: const TextStyle(
                                                              height: 1.5,
                                                              fontWeight: FontWeight.w600,

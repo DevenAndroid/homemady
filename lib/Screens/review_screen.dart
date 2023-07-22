@@ -1,12 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:homemady/repository/ratingreview_repo.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:homemady/widgets/editprofiletextfiled.dart';
+
+import '../controller/order_details_controller.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({Key? key}) : super(key: key);
@@ -16,12 +22,16 @@ class ReviewScreen extends StatefulWidget {
 }
 
 class _ReviewScreenState extends State<ReviewScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  final controller = Get.put(OrderDetailsController());
+  String ratingvalue = '';
   double fullRating = 0;
-  bool? _isValue = false;
-  bool? _isValue1 = false;
-  bool? _isValue2 = false;
-  bool? _isValue3 = false;
-  bool? _isValue4 = false;
+  bool _isValue = false;
+  bool _isValue1 = false;
+  bool _isValue2 = false;
+  bool _isValue3 = false;
+  bool _isValue4 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,9 +67,12 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     Image.asset('assets/images/star.png',
                       color: Colors.amber,
                     ),
-                onRatingUpdate: (ratingvalue) {
+                onRatingUpdate: (rating) {
+                  log(double.parse(rating.toString())
+                      .round()
+                      .toString());
                   setState(() {
-                    fullRating = ratingvalue;
+                    ratingvalue = double.parse(rating.toString()).round().toString();
                   });
                 },
               ),
@@ -89,49 +102,56 @@ class _ReviewScreenState extends State<ReviewScreen> {
           //
           //     ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Transform.scale(
-                    scale: 1.5,
-                    child: Checkbox(
-                        side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                        activeColor: Color(0xff7ED957),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(3)),
-                        value: _isValue,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _isValue = value;
-                          });
-                        }),
+                  Row(
+                    children: [
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Checkbox(
+                            side: BorderSide(color: Colors.grey.shade300,width: 1.4),
+                            activeColor: Color(0xff7ED957),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(3)),
+                            value: _isValue,
+                            onChanged: ( value) {
+                              setState(() {
+                                _isValue = value!;
+                              });
+                            }),
+                      ),
+                      const Text("Food Quality",style: TextStyle(
+                          color: Color(0xFF969AA3),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15
+                      ),),
+                    ],
                   ),
-                  const Text("Food Quality",style: TextStyle(
-                      color: Color(0xFF969AA3),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15
-                  ),),
-                  const SizedBox(width: 35,),
-                  Transform.scale(
-                    scale: 1.5,
-                    child: Checkbox(
-                        side: BorderSide(color: Colors.grey.shade300,width: 1.4),
-                        activeColor: Color(0xff7ED957),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(3)),
-                        value: _isValue1,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _isValue1 = value;
-                          });
-                        }),
-                  ),
-                  const Text(" Food Quantity",style: TextStyle(
-                      color: Color(0xFF969AA3),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15
-                  ),)
+                  Row(
+                    children: [
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Checkbox(
+                            side: BorderSide(color: Colors.grey.shade300,width: 1.4),
+                            activeColor: Color(0xff7ED957),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(3)),
+                            value: _isValue1,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue1 = value!;
+                              });
+                            }),
+                      ),
+                      const Text(" Food Quantity",style: TextStyle(
+                          color: Color(0xFF969AA3),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15
+                      ),),
+                    ],
+                  )
                 ],
               ),
               Row(
@@ -145,9 +165,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                             borderRadius:
                             BorderRadius.circular(3)),
                         value: _isValue2,
-                        onChanged: (bool? value) {
+                        onChanged: ( value) {
                           setState(() {
-                            _isValue2 = value;
+                            _isValue2 = value!;
                           });
                         }),
                   ),
@@ -156,6 +176,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       fontWeight: FontWeight.w400,
                       fontSize: 15
                   ),),
+                  const SizedBox(width: 35,),
                   Transform.scale(
                     scale: 1.5,
                     child: Checkbox(
@@ -165,9 +186,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                             borderRadius:
                             BorderRadius.circular(3)),
                         value: _isValue3,
-                        onChanged: (bool? value) {
+                        onChanged: (value) {
                           setState(() {
-                            _isValue3 = value;
+                            _isValue3 = value!;
                           });
                         }),
                   ),
@@ -189,9 +210,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                             borderRadius:
                             BorderRadius.circular(3)),
                         value: _isValue4,
-                        onChanged: (bool? value) {
+                        onChanged: ( value) {
                           setState(() {
-                            _isValue4 = value;
+                            _isValue4 = value!;
                           });
                         }),
                   ),
@@ -225,8 +246,17 @@ class _ReviewScreenState extends State<ReviewScreen> {
               ),
               addHeight(25),
               CommonButton(title: 'Publish Feedback',onPressed: (){
-                Get.toNamed(MyRouters.feedBackScreen);
-                  print("object");
+               ratingReviewRepo(storeId: controller.model.value.data!.vendor!.id.toString(),type: 'driver', driverId: '45', rating: ratingvalue, foodQuality: _isValue, foodQuantity: _isValue1, communication: _isValue2, hygiene: _isValue3, delivery: _isValue4, context: context).then((value) {
+                 if(value.status == true){
+                   showToast(value.message.toString());
+                   Get.toNamed(MyRouters.feedBackScreen);
+                 }
+                 else {
+                   showToast(value.message.toString());
+                 }
+               });
+
+                 // print("object");
               },),
               addHeight(25),
                Center(
@@ -234,7 +264,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                    onTap: (){
                      Get.back();
                    },
-                   child: Text("Skip",style: TextStyle(
+                   child: const Text("Skip",style: TextStyle(
                        color: Colors.black,
                        fontWeight: FontWeight.w700,
                        fontSize: 19

@@ -113,16 +113,18 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               const Center(child: CircularProgressIndicator()),
                             ),
                          ) :  Center(child: CircularProgressIndicator()),
-                          Text('Williams Jones',
+                          profileController.isDataLoading.value ?
+                          Text(profileController.model.value.data!.name.toString(),
                               style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 color: const Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w600,)),
-                          Text('williamsjones@gmail.com',
+                                fontWeight: FontWeight.w600,)): const SizedBox(),
+                          profileController.isDataLoading.value ?
+                          Text(profileController.model.value.data!.email.toString(),
                               style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 color: const Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w400,)),
+                                fontWeight: FontWeight.w400,)): const SizedBox(),
                         ],
                       ),
                     )),

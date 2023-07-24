@@ -14,6 +14,7 @@ class ApiUrl {
   static const editAddressUrl = "${baseUrl}edit-address";
   static const chooseOrderAddressUrl = "${baseUrl}choose-order-address";
   static const checkOutUrl = "${baseUrl}order";
+  static const categoryUrl = "${baseUrl}categories";
   static const myOrderApi = "${baseUrl}my-orders";
   static const orderDetailsUrl = "${baseUrl}order-details";
   static const privacyPolicyUrl = "${baseUrl}pages";

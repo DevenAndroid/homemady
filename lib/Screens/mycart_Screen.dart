@@ -205,7 +205,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
-                              child: Text('Eater get one free delivery automatically applied to the 11th order.',
+                              child: Text('Get 1 free delivery every 10 orders.',
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
@@ -217,7 +217,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       ),
                       addHeight(20),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,),
+                        padding: const EdgeInsets.symmetric(horizontal: 20,),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -559,15 +559,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),)*/
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                      addHeight(20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,),
-                        child: Row(
-                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
                             Column(
                               children: [
                                 InkWell(
@@ -617,7 +608,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),)*/
                               ],
                             ),
-                            addWidth(20),
                             Column(
                               children: [
                                 InkWell(
@@ -667,7 +657,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),)*/
                               ],
                             ),
-                            addWidth(20),
                             Column(
                               children: [
                                 InkWell(
@@ -709,7 +698,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     ),
                                   ),
                                 ),
-                               /* addHeight(5),
+                                /* addHeight(5),
                                 const Text('Tu',style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w400,
@@ -717,10 +706,168 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),)*/
                               ],
                             ),
-
                           ],
                         ),
                       ),
+                      // addHeight(20),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 15,),
+                      //   child: Row(
+                      //    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               isSelect7.value =! isSelect7.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect7.value == true ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect7.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           /*addHeight(5),
+                      //           const Text('Su',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       addWidth(20),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               isSelect8.value =! isSelect8.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect8.value == true ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect8.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           /*addHeight(5),
+                      //           const Text('Mo',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       addWidth(20),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               isSelect9.value =! isSelect9.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect9.value == true ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect9.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //          /* addHeight(5),
+                      //           const Text('Tu',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //
+                      //     ],
+                      //   ),
+                      // ),
                       addHeight(20)
                     ],
 

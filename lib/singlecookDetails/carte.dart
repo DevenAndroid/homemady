@@ -123,40 +123,41 @@ class _carteScreenState extends State<carteScreen> {
                                       addHeight(3),
                                       Row(
                                         children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'spiciness :',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xFF1F2D30)),
-                                              ),
-                                              addWidth(4),
-                                              Text(
-                                                'Mildly Spicy',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xFF6CC844)),
-                                              ),
-                                            ],
+                                          Text(
+                                            'spiciness :',
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xFF1F2D30)),
                                           ),
-                                          addWidth(10),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'Allergens :',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xFF1F2D30)),
-                                              ),
-                                              addWidth(4),
-                                              Text(
-                                                'Crustaceans',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xFF6CC844)),
-                                              ),
-                                            ],
+                                          addWidth(4),
+                                          Expanded(
+                                            child: Text(
+                                              'Mildly Spicy',
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xFF6CC844)),
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                      addHeight(4),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Allergens :',
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xFF1F2D30)),
+                                          ),
+                                          addWidth(4),
+                                          Expanded(
+                                            child: Text(
+                                              'Crustaceans',
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xFF6CC844)),
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      addHeight(6),
+                                      addHeight(4),
                                       IntrinsicHeight(
                                         child: Row(
                                           children: [

@@ -611,12 +611,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                             addWidth(10),
                                             Row(
                                               children: [
-                                                Text('Allergens :',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF1F2D30)
-                                                  ),),
+                                                Expanded(
+                                                  child: Text('Allergens :',
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 10,
+                                                        color: const Color(0xFF1F2D30)
+                                                    ),),
+                                                ),
                                                 addWidth(4),
                                                 Text('Crustaceans',
                                                   style: GoogleFonts.poppins(

@@ -44,21 +44,26 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                 ],
               ),
               padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-              child: Row(
-               children: [
-                 Image.asset(
-                   'assets/images/helpMsg.png',
-                   width: 52,
-                   height:40,
-                 ),
-                 SizedBox(width: 20,),
-                 Text("Chat/Email", style:GoogleFonts.poppins(
-                     fontWeight: FontWeight.w500,
-                     fontSize: 19,
-                     color: Color(0xFF1A2E33)
-                 ),),
-               ],
+              child: GestureDetector(
+                onTap: (){
+                  Get.toNamed(MyRouters.chatScreen);
+                },
+                child: Row(
+                 children: [
+                   Image.asset(
+                     'assets/images/helpMsg.png',
+                     width: 52,
+                     height:40,
+                   ),
+                   SizedBox(width: 20,),
+                   Text("Chat/Email", style:GoogleFonts.poppins(
+                       fontWeight: FontWeight.w500,
+                       fontSize: 19,
+                       color: Color(0xFF1A2E33)
+                   ),),
+                 ],
              ),
+              ),
            ),
            addHeight(15),
            Container(
@@ -78,20 +83,25 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                ],
              ),
              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-             child: Row(
-               children: [
-                 Image.asset(
-                   'assets/images/headphone.png',
-                   width: 52,
-                   height:40,
-                 ),
-                 SizedBox(width: 20,),
-                 Text("HomeMady team", style:GoogleFonts.poppins(
-                     fontWeight: FontWeight.w500,
-                     fontSize: 19,
-                     color: Color(0xFF1A2E33)
-                 ),),
-               ],
+             child: GestureDetector(
+               onTap: (){
+                 Get.toNamed(MyRouters.chatScreen);
+               },
+               child: Row(
+                 children: [
+                   Image.asset(
+                     'assets/images/headphone.png',
+                     width: 52,
+                     height:40,
+                   ),
+                   SizedBox(width: 20,),
+                   Text("HomeMady team", style:GoogleFonts.poppins(
+                       fontWeight: FontWeight.w500,
+                       fontSize: 19,
+                       color: Color(0xFF1A2E33)
+                   ),),
+                 ],
+               ),
              ),
            ),
             addHeight(15),

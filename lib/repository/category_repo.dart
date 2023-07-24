@@ -1,14 +1,12 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../model/homepage_model.dart';
+import 'dart:convert';
+import '../model/category_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
-
-Future<HomePageModel> homeData() async {
+//All Dropdown api
+Future<CategoryModel> categoryListData() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -17,16 +15,16 @@ Future<HomePageModel> homeData() async {
     HttpHeaders.acceptHeader: 'application/json',
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
-  log(user.authToken.toString());
-  http.Response response =
-  await http.get(Uri.parse("${ApiUrl.homePageApi}"), headers: headers);
-  //?filter_category=$filter_Id
-//filter_Id
-  log("<<<<<<<HomePageData=======>${response.body}");
+
+  final response =
+  await http.get(Uri.parse(ApiUrl.categoryUrl), headers: headers);
+
+  // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
-    log("<<<<<<<HomePageData=======>${response.body}");
-    return HomePageModel.fromJson(json.decode(response.body));
+    print("Category Repository...${response.body}");
+    return CategoryModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);
   }
 }
+

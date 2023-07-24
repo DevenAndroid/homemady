@@ -112,7 +112,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               placeholder: (_, __) =>
                               const Center(child: CircularProgressIndicator()),
                             ),
-                         ) :  Center(child: CircularProgressIndicator()),
+                         ) :  const Center(child: CircularProgressIndicator()),
                           profileController.isDataLoading.value ?
                           Text(profileController.model.value.data!.name.toString(),
                               style: GoogleFonts.poppins(

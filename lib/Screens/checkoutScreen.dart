@@ -131,72 +131,73 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),)
                     ],
                   ),
-                  addHeight(20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 9.0),
-                    child: Text('When',
-                      style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff1A2E33)
-                      ),),
-                  ),
-                  addHeight(5),
-                  Row(
-                    children: [
-                  Theme(
-                  data: ThemeData(
-                  //here change to your color
-                  unselectedWidgetColor: Colors.green,
-                  ),
-                        child: Radio<String>(
-                          visualDensity: const VisualDensity(
-                              horizontal: -4,
-                              vertical: -1),
-                          value: 'date',
-                          activeColor:Colors.green,
-                          groupValue: _selectedValue,
+                  // addHeight(20),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 9.0),
+                  //   child: Text('When',
+                  //     style: GoogleFonts.poppins(
+                  //         fontSize: 18,
+                  //         fontWeight: FontWeight.w500,
+                  //         color: const Color(0xff1A2E33)
+                  //     ),),
+                  // ),
+                  // addHeight(5),
+                  // Row(
+                  //   children: [
+                  // Theme(
+                  // data: ThemeData(
+                  // //here change to your color
+                  // unselectedWidgetColor: Colors.green,
+                  // ),
+                  //       child: Radio<String>(
+                  //         visualDensity: const VisualDensity(
+                  //             horizontal: -4,
+                  //             vertical: -1),
+                  //         value: 'date',
+                  //         activeColor:Colors.green,
+                  //         groupValue: _selectedValue,
+                  //
+                  //         onChanged: (value) {
+                  //           setState(() {
+                  //             _selectedValue = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //     addWidth(5),
+                  //     Text('Now',style: GoogleFonts.poppins(
+                  //         color: Color(0xFF000000),
+                  //         fontWeight: FontWeight.w300,
+                  //         fontSize: 16
+                  //     ),),
+                  //     addWidth(56),
+                  //     Theme(
+                  //       data: ThemeData(
+                  //         //here change to your color
+                  //         unselectedWidgetColor: Colors.green,
+                  //       ),
+                  //       child: Radio<String>(
+                  //         value: 'now',
+                  //         activeColor:Colors.green,
+                  //         groupValue: _selectedValue,
+                  //
+                  //         onChanged: (value) {
+                  //           setState(() {
+                  //             _selectedValue = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: Text('Specify Time/Date',style: GoogleFonts.poppins(
+                  //           color: Color(0xFF000000),
+                  //           fontWeight: FontWeight.w300,
+                  //           fontSize: 16
+                  //       ),),
+                  //     )
+                  //   ],
+                  // ),
 
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedValue = value!;
-                            });
-                          },
-                        ),
-                      ),
-                      addWidth(5),
-                      Text('Now',style: GoogleFonts.poppins(
-                          color: Color(0xFF000000),
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16
-                      ),),
-                      addWidth(56),
-                      Theme(
-                        data: ThemeData(
-                          //here change to your color
-                          unselectedWidgetColor: Colors.green,
-                        ),
-                        child: Radio<String>(
-                          value: 'now',
-                          activeColor:Colors.green,
-                          groupValue: _selectedValue,
-
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedValue = value!;
-                            });
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: Text('Specify Time/Date',style: GoogleFonts.poppins(
-                            color: Color(0xFF000000),
-                            fontWeight: FontWeight.w300,
-                            fontSize: 16
-                        ),),
-                      )
-                    ],
-                  ),
                   addHeight(20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 9.0),

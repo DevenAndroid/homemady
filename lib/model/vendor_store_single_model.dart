@@ -131,7 +131,7 @@ class LatestProducts {
   String? price;
   String? content;
   String? image;
-  int? cookUnitDays;
+  dynamic cookUnitDays;
   String? size;
   String? sizeId;
   String? discountOff;

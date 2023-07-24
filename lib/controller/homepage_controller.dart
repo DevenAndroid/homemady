@@ -11,6 +11,7 @@ class HomePageController extends GetxController{
 
   Rx<HomePageModel> model = HomePageModel().obs;
   RxBool isDataLoading = false.obs;
+  RxString filterCategoryId="".obs;
 
   getData(){
     isDataLoading.value = false;

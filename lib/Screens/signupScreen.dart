@@ -202,7 +202,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 errorText:
                                 'Password must be at least 6 digits long'),
                             PatternValidator(
-                                r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
+                                r"(?=.*[A-Z])(?=.*\W)(?=.*?[#.?!@$%^&*-])(?=.*[0-9])",
                                 errorText:
                                 'Password must be minimum 6 characters, with 1 \nCapital letter 1 special character & 1 numerical.')
                           ]),

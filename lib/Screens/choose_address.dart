@@ -128,7 +128,8 @@ class _ChooseAddressState extends State<ChooseAddress> {
   // otherController.text = addressModel.addressType ?? "Home";
   showChangeAddressSheet(AddressData addressModel) {
     final TextEditingController flatNoController = TextEditingController(text: addressModel.flatNo ?? '');
-    final TextEditingController streetController = TextEditingController(text: addressModel.landmark ?? '');
+    final TextEditingController cityController = TextEditingController(text: addressModel.landmark ?? '');
+    final TextEditingController postalCodeController = TextEditingController(text: addressModel.landmark ?? '');
     final TextEditingController recipientController = TextEditingController(text:  addressModel.name ?? '');
     selectedChip.value = addressModel.addressType ?? "Home";
 
@@ -225,26 +226,40 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                   ),
                                   EditProfileTextFieldWidget(
                                     controller: flatNoController,
-                                    hint: "Flat, House no, Floor, Tower",
-                                    label: "Flat, House no, Floor, Tower",
+                                    hint: "Flat, House no, Floor, Tower,Street",
+                                    label: "Flat, House no, Floor, Tower,Street",
                                     validator: MultiValidator([
                                       RequiredValidator(
                                           errorText:
-                                          'Flat, House no, Floor, Tower'),
+                                          'Flat, House no, Floor, Tower,Street'),
                                     ]),
                                   ),
                                   SizedBox(
                                     height: AddSize.size20,
                                   ),
                                   EditProfileTextFieldWidget(
-                                    controller: streetController,
-                                    hint: "Street, Society, Landmark",
-                                    label: "Street, Society, Landmark",
+                                    controller: cityController,
+                                    hint: "City",
+                                    label: "City",
                                     validator: MultiValidator([
                                       RequiredValidator(
                                           errorText:
-                                          'Street, Society, Landmark'),
+                                          'Select city'),
                                     ]),
+                                  ),
+                                  SizedBox(
+                                    height: AddSize.size20,
+                                  ),
+                                  EditProfileTextFieldWidget(
+                                    length: 7,
+                                    controller: postalCodeController,
+                                    hint: "Eircode",
+                                    label: "Eircode",
+                                    validator:(value){
+                                      if(value!.length<7){
+                                        return "Enter valid Eircode";
+                                      }
+                                    }
                                   ),
                                   SizedBox(
                                     height: AddSize.size20,
@@ -266,7 +281,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                       if(_formKey.currentState!.validate()){
                                        addressModel.landmark != null && addressModel.flatNo != null && addressModel.name != null ?
                                            editAddress(context: context,location: _address,address_type:selectedChip.value,name: recipientController.text,
-                                           flat_no: flatNoController.text,landmark: streetController.text,
+                                           flat_no: flatNoController.text,landmark: cityController.text,
                                            address_id: addressModel.id.toString()).then((value) {
                                              if(value.status == true){
                                                showToast('Address Edited Successfully');
@@ -274,7 +289,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                                myAddressController.getData();
                                              }
                                            }) :
-                                        addAddress(flat_no: flatNoController.text,landmark: streetController.text,name: recipientController.text,context: context,
+                                        addAddress(flat_no: flatNoController.text,landmark: cityController.text,name: recipientController.text,context: context,
                                             address_type: selectedChip.value,location: _address).then((value1) {
                                           if(value1.status == true){
                                             showToast(value1.message.toString());

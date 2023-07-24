@@ -213,7 +213,7 @@ class OnboardContent extends StatelessWidget {
                                     fontWeight: FontWeight.w500,
                                     fontFamily: 'alegreyaSans',
                                     fontSize: 20,
-                                    color: Color(0xFF131A38),
+                                    color: Color(0xFF646774),
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),

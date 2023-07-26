@@ -37,6 +37,8 @@ class AddressData {
   String? flatNo;
   String? landmark;
   String? addressType;
+  String? note;
+  String? pinCode;
 
   AddressData(
       {this.id,
@@ -47,6 +49,8 @@ class AddressData {
         this.location,
         this.flatNo,
         this.landmark,
+        this.pinCode,
+        this.note,
         this.addressType});
 
   AddressData.fromJson(Map<String, dynamic> json) {
@@ -59,6 +63,8 @@ class AddressData {
     flatNo = json['flat_no'];
     landmark = json['landmark'];
     addressType = json['address_type'];
+    note = json['note'];
+    pinCode = json['pin_code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,6 +78,8 @@ class AddressData {
     data['flat_no'] = this.flatNo;
     data['landmark'] = this.landmark;
     data['address_type'] = this.addressType;
+    data['note'] = this.note;
+    data['pin_code'] = this.pinCode;
     return data;
   }
 }

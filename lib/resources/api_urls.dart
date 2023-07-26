@@ -11,6 +11,7 @@ class ApiUrl {
   static const updateCartUrl = "${baseUrl}update-cart";
   static const addAddressUrl = "${baseUrl}add-address";
   static const myAddressUrl = "${baseUrl}my-address";
+  static const removeAddressUrl = "${baseUrl}remove-address";
   static const editAddressUrl = "${baseUrl}edit-address";
   static const chooseOrderAddressUrl = "${baseUrl}choose-order-address";
   static const checkOutUrl = "${baseUrl}order";

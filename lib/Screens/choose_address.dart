@@ -129,8 +129,9 @@ class _ChooseAddressState extends State<ChooseAddress> {
   showChangeAddressSheet(AddressData addressModel) {
     final TextEditingController flatNoController = TextEditingController(text: addressModel.flatNo ?? '');
     final TextEditingController cityController = TextEditingController(text: addressModel.landmark ?? '');
-    final TextEditingController postalCodeController = TextEditingController(text: addressModel.landmark ?? '');
+    final TextEditingController postalCodeController = TextEditingController(text: addressModel.pinCode ?? '');
     final TextEditingController recipientController = TextEditingController(text:  addressModel.name ?? '');
+    final TextEditingController deliveryInstructionController = TextEditingController(text:  addressModel.note ?? '');
     selectedChip.value = addressModel.addressType ?? "Home";
 
     // selectedChip.value = addressModel.addressType ?? "Home";
@@ -264,6 +265,22 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                   SizedBox(
                                     height: AddSize.size20,
                                   ),
+
+                                  SizedBox(
+                                    height: AddSize.size20,
+                                  ),
+                                  EditProfileTextFieldWidget(
+                                    controller: deliveryInstructionController,
+                                    hint: "Delivery Instruction's",
+                                    label: "Delivery Instruction's",
+                                    validator: MultiValidator([
+                                      RequiredValidator(
+                                          errorText: 'Recipient’s name'),
+                                    ]),
+                                  ),
+                                  SizedBox(
+                                    height: AddSize.size20,
+                                  ),
                                   EditProfileTextFieldWidget(
                                     controller: recipientController,
                                     hint: "Recipient’s name",
@@ -290,7 +307,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                              }
                                            }) :
                                         addAddress(flat_no: flatNoController.text,landmark: cityController.text,name: recipientController.text,context: context,
-                                            address_type: selectedChip.value,location: _address).then((value1) {
+                                            address_type: selectedChip.value,location: _address,note: deliveryInstructionController.text,pinCode: postalCodeController.text).then((value1) {
                                           if(value1.status == true){
                                             showToast(value1.message.toString());
                                             Get.toNamed(MyRouters.myAddressScreen);

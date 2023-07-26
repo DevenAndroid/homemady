@@ -990,7 +990,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
               addHeight(39),
               Padding(
                 padding:  EdgeInsets.only(left: 8.0,right: 8.0),
-                child: CommonButton(title: 'Check out',onPressed: (){
+                child: CommonButton(title: 'Checkout',onPressed: (){
                   Get.toNamed(MyRouters.checkOutScreen);
                 },),
               ),

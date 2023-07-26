@@ -317,6 +317,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 InkWell(
                   onTap: (){
                     Get.toNamed(MyRouters.myAddressScreen);
+                    // Get.toNamed(MyRouters.chooseAddress);
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20,top: 10,bottom: 15,right: 5),
@@ -328,7 +329,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Home',
+                              Text(
+                                myCartController.model.value.data!.orderAddress == null
+                                    ? 'Choose address'
+                                    : myCartController.model.value.data!.orderAddress!.addressType,
+
                                 style: GoogleFonts.poppins(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,

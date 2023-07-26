@@ -75,8 +75,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               tabController: tabController,
               listItemData: const [
                 carteScreen(),
-                carteingScreen(),
-                mealPrepScreen()
+                // carteingScreen(),
+                // mealPrepScreen()
               ],
               verticalScrollPosition: VerticalScrollPosition.begin,
               eachItemChild: (object, index) => object,

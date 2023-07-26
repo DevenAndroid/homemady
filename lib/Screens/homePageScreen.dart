@@ -47,7 +47,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   int currentDrawer = 0;
   RxInt count = 0.obs;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String selectedDate = 'Delivery Now';
+  String selectedDate = 'Deliver Now';
 
   void initState() {
     // TODO: implement initState
@@ -88,6 +88,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
         drawer: Drawer(
           child: ListView(
@@ -107,17 +108,41 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       alignment: Alignment.center,
                       child: Column(
                         children: [
-                          Image.asset(
-                            'assets/images/Ellipse 67.png',
-                            height: 100,
-                          ),
-                          Text('Williams Jones',
+                          Obx((){
+                            return  Container(
+                              margin: const EdgeInsets.all(4),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              decoration: const ShapeDecoration(
+                                shape: CircleBorder(),
+                                color: Colors.white,
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                profileController.isDataLoading.value
+                                    ? (profileController.model.value.data!
+                                    .profileImage ??
+                                    "")
+                                    .toString()
+                                    : "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                height: screenSize.height * 0.12,
+                                width: screenSize.height * 0.12,
+                                errorWidget: (_, __, ___) => const SizedBox(),
+                                placeholder: (_, __) => const SizedBox(),
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          }),
+                          Text(  profileController.isDataLoading.value
+                              ? profileController.model.value.data!
+                              .email.toString() : 'williamsjones@gmail.com',
                               style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w600,
                               )),
-                          Text('williamsjones@gmail.com',
+                          Text(profileController.isDataLoading.value
+                              ? profileController.model.value.data!
+                              .name.toString() : 'Williams Jones',
                               style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 color: const Color(0xFFFFFFFF),
@@ -302,7 +327,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   'assets/images/chatchatting.png',
                   height: 20,
                 ),
-                title: Text('Message',
+                title: Text('My Chats',
                     style: GoogleFonts.poppins(
                       fontSize: 15,
                       color: const Color(0xFF4F535E),
@@ -409,7 +434,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),
                     addHeight(3),
                     GestureDetector(onTap: () {
-                      Get.toNamed(MyRouters.chooseAddress);
+                      Get.toNamed(MyRouters.myAddressScreen);
                     }, child: Obx(() {
                       return Row(
                         children: [
@@ -420,19 +445,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           addWidth(4),
                           myCartController.isDataLoading.value
                               ? Expanded(
-                                  child: Text(
-                                    myCartController.model.value.data!.orderAddress == null
-                                        ? 'Select Address'
-                                        : myCartController.model.value.data!.orderAddress!.location,
-                                    style: GoogleFonts.poppins(
-                                      color: const Color(0xFF000000),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                child: Text(
+                                  myCartController.model.value.data!.orderAddress == null
+                                      ? 'Select Address'
+                                      : myCartController.model.value.data!.orderAddress!.addressType,
+                                  style: GoogleFonts.poppins(
+                                    color: const Color(0xFF000000),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                )
+                                ),
+                              )
                               : CircularProgressIndicator(),
-                          addWidth(4),
+                         addWidth(8),
                           Image.asset(
                             'assets/images/pencilImg.png',
                             height: 13,
@@ -679,58 +704,212 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   ),
                                 ),
                                 addHeight(14),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(right: 9.0),
+                                //   child: Row(
+                                //     mainAxisAlignment: MainAxisAlignment.start,
+                                //     children: [
+                                //       Expanded(
+                                //         child: GestureDetector(
+                                //           onTap: () {},
+                                //           child: Container(
+                                //             height: 44,
+                                //             decoration: BoxDecoration(
+                                //                 borderRadius: BorderRadius.circular(4),
+                                //                 border: selectedDate == 'Delivery Now'
+                                //                     ? Border.all(color: const Color(0xFF7ED957), width: 2)
+                                //                     : Border.all(color: const Color(0xFF717171).withOpacity(0.22), width: 1)),
+                                //             child: Row(
+                                //               crossAxisAlignment: CrossAxisAlignment.center,
+                                //               mainAxisAlignment: MainAxisAlignment.center,
+                                //               children: [
+                                //                 selectedDate == 'Delivery Now'
+                                //                     ? Padding(
+                                //                         padding: const EdgeInsets.all(8.0),
+                                //                         child: Image.asset(
+                                //                           'assets/images/clockImg.png',
+                                //                           height: 18,
+                                //                         ),
+                                //                       )
+                                //                     : Padding(
+                                //                         padding: const EdgeInsets.all(8.0),
+                                //                         child: Image.asset(
+                                //                           'assets/images/calendar_date.png',
+                                //                           height: 18,
+                                //                           color: const Color(0xFF262626).withOpacity(0.62),
+                                //                         ),
+                                //                       ),
+                                //                 selectedDate == 'Delivery Now'
+                                //                     ? Text(
+                                //                         selectedDate,
+                                //                         style: GoogleFonts.poppins(
+                                //                           color: const Color(0xFF7ED957),
+                                //                           fontSize: 16,
+                                //                           fontWeight: FontWeight.w400,
+                                //                         ),
+                                //                       )
+                                //                     : Text(
+                                //                         selectedDate,
+                                //                         style: GoogleFonts.poppins(
+                                //                           color: const Color(0xFF262626).withOpacity(0.62),
+                                //                           fontSize: 16,
+                                //                           fontWeight: FontWeight.w400,
+                                //                         ),
+                                //                       )
+                                //               ],
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //       addWidth(10),
+                                //       Expanded(
+                                //         child: GestureDetector(
+                                //           onTap: () async {
+                                //             DateTime? _selectedDate = await showDatePicker(
+                                //                 builder: (context, child) {
+                                //                   return Theme(
+                                //                     data: Theme.of(context).copyWith(
+                                //                       colorScheme: const ColorScheme.light(
+                                //                         primary: Color(0xFF7ED957),
+                                //                         // header background color
+                                //                         onPrimary: Colors.white,
+                                //                         // header text color
+                                //                         onSurface: Color(0xFF7ED957), // body text color
+                                //                       ),
+                                //                       textButtonTheme: TextButtonThemeData(
+                                //                         style: TextButton.styleFrom(
+                                //                           foregroundColor: const Color(0xFF7ED957), // button text color
+                                //                         ),
+                                //                       ),
+                                //                     ),
+                                //                     child: child!,
+                                //                   );
+                                //                 },
+                                //                 context: context,
+                                //                 initialDate: DateTime.now().subtract(Duration()),
+                                //                 firstDate: DateTime(1950),
+                                //                 //DateTime.now() - not to allow to choose before today.
+                                //                 lastDate: DateTime.now().subtract(
+                                //                   Duration(),
+                                //                 ));
+                                //             if (_selectedDate != null) {
+                                //               print(_selectedDate);
+                                //               dateInput11 = _selectedDate.toString();
+                                //               print(dateInput11);
+                                //               String formattedDate = DateFormat('dd/MM/yyyy').format(_selectedDate).toString();
+                                //
+                                //               print(formattedDate);
+                                //               /* setState(() {
+                                //       dobController.text =
+                                //           formattedDate; //set output date to TextField value.
+                                //       dobController.text =
+                                //           formattedDate;
+                                //     });*/
+                                //             } else {
+                                //               print("Date is not selected");
+                                //             }
+                                //           },
+                                //           child: Container(
+                                //               height: 44,
+                                //               decoration: BoxDecoration(
+                                //                 borderRadius: BorderRadius.circular(4),
+                                //                 color: Color(0xFF7ED957),
+                                //               ),
+                                //               child: selectedDate == 'Delivery Now'
+                                //                   ? Row(
+                                //                       crossAxisAlignment: CrossAxisAlignment.center,
+                                //                       mainAxisAlignment: MainAxisAlignment.center,
+                                //                       children: [
+                                //                         Padding(
+                                //                           padding: const EdgeInsets.all(8.0),
+                                //                           child: Image.asset(
+                                //                             'assets/images/truckimg.png',
+                                //                             height: 18,
+                                //                           ),
+                                //                         ),
+                                //                         Text(
+                                //                           'Pick a Date',
+                                //                           style: GoogleFonts.poppins(
+                                //                             color: const Color(0xFFFFFFFF),
+                                //                             fontSize: 16,
+                                //                             fontWeight: FontWeight.w400,
+                                //                           ),
+                                //                         )
+                                //                       ],
+                                //                     )
+                                //                   : Row(
+                                //                       crossAxisAlignment: CrossAxisAlignment.center,
+                                //                       mainAxisAlignment: MainAxisAlignment.center,
+                                //                       children: [
+                                //                         Padding(
+                                //                           padding: const EdgeInsets.all(8.0),
+                                //                           child: Image.asset(
+                                //                             'assets/images/calendar_date.png',
+                                //                             height: 18,
+                                //                           ),
+                                //                         ),
+                                //                         Text(
+                                //                           'Change Date',
+                                //                           style: GoogleFonts.poppins(
+                                //                             color: const Color(0xFFFFFFFF),
+                                //                             fontSize: 16,
+                                //                             fontWeight: FontWeight.w400,
+                                //                           ),
+                                //                         )
+                                //                       ],
+                                //                     )),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 9.0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Expanded(
-                                        child: GestureDetector(
-                                          onTap: () {},
-                                          child: Container(
+                                        child: InkWell(
+                                          onTap: () {
+                                          },
+                                          child:
+                                          Container(
                                             height: 44,
                                             decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(4),
-                                                border: selectedDate == 'Delivery Now'
-                                                    ? Border.all(color: const Color(0xFF7ED957), width: 2)
-                                                    : Border.all(color: const Color(0xFF717171).withOpacity(0.22), width: 1)),
+                                                border:  selectedDate == 'Deliver Now' ? Border.all(
+                                                    color: const Color(0xff7ED957),
+                                                    width: 2
+                                                ) :  Border.all(
+                                                    color: const Color(0xFF717171).withOpacity(0.22),
+                                                    width: 1
+                                                )
+                                            ),
                                             child: Row(
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                selectedDate == 'Delivery Now'
-                                                    ? Padding(
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        child: Image.asset(
-                                                          'assets/images/clockImg.png',
-                                                          height: 18,
-                                                        ),
-                                                      )
-                                                    : Padding(
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        child: Image.asset(
-                                                          'assets/images/calendar_date.png',
-                                                          height: 18,
-                                                          color: const Color(0xFF262626).withOpacity(0.62),
-                                                        ),
-                                                      ),
-                                                selectedDate == 'Delivery Now'
-                                                    ? Text(
-                                                        selectedDate,
-                                                        style: GoogleFonts.poppins(
-                                                          color: const Color(0xFF7ED957),
-                                                          fontSize: 16,
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
-                                                      )
-                                                    : Text(
-                                                        selectedDate,
-                                                        style: GoogleFonts.poppins(
-                                                          color: const Color(0xFF262626).withOpacity(0.62),
-                                                          fontSize: 16,
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
-                                                      )
+                                                selectedDate == 'Deliver Now' ?  Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/clockImg.png', height: 18,),
+                                                ):   Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Image.asset('assets/images/calendar_date.png', height: 18,   color: const Color(0xFF262626).withOpacity(0.62),),),
+                                                selectedDate == 'Deliver Now' ?
+                                                Text(selectedDate,
+                                                  style: GoogleFonts.poppins(
+                                                    color: const Color(0xFF7ED957),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ): Text(selectedDate,
+                                                  style: GoogleFonts.poppins(
+                                                    color: const Color(0xFF262626).withOpacity(0.62),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                )
                                               ],
                                             ),
                                           ),
@@ -738,50 +917,57 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ),
                                       addWidth(10),
                                       Expanded(
-                                        child: GestureDetector(
+                                        child: InkWell(
                                           onTap: () async {
-                                            DateTime? _selectedDate = await showDatePicker(
-                                                builder: (context, child) {
-                                                  return Theme(
-                                                    data: Theme.of(context).copyWith(
-                                                      colorScheme: const ColorScheme.light(
-                                                        primary: Color(0xFF7ED957),
-                                                        // header background color
-                                                        onPrimary: Colors.white,
-                                                        // header text color
-                                                        onSurface: Color(0xFF7ED957), // body text color
-                                                      ),
-                                                      textButtonTheme: TextButtonThemeData(
-                                                        style: TextButton.styleFrom(
-                                                          foregroundColor: const Color(0xFF7ED957), // button text color
-                                                        ),
+                                            DateTime? pickedDate = await showDatePicker(
+                                              builder: (context, child) {
+                                                return Theme(
+                                                  data: Theme.of(context).copyWith(
+                                                    colorScheme: const ColorScheme.light(
+                                                      primary: Color(0xFF7ED957),
+                                                      // header background color
+                                                      onPrimary: Colors.white,
+                                                      // header text color
+                                                      onSurface: Color(0xFF7ED957),// body text color
+                                                    ),
+                                                    textButtonTheme: TextButtonThemeData(
+                                                      style: TextButton.styleFrom(
+                                                        foregroundColor: const Color(0xFF7ED957), // button text color
                                                       ),
                                                     ),
-                                                    child: child!,
-                                                  );
-                                                },
-                                                context: context,
-                                                initialDate: DateTime.now().subtract(Duration()),
-                                                firstDate: DateTime(1950),
-                                                //DateTime.now() - not to allow to choose before today.
-                                                lastDate: DateTime.now().subtract(
-                                                  Duration(),
-                                                ));
-                                            if (_selectedDate != null) {
-                                              print(_selectedDate);
-                                              dateInput11 = _selectedDate.toString();
-                                              print(dateInput11);
-                                              String formattedDate = DateFormat('dd/MM/yyyy').format(_selectedDate).toString();
+                                                  ),
+                                                  child: child!,
+                                                );
+                                              },
 
-                                              print(formattedDate);
-                                              /* setState(() {
-                                      dobController.text =
-                                          formattedDate; //set output date to TextField value.
-                                      dobController.text =
-                                          formattedDate;
-                                    });*/
-                                            } else {
-                                              print("Date is not selected");
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime.now().subtract(Duration(days: 0)),
+                                              // firstDate: DateTime(1950),
+                                              //DateTime.now() - not to allow to choose before today.
+                                              lastDate: DateTime(2025),
+                                            ).then((value) {
+                                              // setState(() {
+                                              //   _dateTime = value!;
+                                              // });
+
+                                              if (value != null) {
+                                                String formattedDate = DateFormat(
+                                                    'yyyy/MM/dd').format(value);
+                                                setState(() {
+                                                  selectedDate =
+                                                      formattedDate; //set output date to TextField value.
+                                                  log("Seleted Date     $selectedDate");
+                                                });
+                                              }
+                                            });
+
+                                            if (pickedDate != null) {
+                                              String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
+                                              setState(() {
+                                                selectedDate = formattedDate;
+                                                log("Seleted Date     $selectedDate");
+                                              });
                                             }
                                           },
                                           child: Container(
@@ -790,49 +976,43 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 borderRadius: BorderRadius.circular(4),
                                                 color: Color(0xFF7ED957),
                                               ),
-                                              child: selectedDate == 'Delivery Now'
-                                                  ? Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.all(8.0),
-                                                          child: Image.asset(
-                                                            'assets/images/truckimg.png',
-                                                            height: 18,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Pick a Date',
-                                                          style: GoogleFonts.poppins(
-                                                            color: const Color(0xFFFFFFFF),
-                                                            fontSize: 16,
-                                                            fontWeight: FontWeight.w400,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )
-                                                  : Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.all(8.0),
-                                                          child: Image.asset(
-                                                            'assets/images/calendar_date.png',
-                                                            height: 18,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Change Date',
-                                                          style: GoogleFonts.poppins(
-                                                            color: const Color(0xFFFFFFFF),
-                                                            fontSize: 16,
-                                                            fontWeight: FontWeight.w400,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
+                                              child: selectedDate == 'Deliver Now' ?
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Image.asset(
+                                                      'assets/images/truckimg.png', height: 18,),
+                                                  ),
+                                                  Text('Pick a Date',
+                                                    style: GoogleFonts.poppins(
+                                                      color: const Color(0xFFFFFFFF),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  )
+                                                ],
+                                              ) :  Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Image.asset(
+                                                      'assets/images/calendar_date.png', height: 18,),
+                                                  ),
+                                                  Text('Change Date',
+                                                    style: GoogleFonts.poppins(
+                                                      color: const Color(0xFFFFFFFF),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                          ),
                                         ),
                                       ),
                                     ],

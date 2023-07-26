@@ -9,7 +9,9 @@ import 'package:homemady/widgets/dimenestion.dart';
 
 import '../controller/my_address_controller.dart';
 import '../repository/choose_order_address_repo.dart';
+import '../repository/remove_address_repo.dart';
 import '../resources/add_text.dart';
+import '../widgets/app_theme.dart';
 import 'choose_address.dart';
 
 class MyAddressScreen extends StatefulWidget {
@@ -21,8 +23,6 @@ class MyAddressScreen extends StatefulWidget {
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
   final myAddressController = Get.put(MyAddressController());
-  final controller = Get.put(MyAddressController());
-
   @override
   void initState() {
     // TODO: implement initState
@@ -35,8 +35,70 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
     });
   }
 
+  showUploadWindow(index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AddSize.padding16,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: AddSize.size10),
+                    Text("Are you sure you want to delete this address?",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: AddSize.font16)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          child: Text("No",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF7ED957),
+                                  fontSize: AddSize.font18)),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                        TextButton(
+                          child: Text("Yes",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF7ED957),
+                                  fontSize: AddSize.font18)),
+                          onPressed: () {
+                            removeAddress(
+                                addressId: index.id.toString(),
+                                context: context)
+                                .then((value) {
+                              showToast(value.message.toString());
+                              if (value.status == true) {
+                                myAddressController.getData();
+                                Get.back();
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
+          ),
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Obx(() {
       return Scaffold(
         appBar: backAppBar(context: context, title: 'My Address'),
@@ -67,6 +129,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
+
                         children: [
                           Container(
                             decoration: BoxDecoration(
@@ -88,80 +151,135 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                               padding: const EdgeInsets.all(16.0),
                               child: Row(
                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Image.asset(
                                     'assets/images/Group 1000004233.png',
                                     height: 40,
                                   ),
                                   addWidth(10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            myAddressController
-                                                .model.value.data![index].addressType
-                                                .toString(),
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                                color: const Color(0xff1A2E33)),
-                                          ),
-                                          GestureDetector(
-                                              onTap: () {
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              myAddressController
+                                                  .model.value.data![index].addressType
+                                                  .toString(),
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(0xff1A2E33)),
+                                            ),
+                                            // GestureDetector(
+                                            //     onTap: () {
+                                            //       myAddressController.id.value = myAddressController.model.value.data![index].id.toString();
+                                            //       Get.toNamed(MyRouters.chooseAddress,arguments: [myAddressController.model.value.data![index]]);
+                                            //       print(myAddressController.model.value.data![index].id.toString());
+                                            //     },
+                                            //     child: Image.asset(
+                                            //       'assets/images/edit_alt.png',
+                                            //       height: 24,
+                                            //     ))
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                myAddressController
+                                                    .model.value.data![index].flatNo
+                                                    .toString() + myAddressController
+                                              .model.value.data![index].landmark
+                                              .toString()+',' + myAddressController
+                                                    .model.value.data![index].pinCode
+                                                    .toString(),
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: const Color(0xff5C5C60)),
+                                              ),
+                                            ),
+                                            addWidth(5),
+                                            // Expanded(
+                                            //   child: Text(
+                                            //    "",
+                                            //     style: GoogleFonts.poppins(
+                                            //         fontSize: 14,
+                                            //         fontWeight: FontWeight.w400,
+                                            //         color: const Color(0xff5C5C60)),
+                                            //   ),
+                                            // ),
+                                            // addWidth(5),
+                                            // Expanded(
+                                            //   child: Text(
+                                            //     myAddressController
+                                            //         .model.value.data![index].pinCode
+                                            //         .toString(),
+                                            //     style: GoogleFonts.poppins(
+                                            //         fontSize: 14,
+                                            //         fontWeight: FontWeight.w400,
+                                            //         color: const Color(0xff5C5C60)),
+                                            //   ),
+                                            // ),
+                                          ],
+                                        ),
+
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {
+                                                showUploadWindow(
+                                                    myAddressController
+                                                        .model
+                                                        .value
+                                                        .data![index]);
+                                              },
+                                              child: const Text(
+                                                "Remove",
+                                                style: TextStyle(
+                                                    color: Color(0xFF7ED957),
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width:
+                                                width * .02),
+                                            Container(
+                                              color: const Color(0xFF7ED957),
+                                              height:
+                                              height * .012,
+                                              width: width * .003,
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
                                                 myAddressController.id.value = myAddressController.model.value.data![index].id.toString();
                                                 Get.toNamed(MyRouters.chooseAddress,arguments: [myAddressController.model.value.data![index]]);
                                                 print(myAddressController.model.value.data![index].id.toString());
                                               },
-                                              child: Image.asset(
-                                                'assets/images/edit_alt.png',
-                                                height: 24,
-                                              ))
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            myAddressController
-                                                .model.value.data![index].flatNo
-                                                .toString(),
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: const Color(0xff5C5C60)),
-                                          ),
-                                          addWidth(5),
-                                          Text(
-                                            myAddressController
-                                                .model.value.data![index].landmark
-                                                .toString(),
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: const Color(0xff5C5C60)),
-                                          ),
-                                          addWidth(5),
-                                         /* Text(
-                                            myAddressController
-                                                .model.value.data![index].location
-                                                .toString(),
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: const Color(0xff5C5C60),),maxLines: 2,
-                                          ),*/
-                                          /*Text('4295 Shinn Avenue, Indiana, States',
-                                     style: GoogleFonts.poppins(
-                                         fontSize: 14,
-                                         fontWeight: FontWeight.w400,
-                                         color: const Color(0xff5C5C60)
-                                     ),)*/
-                                        ],
-                                      ),
-                                    ],
+                                              child: const Text(
+                                                "Edit",
+                                                style: TextStyle(
+                                                    color: Color(0xFF7ED957),
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),

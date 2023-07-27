@@ -100,18 +100,21 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                      ),
                                      Spacer(),
                                      Container(
-                                       height: 25,
-                                       width: 100,
+                                       // height: 25,
+                                       // width: 100,
                                        decoration:  BoxDecoration(
                                            borderRadius: BorderRadius.circular(6),
                                            color: Color(0xFF7ED957)
                                        ),
                                        child: Center(
-                                         child: Text('Successful',
-                                           style: GoogleFonts.poppins(
-                                             color: const Color(0xFFFFFFFF),
-                                             fontSize: 12,
-                                             fontWeight: FontWeight.w500,
+                                         child: Padding(
+                                           padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 3),
+                                           child: Text('Successful',
+                                             style: GoogleFonts.poppins(
+                                               color: const Color(0xFFFFFFFF),
+                                               fontSize: 12,
+                                               fontWeight: FontWeight.w500,
+                                             ),
                                            ),
                                          ),
                                        ),
@@ -924,31 +927,31 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                  ),
                                ),
                                SizedBox(height: AddSize.size20),
-                               InkWell(
-                                 onTap: () {
-                                   Get.toNamed(MyRouters.reviewScreen);
-                                 },
-                                 child: Container(
-                                   height: 56,
-                                   width: AddSize.screenWidth / 1.1,
-                                   decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(10),
-                                       color: const Color(0xFFFF6B6B)
-                                   ),
-                                   child: Center(
-                                     child: Text(
-                                       'Send Feedback For Order',
-                                       style: GoogleFonts.poppins(
-                                         color:  Colors.white,
-                                         fontSize: 16,
-                                         fontWeight: FontWeight.w700,
-                                       ),
-                                       textAlign: TextAlign.center,
-                                     ),
-                                   ),
-                                 ),
-                               ),
-                               SizedBox(height: AddSize.size20),
+                               // InkWell(
+                               //   onTap: () {
+                               //     Get.toNamed(MyRouters.reviewScreen);
+                               //   },
+                               //   child: Container(
+                               //     height: 56,
+                               //     width: AddSize.screenWidth / 1.1,
+                               //     decoration: BoxDecoration(
+                               //         borderRadius: BorderRadius.circular(10),
+                               //         color: const Color(0xFFFF6B6B)
+                               //     ),
+                               //     child: Center(
+                               //       child: Text(
+                               //         'Send Feedback For Order',
+                               //         style: GoogleFonts.poppins(
+                               //           color:  Colors.white,
+                               //           fontSize: 16,
+                               //           fontWeight: FontWeight.w700,
+                               //         ),
+                               //         textAlign: TextAlign.center,
+                               //       ),
+                               //     ),
+                               //   ),
+                               // ),
+                               // SizedBox(height: AddSize.size20),
                              ],
                            ):  Center(child: Text('NO Vendor Information')) : const Center(child: CircularProgressIndicator()),
                          ),

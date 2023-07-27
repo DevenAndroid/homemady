@@ -8,6 +8,7 @@ import 'package:homemady/Screens/checkoutScreen.dart';
 import 'package:homemady/Screens/email_verification2.dart';
 import 'package:homemady/Screens/email_verification_screen.dart';
 import 'package:homemady/Screens/favourite_screen.dart';
+import 'package:homemady/Screens/featured_store_list.dart';
 import 'package:homemady/Screens/feedback_screen.dart';
 import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/homedetails_Screen.dart';
@@ -105,6 +106,7 @@ class MyRouters {
   GetPage(name: '/feedBackScreen', page: () => const FeedBackScreen()),
   GetPage(name: '/helpCenterScreen', page: () => const HelpCenterScreen()),
   GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
+  GetPage(name: StoreListScreen.storeListScreen, page: () => const StoreListScreen()),
 
 
 

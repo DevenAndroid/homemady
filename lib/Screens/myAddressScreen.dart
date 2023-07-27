@@ -8,12 +8,10 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 
 import '../controller/my_address_controller.dart';
+import '../controller/my_cart_controller.dart';
 import '../repository/choose_order_address_repo.dart';
 import '../repository/remove_address_repo.dart';
 import '../resources/add_text.dart';
-import '../widgets/app_theme.dart';
-import 'choose_address.dart';
-
 class MyAddressScreen extends StatefulWidget {
   const MyAddressScreen({Key? key}) : super(key: key);
 
@@ -23,6 +21,7 @@ class MyAddressScreen extends StatefulWidget {
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
   final myAddressController = Get.put(MyAddressController());
+  final myCartController = Get.put(MyCartListController());
   @override
   void initState() {
     // TODO: implement initState
@@ -116,12 +115,11 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                    // Get.toNamed(MyRouters.checkOutScreen);
                     chooseOrderAddress(context: context,addressId: myAddressController.model.value.data![index].id.toString()).then((value) {
                       if(value.status == true){
+                        myCartController.getData();
                         showToast(value.message.toString());
-                        setState(() {
-
-                        });
-                       // Get.back();
-                        Get.toNamed(MyRouters.checkOutScreen);
+                       Get.back();
+                       //  Get.toNamed(MyRouters.checkOutScreen);
+                        // myCartController.getData();
                       }
                     });
                     print(myAddressController.model.value.data![index].id.toString());

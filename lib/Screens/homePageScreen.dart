@@ -18,6 +18,7 @@ import '../controller/category_controller.dart';
 import '../controller/homepage_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/search_store_conbtroller.dart';
+import '../controller/time_slot_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
@@ -36,10 +37,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final profileController = Get.put(UserProfileController());
   final myCartController = Get.put(MyCartListController());
   final searchController = Get.put(SearchStoreController());
+  final timeSlotController = Get.put(TimeSlotController());
 
   String dateInput11 = "";
   RxBool isValue = false.obs;
   String? selectedCategory;
+  int currentIndex = -1;
+  bool? isSlotSelected=true;
 
   final scrollController = ScrollController();
   RxBool isSelect = false.obs;
@@ -55,12 +59,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       profileController.getData();
       scrollController.addListener((_scrollListener));
+      homeController.getData();
+      myCartController.getData();
+      categoryController.getCategoryData();
+      timeSlotController.getTimeSlotData();
+      _decrement();
+      _increment();
     });
-    homeController.getData();
-    myCartController.getData();
-    categoryController.getCategoryData();
-    _decrement();
-    _increment();
+
   }
 
   void _scrollListener() {
@@ -106,50 +112,57 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     )),
                     child: Align(
                       alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          Obx((){
-                            return  Container(
-                              margin: const EdgeInsets.all(4),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: const ShapeDecoration(
-                                shape: CircleBorder(),
-                                color: Colors.white,
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                profileController.isDataLoading.value
-                                    ? (profileController.model.value.data!
-                                    .profileImage ??
-                                    "")
-                                    .toString()
-                                    : "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                height: screenSize.height * 0.12,
-                                width: screenSize.height * 0.12,
-                                errorWidget: (_, __, ___) => const SizedBox(),
-                                placeholder: (_, __) => const SizedBox(),
-                                fit: BoxFit.cover,
-                              ),
-                            );
-                          }),
-                          Text(  profileController.isDataLoading.value
-                              ? profileController.model.value.data!
-                              .email.toString() : 'williamsjones@gmail.com',
-                              style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                color: const Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w600,
-                              )),
-                          Text(profileController.isDataLoading.value
-                              ? profileController.model.value.data!
-                              .name.toString() : 'Williams Jones',
-                              style: GoogleFonts.poppins(
-                                fontSize: 15,
-                                color: const Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w400,
-                              )),
-                        ],
-                      ),
+                      child:
+                      Obx((){
+                        return Column(
+                          children: [
+                            Obx((){
+                              return  Container(
+                                margin: const EdgeInsets.all(4),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                decoration: const ShapeDecoration(
+                                  shape: CircleBorder(),
+                                  color: Colors.white,
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                  profileController.isDataLoading.value
+                                      ? (profileController.model.value.data!
+                                      .profileImage ??
+                                      "")
+                                      .toString()
+                                      : "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                  height: screenSize.height * 0.12,
+                                  width: screenSize.height * 0.12,
+                                  errorWidget: (_, __, ___) => const SizedBox(),
+                                  placeholder: (_, __) => const SizedBox(),
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            }),
+                            FittedBox(
+                              child: Text(  profileController.isDataLoading.value
+                                  ? profileController.model.value.data!
+                                  .email.toString() : 'williamsjones@gmail.com',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    color: const Color(0xFFFFFFFF),
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                            ),
+                            Expanded(
+                              child: Text(profileController.isDataLoading.value
+                                  ? profileController.model.value.data!
+                                  .name.toString() : 'Williams Jones',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 15,
+                                    color: const Color(0xFFFFFFFF),
+                                    fontWeight: FontWeight.w400,
+                                  )),
+                            ),
+                          ],
+                        );
+                      })
                     )),
               ),
               ListTile(
@@ -268,29 +281,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   });
                 },
               ),
-              // const Divider(
-              //   height: 5,
-              //   color: Color(0xffEFEFEF),
-              //   thickness: 1,
-              // ),
-              // ListTile(
-              //   visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-              //   leading: Image.asset(
-              //     'assets/images/bx_wallet.png',
-              //     height: 20,
-              //   ),
-              //   title:  Text('My Wallet',
-              //       style: GoogleFonts.poppins(
-              //         fontSize: 15,
-              //         color: const Color(0xFF4F535E),
-              //         fontWeight: FontWeight.w400,)),
-              //   onTap: () {
-              //     setState(() {
-              //       currentDrawer = 5;
-              //       Get.toNamed(MyRouters.myCartScreen);
-              //     });
-              //   },
-              // ),
               const Divider(
                 height: 5,
                 color: Color(0xffEFEFEF),
@@ -436,33 +426,36 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     GestureDetector(onTap: () {
                       Get.toNamed(MyRouters.myAddressScreen);
                     }, child: Obx(() {
-                      return Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/location.png',
-                            height: 13,
-                          ),
-                          addWidth(4),
-                          myCartController.isDataLoading.value
-                              ? Expanded(
-                                child: Text(
-                                  myCartController.model.value.data!.orderAddress == null
-                                      ? 'Select Address'
-                                      : myCartController.model.value.data!.orderAddress!.addressType,
-                                  style: GoogleFonts.poppins(
-                                    color: const Color(0xFF000000),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                      return Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image.asset(
+                              'assets/images/location.png',
+                              height: 13,
+                            ),
+                            addWidth(4),
+                            myCartController.isDataLoading.value
+                                ? Expanded(
+                                  child: Text(
+                                    myCartController.model.value.data!.orderAddress == null
+                                        ? 'Select Address'
+                                        : myCartController.model.value.data!.orderAddress!.addressType,
+                                    style: GoogleFonts.poppins(
+                                      color: const Color(0xFF000000),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                              )
-                              : CircularProgressIndicator(),
-                         addWidth(8),
-                          Image.asset(
-                            'assets/images/pencilImg.png',
-                            height: 13,
-                          ),
-                        ],
+                                )
+                                : CircularProgressIndicator(),
+                           addWidth(8),
+                            Image.asset(
+                              'assets/images/pencilImg.png',
+                              height: 13,
+                            ),
+                          ],
+                        ),
                       );
                     })),
                   ],
@@ -495,24 +488,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ),
                 ),
               ),
-              /*GestureDetector(
-        onTap: (){
-          Get.toNamed(MyRouters.myCartScreen);
-        },
-            child: Container(
-              height: 42,
-              width: 42,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xFF7ED957)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset('assets/images/shoppingImg.png',
-                  height: 30,),
-              ),
-            ),
-      ),*/
             ],
           ),
           automaticallyImplyLeading: false,
@@ -919,6 +894,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       Expanded(
                                         child: InkWell(
                                           onTap: () async {
+
                                             DateTime? pickedDate = await showDatePicker(
                                               builder: (context, child) {
                                                 return Theme(
@@ -1018,7 +994,54 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     ],
                                   ),
                                 ),
-                                addHeight(20),
+                                 addHeight(20),
+                               // SizedBox(
+                               //    height: 120,
+                               //    child: ListView.builder(
+                               //        shrinkWrap: true,
+                               //        scrollDirection: Axis.horizontal,
+                               //        itemCount: timeSlotController.timeSlotModel.value.data!.length,
+                               //        itemBuilder: (context, index) {
+                               //          return Padding(
+                               //            padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 7),
+                               //            child:
+                               //            Row(
+                               //                children:[
+                               //
+                               //                  InkWell(
+                               //                    onTap: () {
+                               //                      currentIndex = index;
+                               //                      setState(() {
+                               //
+                               //                      });
+                               //                    },
+                               //                    child: Container(
+                               //                      // margin: EdgeInsets.symmetric(vertical: 5),
+                               //                      height: 42,
+                               //                      // width: 110,
+                               //                      decoration: BoxDecoration(
+                               //                          color: currentIndex != index ? Color(0xffF2F2F2): Color(0xff7ED957),
+                               //                          borderRadius: BorderRadius.circular(
+                               //                              5)
+                               //
+                               //                      ),
+                               //                      child: Padding(
+                               //                        padding: const EdgeInsets.all(8.0),
+                               //                        child: Center(
+                               //                          child: Text(timeSlotController.timeSlotModel.value.data![index].startTime.toString()+'-' +
+                               //                              timeSlotController.timeSlotModel.value.data![index].endTime.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
+                               //                              fontWeight: FontWeight.w600,
+                               //                              color: currentIndex != index ? Color(0xff000000):Color(0xffFFFFFF)),),
+                               //                        ),
+                               //                      ),
+                               //                    ),
+                               //                  ),
+                               //                ]
+                               //            ),
+                               //          );
+                               //        }),
+                               //  ),
+                               //  addHeight(20),
                                 ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: homeController.model.value.data!.stores!.length,

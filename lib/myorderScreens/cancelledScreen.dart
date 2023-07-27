@@ -70,6 +70,7 @@ class _CancelledScreenState extends State<CancelledScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
+                                  if(controller.model.value.data![index].vendor != null)
                                   Text((controller.model.value.data![index].vendor!.name ?? 'Test').toString(),
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w600,
@@ -111,20 +112,23 @@ class _CancelledScreenState extends State<CancelledScreen> {
                                         ),),
                                       addWidth(8),
                                       Container(
-                                        height: 24,
-                                        width: 76,
+                                        // height: 24,
+                                        // width: 76,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(16),
+                                            borderRadius: BorderRadius.circular(6),
                                             border: Border.all(
                                               color: const Color(0xFFFF6C81),
                                             )
                                         ),
                                         child: Center(
-                                          child: Text(controller.model.value.data![index].deliveryStatus.toString(),
-                                            style: GoogleFonts.poppins(
-                                              color: const Color(0xFFFF6C81),
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 2,horizontal: 4),
+                                            child: Text(controller.model.value.data![index].deliveryStatus.toString(),
+                                              style: GoogleFonts.poppins(
+                                                color: const Color(0xFFFF6C81),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
                                           ),
                                         ),

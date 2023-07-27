@@ -23,13 +23,15 @@ class MyCartListModel {
 }
 
 class Data {
+  int? orderCount;
   List<CartItems>? cartItems;
   CartPaymentSummary? cartPaymentSummary;
   OrderAddress? orderAddress;
 
-  Data({this.cartItems, this.cartPaymentSummary, this.orderAddress});
+  Data({this.orderCount,this.cartItems, this.cartPaymentSummary, this.orderAddress});
 
   Data.fromJson(Map<String, dynamic> json) {
+    orderCount = json['orderCount'];
     if (json['cartItems'] != null) {
       cartItems = <CartItems>[];
       json['cartItems'].forEach((v) {
@@ -45,7 +47,9 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
+
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['orderCount'] = this.orderCount;
     if (this.cartItems != null) {
       data['cartItems'] = this.cartItems!.map((v) => v.toJson()).toList();
     }
@@ -179,8 +183,9 @@ class OrderAddress {
   dynamic landmark;
   dynamic addressType;
   dynamic createdAt;
+  dynamic pinCode;
   dynamic updatedAt;
-  Null? deletedAt;
+  dynamic deletedAt;
 
   OrderAddress(
       {this.id,
@@ -190,6 +195,7 @@ class OrderAddress {
         this.location,
         this.flatNo,
         this.landmark,
+        this.pinCode,
         this.addressType,
         this.createdAt,
         this.updatedAt,
@@ -201,6 +207,7 @@ class OrderAddress {
     latitude = json['latitude'];
     longitude = json['longitude'];
     location = json['location'];
+    pinCode = json['pin_code'];
     flatNo = json['flat_no'];
     landmark = json['landmark'];
     addressType = json['address_type'];
@@ -217,6 +224,7 @@ class OrderAddress {
     data['longitude'] = this.longitude;
     data['location'] = this.location;
     data['flat_no'] = this.flatNo;
+    data['pin_code'] = this.pinCode;
     data['landmark'] = this.landmark;
     data['address_type'] = this.addressType;
     data['created_at'] = this.createdAt;

@@ -81,6 +81,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
+                                    if(controller.model.value.data![index].vendor != null)
                                     Text((controller.model.value.data![index].vendor!.name ?? 'Test').toString(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,
@@ -122,19 +123,22 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                           ),),
                                         addWidth(8),
                                         Container(
-                                          height: 22,
-                                          width: 45,
+                                          height: 25,
+                                          width: 47,
                                           decoration:  BoxDecoration(
                                               borderRadius: BorderRadius.circular(6),
                                               color: const Color(0xFF7ED957)
                                           ),
                                           child:
                                           Center(
-                                            child: Text(controller.model.value.data![index].deliveryStatus.toString(),
-                                              style: GoogleFonts.poppins(
-                                                color: const Color(0xFFFFFFFF),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 6),
+                                              child: Text(controller.model.value.data![index].deliveryStatus.toString(),
+                                                style: GoogleFonts.poppins(
+                                                  color: const Color(0xFFFFFFFF),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
                                               ),
                                             ),
                                           ),

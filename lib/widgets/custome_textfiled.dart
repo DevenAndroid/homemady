@@ -643,6 +643,7 @@ AppBar backAppBar(
       child: GestureDetector(
           onTap: () {
             Get.back();
+            Get.back();
             if (dispose == "dispose") {}
           },
           child: Column(

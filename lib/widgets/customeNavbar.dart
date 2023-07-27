@@ -12,6 +12,7 @@ import 'package:homemady/routers/routers.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Screens/featured_store_list.dart';
 import '../controller/user_profile_controller.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -57,7 +58,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   List screens = [
     const HomePageScreen(),
-    const AddNewCardScreen(),
+    const StoreListScreen(),
     const MyOrderScreen(),
     const MyProfileScreen(),
   ];

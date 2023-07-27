@@ -27,7 +27,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   int currentDrawer = 0;
   int selectedTab = 0;
-  Rx<int> currentIndex = 0.obs;
+  RxInt currentIndex = 0.obs;
   // final itemss = <Widget>[
   //   Image.asset('assets/images/home.png',height: 20,color: Colors.black,),
   //   Image.asset('assets/images/home.png',height: 20,color: Colors.black,),
@@ -56,12 +56,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
   //   ),
   // ];
 
-  List screens = [
-    const HomePageScreen(),
-    const StoreListScreen(),
-    const MyOrderScreen(),
-    const MyProfileScreen(),
-  ];
+  updateInt(){
+    currentIndex.value = 0;
+    setState(() {});
+  }
 
 @override
   void initState() {
@@ -360,7 +358,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
         //     ],
         //   ),
         // ),
-        body: screens[currentIndex.value],
+        body: [
+          const HomePageScreen(),
+          StoreListScreen(performAction: (fds){
+            updateInt();
+          }),
+          const MyOrderScreen(),
+          const MyProfileScreen(),
+        ][currentIndex.value],
         extendBody: true,
         backgroundColor: Colors.white,
         bottomNavigationBar:  ConvexAppBar(

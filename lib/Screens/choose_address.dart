@@ -25,6 +25,7 @@ import '../model/My_Cart_Model.dart';
 import '../model/my_address_model.dart';
 import '../repository/add_address_repo.dart';
 import '../repository/edit_address_repo.dart';
+import 'myAddressScreen.dart';
 
 
 class ChooseAddress extends StatefulWidget {
@@ -302,7 +303,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                            address_id: addressModel.id.toString()).then((value) {
                                              if(value.status == true){
                                                showToast('Address Edited Successfully');
-                                               Get.toNamed(MyRouters.myAddressScreen);
+                                               Get.to(()=> const MyAddressScreen());
                                                myAddressController.getData();
                                              }
                                            }) :
@@ -310,7 +311,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                             address_type: selectedChip.value,location: _address,note: deliveryInstructionController.text,pinCode: postalCodeController.text).then((value1) {
                                           if(value1.status == true){
                                             showToast(value1.message.toString());
-                                            Get.toNamed(MyRouters.myAddressScreen);
+                                            Get.to(()=> const MyAddressScreen());
                                             myAddressController.getData();
                                           }
                                         });

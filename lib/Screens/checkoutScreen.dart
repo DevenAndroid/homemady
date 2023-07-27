@@ -12,6 +12,7 @@ import '../controller/my_cart_controller.dart';
 import '../model/my_address_model.dart';
 import '../repository/checkout_order_repo.dart';
 import '../resources/add_text.dart';
+import 'myAddressScreen.dart';
 
 
 class CheckOutScreen extends StatefulWidget {
@@ -103,7 +104,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                               addWidth(5),
                               Text('Delivery',style: GoogleFonts.poppins(
-                                  color: Color(0xFF000000),
+                                  color: const Color(0xFF000000),
                                   fontWeight: FontWeight.w300,
                                   fontSize: 16
                               ),),
@@ -127,7 +128,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                               addWidth(5),
                               Text('Pickup',style: GoogleFonts.poppins(
-                                  color: Color(0xFF000000),
+                                  color: const Color(0xFF000000),
                                   fontWeight: FontWeight.w300,
                                   fontSize: 16
                               ),)
@@ -318,7 +319,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         InkWell(
                           onTap: (){
-                            Get.toNamed(MyRouters.myAddressScreen);
+                            Get.to(()=> const MyAddressScreen());
                             // Get.toNamed(MyRouters.chooseAddress);
                           },
                           child: Padding(
@@ -365,7 +366,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     )
                                   ],
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 const Icon(Icons.arrow_forward_ios,color: Color(0xFF04666E),size: 17,)
                               ],
                             ),
@@ -477,7 +478,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           ],
                                         ),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       InkWell(
                                         onTap: (){
                                           Get.toNamed(MyRouters.myOrderScreen);
@@ -623,7 +624,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       fontWeight: FontWeight.w500,
                                       color: const Color(0xff1A2E33)
                                   ),),
-                                Spacer(),
+                                const Spacer(),
                                 Text( '€ ${myCartController.model.value.data!.cartPaymentSummary!.subTotal.toString()}.00',
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
@@ -642,9 +643,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xff1A2E33)
+                                      color: const Color(0xff1A2E33)
                                   ),),
-                                Spacer(),
+                                const Spacer(),
                                 Text( '€ ${myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}.00',
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
@@ -673,7 +674,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       fontWeight: FontWeight.w500,
                                       color: const Color(0xff1A2E33)
                                   ),),
-                                Spacer(),
+                                const Spacer(),
                                 Text( '€ ${myCartController.model.value.data!.cartPaymentSummary!.total.toString()}.00',
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,

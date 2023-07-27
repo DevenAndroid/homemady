@@ -48,7 +48,7 @@ class MyRouters {
   static var myCartScreen = "/myCartScreen";
   static var homeDetailsScreen = "/homeDetailsScreen";
   static var checkOutScreen = "/checkOutScreen";
-  static var myAddressScreen = "/myAddressScreen";
+  // static var myAddressScreen = "/myAddressScreen";
   static var myOrderScreen = "/myOrderScreen";
   static var bottomNavbar = "/bottomNavbar";
   static var activeScreen = "/activeScreen";
@@ -84,7 +84,7 @@ class MyRouters {
   GetPage(name: '/myCartScreen', page: () => const MyCartScreen()),
   GetPage(name: '/homeDetailsScreen', page: () => const HomeDetailsScreen()),
   GetPage(name: '/checkOutScreen', page: () => const CheckOutScreen()),
-  GetPage(name: '/myAddressScreen', page: () => const MyAddressScreen()),
+  // GetPage(name: '/myAddressScreen', page: () => const MyAddressScreen()),
   GetPage(name: '/myOrderScreen', page: () => const MyOrderScreen()),
   GetPage(name: '/bottomNavbar', page: () => const BottomNavbar()),
   GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
@@ -106,7 +106,7 @@ class MyRouters {
   GetPage(name: '/feedBackScreen', page: () => const FeedBackScreen()),
   GetPage(name: '/helpCenterScreen', page: () => const HelpCenterScreen()),
   GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
-  GetPage(name: StoreListScreen.storeListScreen, page: () => const StoreListScreen()),
+  // GetPage(name: StoreListScreen.storeListScreen, page: () => const StoreListScreen()),
 
 
 

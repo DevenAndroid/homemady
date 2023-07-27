@@ -23,6 +23,7 @@ import '../controller/user_profile_controller.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
+import 'myAddressScreen.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -253,7 +254,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 onTap: () {
                   setState(() {
                     currentDrawer = 3;
-                    Get.toNamed(MyRouters.myAddressScreen);
+                    Get.to(()=> const MyAddressScreen());
                   });
                 },
               ),
@@ -424,7 +425,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),
                     addHeight(3),
                     GestureDetector(onTap: () {
-                      Get.toNamed(MyRouters.myAddressScreen);
+                      Get.to(()=> const MyAddressScreen());
                     }, child: Obx(() {
                       return Expanded(
                         child: Row(
@@ -1000,7 +1001,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                //    child: ListView.builder(
                                //        shrinkWrap: true,
                                //        scrollDirection: Axis.horizontal,
-                               //        itemCount: timeSlotController.timeSlotModel.value.data!.length,
+                               //        itemCount: categoryController.categoryModel.value.data!.categories!.length,
                                //        itemBuilder: (context, index) {
                                //          return Padding(
                                //            padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 7),
@@ -1028,8 +1029,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                //                      child: Padding(
                                //                        padding: const EdgeInsets.all(8.0),
                                //                        child: Center(
-                               //                          child: Text(timeSlotController.timeSlotModel.value.data![index].startTime.toString()+'-' +
-                               //                              timeSlotController.timeSlotModel.value.data![index].endTime.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
+                               //                          child: Text(categoryController.categoryModel.value.data!.categories![index].name.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
                                //                              fontWeight: FontWeight.w600,
                                //                              color: currentIndex != index ? Color(0xff000000):Color(0xffFFFFFF)),),
                                //                        ),
@@ -1041,7 +1041,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                //          );
                                //        }),
                                //  ),
-                               //  addHeight(20),
+                                // addHeight(20),
                                 ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: homeController.model.value.data!.stores!.length,

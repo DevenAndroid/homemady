@@ -17,7 +17,8 @@ import '../resources/add_text.dart';
 import '../widgets/custome_textfiled.dart';
 
 class StoreListScreen extends StatefulWidget {
-  const StoreListScreen({Key? key}) : super(key: key);
+ final Function(bool gg) performAction;
+  const StoreListScreen({Key? key, required this.performAction}) : super(key: key);
   static var storeListScreen ="/storeListScreen";
 
   @override
@@ -42,8 +43,8 @@ class _StoreListScreenState extends State<StoreListScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String selectedDate = 'Deliver Now';
 
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       homeController.getData();
@@ -79,7 +80,9 @@ class _StoreListScreenState extends State<StoreListScreen> {
         .of(context)
         .size;
     return Scaffold(
-        appBar: backAppBar(title: 'Stores', context: context),
+        appBar: backAppBar(title: 'Featured', context: context,performAction: (bool sd){
+          widget.performAction(sd);
+        }),
         body: Obx(() {
           return SafeArea(
             child: homeController.isDataLoading.value
@@ -92,6 +95,52 @@ class _StoreListScreenState extends State<StoreListScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+                    SizedBox(
+                      height: 120,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: categoryController.categoryModel.value.data!.categories!.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 7),
+                              child:
+                              Row(
+                                  children:[
+
+                                    InkWell(
+                                      onTap: () {
+                                        currentIndex = index;
+                                        setState(() {
+
+                                        });
+                                      },
+                                      child: Container(
+                                        // margin: EdgeInsets.symmetric(vertical: 5),
+                                        height: 42,
+                                        // width: 110,
+                                        decoration: BoxDecoration(
+                                            color: currentIndex != index ? Color(0xffF2F2F2): Color(0xff7ED957),
+                                            borderRadius: BorderRadius.circular(
+                                                5)
+
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Center(
+                                            child: Text(categoryController.categoryModel.value.data!.categories![index].name.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
+                                                fontWeight: FontWeight.w600,
+                                                color: currentIndex != index ? Color(0xff000000):Color(0xffFFFFFF)),),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                            );
+                          }),
+                    ),
 
                     ListView.builder(
                       shrinkWrap: true,

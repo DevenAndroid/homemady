@@ -265,7 +265,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                              horizontal: AddSize.padding16,
                            ),
 
-                           child: controller.isDataLoading.value ? controller.model.value.data!.driver.isBlank!  ?
+                           child: controller.isDataLoading.value ? controller.model.value.data!.driver != null  ?
                            Column(
                                children: [
                                  Container(
@@ -627,7 +627,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                            padding: EdgeInsets.symmetric(
                              horizontal: AddSize.padding16,
                            ),
-                           child: controller.isDataLoading.value ? controller.model.value.data!.vendor.isBlank! ?
+                           child: controller.isDataLoading.value ? controller.model.value.data!.vendor != null ?
                            Column(
                              children: [
                                Container(

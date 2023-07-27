@@ -11,6 +11,8 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 
+import '../controller/my_order_controller.dart';
+
 
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({Key? key}) : super(key: key);
@@ -22,10 +24,12 @@ class MyOrderScreen extends StatefulWidget {
 class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderStateMixin{
   RxBool isSelect = false.obs;
   late TabController tabController;
+  final controller = Get.put(MyOrderController());
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+    controller.getData();
   }
 
   @override

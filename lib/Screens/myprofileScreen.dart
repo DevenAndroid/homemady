@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,11 +13,14 @@ import 'package:homemady/widgets/dimenestion.dart';
 import 'package:homemady/widgets/editprofiletextfiled.dart';
 import 'package:homemady/widgets/new_helper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../controller/user_profile_controller.dart';
 import '../repository/update_profile_repo.dart';
 import '../repository/user_profile_repo.dart';
 import '../resources/add_text.dart';
+import '../widgets/myprofile_phone_field.dart';
+import '../widgets/phone_filed.dart';
 
 
 
@@ -28,6 +33,11 @@ class MyProfileScreen extends StatefulWidget {
 
 class _MyProfileScreenState extends State<MyProfileScreen> {
    final controller = Get.put(UserProfileController());
+
+   String initialCountryCode = "";
+
+   String countryCode = "";
+
    @override
   void initState() {
     // TODO: implement initState
@@ -105,6 +115,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   }
   @override
   Widget build(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
     var height=MediaQuery.of(context).size.height;
     var width=MediaQuery.of(context).size.width;
     return Scaffold(
@@ -350,12 +362,82 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                             EditProfileTextFieldWidget(
-                                              hint: "Enter Your Mobile Number",
-                                               controller: controller.mobileController,
-                                               validator: validateMobile,
-                                              keyboardType: TextInputType.number,
-                                              length: 10,
+
+                                            //  EditProfileTextFieldWidget(
+                                            //   hint: "Enter Your Mobile Number",
+                                            //    controller: controller.mobileController,
+                                            //    validator: validateMobile,
+                                            //   keyboardType: TextInputType.number,
+                                            //   length: 10,
+                                            // ),
+                                            Container(
+                                              width: screenWidth,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(10),
+                                                // boxShadow: [
+                                                //   BoxShadow(
+                                                //     color: const Color(0xFF37C666).withOpacity(0.10),
+                                                //     offset: const Offset(.1, .1,
+                                                //     ),
+                                                //     blurRadius: 20.0,
+                                                //     spreadRadius: 1.0,
+                                                //   ),
+                                                // ],
+                                              ),
+                                              child: CustomIntlPhoneField1(
+                                                controller: controller.mobileController,
+                                                dropdownIconPosition:
+                                                IconPosition.trailing,
+                                                dropdownTextStyle: GoogleFonts.poppins(
+                                                    color: Colors.black),
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter.digitsOnly
+                                                ],
+                                                keyboardType: TextInputType.number,
+                                                decoration: InputDecoration(
+
+                                                  hintText: 'Enter phone number',
+                                                  hintStyle: const TextStyle(
+                                                    color:  Color(0xff2F353F),
+                                                    fontSize: 13,
+                                                    // fontFamily: 'poppins',
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                  counterText: "",
+                                                  enabled: true,
+                                                  contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20, vertical: 20),
+
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderSide: const BorderSide(color: Colors.white),
+                                                    borderRadius: BorderRadius.circular(10.0),
+                                                  ),
+                                                  enabledBorder: const OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Colors.white),
+                                                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                                  border: OutlineInputBorder(
+                                                      borderSide: const BorderSide(color: Colors.white, width: 3.0),
+                                                      borderRadius: BorderRadius.circular(15.0)),
+                                                ),
+                                                initialCountryCode: initialCountryCode.isEmpty ? 'IE' : initialCountryCode,
+                                                onCountryChanged: (value) {
+                                                  countryCode = value.dialCode;
+                                                  initialCountryCode = value.code;
+                                                  if (kDebugMode) {
+                                                    print(countryCode);
+                                                    print(initialCountryCode);
+                                                  }
+                                                },
+                                                onChanged: (phone) {
+                                                  countryCode = phone.countryCode;
+                                                  initialCountryCode = phone.countryISOCode;
+                                                  if (kDebugMode) {
+                                                    print(countryCode);
+                                                    print(initialCountryCode);
+                                                  }
+                                                },
+                                              ),
                                             ),
                                             const SizedBox(
                                               height: 40,

@@ -272,10 +272,12 @@ class _carteScreenState extends State<carteScreen> {
                                   height: 13,
                                 ),
                                 addWidth(4),
-                                Text(
-                                  'Can cook more units by: 30th June 2023',
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                Expanded(
+                                  child: Text(
+                                    'Can cook more units by: 30th June 2023',
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                  ),
                                 ),
                               ],
                             ),

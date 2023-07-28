@@ -216,499 +216,578 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         ),
                       ),
                       addHeight(20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20,),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect.value =! isSelect.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
+                      // Wrap(
+                      //   children: List.generate(10, (index){
+                      //   return  Row(
+                      //     children: [
+                      //       InkWell(
+                      //         onTap: (){
+                      //           //isSelect1.value =! isSelect1.value;
+                      //         },
+                      //         child: Container(
+                      //           height: 28,
+                      //           width: 28,
+                      //           padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //           decoration: isSelect1.value == false ?
+                      //           BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(4.0),
+                      //             color: Colors.white,
+                      //             boxShadow: [
+                      //               BoxShadow(
+                      //                 color: Colors.grey.shade300,
+                      //                 offset: const Offset(.1, .1,
+                      //                 ),
+                      //                 blurRadius: 19.0,
+                      //                 spreadRadius: 1.0,
+                      //               ),
+                      //             ],
+                      //           ) : BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(4.0),
+                      //             color: const Color(0xFF7ED957),
+                      //             boxShadow: [
+                      //               BoxShadow(
+                      //                 color: Colors.grey.shade300,
+                      //                 offset: const Offset(.1, .1,
+                      //                 ),
+                      //                 blurRadius: 19.0,
+                      //                 spreadRadius: 1.0,
+                      //               ),
+                      //             ],
+                      //           ),
+                      //           child: Center(
+                      //             child:   isSelect1.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       // addHeight(5),
+                      //       /*const Text('Mo',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //     ],
+                      //   );
+                      // }),
+                      // ),
+
+                      Wrap(children: List.generate(10, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right:4,left: 4),
+                          child: Container(
+                              height: 30,
+                              width: 30,
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              decoration:
+                              BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.0),
+                                color: Colors.grey.shade200,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade200,
+                                    offset: const Offset(.1, .1,
                                     ),
-                                    child: Center(
-                                      child:   isSelect.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
+                                    blurRadius: 19.0,
+                                    spreadRadius: 1.0,
                                   ),
-                                ),
-                               // addHeight(5),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect1.value =! isSelect1.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect1.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect1.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                               // addHeight(5),
-                                /*const Text('Mo',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect2.value =! isSelect2.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect2.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect2.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                               // addHeight(5),
-                               /* const Text('Tu',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect3.value =! isSelect3.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect3.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect3.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                                /*addHeight(5),
-                                const Text('We',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect4.value =! isSelect4.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect4.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect4.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                               /* addHeight(5),
-                                const Text('Th',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect5.value =! isSelect5.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect5.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect5.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                               /* addHeight(5),
-                                const Text('Fr',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect6.value =! isSelect6.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect6.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect6.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                               /* addHeight(5),
-                                const Text('Sa',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect7.value =! isSelect7.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect7.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect7.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                                /*addHeight(5),
-                                const Text('Su',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect8.value =! isSelect8.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect8.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect8.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                                /*addHeight(5),
-                                const Text('Mo',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    isSelect9.value =! isSelect9.value;
-                                  },
-                                  child: Container(
-                                    height: 28,
-                                    width: 28,
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    decoration: isSelect9.value == true ?
-                                    BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ) : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      color: const Color(0xFF7ED957),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          offset: const Offset(.1, .1,
-                                          ),
-                                          blurRadius: 19.0,
-                                          spreadRadius: 1.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child:   isSelect9.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                                    ),
-                                  ),
-                                ),
-                                /* addHeight(5),
-                                const Text('Tu',style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF303C5E)
-                                ),)*/
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                                ],
+                              )),
+                        );
+                      })),
+
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 20,),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               // isSelect.value =! isSelect.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect.value == false ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //          // addHeight(5),
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               //isSelect1.value =! isSelect1.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect1.value == false ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect1.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //          // addHeight(5),
+                      //           /*const Text('Mo',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               // isSelect2.value =! isSelect2.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect2.value == false ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect2.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //          // addHeight(5),
+                      //          /* const Text('Tu',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               // isSelect3.value =! isSelect3.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect3.value == false ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect3.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           /*addHeight(5),
+                      //           const Text('We',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               // isSelect4.value =! isSelect4.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect4.value == false ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               )
+                      //                   : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect4.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //          /* addHeight(5),
+                      //           const Text('Th',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               isSelect5.value =! isSelect5.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect5.value == true ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect5.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //          /* addHeight(5),
+                      //           const Text('Fr',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               isSelect6.value =! isSelect6.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect6.value == true ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect6.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //          /* addHeight(5),
+                      //           const Text('Sa',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               isSelect7.value =! isSelect7.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect7.value == true ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect7.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           /*addHeight(5),
+                      //           const Text('Su',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               isSelect8.value =! isSelect8.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect8.value == true ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect8.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           /*addHeight(5),
+                      //           const Text('Mo',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               isSelect9.value =! isSelect9.value;
+                      //             },
+                      //             child: Container(
+                      //               height: 28,
+                      //               width: 28,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //               decoration: isSelect9.value == true ?
+                      //               BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: Colors.white,
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ) : BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(4.0),
+                      //                 color: const Color(0xFF7ED957),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.grey.shade300,
+                      //                     offset: const Offset(.1, .1,
+                      //                     ),
+                      //                     blurRadius: 19.0,
+                      //                     spreadRadius: 1.0,
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Center(
+                      //                 child:   isSelect9.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           /* addHeight(5),
+                      //           const Text('Tu',style: TextStyle(
+                      //               fontSize: 10,
+                      //               fontWeight: FontWeight.w400,
+                      //               color: Color(0xFF303C5E)
+                      //           ),)*/
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       // addHeight(20),
                       // Padding(
                       //   padding: const EdgeInsets.symmetric(horizontal: 15,),

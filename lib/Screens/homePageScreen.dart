@@ -64,6 +64,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       myCartController.getData();
       categoryController.getCategoryData();
       timeSlotController.getTimeSlotData();
+      int currnetIndex= -1;
       _decrement();
       _increment();
     });
@@ -91,6 +92,111 @@ class _HomePageScreenState extends State<HomePageScreen> {
     setState(() {
       count--;
     });
+  }
+
+  showChooseDate(index) {
+    RxInt refreshInt = 0.obs;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return
+              Dialog(
+              child: SingleChildScrollView(
+                child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AddSize.padding16,
+                    ),
+                    child:
+                  Obx((){
+                    if(refreshInt.value > 0){}
+                    return   Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: AddSize.size10),
+                        const Text("Time Slot",
+                            style: TextStyle(
+                                color: Color(0xff333848),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 17)),
+                        SizedBox(height: AddSize.size10),
+                        GridView.builder(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: timeSlotController.timeSlotModel.value.data!.length,
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10.0,
+                                mainAxisExtent: 44,
+                                mainAxisSpacing: 8.0),
+                            itemBuilder: (context, index) {
+                              var itemdata = timeSlotController.timeSlotModel.value.data![index];
+                              return GestureDetector(
+                                onTap: () {
+                                  currentIndex=index;
+                                  refreshInt.value = DateTime.now().millisecondsSinceEpoch;
+                                },
+                                child:
+                                Container(
+                                  //height: 100,
+                                    decoration: BoxDecoration(
+                                      color: currentIndex != index ? Colors.white : Color(0xFF7ED957),
+                                        borderRadius: BorderRadius.circular(4),
+                                        border:  currentIndex == index  ? Border.all(
+                                            color: const Color(0xff7ED957),
+                                            width: 2
+                                        ) :  Border.all(
+                                            color: const Color(0xFF717171).withOpacity(0.22),
+                                            width: 1
+                                        )
+                                    ),
+
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+
+                                        Text(
+                                          itemdata.startTime.toString()+"-"+itemdata.endTime.toString().capitalizeFirst!,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color:  currentIndex != index ? AppTheme.subText: Colors.white,
+                                              fontSize: AddSize.font14,
+                                              fontWeight: FontWeight.w500),
+                                        )
+                                      ],
+                                    )),
+                              );
+                            }),
+                        SizedBox(height: AddSize.size10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+
+                            ElevatedButton(
+                                onPressed: (){
+                                  Get.back();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xff7ED957),
+                                ),
+                                child: const Text("OK",
+                                  style: TextStyle(fontSize:14,fontWeight: FontWeight.w600,color:Colors.white),))
+                          ],
+                        ),
+                        addHeight(20),
+
+                      ],
+                    );
+                  }),
+                ),
+              ),
+            );
+
+      },
+    );
   }
 
   @override
@@ -182,6 +288,27 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   setState(() {
                     currentDrawer = 0;
                     Get.toNamed(MyRouters.myOrderScreen);
+                  });
+                },
+              ),
+              const Divider(
+                height: 5,
+                color: Color(0xffEFEFEF),
+                thickness: 1,
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+                leading: Icon(Icons.favorite_border_outlined),
+                title: Text('Favorite',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      color: const Color(0xFF4F535E),
+                      fontWeight: FontWeight.w400,
+                    )),
+                onTap: () {
+                  setState(() {
+                    currentDrawer = 0;
+                    Get.toNamed(MyRouters.favouriteScreen);
                   });
                 },
               ),
@@ -535,19 +662,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 18.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed(MyRouters.favouriteScreen);
-                                        },
-                                        child: const Icon(
-                                          Icons.favorite_outline,
-                                          color: Color(0xFF7ED957),
-                                          size: 30,
-                                        ),
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(right: 18.0),
+                                    //   child: GestureDetector(
+                                    //     onTap: () {
+                                    //       Get.toNamed(MyRouters.favouriteScreen);
+                                    //     },
+                                    //     child: const Icon(
+                                    //       Icons.favorite_outline,
+                                    //       color: Color(0xFF7ED957),
+                                    //       size: 30,
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 addHeight(20),
@@ -847,6 +974,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       Expanded(
                                         child: InkWell(
                                           onTap: () {
+
                                           },
                                           child:
                                           Container(
@@ -895,7 +1023,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       Expanded(
                                         child: InkWell(
                                           onTap: () async {
-
+                                            showChooseDate(context);
                                             DateTime? pickedDate = await showDatePicker(
                                               builder: (context, child) {
                                                 return Theme(
@@ -940,6 +1068,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             });
 
                                             if (pickedDate != null) {
+                                              showChooseDate(context);
                                               String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
                                               setState(() {
                                                 selectedDate = formattedDate;

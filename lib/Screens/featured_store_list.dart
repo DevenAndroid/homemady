@@ -118,20 +118,25 @@ class _StoreListScreenState extends State<StoreListScreen> {
                                       },
                                       child: Container(
                                         // margin: EdgeInsets.symmetric(vertical: 5),
-                                        height: 42,
+                                        height: 44,
                                         // width: 110,
                                         decoration: BoxDecoration(
-                                            color: currentIndex != index ? Color(0xffF2F2F2): Color(0xff7ED957),
-                                            borderRadius: BorderRadius.circular(
-                                                5)
-
+                                            color: currentIndex != index ? Colors.transparent: Color(0xFF7ED957),
+                                            borderRadius: BorderRadius.circular(4),
+                                            border:  currentIndex == index  ? Border.all(
+                                                color: const Color(0xff7ED957),
+                                                width: 2
+                                            ) :  Border.all(
+                                                color: const Color(0xFF717171).withOpacity(0.22),
+                                                width: 1
+                                            )
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Center(
-                                            child: Text(categoryController.categoryModel.value.data!.categories![index].name.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
+                                            child: Text(categoryController.categoryModel.value.data!.categories![index].name.toString().capitalizeFirst.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
                                                 fontWeight: FontWeight.w600,
-                                                color: currentIndex != index ? Color(0xff000000):Color(0xffFFFFFF)),),
+                                                color: currentIndex != index ? const Color(0xFF262626).withOpacity(0.62):Color(0xffFFFFFF)),),
                                           ),
                                         ),
                                       ),

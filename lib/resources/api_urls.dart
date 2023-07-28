@@ -7,6 +7,7 @@ class ApiUrl {
   static const singleStoreApi = "${baseUrl}store-details";
   static const addCartApi = "${baseUrl}add-cart";
   static const myCartApi = "${baseUrl}my-cart";
+  static const mailToAdminUrl = "${baseUrl}request-homemady-inspection";
   static const removeCartItemUrl = "${baseUrl}remove-cart-item";
   static const updateCartUrl = "${baseUrl}update-cart";
   static const addAddressUrl = "${baseUrl}add-address";

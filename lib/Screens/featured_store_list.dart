@@ -118,18 +118,22 @@ class _StoreListScreenState extends State<StoreListScreen> {
                                       },
                                       child: Container(
                                         // margin: EdgeInsets.symmetric(vertical: 5),
-                                        height: 42,
+                                        height: 50,
                                         // width: 110,
                                         decoration: BoxDecoration(
-                                            color: currentIndex != index ? Color(0xffF2F2F2): Color(0xff7ED957),
-                                            borderRadius: BorderRadius.circular(
-                                                5)
 
+                                            color: currentIndex != index ? Colors.white: Color(0xff7ED957),
+                                            borderRadius: BorderRadius.circular(
+                                                5),
+                                          border:  Border.all(
+                                              color: Color(0xff7ED957),
+                                              width: 2
+                                          )
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Center(
-                                            child: Text(categoryController.categoryModel.value.data!.categories![index].name.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
+                                            child: Text(categoryController.categoryModel.value.data!.categories![index].name.toString().capitalizeFirst.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
                                                 fontWeight: FontWeight.w600,
                                                 color: currentIndex != index ? Color(0xff000000):Color(0xffFFFFFF)),),
                                           ),

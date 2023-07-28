@@ -1,12 +1,18 @@
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import '../repository/signup_repository.dart';
+import '../widgets/phone_filed.dart';
 
 
 class SignupScreen extends StatefulWidget {
@@ -22,6 +28,8 @@ class _SignupScreenState extends State<SignupScreen> {
   bool showErrorMessage = false;
   var obscureText = true;
   var obscureText1 = true;
+  String countryCode = "";
+  String initialCountryCode = "";
   bool value = false;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -145,17 +153,57 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           ],
                         ),
-                        child: CommonTextFieldWidget(
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.number,
-                          length: 10,
-                          hint: 'Phone',
+                        child: CustomIntlPhoneField(
                           controller: phoneController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please enter a phone number";
-                            } else {
-                              return null;
+                          dropdownIconPosition:
+                          IconPosition.trailing,
+                          dropdownTextStyle: GoogleFonts.poppins(
+                              color: Colors.black),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+
+                            hintText: 'Enter phone number',
+                            hintStyle: const TextStyle(
+                              color:  Color(0xff2F353F),
+                              fontSize: 13,
+                              // fontFamily: 'poppins',
+                              fontWeight: FontWeight.w300,
+                            ),
+                            counterText: "",
+                            enabled: true,
+                            contentPadding:
+                            const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                            border: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.white, width: 3.0),
+                                borderRadius: BorderRadius.circular(15.0)),
+                          ),
+                          initialCountryCode: initialCountryCode.isEmpty ? 'IE' : initialCountryCode,
+                          onCountryChanged: (value) {
+                            countryCode = value.dialCode;
+                            initialCountryCode = value.code;
+                            if (kDebugMode) {
+                              print(countryCode);
+                              print(initialCountryCode);
+                            }
+                          },
+                          onChanged: (phone) {
+                            countryCode = phone.countryCode;
+                            initialCountryCode = phone.countryISOCode;
+                            if (kDebugMode) {
+                              print(countryCode);
+                              print(initialCountryCode);
                             }
                           },
                         ),

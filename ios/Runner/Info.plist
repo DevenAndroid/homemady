@@ -26,6 +26,18 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow this to access you camera to update profile.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow this to access you access to deliver order to you.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow this to access you access to deliver order to you.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow this to access you access to deliver order to you.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow this to access you microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow this to access photos to update profile.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -35,29 +47,16 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow this to access photos to update profile.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow this to access you camera to update profile.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow this to access you microphone</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow this to access you access to deliver order to you.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow this to access you access to deliver order to you.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow this to access you access to deliver order to you.</string>
 </dict>
 </plist>

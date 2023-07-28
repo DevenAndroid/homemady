@@ -10,6 +10,7 @@ import '../controller/faq_controller.dart';
 
 class FaqsScreen extends StatefulWidget {
   const FaqsScreen({Key? key}) : super(key: key);
+  static var faqsScreen ="/faqScreen";
 
   @override
   State<FaqsScreen> createState() => _FaqsScreenState();

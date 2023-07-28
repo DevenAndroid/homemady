@@ -10,6 +10,7 @@ import '../widgets/custome_size.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
+  static var chatScreen="/chatScreen";
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }

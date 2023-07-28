@@ -8,7 +8,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'app_theme.dart';
 
-class CustomIntlPhoneField extends StatefulWidget {
+class CustomIntlPhoneField1 extends StatefulWidget {
   /// Whether to hide the text being edited (e.g., for passwords).
   final bool obscureText;
 
@@ -231,7 +231,7 @@ class CustomIntlPhoneField extends StatefulWidget {
   /// If unset, defaults to [EdgeInsets.zero].
   final EdgeInsets flagsButtonMargin;
 
-  const CustomIntlPhoneField({
+  const CustomIntlPhoneField1({
     Key? key,
     this.initialCountryCode,
     this.obscureText = false,
@@ -277,10 +277,10 @@ class CustomIntlPhoneField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  CustomIntlPhoneFieldState createState() => CustomIntlPhoneFieldState();
+  CustomIntlPhoneField1State createState() => CustomIntlPhoneField1State();
 }
 
-class CustomIntlPhoneFieldState extends State<CustomIntlPhoneField> {
+class CustomIntlPhoneField1State extends State<CustomIntlPhoneField1> {
   late List<Country> _countryList;
   late Country _selectedCountry;
   late List<Country> filteredCountries;
@@ -370,18 +370,20 @@ class CustomIntlPhoneFieldState extends State<CustomIntlPhoneField> {
         prefixIcon: _buildFlagsButton(),
         counterText: !widget.enabled ? '' : null,
         filled: true,
-        fillColor: AppTheme.backgroundcolor,
+        fillColor: Colors.white60,
         labelText: null,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(4.0),
         ),
-        enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade300),
+            borderRadius: const BorderRadius.all(Radius.circular(4.0))),
         border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFD8DCDD), width: 3.0), borderRadius: BorderRadius.circular(15.0)),
+            borderSide: BorderSide(color: Colors.grey.shade300, width: 3.0),
+            borderRadius: BorderRadius.circular(4.0)),
       ),
       style: widget.style,
       onSaved: (value) {

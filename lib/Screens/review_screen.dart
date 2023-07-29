@@ -52,202 +52,208 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.034,
               ),
-              Row(
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Food Quality',style: TextStyle(
+                      color: Color(0xFF1A1917),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16
+                  ),),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height *.013,
+              ),
+              RatingBar.builder(
+                initialRating: 6,
+                glowColor: Colors.white10,
+                minRating: 1,
+                unratedColor: const Color(0xFFE0DEDA),
+                itemCount: 7,
+                itemSize: 18.0,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                updateOnDrag: true,
+                allowHalfRating: true,
+                itemBuilder: (context, index) =>
+                    Image.asset('assets/images/star.png',
+                      color: Colors.amber,
+                    ),
+                onRatingUpdate: (rating) {
+                  log(double.parse(rating.toString())
+                      .round()
+                      .toString());
+                  setState(() {
+                    ratingvalue = double.parse(rating.toString()).round().toString();
+                  });
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height *.013,
+              ),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: const Text('Food Quality',style: TextStyle(
+                    child: Text('Communication',style: TextStyle(
                         color: Color(0xFF1A1917),
                         fontWeight: FontWeight.w500,
                         fontSize: 16
                     ),),
                   ),
-                  Expanded(
-                    child: RatingBar.builder(
-                      initialRating: 6,
-                      glowColor: Colors.white10,
-                      minRating: 1,
-                      unratedColor: const Color(0xFFE0DEDA),
-                      itemCount: 7,
-                      itemSize: 16.0,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      updateOnDrag: true,
-                      allowHalfRating: true,
-                      itemBuilder: (context, index) =>
-                          Image.asset('assets/images/star.png',
-                            color: Colors.amber,
-                          ),
-                      onRatingUpdate: (rating) {
-                        log(double.parse(rating.toString())
-                            .round()
-                            .toString());
-                        setState(() {
-                          ratingvalue = double.parse(rating.toString()).round().toString();
-                        });
-                      },
+
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height *.013,
+              ),
+              RatingBar.builder(
+                initialRating: 6,
+                glowColor: Colors.white10,
+                minRating: 1,
+                unratedColor: const Color(0xFFE0DEDA),
+                itemCount: 7,
+                itemSize: 18.0,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                updateOnDrag: true,
+                allowHalfRating: true,
+                itemBuilder: (context, index) =>
+                    Image.asset('assets/images/star.png',
+                      color: Colors.amber,
                     ),
+                onRatingUpdate: (rating) {
+                  log(double.parse(rating.toString())
+                      .round()
+                      .toString());
+                  setState(() {
+                    ratingvalue = double.parse(rating.toString()).round().toString();
+                  });
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height *.013,
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text('Hygiene',style: TextStyle(
+                        color: Color(0xFF1A1917),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16
+                    ),),
                   ),
                 ],
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height *.013,
               ),
-              Row(
+              RatingBar.builder(
+                initialRating: 6,
+                glowColor: Colors.white10,
+                minRating: 1,
+                unratedColor: const Color(0xFFE0DEDA),
+                itemCount: 7,
+                itemSize: 18.0,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                updateOnDrag: true,
+                allowHalfRating: true,
+                itemBuilder: (context, index) =>
+                    Image.asset('assets/images/star.png',
+                      color: Colors.amber,
+                    ),
+                onRatingUpdate: (rating) {
+                  log(double.parse(rating.toString())
+                      .round()
+                      .toString());
+                  setState(() {
+                    ratingvalue = double.parse(rating.toString()).round().toString();
+                  });
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height *.013,
+              ),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: const Text('Communication',style: TextStyle(
+                    child: Text('Food Quantity',style: TextStyle(
                         color: Color(0xFF1A1917),
                         fontWeight: FontWeight.w500,
                         fontSize: 16
                     ),),
                   ),
-                  Expanded(
-                    child: RatingBar.builder(
-                      initialRating: 6,
-                      glowColor: Colors.white10,
-                      minRating: 1,
-                      unratedColor: const Color(0xFFE0DEDA),
-                      itemCount: 7,
-                      itemSize: 16.0,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      updateOnDrag: true,
-                      allowHalfRating: true,
-                      itemBuilder: (context, index) =>
-                          Image.asset('assets/images/star.png',
-                            color: Colors.amber,
-                          ),
-                      onRatingUpdate: (rating) {
-                        log(double.parse(rating.toString())
-                            .round()
-                            .toString());
-                        setState(() {
-                          ratingvalue = double.parse(rating.toString()).round().toString();
-                        });
-                      },
-                    ),
-                  ),
+
                 ],
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height *.013,
               ),
-              Row(
+              RatingBar.builder(
+                initialRating: 6,
+                glowColor: Colors.white10,
+                minRating: 1,
+                unratedColor: const Color(0xFFE0DEDA),
+                itemCount: 7,
+                itemSize: 18.0,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                updateOnDrag: true,
+                allowHalfRating: true,
+                itemBuilder: (context, index) =>
+                    Image.asset('assets/images/star.png',
+                      color: Colors.amber,
+                    ),
+                onRatingUpdate: (rating) {
+                  log(double.parse(rating.toString())
+                      .round()
+                      .toString());
+                  setState(() {
+                    ratingvalue = double.parse(rating.toString()).round().toString();
+                  });
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height *.013,
+              ),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: const Text('Hygiene',style: TextStyle(
+                    child: Text('Delivery',style: TextStyle(
                         color: Color(0xFF1A1917),
                         fontWeight: FontWeight.w500,
                         fontSize: 16
                     ),),
                   ),
-                  Expanded(
-                    child: RatingBar.builder(
-                      initialRating: 6,
-                      glowColor: Colors.white10,
-                      minRating: 1,
-                      unratedColor: const Color(0xFFE0DEDA),
-                      itemCount: 7,
-                      itemSize: 16.0,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      updateOnDrag: true,
-                      allowHalfRating: true,
-                      itemBuilder: (context, index) =>
-                          Image.asset('assets/images/star.png',
-                            color: Colors.amber,
-                          ),
-                      onRatingUpdate: (rating) {
-                        log(double.parse(rating.toString())
-                            .round()
-                            .toString());
-                        setState(() {
-                          ratingvalue = double.parse(rating.toString()).round().toString();
-                        });
-                      },
-                    ),
-                  ),
+
                 ],
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height *.013,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: const Text('Food Quantity',style: TextStyle(
-                        color: Color(0xFF1A1917),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16
-                    ),),
-                  ),
-                  Expanded(
-                    child: RatingBar.builder(
-                      initialRating: 6,
-                      glowColor: Colors.white10,
-                      minRating: 1,
-                      unratedColor: const Color(0xFFE0DEDA),
-                      itemCount: 7,
-                      itemSize: 16.0,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      updateOnDrag: true,
-                      allowHalfRating: true,
-                      itemBuilder: (context, index) =>
-                          Image.asset('assets/images/star.png',
-                            color: Colors.amber,
-                          ),
-                      onRatingUpdate: (rating) {
-                        log(double.parse(rating.toString())
-                            .round()
-                            .toString());
-                        setState(() {
-                          ratingvalue = double.parse(rating.toString()).round().toString();
-                        });
-                      },
+              RatingBar.builder(
+                initialRating: 6,
+                glowColor: Colors.white10,
+                minRating: 1,
+                unratedColor: const Color(0xFFE0DEDA),
+                itemCount: 7,
+                itemSize: 18.0,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                updateOnDrag: true,
+                allowHalfRating: true,
+                itemBuilder: (context, index) =>
+                    Image.asset('assets/images/star.png',
+                      color: Colors.amber,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height *.013,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: const Text('Delivery',style: TextStyle(
-                        color: Color(0xFF1A1917),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16
-                    ),),
-                  ),
-                  Expanded(
-                    child: RatingBar.builder(
-                      initialRating: 6,
-                      glowColor: Colors.white10,
-                      minRating: 1,
-                      unratedColor: const Color(0xFFE0DEDA),
-                      itemCount: 7,
-                      itemSize: 16.0,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      updateOnDrag: true,
-                      allowHalfRating: true,
-                      itemBuilder: (context, index) =>
-                          Image.asset('assets/images/star.png',
-                            color: Colors.amber,
-                          ),
-                      onRatingUpdate: (rating) {
-                        log(double.parse(rating.toString())
-                            .round()
-                            .toString());
-                        setState(() {
-                          ratingvalue = double.parse(rating.toString()).round().toString();
-                        });
-                      },
-                    ),
-                  ),
-                ],
+                onRatingUpdate: (rating) {
+                  log(double.parse(rating.toString())
+                      .round()
+                      .toString());
+                  setState(() {
+                    ratingvalue = double.parse(rating.toString()).round().toString();
+                  });
+                },
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height *.15,

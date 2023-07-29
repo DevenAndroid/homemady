@@ -208,7 +208,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             padding: EdgeInsets.zero,
             children: [
               SizedBox(
-                height: 230,
+                height: 240,
                 child: DrawerHeader(
                     decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -257,7 +257,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     fontWeight: FontWeight.w600,
                                   )),
                             ),
-                            Expanded(
+                            FittedBox(
                               child: Text(profileController.isDataLoading.value
                                   ? profileController.model.value.data!
                                   .name.toString() : 'Williams Jones',
@@ -515,7 +515,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: [
               GestureDetector(onTap: () {
                 _scaffoldKey.currentState!.openDrawer();
-              }, child: Obx(() {
+              },
+                  child: Obx(() {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: CachedNetworkImage(
@@ -554,36 +555,34 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     GestureDetector(onTap: () {
                       Get.to(()=> const MyAddressScreen());
                     }, child: Obx(() {
-                      return Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset(
-                              'assets/images/location.png',
-                              height: 13,
-                            ),
-                            addWidth(4),
-                            myCartController.isDataLoading.value
-                                ? Expanded(
-                                  child: Text(
-                                    myCartController.model.value.data!.orderAddress == null
-                                        ? 'Select Address'
-                                        : myCartController.model.value.data!.orderAddress!.addressType,
-                                    style: GoogleFonts.poppins(
-                                      color: const Color(0xFF000000),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset(
+                            'assets/images/location.png',
+                            height: 13,
+                          ),
+                          addWidth(4),
+                          myCartController.isDataLoading.value
+                              ? Expanded(
+                                child: Text(
+                                  myCartController.model.value.data!.orderAddress == null
+                                      ? 'Select Address'
+                                      : myCartController.model.value.data!.orderAddress!.addressType,
+                                  style: GoogleFonts.poppins(
+                                    color: const Color(0xFF000000),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                )
-                                : CircularProgressIndicator(),
-                           addWidth(8),
-                            Image.asset(
-                              'assets/images/pencilImg.png',
-                              height: 13,
-                            ),
-                          ],
-                        ),
+                                ),
+                              )
+                              : CircularProgressIndicator(),
+                         addWidth(8),
+                          Image.asset(
+                            'assets/images/pencilImg.png',
+                            height: 13,
+                          ),
+                        ],
                       );
                     })),
                   ],
@@ -1518,6 +1517,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text("Cuisine and Dietary",style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 19,
+                          color: const Color(0xFF425159),
+                        ),),
+                    SizedBox(height: 6,),
                     ListView.builder(
                         shrinkWrap: true,
                         itemCount: category.length,
@@ -1560,6 +1565,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
           return SimpleDialog(
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
             children: <Widget>[
+              SimpleDialogOption(
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text(
+                    'Sort by :',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 19,
+                      color: const Color(0xFF425159),
+                    ),
+                  )),
               SimpleDialogOption(
                   onPressed: () {
                     _showSimpleDialog3(context);

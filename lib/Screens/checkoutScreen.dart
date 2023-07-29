@@ -220,6 +220,26 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               maxLines: null,
                               keyboardType: TextInputType.multiline,),
                           ),
+
+                          addHeight(20),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 9.0),
+                            child: Text('Instructions for delivery',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: const Color(0xff1A2E33)
+                              ),),
+                          ),
+                          addHeight(15),
+                          const Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 9.0),
+                            child:  RegistrationTextFieldChk(
+                              hint: 'Type here...',
+                              minLines: 3,
+                              maxLines: null,
+                              keyboardType: TextInputType.multiline,),
+                          ),
                         ],
                       ),
                     ),
@@ -481,7 +501,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       const Spacer(),
                                       InkWell(
                                         onTap: (){
-                                          Get.toNamed(MyRouters.myOrderScreen);
+                                          Get.toNamed(MyRouters.myCartScreen);
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.only(top: 8.0),

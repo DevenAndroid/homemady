@@ -660,7 +660,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                                 const Padding(
                                                   padding: EdgeInsets.only(left: 14.0, right: 14.0),
                                                   child: Text(
-                                                      '1'
+                                                      '0'
                                                   ),
                                                 ),
                                               ),

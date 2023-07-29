@@ -400,14 +400,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   child: Image.asset('assets/images/order_icon1.png',color: Colors.white,),
                 ),
               ),
-              TabItem(
-                icon : Image.asset('assets/images/setting.png'),
-                title: 'Settings',
-                activeIcon: Padding(
-                  padding: const EdgeInsets.all(13.0),
-                  child: Image.asset('assets/images/setting.png',color: Colors.white,),
-                ),
-              ),
+              // TabItem(
+              //   icon : Image.asset('assets/images/setting.png'),
+              //   title: 'Settings',
+              //   activeIcon: Padding(
+              //     padding: const EdgeInsets.all(13.0),
+              //     child: Image.asset('assets/images/setting.png',color: Colors.white,),
+              //   ),
+              // ),
             ]
       ));
     });

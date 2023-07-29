@@ -166,22 +166,24 @@ class _carteScreenState extends State<carteScreen> {
                                                 /*if (buttonCount.value > 1) {
                                                     buttonCount.value--;
                                                   }*/
-                                                updateCartRepo(
-                                                        cartListController.model.value.data!.cartItems![index].id.toString(),
-                                                        int.parse(controller
-                                                            .model.value.data!.latestProducts![index].buttonCount.value
-                                                            .toString()),
-                                                        context)
-                                                    .then((value) {
-                                                  if (value.status == true) {
-                                                    controller.model.value.data!.latestProducts![index].buttonCount.value--;
-                                                    showToast(value.message.toString());
-                                                    cartListController.getData();
-                                                    print(
-                                                        "buttonCount ${controller.model.value.data!.latestProducts![index].qty.toString()}");
-                                                  }
+                                                controller.decreaseQty();
+                                                cartListController.getData();
+                                                // updateCartRepo(
+                                                //         cartListController.model.value.data!.cartItems![index].id.toString(),
+                                                //         int.parse(controller
+                                                //             .model.value.data!.latestProducts![index].buttonCount.value
+                                                //             .toString()),
+                                                //         context)
+                                                //     .then((value) {
+                                                //   if (value.status == true) {
+                                                //     controller.model.value.data!.latestProducts![index].buttonCount.value--;
+                                                //     showToast(value.message.toString());
+                                                //     cartListController.getData();
+                                                //     print(
+                                                //         "buttonCount ${controller.model.value.data!.latestProducts![index].qty.toString()}");
+                                                //   }
                                                   setState(() {});
-                                                });
+                                                //});
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
@@ -203,9 +205,9 @@ class _carteScreenState extends State<carteScreen> {
                                                 alignment: Alignment.center,
                                                 child: Padding(
                                                   padding: const EdgeInsets.only(left: 14.0, right: 14.0),
-                                                  child: Text(
-                                                    controller.model.value.data!.latestProducts![index].buttonCount.value
-                                                        .toString(),
+                                                  child: Text( controller.counter.value.toString()
+                                                    // controller.model.value.data!.latestProducts![index].buttonCount.value
+                                                    //     .toString(),
                                                   ),
                                                 ),
                                               );
@@ -213,11 +215,12 @@ class _carteScreenState extends State<carteScreen> {
                                             InkWell(
                                               onTap: () {
                                                 // buttonCount.value++;
+                                                controller.increaseQty();
                                                 addToCartRepo(
                                                         product_id:
                                                             controller.model.value.data!.latestProducts![index].id.toString(),
-                                                        qty:
-                                                            controller.model.value.data!.latestProducts![index].buttonCount.value,
+                                                        qty: controller.counter.value.toString(),
+                                                            //controller.model.value.data!.latestProducts![index].buttonCount.value,
                                                         context: context)
                                                     .then((value1) {
                                                   if (value1.status == true) {

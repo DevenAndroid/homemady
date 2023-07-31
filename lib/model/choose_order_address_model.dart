@@ -107,7 +107,7 @@ class CartPaymentSummary {
   String? couponCode;
   String? driverCommission;
   String? freeDeliveryMinOrderValue;
-  int? deliveryCharge;
+  dynamic deliveryCharge;
   String? surCharge;
   int? tipAmount;
   String? packingFee;

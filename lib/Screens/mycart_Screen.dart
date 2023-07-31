@@ -1077,7 +1077,17 @@ class _MyCartScreenState extends State<MyCartScreen> {
               addHeight(20),
             ],
           ),
-        ):Center(child: Text('Cart Empty',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,),)) :Center(child: CircularProgressIndicator()),
+        ):Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              SizedBox(height: 60,),
+              Image.asset('assets/images/emptyCartImg.png'),
+              SizedBox(height: 10,),
+              Text("Cart is Empty",style: TextStyle(fontWeight: FontWeight.w500,color: Colors.black54,fontSize: 18),),
+            ],
+          ),
+        ) :Center(child: CircularProgressIndicator()),
       );
     });
 

@@ -15,21 +15,21 @@ class VendorSingleStoreController extends GetxController{
   Rx<VendorStoreSingleModel> model = VendorStoreSingleModel().obs;
   RxBool isDataLoading = false.obs;
   RxString vendorStoreId = ''.obs;
-  RxInt counter= 0.obs;
+  // RxInt counter= 0.obs;
 
-  increaseQty(){
-    counter=counter++;
-  }
-  decreaseQty(){
-    if(counter.value>1 && counter.value != -1){
-      counter=counter--;
-    }
-    else{
-      showToast("Qty should be 1");
-    }
+  // increaseQty(){
+  //   counter=counter++;
+  // }
+  // decreaseQty(){
+  //   if(counter.value>=1){
+  //     counter=counter--;
+  //   }
+  //   else{
+  //     showToast("Qty should be 1");
+  //   }
 
 
-  }
+  // }
 
   getData(){
     isDataLoading.value = false;

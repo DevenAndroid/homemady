@@ -11,9 +11,9 @@ class MyCartListController extends GetxController{
   RxBool isDataLoading = false.obs;
   RxInt sum = 0.obs;
 
-  getData(){
+  Future getData() async {
     isDataLoading.value = false;
-    myCartRepo().then((value1) {
+    await myCartRepo().then((value1) {
       isDataLoading.value = true;
       sum.value = 0;
       for(int i=0; i < value1.data!.cartItems!.length; i++){

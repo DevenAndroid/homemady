@@ -136,8 +136,8 @@ class LatestProducts {
   String? sizeId;
   String? discountOff;
   Null? avgRating;
-  RxInt buttonCount = 1.obs;
-
+  // RxInt buttonCount = 0.obs;
+  int productCount = 0;
   LatestProducts(
       {this.id,
         this.sKU,

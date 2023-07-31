@@ -25,6 +25,8 @@ class CheckOutScreen extends StatefulWidget {
 class _CheckOutScreenState extends State<CheckOutScreen> {
   final myAddressController = Get.put(MyAddressController());
   final myCartController = Get.put(MyCartListController());
+  final TextEditingController specialRequestController=TextEditingController();
+  final TextEditingController deliveryInstructionController=TextEditingController();
 
   Rx<AddressData> addressModel = AddressData().obs;
 
@@ -212,9 +214,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),),
                           ),
                           addHeight(15),
-                          const Padding(
+                           Padding(
                             padding:  EdgeInsets.symmetric(horizontal: 9.0),
                             child:  RegistrationTextFieldChk(
+                              controller: specialRequestController,
                               hint: 'Type Name',
                               minLines: 3,
                               maxLines: null,
@@ -232,9 +235,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),),
                           ),
                           addHeight(15),
-                          const Padding(
+                           Padding(
                             padding:  EdgeInsets.symmetric(horizontal: 9.0),
                             child:  RegistrationTextFieldChk(
+                              controller: deliveryInstructionController,
                               hint: 'Type here...',
                               minLines: 3,
                               maxLines: null,
@@ -714,7 +718,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   CommonButton(title: 'Place Order'.toUpperCase(),
                     onPressed: (){
 
-                      checkOut(context: context,payment_type: 'cod').then((value) {
+                      checkOut(context: context,payment_type: 'cod', deliveryInstruction: deliveryInstructionController.text, specialRequest: specialRequestController.text).then((value) {
                         if(value.status == true){
                           print('order id is...${value.data!.orderId}');
                           showToast(value.message.toString());

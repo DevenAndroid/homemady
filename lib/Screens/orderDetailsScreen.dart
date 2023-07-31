@@ -885,6 +885,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                          Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
                                            children: [
+                                             Text('Packaging fee:',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 16,
+                                                   fontWeight: FontWeight.w600,
+                                                   color: Color(0xff1A2E33)
+                                               ),),
+                                             Spacer(),
+                                             Text( controller.model.value.data!.packingFee.toString(),
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 14,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: Color(0xff486769)
+                                               ),),
+                                           ],
+                                         ),
+                                         addHeight(10),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
                                              Text('Delivery:',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 16,

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -101,7 +102,8 @@ class _StoreListScreenState extends State<StoreListScreen> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: categoryController.categoryModel.value.data!.categories!.length,
+                          itemCount:categoryController.categoryModel.value.data!.categories!.length,
+                          // min(3, categoryController.categoryModel.value.data!.categories!.length),
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 7),
@@ -122,7 +124,7 @@ class _StoreListScreenState extends State<StoreListScreen> {
                                         // width: 110,
                                         decoration: BoxDecoration(
                                             color: currentIndex != index ? Colors.transparent: Color(0xFF7ED957),
-                                            borderRadius: BorderRadius.circular(4),
+                                            borderRadius: BorderRadius.circular(30),
                                             border:  currentIndex == index  ? Border.all(
                                                 color: const Color(0xff7ED957),
                                                 width: 2

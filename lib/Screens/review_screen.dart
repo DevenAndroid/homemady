@@ -72,7 +72,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 unratedColor: const Color(0xFFE0DEDA),
                 itemCount: 7,
                 itemSize: 18.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                 updateOnDrag: true,
                 allowHalfRating: true,
                 itemBuilder: (context, index) =>
@@ -114,7 +114,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 unratedColor: const Color(0xFFE0DEDA),
                 itemCount: 7,
                 itemSize: 18.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                 updateOnDrag: true,
                 allowHalfRating: true,
                 itemBuilder: (context, index) =>
@@ -155,7 +155,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 unratedColor: const Color(0xFFE0DEDA),
                 itemCount: 7,
                 itemSize: 18.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                 updateOnDrag: true,
                 allowHalfRating: true,
                 itemBuilder: (context, index) =>
@@ -197,7 +197,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 unratedColor: const Color(0xFFE0DEDA),
                 itemCount: 7,
                 itemSize: 18.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                 updateOnDrag: true,
                 allowHalfRating: true,
                 itemBuilder: (context, index) =>
@@ -239,7 +239,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 unratedColor: const Color(0xFFE0DEDA),
                 itemCount: 7,
                 itemSize: 18.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                 updateOnDrag: true,
                 allowHalfRating: true,
                 itemBuilder: (context, index) =>
@@ -256,7 +256,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 },
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height *.15,
+                height: MediaQuery.of(context).size.height *.10,
               ),
               const Text('Care to share more about it?',
                 style: TextStyle(

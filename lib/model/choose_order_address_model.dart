@@ -53,15 +53,15 @@ class Data {
 }
 
 class CartItems {
-  int? id;
-  int? productId;
-  String? name;
-  String? spiciness;
-  int? price;
-  int? cartItemQty;
-  int? distance;
-  int? totalPrice;
-  String? image;
+  dynamic id;
+  dynamic productId;
+  dynamic name;
+  dynamic spiciness;
+  dynamic price;
+  dynamic cartItemQty;
+  dynamic distance;
+  dynamic totalPrice;
+  dynamic image;
 
   CartItems(
       {this.id,
@@ -102,19 +102,19 @@ class CartItems {
 }
 
 class CartPaymentSummary {
-  int? subTotal;
-  int? couponDiscount;
-  String? couponCode;
-  String? driverCommission;
-  String? freeDeliveryMinOrderValue;
+  dynamic subTotal;
+  dynamic couponDiscount;
+  dynamic couponCode;
+  dynamic driverCommission;
+  dynamic freeDeliveryMinOrderValue;
   dynamic deliveryCharge;
-  String? surCharge;
-  int? tipAmount;
-  String? packingFee;
-  Null? tax1;
-  Null? tax2;
-  int? taxAndFee;
-  int? total;
+  dynamic surCharge;
+  dynamic tipAmount;
+  dynamic packingFee;
+  dynamic  tax1;
+  dynamic  tax2;
+  dynamic taxAndFee;
+  dynamic total;
 
   CartPaymentSummary(
       {this.subTotal,

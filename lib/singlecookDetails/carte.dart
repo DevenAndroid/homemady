@@ -17,14 +17,15 @@ import '../repository/remove_cartitem_repo.dart';
 import '../repository/update_cart_repo.dart';
 import '../resources/add_text.dart';
 
-class carteScreen extends StatefulWidget {
-  const carteScreen({Key? key}) : super(key: key);
+class CarteScreen extends StatefulWidget {
+  const CarteScreen({Key? key}) : super(key: key);
+  static var carteScreenPage = "/carteScreenPage";
 
   @override
-  State<carteScreen> createState() => _carteScreenState();
+  State<CarteScreen> createState() => _CarteScreenState();
 }
 
-class _carteScreenState extends State<carteScreen> {
+class _CarteScreenState extends State<CarteScreen> {
   final controller = Get.put(VendorSingleStoreController());
   final cartListController = Get.put(MyCartListController());
 

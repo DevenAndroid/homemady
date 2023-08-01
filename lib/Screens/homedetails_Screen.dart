@@ -74,7 +74,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               // scrollbarThumbVisibility: true,
               tabController: tabController,
               listItemData: const [
-                carteScreen(),
+                CarteScreen(),
                 // carteingScreen(),
                 // mealPrepScreen()
               ],
@@ -241,7 +241,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                               ),
                             ),
                             Positioned(
-                                top: AddSize.screenHeight*.29,
+                                top: AddSize.screenHeight*.28,
                                 right: 26,
                                 child: Column(
                                   children: [
@@ -252,17 +252,34 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                             color: Colors.white
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(3),
-                                          child: CachedNetworkImage(
-                                            imageUrl: controller.model.value.data!.storeDetails!.profileImage.toString(),
-                                            fit: BoxFit.cover,
-                                            errorWidget: (_, __, ___) => Image.asset(
-                                              'assets/images/Ellipse 67.png',
-                                            ),
-                                            placeholder: (_, __) =>
-                                                Center(child: CircularProgressIndicator()),
-                                          ),
-                                        )
+                                              padding: const EdgeInsets.all(6),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(100),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: controller.model.value.data!.storeDetails!.profileImage
+                                                      .toString(),
+                                                  fit: BoxFit.cover,
+                                                  height: 55,
+                                                  width: 55,
+                                                  errorWidget: (_, __, ___) => Image.asset(
+                                                    'assets/images/Ellipse 67.png',
+                                                  ),
+                                                  placeholder: (_, __) => Center(child: CircularProgressIndicator()),
+                                                ),
+                                              ),
+                                            )
+                                            // Padding(
+                                        //   padding: const EdgeInsets.all(3),
+                                        //   child: CachedNetworkImage(
+                                        //     imageUrl: controller.model.value.data!.storeDetails!.profileImage.toString(),
+                                        //     fit: BoxFit.cover,
+                                        //     errorWidget: (_, __, ___) => Image.asset(
+                                        //       'assets/images/Ellipse 67.png',
+                                        //     ),
+                                        //     placeholder: (_, __) =>
+                                        //         Center(child: CircularProgressIndicator()),
+                                        //   ),
+                                        // )
                                     ),
                                     addHeight(3),
                                   ],

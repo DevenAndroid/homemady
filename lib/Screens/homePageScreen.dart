@@ -45,6 +45,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
   String? selectedCategory;
   int currentIndex = -1;
   bool? isSlotSelected=true;
+  final RxBool _isValue = false.obs;
+  final RxBool _isValue1 = false.obs;
+  final RxBool _isValue2 = false.obs;
+  final RxBool _isValue3 = false.obs;
+  final RxBool _isValue4 = false.obs;
+  final RxBool _isValue5 = false.obs;
+  final RxBool _isValue6 = false.obs;
+  final RxBool _isValue7 = false.obs;
+  final RxBool _isValue8 = false.obs;
 
   final scrollController = ScrollController();
   RxBool isSelect = false.obs;
@@ -556,7 +565,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       Get.to(()=> const MyAddressScreen());
                     }, child: Obx(() {
                       return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Image.asset(
                             'assets/images/location.png',
@@ -577,10 +586,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ),
                               )
                               : CircularProgressIndicator(),
-                         addWidth(8),
+                         // addWidth(5),
                           Image.asset(
                             'assets/images/pencilImg.png',
-                            height: 13,
+                            height: 15,
                           ),
                         ],
                       );
@@ -717,7 +726,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     addWidth(10),
                                     GestureDetector(
                                       onTap: () {
-                                        showUploadWindow(categoryController.categoryModel.value.data!.categories!);
+                                        _showDialogCategory();
+                                        // showUploadWindow(categoryController.categoryModel.value.data!.categories!);
                                       },
                                       child: Container(
                                         height: 40,
@@ -1340,59 +1350,86 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     )),
                                                 Positioned(
                                                     top: 16,
-                                                    // bottom: 0,
-                                                    // left: 290,
                                                     right: 10,
-                                                    //   bottom: 0,
+                                                    child: InkWell(
+                                                      onTap: (){
+                                                        print("product wishlist id..${homeController.model.value.data!.stores![index].id.toString()}");
 
-                                                    child: Column(
-                                                      children: [
-                                                        //  Obx(() {
-                                                        //   return
-                                                        Container(
-                                                            height: 33,
-                                                            decoration:
-                                                                const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                                            child: Padding(
-                                                              padding: const EdgeInsets.only(left: 10, right: 10, top: 3),
-                                                              child: GestureDetector(
-                                                                onTap: () {
-                                                                  isSelect.value = !isSelect.value;
-                                                                  print(homeController.model.value.data!.stores![index].id
-                                                                      .toString());
-                                                                  wishlistRepo(
-                                                                          id: homeController.model.value.data!.stores![index].id
-                                                                              .toString())
-                                                                      .then((value) {
-                                                                    if (value.status == true) {
-                                                                      if (value.message.toString() == 'global.WISHLIST_REMOVED') {
-                                                                        homeController.model.value.data!.stores![index].wishlist =
-                                                                            false;
-                                                                      } else {
-                                                                        homeController.model.value.data!.stores![index].wishlist =
-                                                                            true;
-                                                                      }
+                                                        wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString(),
+                                                           ).then((value){
+                                                          if(value.status==true){
+                                                            showToast(value.message);
+                                                            homeController.getData();
+                                                          }
+                                                        });
+                                                      },
+                                                      child:
+                                                      homeController.model.value.data!.stores![index].wishlist! ?
+                                                      Container(
+                                                          height: 33,
+                                                          decoration:
+                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                          child: const Padding(
+                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                              child: Icon(
+                                                                Icons.favorite,
+                                                                color: Color(0xFF7ED957),
 
-                                                                      showToast(value.message.toString());
-                                                                      // homeController.getData();
-                                                                      setState(() {});
-                                                                    }
-                                                                  });
-                                                                },
-                                                                child: homeController.model.value.data!.stores![index].wishlist!
-                                                                    ? const Icon(
-                                                                        Icons.favorite,
+                                                              )
+
+                                                          )):
+                                                                 Container(
+                                                                    height: 33,
+                                                                    decoration:
+                                                                        const BoxDecoration(shape: BoxShape.circle,color: Colors.white),
+                                                                    child: const Padding(
+                                                                      padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                                      child: Icon(
+                                                                              Icons.favorite_outline,
                                                                         color: Color(0xFF54C523),
-                                                                      )
-                                                                    : const Icon(
-                                                                        Icons.favorite_outline,
-                                                                        color: Color(0xFF54C523),
-                                                                      ),
-                                                              ),
-                                                            )),
-                                                        //   }),
-                                                      ],
-                                                    )),
+                                                                              // color: Color(0xFF7ED957),
+                                                                              // color: Colors.red,
+                                                                            )
+
+                                                    ))
+                                                      ,
+                                                    )
+                                                ),
+                                                // Positioned(
+                                                //     top: 16,
+                                                //     // bottom: 0,
+                                                //     // left: 290,
+                                                //     right: 10,
+                                                //     //   bottom: 0,
+                                                //
+                                                //     child: Column(
+                                                //       children: [
+                                                //         //  Obx(() {
+                                                //         //   return
+                                                //         InkWell(
+                                                //              onTap:(){
+                                                //                 wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString());
+                                                //                 },
+                                                //
+                                                //           child: Container(
+                                                //               height: 33,
+                                                //               decoration:
+                                                //                   const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                //               child: const Padding(
+                                                //                 padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                //                 child: Icon(
+                                                //                         Icons.favorite,
+                                                //                         color: Color(0xFF54C523),
+                                                //                       )
+                                                //                    // const Icon(
+                                                //                    //      Icons.favorite_outline,
+                                                //                    //      color: Color(0xFF54C523),
+                                                //                    //    ),
+                                                //               )),
+                                                //         ),
+                                                //         //   }),
+                                                //       ],
+                                                //     )),
                                                 Positioned(
                                                     top: 14,
                                                     // bottom: 0,
@@ -1648,6 +1685,337 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       fontSize: 18,
                       color: const Color(0xFF425159),
                     ),
+                  )),
+            ],
+          );
+        });
+  }
+  Future<void> _showDialogCategory() async {
+    await showDialog<void>(
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        context: context,
+        barrierColor: null,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            children: <Widget>[
+              SimpleDialogOption(
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text(
+                    'Cuisine :',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 19,
+                      // color: const Color(0xFF425159),
+                      color: Colors.black
+                    ),
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Indian',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue.value = value!;
+                              });
+                            });
+                      })
+                    ],
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Chinese',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue1.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue1.value = value!;
+                              });
+                            });
+                      })
+
+                    ],
+
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Korean',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue2.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue2.value = value!;
+                              });
+                            });
+                      })
+                    ],
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Moroccan',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue3.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue3.value = value!;
+                              });
+                            });
+                      })
+
+                    ],
+                  )),
+              SizedBox(height: 10,),
+
+              SimpleDialogOption(
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Text(
+                    'Dietary :',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 19,
+                        // color: const Color(0xFF425159),
+                        color: Colors.black
+                    ),
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Glutan Free',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue4.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue4.value = value!;
+                              });
+                            });
+                      })
+                    ],
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Halal',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue5.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue5.value = value!;
+                              });
+                            });
+                      })
+                    ],
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Vegan',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue6.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue6.value = value!;
+                              });
+                            });
+                      })
+                    ],
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Vegetarian',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue7.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue7.value = value!;
+                              });
+                            });
+                      })
+                    ],
+                  )),
+              SimpleDialogOption(
+                  onPressed: () {
+                    _showSimpleDialog3(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Pescatarian',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18,
+                          color: const Color(0xFF425159),
+                        ),
+                      ),
+                      Obx(() {
+                        return Checkbox(
+                            side: BorderSide(
+                              // color: Color(0xff7ED957),
+                                color: Colors.black,
+                                width: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            value: _isValue8.value,
+                            onChanged: (value) {
+                              setState(() {
+                                _isValue8.value = value!;
+                              });
+                            });
+                      })
+                    ],
                   )),
             ],
           );

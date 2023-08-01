@@ -121,8 +121,8 @@ class CartPaymentSummary {
   dynamic deliveryCharge;
   dynamic serviceCharge;
   dynamic packingFee;
-  Null? tax1;
-  Null? tax2;
+  dynamic tax1;
+  dynamic tax2;
   dynamic taxAndFee;
   dynamic total;
 

@@ -111,20 +111,20 @@ class User {
   dynamic id;
   bool? isDriver;
   bool? isVendor;
-  String? latitude;
-  String? longitude;
-  String? location;
-  String? name;
-  String? lastName;
-  String? email;
-  String? phone;
-  String? walletBalance;
-  String? earnedBalance;
-  String? profileImage;
-  String? referalCode;
+ dynamic latitude;
+ dynamic longitude;
+ dynamic location;
+ dynamic name;
+ dynamic lastName;
+ dynamic email;
+ dynamic phone;
+ dynamic walletBalance;
+ dynamic earnedBalance;
+ dynamic profileImage;
+ dynamic referalCode;
   bool? isDriverOnline;
   bool? isVendorOnline;
-  int? deliveryRange;
+  dynamic deliveryRange;
   bool? selfDelivery;
   bool? asDriverVerified;
   bool? asVendorVerified;
@@ -206,16 +206,16 @@ class User {
 
 class Address {
   dynamic id;
-  int? userId;
-  String? latitude;
-  String? longitude;
-  String? location;
-  String? flatNo;
-  String? landmark;
-  String? addressType;
-  String? createdAt;
-  String? updatedAt;
-  Null? deletedAt;
+  dynamic userId;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic flatNo;
+  dynamic landmark;
+  dynamic addressType;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic deletedAt;
 
   Address(
       {this.id,
@@ -263,13 +263,13 @@ class Address {
 
 class OrderItems {
   dynamic id;
-  int? productId;
-  String? productName;
-  int? price;
-  int? qty;
-  int? totalPrice;
-  String? status;
-  String? specialRequets;
+  dynamic productId;
+  dynamic productName;
+  dynamic price;
+  dynamic qty;
+  dynamic totalPrice;
+  dynamic status;
+  dynamic specialRequets;
 
   OrderItems(
       {this.id,

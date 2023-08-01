@@ -34,10 +34,10 @@ class Data {
   dynamic tax;
   dynamic deliveryCharges;
   dynamic packingFee;
-  Null? couponDiscount;
+  dynamic couponDiscount;
   dynamic grandTotal;
-  User? user;
-  Vendor? vendor;
+  dynamic user;
+  dynamic vendor;
   dynamic driver;
   dynamic  address;
   dynamic orderType;
@@ -142,8 +142,8 @@ class User {
   dynamic lastName;
   dynamic phone;
   dynamic email;
-  Null? otp;
-  Null? otpCreatedAt;
+  dynamic otp;
+  dynamic otpCreatedAt;
   dynamic otpVerified;
   dynamic profileImage;
   dynamic latitude;
@@ -158,17 +158,17 @@ class User {
   dynamic deliveryRange;
   dynamic selfDelivery;
   dynamic collectionStatus;
-  Null? adminCommissionType;
-  Null? adminCommission;
+  dynamic adminCommissionType;
+  dynamic adminCommission;
   dynamic asDriverVerified;
   dynamic asVendorVerified;
   dynamic featuredStore;
-  Null? emailVerifiedAt;
+  dynamic emailVerifiedAt;
   dynamic status;
   dynamic isProfileComplete;
-  dynamic? createdAt;
-  dynamic? updatedAt;
-  Null? deletedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic deletedAt;
 
   User(
       {this.id,
@@ -293,43 +293,43 @@ class User {
 }
 
 class Vendor {
-  int? id;
-  int? isDriver;
-  int? isVendor;
-  int? marketingBalance;
-  int? walletBalance;
-  int? earnedBalance;
-  Null? name;
-  Null? lastName;
-  String? phone;
-  Null? email;
-  Null? otp;
-  Null? otpCreatedAt;
-  int? otpVerified;
-  Null? profileImage;
-  String? latitude;
-  String? longitude;
-  Null? location;
-  Null? defaultAddress;
-  String? referalCode;
-  String? deviceToken;
-  String? deviceId;
-  int? isDriverOnline;
-  int? isVendorOnline;
-  int? deliveryRange;
-  int? selfDelivery;
-  int? collectionStatus;
-  Null? adminCommissionType;
-  int? adminCommission;
-  int? asDriverVerified;
-  int? asVendorVerified;
-  int? featuredStore;
-  Null? emailVerifiedAt;
-  int? status;
-  int? isProfileComplete;
-  String? createdAt;
-  String? updatedAt;
-  Null? deletedAt;
+  dynamic id;
+  dynamic isDriver;
+  dynamic isVendor;
+  dynamic marketingBalance;
+  dynamic walletBalance;
+  dynamic earnedBalance;
+  dynamic  name;
+  dynamic  lastName;
+  dynamic  phone;
+  dynamic  email;
+  dynamic  otp;
+  dynamic  otpCreatedAt;
+  dynamic otpVerified;
+  dynamic profileImage;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic defaultAddress;
+  dynamic  referalCode;
+  dynamic  deviceToken;
+  dynamic  deviceId;
+  dynamic isDriverOnline;
+  dynamic isVendorOnline;
+  dynamic deliveryRange;
+  dynamic selfDelivery;
+  dynamic collectionStatus;
+  dynamic  adminCommissionType;
+  dynamic adminCommission;
+  dynamic asDriverVerified;
+  dynamic asVendorVerified;
+  dynamic featuredStore;
+  dynamic  emailVerifiedAt;
+  dynamic status;
+  dynamic isProfileComplete;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic  deletedAt;
 
   Vendor(
       {this.id,
@@ -464,7 +464,7 @@ class Address {
   dynamic addressType;
   dynamic createdAt;
   dynamic updatedAt;
-  Null? deletedAt;
+  dynamic deletedAt;
 
   Address(
       {this.id,

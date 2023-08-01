@@ -28,14 +28,13 @@ class AddCartModel {
 }
 
 class Data {
-  int? id;
-  int? productId;
-  String? name;
-  int? price;
-  int? cartItemQty;
-  int? totalPrice;
-  String? image;
-
+  dynamic id;
+  dynamic productId;
+  dynamic  name;
+  dynamic price;
+  dynamic cartItemQty;
+  dynamic totalPrice;
+  dynamic image;
   Data(
       {this.id,
         this.productId,

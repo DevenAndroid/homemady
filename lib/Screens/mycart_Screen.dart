@@ -274,8 +274,8 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         return Padding(
                           padding: const EdgeInsets.only(right:4,left: 4),
                           child: Container(
-                              height: 30,
-                              width: 30,
+                              height: 22,
+                              width: 22,
                               padding: const EdgeInsets.symmetric(horizontal: 4),
                               decoration:
                               BoxDecoration(
@@ -1000,14 +1000,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Tax and fee:',
+                            Text('Service charge:',
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xff1A2E33)
                               ),),
                             Spacer(),
-                            Text( '€ ${controller.model.value.data!.cartPaymentSummary!.taxAndFee.toString()}.00',
+                            Text( '€ ${controller.model.value.data!.cartPaymentSummary!.serviceCharge.toString()}.00',
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,

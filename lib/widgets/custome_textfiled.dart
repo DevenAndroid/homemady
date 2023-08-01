@@ -653,7 +653,7 @@ AppBar backAppBar(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               icon ??
-                  const Icon(Icons.arrow_back_rounded,color: Colors.black,)
+                  const Icon(Icons.arrow_back_rounded,color: Colors.black,size: 30,)
             ],
           )),
     ),

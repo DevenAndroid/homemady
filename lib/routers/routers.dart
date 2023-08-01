@@ -33,6 +33,7 @@ import 'package:homemady/widgets/customeNavbar.dart';
 import '../Screens/faqs_screen.dart';
 import '../Screens/help_center_screen.dart';
 import '../Screens/login_screen.dart';
+import '../singlecookDetails/carte.dart';
 
 
 
@@ -70,6 +71,7 @@ class MyRouters {
   static var feedBackScreen = "/feedBackScreen";
   static var helpCenterScreen = "/helpCenterScreen";
   static var faqsScreen = "/faqsScreen";
+  static var carteScreenPage="/carteScreenPage";
 
 
   static var route = [
@@ -84,7 +86,7 @@ class MyRouters {
   GetPage(name: '/myCartScreen', page: () => const MyCartScreen()),
   GetPage(name: '/homeDetailsScreen', page: () => const HomeDetailsScreen()),
   GetPage(name: '/checkOutScreen', page: () => const CheckOutScreen()),
-  // GetPage(name: '/myAddressScreen', page: () => const MyAddressScreen()),
+ // GetPage(name: carteScreen.carteScreenPage, page: () => const CarteScreen()),
   GetPage(name: '/myOrderScreen', page: () => const MyOrderScreen()),
   GetPage(name: '/bottomNavbar', page: () => const BottomNavbar()),
   GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
@@ -106,7 +108,7 @@ class MyRouters {
   GetPage(name: '/feedBackScreen', page: () => const FeedBackScreen()),
   GetPage(name: '/helpCenterScreen', page: () => const HelpCenterScreen()),
   GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
-  // GetPage(name: StoreListScreen.storeListScreen, page: () => const StoreListScreen()),
+  GetPage(name: CarteScreen.carteScreenPage, page: () => const CarteScreen()),
 
 
 

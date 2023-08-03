@@ -39,7 +39,7 @@ class Data {
   dynamic user;
   dynamic vendor;
   dynamic driver;
-  dynamic  address;
+  dynamic address;
   dynamic orderType;
   dynamic deliveryType;
   dynamic deliveryStatus;
@@ -146,6 +146,7 @@ class User {
   dynamic otpCreatedAt;
   dynamic otpVerified;
   dynamic profileImage;
+  dynamic socialProfileImage;
   dynamic latitude;
   dynamic longitude;
   dynamic location;
@@ -158,6 +159,7 @@ class User {
   dynamic deliveryRange;
   dynamic selfDelivery;
   dynamic collectionStatus;
+  dynamic sustainablePackagingStatus;
   dynamic adminCommissionType;
   dynamic adminCommission;
   dynamic asDriverVerified;
@@ -185,6 +187,7 @@ class User {
         this.otpCreatedAt,
         this.otpVerified,
         this.profileImage,
+        this.socialProfileImage,
         this.latitude,
         this.longitude,
         this.location,
@@ -197,6 +200,7 @@ class User {
         this.deliveryRange,
         this.selfDelivery,
         this.collectionStatus,
+        this.sustainablePackagingStatus,
         this.adminCommissionType,
         this.adminCommission,
         this.asDriverVerified,
@@ -224,6 +228,7 @@ class User {
     otpCreatedAt = json['otp_created_at'];
     otpVerified = json['otp_verified'];
     profileImage = json['profile_image'];
+    socialProfileImage = json['social_profile_image'];
     latitude = json['latitude'];
     longitude = json['longitude'];
     location = json['location'];
@@ -236,6 +241,7 @@ class User {
     deliveryRange = json['delivery_range'];
     selfDelivery = json['self_delivery'];
     collectionStatus = json['collection_status'];
+    sustainablePackagingStatus = json['sustainable_packaging_status'];
     adminCommissionType = json['admin_commission_type'];
     adminCommission = json['admin_commission'];
     asDriverVerified = json['as_driver_verified'];
@@ -265,6 +271,7 @@ class User {
     data['otp_created_at'] = this.otpCreatedAt;
     data['otp_verified'] = this.otpVerified;
     data['profile_image'] = this.profileImage;
+    data['social_profile_image'] = this.socialProfileImage;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
     data['location'] = this.location;
@@ -277,6 +284,7 @@ class User {
     data['delivery_range'] = this.deliveryRange;
     data['self_delivery'] = this.selfDelivery;
     data['collection_status'] = this.collectionStatus;
+    data['sustainable_packaging_status'] = this.sustainablePackagingStatus;
     data['admin_commission_type'] = this.adminCommissionType;
     data['admin_commission'] = this.adminCommission;
     data['as_driver_verified'] = this.asDriverVerified;
@@ -294,161 +302,121 @@ class User {
 
 class Vendor {
   dynamic id;
-  dynamic isDriver;
-  dynamic isVendor;
-  dynamic marketingBalance;
-  dynamic walletBalance;
-  dynamic earnedBalance;
-  dynamic  name;
-  dynamic  lastName;
-  dynamic  phone;
-  dynamic  email;
-  dynamic  otp;
-  dynamic  otpCreatedAt;
-  dynamic otpVerified;
-  dynamic profileImage;
-  dynamic latitude;
-  dynamic longitude;
+  dynamic userId;
+  dynamic categoryId;
+  dynamic secondarycategoryId;
+  dynamic tertiarycategoryId;
+  dynamic collectionId;
+  dynamic storeName;
+  dynamic number;
+  dynamic storeImage;
+  dynamic description;
+  dynamic lat;
+  dynamic long;
   dynamic location;
-  dynamic defaultAddress;
-  dynamic  referalCode;
-  dynamic  deviceToken;
-  dynamic  deviceId;
-  dynamic isDriverOnline;
-  dynamic isVendorOnline;
-  dynamic deliveryRange;
-  dynamic selfDelivery;
-  dynamic collectionStatus;
-  dynamic  adminCommissionType;
-  dynamic adminCommission;
-  dynamic asDriverVerified;
-  dynamic asVendorVerified;
-  dynamic featuredStore;
-  dynamic  emailVerifiedAt;
+  dynamic address;
+  dynamic ppsNo;
+  dynamic ppsCardImage;
+  dynamic city;
+  dynamic pinCode;
+  dynamic addressType;
+  dynamic remark;
   dynamic status;
-  dynamic isProfileComplete;
+  dynamic deliveryType;
+  dynamic deliveryTime;
+  dynamic hasFile;
+  dynamic days;
   dynamic createdAt;
   dynamic updatedAt;
-  dynamic  deletedAt;
 
   Vendor(
       {this.id,
-        this.isDriver,
-        this.isVendor,
-        this.marketingBalance,
-        this.walletBalance,
-        this.earnedBalance,
-        this.name,
-        this.lastName,
-        this.phone,
-        this.email,
-        this.otp,
-        this.otpCreatedAt,
-        this.otpVerified,
-        this.profileImage,
-        this.latitude,
-        this.longitude,
+        this.userId,
+        this.categoryId,
+        this.secondarycategoryId,
+        this.tertiarycategoryId,
+        this.collectionId,
+        this.storeName,
+        this.number,
+        this.storeImage,
+        this.description,
+        this.lat,
+        this.long,
         this.location,
-        this.defaultAddress,
-        this.referalCode,
-        this.deviceToken,
-        this.deviceId,
-        this.isDriverOnline,
-        this.isVendorOnline,
-        this.deliveryRange,
-        this.selfDelivery,
-        this.collectionStatus,
-        this.adminCommissionType,
-        this.adminCommission,
-        this.asDriverVerified,
-        this.asVendorVerified,
-        this.featuredStore,
-        this.emailVerifiedAt,
+        this.address,
+        this.ppsNo,
+        this.ppsCardImage,
+        this.city,
+        this.pinCode,
+        this.addressType,
+        this.remark,
         this.status,
-        this.isProfileComplete,
+        this.deliveryType,
+        this.deliveryTime,
+        this.hasFile,
+        this.days,
         this.createdAt,
-        this.updatedAt,
-        this.deletedAt});
+        this.updatedAt});
 
   Vendor.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    isDriver = json['is_driver'];
-    isVendor = json['is_vendor'];
-    marketingBalance = json['marketing_balance'];
-    walletBalance = json['wallet_balance'];
-    earnedBalance = json['earned_balance'];
-    name = json['name'];
-    lastName = json['last_name'];
-    phone = json['phone'];
-    email = json['email'];
-    otp = json['otp'];
-    otpCreatedAt = json['otp_created_at'];
-    otpVerified = json['otp_verified'];
-    profileImage = json['profile_image'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    userId = json['user_id'];
+    categoryId = json['category_id'];
+    secondarycategoryId = json['secondarycategory_id'];
+    tertiarycategoryId = json['tertiarycategory_id'];
+    collectionId = json['collection_id'];
+    storeName = json['store_name'];
+    number = json['number'];
+    storeImage = json['store_image'];
+    description = json['description'];
+    lat = json['lat'];
+    long = json['long'];
     location = json['location'];
-    defaultAddress = json['default_address'];
-    referalCode = json['referal_code'];
-    deviceToken = json['device_token'];
-    deviceId = json['device_id'];
-    isDriverOnline = json['is_driver_online'];
-    isVendorOnline = json['is_vendor_online'];
-    deliveryRange = json['delivery_range'];
-    selfDelivery = json['self_delivery'];
-    collectionStatus = json['collection_status'];
-    adminCommissionType = json['admin_commission_type'];
-    adminCommission = json['admin_commission'];
-    asDriverVerified = json['as_driver_verified'];
-    asVendorVerified = json['as_vendor_verified'];
-    featuredStore = json['featured_store'];
-    emailVerifiedAt = json['email_verified_at'];
+    address = json['address'];
+    ppsNo = json['pps_no'];
+    ppsCardImage = json['pps_card_image'];
+    city = json['city'];
+    pinCode = json['pin_code'];
+    addressType = json['address_type'];
+    remark = json['remark'];
     status = json['status'];
-    isProfileComplete = json['is_profile_complete'];
+    deliveryType = json['delivery_type'];
+    deliveryTime = json['delivery_time'];
+    hasFile = json['has_file'];
+    days = json['days'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    deletedAt = json['deleted_at'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['is_driver'] = this.isDriver;
-    data['is_vendor'] = this.isVendor;
-    data['marketing_balance'] = this.marketingBalance;
-    data['wallet_balance'] = this.walletBalance;
-    data['earned_balance'] = this.earnedBalance;
-    data['name'] = this.name;
-    data['last_name'] = this.lastName;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['otp'] = this.otp;
-    data['otp_created_at'] = this.otpCreatedAt;
-    data['otp_verified'] = this.otpVerified;
-    data['profile_image'] = this.profileImage;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
+    data['user_id'] = this.userId;
+    data['category_id'] = this.categoryId;
+    data['secondarycategory_id'] = this.secondarycategoryId;
+    data['tertiarycategory_id'] = this.tertiarycategoryId;
+    data['collection_id'] = this.collectionId;
+    data['store_name'] = this.storeName;
+    data['number'] = this.number;
+    data['store_image'] = this.storeImage;
+    data['description'] = this.description;
+    data['lat'] = this.lat;
+    data['long'] = this.long;
     data['location'] = this.location;
-    data['default_address'] = this.defaultAddress;
-    data['referal_code'] = this.referalCode;
-    data['device_token'] = this.deviceToken;
-    data['device_id'] = this.deviceId;
-    data['is_driver_online'] = this.isDriverOnline;
-    data['is_vendor_online'] = this.isVendorOnline;
-    data['delivery_range'] = this.deliveryRange;
-    data['self_delivery'] = this.selfDelivery;
-    data['collection_status'] = this.collectionStatus;
-    data['admin_commission_type'] = this.adminCommissionType;
-    data['admin_commission'] = this.adminCommission;
-    data['as_driver_verified'] = this.asDriverVerified;
-    data['as_vendor_verified'] = this.asVendorVerified;
-    data['featured_store'] = this.featuredStore;
-    data['email_verified_at'] = this.emailVerifiedAt;
+    data['address'] = this.address;
+    data['pps_no'] = this.ppsNo;
+    data['pps_card_image'] = this.ppsCardImage;
+    data['city'] = this.city;
+    data['pin_code'] = this.pinCode;
+    data['address_type'] = this.addressType;
+    data['remark'] = this.remark;
     data['status'] = this.status;
-    data['is_profile_complete'] = this.isProfileComplete;
+    data['delivery_type'] = this.deliveryType;
+    data['delivery_time'] = this.deliveryTime;
+    data['has_file'] = this.hasFile;
+    data['days'] = this.days;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
     return data;
   }
 }
@@ -461,6 +429,8 @@ class Address {
   dynamic location;
   dynamic flatNo;
   dynamic landmark;
+  dynamic note;
+  dynamic pinCode;
   dynamic addressType;
   dynamic createdAt;
   dynamic updatedAt;
@@ -474,6 +444,8 @@ class Address {
         this.location,
         this.flatNo,
         this.landmark,
+        this.note,
+        this.pinCode,
         this.addressType,
         this.createdAt,
         this.updatedAt,
@@ -487,6 +459,8 @@ class Address {
     location = json['location'];
     flatNo = json['flat_no'];
     landmark = json['landmark'];
+    note = json['note'];
+    pinCode = json['pin_code'];
     addressType = json['address_type'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -502,6 +476,8 @@ class Address {
     data['location'] = this.location;
     data['flat_no'] = this.flatNo;
     data['landmark'] = this.landmark;
+    data['note'] = this.note;
+    data['pin_code'] = this.pinCode;
     data['address_type'] = this.addressType;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
@@ -515,30 +491,30 @@ class OrderItems {
   dynamic productId;
   dynamic productName;
   dynamic price;
-  dynamic qty;
+  dynamic sizeQuantity;
+  dynamic sizeId;
   dynamic totalPrice;
   dynamic status;
-  dynamic specialRequets;
 
   OrderItems(
       {this.id,
         this.productId,
         this.productName,
         this.price,
-        this.qty,
+        this.sizeQuantity,
+        this.sizeId,
         this.totalPrice,
-        this.status,
-        this.specialRequets});
+        this.status});
 
   OrderItems.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productId = json['product_id'];
     productName = json['product_name'];
     price = json['price'];
-    qty = json['qty'];
+    sizeQuantity = json['size_quantity'];
+    sizeId = json['size_id'];
     totalPrice = json['total_price'];
     status = json['status'];
-    specialRequets = json['special_requets'];
   }
 
   Map<String, dynamic> toJson() {
@@ -547,10 +523,10 @@ class OrderItems {
     data['product_id'] = this.productId;
     data['product_name'] = this.productName;
     data['price'] = this.price;
-    data['qty'] = this.qty;
+    data['size_quantity'] = this.sizeQuantity;
+    data['size_id'] = this.sizeId;
     data['total_price'] = this.totalPrice;
     data['status'] = this.status;
-    data['special_requets'] = this.specialRequets;
     return data;
   }
 }

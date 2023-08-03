@@ -71,8 +71,9 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  if(controller.model.value.data![index].vendor != null)
-                                  Text((controller.isDataLoading.value ? controller.model.value.data![index].vendor!.name ?? 'Test': '').toString(),
+
+                                  Text((controller.isDataLoading.value ?
+                                      controller.model.value.data![index].orderItems![0].productName?? 'Test': '').toString(),
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18,

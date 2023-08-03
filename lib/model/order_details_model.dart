@@ -29,6 +29,7 @@ class Data {
   dynamic deliveryCharges;
   dynamic packingFee;
   dynamic couponDiscount;
+  dynamic serviceCharge;
   dynamic grandTotal;
   User? user;
   Vendor? vendor;
@@ -49,6 +50,7 @@ class Data {
         this.grandTotal,
         this.user,
         this.vendor,
+        this.serviceCharge,
         this.driver,
         this.address,
         this.orderType,
@@ -63,6 +65,7 @@ class Data {
     deliveryCharges = json['delivery_charges'];
     packingFee = json['packing_fee'];
     couponDiscount = json['coupon_discount'];
+    serviceCharge = json['service_charge'];
     grandTotal = json['grand_total'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     vendor =
@@ -86,6 +89,7 @@ class Data {
     data['order_id'] = this.orderId;
     data['item_total'] = this.itemTotal;
     data['tax'] = this.tax;
+    data['service_charge'] = this.serviceCharge;
     data['delivery_charges'] = this.deliveryCharges;
     data['packing_fee'] = this.packingFee;
     data['coupon_discount'] = this.couponDiscount;
@@ -454,6 +458,7 @@ class OrderItems {
   dynamic productName;
   dynamic price;
   dynamic qty;
+  dynamic sizeQuantity;
   dynamic totalPrice;
   dynamic status;
   dynamic specialRequets;
@@ -464,6 +469,7 @@ class OrderItems {
         this.productName,
         this.price,
         this.qty,
+        this.sizeQuantity,
         this.totalPrice,
         this.status,
         this.specialRequets});
@@ -473,6 +479,7 @@ class OrderItems {
     productId = json['product_id'];
     productName = json['product_name'];
     price = json['price'];
+    sizeQuantity = json['size_quantity'];
     qty = json['qty'];
     totalPrice = json['total_price'];
     status = json['status'];
@@ -485,6 +492,7 @@ class OrderItems {
     data['product_id'] = this.productId;
     data['product_name'] = this.productName;
     data['price'] = this.price;
+    data['size_quantity'] = this.sizeQuantity;
     data['qty'] = this.qty;
     data['total_price'] = this.totalPrice;
     data['status'] = this.status;

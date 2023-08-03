@@ -44,9 +44,9 @@ dependencies:
   form_field_validator:
 
   intl: ^0.17.0
-#  firebase_core: ^2.4.1
-#  google_sign_in: ^6.0.0
-#  firebase_auth: ^4.2.6
+  firebase_core: ^2.4.1
+  google_sign_in: ^6.0.0
+  firebase_auth: ^4.2.6
   flutter_slidable:
   fluttertoast:
   image_picker:
@@ -54,7 +54,7 @@ dependencies:
   scroll_to_index:
   share_plus:
   push: ^1.0.0
-#  firebase_messaging: ^14.6.5
+  firebase_messaging: ^14.6.5
   file_picker:
   flutter_google_places:
   flutter_google_places_hoc081098:

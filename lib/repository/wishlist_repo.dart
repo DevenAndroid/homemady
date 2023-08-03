@@ -23,7 +23,7 @@ Future<ModelCommonResponse> wishlistRepo({required id}) async {
 
   // try {
   final response = await http.post(Uri.parse(ApiUrl.wishlistUrl),
-      headers: headers);
+      headers: headers,body: jsonEncode(map),);
   // log("Wishlist Repository...${response.body}");
   //print("${ApiUrl.toggleStatusUrl}/$id");
 

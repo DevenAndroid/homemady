@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:developer';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
@@ -268,15 +269,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: screenHeight * .03,
                     ),
-                    CommonButton(title: 'Login',onPressed: () async{
-                      // var fcmToken = await FirebaseMessaging
-                      //     .instance
-                      //     .getToken();
+                    CommonButton(title: 'Login',onPressed: () async {
+                      var fcmToken = await FirebaseMessaging
+                          .instance
+                          .getToken();
                       if(_formKey.currentState!.validate()){
                         loginRepo(
                             email: emailController.text,
                             password: passwordController.text,
-                            context: context
+                            context: context,
+                          fcmToken: fcmToken!,
                         ).then((value) async {
                           if(value.status==true){
                             SharedPreferences pref =

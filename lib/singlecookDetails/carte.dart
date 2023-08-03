@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 
@@ -14,7 +13,6 @@ import '../controller/vendor_single_store_controller.dart';
 import '../model/my_cart_model.dart';
 import '../repository/add_cart_repo.dart';
 import '../repository/remove_cartitem_repo.dart';
-import '../repository/update_cart_repo.dart';
 import '../resources/add_text.dart';
 
 class CarteScreen extends StatefulWidget {
@@ -35,7 +33,8 @@ class _CarteScreenState extends State<CarteScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.all(13.0),
-          child: ListView.builder(
+          child:
+          ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemCount: controller.model.value.data!.latestProducts!.length,
             shrinkWrap: true,
@@ -66,10 +65,10 @@ class _CarteScreenState extends State<CarteScreen> {
                         borderRadius: BorderRadius.circular(12)),
                     child: InkWell(
                       onTap: () {
-                        print(
-                          controller.model.value.data!.latestProducts![index].id.toString(),
-                        );
-                        Get.toNamed(MyRouters.myCartScreen);
+                        // print(
+                        //   controller.model.value.data!.latestProducts![index].id.toString(),
+                        // );
+                        // Get.toNamed(MyRouters.myCartScreen);
                       },
                       child: Column(
                         children: [
@@ -79,7 +78,8 @@ class _CarteScreenState extends State<CarteScreen> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: CachedNetworkImage(
+                                child:
+                                CachedNetworkImage(
                                   imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
                                   fit: BoxFit.cover,
                                   height: 80,

@@ -1273,7 +1273,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     ),
                                                   ),
                                                 ),
-                                                Positioned(
+                                                const Positioned(
                                                     top: 80,
                                                     // bottom: 0,
                                                     left: 20,
@@ -1281,7 +1281,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     //   bottom: 0,
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: const [
+                                                      children: [
                                                         Icon(
                                                           Icons.arrow_back_ios,
                                                           color: Colors.white,
@@ -1353,7 +1353,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     right: 10,
                                                     child: InkWell(
                                                       onTap: (){
-                                                        print("product wishlist id..${homeController.model.value.data!.stores![index].id.toString()}");
+                                                        print("store  id..${homeController.model.value.data!.stores![index].id.toString()}");
 
                                                         wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString(),
                                                            ).then((value){

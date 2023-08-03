@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -74,14 +75,20 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(17)
                                     ),
-                                    child: Image.asset('assets/images/Rectangle 39702.png',height: 76,width: 76,)),
+                                    child:
+                                    // CachedNetworkImage(
+                                    //   imageUrl: controller.isDataLoading.value ?
+                                    //   controller.model.value.data![index].image.toString():'',
+                                    // ),
+                                    Image.asset('assets/images/Rectangle 39702.png',height: 76,width: 76,),
+                                ),
                                 addWidth(10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    if(controller.model.value.data![index].vendor != null)
-                                    Text((controller.model.value.data![index].vendor!.name ?? 'Test').toString(),
+
+                                    Text((controller.model.value.data![index].orderItems![0].productName ?? 'Test').toString(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,

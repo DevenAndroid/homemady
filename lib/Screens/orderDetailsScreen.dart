@@ -165,7 +165,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                          color: const Color(0xFF1A2E33)
                                                      ),),
                                                    addHeight(1),
-                                                   Text('Quantity: ${controller.model.value.data!.orderItems![index].qty.toString()}',
+                                                   Text('Quantity: ${controller.model.value.data!.orderItems![index].sizeQuantity.toString()}',
                                                      style: GoogleFonts.poppins(
                                                          fontWeight: FontWeight.w400,
                                                          fontSize: 12,
@@ -249,7 +249,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                    ),
                                  )),
                            ],
-                         ): Center(child: CircularProgressIndicator()),
+                         ):const SizedBox(),
                        ),
                      );
                    })
@@ -309,7 +309,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                            fontSize: 14),
                                                      ),
                                                      Text(
-                                                       controller.model.value.data!.driver!.name.toString(),
+                                                      controller.model.value.data!.driver!.name.toString(),
                                                        style: const TextStyle(
                                                            height: 1.5,
                                                            fontWeight: FontWeight.w600,
@@ -619,7 +619,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                  //   ),
                                  // ),
                                ]
-                           ) : Center(child: Text('NO Driver Information')): const Center(child: CircularProgressIndicator()),
+                           ) : Center(child: Text('NO Driver Information')): const Center(child: Padding(
+                             padding: EdgeInsets.only(top: 100),
+                             child: CircularProgressIndicator(),
+                           )),
                          ),
                        );
                      }),
@@ -873,7 +876,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( '€ ${controller.model.value.data!.tax.toString()}',
+                                             Text( '€ ${controller.model.value.data!.serviceCharge.toString()}',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -882,25 +885,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                            ],
                                          ),
                                          addHeight(10),
-                                         Row(
-                                           mainAxisAlignment: MainAxisAlignment.start,
-                                           children: [
-                                             Text('Packaging fee:',
-                                               style: GoogleFonts.poppins(
-                                                   fontSize: 16,
-                                                   fontWeight: FontWeight.w600,
-                                                   color: Color(0xff1A2E33)
-                                               ),),
-                                             Spacer(),
-                                             Text( controller.model.value.data!.packingFee.toString(),
-                                               style: GoogleFonts.poppins(
-                                                   fontSize: 14,
-                                                   fontWeight: FontWeight.w500,
-                                                   color: Color(0xff486769)
-                                               ),),
-                                           ],
-                                         ),
-                                         addHeight(10),
+                                         // Row(
+                                         //   mainAxisAlignment: MainAxisAlignment.start,
+                                         //   children: [
+                                         //     Text('Packaging fee:',
+                                         //       style: GoogleFonts.poppins(
+                                         //           fontSize: 16,
+                                         //           fontWeight: FontWeight.w600,
+                                         //           color: Color(0xff1A2E33)
+                                         //       ),),
+                                         //     Spacer(),
+                                         //     Text( controller.model.value.data!.packingFee.toString(),
+                                         //       style: GoogleFonts.poppins(
+                                         //           fontSize: 14,
+                                         //           fontWeight: FontWeight.w500,
+                                         //           color: Color(0xff486769)
+                                         //       ),),
+                                         //   ],
+                                         // ),
+                                         // addHeight(10),
                                          Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
                                            children: [
@@ -911,7 +914,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( controller.model.value.data!.deliveryCharges.toString(),
+                                             Text( "€ ${controller.model.value.data!.deliveryCharges.toString()}",
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -981,7 +984,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                  )
              ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 7),
         child: InkWell(
           onTap: () {
             Get.toNamed(MyRouters.reviewScreen);

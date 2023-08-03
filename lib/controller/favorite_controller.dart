@@ -7,6 +7,7 @@ class FavoriteListController extends GetxController{
 
   Rx<FavoriteListModel> model = FavoriteListModel().obs;
   RxBool isDataLoading = false.obs;
+  RxString storeId="".obs;
 
   get(){
     isDataLoading.value = false;

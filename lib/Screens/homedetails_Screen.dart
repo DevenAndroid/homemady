@@ -533,6 +533,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
           addCartSection() : null,
         );
       }),
+
     );
   }
   Future<void> _showSimpleDialog3(BuildContext context) async {

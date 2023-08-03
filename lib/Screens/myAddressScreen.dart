@@ -139,8 +139,12 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                               currentIndex = index;
                               chooseOrderAddress(context: context,addressId: myAddressController.model.value.data![index].id.toString()).then((value) {
                                 if(value.status == true){
+
                                   myCartController.getData();
-                                  profileController.getData();
+                                  profileController.getData().then((value) {
+                                    profileController.address.value = profileController.model.value.data!.defaultAddress![0].addressType.toString();
+                                  });
+
 
                                   showToast(value.message.toString());
                                   Get.back();

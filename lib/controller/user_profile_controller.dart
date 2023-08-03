@@ -12,15 +12,16 @@ class UserProfileController extends GetxController{
   Rx<UserProfileModel> model = UserProfileModel().obs;
   RxBool isDataLoading = false.obs;
   Rx<File> image = File("").obs;
+  RxString address = "Select address".obs;
   final ImagePicker picker = ImagePicker();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
  // FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
 
-  getData(){
+  Future getData() async {
     isDataLoading.value = false;
-    userProfileData().then((value1) {
+  await  userProfileData().then((value1) {
       isDataLoading.value = true;
       model.value = value1;
       if(isDataLoading.value && model.value.data != null){

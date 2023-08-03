@@ -259,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Forget your Password?',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                              fontSize: 16,
                               letterSpacing: 0.5,
                               color:  Color(0xFF7ED957)
                           ),

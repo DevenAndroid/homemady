@@ -133,7 +133,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                     Row(
                                       children: [
                                         Text(
-                                          'spiciness :',
+                                          'Spiciness :',
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 10,

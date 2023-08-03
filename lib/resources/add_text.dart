@@ -100,7 +100,7 @@ addCartSection(){
                                     fontWeight: FontWeight.w400),
                               ),
                               Text(
-                                "€ ${(myCartController.model.value.data!.cartPaymentSummary!.subTotal ?? '').toString()}",
+                                "€ ${(myCartController.model.value.data!.cartPaymentSummary!.subTotal ?? '').toStringAsFixed(2)}",
                                 //'sgdhs',
                                 style: TextStyle(
                                     fontSize: 18,

@@ -515,7 +515,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      color: Color(0xff1A2E33)
                                                  ),),
                                                Spacer(),
-                                               Text( controller.model.value.data!.tax.toString(),
+                                               Text( "${controller.model.value.data!.serviceCharge.toString()}.25",
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 14,
                                                      fontWeight: FontWeight.w500,
@@ -876,7 +876,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( '€ ${controller.model.value.data!.serviceCharge.toString()}',
+                                             Text( '€ ${controller.model.value.data!.serviceCharge.toString()}.20',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -914,7 +914,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( "€ ${controller.model.value.data!.deliveryCharges.toString()}",
+                                             Text( "€ ${controller.model.value.data!.deliveryCharges.toString()}.00",
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -984,7 +984,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                  )
              ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 7),
+        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 17),
         child: InkWell(
           onTap: () {
             Get.toNamed(MyRouters.reviewScreen);

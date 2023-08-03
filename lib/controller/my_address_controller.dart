@@ -9,7 +9,7 @@ class MyAddressController extends GetxController {
   RxString id = "".obs;
   RxBool isDataLoading = false.obs;
   Rx<MyAddressModel> model = MyAddressModel().obs;
-
+  RxString address = "Select address".obs;
 
   getData(){
     isDataLoading.value = false;

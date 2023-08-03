@@ -182,7 +182,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                         mainAxisAlignment: MainAxisAlignment
                                             .start,
                                         children: [
-                                          Text(controller.model.value.data!.storeDetails!.deliveryType.toString().replaceAll('Delivery Now', ''),
+                                          Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km",
                                               style: GoogleFonts.poppins(
                                                 fontSize: 16,
                                                 color: const Color(0xFF1A2E33),

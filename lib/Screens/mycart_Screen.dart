@@ -10,7 +10,11 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/my_cart_controller.dart';
+
+import '../model/my_cart_model.dart';
+import '../repository/add_cart_repo.dart';
 import '../repository/remove_cartitem_repo.dart';
+import '../repository/update_cart_repo.dart';
 
 
 class MyCartScreen extends StatefulWidget {
@@ -22,6 +26,7 @@ class MyCartScreen extends StatefulWidget {
 
 class _MyCartScreenState extends State<MyCartScreen> {
   final controller = Get.put(MyCartListController());
+
   @override
   void initState() {
     // TODO: implement initState
@@ -43,7 +48,8 @@ class _MyCartScreenState extends State<MyCartScreen> {
   RxBool isSelect9 = true.obs;
   @override
   Widget build(BuildContext context) {
-
+      var height= MediaQuery.of(context).size.height;
+      var width= MediaQuery.of(context).size.width;
     return Obx(() {
       return Scaffold(
         appBar: backAppBar(title: 'My Cart', context: context),
@@ -63,6 +69,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       print(controller.model.value.data!.cartItems![index].productId.toString(),);
                     },
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             decoration: BoxDecoration(
@@ -126,15 +133,132 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                   ),
                                       addWidth(10),
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                        // mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Text((controller.model.value.data!.cartItems![index].name!.isEmpty ? 'Test' : controller.model.value.data!.cartItems![index].name).toString(),
-                                            style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: const Color(0xFF21283D)
-                                            ),),
+
+                                          Row(
+                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text((controller.model.value.data!.cartItems![index].name!.isEmpty ? 'Test' : controller.model.value.data!.cartItems![index].name).toString(),
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16,
+                                                    color: const Color(0xFF21283D)
+                                                ),),
+                                               SizedBox(width: width * .25,),
+                                              IntrinsicHeight(
+                                                child: Row(
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                          updateCartRepo(
+                                                              controller
+                                                                  .model.value
+                                                                  .data!
+                                                                  .cartItems![index]
+                                                                  .id
+                                                                  .toString(),
+                                                              int.parse(
+                                                                  (controller
+                                                                      .model
+                                                                      .value
+                                                                      .data!
+                                                                      .cartItems![index]
+                                                                      .cartItemQty ??
+                                                                      "")
+                                                                      .toString()) -
+                                                                  1, context)
+                                                              .then((value1) {
+                                                            if (value1.status == true) {
+                                                              showToast(value1.message.toString());
+                                                              controller.getData();
+                                                            }
+                                                            else{
+                                                              showToast(value1.message);
+                                                            }
+                                                          });
+                                                      },
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(color: const Color(0xFF72CD4A)),
+                                                            shape: BoxShape.circle),
+                                                        alignment: Alignment.center,
+                                                        child: const Padding(
+                                                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                          child: Text(
+                                                            '-',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.w600,
+                                                                fontSize: 16,
+                                                                color: Color(0xFF72CD4A)),
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      alignment: Alignment.center,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(left: 14.0, right: 14.0),
+                                                        child: Text(controller
+                                                            .model.value.data!.cartItems![index].cartItemQty.toString()
+                                                          // controller.model.value.data!.latestProducts![index].buttonCount.value
+                                                          //     .toString(),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        // buttonCount.value++;
+                                                        updateCartRepo(
+                                                            controller
+                                                                .model.value
+                                                                .data!
+                                                                .cartItems![index]
+                                                                .id
+                                                                .toString(),
+                                                            int.parse(
+                                                                (controller
+                                                                    .model
+                                                                    .value
+                                                                    .data!
+                                                                    .cartItems![index]
+                                                                    .cartItemQty ??
+                                                                    "")
+                                                                    .toString()) +
+                                                                1, context)
+                                                            .then((value1) {
+                                                          if (value1.status == true) {
+                                                            showToast(value1.message.toString());
+                                                            controller.getData().then((value) {
+                                                              setState(() {});
+                                                            });
+                                                          }
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            color: const Color(0xFF72CD4A),
+                                                            border: Border.all(color: const Color(0xFF72CD4A)),
+                                                            shape: BoxShape.circle),
+                                                        alignment: Alignment.center,
+                                                        child: const Padding(
+                                                          padding: EdgeInsets.symmetric(horizontal: 8),
+                                                          child: Text(
+                                                            '+',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white),
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                           addHeight(3),
                                           Row(
                                             children: [
@@ -986,7 +1110,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                   color: const Color(0xff1A2E33)
                               ),),
                             Spacer(),
-                            Text( '€ ${controller.model.value.data!.cartPaymentSummary!.subTotal.toString()}.00',
+                            Text( '€ ${controller.model.value.data!.cartPaymentSummary!.subTotal.toStringAsFixed(2)}',
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -1007,7 +1131,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                   color: Color(0xff1A2E33)
                               ),),
                             Spacer(),
-                            Text( '€ ${controller.model.value.data!.cartPaymentSummary!.serviceCharge.toString()}.00',
+                            Text(
+
+                              '€ ${controller.model.value.data!.cartPaymentSummary!.serviceCharge.toString()} .20',
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -1049,7 +1175,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                   color: const Color(0xff6BC744)
                               ),),
                             Spacer(),
-                            Text( '€ ${controller.model.value.data!.cartPaymentSummary!.total.toString()}.00',
+                            Text( '€ ${controller.model.value.data!.cartPaymentSummary!.total.toString()}',
                               style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,

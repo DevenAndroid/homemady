@@ -43,7 +43,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.getData();
+      controller.getData().then((value){
+        controller.address.value = controller.model.value.data!.defaultAddress![0].addressType.toString();
+        print("Address is ..${controller.address.value}");
+      });
     });
 
 

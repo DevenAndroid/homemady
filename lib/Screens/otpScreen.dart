@@ -34,21 +34,7 @@ class _OtpScreenState extends State<OtpScreen> {
   final formKey99 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    // final defaultPinTheme =  PinTheme(
-    //     width: 56,
-    //     height: 56,
-    //     textStyle: const TextStyle(
-    //       fontSize: 22,
-    //       color: Color.fromRGBO(30, 60, 87, 1),
-    //     ),
-    //     decoration: BoxDecoration(
-    //         border: Border(
-    //             bottom: BorderSide(
-    //               color: Colors.grey.shade300,
-    //               width: 4.0,
-    //             )
-    //         )
-    //     ));
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
@@ -70,7 +56,7 @@ class _OtpScreenState extends State<OtpScreen> {
              ],
            ),
           Positioned(
-            top: 60,
+            top: 55,
             left: 0,
               right: 0,
               child: Column(
@@ -92,7 +78,7 @@ class _OtpScreenState extends State<OtpScreen> {
             ],
           )),
           Positioned(
-            top: 370,
+            top: 350,
               left: 0,
               right: 0,
               bottom: 0,
@@ -106,7 +92,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      addHeight(70),
+                      addHeight(height*0.070),
                       Padding(
                         padding: const EdgeInsets.only(left: 29.0,right: 29),
                         child: Form(
@@ -161,7 +147,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           // ),
                         ),
                       ),
-                      addHeight(40),
+                      addHeight(height*0.040),
                       Center(
                         child: Text('Didn\'t you receive the OTP?',style: GoogleFonts.poppins(
                             fontSize: 16,
@@ -169,7 +155,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           color: const Color(0xFF3D4260)
                         )),
                       ),
-                      addHeight(30),
+                      addHeight(height*0.030),
                       InkWell(
                         onTap: (){
                           resendOtpRepo(email: Get.arguments[0], context: context).then((value) {
@@ -187,8 +173,9 @@ class _OtpScreenState extends State<OtpScreen> {
                           )),
                         ),
                       ),
+                      addHeight(height*0.033),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24.0,right: 24,top: 70,bottom: 20),
+                        padding:  EdgeInsets.all(8),
                         child: CommonButton(title: 'Verify OTP',
                          onPressed: (){
                           //print("Hello");

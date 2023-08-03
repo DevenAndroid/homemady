@@ -9,7 +9,6 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:homemady/widgets/editprofiletextfiled.dart';
 
 import '../controller/order_details_controller.dart';
@@ -23,9 +22,13 @@ class ReviewScreen extends StatefulWidget {
 
 class _ReviewScreenState extends State<ReviewScreen> {
   final _formKey = GlobalKey<FormState>();
-
+  final TextEditingController feedbackController= TextEditingController();
   final controller = Get.put(OrderDetailsController());
-  String ratingvalue = '';
+  String ratingvalue1 = '';
+  String ratingvalue2 = '';
+  String ratingvalue3 = '';
+  String ratingvalue4 = '';
+  String ratingvalue5 = '';
   double fullRating = 0;
   bool _isValue = false;
   bool _isValue1 = false;
@@ -39,7 +42,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -65,31 +68,34 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.013,
               ),
-              RatingBar.builder(
-                initialRating: 6,
-                glowColor: Colors.white10,
-                minRating: 1,
-                unratedColor: const Color(0xFFE0DEDA),
-                itemCount: 7,
-                itemSize: 22.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                updateOnDrag: true,
-                allowHalfRating: true,
-                itemBuilder: (context, index) =>
-                    Image.asset('assets/images/star.png',
-                      color: Colors.amber,
-                    ),
-                onRatingUpdate: (rating) {
-                  log(double.parse(rating.toString())
-                      .round()
-                      .toString());
-                  setState(() {
-                    ratingvalue = double.parse(rating.toString()).round().toString();
-                  });
-                },
+              FittedBox(
+                child: RatingBar.builder(
+                  initialRating: 6,
+                  glowColor: Colors.white10,
+                  minRating: 1,
+                  unratedColor: const Color(0xFFE0DEDA),
+                  itemCount: 7,
+                  itemSize: 30.0,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  updateOnDrag: true,
+                  allowHalfRating: false,
+                  itemBuilder: (context, index) =>
+                      Image.asset('assets/images/star.png',
+                        color: Colors.amber,
+                      ),
+                  onRatingUpdate: (rating) {
+                    log(double.parse(rating.toString())
+                        .round()
+                        .toString());
+                    setState(() {
+                      ratingvalue1 = double.parse(rating.toString()).round().toString();
+                      print("Rating 1.....${ratingvalue1}");
+                    });
+                  },
+                ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height *.013,
+                height: MediaQuery.of(context).size.height *.022,
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,31 +113,34 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.013,
               ),
-              RatingBar.builder(
-                initialRating: 6,
-                glowColor: Colors.white10,
-                minRating: 1,
-                unratedColor: const Color(0xFFE0DEDA),
-                itemCount: 7,
-                itemSize: 22.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                updateOnDrag: true,
-                allowHalfRating: true,
-                itemBuilder: (context, index) =>
-                    Image.asset('assets/images/star.png',
-                      color: Colors.amber,
-                    ),
-                onRatingUpdate: (rating) {
-                  log(double.parse(rating.toString())
-                      .round()
-                      .toString());
-                  setState(() {
-                    ratingvalue = double.parse(rating.toString()).round().toString();
-                  });
-                },
+              FittedBox(
+                child: RatingBar.builder(
+                  initialRating: 6,
+                  glowColor: Colors.white10,
+                  minRating: 1,
+                  unratedColor: const Color(0xFFE0DEDA),
+                  itemCount: 7,
+                  itemSize: 30.0,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  updateOnDrag: true,
+                  allowHalfRating: false,
+                  itemBuilder: (context, index) =>
+                      Image.asset('assets/images/star.png',
+                        color: Colors.amber,
+                      ),
+                  onRatingUpdate: (rating) {
+                    log(double.parse(rating.toString())
+                        .round()
+                        .toString());
+                    setState(() {
+                      ratingvalue2 = double.parse(rating.toString()).round().toString();
+                      print("Rating 2.....${ratingvalue2}");
+                    });
+                  },
+                ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height *.013,
+                height: MediaQuery.of(context).size.height *.022,
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,31 +157,34 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.013,
               ),
-              RatingBar.builder(
-                initialRating: 6,
-                glowColor: Colors.white10,
-                minRating: 1,
-                unratedColor: const Color(0xFFE0DEDA),
-                itemCount: 7,
-                itemSize: 22.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                updateOnDrag: true,
-                allowHalfRating: true,
-                itemBuilder: (context, index) =>
-                    Image.asset('assets/images/star.png',
-                      color: Colors.amber,
-                    ),
-                onRatingUpdate: (rating) {
-                  log(double.parse(rating.toString())
-                      .round()
-                      .toString());
-                  setState(() {
-                    ratingvalue = double.parse(rating.toString()).round().toString();
-                  });
-                },
+              FittedBox(
+                child: RatingBar.builder(
+                  initialRating: 6,
+                  glowColor: Colors.white10,
+                  minRating: 1,
+                  unratedColor: const Color(0xFFE0DEDA),
+                  itemCount: 7,
+                  itemSize: 30,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  updateOnDrag: true,
+                  allowHalfRating: false,
+                  itemBuilder: (context, index) =>
+                      Image.asset('assets/images/star.png',
+                        color: Colors.amber,
+                      ),
+                  onRatingUpdate: (rating) {
+                    log(double.parse(rating.toString())
+                        .round()
+                        .toString());
+                    setState(() {
+                      ratingvalue3 = double.parse(rating.toString()).round().toString();
+                      print("Rating 3.....${ratingvalue3}");
+                    });
+                  },
+                ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height *.013,
+                height: MediaQuery.of(context).size.height *.022,
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,31 +202,34 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.013,
               ),
-              RatingBar.builder(
-                initialRating: 6,
-                glowColor: Colors.white10,
-                minRating: 1,
-                unratedColor: const Color(0xFFE0DEDA),
-                itemCount: 7,
-                itemSize: 22.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                updateOnDrag: true,
-                allowHalfRating: true,
-                itemBuilder: (context, index) =>
-                    Image.asset('assets/images/star.png',
-                      color: Colors.amber,
-                    ),
-                onRatingUpdate: (rating) {
-                  log(double.parse(rating.toString())
-                      .round()
-                      .toString());
-                  setState(() {
-                    ratingvalue = double.parse(rating.toString()).round().toString();
-                  });
-                },
+              FittedBox(
+                child: RatingBar.builder(
+                  initialRating: 6,
+                  glowColor: Colors.white10,
+                  minRating: 1,
+                  unratedColor: const Color(0xFFE0DEDA),
+                  itemCount: 7,
+                  itemSize: 30.0,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  updateOnDrag: true,
+                  allowHalfRating: false,
+                  itemBuilder: (context, index) =>
+                      Image.asset('assets/images/star.png',
+                        color: Colors.amber,
+                      ),
+                  onRatingUpdate: (rating) {
+                    log(double.parse(rating.toString())
+                        .round()
+                        .toString());
+                    setState(() {
+                      ratingvalue4 = double.parse(rating.toString()).round().toString();
+                      print("Rating 4.....${ratingvalue4}");
+                    });
+                  },
+                ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height *.013,
+                height: MediaQuery.of(context).size.height *.022,
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -232,28 +247,31 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.013,
               ),
-              RatingBar.builder(
-                initialRating: 6,
-                glowColor: Colors.white10,
-                minRating: 1,
-                unratedColor: const Color(0xFFE0DEDA),
-                itemCount: 7,
-                itemSize: 22.0,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                updateOnDrag: true,
-                allowHalfRating: true,
-                itemBuilder: (context, index) =>
-                    Image.asset('assets/images/star.png',
-                      color: Colors.amber,
-                    ),
-                onRatingUpdate: (rating) {
-                  log(double.parse(rating.toString())
-                      .round()
-                      .toString());
-                  setState(() {
-                    ratingvalue = double.parse(rating.toString()).round().toString();
-                  });
-                },
+              FittedBox(
+                child: RatingBar.builder(
+                  initialRating: 6,
+                  glowColor: Colors.white10,
+                  minRating: 1,
+                  unratedColor: const Color(0xFFE0DEDA),
+                  itemCount: 7,
+                  itemSize: 30.0,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  updateOnDrag: true,
+                  allowHalfRating: true,
+                  itemBuilder: (context, index) =>
+                      Image.asset('assets/images/star.png',
+                        color: Colors.amber,
+                      ),
+                  onRatingUpdate: (rating) {
+                    log(double.parse(rating.toString())
+                        .round()
+                        .toString());
+                    setState(() {
+                      ratingvalue5 = double.parse(rating.toString()).round().toString();
+                      print("Rating 5.....${ratingvalue5}");
+                    });
+                  },
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height *.10,
@@ -266,13 +284,22 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 ),),
               addHeight(10),
               EditProfileTextFieldWidget(
+                controller: feedbackController,
                 onTap: (){},
                 minLines: 4,
                 maxLines: null,
               ),
               addHeight(25),
               CommonButton(title: 'Publish Feedback',onPressed: (){
-                ratingReviewRepo(storeId: controller.model.value.data!.vendor!.id.toString(),type: 'driver', driverId: '45', rating: ratingvalue, foodQuality: _isValue, foodQuantity: _isValue1, communication: _isValue2, hygiene: _isValue3, delivery: _isValue4, context: context).then((value) {
+                ratingReviewRepo(
+                    orderId: controller.model.value.data!.orderId.toString(),
+                    review: feedbackController.text,
+                    foodQuality: ratingvalue1.toString(),
+                    foodQuantity: ratingvalue2.toString(),
+                    communication: ratingvalue3.toString(),
+                    hygiene: ratingvalue4.toString(),
+                    delivery: ratingvalue5.toString(),
+                    context: context).then((value) {
                   if(value.status == true){
                     showToast(value.message.toString());
                     Get.toNamed(MyRouters.feedBackScreen);

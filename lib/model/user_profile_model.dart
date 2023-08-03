@@ -33,6 +33,7 @@ class Data {
   String? lastName;
   String? email;
   String? phone;
+  List<DefaultAddress>? defaultAddress;
   String? walletBalance;
   String? earnedBalance;
   String? profileImage;
@@ -56,6 +57,7 @@ class Data {
         this.lastName,
         this.email,
         this.phone,
+        this.defaultAddress,
         this.walletBalance,
         this.earnedBalance,
         this.profileImage,
@@ -79,6 +81,12 @@ class Data {
     lastName = json['last_name'];
     email = json['email'];
     phone = json['phone'];
+    if (json['default_address '] != null) {
+      defaultAddress = <DefaultAddress>[];
+      json['default_address '].forEach((v) {
+        defaultAddress!.add(new DefaultAddress.fromJson(v));
+      });
+    }
     walletBalance = json['wallet_balance'];
     earnedBalance = json['earned_balance'];
     profileImage = json['profile_image'];
@@ -104,6 +112,10 @@ class Data {
     data['last_name'] = this.lastName;
     data['email'] = this.email;
     data['phone'] = this.phone;
+    if (this.defaultAddress != null) {
+      data['default_address '] =
+          this.defaultAddress!.map((v) => v.toJson()).toList();
+    }
     data['wallet_balance'] = this.walletBalance;
     data['earned_balance'] = this.earnedBalance;
     data['profile_image'] = this.profileImage;
@@ -115,6 +127,63 @@ class Data {
     data['as_driver_verified'] = this.asDriverVerified;
     data['as_vendor_verified'] = this.asVendorVerified;
     data['is_profile_complete'] = this.isProfileComplete;
+    return data;
+  }
+}
+
+class DefaultAddress {
+  int? id;
+  int? userId;
+  String? name;
+  String? latitude;
+  String? longitude;
+  String? location;
+  String? flatNo;
+  String? note;
+  String? pinCode;
+  String? landmark;
+  String? addressType;
+
+  DefaultAddress(
+      {this.id,
+        this.userId,
+        this.name,
+        this.latitude,
+        this.longitude,
+        this.location,
+        this.flatNo,
+        this.note,
+        this.pinCode,
+        this.landmark,
+        this.addressType});
+
+  DefaultAddress.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    name = json['name'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    location = json['location'];
+    flatNo = json['flat_no'];
+    note = json['note'];
+    pinCode = json['pin_code'];
+    landmark = json['landmark'];
+    addressType = json['address_type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['name'] = this.name;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
+    data['location'] = this.location;
+    data['flat_no'] = this.flatNo;
+    data['note'] = this.note;
+    data['pin_code'] = this.pinCode;
+    data['landmark'] = this.landmark;
+    data['address_type'] = this.addressType;
     return data;
   }
 }

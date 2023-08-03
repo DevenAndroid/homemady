@@ -5,46 +5,43 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/model_verify_otp.dart';
 import '../model/resend_otp_model.dart';
 import '../resources/api_urls.dart';
 import '../widgets/new_helper.dart';
 
 Future<ResendOtpModel> ratingReviewRepo(
     {
-      required String type,
-      required String driverId,
-      required String storeId,
-      required String rating,
-      required bool foodQuality,
-      required bool foodQuantity,
-      required bool communication,
-      required bool hygiene,
-      required bool delivery,
+
+      required String orderId,
+      required String review,
+      required String foodQuality,
+      required String foodQuantity,
+      required String communication,
+      required String hygiene,
+      required String delivery,
       required BuildContext context
     }) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context).insert(loader);
   SharedPreferences pref = await SharedPreferences.getInstance();
-  //print("These are details.....${pref}");
+  ModelVerifyOtp? user =
+  ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
   var map = <String, dynamic>{};
-  map['type'] = type;
-  map['driver_id'] = driverId;
-  map['store_id'] = driverId;
-  map['rating'] = rating;
+
+  map['order_id'] = orderId;
+  map['review'] = review;
   map['is_food_quality'] = foodQuality;
   map['is_food_quantity'] = foodQuantity;
   map['is_communication'] = communication;
   map['is_hygiene'] = hygiene;
   map['is_delivery'] = delivery;
-
-  // map['device_id'] = pref.getString('deviceId');
-  // map['device_token'] = fcmToken;
-
-  //log("Login Data map$map");
+print(map);
   try {
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
     };
     http.Response response = await http.post(Uri.parse(ApiUrl.ratingReviewUrl),
         body: jsonEncode(map), headers: headers);

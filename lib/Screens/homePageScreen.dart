@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/category_controller.dart';
 import '../controller/homepage_controller.dart';
+import '../controller/my_address_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/search_store_conbtroller.dart';
 import '../controller/time_slot_controller.dart';
@@ -39,6 +40,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final myCartController = Get.put(MyCartListController());
   final searchController = Get.put(SearchStoreController());
   final timeSlotController = Get.put(TimeSlotController());
+  final myAddressController = Get.put(MyAddressController());
 
   String dateInput11 = "";
   RxBool isValue = false.obs;
@@ -73,6 +75,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       myCartController.getData();
       categoryController.getCategoryData();
       timeSlotController.getTimeSlotData();
+      myAddressController.getData();
       int currnetIndex= -1;
       _decrement();
       _increment();
@@ -561,9 +564,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       ),
                     ),
                     addHeight(3),
-                    GestureDetector(onTap: () {
-                      Get.to(()=> const MyAddressScreen());
-                    }, child: Obx(() {
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(()=> const MyAddressScreen(),arguments: 'home');
+                        }, child: Obx(() {
+
                       return Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -572,21 +577,24 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             height: 13,
                           ),
                           addWidth(4),
-                          myCartController.isDataLoading.value
-                              ? Expanded(
-                                child: Text(
-                                  myCartController.model.value.data!.orderAddress == null
-                                      ? 'Select Address'
-                                      : myCartController.model.value.data!.orderAddress!.addressType,
-                                  style: GoogleFonts.poppins(
-                                    color: const Color(0xFF000000),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                        Flexible(
+                            child:
+                            Obx((){
+                              return  Text(
+                                profileController.address.value.toString(),
+                                // profileController.model.value.data!.defaultAddress == null
+                                //     ? 'Select Address'
+                                // : profileController.model.value.data!.defaultAddress![0].addressType.toString(),
+                                style: GoogleFonts.poppins(
+                                  color: const Color(0xFF000000),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
                                 ),
-                              )
-                              : CircularProgressIndicator(),
-                         // addWidth(5),
+
+                              );
+                            })
+                          ),
+                          addWidth(5),
                           Image.asset(
                             'assets/images/pencilImg.png',
                             height: 15,
@@ -597,7 +605,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ],
                 ),
               ),
-              const Spacer(),
+
               Badge(
                 badgeStyle: BadgeStyle(padding: EdgeInsets.all(7)),
                 badgeContent: Obx(() {

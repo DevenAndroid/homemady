@@ -13,10 +13,13 @@ import '../controller/vendor_single_store_controller.dart';
 import '../model/my_cart_model.dart';
 import '../repository/add_cart_repo.dart';
 import '../repository/remove_cartitem_repo.dart';
+import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
+import '../widgets/app_theme.dart';
 
 class CarteScreen extends StatefulWidget {
-  const CarteScreen({Key? key}) : super(key: key);
+ final String? data;
+  const CarteScreen({Key? key, this.data}) : super(key: key);
   static var carteScreenPage = "/carteScreenPage";
 
   @override
@@ -28,12 +31,21 @@ class _CarteScreenState extends State<CarteScreen> {
   final cartListController = Get.put(MyCartListController());
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //  if(widget.data == null)return;
+  }
+  @override
   Widget build(BuildContext context) {
-    return Column(
+    return
+      controller.isDataLoading.value && controller.model.value.data != null ?
+      Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(13.0),
           child:
+
           ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemCount: controller.model.value.data!.latestProducts!.length,
@@ -76,22 +88,77 @@ class _CarteScreenState extends State<CarteScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child:
-                                CachedNetworkImage(
-                                  imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
-                                  fit: BoxFit.cover,
-                                  height: 80,
-                                  width: 60,
-                                  errorWidget: (_, __, ___) => Image.asset(
-                                    'assets/images/Rectangle 23007.png',
-                                    fit: BoxFit.cover,
-                                    height: 80,
-                                    width: 60,
+                              Stack(
+
+                                children: [
+
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child:
+                                    CachedNetworkImage(
+                                      imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
+                                      fit: BoxFit.cover,
+                                      height: 110,
+                                      width: 75,
+                                      errorWidget: (_, __, ___) => Image.asset(
+                                        'assets/images/Rectangle 23007.png',
+                                        fit: BoxFit.cover,
+                                        height: 80,
+                                        width: 60,
+                                      ),
+                                      placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                                    ),
                                   ),
-                                  placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
-                                ),
+                                  Positioned(
+                                      top: 5,
+                                      right:-4,
+
+                                      child: InkWell(
+                                        onTap: (){
+                                           print("store  id..${controller.model.value.data!.latestProducts![index].id.toString()}");
+
+                                           wishlistRepo(productId: controller.model.value.data!.latestProducts![index].id.toString(),id: ''
+                                           ).then((value){
+                                             if(value.status==true){
+                                               showToast(value.message);
+                                               controller.getData();
+                                             }
+                                           });
+                                        },
+                                        child:
+                                        controller.model.value.data!.latestProducts![index].wishlist ?
+                                        Container(
+                                            height: 23,
+                                            decoration:
+                                            const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                            child: const Padding(
+                                                padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                child: Icon(
+                                                  Icons.favorite,
+                                                  color: Color(0xFF7ED957),
+                                                  size: 16,
+
+                                                )
+
+                                            )):
+                                        Container(
+                                            height: 20,
+                                            decoration:
+                                            const BoxDecoration(shape: BoxShape.circle,color: Colors.white),
+                                            child: const Padding(
+                                                padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                child: Icon(
+                                                  Icons.favorite_outline,
+                                                  color: Color(0xFF54C523),
+                                                  size: 16,
+                                                  // color: Color(0xFF7ED957),
+                                                  // color: Colors.red,
+                                                )
+
+                                            )),
+                                      )
+                                  ),
+                                ],
                               ),
                               addWidth(10),
                               Expanded(
@@ -356,6 +423,6 @@ class _CarteScreenState extends State<CarteScreen> {
           ),
         ),
       ],
-    );
+    ):const Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));
   }
 }

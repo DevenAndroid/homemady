@@ -39,19 +39,19 @@ class SearchStoreModel {
 }
 
 class Data {
-  int? id;
-  String? sKU;
-  String? name;
-  int? qty;
-  String? price;
-  String? content;
-  String? image;
-  int? cookUnitDays;
-  String? size;
-  String? sizeId;
-  int? inMenu;
-  String? discountOff;
-  Null? avgRating;
+  dynamic id;
+  dynamic sKU;
+  dynamic name;
+  dynamic qty;
+  dynamic price;
+  dynamic content;
+  dynamic image;
+  dynamic cookUnitDays;
+  dynamic size;
+  dynamic sizeId;
+  dynamic inMenu;
+  dynamic discountOff;
+  dynamic avgRating;
 
   Data(
       {this.id,

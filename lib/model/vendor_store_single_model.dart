@@ -140,6 +140,8 @@ class LatestProducts {
   String? size;
   String? sizeId;
   String? discountOff;
+  dynamic wishlist;
+
   Null? avgRating;
   // RxInt buttonCount = 0.obs;
   int productCount = 0;
@@ -156,6 +158,7 @@ class LatestProducts {
         this.image,
         this.cookUnitDays,
         this.size,
+        this.wishlist,
         this.sizeId,
         this.discountOff,
         this.avgRating});
@@ -170,6 +173,7 @@ class LatestProducts {
     maxQty = json['max_qty'];
     price = json['price'];
     content = json['content'];
+    wishlist = json['wishlist'];
     image = json['image'];
     cookUnitDays = json['cook_unit_days'];
     size = json['size'];
@@ -184,6 +188,7 @@ class LatestProducts {
     data['SKU'] = sKU;
     data['name'] = name;
     data['qty'] = qty;
+    data['wishlist'] = wishlist;
     data['qty_type'] = qtyType;
     data['min_qty'] = minQty;
     data['max_qty'] = maxQty;

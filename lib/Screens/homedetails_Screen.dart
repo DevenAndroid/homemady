@@ -17,9 +17,9 @@ import '../controller/my_cart_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../model/My_Cart_Model.dart';
 import '../model/vendor_store_single_model.dart';
+import '../repository/vendor_store_single_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
-
 
 class HomeDetailsScreen extends StatefulWidget {
   const HomeDetailsScreen({Key? key}) : super(key: key);
@@ -28,236 +28,248 @@ class HomeDetailsScreen extends StatefulWidget {
   State<HomeDetailsScreen> createState() => _HomeDetailsScreenState();
 }
 
-class _HomeDetailsScreenState extends State<HomeDetailsScreen>
-    with TickerProviderStateMixin {
+class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProviderStateMixin {
   final controller = Get.put(VendorSingleStoreController());
   final myCartController = Get.put(MyCartListController());
   Rx<CartItems> model = CartItems().obs;
+  int tabIndex = 0;
 
-
-  final
-  RxBool isSelect = false.obs;
-  late TabController tabController;
+  final RxBool isSelect = false.obs;
+  late TabController tabControllerGG;
 
   @override
   void initState() {
     super.initState();
+    tabControllerGG = TabController(length: 3, vsync: this);
+    print(tabControllerGG);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.getData();
-      tabController = TabController(length: 3, vsync: this);
+      controller.getStoreKeywordListData();
     });
-
-    // vendorOrderListController.filter.value = "";
-    // vendorOrderListController.vendorOrderListData();
-
   }
 
   final autoController = AutoScrollController();
 
   @override
   void dispose() {
-    tabController.dispose();
+    print(tabControllerGG);
+    tabControllerGG.dispose();
+    autoController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+   // var storeId="2";
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Obx(() {
         return Scaffold(
-            body: controller.isDataLoading.value ?
-            VerticalScrollableTabView(
-              physics: BouncingScrollPhysics(),
-              autoScrollController: autoController,
-              // scrollbarThumbVisibility: true,
-              tabController: tabController,
-              listItemData: const [
-                CarteScreen(),
-                // carteingScreen(),
-                // mealPrepScreen()
-              ],
-              verticalScrollPosition: VerticalScrollPosition.begin,
-              eachItemChild: (object, index) => object,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      SingleChildScrollView(
-                        child: Stack(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment
-                                    .start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: CachedNetworkImage(
-                                      imageUrl: controller.model.value.data!.storeDetails!.storeImage.toString(),
-                                      fit: BoxFit.cover,
-                                      height: 240,
-                                      width: AddSize.screenWidth,
-                                      errorWidget: (_, __, ___) => Image.asset(
-                                        'assets/images/Rectangle 23007.png',
-                                        height: 240,
-                                        width: AddSize.screenWidth,
-                                      ),
-                                      placeholder: (_, __) =>
-                                          const Center(child: CircularProgressIndicator()),
-                                    ),
-                                  ),
-                                  addHeight(20),
-                                   Text(controller.model.value.data!.storeDetails!.name.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20,
-                                        color: Color(0xFF21283D)
-                                    ),),
-                                  addHeight(10),
-                                   Text(
-                                    controller.model.value.data!.storeDetails!.description.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12,
-                                        color: const Color(0xFF364A4F)
-                                    ),),
-                                  addHeight(20),
-                                  const Divider(
-                                    color: Color(0xFFF2F2F2),
-                                    thickness: 2,
-                                    height: 1,
-                                  ),
-                                  addHeight(15),
-                                  GestureDetector(
-                                    onTap: (){
-                                      Get.toNamed(MyRouters.reviewScreen);
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/favImg.png', height: 18,),
-                                        addWidth(7),
-                                         Text(controller.model.value.data!.storeDetails!.avgRating.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Color(0xFF1A2E33),
-                                              fontWeight: FontWeight.w700,)),
-                                        addWidth(7),
-                                         Text('(${controller.model.value.data!.storeDetails!.reviewCount.toString()}k reviews)',
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              color: Color(0xFF4E5F64),
-                                              fontWeight: FontWeight.w400,)),
-                                        const Spacer(),
-                                        InkWell(
-                                            onTap: (){},
-                                            child: const Icon(
-                                              Icons.arrow_forward_ios, size: 13,
-                                              color: Color(0xFF000000),))
 
-                                      ],
-                                    ),
-                                  ),
-                                  addHeight(15),
-                                  const Divider(
-                                    color: Color(0xFFF2F2F2),
-                                    thickness: 2,
-                                    height: 1,
-                                  ),
-                                  addHeight(15),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          body: controller.isDataLoading.value
+              ?
+          VerticalScrollableTabView(
+                  physics: const BouncingScrollPhysics(),
+                  autoScrollController: autoController,
+                  // scrollbarThumbVisibility: true,
+                  tabController: TabController(length: 3, vsync: this),
+                  listItemData:  [
+                    CarteScreen(data: "4"),
+                    //  CarteScreen(data: "3"),
+                    // CarteScreen(data: "2"),
+                    // //carteingScreen(),
+                    // mealPrepScreen()
+                  ],
+                  verticalScrollPosition: VerticalScrollPosition.begin,
+                  eachItemChild: (object, index) => object,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Column(
+                        children: [
+                          SingleChildScrollView(
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Image.asset('assets/images/locationImg.png',
-                                        height: 20,
-                                        color: const Color(0xFF6AC643),),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .start,
-                                        children: [
-                                          Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km",
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 16,
-                                                color: const Color(0xFF1A2E33),
-                                                fontWeight: FontWeight.w600,)),
-                                          Text('Delivery Now',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 12,
-                                                color: const Color(0xFF4E5F64),
-                                                fontWeight: FontWeight.w400,)),
-
-                                        ],
+                                      if(controller.model.value.data?.storeDetails != null)
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl: controller.model.value.data!.storeDetails!.storeImage.toString(),
+                                          fit: BoxFit.cover,
+                                          height: 240,
+                                          width: AddSize.screenWidth,
+                                          errorWidget: (_, __, ___) => Image.asset(
+                                            'assets/images/Rectangle 23007.png',
+                                            height: 240,
+                                            width: AddSize.screenWidth,
+                                          ),
+                                          placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                                        ),
                                       ),
-                                      Container(
-                                        width: 1.5,
-                                        height: 30,
-                                        color: const Color(0xFFE7E7E7),
+                                      addHeight(20),
+                                      if(controller.model.value.data?.storeDetails != null)
+                                      Text(
+                                        controller.model.value.data!.storeDetails!.name.toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w600, fontSize: 20, color: Color(0xFF21283D)),
                                       ),
-
+                                      addHeight(10),
+                                      if(controller.model.value.data?.storeDetails != null)
+                                      Text(
+                                        controller.model.value.data!.storeDetails!.description.toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w300, fontSize: 12, color: const Color(0xFF364A4F)),
+                                      ),
+                                      addHeight(20),
+                                      const Divider(
+                                        color: Color(0xFFF2F2F2),
+                                        thickness: 2,
+                                        height: 1,
+                                      ),
+                                      addHeight(15),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(MyRouters.reviewScreen);
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/favImg.png',
+                                              height: 18,
+                                            ),
+                                            addWidth(7),
+                                            if(controller.model.value.data?.storeDetails != null)
+                                            Text(controller.model.value.data!.storeDetails!.avgRating.toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Color(0xFF1A2E33),
+                                                  fontWeight: FontWeight.w700,
+                                                )),
+                                            addWidth(7),
+                                            if(controller.model.value.data?.storeDetails != null)
+                                            Text(
+                                                '(${controller.model.value.data!.storeDetails!.reviewCount.toString()}k reviews)',
+                                                style: const TextStyle(
+                                                  fontSize: 13,
+                                                  color: Color(0xFF4E5F64),
+                                                  fontWeight: FontWeight.w400,
+                                                )),
+                                            const Spacer(),
+                                            InkWell(
+                                                onTap: () {},
+                                                child: const Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  size: 13,
+                                                  color: Color(0xFF000000),
+                                                ))
+                                          ],
+                                        ),
+                                      ),
+                                      addHeight(15),
+                                      const Divider(
+                                        color: Color(0xFFF2F2F2),
+                                        thickness: 2,
+                                        height: 1,
+                                      ),
+                                      addHeight(15),
                                       Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Image.asset(
-                                            'assets/images/clockImg.png',
-                                            height: 24,),
-                                          addWidth(7),
-                                           Text(controller.model.value.data!.storeDetails!.deliveryTime.toString(),
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                color: Color(0xFF4E5F64),
-                                                fontWeight: FontWeight.w400,)),
-                                        ],
-                                      ),
-                                      Container(
-                                        width: 1.5,
-                                        height: 30,
-                                        color: const Color(0xFFE7E7E7),
-                                      ),
+                                            'assets/images/locationImg.png',
+                                            height: 20,
+                                            color: const Color(0xFF6AC643),
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              if(controller.model.value.data?.storeDetails != null)
+                                              Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km",
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 16,
+                                                    color: const Color(0xFF1A2E33),
+                                                    fontWeight: FontWeight.w600,
+                                                  )),
+                                              Text('Delivery Now',
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 12,
+                                                    color: const Color(0xFF4E5F64),
+                                                    fontWeight: FontWeight.w400,
+                                                  )),
+                                            ],
+                                          ),
+                                          Container(
+                                            width: 1.5,
+                                            height: 30,
+                                            color: const Color(0xFFE7E7E7),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                'assets/images/clockImg.png',
+                                                height: 24,
+                                              ),
+                                              addWidth(7),
 
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            'assets/images/truckimg.png',
-                                            height: 24,
-                                            color: const Color(0xFF6AC643),),
-                                          addWidth(7),
-                                          const Text('Delivery Only',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Color(0xFF4E5F64),
-                                                fontWeight: FontWeight.w400,)),
+                                              const Text( '10-40',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Color(0xFF4E5F64),
+                                                    fontWeight: FontWeight.w400,
+                                                  )),
+                                            ],
+                                          ),
+                                          Container(
+                                            width: 1.5,
+                                            height: 30,
+                                            color: const Color(0xFFE7E7E7),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                'assets/images/truckimg.png',
+                                                height: 24,
+                                                color: const Color(0xFF6AC643),
+                                              ),
+                                              addWidth(7),
+                                              const Text('Delivery Only',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Color(0xFF4E5F64),
+                                                    fontWeight: FontWeight.w400,
+                                                  )),
+                                            ],
+                                          ),
                                         ],
                                       ),
+                                      addHeight(16),
                                     ],
                                   ),
-                                  addHeight(16),
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                                top: AddSize.screenHeight*.28,
-                                right: 26,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                        height: 67,
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white
-                                        ),
-                                        child: Padding(
+                                ),
+                                Positioned(
+                                    top: AddSize.screenHeight * .28,
+                                    right: 26,
+                                    child: Column(
+                                      children: [
+                                        if(controller.model.value.data?.storeDetails != null)
+                                        Container(
+                                            height: 67,
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                            child: Padding(
                                               padding: const EdgeInsets.all(6),
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(100),
                                                 child: CachedNetworkImage(
-                                                  imageUrl: controller.model.value.data!.storeDetails!.profileImage
-                                                      .toString(),
+                                                  imageUrl:
+                                                      controller.model.value.data!.storeDetails!.profileImage.toString(),
                                                   fit: BoxFit.cover,
                                                   height: 55,
                                                   width: 55,
@@ -269,273 +281,248 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                               ),
                                             )
                                             // Padding(
-                                        //   padding: const EdgeInsets.all(3),
-                                        //   child: CachedNetworkImage(
-                                        //     imageUrl: controller.model.value.data!.storeDetails!.profileImage.toString(),
-                                        //     fit: BoxFit.cover,
-                                        //     errorWidget: (_, __, ___) => Image.asset(
-                                        //       'assets/images/Ellipse 67.png',
-                                        //     ),
-                                        //     placeholder: (_, __) =>
-                                        //         Center(child: CircularProgressIndicator()),
-                                        //   ),
-                                        // )
-                                    ),
-                                    addHeight(3),
-                                  ],
-                                )
-                            ),
-                            Positioned(
-                              top: 20,
-                              // right: 0,
-                              left: 10,
-                              child: Container(
-                                  height: 35,
-                                  decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 14),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.back();
-                                      },
-                                      child: const Icon(Icons.arrow_back,
-                                          color: Colors.black),
-                                    ),
-                                  )
-                              ),
-                            ),
-                            Positioned(
-                                top: 20,
-                                right: 14,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        height: 35,
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 14),
-                                          child: Center(
-                                            child: InkWell(
-                                              onTap: () {
-                                                _showSimpleDialog3(context);
-                                              },
-                                              child: const Icon(Icons.search,
-                                                color: Color(
-                                                    0xFF54C523),),
+                                            //   padding: const EdgeInsets.all(3),
+                                            //   child: CachedNetworkImage(
+                                            //     imageUrl: controller.model.value.data!.storeDetails!.profileImage.toString(),
+                                            //     fit: BoxFit.cover,
+                                            //     errorWidget: (_, __, ___) => Image.asset(
+                                            //       'assets/images/Ellipse 67.png',
+                                            //     ),
+                                            //     placeholder: (_, __) =>
+                                            //         Center(child: CircularProgressIndicator()),
+                                            //   ),
+                                            // )
                                             ),
-                                          ),
-                                        )
-                                    ),
-                                    Container(
-                                        height: 35,
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white
+                                        addHeight(3),
+                                      ],
+                                    )),
+                                Positioned(
+                                  top: 20,
+                                  // right: 0,
+                                  left: 10,
+                                  child: Container(
+                                      height: 35,
+                                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.back();
+                                          },
+                                          child: const Icon(Icons.arrow_back, color: Colors.black),
                                         ),
-                                        child:
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 14),
-                                          child: Center(
-                                            child: InkWell(
-                                              onTap: () async {
-                                                await Share.share('HomeMady ');
-                                              },
-                                              child: const Icon(
-                                                Icons.share_outlined,
-                                                color: Color(
-                                                    0xFF54C523), size: 20,),
-                                            ),
-                                          ),
-                                        )
-                                    ),
-                                    Container(
-                                        height: 35,
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 14),
-                                          child: Center(
-                                            child: Obx(() {
-                                              return InkWell(
-                                                onTap: () {
-                                                  isSelect.value =
-                                                  !isSelect.value;
-                                                },
-                                                child: isSelect.value ==
-                                                    true
-                                                    ? const Icon(
-                                                  Icons.favorite,
-                                                  color: Color(0xFF54C523),)
-                                                    :
-                                                const Icon(Icons.favorite_outline,
-                                                  color: Color(
-                                                      0xFF54C523),),
-                                              );
-                                            }),
-                                          ),
-                                        )
-                                    ),
-                                  ],
-                                )
+                                      )),
+                                ),
+                                Positioned(
+                                    top: 20,
+                                    right: 14,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                            height: 35,
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 14),
+                                              child: Center(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    _showSimpleDialog3(context);
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.search,
+                                                    color: Color(0xFF54C523),
+                                                  ),
+                                                ),
+                                              ),
+                                            )),
+                                        Container(
+                                            height: 35,
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 14),
+                                              child: Center(
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    await Share.share('HomeMady ');
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.share_outlined,
+                                                    color: Color(0xFF54C523),
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                              ),
+                                            )),
+                                        Container(
+                                            height: 35,
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 14),
+                                              child: Center(
+                                                child: Obx(() {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      isSelect.value = !isSelect.value;
+                                                    },
+                                                    child: isSelect.value == true
+                                                        ? const Icon(
+                                                            Icons.favorite,
+                                                            color: Color(0xFF54C523),
+                                                          )
+                                                        : const Icon(
+                                                            Icons.favorite_outline,
+                                                            color: Color(0xFF54C523),
+                                                          ),
+                                                  );
+                                                }),
+                                              ),
+                                            )),
+                                      ],
+                                    )),
+                                Positioned(
+                                    top: 200,
+                                    left: 10,
+                                    right: 15,
+                                    //   bottom: 0,
+                                    child: Row(
+                                      children: [
+                                        InkWell(
+                                            onTap: () {
+                                              showGeneralDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                  pageBuilder: (BuildContext context, Animation first, Animation second) {
+                                                    return Stack(
+                                                      children: [
+                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                                        Positioned(
+                                                          right: 18,
+                                                          top: 30,
+                                                          child: Container(
+                                                              padding: EdgeInsets.all(10),
+                                                              height: 80,
+                                                              decoration: const BoxDecoration(
+                                                                  color: Colors.white, shape: BoxShape.circle),
+                                                              child: GestureDetector(
+                                                                child: Icon(Icons.clear),
+                                                                onTap: () {
+                                                                  Get.back();
+                                                                },
+                                                              )),
+                                                        )
+                                                      ],
+                                                    );
+                                                  });
+                                            },
+                                            child: Image.asset(
+                                              'assets/images/topChef.png',
+                                              width: 50,
+                                            )),
+                                        InkWell(
+                                            onTap: () {
+                                              showGeneralDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                  pageBuilder: (BuildContext context, Animation first, Animation second) {
+                                                    return Stack(
+                                                      children: [
+                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                                        Positioned(
+                                                          right: 18,
+                                                          top: 30,
+                                                          child: Container(
+                                                              padding: EdgeInsets.all(10),
+                                                              height: 80,
+                                                              decoration: const BoxDecoration(
+                                                                  color: Colors.white, shape: BoxShape.circle),
+                                                              child: GestureDetector(
+                                                                child: Icon(Icons.clear),
+                                                                onTap: () {
+                                                                  Get.back();
+                                                                },
+                                                              )),
+                                                        )
+                                                      ],
+                                                    );
+                                                  });
+                                            },
+                                            child: Image.asset(
+                                              'assets/images/topChef.png',
+                                              width: 50,
+                                            )),
+                                      ],
+                                    )),
+                              ],
                             ),
-                            Positioned(
-                                top: 200,
-                                left: 10,
-                                right: 15,
-                                //   bottom: 0,
-                                child: Row(
-                                  children: [
-                                    InkWell(
-                                        onTap: () {
-                                          showGeneralDialog(
-                                              context: context,
-                                              barrierDismissible: true,
-                                              barrierColor: const Color(
-                                                  0xFF000000).withOpacity(0.58),
-                                              barrierLabel: MaterialLocalizations
-                                                  .of(context)
-                                                  .modalBarrierDismissLabel,
-                                              pageBuilder: (BuildContext context,
-                                                  Animation first,
-                                                  Animation second) {
-                                                return Stack(
-                                                  children: [
-                                                    Center(child: Image.asset(
-                                                        'assets/images/dialogboximg.png')),
-                                                    Positioned(
-                                                      right: 18,
-                                                      top: 30,
-                                                      child: Container(
-                                                          padding: EdgeInsets.all(
-                                                              10),
-                                                          height: 80,
-                                                          decoration: const BoxDecoration(
-                                                              color: Colors.white,
-                                                              shape: BoxShape
-                                                                  .circle
-                                                          ),
-                                                          child:GestureDetector(child: Icon(Icons.clear),onTap: (){
-                                                            Get.back();
-                                                          },)
-                                                      ),)
-                                                  ],
-                                                );
-                                              }
-                                          );
-                                        },
-                                        child: Image.asset(
-                                          'assets/images/topChef.png',
-                                          width: 50,)),
-                                    InkWell(
-                                        onTap: () {
-                                          showGeneralDialog(
-                                              context: context,
-                                              barrierDismissible: true,
-                                              barrierColor: const Color(
-                                                  0xFF000000).withOpacity(0.58),
-                                              barrierLabel: MaterialLocalizations
-                                                  .of(context)
-                                                  .modalBarrierDismissLabel,
-                                              pageBuilder: (BuildContext context,
-                                                  Animation first,
-                                                  Animation second) {
-                                                return Stack(
-                                                  children: [
-                                                    Center(child: Image.asset(
-                                                        'assets/images/dialogboximg.png')),
-                                                    Positioned(
-                                                      right: 18,
-                                                      top: 30,
-                                                      child: Container(
-                                                          padding: EdgeInsets.all(
-                                                              10),
-                                                          height: 80,
-                                                          decoration: const BoxDecoration(
-                                                              color: Colors.white,
-                                                              shape: BoxShape
-                                                                  .circle
-                                                          ),
-                                                          child:GestureDetector(child: Icon(Icons.clear),onTap: (){
-                                                            Get.back();
-                                                          },)
-                                                      ),)
-                                                  ],
-                                                );
-                                              }
-                                          );
-                                        },
-                                        child: Image.asset(
-                                          'assets/images/topChef.png',
-                                          width: 50,)),
-                                  ],
-                                )
+                          ),
+                        ],
+                      ),
+                    ),
+                    SliverAppBar(
+                        pinned: true,
+                        floating: true,
+                        toolbarHeight: 0,
+                        backgroundColor: Colors.white,
+                        elevation: 1,
+                        bottom: TabBar(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          labelPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          onTap: (value) {
+                            print(value);
+                            if(value == 0){
+                              controller.storeKeyword.value="4";
+                              controller.getData();
+                            }
+                            if(value == 1){
+                              controller.storeKeyword.value="3";
+                              controller.getData();
+                            }
+                            if(value == 2){
+                              controller.storeKeyword.value="2";
+                              controller.getData();
+                            }
+
+                            //
+                            // autoController.scrollToIndex(value, preferPosition: AutoScrollPosition.begin);
+                          },
+                          isScrollable: false,
+                          unselectedLabelColor: const Color(0xFF1A2E33),
+                          labelColor: Colors.white,
+                          indicatorColor: Colors.transparent,
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: const Color(0xFF7ED957),
+                          ),
+                          tabs: const [
+                            Tab(
+                              text: 'A la carte',
+                            ),
+                            Tab(
+                              text: 'Catering',
+                            ),
+                            Tab(
+                              text: 'Meal Prep',
                             ),
                           ],
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
-                SliverAppBar(
-                    pinned: true,
-                    floating: true,
-                    toolbarHeight: 0,
-                    backgroundColor: Colors.white,
-                    elevation: 1,
-                    bottom: TabBar(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      labelPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      onTap: (value) {
-                        autoController
-                            .scrollToIndex(
-                            value, preferPosition: AutoScrollPosition.begin);
-                      },
-                      isScrollable: false,
-                      unselectedLabelColor: const Color(0xFF1A2E33),
-                      labelColor:   Colors.white,
-                      indicatorColor: Colors.transparent,
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: const Color(0xFF7ED957),
-
-                      ),
-                      tabs: const[
-                        Tab(
-                          text: 'A la carte',
-                        ),
-                        Tab(
-                          text: 'Catering',
-                        ),
-                        Tab(
-                          text: 'Meal Prep',
-                        ),
-                      ],
-                      controller: tabController,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                    )),
-              ],
-            ) : Center(child: CircularProgressIndicator()),
-          bottomNavigationBar: myCartController.isDataLoading.value &&
-              myCartController.model.value.data!.cartItems!.isNotEmpty ?
-          addCartSection() : null,
+                          controller: tabControllerGG,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                        )),
+                  ],
+                )
+              : Center(child: CircularProgressIndicator()),
+          bottomNavigationBar:
+              myCartController.isDataLoading.value && myCartController.model.value.data!.cartItems!.isNotEmpty
+                  ? addCartSection()
+                  : null,
         );
       }),
-
     );
   }
+
   Future<void> _showSimpleDialog3(BuildContext context) async {
     await showDialog(
         barrierDismissible: true,
@@ -543,10 +530,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
         barrierColor: const Color(0x01000000),
         builder: (context) {
           return Dialog(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero
-            ),
-            insetPadding: const EdgeInsets.only(bottom: 0,top: 0),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            insetPadding: const EdgeInsets.only(bottom: 0, top: 0),
             child: ListView.builder(
               itemCount: controller.model.value.data!.latestProducts!.length,
               shrinkWrap: true,
@@ -564,14 +549,15 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                 boxShadow: [
                                   BoxShadow(
                                     color: const Color(0xFF37C666).withOpacity(0.10),
-                                    offset: const Offset(.1, .1,
+                                    offset: const Offset(
+                                      .1,
+                                      .1,
                                     ),
                                     blurRadius: 20.0,
                                     spreadRadius: 1.0,
                                   ),
                                 ],
-                                borderRadius: BorderRadius.circular(12)
-                            ),
+                                borderRadius: BorderRadius.circular(12)),
                             child: Column(
                               children: [
                                 Row(
@@ -579,123 +565,121 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                        child:  CachedNetworkImage(
-                                          imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
-                                          fit: BoxFit.cover,
-                                          errorWidget: (_, __, ___) => Image.asset(
-                                            'assets/images/error_image.png',
-                                          ),
-                                          placeholder: (_, __) =>
-                                              Center(child: CircularProgressIndicator()),
+                                      child: CachedNetworkImage(
+                                        imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
+                                        fit: BoxFit.cover,
+                                        errorWidget: (_, __, ___) => Image.asset(
+                                          'assets/images/error_image.png',
                                         ),
+                                        placeholder: (_, __) => Center(child: CircularProgressIndicator()),
+                                      ),
                                     ),
                                     addWidth(10),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(controller.model.value.data!.latestProducts![index].name.toString(),
+                                        Text(
+                                          controller.model.value.data!.latestProducts![index].name.toString(),
                                           style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14,
-                                              color: const Color(0xFF21283D)
-                                          ),),
+                                              fontWeight: FontWeight.w700, fontSize: 14, color: const Color(0xFF21283D)),
+                                        ),
                                         addHeight(3),
-                                        Text('Size: 200gm',
+                                        Text(
+                                          'Size: 200gm',
                                           style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: 11,
-                                              color: const Color(0xFF364A4F)
-                                          ),),
+                                              fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                        ),
                                         addHeight(3),
                                         Row(
                                           children: [
                                             Row(
                                               children: [
-                                                Text('spiciness :',
+                                                Text(
+                                                  'spiciness :',
                                                   style: GoogleFonts.poppins(
                                                       fontWeight: FontWeight.w500,
                                                       fontSize: 10,
-                                                      color: const Color(0xFF1F2D30)
-                                                  ),),
+                                                      color: const Color(0xFF1F2D30)),
+                                                ),
                                                 addWidth(4),
-                                                Text('Mildly Spicy',
+                                                Text(
+                                                  'Mildly Spicy',
                                                   style: GoogleFonts.poppins(
                                                       fontWeight: FontWeight.w500,
                                                       fontSize: 10,
-                                                      color: const Color(0xFF6CC844)
-                                                  ),),
+                                                      color: const Color(0xFF6CC844)),
+                                                ),
                                               ],
                                             ),
                                             addWidth(10),
                                             Row(
                                               children: [
                                                 Expanded(
-                                                  child: Text('Allergens :',
+                                                  child: Text(
+                                                    'Allergens :',
                                                     style: GoogleFonts.poppins(
                                                         fontWeight: FontWeight.w500,
                                                         fontSize: 10,
-                                                        color: const Color(0xFF1F2D30)
-                                                    ),),
+                                                        color: const Color(0xFF1F2D30)),
+                                                  ),
                                                 ),
                                                 addWidth(4),
-                                                Text('Crustaceans',
+                                                Text(
+                                                  'Crustaceans',
                                                   style: GoogleFonts.poppins(
                                                       fontWeight: FontWeight.w500,
                                                       fontSize: 10,
-                                                      color: const Color(0xFF6CC844)
-                                                  ),),
+                                                      color: const Color(0xFF6CC844)),
+                                                ),
                                               ],
                                             ),
                                           ],
                                         ),
                                         addHeight(6),
                                         IntrinsicHeight(
-                                          child:
-                                          Row(
+                                          child: Row(
                                             children: [
                                               InkWell(
-                                                onTap:
-                                                    () {
-                                                },
-                                                child:
-                                                Container(
-                                                  decoration: BoxDecoration(border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+                                                onTap: () {},
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(color: const Color(0xFF72CD4A)),
+                                                      shape: BoxShape.circle),
                                                   alignment: Alignment.center,
                                                   child: const Padding(
-                                                    padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                                     child: Text(
                                                       '-',
-                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF72CD4A)),
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Color(0xFF72CD4A)),
                                                       textAlign: TextAlign.center,
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                               Container(
-                                                alignment:
-                                                Alignment.center,
-                                                child:
-                                                const Padding(
+                                                alignment: Alignment.center,
+                                                child: const Padding(
                                                   padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                                                  child: Text(
-                                                      '0'
-                                                  ),
+                                                  child: Text('0'),
                                                 ),
                                               ),
                                               InkWell(
-                                                onTap:
-                                                    () {
-
-                                                },
-                                                child:
-                                                Container(
-                                                  decoration: BoxDecoration(color: const Color(0xFF72CD4A),border: Border.all(color: const Color(0xFF72CD4A)), shape: BoxShape.circle),
+                                                onTap: () {},
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: const Color(0xFF72CD4A),
+                                                      border: Border.all(color: const Color(0xFF72CD4A)),
+                                                      shape: BoxShape.circle),
                                                   alignment: Alignment.center,
                                                   child: const Padding(
-                                                    padding:  EdgeInsets.symmetric(horizontal: 8),
+                                                    padding: EdgeInsets.symmetric(horizontal: 8),
                                                     child: Text(
                                                       '+',
-                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: Colors.white),
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white),
                                                       textAlign: TextAlign.center,
                                                     ),
                                                   ),
@@ -721,14 +705,16 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     addWidth(80),
-                                    Image.asset('assets/images/helpimg.png',height: 13,),
+                                    Image.asset(
+                                      'assets/images/helpimg.png',
+                                      height: 13,
+                                    ),
                                     addWidth(4),
-                                    Text('Can cook more units by: 30th June 2023',
+                                    Text(
+                                      'Can cook more units by: 30th June 2023',
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 11,
-                                          color: const Color(0xFF364A4F)
-                                      ),),
+                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                    ),
                                   ],
                                 ),
                                 addHeight(4),
@@ -737,45 +723,43 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     addWidth(80),
-                                    Image.asset('assets/images/helpimg.png',height: 13,),
+                                    Image.asset(
+                                      'assets/images/helpimg.png',
+                                      height: 13,
+                                    ),
                                     addWidth(4),
-                                    Text('Available stock: ',
+                                    Text(
+                                      'Available stock: ',
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 11,
-                                          color: const Color(0xFF364A4F)
-                                      ),),
-                                    Text(' 3 units',
+                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                    ),
+                                    Text(
+                                      ' 3 units',
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11,
-                                          color: const Color(0xFF364A4F)
-                                      ),),
+                                          fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                    ),
                                   ],
                                 ),
-
-
                               ],
                             ),
                           ),
                           Positioned(
                             top: 14,
                             right: 20,
-                            child:  Text('€6.99',
+                            child: Text(
+                              '€6.99',
                               style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 15,
-                                  color: const Color(0xFF70CC49)
-                              ),),
+                                  fontWeight: FontWeight.w700, fontSize: 15, color: const Color(0xFF70CC49)),
+                            ),
                           )
                         ],
                       ),
                     ],
                   ),
                 );
-              },),
+              },
+            ),
           );
-        }
-    );
+        });
   }
 }

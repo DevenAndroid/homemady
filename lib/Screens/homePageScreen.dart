@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/Screens/search_screen_data.dart';
+import 'package:homemady/model/my_cart_model.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
@@ -21,6 +23,10 @@ import '../controller/my_cart_controller.dart';
 import '../controller/search_store_conbtroller.dart';
 import '../controller/time_slot_controller.dart';
 import '../controller/user_profile_controller.dart';
+import '../controller/vendor_single_store_controller.dart';
+import '../repository/add_cart_repo.dart';
+import '../repository/filter_repo.dart';
+import '../repository/remove_cartitem_repo.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
@@ -41,12 +47,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final searchController = Get.put(SearchStoreController());
   final timeSlotController = Get.put(TimeSlotController());
   final myAddressController = Get.put(MyAddressController());
+  final controller = Get.put(VendorSingleStoreController());
 
   String dateInput11 = "";
   RxBool isValue = false.obs;
   String? selectedCategory;
   int currentIndex = -1;
   bool? isSlotSelected=true;
+  bool? isChoosedFilter =false;
   final RxBool _isValue = false.obs;
   final RxBool _isValue1 = false.obs;
   final RxBool _isValue2 = false.obs;
@@ -81,6 +89,247 @@ class _HomePageScreenState extends State<HomePageScreen> {
       _increment();
     });
 
+  }
+  Future<void> _showSimpleDialog3(BuildContext context) async {
+    await showDialog(
+        barrierDismissible: true,
+        context: context,
+        barrierColor: const Color(0x01000000),
+        builder: (context) {
+          return Dialog(
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            insetPadding: const EdgeInsets.only(bottom: 0, top: 0),
+            child:
+            controller.isDataLoading.value ?
+            ListView.builder(
+              itemCount: controller.model.value.data!.latestProducts!.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF37C666).withOpacity(0.10),
+                                    offset: const Offset(
+                                      .1,
+                                      .1,
+                                    ),
+                                    blurRadius: 20.0,
+                                    spreadRadius: 1.0,
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      child: CachedNetworkImage(
+                                        imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
+                                        fit: BoxFit.cover,
+                                        errorWidget: (_, __, ___) => Image.asset(
+                                          'assets/images/error_image.png',
+                                        ),
+                                        placeholder: (_, __) => Center(child: CircularProgressIndicator()),
+                                      ),
+                                    ),
+                                    addWidth(10),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          controller.model.value.data!.latestProducts![index].name.toString(),
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w700, fontSize: 14, color: const Color(0xFF21283D)),
+                                        ),
+                                        addHeight(3),
+                                        Text(
+                                          'Size: 200gm',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                        ),
+                                        addHeight(3),
+                                        Row(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'spiciness :',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF1F2D30)),
+                                                ),
+                                                addWidth(4),
+                                                Text(
+                                                  'Mildly Spicy',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF6CC844)),
+                                                ),
+                                              ],
+                                            ),
+                                            addWidth(10),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    'Allergens :',
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 10,
+                                                        color: const Color(0xFF1F2D30)),
+                                                  ),
+                                                ),
+                                                addWidth(4),
+                                                Text(
+                                                  'Crustaceans',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 10,
+                                                      color: const Color(0xFF6CC844)),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        addHeight(6),
+                                        IntrinsicHeight(
+                                          child: Row(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(color: const Color(0xFF72CD4A)),
+                                                      shape: BoxShape.circle),
+                                                  alignment: Alignment.center,
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                    child: Text(
+                                                      '-',
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Color(0xFF72CD4A)),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                child: const Padding(
+                                                  padding: EdgeInsets.only(left: 14.0, right: 14.0),
+                                                  child: Text('0'),
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: const Color(0xFF72CD4A),
+                                                      border: Border.all(color: const Color(0xFF72CD4A)),
+                                                      shape: BoxShape.circle),
+                                                  alignment: Alignment.center,
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal: 8),
+                                                    child: Text(
+                                                      '+',
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                addHeight(5),
+                                Container(
+                                  margin: EdgeInsets.only(left: 75),
+                                  color: Color(0xFFE9E9E9),
+                                  width: AddSize.screenWidth,
+                                  height: 1,
+                                ),
+                                addHeight(7),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    addWidth(80),
+                                    Image.asset(
+                                      'assets/images/helpimg.png',
+                                      height: 13,
+                                    ),
+                                    addWidth(4),
+                                    Text(
+                                      'Can cook more units by: 30th June 2023',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                    ),
+                                  ],
+                                ),
+                                addHeight(4),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    addWidth(80),
+                                    Image.asset(
+                                      'assets/images/helpimg.png',
+                                      height: 13,
+                                    ),
+                                    addWidth(4),
+                                    Text(
+                                      'Available stock: ',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                    ),
+                                    Text(
+                                      ' 3 units',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 14,
+                            right: 20,
+                            child: Text(
+                              '€6.99',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w700, fontSize: 15, color: const Color(0xFF70CC49)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ):Center(child: CircularProgressIndicator()),
+          );
+        });
   }
 
   void _scrollListener() {
@@ -570,6 +819,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         }, child: Obx(() {
 
                       return Row(
+
                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Image.asset(
@@ -579,20 +829,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           addWidth(4),
                         Flexible(
                             child:
-                            Obx((){
-                              return  Text(
-                                profileController.address.value.toString(),
-                                // profileController.model.value.data!.defaultAddress == null
-                                //     ? 'Select Address'
-                                // : profileController.model.value.data!.defaultAddress![0].addressType.toString(),
-                                style: GoogleFonts.poppins(
-                                  color: const Color(0xFF000000),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                            Text(
+                              profileController.address.value.toString(),
+                              // profileController.model.value.data!.defaultAddress == null
+                              //     ? 'Select Address'
+                              // : profileController.model.value.data!.defaultAddress![0].addressType.toString(),
+                              style: GoogleFonts.poppins(
+                                color: const Color(0xFF000000),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
 
-                              );
-                            })
+                            ),
                           ),
                           addWidth(5),
                           Image.asset(
@@ -649,7 +897,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     },
                     child: SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      child: Column(
+                      child:
+
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
@@ -718,16 +968,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           child: CommonTextFieldWidget1(
                                             hint: 'Search Your Food',
                                             controller: searchController.searchController1,
-                                            prefix: Icon(
-                                              Icons.search,
-                                              size: 19,
-                                              color: const Color(0xFF000000).withOpacity(0.56),
+                                            prefix: InkWell(
+                                              onTap: (){
+                                                if(selectedDate != "Deliver Now"){
+                                                  Get.toNamed(SearchScreenData.searchScreen,arguments: [selectedDate]);
+                                                  // filterDataRepo(pickDate: selectedDate).then((value){
+                                                  //   if(value.status==true){
+                                                  //
+                                                  //   }
+                                                  // });
+                                                }else{
+                                                  showToast("Please pick a date");
+                                                }
+                                                print("Date is ${selectedDate}");
+                                                print(searchController.searchController1.text);
+
+                                              },
+                                              child: Icon(
+                                                Icons.search,
+                                                size: 19,
+                                                color: const Color(0xFF000000).withOpacity(0.56),
+                                              ),
                                             ),
                                             onChanged: (val) {
                                               isValue.value = true;
                                               searchController.getSearchData();
-                                              setState(() {});
-                                              _showSimpleDialog3(context);
+                                              // Get.toNamed(SearchScreenData.searchScreen);
+
                                             },
                                           )),
                                     ),
@@ -815,7 +1082,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             errorWidget: (_, __, ___) => Image.asset(
                                               'assets/images/Ellipse 67.png',
                                             ),
-                                            placeholder: (_, __) => Center(child: CircularProgressIndicator()),
+                                            placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                           ),
                                           addWidth(20)
                                         ],
@@ -1077,6 +1344,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 String formattedDate = DateFormat(
                                                     'yyyy/MM/dd').format(value);
                                                 setState(() {
+                                                  // var selectedDate=formattedDate;
                                                   selectedDate =
                                                       formattedDate; //set output date to TextField value.
                                                   log("Seleted Date     $selectedDate");
@@ -1085,7 +1353,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             });
 
                                             if (pickedDate != null) {
-                                              showChooseDate(context);
+                                              // showChooseDate(context);
                                               String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
                                               setState(() {
                                                 selectedDate = formattedDate;
@@ -1097,7 +1365,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               height: 44,
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(4),
-                                                color: Color(0xFF7ED957),
+                                                color: const Color(0xFF7ED957),
                                               ),
                                               child: selectedDate == 'Deliver Now' ?
                                               Row(
@@ -1310,12 +1578,36 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
                                                         Container(
-                                                            height: 48,
+                                                            height: 55,
+                                                            // width: 30,
                                                             decoration:
                                                                 const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                                                             child: Padding(
-                                                              padding: const EdgeInsets.all(3),
-                                                              child: Image.asset('assets/images/avtarImg.png'),
+                                                              padding: const EdgeInsets.all(4),
+                                                              child:
+                                                              // Image.asset('assets/images/avtarImg.png'),
+
+                                                              SizedBox(
+                                                                height: 50,
+                                                                width: 50,
+                                                                child: ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(50),
+                                                                  child: CachedNetworkImage(
+                                                                    imageUrl:
+                                                                    homeController.isDataLoading.value ?
+                                                                              homeController.model.value.data!.stores![index].profileImage.toString()
+                                                                        :
+                                                                      'assets/images/avtarImg.png',
+                                                                    // height: 40,
+                                                                    fit: BoxFit.cover,
+                                                                    errorWidget: (_, __, ___) => Image.asset(
+                                                                      'assets/images/Ellipse 67.png',
+                                                                    ),
+                                                                    placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                                                                  ),
+
+                                                                ),
+                                                              ),
                                                             )),
                                                         addHeight(3),
                                                         Text(
@@ -1363,7 +1655,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       onTap: (){
                                                         print("store  id..${homeController.model.value.data!.stores![index].id.toString()}");
 
-                                                        wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString(),
+                                                        wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString(),productId: ''
                                                            ).then((value){
                                                           if(value.status==true){
                                                             showToast(value.message);
@@ -1385,22 +1677,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                                               )
 
-                                                          )):
-                                                                 Container(
-                                                                    height: 33,
-                                                                    decoration:
-                                                                        const BoxDecoration(shape: BoxShape.circle,color: Colors.white),
-                                                                    child: const Padding(
-                                                                      padding: EdgeInsets.only(left: 10, right: 10, top: 3),
-                                                                      child: Icon(
-                                                                              Icons.favorite_outline,
-                                                                        color: Color(0xFF54C523),
-                                                                              // color: Color(0xFF7ED957),
-                                                                              // color: Colors.red,
-                                                                            )
+                                                          )): Container(
+                                                          height: 33,
+                                                          decoration:
+                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                          child: const Padding(
+                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                              child: Icon(
+                                                                Icons.favorite_outline,
+                                                                color: Color(0xFF7ED957),
 
-                                                    ))
-                                                      ,
+                                                              )
+
+                                                          ))
                                                     )
                                                 ),
                                                 // Positioned(
@@ -1438,90 +1727,90 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 //         //   }),
                                                 //       ],
                                                 //     )),
-                                                Positioned(
-                                                    top: 14,
-                                                    // bottom: 0,
-                                                    left: 10,
-                                                    right: 15,
-                                                    //   bottom: 0,
-                                                    child: Row(
-                                                      children: [
-                                                        GestureDetector(
-                                                            onTap: () {
-                                                              showGeneralDialog(
-                                                                  context: context,
-                                                                  barrierDismissible: true,
-                                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                                  barrierLabel:
-                                                                      MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                                  pageBuilder:
-                                                                      (BuildContext context, Animation first, Animation second) {
-                                                                    return Stack(
-                                                                      children: [
-                                                                        Center(
-                                                                            child: Image.asset('assets/images/dialogboximg.png')),
-                                                                        Positioned(
-                                                                          right: 18,
-                                                                          top: 30,
-                                                                          child: Container(
-                                                                              padding: EdgeInsets.all(10),
-                                                                              height: 80,
-                                                                              decoration: const BoxDecoration(
-                                                                                  color: Colors.white, shape: BoxShape.circle),
-                                                                              child: GestureDetector(
-                                                                                child: Icon(Icons.clear),
-                                                                                onTap: () {
-                                                                                  Get.back();
-                                                                                },
-                                                                              )),
-                                                                        )
-                                                                      ],
-                                                                    );
-                                                                  });
-                                                            },
-                                                            child: Image.asset(
-                                                              'assets/images/topChef.png',
-                                                              width: 50,
-                                                            )),
-                                                        GestureDetector(
-                                                            onTap: () {
-                                                              showGeneralDialog(
-                                                                  context: context,
-                                                                  barrierDismissible: true,
-                                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                                  barrierLabel:
-                                                                      MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                                  pageBuilder:
-                                                                      (BuildContext context, Animation first, Animation second) {
-                                                                    return Stack(
-                                                                      children: [
-                                                                        Center(
-                                                                            child: Image.asset('assets/images/dialogboximg.png')),
-                                                                        Positioned(
-                                                                          right: 18,
-                                                                          top: 50,
-                                                                          child: Container(
-                                                                              padding: EdgeInsets.all(10),
-                                                                              height: 50,
-                                                                              decoration: const BoxDecoration(
-                                                                                  color: Colors.white, shape: BoxShape.circle),
-                                                                              child: GestureDetector(
-                                                                                child: Icon(Icons.clear),
-                                                                                onTap: () {
-                                                                                  Get.back();
-                                                                                },
-                                                                              )),
-                                                                        )
-                                                                      ],
-                                                                    );
-                                                                  });
-                                                            },
-                                                            child: Image.asset(
-                                                              'assets/images/topChef.png',
-                                                              width: 50,
-                                                            )),
-                                                      ],
-                                                    )),
+                                                // Positioned(
+                                                //     top: 14,
+                                                //     // bottom: 0,
+                                                //     left: 10,
+                                                //     right: 15,
+                                                //     //   bottom: 0,
+                                                //     child: Row(
+                                                //       children: [
+                                                //         GestureDetector(
+                                                //             onTap: () {
+                                                //               showGeneralDialog(
+                                                //                   context: context,
+                                                //                   barrierDismissible: true,
+                                                //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                //                   barrierLabel:
+                                                //                       MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                //                   pageBuilder:
+                                                //                       (BuildContext context, Animation first, Animation second) {
+                                                //                     return Stack(
+                                                //                       children: [
+                                                //                         Center(
+                                                //                             child: Image.asset('assets/images/dialogboximg.png')),
+                                                //                         Positioned(
+                                                //                           right: 18,
+                                                //                           top: 30,
+                                                //                           child: Container(
+                                                //                               padding: EdgeInsets.all(10),
+                                                //                               height: 80,
+                                                //                               decoration: const BoxDecoration(
+                                                //                                   color: Colors.white, shape: BoxShape.circle),
+                                                //                               child: GestureDetector(
+                                                //                                 child: Icon(Icons.clear),
+                                                //                                 onTap: () {
+                                                //                                   Get.back();
+                                                //                                 },
+                                                //                               )),
+                                                //                         )
+                                                //                       ],
+                                                //                     );
+                                                //                   });
+                                                //             },
+                                                //             child: Image.asset(
+                                                //               'assets/images/topChef.png',
+                                                //               width: 50,
+                                                //             )),
+                                                //         // GestureDetector(
+                                                //         //     onTap: () {
+                                                //         //       showGeneralDialog(
+                                                //         //           context: context,
+                                                //         //           barrierDismissible: true,
+                                                //         //           barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                //         //           barrierLabel:
+                                                //         //               MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                //         //           pageBuilder:
+                                                //         //               (BuildContext context, Animation first, Animation second) {
+                                                //         //             return Stack(
+                                                //         //               children: [
+                                                //         //                 Center(
+                                                //         //                     child: Image.asset('assets/images/dialogboximg.png')),
+                                                //         //                 Positioned(
+                                                //         //                   right: 18,
+                                                //         //                   top: 50,
+                                                //         //                   child: Container(
+                                                //         //                       padding: EdgeInsets.all(10),
+                                                //         //                       height: 50,
+                                                //         //                       decoration: const BoxDecoration(
+                                                //         //                           color: Colors.white, shape: BoxShape.circle),
+                                                //         //                       child: GestureDetector(
+                                                //         //                         child: Icon(Icons.clear),
+                                                //         //                         onTap: () {
+                                                //         //                           Get.back();
+                                                //         //                         },
+                                                //         //                       )),
+                                                //         //                 )
+                                                //         //               ],
+                                                //         //             );
+                                                //         //           });
+                                                //         //     },
+                                                //         //     child: Image.asset(
+                                                //         //       'assets/images/topChef.png',
+                                                //         //       width: 50,
+                                                //         //     )),
+                                                //       ],
+                                                //     )),
                                               ],
                                             ),
                                           ),
@@ -1537,7 +1826,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             ),
                           ),
                         ],
-                      ),
+                      )
+
                     ),
                   )
                 : Center(child: CircularProgressIndicator()),
@@ -1612,7 +1902,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: <Widget>[
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+
                   },
                   child: Text(
                     'Sort by :',
@@ -1624,7 +1914,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+                   setState(() {
+                     isChoosedFilter = true;
+                     Get.back();
+                     print("Choosed option ");
+                    // controller.getData();
+                   });
                   },
                   child: Text(
                     'Sustainable Packaging',
@@ -1636,7 +1931,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+
                   },
                   child: Text(
                     'Top Chefs',
@@ -1648,7 +1943,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+
                   },
                   child: Text(
                     'Rating',
@@ -1660,7 +1955,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+
                   },
                   child: Text(
                     'Distance',
@@ -1672,7 +1967,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+
                   },
                   child: Text(
                     'Quickest Delivery',
@@ -1684,7 +1979,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+
                   },
                   child: Text(
                     'Recommended',
@@ -1710,7 +2005,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: <Widget>[
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+                    // _showSimpleDialog3(context);
                   },
                   child: Text(
                     'Cuisine :',
@@ -1854,7 +2149,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+                    // _showSimpleDialog3(context);
                   },
                   child: Text(
                     'Dietary :',
@@ -1931,7 +2226,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+                    // _showSimpleDialog3(context);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1963,7 +2258,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+                    // _showSimpleDialog3(context);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1995,7 +2290,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   )),
               SimpleDialogOption(
                   onPressed: () {
-                    _showSimpleDialog3(context);
+                    // _showSimpleDialog3(context);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -2294,7 +2589,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         });
   }
 
-  Future<void> _showSimpleDialog3(BuildContext context) async {
+  Future<void> _showSimpleDialog4(BuildContext context) async {
     await showDialog(
         barrierDismissible: true,
         barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,

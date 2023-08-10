@@ -7,6 +7,8 @@ class ApiUrl {
   static const singleStoreApi = "${baseUrl}store-details";
   static const addCartApi = "${baseUrl}add-cart";
   static const myCartApi = "${baseUrl}my-cart";
+  static const orderTipUrl = "${baseUrl}order-tip";
+  static const removeTipUrl = "${baseUrl}remove-tip";
   static const mailToAdminUrl = "${baseUrl}request-homemady-inspection";
   static const removeCartItemUrl = "${baseUrl}remove-cart-item";
   static const updateCartUrl = "${baseUrl}update-cart";
@@ -14,9 +16,11 @@ class ApiUrl {
   static const myAddressUrl = "${baseUrl}my-address";
   static const removeAddressUrl = "${baseUrl}remove-address";
   static const editAddressUrl = "${baseUrl}edit-address";
+  static const storeByKeywordUrl = "${baseUrl}productoption";
   static const chooseOrderAddressUrl = "${baseUrl}choose-order-address";
   static const checkOutUrl = "${baseUrl}order";
   static const categoryUrl = "${baseUrl}categories";
+  static const filterDateUrl = "${baseUrl}pick-date";
   static const timeSlotUrl = "${baseUrl}time-slot";
   static const myOrderApi = "${baseUrl}my-orders";
   static const orderDetailsUrl = "${baseUrl}order-details";

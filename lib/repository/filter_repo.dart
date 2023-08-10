@@ -1,35 +1,38 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../model/homepage_model.dart';
+import 'dart:convert';
+import '../model/category_model.dart';
+import '../model/filter_model.dart';
 import '../model/model_verify_otp.dart';
-import '../model/vendor_store_single_model.dart';
 import '../resources/api_urls.dart';
+//All Dropdown api
+Future<FilterModel> filterDataRepo({required pickDate,required keyword}) async {
+  // var map = <String, dynamic>{};
+  //
+  //   map['date'] = pickDate;
 
-Future<VendorStoreSingleModel> singleStoreData({required keyword,required id}) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
- /* var map = <String,dynamic>{};
-  map ['id']='id';*/
-
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
-  log(user.authToken.toString());
-  http.Response response =
-  await http.get(Uri.parse('${ApiUrl.singleStoreApi}/$id?keyword=$keyword'), headers: headers);
-  log("<<<<<<<SingleStoreData=======>${response.body}");
-  log('${ApiUrl.singleStoreApi}/$id?keyword=$keyword');
+
+  final response =
+  await http.get(Uri.parse("${ApiUrl.filterDateUrl}?date=$pickDate&keyword=$keyword"), headers: headers);
+
+  log(("Url...${ApiUrl.filterDateUrl}?date=$pickDate&store_name=$keyword"));
+
+  // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
-    log("<<<<<<<SingleStoreData=======>${response.body}");
-    return VendorStoreSingleModel.fromJson(json.decode(response.body));
+    print("Filter store Repository...${response.body}");
+    return FilterModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);
   }
 }
+

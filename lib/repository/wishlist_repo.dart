@@ -9,12 +9,13 @@ import '../model/model_verify_otp.dart';
 import '../model/wishlist_model.dart';
 import '../resources/api_urls.dart';
 
-Future<ModelCommonResponse> wishlistRepo({required id}) async {
+Future<ModelCommonResponse> wishlistRepo({required productId, required id}) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
   var map =  <String,dynamic>{};
   map ['store_id'] = id;
+  map ['product_id'] = productId;
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',

@@ -125,6 +125,7 @@ class CartPaymentSummary {
   dynamic tax2;
   dynamic taxAndFee;
   dynamic total;
+  dynamic tipAmount;
 
   CartPaymentSummary(
       {this.subTotal,
@@ -138,6 +139,7 @@ class CartPaymentSummary {
         this.tax1,
         this.tax2,
         this.taxAndFee,
+        this.tipAmount,
         this.total});
 
   CartPaymentSummary.fromJson(Map<String, dynamic> json) {
@@ -145,6 +147,7 @@ class CartPaymentSummary {
     couponDiscount = json['couponDiscount'];
     couponCode = json['couponCode'];
     orderCount = json['orderCount'];
+    tipAmount = json['tipAmount'];
     freeDeliveryMinOrderValue = json['free_delivery_min_order_value'];
     deliveryCharge = json['deliveryCharge'];
     serviceCharge = json['serviceCharge'];
@@ -161,6 +164,7 @@ class CartPaymentSummary {
     data['couponDiscount'] = this.couponDiscount;
     data['couponCode'] = this.couponCode;
     data['orderCount'] = this.orderCount;
+    data['tipAmount'] = this.tipAmount;
     data['free_delivery_min_order_value'] = this.freeDeliveryMinOrderValue;
     data['deliveryCharge'] = this.deliveryCharge;
     data['serviceCharge'] = this.serviceCharge;

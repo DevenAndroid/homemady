@@ -140,6 +140,7 @@ class Product {
   dynamic name;
   dynamic price;
   dynamic content;
+  bool ? value;
   dynamic image;
   dynamic  cookUnitDays;
   dynamic sizeQuantity;
@@ -148,6 +149,7 @@ class Product {
   dynamic status;
   dynamic discountOff;
   dynamic avgRating;
+  int productCount = 0;
 
   Product(
       {this.id,

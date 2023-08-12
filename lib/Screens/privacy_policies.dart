@@ -39,7 +39,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                   style: {
                   'body': Style(
                       fontWeight: FontWeight.w400,
-                      fontSize: const FontSize(13 ),
+                      fontSize: FontSize(13 ),
                       color: const Color(0xFF363539)
                   )
                   },

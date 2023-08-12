@@ -85,7 +85,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
                                   style: {
                                     'body': Style(
                                         fontWeight: FontWeight.w400,
-                                        fontSize: const FontSize(13 ),
+                                        fontSize: FontSize(13 ),
                                         color: const Color(0xFFBBBBBB)
                                     )
                                   },

@@ -30,6 +30,7 @@ import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
 import 'myAddressScreen.dart';
+import 'notification2.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -715,7 +716,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 onTap: () {
                   setState(() {
                     currentDrawer = 7;
-                    Get.toNamed(MyRouters.chatScreen);
+                    Get.toNamed(NotificationScreen2.notificationScreen2);
                   });
                 },
               ),

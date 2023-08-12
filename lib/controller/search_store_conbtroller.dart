@@ -11,22 +11,6 @@ class SearchStoreController extends GetxController {
   Rx<SearchStoreModel> searchDataModel = SearchStoreModel().obs;
   final searchController1 = TextEditingController();
   RxString name = ''.obs;
-/*
-  @override
-  void onInit() {
-    super.onInit();
-    getData();
-  }*/
-
-
- /* Future<HomeSearchModel> getSearchData1() async {
-    isDataLoading1.value = false;
-    return await homeSearchRepo(keyword: searchController.text.trim(),pagination: pagination.value ,page: page.value ).then((value) {
-      isDataLoading1.value = true;
-      searchDataModel.value = value;
-      return value;
-    });
-  }*/
 
   getSearchData() async {
     isDataLoading.value = false;

@@ -22,7 +22,7 @@ Future<HomePageModel> homeData() async {
   await http.get(Uri.parse("${ApiUrl.homePageApi}"), headers: headers);
   //?filter_category=$filter_Id
 //filter_Id
-  log("<<<<<<<HomePageData=======>${response.body}");
+//   log("<<<<<<<HomePageData=======>${response.body}");
   if (response.statusCode == 200) {
     log("<<<<<<<HomePageData=======>${response.body}");
     return HomePageModel.fromJson(json.decode(response.body));

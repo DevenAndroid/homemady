@@ -1,3 +1,5 @@
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 class CategoryModel {
   bool? status;
   String? message;
@@ -23,43 +25,114 @@ class CategoryModel {
 }
 
 class Data {
-  List<Categories>? categories;
 
-  Data({this.categories});
+  List<Category>? category;
+  List<SecondaryCategory>? secondaryCategory;
+  List<TertiaryCategory>? tertiaryCategory;
+  List<Category>? selectedContacts = [];
+
+  Data({this.category, this.secondaryCategory, this.tertiaryCategory});
 
   Data.fromJson(Map<String, dynamic> json) {
-    if (json['Categories'] != null) {
-      categories = <Categories>[];
-      json['Categories'].forEach((v) {
-        categories!.add(new Categories.fromJson(v));
+    if (json['category'] != null) {
+      category = <Category>[];
+      json['category'].forEach((v) {
+        category!.add(new Category.fromJson(v));
+      });
+    }
+    if (json['secondaryCategory'] != null) {
+      secondaryCategory = <SecondaryCategory>[];
+      json['secondaryCategory'].forEach((v) {
+        secondaryCategory!.add(new SecondaryCategory.fromJson(v));
+      });
+    }
+    if (json['tertiaryCategory'] != null) {
+      tertiaryCategory = <TertiaryCategory>[];
+      json['tertiaryCategory'].forEach((v) {
+        tertiaryCategory!.add(new TertiaryCategory.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.categories != null) {
-      data['Categories'] = this.categories!.map((v) => v.toJson()).toList();
+    if (this.category != null) {
+      data['category'] = this.category!.map((v) => v.toJson()).toList();
+    }
+    if (this.secondaryCategory != null) {
+      data['secondaryCategory'] =
+          this.secondaryCategory!.map((v) => v.toJson()).toList();
+    }
+    if (this.tertiaryCategory != null) {
+      data['tertiaryCategory'] =
+          this.tertiaryCategory!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Categories {
+class Category {
   int? id;
   String? name;
+  String? categoryType;
 
-  Categories({this.id, this.name});
+  RxBool isChecked = false.obs;
 
-  Categories.fromJson(Map<String, dynamic> json) {
+  Category({this.id, this.name, this.categoryType});
+
+  Category.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    categoryType = json['category_type'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['category_type'] = this.categoryType;
+    return data;
+  }
+}
+class SecondaryCategory {
+  int? id;
+  String? name;
+  String? categoryType;
+
+  SecondaryCategory({this.id, this.name, this.categoryType});
+
+  SecondaryCategory.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    categoryType = json['category_type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['category_type'] = this.categoryType;
+    return data;
+  }
+}
+class TertiaryCategory {
+  int? id;
+  String? name;
+  String? categoryType;
+
+  TertiaryCategory({this.id, this.name, this.categoryType});
+
+  TertiaryCategory.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    categoryType = json['category_type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['category_type'] = this.categoryType;
     return data;
   }
 }

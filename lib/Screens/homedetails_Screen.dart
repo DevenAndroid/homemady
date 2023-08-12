@@ -219,7 +219,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                               ),
                                               addWidth(7),
 
-                                              const Text( '10-40',
+                                              const Text( '10-40 min',
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Color(0xFF4E5F64),
@@ -274,7 +274,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                   height: 55,
                                                   width: 55,
                                                   errorWidget: (_, __, ___) => Image.asset(
-                                                    'assets/images/Ellipse 67.png',
+                                                    'assets/images/dummyPerson.png',
                                                   ),
                                                   placeholder: (_, __) => Center(child: CircularProgressIndicator()),
                                                 ),

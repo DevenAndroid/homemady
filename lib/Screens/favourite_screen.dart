@@ -60,7 +60,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
       return
         Scaffold(
         appBar: backAppBar(title: 'My Favorites', context: context),
-        body:
+        body: homeController.isDataLoading.value ?
         NestedScrollView(
             headerSliverBuilder: (_, __){
               return [
@@ -94,6 +94,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ),
+
                                     Tab(
                                       child: Text(
                                         "Meal",
@@ -106,7 +107,6 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                   ],
                                   unselectedLabelColor: const Color(0xFF262626),
                                   labelColor: Colors.white,
-
                                   labelStyle: const TextStyle(
                                       color: Color(0xFF1A2E33),
                                       fontSize: 16,
@@ -119,7 +119,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                   indicatorPadding: EdgeInsets.symmetric(horizontal: -5, vertical: -2),
                                   indicator: BoxDecoration(
                                     borderRadius: BorderRadius.circular(6),
-                                    color:  Color(0xff7ED957),
+                                    color:  const Color(0xff7ED957),
                                   ),
                                   indicatorColor: Colors.transparent,
 
@@ -254,7 +254,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                     child: Padding(
                                                       padding: const EdgeInsets.all(3),
                                                       child: Image.asset(
-                                                          'assets/images/avtarImg.png'),
+                                                          'assets/images/dummyPerson.png'),
                                                     )
                                                 ),
                                                 addHeight(3),
@@ -404,12 +404,22 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                             ),
                           );
                         },
-                      ) : Padding(
-                        padding: const EdgeInsets.only(top: 80),
-                        child: Center(child: CircularProgressIndicator(color: Color(0xff7ED957),)),
+                      ) :
+
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 60,),
+                            Image.asset('assets/images/Favaorites.png'),
+                            SizedBox(height: 10,),
+                            Text("No Favaorites",
+                              style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+                          ],
+                        ),
                       )
 
-                  ));
+                    ));
                 }),
                 Obx(() {
                   return  SingleChildScrollView(
@@ -787,7 +797,18 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
 
               ],
             )
-        ),
+        ): Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              SizedBox(height: 60,),
+              Image.asset('assets/images/emptyCartImg.png'),
+              SizedBox(height: 10,),
+              Text("No Orders",
+                style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+            ],
+          ),
+        ) ,
           // bottomNavigationBar:
           // cartListController.isDataLoading.value && cartListController.model.value.data!.cartItems!.isNotEmpty
           //     ? addCartSection()

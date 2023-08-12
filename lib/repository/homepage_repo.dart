@@ -19,7 +19,9 @@ Future<HomePageModel> homeData() async {
   };
   log(user.authToken.toString());
   http.Response response =
-  await http.get(Uri.parse(ApiUrl.homePageApi), headers: headers);
+  await http.get(Uri.parse("${ApiUrl.homePageApi}"), headers: headers);
+  //?filter_category=$filter_Id
+//filter_Id
   log("<<<<<<<HomePageData=======>${response.body}");
   if (response.statusCode == 200) {
     log("<<<<<<<HomePageData=======>${response.body}");

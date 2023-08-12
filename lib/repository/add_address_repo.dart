@@ -16,6 +16,8 @@ Future<AddAddressModel> addAddress(
       required landmark,
       required address_type,
       required name,
+      required note,
+      required pinCode,
       required BuildContext context}) async {
   var map = <String, dynamic>{};
   map['location'] = location;
@@ -23,6 +25,8 @@ Future<AddAddressModel> addAddress(
   map['landmark'] = landmark;
   map['address_type'] = address_type;
   map['name'] = name;
+  map['note'] = note;
+  map['pin_code'] = pinCode;
   // map['address_type'] = address_type;
   log(map.toString());
   OverlayEntry loader = Helpers.overlayLoader(context);

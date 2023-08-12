@@ -8,6 +8,7 @@ import 'package:homemady/Screens/checkoutScreen.dart';
 import 'package:homemady/Screens/email_verification2.dart';
 import 'package:homemady/Screens/email_verification_screen.dart';
 import 'package:homemady/Screens/favourite_screen.dart';
+import 'package:homemady/Screens/featured_store_list.dart';
 import 'package:homemady/Screens/feedback_screen.dart';
 import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/homedetails_Screen.dart';
@@ -32,6 +33,9 @@ import 'package:homemady/widgets/customeNavbar.dart';
 import '../Screens/faqs_screen.dart';
 import '../Screens/help_center_screen.dart';
 import '../Screens/login_screen.dart';
+import '../Screens/notification2.dart';
+import '../Screens/search_screen_data.dart';
+import '../singlecookDetails/carte.dart';
 
 
 
@@ -47,7 +51,7 @@ class MyRouters {
   static var myCartScreen = "/myCartScreen";
   static var homeDetailsScreen = "/homeDetailsScreen";
   static var checkOutScreen = "/checkOutScreen";
-  static var myAddressScreen = "/myAddressScreen";
+  // static var myAddressScreen = "/myAddressScreen";
   static var myOrderScreen = "/myOrderScreen";
   static var bottomNavbar = "/bottomNavbar";
   static var activeScreen = "/activeScreen";
@@ -69,6 +73,7 @@ class MyRouters {
   static var feedBackScreen = "/feedBackScreen";
   static var helpCenterScreen = "/helpCenterScreen";
   static var faqsScreen = "/faqsScreen";
+  static var carteScreenPage="/carteScreenPage";
 
 
   static var route = [
@@ -83,7 +88,7 @@ class MyRouters {
   GetPage(name: '/myCartScreen', page: () => const MyCartScreen()),
   GetPage(name: '/homeDetailsScreen', page: () => const HomeDetailsScreen()),
   GetPage(name: '/checkOutScreen', page: () => const CheckOutScreen()),
-  GetPage(name: '/myAddressScreen', page: () => const MyAddressScreen()),
+ // GetPage(name: carteScreen.carteScreenPage, page: () => const CarteScreen()),
   GetPage(name: '/myOrderScreen', page: () => const MyOrderScreen()),
   GetPage(name: '/bottomNavbar', page: () => const BottomNavbar()),
   GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
@@ -105,9 +110,8 @@ class MyRouters {
   GetPage(name: '/feedBackScreen', page: () => const FeedBackScreen()),
   GetPage(name: '/helpCenterScreen', page: () => const HelpCenterScreen()),
   GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
-
-
-
-
+  GetPage(name: CarteScreen.carteScreenPage, page: () => const CarteScreen()),
+  GetPage(name: SearchScreenData.searchScreen, page: () => const SearchScreenData()),
+    GetPage(name: NotificationScreen2.notificationScreen2, page: () => const NotificationScreen2()),
   ];
 }

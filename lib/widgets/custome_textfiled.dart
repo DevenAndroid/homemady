@@ -621,6 +621,7 @@ AppBar backAppBar(
       Color? backgroundColor = Colors.white,
       Color? textColor = Colors.black,
       Widget? icon,
+      Function(bool gg)? performAction,
       disposeController}) {
   return AppBar(
     //shadowColor:  Colors.grey[400],
@@ -643,13 +644,16 @@ AppBar backAppBar(
       child: GestureDetector(
           onTap: () {
             Get.back();
+            if(performAction != null){
+              performAction(true);
+            }
             if (dispose == "dispose") {}
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               icon ??
-                  const Icon(Icons.arrow_back_rounded,color: Colors.black,)
+                  const Icon(Icons.arrow_back_rounded,color: Colors.black,size: 30,)
             ],
           )),
     ),

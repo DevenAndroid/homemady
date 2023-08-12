@@ -11,17 +11,17 @@ import '../widgets/new_helper.dart';
 Future<ModelVerifyOtp> loginRepo(
     {required String email,
       required String password,
-      // required String fcmToken,
+      required String fcmToken,
       required BuildContext context}) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
   SharedPreferences pref = await SharedPreferences.getInstance();
   //print("These are details.....${pref}");
   var map = <String, dynamic>{};
   map['email'] = email;
   map['password'] = password;
-  map['device_id'] = pref.getString('deviceId');
-  // map['device_token'] = fcmToken;
+ map['device_id'] = pref.getString('deviceId');
+ map['device_token'] = fcmToken;
 
   log("Login Data map$map");
   try {

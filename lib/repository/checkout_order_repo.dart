@@ -11,9 +11,11 @@ import '../resources/api_urls.dart';
 import '../resources/helper.dart';
 
 Future<CheckoutOrderModel> checkOut(
-    {required payment_type,required BuildContext context}) async {
+    {required payment_type, required deliveryInstruction, required specialRequest,required BuildContext context}) async {
   var map = <String, dynamic>{};
   map['payment_type'] = payment_type;
+  map['instruction_for_delivery'] = deliveryInstruction;
+  map['special_request'] = specialRequest;
  // map['note'] = note;
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context).insert(loader);

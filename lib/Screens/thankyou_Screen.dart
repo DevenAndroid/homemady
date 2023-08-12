@@ -73,7 +73,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                            ),
                          ),
 
-                         Text(Get.arguments[0],
+                         Text(Get.arguments[0].toString(),
                            style: GoogleFonts.poppins(
                              fontSize: 14,
                              fontWeight: FontWeight.w400,
@@ -87,7 +87,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                  addHeight(140),
                  InkWell(
                    onTap: () {
-                     Get.toNamed(MyRouters.orderDetailsScreen);
+                     Get.toNamed(MyRouters.orderDetailsScreen,arguments: [Get.arguments[0]]);
                    },
                    child: Container(
                      height: 55,
@@ -113,7 +113,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                  addHeight(10),
                  InkWell(
                    onTap: () {
-                     Get.toNamed(MyRouters.bottomNavbar);
+                     Get.offAllNamed(MyRouters.bottomNavbar);
                    },
                    child: Container(
                      height: 55,

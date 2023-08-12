@@ -23,145 +23,81 @@ class ChooseOrderAddressModel {
 }
 
 class Data {
-  List<CartItems>? cartItems;
-  CartPaymentSummary? cartPaymentSummary;
+  List<Address>? address;
 
-  Data({this.cartItems, this.cartPaymentSummary});
+  Data({this.address});
 
   Data.fromJson(Map<String, dynamic> json) {
-    if (json['cartItems'] != null) {
-      cartItems = <CartItems>[];
-      json['cartItems'].forEach((v) {
-        cartItems!.add(new CartItems.fromJson(v));
+    if (json['Address'] != null) {
+      address = <Address>[];
+      json['Address'].forEach((v) {
+        address!.add(new Address.fromJson(v));
       });
     }
-    cartPaymentSummary = json['cartPaymentSummary'] != null
-        ? new CartPaymentSummary.fromJson(json['cartPaymentSummary'])
-        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.cartItems != null) {
-      data['cartItems'] = this.cartItems!.map((v) => v.toJson()).toList();
-    }
-    if (this.cartPaymentSummary != null) {
-      data['cartPaymentSummary'] = this.cartPaymentSummary!.toJson();
+    if (this.address != null) {
+      data['Address'] = this.address!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class CartItems {
-  int? id;
-  int? productId;
-  String? name;
-  String? spiciness;
-  int? price;
-  int? cartItemQty;
-  int? distance;
-  int? totalPrice;
-  String? image;
+class Address {
+  dynamic id;
+  dynamic userId;
+  dynamic name;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic flatNo;
+  dynamic note;
+  dynamic pinCode;
+  dynamic landmark;
+  dynamic addressType;
 
-  CartItems(
+  Address(
       {this.id,
-        this.productId,
+        this.userId,
         this.name,
-        this.spiciness,
-        this.price,
-        this.cartItemQty,
-        this.distance,
-        this.totalPrice,
-        this.image});
+        this.latitude,
+        this.longitude,
+        this.location,
+        this.flatNo,
+        this.note,
+        this.pinCode,
+        this.landmark,
+        this.addressType});
 
-  CartItems.fromJson(Map<String, dynamic> json) {
+  Address.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    productId = json['product_id'];
+    userId = json['user_id'];
     name = json['name'];
-    spiciness = json['spiciness'];
-    price = json['price'];
-    cartItemQty = json['cart_item_qty'];
-    distance = json['distance'];
-    totalPrice = json['total_price'];
-    image = json['image'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    location = json['location'];
+    flatNo = json['flat_no'];
+    note = json['note'];
+    pinCode = json['pin_code'];
+    landmark = json['landmark'];
+    addressType = json['address_type'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['product_id'] = this.productId;
+    data['user_id'] = this.userId;
     data['name'] = this.name;
-    data['spiciness'] = this.spiciness;
-    data['price'] = this.price;
-    data['cart_item_qty'] = this.cartItemQty;
-    data['distance'] = this.distance;
-    data['total_price'] = this.totalPrice;
-    data['image'] = this.image;
-    return data;
-  }
-}
-
-class CartPaymentSummary {
-  int? subTotal;
-  int? couponDiscount;
-  String? couponCode;
-  String? driverCommission;
-  String? freeDeliveryMinOrderValue;
-  int? deliveryCharge;
-  String? surCharge;
-  int? tipAmount;
-  String? packingFee;
-  Null? tax1;
-  Null? tax2;
-  int? taxAndFee;
-  int? total;
-
-  CartPaymentSummary(
-      {this.subTotal,
-        this.couponDiscount,
-        this.couponCode,
-        this.driverCommission,
-        this.freeDeliveryMinOrderValue,
-        this.deliveryCharge,
-        this.surCharge,
-        this.tipAmount,
-        this.packingFee,
-        this.tax1,
-        this.tax2,
-        this.taxAndFee,
-        this.total});
-
-  CartPaymentSummary.fromJson(Map<String, dynamic> json) {
-    subTotal = json['subTotal'];
-    couponDiscount = json['couponDiscount'];
-    couponCode = json['couponCode'];
-    driverCommission = json['driver_commission'];
-    freeDeliveryMinOrderValue = json['free_delivery_min_order_value'];
-    deliveryCharge = json['deliveryCharge'];
-    surCharge = json['surCharge'];
-    tipAmount = json['tipAmount'];
-    packingFee = json['packingFee'];
-    tax1 = json['tax_1'];
-    tax2 = json['tax_2'];
-    taxAndFee = json['tax_and_fee'];
-    total = json['total'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['subTotal'] = this.subTotal;
-    data['couponDiscount'] = this.couponDiscount;
-    data['couponCode'] = this.couponCode;
-    data['driver_commission'] = this.driverCommission;
-    data['free_delivery_min_order_value'] = this.freeDeliveryMinOrderValue;
-    data['deliveryCharge'] = this.deliveryCharge;
-    data['surCharge'] = this.surCharge;
-    data['tipAmount'] = this.tipAmount;
-    data['packingFee'] = this.packingFee;
-    data['tax_1'] = this.tax1;
-    data['tax_2'] = this.tax2;
-    data['tax_and_fee'] = this.taxAndFee;
-    data['total'] = this.total;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
+    data['location'] = this.location;
+    data['flat_no'] = this.flatNo;
+    data['note'] = this.note;
+    data['pin_code'] = this.pinCode;
+    data['landmark'] = this.landmark;
+    data['address_type'] = this.addressType;
     return data;
   }
 }

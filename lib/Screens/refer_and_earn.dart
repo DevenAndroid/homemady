@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/app_theme.dart';
-import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -101,7 +100,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                         height: height * .005,
                       ),
                       Text(
-                        "Share you referral link and\nearn \$50.00",
+                        "Share you referral link and\nearn \€5.00",
                         textAlign: TextAlign.center,
                         style: Theme
                             .of(context)
@@ -191,7 +190,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             fontSize: 22,
                             color: AppTheme.blackcolor),
                       ),*/
-                      Text('Earn Free €50.00',style: TextStyle(
+                      Text('Earn Free €5.00',style: TextStyle(
                           color: Color(0xFF423E5E),fontSize: AddSize.size22,fontWeight: FontWeight.w600),),
                       SizedBox(
                         height: height * .005,

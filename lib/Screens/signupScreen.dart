@@ -1,12 +1,18 @@
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import '../repository/signup_repository.dart';
+import '../widgets/phone_filed.dart';
 
 
 class SignupScreen extends StatefulWidget {
@@ -20,6 +26,10 @@ class _SignupScreenState extends State<SignupScreen> {
   final _formKey1 = GlobalKey<FormState>();
   RxBool checkboxColor = false.obs;
   bool showErrorMessage = false;
+  var obscureText = true;
+  var obscureText1 = true;
+  String countryCode = "";
+  String initialCountryCode = "";
   bool value = false;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -83,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 controller: nameController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "Name is required";
+                                    return "Please enter a name";
                                   } else {
                                     return null;
                                   }
@@ -124,7 +134,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 errorText:
                                 'enter a valid email address'),
                             RequiredValidator(
-                                errorText: 'Email is required')
+                                errorText: 'Please enter a email')
                           ]),
                         ),
                       ),
@@ -143,17 +153,57 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           ],
                         ),
-                        child: CommonTextFieldWidget(
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.number,
-                          length: 10,
-                          hint: 'Phone',
+                        child: CustomIntlPhoneField(
                           controller: phoneController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "phone is required";
-                            } else {
-                              return null;
+                          dropdownIconPosition:
+                          IconPosition.trailing,
+                          dropdownTextStyle: GoogleFonts.poppins(
+                              color: Colors.black),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+
+                            hintText: 'Enter phone number',
+                            hintStyle: const TextStyle(
+                              color:  Color(0xff2F353F),
+                              fontSize: 13,
+                              // fontFamily: 'poppins',
+                              fontWeight: FontWeight.w300,
+                            ),
+                            counterText: "",
+                            enabled: true,
+                            contentPadding:
+                            const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                            border: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.white, width: 3.0),
+                                borderRadius: BorderRadius.circular(15.0)),
+                          ),
+                          initialCountryCode: initialCountryCode.isEmpty ? 'IE' : initialCountryCode,
+                          onCountryChanged: (value) {
+                            countryCode = value.dialCode;
+                            initialCountryCode = value.code;
+                            if (kDebugMode) {
+                              print(countryCode);
+                              print(initialCountryCode);
+                            }
+                          },
+                          onChanged: (phone) {
+                            countryCode = phone.countryCode;
+                            initialCountryCode = phone.countryISOCode;
+                            if (kDebugMode) {
+                              print(countryCode);
+                              print(initialCountryCode);
                             }
                           },
                         ),
@@ -176,14 +226,35 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: CommonTextFieldWidget(
                           textInputAction: TextInputAction.next,
                           hint: 'Password',
+                          obscureText: obscureText,
+                          suffix: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  obscureText = !obscureText;
+                                });
+                              },
+                              child: obscureText
+                                  ? const Icon(
+                                Icons.visibility_off,
+                                color: Colors.grey,
+                              )
+                                  : const Icon(
+                                Icons.visibility,
+                                color: Color(0xFF53B176),
+                              )),
                           controller: passwordController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Password is required";
-                            } else {
-                              return null;
-                            }
-                          },
+                          validator: MultiValidator([
+                            RequiredValidator(
+                                errorText: 'Please Enter a Password'),
+                            MinLengthValidator(6,
+                                errorText:
+                                'Password must be at least 6 digits long'),
+                            //(?=.*\W)(?=.*?[#.?!@$%^&*-])
+                            PatternValidator(
+                                r"(?=.*[A-Z])(?=.*[0-9])",
+                                errorText:
+                                'Password must be minimum 6 characters, with 1 \nCapital letter  & 1 numerical.')
+                          ]),
                         ),
                       ),
                       addHeight(20),
@@ -203,10 +274,26 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         child: CommonTextFieldWidget(
                           hint: 'Confirm Password',
+                          obscureText: obscureText1,
                           controller: confirmController,
+                          suffix: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  obscureText1 = !obscureText1;
+                                });
+                              },
+                              child: obscureText1
+                                  ? const Icon(
+                                Icons.visibility_off,
+                                color: Colors.grey,
+                              )
+                                  : const Icon(
+                                Icons.visibility,
+                                color: Color(0xFF53B176),
+                              )),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "confirm the password";
+                              return "Please enter a password";
                             } else if (confirmController.text !=
                                 passwordController.text) {
                               return "Confirm password should be match";

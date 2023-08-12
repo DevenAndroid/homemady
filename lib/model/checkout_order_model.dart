@@ -23,21 +23,21 @@ class CheckoutOrderModel {
 }
 
 class Data {
-  int? orderId;
-  int? itemTotal;
-  int? tax;
-  int? deliveryCharges;
-  int? packingFee;
-  Null? couponDiscount;
-  int? grandTotal;
-  User? user;
-  Null? vendor;
-  Null? driver;
-  Address? address;
-  String? orderType;
-  String? deliveryStatus;
+  dynamic orderId;
+  dynamic itemTotal;
+  dynamic tax;
+  dynamic deliveryCharges;
+  dynamic packingFee;
+  dynamic couponDiscount;
+  dynamic grandTotal;
+  dynamic user;
+ /* Null? vendor;
+  Null? driver;*/
+  dynamic address;
+  dynamic orderType;
+  dynamic deliveryStatus;
   List<OrderItems>? orderItems;
-  String? placedAt;
+  dynamic placedAt;
 
   Data(
       {this.orderId,
@@ -48,8 +48,8 @@ class Data {
         this.couponDiscount,
         this.grandTotal,
         this.user,
-        this.vendor,
-        this.driver,
+       // this.vendor,
+       // this.driver,
         this.address,
         this.orderType,
         this.deliveryStatus,
@@ -65,8 +65,8 @@ class Data {
     couponDiscount = json['coupon_discount'];
     grandTotal = json['grand_total'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    vendor = json['vendor'];
-    driver = json['driver'];
+   // vendor = json['vendor'];
+   // driver = json['driver'];
     address =
     json['address'] != null ? new Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
@@ -92,8 +92,8 @@ class Data {
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
-    data['vendor'] = this.vendor;
-    data['driver'] = this.driver;
+   // data['vendor'] = this.vendor;
+   // data['driver'] = this.driver;
     if (this.address != null) {
       data['address'] = this.address!.toJson();
     }
@@ -108,23 +108,23 @@ class Data {
 }
 
 class User {
-  int? id;
+  dynamic id;
   bool? isDriver;
   bool? isVendor;
-  String? latitude;
-  String? longitude;
-  String? location;
-  String? name;
-  String? lastName;
-  String? email;
-  String? phone;
-  String? walletBalance;
-  String? earnedBalance;
-  String? profileImage;
-  String? referalCode;
+ dynamic latitude;
+ dynamic longitude;
+ dynamic location;
+ dynamic name;
+ dynamic lastName;
+ dynamic email;
+ dynamic phone;
+ dynamic walletBalance;
+ dynamic earnedBalance;
+ dynamic profileImage;
+ dynamic referalCode;
   bool? isDriverOnline;
   bool? isVendorOnline;
-  int? deliveryRange;
+  dynamic deliveryRange;
   bool? selfDelivery;
   bool? asDriverVerified;
   bool? asVendorVerified;
@@ -205,17 +205,17 @@ class User {
 }
 
 class Address {
-  int? id;
-  int? userId;
-  String? latitude;
-  String? longitude;
-  String? location;
-  String? flatNo;
-  String? landmark;
-  String? addressType;
-  String? createdAt;
-  String? updatedAt;
-  Null? deletedAt;
+  dynamic id;
+  dynamic userId;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic flatNo;
+  dynamic landmark;
+  dynamic addressType;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic deletedAt;
 
   Address(
       {this.id,
@@ -262,14 +262,14 @@ class Address {
 }
 
 class OrderItems {
-  int? id;
-  int? productId;
-  String? productName;
-  int? price;
-  int? qty;
-  int? totalPrice;
-  String? status;
-  String? specialRequets;
+  dynamic id;
+  dynamic productId;
+  dynamic productName;
+  dynamic price;
+  dynamic qty;
+  dynamic totalPrice;
+  dynamic status;
+  dynamic specialRequets;
 
   OrderItems(
       {this.id,

@@ -32,9 +32,10 @@ class _CompleteScreenState extends State<CompleteScreen> {
       return SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: controller.isDataLoading.value ? ListView.builder(
+          child: controller.isDataLoading.value ? controller.model.value.data!.isNotEmpty ?
+          ListView.builder(
             shrinkWrap: true,
-            itemCount: controller.model.value.data![0].orderItems!.length,
+            itemCount: controller.model.value.data!.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [
@@ -70,7 +71,9 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(controller.model.value.data![index].orderItems![index].productName.toString(),
+
+                                  Text((controller.isDataLoading.value ?
+                                      controller.model.value.data![index].orderItems![0].productName?? 'Test': '').toString(),
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18,
@@ -79,7 +82,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                   addHeight(3),
                                   Row(
                                     children: [
-                                      Text('${controller.model.value.data![index].orderItems![index].qty.toString()} items',
+                                      Text('${controller.model.value.data![index].itemCount.toString()} items',
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 12,
@@ -103,7 +106,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                   addHeight(5),
                                   Row(
                                     children: [
-                                      Text('€ ${controller.model.value.data![index].orderItems![index].price.toString()}',
+                                      Text('€ ${controller.model.value.data![index].grandTotal.toString()}',
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16,
@@ -111,19 +114,23 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                         ),),
                                       addWidth(8),
                                       Container(
-                                        height: 22,
-                                        width: 80,
+                                        margin: EdgeInsets.symmetric(vertical: 2,horizontal: 2),
+                                        // height: 25,
+                                        // width: 80,
                                         decoration:  BoxDecoration(
                                             borderRadius: BorderRadius.circular(6),
                                             color: const Color(0xFF7ED957)
                                         ),
                                         child:
                                         Center(
-                                          child: Text(controller.model.value.data![index].orderItems![index].status.toString(),
-                                            style: GoogleFonts.poppins(
-                                              color: const Color(0xFFFFFFFF),
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                                            child: Text(controller.model.value.data![index].deliveryStatus.toString(),
+                                              style: GoogleFonts.poppins(
+                                                color: const Color(0xFFFFFFFF),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -196,7 +203,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                 ],
               );
             },
-          ) : const Center(child:  CircularProgressIndicator()),
+          ) : Center(child: Text('No Order')):const Center(child:  CircularProgressIndicator()),
         ),
       );
     });

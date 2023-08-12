@@ -41,15 +41,20 @@ dependencies:
   cached_network_image:
   smooth_page_indicator:
   google_fonts:
-#  pinput: ^2.2.31
   form_field_validator:
+
   intl: ^0.17.0
+  firebase_core: ^2.4.1
+  google_sign_in: ^6.0.0
+  firebase_auth: ^4.2.6
   flutter_slidable:
   fluttertoast:
   image_picker:
   vertical_scrollable_tabview:
   scroll_to_index:
   share_plus:
+  push: ^1.0.0
+  firebase_messaging: ^14.6.5
   file_picker:
   flutter_google_places:
   flutter_google_places_hoc081098:
@@ -64,6 +69,12 @@ dependencies:
   percent_indicator:
   badges: ^3.1.1
   pin_code_fields: ^8.0.1
+  flutter_html:
+  country_code_picker: ^3.0.0
+  intl_phone_field:
+  flutter_math_fork: ^0.7.1
+  cloud_firestore: ^4.8.4
+
 
 dev_dependencies:
   flutter_test:

@@ -10,13 +10,13 @@ class VendorStoreSingleModel {
   VendorStoreSingleModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -34,12 +34,12 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     storeDetails = json['storeDetails'] != null
-        ? new StoreDetails.fromJson(json['storeDetails'])
+        ? StoreDetails.fromJson(json['storeDetails'])
         : null;
     if (json['LatestProducts'] != null) {
       latestProducts = <LatestProducts>[];
       json['LatestProducts'].forEach((v) {
-        latestProducts!.add(new LatestProducts.fromJson(v));
+        latestProducts!.add(LatestProducts.fromJson(v));
       });
     }
     /*if (json['Reviews'] != null) {
@@ -51,13 +51,13 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.storeDetails != null) {
-      data['storeDetails'] = this.storeDetails!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (storeDetails != null) {
+      data['storeDetails'] = storeDetails!.toJson();
     }
-    if (this.latestProducts != null) {
+    if (latestProducts != null) {
       data['LatestProducts'] =
-          this.latestProducts!.map((v) => v.toJson()).toList();
+          latestProducts!.map((v) => v.toJson()).toList();
     }
     /*if (this.reviews != null) {
       data['Reviews'] = this.reviews!.map((v) => v.toJson()).toList();
@@ -77,6 +77,8 @@ class StoreDetails {
   int? reviewCount;
   String? deliveryType;
   String? deliveryTime;
+  String? distance;
+
 
   StoreDetails(
       {this.id,
@@ -88,6 +90,7 @@ class StoreDetails {
         this.avgRating,
         this.reviewCount,
         this.deliveryType,
+        this.distance,
         this.deliveryTime});
 
   StoreDetails.fromJson(Map<String, dynamic> json) {
@@ -95,6 +98,7 @@ class StoreDetails {
     storeName = json['store_name'];
     description = json['description'];
     name = json['name'];
+    distance = json['distance'];
     profileImage = json['profile_image'];
     storeImage = json['store_image'];
     avgRating = json['avg_rating'];
@@ -104,17 +108,18 @@ class StoreDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['store_name'] = this.storeName;
-    data['description'] = this.description;
-    data['name'] = this.name;
-    data['profile_image'] = this.profileImage;
-    data['store_image'] = this.storeImage;
-    data['avg_rating'] = this.avgRating;
-    data['review_count'] = this.reviewCount;
-    data['delivery_type'] = this.deliveryType;
-    data['delivery_time'] = this.deliveryTime;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['store_name'] = storeName;
+    data['description'] = description;
+    data['name'] = name;
+    data['distance'] = distance;
+    data['profile_image'] = profileImage;
+    data['store_image'] = storeImage;
+    data['avg_rating'] = avgRating;
+    data['review_count'] = reviewCount;
+    data['delivery_type'] = deliveryType;
+    data['delivery_time'] = deliveryTime;
     return data;
   }
 }
@@ -131,13 +136,15 @@ class LatestProducts {
   String? price;
   String? content;
   String? image;
-  int? cookUnitDays;
+  dynamic cookUnitDays;
   String? size;
   String? sizeId;
   String? discountOff;
-  Null? avgRating;
-  RxInt buttonCount = 1.obs;
+  dynamic wishlist;
 
+  Null? avgRating;
+  // RxInt buttonCount = 0.obs;
+  int productCount = 0;
   LatestProducts(
       {this.id,
         this.sKU,
@@ -151,6 +158,7 @@ class LatestProducts {
         this.image,
         this.cookUnitDays,
         this.size,
+        this.wishlist,
         this.sizeId,
         this.discountOff,
         this.avgRating});
@@ -165,6 +173,7 @@ class LatestProducts {
     maxQty = json['max_qty'];
     price = json['price'];
     content = json['content'];
+    wishlist = json['wishlist'];
     image = json['image'];
     cookUnitDays = json['cook_unit_days'];
     size = json['size'];
@@ -174,22 +183,23 @@ class LatestProducts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['SKU'] = this.sKU;
-    data['name'] = this.name;
-    data['qty'] = this.qty;
-    data['qty_type'] = this.qtyType;
-    data['min_qty'] = this.minQty;
-    data['max_qty'] = this.maxQty;
-    data['price'] = this.price;
-    data['content'] = this.content;
-    data['image'] = this.image;
-    data['cook_unit_days'] = this.cookUnitDays;
-    data['size'] = this.size;
-    data['size_id'] = this.sizeId;
-    data['discount_off'] = this.discountOff;
-    data['avg_rating'] = this.avgRating;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['SKU'] = sKU;
+    data['name'] = name;
+    data['qty'] = qty;
+    data['wishlist'] = wishlist;
+    data['qty_type'] = qtyType;
+    data['min_qty'] = minQty;
+    data['max_qty'] = maxQty;
+    data['price'] = price;
+    data['content'] = content;
+    data['image'] = image;
+    data['cook_unit_days'] = cookUnitDays;
+    data['size'] = size;
+    data['size_id'] = sizeId;
+    data['discount_off'] = discountOff;
+    data['avg_rating'] = avgRating;
     return data;
   }
 }

@@ -1,45 +1,49 @@
 class OrderDetailsModel {
   bool? status;
   String? message;
-  Data? data;
+  OrderDetail? orderDetail;
+  String vendorID ="";
 
-  OrderDetailsModel({this.status, this.message, this.data});
+  OrderDetailsModel({this.status, this.message, this.orderDetail});
 
   OrderDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    orderDetail = json['data'] != null ? new OrderDetail.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    if (this.orderDetail != null) {
+      data['data'] = this.orderDetail!.toJson();
     }
     return data;
   }
 }
 
-class Data {
-  int? orderId;
-  int? itemTotal;
+class OrderDetail {
+
+  String vendorID ="";
+  dynamic orderId;
+  dynamic itemTotal;
   dynamic tax;
-  int? deliveryCharges;
-  int? packingFee;
-  Null? couponDiscount;
+  dynamic deliveryCharges;
+  dynamic packingFee;
+  dynamic couponDiscount;
+  dynamic serviceCharge;
   dynamic grandTotal;
   User? user;
   Vendor? vendor;
-  User? driver;
-  Address? address;
-  String? orderType;
-  String? deliveryStatus;
+  Driver? driver;
+  dynamic address;
+  dynamic orderType;
+  dynamic deliveryStatus;
   List<OrderItems>? orderItems;
-  String? placedAt;
+  dynamic placedAt;
 
-  Data(
+  OrderDetail(
       {this.orderId,
         this.itemTotal,
         this.tax,
@@ -49,6 +53,7 @@ class Data {
         this.grandTotal,
         this.user,
         this.vendor,
+        this.serviceCharge,
         this.driver,
         this.address,
         this.orderType,
@@ -56,18 +61,19 @@ class Data {
         this.orderItems,
         this.placedAt});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  OrderDetail.fromJson(Map<dynamic, dynamic> json) {
     orderId = json['order_id'];
     itemTotal = json['item_total'];
     tax = json['tax'];
     deliveryCharges = json['delivery_charges'];
     packingFee = json['packing_fee'];
     couponDiscount = json['coupon_discount'];
+    serviceCharge = json['service_charge'];
     grandTotal = json['grand_total'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     vendor =
     json['vendor'] != null ? new Vendor.fromJson(json['vendor']) : null;
-    driver = json['driver'] != null ? new User.fromJson(json['driver']) : null;
+    user = json['driver'] != null ? new User.fromJson(json['driver']) : null;
     address =
     json['address'] != null ? new Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
@@ -86,6 +92,7 @@ class Data {
     data['order_id'] = this.orderId;
     data['item_total'] = this.itemTotal;
     data['tax'] = this.tax;
+    data['service_charge'] = this.serviceCharge;
     data['delivery_charges'] = this.deliveryCharges;
     data['packing_fee'] = this.packingFee;
     data['coupon_discount'] = this.couponDiscount;
@@ -113,20 +120,20 @@ class Data {
 }
 
 class User {
-  int? id;
+  dynamic id;
   bool? isDriver;
   bool? isVendor;
-  String? latitude;
-  String? longitude;
-  String? location;
-  String? name;
-  String? lastName;
-  String? email;
-  String? phone;
-  String? walletBalance;
-  String? earnedBalance;
-  String? profileImage;
-  String? referalCode;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic name;
+  dynamic lastName;
+  dynamic email;
+  dynamic phone;
+  dynamic walletBalance;
+  dynamic earnedBalance;
+  dynamic profileImage;
+  dynamic referalCode;
   bool? isDriverOnline;
   bool? isVendorOnline;
   int? deliveryRange;
@@ -209,36 +216,139 @@ class User {
   }
 }
 
+class Driver {
+  dynamic id;
+  bool? isDriver;
+  bool? isVendor;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic name;
+  dynamic lastName;
+  dynamic email;
+  dynamic phone;
+  dynamic walletBalance;
+  dynamic earnedBalance;
+  dynamic profileImage;
+  dynamic referalCode;
+  bool? isDriverOnline;
+  bool? isVendorOnline;
+  dynamic deliveryRange;
+  bool? selfDelivery;
+  bool? asDriverVerified;
+  bool? asVendorVerified;
+  bool? isProfileComplete;
+
+  Driver(
+      {this.id,
+        this.isDriver,
+        this.isVendor,
+        this.latitude,
+        this.longitude,
+        this.location,
+        this.name,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.walletBalance,
+        this.earnedBalance,
+        this.profileImage,
+        this.referalCode,
+        this.isDriverOnline,
+        this.isVendorOnline,
+        this.deliveryRange,
+        this.selfDelivery,
+        this.asDriverVerified,
+        this.asVendorVerified,
+        this.isProfileComplete});
+
+  Driver.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    isDriver = json['is_driver'];
+    isVendor = json['is_vendor'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    location = json['location'];
+    name = json['name'];
+    lastName = json['last_name'];
+    email = json['email'];
+    phone = json['phone'];
+    walletBalance = json['wallet_balance'];
+    earnedBalance = json['earned_balance'];
+    profileImage = json['profile_image'];
+    referalCode = json['referal_code'];
+    isDriverOnline = json['is_driver_online'];
+    isVendorOnline = json['is_vendor_online'];
+    deliveryRange = json['delivery_range'];
+    selfDelivery = json['self_delivery'];
+    asDriverVerified = json['as_driver_verified'];
+    asVendorVerified = json['as_vendor_verified'];
+    isProfileComplete = json['is_profile_complete'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['is_driver'] = this.isDriver;
+    data['is_vendor'] = this.isVendor;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
+    data['location'] = this.location;
+    data['name'] = this.name;
+    data['last_name'] = this.lastName;
+    data['email'] = this.email;
+    data['phone'] = this.phone;
+    data['wallet_balance'] = this.walletBalance;
+    data['earned_balance'] = this.earnedBalance;
+    data['profile_image'] = this.profileImage;
+    data['referal_code'] = this.referalCode;
+    data['is_driver_online'] = this.isDriverOnline;
+    data['is_vendor_online'] = this.isVendorOnline;
+    data['delivery_range'] = this.deliveryRange;
+    data['self_delivery'] = this.selfDelivery;
+    data['as_driver_verified'] = this.asDriverVerified;
+    data['as_vendor_verified'] = this.asVendorVerified;
+    data['is_profile_complete'] = this.isProfileComplete;
+    return data;
+  }
+}
+
 class Vendor {
-  int? storeId;
-  int? id;
-  String? storeName;
-  String? phone;
-  String? storeImage;
-  String? address;
-  String? location;
-  String? latitude;
-  String? longitude;
-  String? ppsNo;
-  String? deliveryRange;
-  String? bankStatement;
-  String? ppsCardImage;
-  String? remark;
+  dynamic storeId;
+  dynamic id;
+  dynamic storeName;
+  dynamic number;
+  dynamic ppsNo;
+  dynamic category;
+  dynamic secondarycategory;
+  dynamic tertiarycategory;
+  dynamic collection;
+  dynamic phone;
+  dynamic storeImage;
+  dynamic location;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic deliveryRange;
+  dynamic ppsCardImage;
+  dynamic remark;
   bool? status;
 
   Vendor(
       {this.storeId,
         this.id,
         this.storeName,
+        this.number,
+        this.ppsNo,
+        this.category,
+        this.secondarycategory,
+        this.tertiarycategory,
+        this.collection,
         this.phone,
         this.storeImage,
-        this.address,
         this.location,
         this.latitude,
         this.longitude,
-        this.ppsNo,
         this.deliveryRange,
-        this.bankStatement,
         this.ppsCardImage,
         this.remark,
         this.status});
@@ -247,15 +357,18 @@ class Vendor {
     storeId = json['storeId'];
     id = json['id'];
     storeName = json['store_name'];
+    number = json['number'];
+    ppsNo = json['pps_no'];
+    category = json['category'];
+    secondarycategory = json['secondarycategory'];
+    tertiarycategory = json['tertiarycategory'];
+    collection = json['collection'];
     phone = json['phone'];
     storeImage = json['storeImage'];
-    address = json['address'];
     location = json['location'];
     latitude = json['latitude'];
     longitude = json['longitude'];
-    ppsNo = json['pps_no '];
     deliveryRange = json['delivery_range'];
-    bankStatement = json['bank_statement'];
     ppsCardImage = json['pps_card_image'];
     remark = json['remark'];
     status = json['status'];
@@ -266,15 +379,18 @@ class Vendor {
     data['storeId'] = this.storeId;
     data['id'] = this.id;
     data['store_name'] = this.storeName;
+    data['number'] = this.number;
+    data['pps_no'] = this.ppsNo;
+    data['category'] = this.category;
+    data['secondarycategory'] = this.secondarycategory;
+    data['tertiarycategory'] = this.tertiarycategory;
+    data['collection'] = this.collection;
     data['phone'] = this.phone;
     data['storeImage'] = this.storeImage;
-    data['address'] = this.address;
     data['location'] = this.location;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
-    data['pps_no '] = this.ppsNo;
     data['delivery_range'] = this.deliveryRange;
-    data['bank_statement'] = this.bankStatement;
     data['pps_card_image'] = this.ppsCardImage;
     data['remark'] = this.remark;
     data['status'] = this.status;
@@ -283,17 +399,17 @@ class Vendor {
 }
 
 class Address {
-  int? id;
-  int? userId;
-  String? latitude;
-  String? longitude;
-  String? location;
-  String? flatNo;
-  String? landmark;
-  String? addressType;
-  String? createdAt;
-  String? updatedAt;
-  Null? deletedAt;
+  dynamic id;
+  dynamic userId;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic flatNo;
+  dynamic landmark;
+  dynamic addressType;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic deletedAt;
 
   Address(
       {this.id,
@@ -340,14 +456,15 @@ class Address {
 }
 
 class OrderItems {
-  int? id;
-  int? productId;
-  String? productName;
-  int? price;
-  int? qty;
-  int? totalPrice;
-  String? status;
-  String? specialRequets;
+  dynamic id;
+  dynamic productId;
+  dynamic productName;
+  dynamic price;
+  dynamic qty;
+  dynamic sizeQuantity;
+  dynamic totalPrice;
+  dynamic status;
+  dynamic specialRequets;
 
   OrderItems(
       {this.id,
@@ -355,6 +472,7 @@ class OrderItems {
         this.productName,
         this.price,
         this.qty,
+        this.sizeQuantity,
         this.totalPrice,
         this.status,
         this.specialRequets});
@@ -364,6 +482,7 @@ class OrderItems {
     productId = json['product_id'];
     productName = json['product_name'];
     price = json['price'];
+    sizeQuantity = json['size_quantity'];
     qty = json['qty'];
     totalPrice = json['total_price'];
     status = json['status'];
@@ -376,6 +495,7 @@ class OrderItems {
     data['product_id'] = this.productId;
     data['product_name'] = this.productName;
     data['price'] = this.price;
+    data['size_quantity'] = this.sizeQuantity;
     data['qty'] = this.qty;
     data['total_price'] = this.totalPrice;
     data['status'] = this.status;

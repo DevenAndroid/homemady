@@ -9,7 +9,7 @@ import '../model/model_verify_otp.dart';
 import '../model/vendor_store_single_model.dart';
 import '../resources/api_urls.dart';
 
-Future<VendorStoreSingleModel> singleStoreData({required id}) async {
+Future<VendorStoreSingleModel> singleStoreData({required keyword,required id}) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -23,9 +23,9 @@ Future<VendorStoreSingleModel> singleStoreData({required id}) async {
   };
   log(user.authToken.toString());
   http.Response response =
-  await http.get(Uri.parse('${ApiUrl.singleStoreApi}/$id'), headers: headers);
+  await http.get(Uri.parse('${ApiUrl.singleStoreApi}/$id?keyword=$keyword'), headers: headers);
   log("<<<<<<<SingleStoreData=======>${response.body}");
-  log('${ApiUrl.singleStoreApi}/$id');
+  log('${ApiUrl.singleStoreApi}/$id?keyword=$keyword');
   if (response.statusCode == 200) {
     log("<<<<<<<SingleStoreData=======>${response.body}");
     return VendorStoreSingleModel.fromJson(json.decode(response.body));

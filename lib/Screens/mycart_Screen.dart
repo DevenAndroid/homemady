@@ -1428,14 +1428,15 @@ class _MyCartScreenState extends State<MyCartScreen> {
               ],
             ),
           ),
-        ):Padding(
+        ):
+        Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
               SizedBox(height: 60,),
               Image.asset('assets/images/emptyCartImg.png'),
               SizedBox(height: 10,),
-              Text("Cart is Empty",style: TextStyle(fontWeight: FontWeight.w500,color: Colors.black54,fontSize: 18),),
+              const Text("No Product",style: TextStyle(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
             ],
           ),
         ) :Center(child: CircularProgressIndicator()),

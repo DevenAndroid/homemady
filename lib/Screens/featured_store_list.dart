@@ -117,7 +117,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                         "A La Carte",
                                         textAlign: TextAlign.center,
                                         style:GoogleFonts.poppins(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -126,7 +126,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                         "Catering",
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.poppins(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -135,7 +135,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                         "Meal Prep",
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.poppins(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.w500),
                                       ),
                                     )

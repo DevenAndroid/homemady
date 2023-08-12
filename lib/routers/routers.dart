@@ -31,6 +31,7 @@ import 'package:homemady/Screens/thankyou_Screen.dart';
 import 'package:homemady/myorderScreens/activeScreen.dart';
 import 'package:homemady/widgets/customeNavbar.dart';
 import '../Screens/faqs_screen.dart';
+import '../Screens/filter_category_product_list.dart';
 import '../Screens/help_center_screen.dart';
 import '../Screens/login_screen.dart';
 import '../Screens/search_screen_data.dart';
@@ -111,6 +112,7 @@ class MyRouters {
   GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
   GetPage(name: CarteScreen.carteScreenPage, page: () => const CarteScreen()),
   GetPage(name: SearchScreenData.searchScreen, page: () => const SearchScreenData()),
+  GetPage(name: FilterProductScreen.filterProductScreen, page: () => const FilterProductScreen()),
 
 
 

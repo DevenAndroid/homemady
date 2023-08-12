@@ -105,7 +105,8 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
     return Obx(() {
       return Scaffold(
         appBar: backAppBar(context: context, title: 'My Address'),
-        body: myAddressController.isDataLoading.value ? myAddressController.model.value.data!.isNotEmpty ?
+        body:
+        myAddressController.isDataLoading.value ? myAddressController.model.value.data!.isNotEmpty ?
         SingleChildScrollView(
           child: Column(
             children: [
@@ -346,7 +347,19 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
               },
             ),
           ),
-        ) : const Center(child: CircularProgressIndicator()),
+        ) :
+        Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              SizedBox(height: 60,),
+              Image.asset('assets/images/NoAddress.png'),
+              SizedBox(height: 10,),
+              Text("No Orders",
+                style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+            ],
+          ),
+        ),
       );
     });
   }

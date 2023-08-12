@@ -218,7 +218,19 @@ class _ActiveScreenState extends State<ActiveScreen> {
                 ],
               );
             },
-          ) :Center(child: Text('No Order')) : const Center(child: CircularProgressIndicator()),
+          ) :
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                SizedBox(height: 60,),
+                Image.asset('assets/images/emptyCartImg.png'),
+                SizedBox(height: 10,),
+                Text("No Orders",
+                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+              ],
+            ),
+          )  : const Center(child: CircularProgressIndicator()),
         ),
       );
     });

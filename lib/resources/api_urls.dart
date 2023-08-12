@@ -39,6 +39,7 @@ class ApiUrl {
   static const ratingGetUrl = "${baseUrl}rating-and-review";
   static const socialUrl = "${baseUrl}social-login";
   static const searchUrl = "${baseUrl}search";
+  static const filterProductCategoryUrl = "${baseUrl}home-filter";
 
 
 

@@ -137,7 +137,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   }),
             )
           ],
-        ) : const Center(child: Text('Notification Empty',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,))) :  const Center(child: CircularProgressIndicator()),
+        ) :
+        Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              SizedBox(height: 60,),
+              Image.asset('assets/images/notifactionIcon.png'),
+              SizedBox(height: 10,),
+               Text("No Notifications Yet",
+                 style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+            ],
+          ),
+        )  :
+        const Center(child: CircularProgressIndicator()),
       );
     });
   }

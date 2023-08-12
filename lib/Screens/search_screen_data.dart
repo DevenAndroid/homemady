@@ -47,6 +47,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
       // backgroundColor: const Color(0xffFFFFFF),
       appBar: backAppBar(title: "Stores", context: context),
       body:
+      filterDataController.isDataLoading ?
       SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -403,10 +404,36 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                       ),
                     );
                   })
-                  : const Center(child: Text("No data found")),
+                  : Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: FittedBox(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 60,),
+                      Image.asset('assets/images/searchImage.png'),
+                      SizedBox(height: 10,),
+                      Text("Result Not Found",
+                        style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+                    ],
+                  ),
+                ),
+              ) ,
 
             ],
           ),
+        ),
+      ):Padding(
+        padding: const EdgeInsets.all(45.0),
+        child: Column(
+          children: [
+            SizedBox(height: 60,),
+            FittedBox(child: Image.asset('assets/images/searchImage.png')),
+            SizedBox(height: 10,),
+            FittedBox(
+              child: Text("Result Not Found",
+                style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
+            ),
+          ],
         ),
       ),
     );

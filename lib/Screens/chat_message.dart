@@ -64,6 +64,7 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
                         SizedBox(
                           width: 210,
                           child: CommonTextFieldWidgetSearch1(
+
                             hint: 'Type messages...',
                             suffix: Padding(
                               padding: const EdgeInsets.all(14.0),

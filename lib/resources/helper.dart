@@ -189,3 +189,18 @@ class Helpers {
     return (!regex.hasMatch(value)) ? false : true;
   }
 }
+extension DateComparision on DateTime{
+
+  bool get isCurrentData{
+    final DateTime currentTime = DateTime.now();
+    final DateTime todayDate = DateTime(currentTime.year,currentTime.month,currentTime.day);
+    return todayDate.isAtSameMomentAs(DateTime(year,month,day));
+  }
+
+  DateTime get toSimpleDate{
+    // final DateTime currentTime = DateTime.now();
+    // final DateTime todayDate = DateTime(currentTime.year,currentTime.month,currentTime.day);
+    return DateTime(year,month,day);
+  }
+
+}

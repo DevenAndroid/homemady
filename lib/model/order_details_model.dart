@@ -1,28 +1,31 @@
 class OrderDetailsModel {
   bool? status;
   String? message;
-  Data? data;
+  OrderDetail? orderDetail;
+  String vendorID ="";
 
-  OrderDetailsModel({this.status, this.message, this.data});
+  OrderDetailsModel({this.status, this.message, this.orderDetail});
 
   OrderDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    orderDetail = json['data'] != null ? new OrderDetail.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    if (this.orderDetail != null) {
+      data['data'] = this.orderDetail!.toJson();
     }
     return data;
   }
 }
 
-class Data {
+class OrderDetail {
+
+  String vendorID ="";
   dynamic orderId;
   dynamic itemTotal;
   dynamic tax;
@@ -40,7 +43,7 @@ class Data {
   List<OrderItems>? orderItems;
   dynamic placedAt;
 
-  Data(
+  OrderDetail(
       {this.orderId,
         this.itemTotal,
         this.tax,
@@ -58,7 +61,7 @@ class Data {
         this.orderItems,
         this.placedAt});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  OrderDetail.fromJson(Map<dynamic, dynamic> json) {
     orderId = json['order_id'];
     itemTotal = json['item_total'];
     tax = json['tax'];

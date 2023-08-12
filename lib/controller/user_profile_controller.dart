@@ -8,10 +8,11 @@ import '../model/user_profile_model.dart';
 import '../repository/user_profile_repo.dart';
 
 class UserProfileController extends GetxController{
-
   Rx<UserProfileModel> model = UserProfileModel().obs;
   RxBool isDataLoading = false.obs;
   Rx<File> image = File("").obs;
+  String myProfileID = "";
+  String get myProfileID1 => model.value.data!.id.toString();
   RxString address = "Select address".obs;
   final ImagePicker picker = ImagePicker();
   TextEditingController nameController = TextEditingController();

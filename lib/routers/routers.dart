@@ -33,6 +33,7 @@ import 'package:homemady/widgets/customeNavbar.dart';
 import '../Screens/faqs_screen.dart';
 import '../Screens/help_center_screen.dart';
 import '../Screens/login_screen.dart';
+import '../Screens/notification2.dart';
 import '../Screens/search_screen_data.dart';
 import '../singlecookDetails/carte.dart';
 
@@ -111,9 +112,6 @@ class MyRouters {
   GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
   GetPage(name: CarteScreen.carteScreenPage, page: () => const CarteScreen()),
   GetPage(name: SearchScreenData.searchScreen, page: () => const SearchScreenData()),
-
-
-
-
+    GetPage(name: NotificationScreen2.notificationScreen2, page: () => const NotificationScreen2()),
   ];
 }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -10,6 +13,11 @@ import 'package:homemady/widgets/dimenestion.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../controller/order_details_controller.dart';
+import '../controller/user_profile_controller.dart';
+import '../model/order_details_model.dart';
+import '../service/firebase_service.dart';
+import 'chat_screen.dart';
+import 'chat_screen/chat_screen.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   const OrderDetailsScreen({Key? key}) : super(key: key);
@@ -22,12 +30,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
     with TickerProviderStateMixin {
   late TabController tabController;
   final controller = Get.put(OrderDetailsController());
+
+  final profileController = Get.put(UserProfileController());
   @override
   void initState() {
     super.initState();
     controller.getData();
-    // vendorOrderListController.filter.value = "";
-    // vendorOrderListController.vendorOrderListData();
     tabController = TabController(length: 2, vsync: this);
   }
   _makingPhoneCall(call) async {
@@ -85,12 +93,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                      Column(
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
-                                         Text('Order ID: ${controller.model.value.data!.orderId!.toString()}',style: GoogleFonts.poppins(
+                                         Text('Order ID: ${controller.model.value.orderDetail!.orderId!.toString()}',style: GoogleFonts.poppins(
                                              fontWeight: FontWeight.w600,
                                              fontSize: 15,
-                                             color: Color(0xFF7ED957)
+                                             color: const Color(0xFF7ED957)
                                          ),),
-                                         Text(controller.model.value.data!.placedAt!.toString(),style: GoogleFonts.poppins(
+                                         Text(controller.model.value.orderDetail!.placedAt!.toString(),style: GoogleFonts.poppins(
                                              fontWeight: FontWeight.w400,
                                              fontSize: 11,
                                              color: const Color(0xFF303C5E)
@@ -98,13 +106,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
 
                                        ],
                                      ),
-                                     Spacer(),
+                                     const Spacer(),
                                      Container(
                                        // height: 25,
                                        // width: 100,
                                        decoration:  BoxDecoration(
                                            borderRadius: BorderRadius.circular(6),
-                                           color: Color(0xFF7ED957)
+                                           color: const Color(0xFF7ED957)
                                        ),
                                        child: Center(
                                          child: Padding(
@@ -140,7 +148,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                ),
                                child: ListView.builder(
                                  shrinkWrap: true,
-                                 itemCount: controller.model.value.data!.orderItems!.length,
+                                 itemCount: controller.model.value.orderDetail!.orderItems!.length,
                                  physics: const BouncingScrollPhysics(),
                                  itemBuilder: (context, index) {
                                    return Column(
@@ -158,21 +166,21 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                  children: [
-                                                   Text(controller.model.value.data!.orderItems![index].productName.toString(),
+                                                   Text(controller.model.value.orderDetail!.orderItems![index].productName.toString(),
                                                      style: GoogleFonts.poppins(
                                                          fontWeight: FontWeight.w600,
                                                          fontSize: 18,
                                                          color: const Color(0xFF1A2E33)
                                                      ),),
                                                    addHeight(1),
-                                                   Text('Quantity: ${controller.model.value.data!.orderItems![index].sizeQuantity.toString()}',
+                                                   Text('Quantity: ${controller.model.value.orderDetail!.orderItems![index].sizeQuantity.toString()}',
                                                      style: GoogleFonts.poppins(
                                                          fontWeight: FontWeight.w400,
                                                          fontSize: 12,
                                                          color: const Color(0xFF486769B5).withOpacity(0.71)
                                                      ),),
                                                    addHeight(3),
-                                                   Text('€ ${controller.model.value.data!.orderItems![index].price.toString()}',
+                                                   Text('€ ${controller.model.value.orderDetail!.orderItems![index].price.toString()}',
                                                      style: GoogleFonts.poppins(
                                                          fontWeight: FontWeight.w600,
                                                          fontSize: 16,
@@ -268,7 +276,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                              horizontal: AddSize.padding16,
                            ),
 
-                           child: controller.isDataLoading.value ? controller.model.value.data!.driver != null  ?
+                           child: controller.isDataLoading.value ? controller.model.value.orderDetail!.driver != null  ?
                            Column(
                                children: [
                                  Container(
@@ -309,7 +317,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                            fontSize: 14),
                                                      ),
                                                      Text(
-                                                      controller.model.value.data!.driver!.name.toString(),
+                                                      controller.model.value.orderDetail!.driver!.name.toString(),
                                                        style: const TextStyle(
                                                            height: 1.5,
                                                            fontWeight: FontWeight.w600,
@@ -350,7 +358,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                            fontSize: 14),
                                                      ),
                                                      Text(
-                                                       controller.model.value.data!.driver!.phone.toString(),
+                                                       controller.model.value.orderDetail!.driver!.phone.toString(),
                                                        style: const TextStyle(
                                                            height: 1.5,
                                                            fontWeight: FontWeight.w600,
@@ -397,13 +405,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                                fontSize: 14),
                                                          ),
                                                          Text(
-                                                           controller.model.value.data!.address!.location.toString(),
+                                                           controller.model.value.orderDetail!.address!.location.toString(),
                                                            style: const TextStyle(
                                                                height: 1.5,
                                                                fontWeight: FontWeight.w600,
                                                                fontSize: 16),
                                                          ),
-                                                         SizedBox(
+                                                         const SizedBox(
                                                            width: 5,
                                                          ),
                                                        ],
@@ -465,17 +473,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      fontWeight: FontWeight.w600,
                                                      color: const Color(0xff1A2E33)
                                                  ),),
-                                               Spacer(),
+                                               const Spacer(),
                                                Container(
                                                  height: 25,
                                                  width: 52,
                                                  decoration: BoxDecoration(
-                                                   color: Color(0xFF7ED957),
+                                                   color: const Color(0xFF7ED957),
                                                    borderRadius: BorderRadius.circular(4),
                                                  ),
                                                  child: Center(
                                                    child: Text(
-                                                     controller.model.value.data!.orderType.toString(),
+                                                     controller.model.value.orderDetail!.orderType.toString(),
                                                      style: GoogleFonts.poppins(
                                                          color: Colors.white,
                                                          fontSize: 13,
@@ -495,8 +503,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      fontWeight: FontWeight.w600,
                                                      color: const Color(0xff1A2E33)
                                                  ),),
-                                               Spacer(),
-                                               Text( '€ ${controller.model.value.data!.itemTotal.toString()}',
+                                               const Spacer(),
+                                               Text( '€ ${controller.model.value.orderDetail!.itemTotal.toString()}',
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 14,
                                                      fontWeight: FontWeight.w500,
@@ -512,14 +520,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 16,
                                                      fontWeight: FontWeight.w600,
-                                                     color: Color(0xff1A2E33)
+                                                     color: const Color(0xff1A2E33)
                                                  ),),
-                                               Spacer(),
-                                               Text( "${controller.model.value.data!.serviceCharge.toString()}.25",
+                                               const Spacer(),
+                                               Text( "${controller.model.value.orderDetail!.serviceCharge.toString()}.25",
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 14,
                                                      fontWeight: FontWeight.w500,
-                                                     color: Color(0xff486769)
+                                                     color: const Color(0xff486769)
                                                  ),),
                                              ],
                                            ),
@@ -531,14 +539,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 16,
                                                      fontWeight: FontWeight.w600,
-                                                     color: Color(0xff1A2E33)
+                                                     color: const Color(0xff1A2E33)
                                                  ),),
-                                               Spacer(),
-                                               Text(  controller.model.value.data!.deliveryCharges.toString(),
+                                               const Spacer(),
+                                               Text(  controller.model.value.orderDetail!.deliveryCharges.toString(),
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 14,
                                                      fontWeight: FontWeight.w500,
-                                                     color: Color(0xff486769)
+                                                     color: const Color(0xff486769)
                                                  ),),
                                              ],
                                            ),
@@ -552,8 +560,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      fontWeight: FontWeight.w700,
                                                      color: const Color(0xff6BC744)
                                                  ),),
-                                               Spacer(),
-                                               Text( '€ ${controller.model.value.data!.grandTotal.toString()}',
+                                               const Spacer(),
+                                               Text( '€ ${controller.model.value.orderDetail!.grandTotal.toString()}',
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 14,
                                                      fontWeight: FontWeight.w500,
@@ -619,7 +627,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                  //   ),
                                  // ),
                                ]
-                           ) : Center(child: Text('NO Driver Information')): const Center(child: Padding(
+                           ) : const Center(child: Text('NO Driver Information')): const Center(child: Padding(
                              padding: EdgeInsets.only(top: 100),
                              child: CircularProgressIndicator(),
                            )),
@@ -633,7 +641,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                            padding: EdgeInsets.symmetric(
                              horizontal: AddSize.padding16,
                            ),
-                           child: controller.isDataLoading.value ? controller.model.value.data!.vendor != null ?
+                           child: controller.isDataLoading.value ? controller.model.value.orderDetail!.vendor != null ?
                            Column(
                              children: [
                                Container(
@@ -674,7 +682,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                          fontSize: 14),
                                                    ),
                                                    Text(
-                                                     controller.model.value.data!.vendor!.storeName.toString(),
+                                                     controller.model.value.orderDetail!.vendor!.storeName.toString(),
                                                      style: const TextStyle(
                                                          height: 1.5,
                                                          fontWeight: FontWeight.w600,
@@ -715,7 +723,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                          fontSize: 14),
                                                    ),
                                                    Text(
-                                                       controller.model.value.data!.vendor!.phone.toString(),
+                                                       controller.model.value.orderDetail!.vendor!.phone.toString(),
                                                      style: const TextStyle(
                                                          height: 1.5,
                                                          fontWeight: FontWeight.w600,
@@ -760,7 +768,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                              fontSize: 14),
                                                        ),
                                                        Text(
-                                                           controller.model.value.data!.vendor!.location.toString(),
+                                                           controller.model.value.orderDetail!.vendor!.location.toString(),
                                                          style: const TextStyle(
                                                              height: 1.5,
                                                              fontWeight: FontWeight.w600,
@@ -826,17 +834,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    fontWeight: FontWeight.w600,
                                                    color: const Color(0xff1A2E33)
                                                ),),
-                                             Spacer(),
+                                             const Spacer(),
                                              Container(
                                                height: 25,
                                                width: 52,
                                                decoration: BoxDecoration(
-                                                 color: Color(0xFF7ED957),
+                                                 color: const Color(0xFF7ED957),
                                                  borderRadius: BorderRadius.circular(4),
                                                ),
                                                child: Center(
                                                  child: Text(
-                                                   controller.model.value.data!.orderType.toString(),
+                                                   controller.model.value.orderDetail!.orderType.toString(),
                                                    style: GoogleFonts.poppins(
                                                        color: Colors.white,
                                                        fontSize: 13,
@@ -856,8 +864,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    fontWeight: FontWeight.w600,
                                                    color: const Color(0xff1A2E33)
                                                ),),
-                                             Spacer(),
-                                             Text('€ ${controller.model.value.data!.itemTotal.toString()}',
+                                             const Spacer(),
+                                             Text('€ ${controller.model.value.orderDetail!.itemTotal.toString()}',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -873,14 +881,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                style: GoogleFonts.poppins(
                                                    fontSize: 16,
                                                    fontWeight: FontWeight.w600,
-                                                   color: Color(0xff1A2E33)
+                                                   color: const Color(0xff1A2E33)
                                                ),),
-                                             Spacer(),
-                                             Text( '€ ${controller.model.value.data!.serviceCharge.toString()}.20',
+                                             const Spacer(),
+                                             Text( '€ ${controller.model.value.orderDetail!.serviceCharge.toString()}.20',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
-                                                   color: Color(0xff486769)
+                                                   color: const Color(0xff486769)
                                                ),),
                                            ],
                                          ),
@@ -911,14 +919,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                style: GoogleFonts.poppins(
                                                    fontSize: 16,
                                                    fontWeight: FontWeight.w600,
-                                                   color: Color(0xff1A2E33)
+                                                   color: const Color(0xff1A2E33)
                                                ),),
-                                             Spacer(),
-                                             Text( "€ ${controller.model.value.data!.deliveryCharges.toString()}.00",
+                                             const Spacer(),
+                                             Text( "€ ${controller.model.value.orderDetail!.deliveryCharges.toString()}.00",
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
-                                                   color: Color(0xff486769)
+                                                   color: const Color(0xff486769)
                                                ),),
                                            ],
                                          ),
@@ -932,8 +940,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    fontWeight: FontWeight.w700,
                                                    color: const Color(0xff6BC744)
                                                ),),
-                                             Spacer(),
-                                             Text('€ ${controller.model.value.data!.grandTotal.toString()}',
+                                             const Spacer(),
+                                             Text('€ ${controller.model.value.orderDetail!.grandTotal.toString()}',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -941,6 +949,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                ),),
                                            ],
                                          ),
+
+
+
+
                                          addHeight(20)
                                        ],
 
@@ -948,6 +960,38 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                    ),
                                  ),
                                ),
+
+                               Row(mainAxisAlignment: MainAxisAlignment.end,
+                                 children: [
+                                   TextButton(onPressed: () {
+                                     OrderDetail gg = controller.model.value.orderDetail!;
+                                     log(jsonEncode(controller.model.value.orderDetail));
+                                     gg.user = User.fromJson(profileController.model.value.data!.toJson());
+                                     gg.vendorID = gg.vendor!.id.toString();
+                                     String roomId = FirebaseService().createChatRoom(
+                                         user1: gg.user!.id!
+                                             .toString()
+                                             .convertToNum
+                                             .toInt(),
+                                         user2: gg.vendor!.id!
+                                             .toString()
+                                             .convertToNum
+                                             .toInt());
+                                     Get.to(()=> const ChatScreen1(), arguments: [
+                                       roomId,
+                                       controller.model.value.orderDetail!.user!.id!
+                                           .toString()
+                                           .convertToNum
+                                           .toInt()
+                                           .toString(),
+                                       gg
+                                     ]);
+                                   },
+                                       child: const Text('Need any help?',style: TextStyle())),
+                                 ],
+                               ),
+
+
                                SizedBox(height: AddSize.size20),
                                // InkWell(
                                //   onTap: () {
@@ -975,7 +1019,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                // ),
                                // SizedBox(height: AddSize.size20),
                              ],
-                           ):  Center(child: Text('NO Vendor Information')) : const Center(child: CircularProgressIndicator()),
+                           ):  const Center(child: Text('NO Vendor Information')) : const Center(child: CircularProgressIndicator()),
                          ),
                        );
                      })

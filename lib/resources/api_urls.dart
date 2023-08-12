@@ -41,6 +41,7 @@ class ApiUrl {
   static const searchUrl = "${baseUrl}search";
   static const stripeDetailsUrl = "${baseUrl}stripe-details";
   static const paymentUrl = "${baseUrl}payment";
+  static const filterProductCategoryUrl = "${baseUrl}home-filter";
 
 
 

@@ -39,6 +39,8 @@ class ApiUrl {
   static const ratingGetUrl = "${baseUrl}rating-and-review";
   static const socialUrl = "${baseUrl}social-login";
   static const searchUrl = "${baseUrl}search";
+  static const stripeDetailsUrl = "${baseUrl}stripe-details";
+  static const paymentUrl = "${baseUrl}payment";
 
 
 

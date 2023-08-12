@@ -55,9 +55,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.034,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text('Food Quality',style: TextStyle(
                       color: Color(0xFF1A1917),
                       fontWeight: FontWeight.w500,
@@ -97,9 +97,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.022,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Expanded(
                     child: Text('Communication',style: TextStyle(
                         color: Color(0xFF1A1917),
@@ -142,9 +142,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.022,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Expanded(
                     child: Text('Hygiene',style: TextStyle(
                         color: Color(0xFF1A1917),
@@ -186,9 +186,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.022,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Expanded(
                     child: Text('Food Quantity',style: TextStyle(
                         color: Color(0xFF1A1917),
@@ -231,9 +231,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height *.022,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Expanded(
                     child: Text('Delivery',style: TextStyle(
                         color: Color(0xFF1A1917),

@@ -214,7 +214,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                       ),
                                     ),
                                   ),
-                                  const Positioned(
+                                   Positioned(
                                       top: 80,
                                       // bottom: 0,
                                       left: 20,
@@ -222,7 +222,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                       //   bottom: 0,
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
+                                        children: const [
                                           Icon(
                                             Icons.arrow_back_ios,
                                             color: Colors.white,

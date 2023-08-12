@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -5,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
+
+import '../controller/order_details_controller.dart';
 
 
 class ThankYouScreen extends StatefulWidget {
@@ -14,7 +18,17 @@ class ThankYouScreen extends StatefulWidget {
   State<ThankYouScreen> createState() => _ThankYouScreenState();
 }
 
+
 class _ThankYouScreenState extends State<ThankYouScreen> {
+  final orderDetailsController =Get.put(OrderDetailsController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(Get.arguments[0]);
+  }
+  String text = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +43,17 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                  addHeight(62),
                   Image.asset('assets/images/thankyouImg.png',width: 232,),
                  addHeight(15),
-                 Text('Thank You!',
-                 style: GoogleFonts.ramaraja(
-                   fontSize: 65,
-                   fontWeight: FontWeight.w400,
-                   color: Color(0xFF423E5E),
-                 ),
+                 GestureDetector(
+                   onTap: (){
+                     log(Get.arguments[0]);
+                   },
+                   child: Text('Thank You!',
+                   style: GoogleFonts.ramaraja(
+                     fontSize: 65,
+                     fontWeight: FontWeight.w400,
+                     color: Color(0xFF423E5E),
+                   ),
+                   ),
                  ),
                  Text('Your Order Has Been Successfull',
                    style: GoogleFonts.poppins(
@@ -87,7 +106,9 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                  addHeight(140),
                  InkWell(
                    onTap: () {
-                     Get.toNamed(MyRouters.orderDetailsScreen,arguments: [Get.arguments[0]]);
+                     orderDetailsController.id.value=Get.arguments[0].toString();
+                     print("Order details order id is ${ orderDetailsController.id.value}");
+                     Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
                    },
                    child: Container(
                      height: 55,

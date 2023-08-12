@@ -1,12 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/Screens/thankyou_Screen.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/editprofiletextfiled.dart';
 
+import '../controller/my_cart_controller.dart';
+import '../repository/checkout_order_repo.dart';
+import '../resources/add_text.dart';
+import '../widgets/app_assets.dart';
+import '../widgets/app_theme.dart';
+import '../widgets/dimenestion.dart';
 
 class AddNewCardScreen extends StatefulWidget {
   const AddNewCardScreen({Key? key}) : super(key: key);
@@ -19,11 +29,54 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
   bool showErrorMessage = false;
   bool value = false;
   RxBool checkboxColor = false.obs;
+  CardFormEditController controller = CardFormEditController();
+  final myCartController = Get.put(MyCartListController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //log(Get.arguments[0]);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: backAppBar(title: 'Add New Card', context: context),
-      body: SingleChildScrollView(
+      body: Container(
+        color: const Color(0xffEFFFEF),
+        child: Stack(
+          children: [
+            Positioned(
+              left: 20,
+              right: 20,
+              top: 30,
+              child: CardFormField(
+                controller: controller,
+                autofocus: true,
+                style: CardFormStyle(
+                    // borderColor: Colors.black
+                    backgroundColor: Colors.white,
+                    textColor: Colors.black,
+                    placeholderColor: Colors.black,
+                    textErrorColor: Colors.red,
+                    fontSize: AddSize.padding16.toInt(),
+                    cursorColor: Colors.black,
+                    borderRadius: 10,
+                    borderWidth: 0),
+              ),
+              // Container(
+              //   decoration:  BoxDecoration(
+              //     borderRadius: BorderRadius.circular(16),
+              //     color: AppTheme.backgroundcolor,
+              //   ),
+              //   height: AddSize.size200 *1.5,
+              //   width: AddSize.screenWidth,
+              // ),
+            ),
+          ],
+        ),
+      ),
+
+      /*SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Form(
           child: Padding(
@@ -163,6 +216,64 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
             ),
           ),
         ),
+      ),*/
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: ElevatedButton(
+            onPressed: () {
+              if (controller.details.complete == false) {
+                showToast("Fill the card details correctly");
+              } else {
+                Stripe.instance.createToken(const CreateTokenParams.card(params: CardTokenParams())).then((value) {
+                  log(value.toString());
+                  log('token--' + value.id.toString());
+                  {
+                    log('token--' + value.id.toString());
+                    // log('order id--' + value.);
+                    checkOut(payment_type: 'cod', context: context, deliveryInstruction: '', specialRequest: '', delivery_type:value )
+                        .then((value1) {
+                      // log('Token iddddddddddddddddddddd'+value.id.toString());
+                      payment(
+                              orderId: value1.data!.orderId.toString(),
+                              token: value.id.toString(),
+                              amount: value1.data!.grandTotal,
+                              context: context)
+                          .then((value2) {
+                        if (value2.status == true) {
+                          showToast(value2.message.toString());
+                          myCartController.getData();
+                         // print('Order id====' + value2.data!.orderId);
+                          Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                            value2.data!.orderDetail!.orderId,
+                            value2.data!.orderDetail!.placedAt,
+                            value2.data!.orderDetail!.stateTax,
+                            value2.data!.orderDetail!.muncipalTax,
+                            value2.data!.orderDetail!.grandTotal,
+                           // value2.data!.or,
+                            // value2.data!.card,
+                            value2.data!.orderDetail!.itemTotal,
+                          ]);
+                        }
+                      });
+                    });
+                  }
+                });
+              }
+            },
+            style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(10),
+                backgroundColor: const Color(0xff101213),
+                minimumSize: const Size(double.maxFinite, 62),
+                elevation: 0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+                textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+            child: Text(
+              "PAY",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5!
+                  .copyWith(color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700, fontSize: 20),
+            )),
       ),
     );
   }

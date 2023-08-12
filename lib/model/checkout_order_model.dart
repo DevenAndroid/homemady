@@ -1,3 +1,5 @@
+import 'my_order_model.dart';
+
 class CheckoutOrderModel {
   bool? status;
   String? message;
@@ -23,6 +25,7 @@ class CheckoutOrderModel {
 }
 
 class Data {
+  OrderDetail? orderDetail;
   dynamic orderId;
   dynamic itemTotal;
   dynamic tax;
@@ -40,7 +43,8 @@ class Data {
   dynamic placedAt;
 
   Data(
-      {this.orderId,
+      {this.orderDetail,
+        this.orderId,
         this.itemTotal,
         this.tax,
         this.deliveryCharges,
@@ -57,6 +61,9 @@ class Data {
         this.placedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
+    orderDetail = json['orderDetail'] != null
+        ? new OrderDetail.fromJson(json['orderDetail'])
+        : null;
     orderId = json['order_id'];
     itemTotal = json['item_total'];
     tax = json['tax'];
@@ -82,6 +89,9 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.orderDetail != null) {
+      data['orderDetail'] = this.orderDetail!.toJson();
+    }
     data['order_id'] = this.orderId;
     data['item_total'] = this.itemTotal;
     data['tax'] = this.tax;
@@ -96,6 +106,75 @@ class Data {
    // data['driver'] = this.driver;
     if (this.address != null) {
       data['address'] = this.address!.toJson();
+    }
+    data['order_type'] = this.orderType;
+    data['delivery_status'] = this.deliveryStatus;
+    if (this.orderItems != null) {
+      data['order_items'] = this.orderItems!.map((v) => v.toJson()).toList();
+    }
+    data['placed_at'] = this.placedAt;
+    return data;
+  }
+}
+
+class OrderDetail {
+  dynamic orderId;
+  dynamic itemTotal;
+  dynamic muncipalTax;
+  dynamic stateTax;
+  dynamic grandTotal;
+  User? user;
+  Vendor? vendor;
+  dynamic orderType;
+  dynamic deliveryStatus;
+  List<OrderItems>? orderItems;
+  dynamic placedAt;
+
+  OrderDetail(
+      {this.orderId,
+        this.itemTotal,
+        this.muncipalTax,
+        this.stateTax,
+        this.grandTotal,
+        this.user,
+        this.vendor,
+        this.orderType,
+        this.deliveryStatus,
+        this.orderItems,
+        this.placedAt});
+
+  OrderDetail.fromJson(Map<String, dynamic> json) {
+    orderId = json['order_id'];
+    itemTotal = json['item_total'];
+    muncipalTax = json['muncipal_tax'];
+    stateTax = json['state_tax'];
+    grandTotal = json['grand_total'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    vendor =
+    json['vendor'] != null ? new Vendor.fromJson(json['vendor']) : null;
+    orderType = json['order_type'];
+    deliveryStatus = json['delivery_status'];
+    if (json['order_items'] != null) {
+      orderItems = <OrderItems>[];
+      json['order_items'].forEach((v) {
+        orderItems!.add(new OrderItems.fromJson(v));
+      });
+    }
+    placedAt = json['placed_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['order_id'] = this.orderId;
+    data['item_total'] = this.itemTotal;
+    data['muncipal_tax'] = this.muncipalTax;
+    data['state_tax'] = this.stateTax;
+    data['grand_total'] = this.grandTotal;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    if (this.vendor != null) {
+      data['vendor'] = this.vendor!.toJson();
     }
     data['order_type'] = this.orderType;
     data['delivery_status'] = this.deliveryStatus;

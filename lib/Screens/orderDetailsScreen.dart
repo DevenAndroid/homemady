@@ -9,6 +9,7 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../controller/my_cart_controller.dart';
 import '../controller/order_details_controller.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
     with TickerProviderStateMixin {
   late TabController tabController;
   final controller = Get.put(OrderDetailsController());
+  final myCartController = Get.put(MyCartListController());
   @override
   void initState() {
     super.initState();
@@ -29,6 +31,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
     // vendorOrderListController.filter.value = "";
     // vendorOrderListController.vendorOrderListData();
     tabController = TabController(length: 2, vsync: this);
+
   }
   _makingPhoneCall(call) async {
     var url = Uri.parse(call);
@@ -85,11 +88,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                      Column(
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
+                                        // if(controller.model.value.data != null)
                                          Text('Order ID: ${controller.model.value.data!.orderId!.toString()}',style: GoogleFonts.poppins(
                                              fontWeight: FontWeight.w600,
                                              fontSize: 15,
                                              color: Color(0xFF7ED957)
                                          ),),
+                                         //if(controller.model.value.data != null)
                                          Text(controller.model.value.data!.placedAt!.toString(),style: GoogleFonts.poppins(
                                              fontWeight: FontWeight.w400,
                                              fontSize: 11,
@@ -508,6 +513,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                            Row(
                                              mainAxisAlignment: MainAxisAlignment.start,
                                              children: [
+                                               Text('Tip for Delivery Partner:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 16,
+                                                     fontWeight: FontWeight.w600,
+                                                     color: const Color(0xff1A2E33)
+                                                 ),),
+                                               Spacer(),
+                                               Text( '€ ${controller.model.value.data!..toString()}',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 14,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: const Color(0xff486769)
+                                                 ),),
+                                             ],
+                                           ),
+                                           addHeight(10),
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
                                                Text('Service charge:',
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 16,
@@ -869,6 +893,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                          Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
                                            children: [
+                                             Text('Tip for Delivery Partner:',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 16,
+                                                   fontWeight: FontWeight.w600,
+                                                   color: const Color(0xff1A2E33)
+                                               ),),
+                                             Spacer(),
+                                             Text('€ ${controller.model.value.data!.tipAmount.toString()}',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 14,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: const Color(0xff486769)
+                                               ),),
+                                           ],
+                                         ),
+                                         addHeight(10),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
                                              Text('Service charge:',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 16,
@@ -876,7 +919,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( '€ ${controller.model.value.data!.serviceCharge.toString()}.20',
+                                             Text( '€ ${controller.model.value.data!.serviceCharge.toString()}',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -914,7 +957,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: Color(0xff1A2E33)
                                                ),),
                                              Spacer(),
-                                             Text( "€ ${controller.model.value.data!.deliveryCharges.toString()}.00",
+                                             Text( "€ ${controller.model.value.data!.deliveryCharges.toString()}",
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,

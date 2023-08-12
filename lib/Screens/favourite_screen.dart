@@ -221,7 +221,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                             ),
                                           ),
                                         ),
-                                        const Positioned(
+                                         Positioned(
                                             top: 80,
                                             // bottom: 0,
                                             left: 20,
@@ -230,7 +230,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment
                                                   .spaceBetween,
-                                              children: [
+                                              children: const [
                                                 Icon(Icons.arrow_back_ios,
                                                   color: Colors.white,size: 20,),
                                                 Icon(Icons.arrow_forward_ios,

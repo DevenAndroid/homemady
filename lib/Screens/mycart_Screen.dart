@@ -33,7 +33,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
   RxBool customTip = false.obs;
   RxString selectedChip = "".obs;
   final List<String> tips = ["20", "30", "40", "Custom"];
-
+  String getColor = '0xFF#F1F1F1';
   @override
   void initState() {
     // TODO: implement initState
@@ -348,7 +348,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             ],
                           ),
                         ),
-                        addHeight(20),
+                        addHeight(10),
                         // Wrap(
                         //   children: List.generate(10, (index){
                         //   return  Row(
@@ -408,13 +408,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             padding: const EdgeInsets.only(right:4,left: 4),
                             child: Container(
                                 height: 22,
-                                width: 22,
+                                width:  22,
                                 padding: const EdgeInsets.symmetric(horizontal: 4),
                                 decoration:
                                 BoxDecoration(
                                   borderRadius: BorderRadius.circular(4.0),
-                                  color: Colors.grey.shade200,
-                                  boxShadow: [
+                                  color: const Color(0xFFF1F1F1)
+                                  /*boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey.shade200,
                                       offset: const Offset(.1, .1,
@@ -422,21 +422,29 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       blurRadius: 19.0,
                                       spreadRadius: 1.0,
                                     ),
-                                  ],
+                                  ],*/
                                 ),
 
-                              child: Checkbox(
-                                value: index < int.parse(controller.model.value.data!.cartPaymentSummary!.orderCount.toString()),
-                                checkColor: Colors.white,
-                                activeColor: const Color(0xff7ED957),
-                                onChanged: (value){
-                                 //  var orderTotalCount=controller.model.value.data!.cartPaymentSummary!.orderCount.toString();
-                                 //  for(var i=0; i<orderTotalCount.length; i++) {
-                                 //    isSelect.value = orderTotalCount;
-                                 //  }
-                                 // setState(() {});
-                                },
+                              child: Theme(
+                                data: ThemeData(
+                                  unselectedWidgetColor: Colors.transparent
+                                ),
+                                child: Checkbox(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(2)
+                                  ),
+                                  value: index < int.parse(controller.model.value.data!.cartPaymentSummary!.orderCount.toString()),
+                                  checkColor: Colors.white,
+                                  activeColor: const Color(0xff7ED957),
+                                  onChanged: (value){
+                                   //  var orderTotalCount=controller.model.value.data!.cartPaymentSummary!.orderCount.toString();
+                                   //  for(var i=0; i<orderTotalCount.length; i++) {
+                                   //    isSelect.value = orderTotalCount;
+                                   //  }
+                                   // setState(() {});
+                                  },
 
+                                ),
                               ),
                             ),
                           );
@@ -1231,8 +1239,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                           onPressed: () {},
                                           icon: const Icon(
                                             Icons.arrow_forward,
-                                            color: AppTheme
-                                                .primaryColor,
+                                            color:  Color(0xff7ED957),
                                           )),
                                     ),
                                   ),
@@ -1259,8 +1266,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       },
                                       child: Text("Add",
                                           style: TextStyle(
-                                              color: AppTheme
-                                                  .primaryColor,
+                                              color:  Color(0xff7ED957),
                                               fontSize:
                                               AddSize.font16,
                                               fontWeight:
@@ -1357,7 +1363,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               Spacer(),
                               Text(
 
-                                '€ ${controller.model.value.data!.cartPaymentSummary!.serviceCharge.toString()} .20',
+                                '€ ${controller.model.value.data!.cartPaymentSummary!.serviceCharge.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -1378,7 +1384,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     color: Color(0xff1A2E33)
                                 ),),
                               Spacer(),
-                              Text( '€ ${controller.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}.00',
+                              Text( '€ ${controller.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,

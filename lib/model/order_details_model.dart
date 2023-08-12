@@ -28,6 +28,7 @@ class Data {
   dynamic tax;
   dynamic deliveryCharges;
   dynamic packingFee;
+  dynamic tipAmount;
   dynamic couponDiscount;
   dynamic serviceCharge;
   dynamic grandTotal;
@@ -45,6 +46,7 @@ class Data {
         this.itemTotal,
         this.tax,
         this.deliveryCharges,
+        this.tipAmount,
         this.packingFee,
         this.couponDiscount,
         this.grandTotal,
@@ -63,6 +65,7 @@ class Data {
     itemTotal = json['item_total'];
     tax = json['tax'];
     deliveryCharges = json['delivery_charges'];
+    tipAmount = json['tip_amount'];
     packingFee = json['packing_fee'];
     couponDiscount = json['coupon_discount'];
     serviceCharge = json['service_charge'];
@@ -91,6 +94,7 @@ class Data {
     data['tax'] = this.tax;
     data['service_charge'] = this.serviceCharge;
     data['delivery_charges'] = this.deliveryCharges;
+    data['tip_amount'] = this.tipAmount;
     data['packing_fee'] = this.packingFee;
     data['coupon_discount'] = this.couponDiscount;
     data['grand_total'] = this.grandTotal;

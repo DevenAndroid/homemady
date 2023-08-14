@@ -806,7 +806,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 .then((value) {
                               if (value.status == true) {
                                 print('order id is...${value.data!.orderId}');
-                                showToast(value.message.toString());
+                               // showToast(value.message.toString());
                                 Get.offAllNamed(MyRouters.thankYouScreen, arguments: [value.data!.orderId]);
                                 myAddressController.getData();
                               }

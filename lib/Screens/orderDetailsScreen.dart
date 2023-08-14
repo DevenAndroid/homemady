@@ -97,6 +97,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                    crossAxisAlignment: CrossAxisAlignment.start,
                                    children: [
+
                                      Image.asset('assets/images/order_details.png',height: 18,),
                                      addWidth(15),
                                      Column(
@@ -1042,7 +1043,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                    ],
                  )
              ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: controller.model.value.orderDetail!.feedback.toString() == 'true' ?
+       const SizedBox() : Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 17),
         child: InkWell(
           onTap: () {
@@ -1070,7 +1072,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
             ),
           ),
         ),
-      ),
+      )
 
 
 

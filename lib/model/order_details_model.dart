@@ -41,6 +41,7 @@ class OrderDetail {
   dynamic address;
   dynamic orderType;
   dynamic deliveryStatus;
+  dynamic feedback;
   List<OrderItems>? orderItems;
   dynamic placedAt;
 
@@ -60,6 +61,7 @@ class OrderDetail {
         this.address,
         this.orderType,
         this.deliveryStatus,
+        this.feedback,
         this.orderItems,
         this.placedAt});
 
@@ -81,6 +83,7 @@ class OrderDetail {
     json['address'] != null ? new Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
     deliveryStatus = json['delivery_status'];
+    feedback = json['feedback'];
     if (json['order_items'] != null) {
       orderItems = <OrderItems>[];
       json['order_items'].forEach((v) {
@@ -115,6 +118,7 @@ class OrderDetail {
     }
     data['order_type'] = this.orderType;
     data['delivery_status'] = this.deliveryStatus;
+    data['feedback'] = this.feedback;
     if (this.orderItems != null) {
       data['order_items'] = this.orderItems!.map((v) => v.toJson()).toList();
     }

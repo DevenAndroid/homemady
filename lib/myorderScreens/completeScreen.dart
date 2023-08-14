@@ -39,6 +39,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
             itemBuilder: (context, index) {
               return Column(
                 children: [
+
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,

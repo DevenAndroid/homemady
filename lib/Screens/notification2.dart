@@ -173,17 +173,17 @@ class NotificationScreen2State extends State<NotificationScreen2> {
                             // log("other TIme.....     ${chatData.completeData!}");
 
                             String roomId = FirebaseService().createChatRoom(
-                                user1: orderDetail.user!.id!.toString().convertToNum.toInt(),
+                                user1: profileController.myProfileID.convertToNum.toInt(),
                                 user2: orderDetail.vendor!.id!.toString().convertToNum.toInt());
 
                             return InkWell(
                               onTap: () {
-                                log("aaaaa${orderDetail.user!.id!.toString().convertToNum.toInt()}");
-                                log("aaaaa${orderDetail.vendor!.id!.toString().convertToNum.toInt()}");
+                                // log("aaaaa${orderDetail.user!.id!.toString().convertToNum.toInt()}");
+                                // log("aaaaa${orderDetail.vendor!.id!.toString().convertToNum.toInt()}");
                                 log("AAAAAA--$displayImage");
                                 Get.toNamed(ChatScreen1.chatScreen1, arguments: [
                                   roomId,
-                                  orderDetail.user!.id!.toString().convertToNum.toInt().toString(),
+                                  profileController.myProfileID.toString(),
                                   orderDetail
                                 ]);
                               },

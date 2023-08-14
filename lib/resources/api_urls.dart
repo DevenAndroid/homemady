@@ -6,6 +6,7 @@ class ApiUrl {
   static const homePageApi = "${baseUrl}home";
   static const singleStoreApi = "${baseUrl}store-details";
   static const addCartApi = "${baseUrl}add-cart";
+  static const cancelOrderUrl = "${baseUrl}order-cancel";
   static const myCartApi = "${baseUrl}my-cart";
   static const orderTipUrl = "${baseUrl}order-tip";
   static const removeTipUrl = "${baseUrl}remove-tip";

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import '../controller/my_order_controller.dart';
 import '../controller/order_details_controller.dart';
+import '../repository/cancel_order_repo.dart';
 
 
 class ActiveScreen extends StatefulWidget {
@@ -49,7 +51,9 @@ class _ActiveScreenState extends State<ActiveScreen> {
                       print( orderDetailsController.id.value);
                       Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
                     },
-                    child: Container(
+                    child:
+                    controller.model.value.data![index].deliveryStatus == 'Order Placed' ?
+                    Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
@@ -63,7 +67,9 @@ class _ActiveScreenState extends State<ActiveScreen> {
                           ),
                         ],
                       ),
-                      child: Column(
+                      child: 
+                      
+                      Column(
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(12.0),
@@ -128,9 +134,10 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                               color: const Color(0xFF70CC49)
                                           ),),
                                         addWidth(8),
+
                                         Container(
-                                          height: 25,
-                                          width: 47,
+                                         // height: 25,
+                                          //width: 47,
                                           decoration:  BoxDecoration(
                                               borderRadius: BorderRadius.circular(6),
                                               color: const Color(0xFF7ED957)
@@ -139,13 +146,22 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                           Center(
                                             child: Padding(
                                               padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 6),
-                                              child: Text(controller.model.value.data![index].deliveryStatus.toString(),
+                                              child:
+                                              // controller.model.value.data![index].deliveryStatus == 'OP' ?
+                                              Text(controller.model.value.data![index].deliveryStatus.toString(),
                                                 style: GoogleFonts.poppins(
                                                   color: const Color(0xFFFFFFFF),
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
                                                 ),
-                                              ),
+                                              )
+                  // : Text(controller.model.value.data![index].deliveryStatus.toString(),
+                  //                               style: GoogleFonts.poppins(
+                  //                                 color: const Color(0xFFFFFFFF),
+                  //                                 fontSize: 12,
+                  //                                 fontWeight: FontWeight.w400,
+                  //                               ),
+                  //                             ),
                                             ),
                                           ),
                                         ),
@@ -169,21 +185,34 @@ class _ActiveScreenState extends State<ActiveScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Row(
                               children: [
-                                Container(
-                                  height: 30,
-                                  width: 132,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                          color: const Color(0xFF7ED957)
-                                      )
-                                  ),
-                                  child: Center(
-                                    child: Text('Cancel Order',
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xFF7ED957),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
+                                GestureDetector(
+                                  onTap: (){
+                                    cancelOrderRepo(orderId: controller.model.value.data![index].orderId.toString(),context: context).then((value){
+                                      if(value.status==true){
+                                        showToast(value.message);
+                                        controller.getData();
+                                      }
+                                    });
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 132,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                            color: const Color(0xFF7ED957)
+                                        )
+                                    ),
+                                    child: Center(
+                                      child: Expanded(
+                                        child: Text('Cancel Order',
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFF7ED957),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -212,7 +241,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                           addHeight(18),
                         ],
                       ),
-                    ),
+                    ):SizedBox(),
                   ),
                   addHeight(10),
                 ],

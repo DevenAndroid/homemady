@@ -37,8 +37,10 @@ class _CancelledScreenState extends State<CancelledScreen> {
             shrinkWrap: true,
             itemCount: controller.model.value.data!.length,
             itemBuilder: (context, index) {
-              return Column(
+              return
+                Column(
                 children: [
+                  controller.model.value.data![index].deliveryStatus == 'Cancelled' ?
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -146,7 +148,7 @@ class _CancelledScreenState extends State<CancelledScreen> {
                         ),
                       ],
                     ),
-                  ),
+                  ):const SizedBox(),
                   addHeight(15),
                 ],
               );

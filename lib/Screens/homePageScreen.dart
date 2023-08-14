@@ -1604,8 +1604,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 itemBuilder: (BuildContext, index) {
                                   return InkWell(
                                     onTap: () {
-                                     //  homeController.filterCategoryId.value =categoryController.categoryModel.value.data!.category!.id.toString();
-                                     // homeController.getData();
+                                      homeController.filterCategoryId.value = categoryController.categoryModel.value.data!.category![index].id.toString();
+                                      homeController.categoryType.value = categoryController.categoryModel.value.data!.category![index].categoryType.toString();
+                                    print("Filter category id is ${homeController.filterCategoryId.value}");
+                                    print("Filter category type is ${homeController.categoryType.value }");
+                                     homeController.getData();
+                                     setState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1666,10 +1670,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 itemBuilder: (BuildContext, index) {
                                   return InkWell(
                                     onTap: () {
-                                      // homeController.filterCategoryId.value =
-                                      //     categoryController.categoryModel.value.data!.category![index].id.toString();
-                                      // print("Filter Category Id is.  ${homeController.filterCategoryId}");
-                                      // Get.toNamed(MyRouters.homeDetailsScreen);
+                                      homeController.filterCategoryId.value = categoryController.categoryModel.value.data!.secondaryCategory![index].id.toString();
+                                      homeController.categoryType.value = categoryController.categoryModel.value.data!.secondaryCategory![index].categoryType.toString();
+                                      print("Filter  secondary category id is ${homeController.filterCategoryId.value}");
+                                      print("Filter category type is ${homeController.categoryType.value }");
+                                      homeController.getData();
+                                      setState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1721,7 +1727,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ],
                                     ),
                                   );
-                                }):SizedBox(),
+                                }):const SizedBox(),
                             categoryController.isDataLoading ?
                             ListView.builder(
                                 shrinkWrap: true,
@@ -1730,10 +1736,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 itemBuilder: (BuildContext, index) {
                                   return InkWell(
                                     onTap: () {
-                                      // homeController.filterCategoryId.value =
-                                      //     categoryController.categoryModel.value.data!.category![index].id.toString();
-                                      // print("Filter Category Id is.  ${homeController.filterCategoryId}");
-                                      // Get.toNamed(MyRouters.homeDetailsScreen);
+                                      homeController.filterCategoryId.value = categoryController.categoryModel.value.data!.tertiaryCategory![index].id.toString();
+                                      homeController.categoryType.value = categoryController.categoryModel.value.data!.tertiaryCategory![index].categoryType.toString();
+                                      print("Filter  tertiary category id is ${homeController.filterCategoryId.value}");
+                                      print("Filter category type is ${homeController.categoryType.value }");
+                                    //   homeController.getData();
+                                    //   setState(() {});
+                                    // },
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1806,10 +1815,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 itemBuilder: (BuildContext, index) {
                                   return InkWell(
                                     onTap: () {
-                                      // homeController.filterCategoryId.value =
-                                      //     categoryController.categoryModel.value.data!.category![index].id.toString();
-                                      // print("Filter Category Id is.  ${homeController.filterCategoryId}");
-                                      // Get.toNamed(MyRouters.homeDetailsScreen);
+                                      homeController.filterCategoryId.value = categoryController.dietiaryModel.value.data!.dietary![index].id.toString();
+                                      // homeController.categoryType.value = categoryController.dietiaryModel.value.data!.dietary![index].categoryType.toString();
+                                      print("Filter  Dietiary category id is ${homeController.filterCategoryId.value}");
+                                     // print("Filter category type is ${homeController.categoryType.value }");
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1875,6 +1884,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     child: ElevatedButton(
                                       child: const Text("Filter"),
                                       onPressed: () {
+                                        homeController.getData();
                                         Get.back();
                                       },
                                     ),
@@ -1975,19 +1985,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       SizedBox(
                         height: 7,
                       ),
-                      Center(
-                        child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: SizedBox(
-                              width: 100,
-                              child: ElevatedButton(
-                                child: const Text("Filter"),
-                                onPressed: () {
-                                  Get.back();
-                                },
-                              ),
-                            )),
-                      )
+                      // Center(
+                      //   child: Padding(
+                      //       padding: const EdgeInsets.symmetric(horizontal: 10),
+                      //       child: SizedBox(
+                      //         width: 100,
+                      //         child: ElevatedButton(
+                      //           child: const Text("Filter"),
+                      //           onPressed: () {
+                      //             Get.back();
+                      //           },
+                      //         ),
+                      //       )),
+                      // )
 
                       // SizedBox(height: 15,),
                     ]),

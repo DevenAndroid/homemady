@@ -687,24 +687,31 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                       InkWell(
                                                         onTap: () {
                                                           // buttonCount.value++;
-                                                          addToCartRepo(
-                                                              product_id: controller1
-                                                                  .model.value.data!.product![index].id
-                                                                  .toString(),
-                                                              qty: product.productCount+1,
-                                                              //controller.model.value.data!.latestProducts![index].buttonCount.value,
-                                                              context: context)
-                                                              .then((value1) {
-                                                            if (value1.status == true) {
-                                                              controller1.model.value.data!.product![index].value = true;
-                                                              // controller.model.value.data!.latestProducts![index].buttonCount.value++;
-                                                              showToast(value1.message.toString());
-                                                              // controller.increaseQty();
-                                                              cartListController.getData().then((value) {
-                                                                setState(() {});
-                                                              });
-                                                            }
-                                                          });
+                                                         if(cartListController.model.value.data!.cartItems![index].cartItemQty >
+                                                             controller1.model.value.data!.product![index].cookUnitDays){
+                                                                    showToast("You reached the maximun Limit of product");
+                                                         }
+                                                         else{
+                                                           addToCartRepo(
+                                                               product_id: controller1
+                                                                   .model.value.data!.product![index].id
+                                                                   .toString(),
+                                                               qty: product.productCount+1,
+                                                               //controller.model.value.data!.latestProducts![index].buttonCount.value,
+                                                               context: context)
+                                                               .then((value1) {
+                                                             if (value1.status == true) {
+                                                               controller1.model.value.data!.product![index].value = true;
+                                                               // controller.model.value.data!.latestProducts![index].buttonCount.value++;
+                                                               showToast(value1.message.toString());
+                                                               // controller.increaseQty();
+                                                               cartListController.getData().then((value) {
+                                                                 setState(() {});
+                                                               });
+                                                             }
+                                                           });
+                                                         }
+
                                                         },
                                                         child: Container(
                                                           decoration: BoxDecoration(

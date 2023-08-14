@@ -354,7 +354,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 ),
                                               ),
                                             )),
-
+                                          if(controller.model.value.data != null)
                                         InkWell(
                                           onTap: (){
                                             print("store  id..${controller.model.value.data!.storeDetails!.id.toString()}");

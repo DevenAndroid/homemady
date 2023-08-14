@@ -51,6 +51,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
     tabController.dispose();
     super.dispose();
   }
+  Future<void> openMap(double latitude, double longitude) async {
+    String googleUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    if (await canLaunch(googleUrl)) {
+      await launch(googleUrl);
+    } else {
+      throw 'Could not open the map.';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -369,7 +377,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                ]),
                                                GestureDetector(
                                                  onTap: () {
-                                                   _makingPhoneCall("tel:+916565656545");
+                                                   _makingPhoneCall("tel:+91${controller.model.value.orderDetail!.driver!.phone.toString()}");
                                                  },
                                                  child: Container(
                                                      height: AddSize.size45,
@@ -733,7 +741,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                ),
                                              ]),
                                              GestureDetector(
-                                               onTap: () {},
+                                               onTap: () {
+                                                 _makingPhoneCall("tel:+91 ${controller.model.value.orderDetail!.vendor!.phone.toString()}");
+                                               },
                                                child: Container(
                                                    height: AddSize.size45,
                                                    width: AddSize.size45,
@@ -783,7 +793,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                ]),
                                              ),
                                              GestureDetector(
-                                               onTap: () {},
+                                               onTap: () {
+                                                 openMap(double.parse(controller.model.value.orderDetail!.vendor!.latitude.toString()),
+                                                     double.parse(controller.model.value.orderDetail!.vendor!.longitude.toString()));
+                                               },
                                                child: Container(
                                                  height: AddSize.size45,
                                                  width: AddSize.size45,
@@ -884,7 +897,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: const Color(0xff1A2E33)
                                                ),),
                                              const Spacer(),
-                                             Text( '€ ${controller.model.value.orderDetail!.serviceCharge.toString()}.20',
+                                             Text( '€ ${controller.model.value.orderDetail!.serviceCharge.toString()}',
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,
@@ -922,7 +935,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: const Color(0xff1A2E33)
                                                ),),
                                              const Spacer(),
-                                             Text( "€ ${controller.model.value.orderDetail!.deliveryCharges.toString()}.00",
+                                             Text( "€ ${controller.model.value.orderDetail!.deliveryCharges.toString()}",
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,

@@ -1740,8 +1740,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       homeController.categoryType.value = categoryController.categoryModel.value.data!.tertiaryCategory![index].categoryType.toString();
                                       print("Filter  tertiary category id is ${homeController.filterCategoryId.value}");
                                       print("Filter category type is ${homeController.categoryType.value }");
-                                    //   homeController.getData();
-                                    //   setState(() {});
+                                      homeController.getData();
+                                       setState(() {});
                                     // },
                                     },
                                     child: Column(
@@ -1815,10 +1815,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 itemBuilder: (BuildContext, index) {
                                   return InkWell(
                                     onTap: () {
-                                      homeController.filterCategoryId.value = categoryController.dietiaryModel.value.data!.dietary![index].id.toString();
+                                      homeController.chooseDietaries.value = categoryController.dietiaryModel.value.data!.dietary![index].id.toString();
                                       // homeController.categoryType.value = categoryController.dietiaryModel.value.data!.dietary![index].categoryType.toString();
                                       print("Filter  Dietiary category id is ${homeController.filterCategoryId.value}");
                                      // print("Filter category type is ${homeController.categoryType.value }");
+                                      homeController.getData();
+                                      setState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1866,16 +1868,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   );
                                 }):SizedBox(),
 
-                            // Text(
-                            //   "Dietary:",
-                            //   style: GoogleFonts.poppins(
-                            //     fontWeight: FontWeight.w500,
-                            //     fontSize: 19,
-                            //     color: const Color(0xFF425159),
-                            //   ),
-                            // ),
-
-
                             Center(
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -1886,6 +1878,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       onPressed: () {
                                         homeController.getData();
                                         Get.back();
+                                        setState(() {});
                                       },
                                     ),
                                   )),

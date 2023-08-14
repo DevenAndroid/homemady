@@ -155,7 +155,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                             addWidth(7),
                                             if(controller.model.value.data?.storeDetails != null)
                                             Text(
-                                                '(${controller.model.value.data!.storeDetails!.reviewCount.toString()}k reviews)',
+                                                '(${controller.model.value.data!.storeDetails!.reviewCount.toString()} reviews)',
                                                 style: const TextStyle(
                                                   fontSize: 13,
                                                   color: Color(0xFF4E5F64),

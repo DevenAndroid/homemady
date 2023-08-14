@@ -21,6 +21,7 @@ class ReviewScreen extends StatefulWidget {
 }
 
 class _ReviewScreenState extends State<ReviewScreen> {
+  final orderDetailsController = Get.put(OrderDetailsController());
   final _formKey = GlobalKey<FormState>();
   final TextEditingController feedbackController= TextEditingController();
   final controller = Get.put(OrderDetailsController());
@@ -305,6 +306,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     Get.back();
                     Get.back();
                     feedbackController.clear();
+                    orderDetailsController.getData();
                     //showToast(value.message.toString());
                    // Get.toNamed(MyRouters.thankYouScreen);
                   }

@@ -149,7 +149,7 @@ class Product {
   dynamic status;
   dynamic discountOff;
   dynamic avgRating;
-  int productCount = 0;
+  dynamic productCount = 0;
 
   Product(
       {this.id,

@@ -687,11 +687,9 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                       InkWell(
                                                         onTap: () {
                                                           // buttonCount.value++;
-                                                         if(cartListController.model.value.data!.cartItems![index].cartItemQty >
-                                                             controller1.model.value.data!.product![index].cookUnitDays){
-                                                                    showToast("You reached the maximun Limit of product");
-                                                         }
-                                                         else{
+                                                         if(product.productCount <
+                                                             int.parse(controller1.model.value.data!.product![index].cookUnitDays.toString())){
+
                                                            addToCartRepo(
                                                                product_id: controller1
                                                                    .model.value.data!.product![index].id
@@ -710,6 +708,11 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                                });
                                                              }
                                                            });
+
+                                                         }
+                                                         else{
+                                                           showToast("You reached the maximum Limit of product");
+
                                                          }
 
                                                         },

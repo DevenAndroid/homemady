@@ -167,8 +167,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                          child: Row(
                                            crossAxisAlignment: CrossAxisAlignment.start,
                                            children: [
-                                          //  CachedNetworkImage(imageUrl: controller.model.value.orderDetail!.orderItems![index]..toString(),)
-                                             //Image.asset('assets/images/Rectangle 39702.png',height: 75,),
+                                           // CachedNetworkImage(imageUrl: controller.model.value.orderDetail!.orderItems![index]..toString(),)
+                                             Image.asset('assets/images/Rectangle 39702.png',height: 75,),
                                              addWidth(15),
                                              Padding(
                                                padding: const EdgeInsets.symmetric(vertical: 5),

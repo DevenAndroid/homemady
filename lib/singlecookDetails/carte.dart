@@ -113,7 +113,8 @@ class _CarteScreenState extends State<CarteScreen> {
                                       top: 5,
                                       right:-4,
 
-                                      child: InkWell(
+                                      child:
+                                      InkWell(
                                         onTap: (){
                                            print("store  id..${controller.model.value.data!.latestProducts![index].id.toString()}");
 

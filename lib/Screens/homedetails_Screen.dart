@@ -18,6 +18,7 @@ import '../controller/vendor_single_store_controller.dart';
 import '../model/My_Cart_Model.dart';
 import '../model/vendor_store_single_model.dart';
 import '../repository/vendor_store_single_repo.dart';
+import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
 
@@ -326,7 +327,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                               child: Center(
                                                 child: InkWell(
                                                   onTap: () {
-                                                    _showSimpleDialog3(context);
+                                                    Get.toNamed(MyRouters.homePageScreen);
                                                   },
                                                   child: const Icon(
                                                     Icons.search,
@@ -353,30 +354,49 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 ),
                                               ),
                                             )),
-                                        Container(
-                                            height: 35,
-                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 14),
-                                              child: Center(
-                                                child: Obx(() {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      isSelect.value = !isSelect.value;
-                                                    },
-                                                    child: isSelect.value == true
-                                                        ? const Icon(
-                                                            Icons.favorite,
-                                                            color: Color(0xFF54C523),
-                                                          )
-                                                        : const Icon(
-                                                            Icons.favorite_outline,
-                                                            color: Color(0xFF54C523),
-                                                          ),
-                                                  );
-                                                }),
-                                              ),
-                                            )),
+
+                                        InkWell(
+                                          onTap: (){
+                                            print("store  id..${controller.model.value.data!.storeDetails!.id.toString()}");
+
+                                            wishlistRepo(productId: '',id: controller.model.value.data!.storeDetails!.id.toString()
+                                            ).then((value){
+                                              if(value.status==true){
+                                                showToast(value.message);
+                                                controller.getData();
+                                              }
+                                            });
+                                          },
+                                          child:
+                                          controller.model.value.data!.storeDetails!.wishlist! ?
+                                          Container(
+                                              height: 35,
+                                              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 14),
+                                                child: Center(
+                                                  child:
+                                                    Icon(
+                                                        Icons.favorite,
+                                                        color: Color(0xFF54C523),
+                                                      ),
+
+                                                ),
+                                              )):
+                                          Container(
+                                              height: 35,
+                                              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 14),
+                                                child: Center(
+                                                  child: Icon(
+                                                      Icons.favorite_outline,
+                                                      color: Color(0xFF54C523),
+                                                    ),
+
+                                                ),
+                                              )),
+                                        ),
                                       ],
                                     )),
                                 Positioned(

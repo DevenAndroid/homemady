@@ -13,10 +13,12 @@ class HomePageController extends GetxController{
   Rx<HomePageModel> model = HomePageModel().obs;
   RxBool isDataLoading = false.obs;
   RxString filterCategoryId="".obs;
+  RxString categoryType="".obs;
+  RxString chooseDietaries="".obs;
 
   getData(){
     isDataLoading.value = false;
-    homeData().then((value1) {
+    homeData(filterCategory: filterCategoryId.value, categoryType: categoryType.value, dietaries: chooseDietaries.value,).then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

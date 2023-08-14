@@ -19,7 +19,8 @@ class ApiUrl {
   static const storeByKeywordUrl = "${baseUrl}productoption";
   static const chooseOrderAddressUrl = "${baseUrl}choose-order-address";
   static const checkOutUrl = "${baseUrl}order";
-  static const categoryUrl = "${baseUrl}categories";
+  static const dietiaryUrl = "${baseUrl}dietaries";
+  static const categoryUrl = "${baseUrl}comman-categories";
   static const filterDateUrl = "${baseUrl}pick-date";
   static const timeSlotUrl = "${baseUrl}time-slot";
   static const myOrderApi = "${baseUrl}my-orders";

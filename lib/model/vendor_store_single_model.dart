@@ -78,6 +78,7 @@ class StoreDetails {
   String? deliveryType;
   String? deliveryTime;
   String? distance;
+  dynamic wishlist;
 
 
   StoreDetails(
@@ -91,6 +92,7 @@ class StoreDetails {
         this.reviewCount,
         this.deliveryType,
         this.distance,
+        this.wishlist,
         this.deliveryTime});
 
   StoreDetails.fromJson(Map<String, dynamic> json) {
@@ -99,6 +101,7 @@ class StoreDetails {
     description = json['description'];
     name = json['name'];
     distance = json['distance'];
+    wishlist = json['wishlist'];
     profileImage = json['profile_image'];
     storeImage = json['store_image'];
     avgRating = json['avg_rating'];
@@ -118,6 +121,7 @@ class StoreDetails {
     data['store_image'] = storeImage;
     data['avg_rating'] = avgRating;
     data['review_count'] = reviewCount;
+    data['wishlist'] = wishlist;
     data['delivery_type'] = deliveryType;
     data['delivery_time'] = deliveryTime;
     return data;

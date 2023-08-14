@@ -8,7 +8,7 @@ import '../model/homepage_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 
-Future<HomePageModel> homeData() async {
+Future<HomePageModel> homeData({required filterCategory, required categoryType, required dietaries  }) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -19,7 +19,7 @@ Future<HomePageModel> homeData() async {
   };
   log(user.authToken.toString());
   http.Response response =
-  await http.get(Uri.parse("${ApiUrl.homePageApi}"), headers: headers);
+  await http.get(Uri.parse("${ApiUrl.homePageApi}?filter_category=$filterCategory&category_type=$categoryType&dietaries=$dietaries"), headers: headers);
   //?filter_category=$filter_Id
 //filter_Id
 //   log("<<<<<<<HomePageData=======>${response.body}");

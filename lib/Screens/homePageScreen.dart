@@ -85,6 +85,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       filterProductCategoryController.getFilterCategoryData();
       myCartController.getData();
       categoryController.getCategoryData();
+      categoryController.getDietiaryData();
       timeSlotController.getTimeSlotData();
       myAddressController.getData();
       int currnetIndex = -1;
@@ -972,7 +973,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   GestureDetector(
                                     onTap: () {
                                       //_showDialogCategory();
-                                      showUploadWindow(categoryController.categoryModel.value.data!.category!);
+                                      showUploadWindow();
                                     },
                                     child: Container(
                                       height: 40,
@@ -1036,7 +1037,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   addWidth(10),
                                 ],
                               ),
-                              // addHeight(26),
+                               addHeight(26),
 
                                 Column(
                                   children: [
@@ -1550,17 +1551,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
         );
   }
 
-  showUploadWindow(List category) {
+  showUploadWindow() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        var height= MediaQuery.of(context).size.height;
         return Stack(
           children: [
             Positioned(
               right: 35,
-              top: 37,
+              top: 60,
               child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   height: 80,
                   decoration: BoxDecoration(color: Colors.grey.shade100, shape: BoxShape.circle),
                   child: GestureDetector(
@@ -1578,157 +1580,311 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                     child: SingleChildScrollView(
-                      child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(
-                          "Cuisine:",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 19,
-                            color: const Color(0xFF425159),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                      child:
+                      SizedBox(
+                        height: height * .5,
+                        child: SingleChildScrollView(
+                          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
                             Text(
-                              'Chinese',
+                              "Cuisine:",
                               style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 19,
                                 color: const Color(0xFF425159),
                               ),
                             ),
-                            Obx(() {
-                              return Checkbox(
-                                  side: const BorderSide(color: Colors.black, width: 2),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                  value: _isValue1.value,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _isValue1.value = value!;
-                                    });
-                                  });
-                            })
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Vegetarian',
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 18,
-                                color: const Color(0xFF425159),
-                              ),
+                            SizedBox(
+                              height: 6,
                             ),
-                            Obx(() {
-                              return Checkbox(
-                                  side: BorderSide(color: Colors.black, width: 2),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                  value: _isValue2.value,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _isValue2.value = value!;
-                                    });
-                                  });
-                            })
-                          ],
-                        ),
-                        Text(
-                          "Dietary:",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 19,
-                            color: const Color(0xFF425159),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: category.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext, index) {
-                              return InkWell(
-                                onTap: () {
-                                  // homeController.filterCategoryId.value =
-                                  //     categoryController.categoryModel.value.data!.category![index].id.toString();
-                                  print("Filter Category Id is.  ${homeController.filterCategoryId}");
-                                  // Get.toNamed(MyRouters.homeDetailsScreen);
-                                },
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            categoryController.isDataLoading ?
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: categoryController.categoryModel.value.data!.category!.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (BuildContext, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                     //  homeController.filterCategoryId.value =categoryController.categoryModel.value.data!.category!.id.toString();
+                                     // homeController.getData();
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text(
-                                          category[index].name.toString(),
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 18,
-                                            color: const Color(0xFF425159),
-                                          ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              categoryController.categoryModel.value.data!.category![index].name.toString(),
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 18,
+                                                color: const Color(0xFF425159),
+                                              ),
+                                            ),
+                                            Obx(() {
+                                              return Checkbox(
+                                                  side: const BorderSide(color: Colors.black, width: 2),
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                                  value: categoryController
+                                                      .categoryModel.value.data!.category![index].isChecked.value,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      categoryController
+                                                              .categoryModel.value.data!.category![index].isChecked.value =
+                                                          !categoryController
+                                                              .categoryModel.value.data!.category![index].isChecked.value;
+                                                      if (categoryController
+                                                              .categoryModel.value.data!.category![index].isChecked.value ==
+                                                          true) {
+                                                        categoryController.categoryModel.value.data!.selectedContacts!.add(
+                                                            categoryController.categoryModel.value.data!.category![index]);
+                                                        // kk.value = index;
+                                                        print(index);
+                                                      } else if (categoryController
+                                                              .categoryModel.value.data!.category![index].isChecked.value ==
+                                                          false) {
+                                                        categoryController.categoryModel.value.data!.selectedContacts!
+                                                            .removeWhere((element) =>
+                                                                element.id ==
+                                                                categoryController
+                                                                    .categoryModel.value.data!.category![index].id);
+                                                      }
+                                                    });
+                                                  });
+                                            })
+                                          ],
                                         ),
-                                        Obx(() {
-                                          return Checkbox(
-                                              side: const BorderSide(color: Colors.black, width: 2),
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                              value: categoryController
-                                                  .categoryModel.value.data!.category![index].isChecked.value,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  categoryController
-                                                          .categoryModel.value.data!.category![index].isChecked.value =
-                                                      !categoryController
-                                                          .categoryModel.value.data!.category![index].isChecked.value;
-                                                  if (categoryController
-                                                          .categoryModel.value.data!.category![index].isChecked.value ==
-                                                      true) {
-                                                    categoryController.categoryModel.value.data!.selectedContacts!.add(
-                                                        categoryController.categoryModel.value.data!.category![index]);
-                                                    // kk.value = index;
-                                                    print(index);
-                                                  } else if (categoryController
-                                                          .categoryModel.value.data!.category![index].isChecked.value ==
-                                                      false) {
-                                                    categoryController.categoryModel.value.data!.selectedContacts!
-                                                        .removeWhere((element) =>
-                                                            element.id ==
-                                                            categoryController
-                                                                .categoryModel.value.data!.category![index].id);
-                                                  }
-                                                });
-                                              });
-                                        })
                                       ],
                                     ),
-                                  ],
-                                ),
-                              );
-                            }),
+                                  );
+                                }):SizedBox(),
+                            categoryController.isDataLoading ?
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: categoryController.categoryModel.value.data!.secondaryCategory!.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (BuildContext, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      // homeController.filterCategoryId.value =
+                                      //     categoryController.categoryModel.value.data!.category![index].id.toString();
+                                      // print("Filter Category Id is.  ${homeController.filterCategoryId}");
+                                      // Get.toNamed(MyRouters.homeDetailsScreen);
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              categoryController.categoryModel.value.data!.secondaryCategory![index].name.toString(),
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 18,
+                                                color: const Color(0xFF425159),
+                                              ),
+                                            ),
+                                            Obx(() {
+                                              return Checkbox(
+                                                  side: const BorderSide(color: Colors.black, width: 2),
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                                  value: categoryController
+                                                      .categoryModel.value.data!.secondaryCategory![index].isChecked1.value,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      categoryController
+                                                          .categoryModel.value.data!.secondaryCategory![index].isChecked1.value =
+                                                      !categoryController
+                                                          .categoryModel.value.data!.secondaryCategory![index].isChecked1.value;
+                                                      if (categoryController
+                                                          .categoryModel.value.data!.secondaryCategory![index].isChecked1.value ==
+                                                          true) {
+                                                        categoryController.categoryModel.value.data!.selectedContacts1!.add(
+                                                            categoryController.categoryModel.value.data!.secondaryCategory![index]);
+                                                        // kk.value = index;
+                                                        print(index);
+                                                      } else if (categoryController
+                                                          .categoryModel.value.data!.category![index].isChecked.value ==
+                                                          false) {
+                                                        categoryController.categoryModel.value.data!.selectedContacts!
+                                                            .removeWhere((element) =>
+                                                        element.id ==
+                                                            categoryController
+                                                                .categoryModel.value.data!.category![index].id);
+                                                      }
+                                                    });
+                                                  });
+                                            })
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }):SizedBox(),
+                            categoryController.isDataLoading ?
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: categoryController.categoryModel.value.data!.tertiaryCategory!.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (BuildContext, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      // homeController.filterCategoryId.value =
+                                      //     categoryController.categoryModel.value.data!.category![index].id.toString();
+                                      // print("Filter Category Id is.  ${homeController.filterCategoryId}");
+                                      // Get.toNamed(MyRouters.homeDetailsScreen);
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              categoryController.categoryModel.value.data!.tertiaryCategory![index].name.toString(),
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 18,
+                                                color: const Color(0xFF425159),
+                                              ),
+                                            ),
+                                            Obx(() {
+                                              return Checkbox(
+                                                  side: const BorderSide(color: Colors.black, width: 2),
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                                  value: categoryController
+                                                      .categoryModel.value.data!.tertiaryCategory![index].isChecked2.value,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      categoryController
+                                                          .categoryModel.value.data!.tertiaryCategory![index].isChecked2.value =
+                                                      !categoryController
+                                                          .categoryModel.value.data!.tertiaryCategory![index].isChecked2.value;
+                                                      if (categoryController
+                                                          .categoryModel.value.data!.tertiaryCategory![index].isChecked2.value ==
+                                                          true) {
+                                                        categoryController.categoryModel.value.data!.selectedContacts2!.add(
+                                                            categoryController.categoryModel.value.data!.tertiaryCategory![index]);
+                                                        // kk.value = index;
+                                                        print(index);
+                                                      } else if (categoryController
+                                                          .categoryModel.value.data!.category![index].isChecked.value ==
+                                                          false) {
+                                                        categoryController.categoryModel.value.data!.selectedContacts!
+                                                            .removeWhere((element) =>
+                                                        element.id ==
+                                                            categoryController
+                                                                .categoryModel.value.data!.category![index].id);
+                                                      }
+                                                    });
+                                                  });
+                                            })
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }):SizedBox(),
 
-                        Center(
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: SizedBox(
-                                width: 100,
-                                child: ElevatedButton(
-                                  child: const Text("Filter"),
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                ),
-                              )),
-                        )
+                            Text(
+                              "Dietary:",
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 19,
+                                color: const Color(0xFF425159),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            categoryController.isDataLoading ?
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: categoryController.dietiaryModel.value.data!.dietary!.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (BuildContext, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      // homeController.filterCategoryId.value =
+                                      //     categoryController.categoryModel.value.data!.category![index].id.toString();
+                                      // print("Filter Category Id is.  ${homeController.filterCategoryId}");
+                                      // Get.toNamed(MyRouters.homeDetailsScreen);
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              categoryController.dietiaryModel.value.data!.dietary![index].title.toString(),
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 18,
+                                                color: const Color(0xFF425159),
+                                              ),
+                                            ),
+                                            Obx(() {
+                                              return Checkbox(
+                                                  side: const BorderSide(color: Colors.black, width: 2),
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                                  value: categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value =
+                                                      !categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value;
+                                                      if (categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value ==
+                                                          true) {
+                                                        categoryController.dietiaryModel.value.data!.selectedItems!.add(
+                                                            categoryController.dietiaryModel.value.data!.dietary![index]);
+                                                        // kk.value = index;
+                                                        print(index);
+                                                      } else if (categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value ==
+                                                          false) {
+                                                        categoryController.dietiaryModel.value.data!.selectedItems!
+                                                            .removeWhere((element) =>
+                                                        element.id ==
+                                                            categoryController.dietiaryModel.value.data!.dietary![index].id);
+                                                      }
+                                                    });
+                                                  });
+                                            })
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }):SizedBox(),
 
-                        // SizedBox(height: 15,),
-                      ]),
+                            // Text(
+                            //   "Dietary:",
+                            //   style: GoogleFonts.poppins(
+                            //     fontWeight: FontWeight.w500,
+                            //     fontSize: 19,
+                            //     color: const Color(0xFF425159),
+                            //   ),
+                            // ),
+
+
+                            Center(
+                              child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: SizedBox(
+                                    width: 100,
+                                    child: ElevatedButton(
+                                      child: const Text("Filter"),
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                    ),
+                                  )),
+                            )
+
+                            // SizedBox(height: 15,),
+                          ]),
+                        ),
+                      ),
                     ),
                   )),
             ),
@@ -2107,269 +2263,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         });
   }
 
-  Future<void> _showSimpleDialog4(BuildContext context) async {
-    await showDialog(
-        barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        context: context,
-        barrierColor: const Color(0x01000000),
-        builder: (context) {
-          return Obx(() {
-            return Dialog(
-              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-              insetPadding: const EdgeInsets.only(bottom: 0, top: 220),
-              child: searchController.isDataLoading.value
-                  ? searchController.searchDataModel.value.data!.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: searchController.searchDataModel.value.data!.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Get.toNamed(MyRouters.homeDetailsScreen);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(14),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: const Color(0xFF37C666).withOpacity(0.10),
-                                                  offset: const Offset(
-                                                    .1,
-                                                    .1,
-                                                  ),
-                                                  blurRadius: 20.0,
-                                                  spreadRadius: 1.0,
-                                                ),
-                                              ],
-                                              borderRadius: BorderRadius.circular(12)),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                      child: Image.asset(
-                                                    'assets/images/Rectangle 39762.png',
-                                                    height: 80,
-                                                    width: 70,
-                                                  )),
-                                                  addWidth(10),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        searchController.searchDataModel.value.data![index].name.toString(),
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w700,
-                                                            fontSize: 14,
-                                                            color: const Color(0xFF21283D)),
-                                                      ),
-                                                      addHeight(3),
-                                                      Text(
-                                                        searchController.searchDataModel.value.data![index].size.toString(),
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w300,
-                                                            fontSize: 11,
-                                                            color: const Color(0xFF364A4F)),
-                                                      ),
-                                                      addHeight(3),
-                                                      Row(
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                'spiciness :',
-                                                                style: GoogleFonts.poppins(
-                                                                    fontWeight: FontWeight.w500,
-                                                                    fontSize: 10,
-                                                                    color: const Color(0xFF1F2D30)),
-                                                              ),
-                                                              addWidth(4),
-                                                              Text(
-                                                                'Mildly Spicy',
-                                                                style: GoogleFonts.poppins(
-                                                                    fontWeight: FontWeight.w500,
-                                                                    fontSize: 10,
-                                                                    color: const Color(0xFF6CC844)),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          addWidth(10),
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                'Allergens :',
-                                                                style: GoogleFonts.poppins(
-                                                                    fontWeight: FontWeight.w500,
-                                                                    fontSize: 10,
-                                                                    color: const Color(0xFF1F2D30)),
-                                                              ),
-                                                              addWidth(4),
-                                                              Text(
-                                                                'Crustaceans',
-                                                                style: GoogleFonts.poppins(
-                                                                    fontWeight: FontWeight.w500,
-                                                                    fontSize: 10,
-                                                                    color: const Color(0xFF6CC844)),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      addHeight(6),
-                                                      IntrinsicHeight(
-                                                        child: Row(
-                                                          children: [
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                _decrement();
-                                                              },
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    border: Border.all(color: const Color(0xFF72CD4A)),
-                                                                    shape: BoxShape.circle),
-                                                                alignment: Alignment.center,
-                                                                child: const Padding(
-                                                                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                                  child: Text(
-                                                                    '-',
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight.w600,
-                                                                        fontSize: 16,
-                                                                        color: Color(0xFF72CD4A)),
-                                                                    textAlign: TextAlign.center,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Obx(() {
-                                                              return Container(
-                                                                alignment: Alignment.center,
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.only(left: 14.0, right: 14.0),
-                                                                  child: Text('${count}'),
-                                                                ),
-                                                              );
-                                                            }),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                _increment();
-                                                              },
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    color: const Color(0xFF72CD4A),
-                                                                    border: Border.all(color: const Color(0xFF72CD4A)),
-                                                                    shape: BoxShape.circle),
-                                                                alignment: Alignment.center,
-                                                                child: const Padding(
-                                                                  padding: EdgeInsets.symmetric(horizontal: 8),
-                                                                  child: Text(
-                                                                    '+',
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight.w600,
-                                                                        fontSize: 16,
-                                                                        color: Colors.white),
-                                                                    textAlign: TextAlign.center,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              addHeight(5),
-                                              Container(
-                                                margin: EdgeInsets.only(left: 75),
-                                                color: Color(0xFFE9E9E9),
-                                                width: AddSize.screenWidth,
-                                                height: 1,
-                                              ),
-                                              addHeight(7),
-                                              Row(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  addWidth(80),
-                                                  Image.asset(
-                                                    'assets/images/helpimg.png',
-                                                    height: 13,
-                                                  ),
-                                                  addWidth(4),
-                                                  Text(
-                                                    'Can cook more units by: 30th June 2023',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 11,
-                                                        color: const Color(0xFF364A4F)),
-                                                  ),
-                                                ],
-                                              ),
-                                              addHeight(4),
-                                              Row(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  addWidth(80),
-                                                  Image.asset(
-                                                    'assets/images/helpimg.png',
-                                                    height: 13,
-                                                  ),
-                                                  addWidth(4),
-                                                  Text(
-                                                    'Available stock: ',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 11,
-                                                        color: const Color(0xFF364A4F)),
-                                                  ),
-                                                  Text(
-                                                    ' 3 units',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w500,
-                                                        fontSize: 11,
-                                                        color: const Color(0xFF364A4F)),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Positioned(
-                                          top: 14,
-                                          right: 20,
-                                          child: Text(
-                                            searchController.searchDataModel.value.data![index].price.toString(),
-                                            style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w700, fontSize: 15, color: const Color(0xFF70CC49)),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      : Center(child: Text('No Data Found'))
-                  : Center(child: const CircularProgressIndicator()),
-            );
-          });
-        });
-  }
+
 }
 class ItemDropDown {
   final String id;

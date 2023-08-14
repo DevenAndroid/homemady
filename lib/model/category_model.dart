@@ -30,6 +30,8 @@ class Data {
   List<SecondaryCategory>? secondaryCategory;
   List<TertiaryCategory>? tertiaryCategory;
   List<Category>? selectedContacts = [];
+  List<SecondaryCategory>? selectedContacts1 = [];
+  List<TertiaryCategory>? selectedContacts2 = [];
 
   Data({this.category, this.secondaryCategory, this.tertiaryCategory});
 
@@ -98,6 +100,7 @@ class SecondaryCategory {
   int? id;
   String? name;
   String? categoryType;
+  RxBool isChecked1 = false.obs;
 
   SecondaryCategory({this.id, this.name, this.categoryType});
 
@@ -119,6 +122,7 @@ class TertiaryCategory {
   int? id;
   String? name;
   String? categoryType;
+  RxBool isChecked2 = false.obs;
 
   TertiaryCategory({this.id, this.name, this.categoryType});
 

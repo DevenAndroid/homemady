@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(const Duration(seconds: 5), () async {
+    Timer(const Duration(seconds: 6), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       if (pref.getString('user_info') != null) {
 

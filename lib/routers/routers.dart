@@ -112,6 +112,6 @@ class MyRouters {
   GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
   GetPage(name: CarteScreen.carteScreenPage, page: () => const CarteScreen()),
   GetPage(name: SearchScreenData.searchScreen, page: () => const SearchScreenData()),
-    GetPage(name: NotificationScreen2.notificationScreen2, page: () => const NotificationScreen2()),
+  GetPage(name: NotificationScreen2.notificationScreen2, page: () => const NotificationScreen2()),
   ];
 }

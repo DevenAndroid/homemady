@@ -20,7 +20,8 @@ class HomePageController extends GetxController{
       isDataLoading.value = true;
       model.value = value1;
     });
-    //loginRepo().
+    //loginRepo();
+
   }
 
 

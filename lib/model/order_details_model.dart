@@ -83,13 +83,13 @@ class OrderDetail {
     json['address'] != null ? new Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
     deliveryStatus = json['delivery_status'];
-    feedback = json['feedback'];
     if (json['order_items'] != null) {
       orderItems = <OrderItems>[];
       json['order_items'].forEach((v) {
         orderItems!.add(new OrderItems.fromJson(v));
       });
     }
+    feedback = json['feedback'];
     placedAt = json['placed_at'];
   }
 

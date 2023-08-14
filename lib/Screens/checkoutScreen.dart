@@ -285,7 +285,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         )),
                   ),
                   addHeight(15),
-                  Container(
+                  selectedMethod.toString() == 'Pickup'?
+                  const SizedBox() :  Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -361,14 +362,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         Obx(() {
                                           return Text(
                                             (myCartController.model.value.data!.orderAddress == null
-                                                    ? 'Select address'
-                                                    : myCartController.model.value.data!.orderAddress!.flatNo.toString() +
-                                                        ',' +
-                                                        myCartController.model.value.data!.orderAddress!.landmark
-                                                            .toString() +
-                                                        ',' +
-                                                        myCartController.model.value.data!.orderAddress!.pinCode
-                                                            .toString())
+                                                ? 'Select address'
+                                                : myCartController.model.value.data!.orderAddress!.flatNo.toString() +
+                                                ',' +
+                                                myCartController.model.value.data!.orderAddress!.landmark
+                                                    .toString() +
+                                                ',' +
+                                                myCartController.model.value.data!.orderAddress!.pinCode
+                                                    .toString())
                                                 .toString(),
                                             style: GoogleFonts.poppins(
                                                 fontSize: 14,
@@ -400,7 +401,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ],
                     ),
                   ),
-                  addHeight(15),
+                 // addHeight(15),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -799,14 +800,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           if (myCartController.model.value.data!.orderAddress != null ) {
                             checkOut(
                                 context: context,
-                                payment_type: 'cod',
+                                payment_type: 'online',
                                 deliveryInstruction: deliveryInstructionController.text,
                                 specialRequest: specialRequestController.text, delivery_type: selectedMethod)
                                 .then((value) {
                               if (value.status == true) {
                                 print('order id is...${value.data!.orderId}');
                                 showToast(value.message.toString());
-                                Get.toNamed(MyRouters.thankYouScreen, arguments: [value.data!.orderId]);
+                                Get.offAllNamed(MyRouters.thankYouScreen, arguments: [value.data!.orderId]);
                                 myAddressController.getData();
                               }
                             });

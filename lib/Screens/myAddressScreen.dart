@@ -355,7 +355,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
               SizedBox(height: 60,),
               Image.asset('assets/images/NoAddress.png'),
               SizedBox(height: 10,),
-              Text("No Orders",
+              Text("No Address",
                 style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
             ],
           ),

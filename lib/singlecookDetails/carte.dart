@@ -39,7 +39,7 @@ class _CarteScreenState extends State<CarteScreen> {
   @override
   Widget build(BuildContext context) {
     return
-      controller.isDataLoading.value && controller.model.value.data != null ?
+      controller.isDataLoading.value && controller.model.value.data != null ? controller.model.value.data!.latestProducts!.isNotEmpty ?
       Column(
       children: [
         Padding(
@@ -424,6 +424,6 @@ class _CarteScreenState extends State<CarteScreen> {
           ),
         ),
       ],
-    ):const Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));
+    ): const Center(child: Text('No Meals available')):   const Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));
   }
 }

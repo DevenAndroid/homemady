@@ -75,7 +75,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   minRating: 1,
                   unratedColor: const Color(0xFFE0DEDA),
                   itemCount: 7,
-                  itemSize: 30.0,
+                  itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
                   allowHalfRating: false,
@@ -120,7 +120,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   minRating: 1,
                   unratedColor: const Color(0xFFE0DEDA),
                   itemCount: 7,
-                  itemSize: 30.0,
+                  itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
                   allowHalfRating: false,
@@ -164,7 +164,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   minRating: 1,
                   unratedColor: const Color(0xFFE0DEDA),
                   itemCount: 7,
-                  itemSize: 30,
+                  itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
                   allowHalfRating: false,
@@ -209,7 +209,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   minRating: 1,
                   unratedColor: const Color(0xFFE0DEDA),
                   itemCount: 7,
-                  itemSize: 30.0,
+                  itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
                   allowHalfRating: false,
@@ -254,7 +254,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   minRating: 1,
                   unratedColor: const Color(0xFFE0DEDA),
                   itemCount: 7,
-                  itemSize: 30.0,
+                  itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
                   allowHalfRating: true,
@@ -290,6 +290,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 maxLines: null,
               ),
               addHeight(25),
+
               CommonButton(title: 'Publish Feedback',onPressed: (){
                 ratingReviewRepo(
                     orderId: controller.model.value.orderDetail!.orderId.toString(),
@@ -301,11 +302,15 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     delivery: ratingvalue5.toString(),
                     context: context).then((value) {
                   if(value.status == true){
-                    showToast(value.message.toString());
-                    Get.toNamed(MyRouters.feedBackScreen);
+                    Get.back();
+                    Get.back();
+                    feedbackController.clear();
+                    //showToast(value.message.toString());
+                   // Get.toNamed(MyRouters.thankYouScreen);
                   }
                   else {
-                    showToast(value.message.toString());
+
+                   // showToast(value.message.toString());
                   }
                 });
 

@@ -13,7 +13,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:homemady/resources/add_text.dart';
-import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/app_assets.dart';
 import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
@@ -21,7 +20,6 @@ import 'package:homemady/widgets/dimenestion.dart';
 import 'package:homemady/widgets/editprofiletextfiled.dart';
 
 import '../controller/my_address_controller.dart';
-import '../model/My_Cart_Model.dart';
 import '../model/my_address_model.dart';
 import '../repository/add_address_repo.dart';
 import '../repository/edit_address_repo.dart';

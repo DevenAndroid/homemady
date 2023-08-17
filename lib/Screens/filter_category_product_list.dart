@@ -75,6 +75,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
       categoryController.getCategoryData();
       timeSlotController.getTimeSlotData();
       myAddressController.getData();
+
       int currnetIndex = -1;
       _decrement();
       _increment();

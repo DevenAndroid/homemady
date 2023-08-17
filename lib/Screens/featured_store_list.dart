@@ -9,7 +9,9 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../controller/category_controller.dart';
+import '../controller/featured_filter_controller.dart';
 import '../controller/homepage_controller.dart';
+import '../controller/vendor_single_store_controller.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/custome_textfiled.dart';
@@ -24,8 +26,9 @@ class StoreListScreen extends StatefulWidget {
 }
 
 class _StoreListScreenState extends State<StoreListScreen> with TickerProviderStateMixin  {
-  final homeController = Get.put(HomePageController());
+  final featuredFilterController = Get.put(FeaturedFilterController());
   final categoryController = Get.put(CategoryController());
+  final controller = Get.put(VendorSingleStoreController());
 
 
   final scrollController = ScrollController();
@@ -46,7 +49,8 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
 
     tabController = TabController(length: 3,vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.getData();
+      featuredFilterController.getData();
+      controller.getStoreKeywordListData();
     });
   }
   @override
@@ -88,6 +92,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
           widget.performAction(sd);
         }),
         body:
+        // featuredFilterController.isDataLoading.value ?
         NestedScrollView(
             headerSliverBuilder: (_, __){
               return [
@@ -96,7 +101,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: AddSize.padding16, vertical: AddSize.padding10),
-                      child: homeController.isDataLoading.value ?
+                      child: featuredFilterController.isDataLoading.value ?
                       Column(
                         children: [
                           addHeight(10),
@@ -140,6 +145,24 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                       ),
                                     )
                                   ],
+                                    onTap: (value) {
+                                      print(value);
+                                      if(value == 0){
+                                        featuredFilterController.filterId.value="4";
+                                        featuredFilterController.getData();
+                                      }
+                                      if(value == 1){
+                                        featuredFilterController.filterId.value="3";
+                                        featuredFilterController.getData();
+                                      }
+                                      if(value == 2){
+                                        featuredFilterController.filterId.value="2";
+                                        featuredFilterController.getData();
+                                      }
+
+                                      //
+                                      // autoController.scrollToIndex(value, preferPosition: AutoScrollPosition.begin);
+                                    },
                                   unselectedLabelColor: const Color(0xFF262626),
                                   labelColor: Colors.white,
 
@@ -157,7 +180,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                     borderRadius: BorderRadius.circular(30),
                                     color:  Color(0xff7ED957),
                                   ),
-                                  indicatorColor: Colors.transparent,
+                                  // indicatorColor: Colors.transparent,
 
                                   // indicatorSize: TabBarIndicatorSize.tab,
                                   // indicator: const BoxDecoration(
@@ -188,10 +211,10 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                               horizontal: AddSize.padding16,
                             ),
 
-                            child: homeController.isDataLoading.value ?
+                            child: featuredFilterController.isDataLoading.value ?
                             ListView.builder(
                               shrinkWrap: true,
-                              itemCount: homeController.model.value.data!.stores!.length,
+                              itemCount: featuredFilterController.model.value.data!.length,
                               physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return SingleChildScrollView(
@@ -221,7 +244,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                 child: InkWell(
                                                   onTap: (){
                                                     Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                      homeController.model.value.data!.stores![index].id.toString()
+                                                      featuredFilterController.model.value.data![index].id.toString()
                                                     ]);
                                                   },
                                                   child: Column(
@@ -231,7 +254,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                       Image.asset(
                                                           'assets/images/Rectangle 2171.png'),
                                                       addHeight(6),
-                                                      Text(homeController.model.value.data!.stores![index].name.toString(),
+                                                      Text(featuredFilterController.model.value.data![index].name.toString(),
                                                         style: GoogleFonts.poppins(
                                                             fontWeight: FontWeight.w700,
                                                             fontSize: 16,
@@ -257,7 +280,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   ),
                                                 ),
                                               ),
-                                              Positioned(
+                                              const Positioned(
                                                   top: 80,
                                                   // bottom: 0,
                                                   left: 20,
@@ -266,7 +289,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .spaceBetween,
-                                                    children: const [
+                                                    children: [
                                                       Icon(Icons.arrow_back_ios,
                                                         color: Colors.white,size: 20,),
                                                       Icon(Icons.arrow_forward_ios,
@@ -294,7 +317,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                           )
                                                       ),
                                                       addHeight(3),
-                                                      Text(homeController.model.value.data!.stores![index].cookName.toString(),
+                                                      Text(featuredFilterController.model.value.data![index].cookName.toString(),
                                                         style: GoogleFonts.poppins(
                                                             fontWeight: FontWeight.w500,
                                                             fontSize: 12,
@@ -310,14 +333,14 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                             color: Color(0xFFFFC529),
                                                             size: 14,),
                                                           addWidth(3),
-                                                          Text((homeController.model.value.data!.stores![index].rating ?? '3').toString(),
+                                                          Text((featuredFilterController.model.value.data![index].rating ?? '3').toString(),
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w500,
                                                                 fontSize: 11,
                                                                 color: const Color(0xFF6A7080)
                                                             ),),
                                                           addWidth(3),
-                                                          Text((homeController.model.value.data!.stores![index].countReviewData ?? '10').toString(),
+                                                          Text((featuredFilterController.model.value.data![index].countReviewData ?? '10').toString(),
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w500,
                                                                 fontSize: 11,
@@ -333,18 +356,18 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   right: 10,
                                                   child: InkWell(
                                                       onTap: (){
-                                                        print("store  id..${homeController.model.value.data!.stores![index].id.toString()}");
+                                                        print("store  id..${featuredFilterController.model.value.data![index].id.toString()}");
 
-                                                        wishlistRepo(id: homeController.model.value.data!.stores![index].id.toString(),productId: ''
+                                                        wishlistRepo(id: featuredFilterController.model.value.data![index].id.toString(),productId: ''
                                                         ).then((value){
                                                           if(value.status==true){
                                                             showToast(value.message);
-                                                            homeController.getData();
+                                                            featuredFilterController.getData();
                                                           }
                                                         });
                                                       },
                                                       child:
-                                                      homeController.model.value.data!.stores![index].wishlist! ?
+                                                      featuredFilterController.model.value.data![index].wishlist! ?
                                                       Container(
                                                           height: 33,
                                                           decoration:
@@ -372,77 +395,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                           ))
                                                   )
                                               ),
-                                              Positioned(
-                                                  top: 14,
-                                                  // bottom: 0,
-                                                  left: 10,
-                                                  right: 15,
-                                                  //   bottom: 0,
-                                                  child: Row(
-                                                    children:  [
 
-                                                      InkWell(
-                                                          onTap: (){
-                                                            showGeneralDialog(
-                                                                context: context,
-                                                                barrierDismissible: true,
-                                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                                pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                                  return  Stack(
-                                                                    children: [
-                                                                      Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                                      Positioned(
-                                                                        right: 18,
-                                                                        top: 30,
-                                                                        child: Container(
-                                                                            padding: EdgeInsets.all(10),
-                                                                            height: 80,
-                                                                            decoration: const BoxDecoration(
-                                                                                color: Colors.white,
-                                                                                shape: BoxShape.circle
-                                                                            ),
-                                                                            child:  Icon(Icons.clear)
-                                                                        ),)
-                                                                    ],
-                                                                  );
-                                                                }
-                                                            );
-                                                          },
-                                                          child: Image.asset('assets/images/topChef.png',width: 50,)),
-                                                      InkWell(
-                                                          onTap: (){
-                                                            showGeneralDialog(
-                                                                context: context,
-                                                                barrierDismissible: true,
-                                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                                pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                                  return  Stack(
-                                                                    children: [
-                                                                      Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                                      Positioned(
-                                                                        right: 18,
-                                                                        top: 50,
-                                                                        child: Container(
-                                                                            padding: EdgeInsets.all(10),
-                                                                            height: 50,
-                                                                            decoration: const BoxDecoration(
-                                                                                color: Colors.white,
-                                                                                shape: BoxShape.circle
-                                                                            ),
-                                                                            child:  Icon(Icons.clear)
-                                                                        ),)
-                                                                    ],
-                                                                  );
-                                                                }
-                                                            );
-                                                          },
-                                                          child: Image.asset('assets/images/topChef.png',width: 50,)),
-
-                                                    ],
-                                                  )
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -459,10 +412,503 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
 
                         ));
                 }),
+                Obx(() {
+                  return
+                    SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AddSize.padding16,
+                            ),
 
+                            child: featuredFilterController.isDataLoading.value ?
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: featuredFilterController.model.value.data!.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: const Color(0xFF37C666).withOpacity(
+                                                    0.15),
+                                                offset: const Offset(.3, .3,
+                                                ),
+                                                blurRadius: 20.0,
+                                                spreadRadius: 1.0,
+                                              ),
+                                            ],
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                      featuredFilterController.model.value.data![index].id.toString()
+                                                    ]);
+                                                  },
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment
+                                                        .start,
+                                                    children: [
+                                                      Image.asset(
+                                                          'assets/images/Rectangle 2171.png'),
+                                                      addHeight(6),
+                                                      Text(featuredFilterController.model.value.data![index].name.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 16,
+                                                            color: const Color(0xFF21283D)
+                                                        ),),
+                                                      addHeight(6),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/truckimg.png',
+                                                            height: 22,
+                                                            color: const Color(0xFF04666E),),
+                                                          addWidth(10),
+                                                          Text('Delivery Only 25 mins',
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w400,
+                                                                fontSize: 12,
+                                                                color: const Color(0xFF606573)
+                                                            ),),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              const Positioned(
+                                                  top: 80,
+                                                  // bottom: 0,
+                                                  left: 20,
+                                                  right: 20,
+                                                  //   bottom: 0,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: [
+                                                      Icon(Icons.arrow_back_ios,
+                                                        color: Colors.white,size: 20,),
+                                                      Icon(Icons.arrow_forward_ios,
+                                                        color: Colors.white,size: 20,)
+                                                    ],
+                                                  )
+                                              ),
+                                              Positioned(
+                                                  bottom: 10,
+                                                  right: 20,
+                                                  //   bottom: 0,
+                                                  child: Column(
+                                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                          height: 48,
+                                                          decoration: const BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: Colors.white
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(3),
+                                                            child: Image.asset(
+                                                                'assets/images/avtarImg.png'),
+                                                          )
+                                                      ),
+                                                      addHeight(3),
+                                                      Text(featuredFilterController.model.value.data![index].cookName.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: 12,
+                                                            color: const Color(0xFF21283D)
+                                                        ),),
+                                                      Row(
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .center,
+                                                        mainAxisAlignment: MainAxisAlignment
+                                                            .center,
+                                                        children: [
+                                                          const Icon(Icons.star,
+                                                            color: Color(0xFFFFC529),
+                                                            size: 14,),
+                                                          addWidth(3),
+                                                          Text((featuredFilterController.model.value.data![index].rating ?? '3').toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w500,
+                                                                fontSize: 11,
+                                                                color: const Color(0xFF6A7080)
+                                                            ),),
+                                                          addWidth(3),
+                                                          Text((featuredFilterController.model.value.data![index].countReviewData ?? '10').toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w500,
+                                                                fontSize: 11,
+                                                                color: const Color(0xFF6A7080)
+                                                            ),),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                              ),
+                                              Positioned(
+                                                  top: 16,
+                                                  right: 10,
+                                                  child: InkWell(
+                                                      onTap: (){
+                                                        print("store  id..${featuredFilterController.model.value.data![index].id.toString()}");
+
+                                                        wishlistRepo(id: featuredFilterController.model.value.data![index].id.toString(),productId: ''
+                                                        ).then((value){
+                                                          if(value.status==true){
+                                                            showToast(value.message);
+                                                            featuredFilterController.getData();
+                                                          }
+                                                        });
+                                                      },
+                                                      child:
+                                                      featuredFilterController.model.value.data![index].wishlist! ?
+                                                      Container(
+                                                          height: 33,
+                                                          decoration:
+                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                          child: const Padding(
+                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                              child: Icon(
+                                                                Icons.favorite,
+                                                                color: Color(0xFF7ED957),
+
+                                                              )
+
+                                                          )):Container(
+                                                          height: 33,
+                                                          decoration:
+                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                          child: const Padding(
+                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                              child: Icon(
+                                                                Icons.favorite_outline,
+                                                                color: Color(0xFF7ED957),
+
+                                                              )
+
+                                                          ))
+                                                  )
+                                              ),
+
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 15,)
+                                    ],
+                                  ),
+                                );
+                              },
+                            ) : Padding(
+                              padding: const EdgeInsets.only(top: 80),
+                              child: Center(child: CircularProgressIndicator(color: Color(0xff7ED957),)),
+                            )
+
+                        ));
+                }),
+                Obx(() {
+                  return
+                    SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AddSize.padding16,
+                            ),
+
+                            child: featuredFilterController.isDataLoading.value ?
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: featuredFilterController.model.value.data!.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: const Color(0xFF37C666).withOpacity(
+                                                    0.15),
+                                                offset: const Offset(.3, .3,
+                                                ),
+                                                blurRadius: 20.0,
+                                                spreadRadius: 1.0,
+                                              ),
+                                            ],
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                      featuredFilterController.model.value.data![index].id.toString()
+                                                    ]);
+                                                  },
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment
+                                                        .start,
+                                                    children: [
+                                                      Image.asset(
+                                                          'assets/images/Rectangle 2171.png'),
+                                                      addHeight(6),
+                                                      Text(featuredFilterController.model.value.data![index].name.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 16,
+                                                            color: const Color(0xFF21283D)
+                                                        ),),
+                                                      addHeight(6),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/truckimg.png',
+                                                            height: 22,
+                                                            color: const Color(0xFF04666E),),
+                                                          addWidth(10),
+                                                          Text('Delivery Only 25 mins',
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w400,
+                                                                fontSize: 12,
+                                                                color: const Color(0xFF606573)
+                                                            ),),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              const Positioned(
+                                                  top: 80,
+                                                  // bottom: 0,
+                                                  left: 20,
+                                                  right: 20,
+                                                  //   bottom: 0,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: [
+                                                      Icon(Icons.arrow_back_ios,
+                                                        color: Colors.white,size: 20,),
+                                                      Icon(Icons.arrow_forward_ios,
+                                                        color: Colors.white,size: 20,)
+                                                    ],
+                                                  )
+                                              ),
+                                              Positioned(
+                                                  bottom: 10,
+                                                  right: 20,
+                                                  //   bottom: 0,
+                                                  child: Column(
+                                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                          height: 48,
+                                                          decoration: const BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: Colors.white
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(3),
+                                                            child: Image.asset(
+                                                                'assets/images/avtarImg.png'),
+                                                          )
+                                                      ),
+                                                      addHeight(3),
+                                                      Text(featuredFilterController.model.value.data![index].cookName.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: 12,
+                                                            color: const Color(0xFF21283D)
+                                                        ),),
+                                                      Row(
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .center,
+                                                        mainAxisAlignment: MainAxisAlignment
+                                                            .center,
+                                                        children: [
+                                                          const Icon(Icons.star,
+                                                            color: Color(0xFFFFC529),
+                                                            size: 14,),
+                                                          addWidth(3),
+                                                          Text((featuredFilterController.model.value.data![index].rating ?? '3').toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w500,
+                                                                fontSize: 11,
+                                                                color: const Color(0xFF6A7080)
+                                                            ),),
+                                                          addWidth(3),
+                                                          Text((featuredFilterController.model.value.data![index].countReviewData ?? '0').toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w500,
+                                                                fontSize: 11,
+                                                                color: const Color(0xFF6A7080)
+                                                            ),),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                              ),
+                                              Positioned(
+                                                  top: 16,
+                                                  right: 10,
+                                                  child: InkWell(
+                                                      onTap: (){
+                                                        print("store  id..${featuredFilterController.model.value.data![index].id.toString()}");
+
+                                                        wishlistRepo(id: featuredFilterController.model.value.data![index].id.toString(),productId: ''
+                                                        ).then((value){
+                                                          if(value.status==true){
+                                                            showToast(value.message);
+                                                            featuredFilterController.getData();
+                                                          }
+                                                        });
+                                                      },
+                                                      child:
+                                                      featuredFilterController.model.value.data![index].wishlist! ?
+                                                      Container(
+                                                          height: 33,
+                                                          decoration:
+                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                          child: const Padding(
+                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                              child: Icon(
+                                                                Icons.favorite,
+                                                                color: Color(0xFF7ED957),
+
+                                                              )
+
+                                                          )):Container(
+                                                          height: 33,
+                                                          decoration:
+                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                          child: const Padding(
+                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                              child: Icon(
+                                                                Icons.favorite_outline,
+                                                                color: Color(0xFF7ED957),
+
+                                                              )
+
+                                                          ))
+                                                  )
+                                              ),
+                                              // Positioned(
+                                              //     top: 14,
+                                              //     // bottom: 0,
+                                              //     left: 10,
+                                              //     right: 15,
+                                              //     //   bottom: 0,
+                                              //     child: Row(
+                                              //       children:  [
+                                              //
+                                              //         InkWell(
+                                              //             onTap: (){
+                                              //               showGeneralDialog(
+                                              //                   context: context,
+                                              //                   barrierDismissible: true,
+                                              //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                              //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                              //                   pageBuilder: (BuildContext context,Animation first, Animation second){
+                                              //                     return  Stack(
+                                              //                       children: [
+                                              //                         Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                              //                         Positioned(
+                                              //                           right: 18,
+                                              //                           top: 30,
+                                              //                           child: Container(
+                                              //                               padding: EdgeInsets.all(10),
+                                              //                               height: 80,
+                                              //                               decoration: const BoxDecoration(
+                                              //                                   color: Colors.white,
+                                              //                                   shape: BoxShape.circle
+                                              //                               ),
+                                              //                               child:  Icon(Icons.clear)
+                                              //                           ),)
+                                              //                       ],
+                                              //                     );
+                                              //                   }
+                                              //               );
+                                              //             },
+                                              //             child: Image.asset('assets/images/topChef.png',width: 50,)),
+                                              //         InkWell(
+                                              //             onTap: (){
+                                              //               showGeneralDialog(
+                                              //                   context: context,
+                                              //                   barrierDismissible: true,
+                                              //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                              //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                              //                   pageBuilder: (BuildContext context,Animation first, Animation second){
+                                              //                     return  Stack(
+                                              //                       children: [
+                                              //                         Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                              //                         Positioned(
+                                              //                           right: 18,
+                                              //                           top: 50,
+                                              //                           child: Container(
+                                              //                               padding: EdgeInsets.all(10),
+                                              //                               height: 50,
+                                              //                               decoration: const BoxDecoration(
+                                              //                                   color: Colors.white,
+                                              //                                   shape: BoxShape.circle
+                                              //                               ),
+                                              //                               child:  Icon(Icons.clear)
+                                              //                           ),)
+                                              //                       ],
+                                              //                     );
+                                              //                   }
+                                              //               );
+                                              //             },
+                                              //             child: Image.asset('assets/images/topChef.png',width: 50,)),
+                                              //
+                                              //       ],
+                                              //     )
+                                              // ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 15,)
+                                    ],
+                                  ),
+                                );
+                              },
+                            ) : const Padding(
+                              padding: EdgeInsets.only(top: 80),
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 100),
+                                child: Center(child: CircularProgressIndicator(color: Color(0xff7ED957),)),
+                              ),
+                            )
+
+                        ));
+                }),
               ],
             )
         ),
+            //:Center(child: Text("No Stores Found")),
         // Obx(() {
         //   return SafeArea(
         //     child: homeController.isDataLoading.value

@@ -280,7 +280,217 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   ),
                                                 ),
                                               ),
-                                              const Positioned(
+                                               Positioned(
+                                                  top: 80,
+                                                  // bottom: 0,
+                                                  left: 20,
+                                                  right: 20,
+                                                  //   bottom: 0,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: const [
+                                                      Icon(Icons.arrow_back_ios,
+                                                        color: Colors.white,size: 20,),
+                                                      Icon(Icons.arrow_forward_ios,
+                                                        color: Colors.white,size: 20,)
+                                                    ],
+                                                  )
+                                              ),
+                                              Positioned(
+                                                  bottom: 10,
+                                                  right: 20,
+                                                  //   bottom: 0,
+                                                  child: Column(
+                                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                          height: 48,
+                                                          decoration: const BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: Colors.white
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(3),
+                                                            child: Image.asset(
+                                                                'assets/images/avtarImg.png'),
+                                                          )
+                                                      ),
+                                                      addHeight(3),
+                                                      Text(featuredFilterController.model.value.data![index].cookName.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: 12,
+                                                            color: const Color(0xFF21283D)
+                                                        ),),
+                                                      Row(
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .center,
+                                                        mainAxisAlignment: MainAxisAlignment
+                                                            .center,
+                                                        children: [
+                                                          const Icon(Icons.star,
+                                                            color: Color(0xFFFFC529),
+                                                            size: 14,),
+                                                          addWidth(3),
+                                                          Text((featuredFilterController.model.value.data![index].rating ?? '3').toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w500,
+                                                                fontSize: 11,
+                                                                color: const Color(0xFF6A7080)
+                                                            ),),
+                                                          addWidth(3),
+                                                          Text((featuredFilterController.model.value.data![index].countReviewData ?? '10').toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w500,
+                                                                fontSize: 11,
+                                                                color: const Color(0xFF6A7080)
+                                                            ),),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                              ),
+                                              Positioned(
+                                                  top: 16,
+                                                  right: 10,
+                                                  child: InkWell(
+                                                      onTap: (){
+                                                        print("store  id..${featuredFilterController.model.value.data![index].id.toString()}");
+
+                                                        wishlistRepo(id: featuredFilterController.model.value.data![index].id.toString(),productId: ''
+                                                        ).then((value){
+                                                          if(value.status==true){
+                                                            showToast(value.message);
+                                                            featuredFilterController.getData();
+                                                          }
+                                                        });
+                                                      },
+                                                      child:
+                                                      featuredFilterController.model.value.data![index].wishlist! ?
+                                                      Container(
+                                                          height: 33,
+                                                          decoration:
+                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                          child: const Padding(
+                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                              child: Icon(
+                                                                Icons.favorite,
+                                                                color: Color(0xFF7ED957),
+
+                                                              )
+
+                                                          )):Container(
+                                                          height: 33,
+                                                          decoration:
+                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                          child: const Padding(
+                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
+                                                              child: Icon(
+                                                                Icons.favorite_outline,
+                                                                color: Color(0xFF7ED957),
+
+                                                              )
+
+                                                          ))
+                                                  )
+                                              ),
+
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 15,)
+                                    ],
+                                  ),
+                                );
+                              },
+                            ) : Padding(
+                              padding: const EdgeInsets.only(top: 80),
+                              child: Center(child: CircularProgressIndicator(color: Color(0xff7ED957),)),
+                            )
+
+                        ));
+                }),
+                Obx(() {
+                  return
+                    SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AddSize.padding16,
+                            ),
+
+                            child: featuredFilterController.isDataLoading.value ?
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: featuredFilterController.model.value.data!.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: const Color(0xFF37C666).withOpacity(
+                                                    0.15),
+                                                offset: const Offset(.3, .3,
+                                                ),
+                                                blurRadius: 20.0,
+                                                spreadRadius: 1.0,
+                                              ),
+                                            ],
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                      featuredFilterController.model.value.data![index].id.toString()
+                                                    ]);
+                                                  },
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment
+                                                        .start,
+                                                    children: [
+                                                      Image.asset(
+                                                          'assets/images/Rectangle 2171.png'),
+                                                      addHeight(6),
+                                                      Text(featuredFilterController.model.value.data![index].name.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 16,
+                                                            color: const Color(0xFF21283D)
+                                                        ),),
+                                                      addHeight(6),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/truckimg.png',
+                                                            height: 22,
+                                                            color: const Color(0xFF04666E),),
+                                                          addWidth(10),
+                                                          Text('Delivery Only 25 mins',
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w400,
+                                                                fontSize: 12,
+                                                                color: const Color(0xFF606573)
+                                                            ),),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                               Positioned(
                                                   top: 80,
                                                   // bottom: 0,
                                                   left: 20,
@@ -490,7 +700,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   ),
                                                 ),
                                               ),
-                                              const Positioned(
+                                               Positioned(
                                                   top: 80,
                                                   // bottom: 0,
                                                   left: 20,
@@ -499,217 +709,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .spaceBetween,
-                                                    children: [
-                                                      Icon(Icons.arrow_back_ios,
-                                                        color: Colors.white,size: 20,),
-                                                      Icon(Icons.arrow_forward_ios,
-                                                        color: Colors.white,size: 20,)
-                                                    ],
-                                                  )
-                                              ),
-                                              Positioned(
-                                                  bottom: 10,
-                                                  right: 20,
-                                                  //   bottom: 0,
-                                                  child: Column(
-                                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Container(
-                                                          height: 48,
-                                                          decoration: const BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                              color: Colors.white
-                                                          ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.all(3),
-                                                            child: Image.asset(
-                                                                'assets/images/avtarImg.png'),
-                                                          )
-                                                      ),
-                                                      addHeight(3),
-                                                      Text(featuredFilterController.model.value.data![index].cookName.toString(),
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 12,
-                                                            color: const Color(0xFF21283D)
-                                                        ),),
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment
-                                                            .center,
-                                                        mainAxisAlignment: MainAxisAlignment
-                                                            .center,
-                                                        children: [
-                                                          const Icon(Icons.star,
-                                                            color: Color(0xFFFFC529),
-                                                            size: 14,),
-                                                          addWidth(3),
-                                                          Text((featuredFilterController.model.value.data![index].rating ?? '3').toString(),
-                                                            style: GoogleFonts.poppins(
-                                                                fontWeight: FontWeight.w500,
-                                                                fontSize: 11,
-                                                                color: const Color(0xFF6A7080)
-                                                            ),),
-                                                          addWidth(3),
-                                                          Text((featuredFilterController.model.value.data![index].countReviewData ?? '10').toString(),
-                                                            style: GoogleFonts.poppins(
-                                                                fontWeight: FontWeight.w500,
-                                                                fontSize: 11,
-                                                                color: const Color(0xFF6A7080)
-                                                            ),),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  )
-                                              ),
-                                              Positioned(
-                                                  top: 16,
-                                                  right: 10,
-                                                  child: InkWell(
-                                                      onTap: (){
-                                                        print("store  id..${featuredFilterController.model.value.data![index].id.toString()}");
-
-                                                        wishlistRepo(id: featuredFilterController.model.value.data![index].id.toString(),productId: ''
-                                                        ).then((value){
-                                                          if(value.status==true){
-                                                            showToast(value.message);
-                                                            featuredFilterController.getData();
-                                                          }
-                                                        });
-                                                      },
-                                                      child:
-                                                      featuredFilterController.model.value.data![index].wishlist! ?
-                                                      Container(
-                                                          height: 33,
-                                                          decoration:
-                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                                          child: const Padding(
-                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
-                                                              child: Icon(
-                                                                Icons.favorite,
-                                                                color: Color(0xFF7ED957),
-
-                                                              )
-
-                                                          )):Container(
-                                                          height: 33,
-                                                          decoration:
-                                                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                                          child: const Padding(
-                                                              padding: EdgeInsets.only(left: 10, right: 10, top: 3),
-                                                              child: Icon(
-                                                                Icons.favorite_outline,
-                                                                color: Color(0xFF7ED957),
-
-                                                              )
-
-                                                          ))
-                                                  )
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 15,)
-                                    ],
-                                  ),
-                                );
-                              },
-                            ) : Padding(
-                              padding: const EdgeInsets.only(top: 80),
-                              child: Center(child: CircularProgressIndicator(color: Color(0xff7ED957),)),
-                            )
-
-                        ));
-                }),
-                Obx(() {
-                  return
-                    SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AddSize.padding16,
-                            ),
-
-                            child: featuredFilterController.isDataLoading.value ?
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: featuredFilterController.model.value.data!.length,
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(right: 8.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: const Color(0xFF37C666).withOpacity(
-                                                    0.15),
-                                                offset: const Offset(.3, .3,
-                                                ),
-                                                blurRadius: 20.0,
-                                                spreadRadius: 1.0,
-                                              ),
-                                            ],
-                                          ),
-                                          child: Stack(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: InkWell(
-                                                  onTap: (){
-                                                    Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                      featuredFilterController.model.value.data![index].id.toString()
-                                                    ]);
-                                                  },
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Image.asset(
-                                                          'assets/images/Rectangle 2171.png'),
-                                                      addHeight(6),
-                                                      Text(featuredFilterController.model.value.data![index].name.toString(),
-                                                        style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w700,
-                                                            fontSize: 16,
-                                                            color: const Color(0xFF21283D)
-                                                        ),),
-                                                      addHeight(6),
-                                                      Row(
-                                                        children: [
-                                                          Image.asset(
-                                                            'assets/images/truckimg.png',
-                                                            height: 22,
-                                                            color: const Color(0xFF04666E),),
-                                                          addWidth(10),
-                                                          Text('Delivery Only 25 mins',
-                                                            style: GoogleFonts.poppins(
-                                                                fontWeight: FontWeight.w400,
-                                                                fontSize: 12,
-                                                                color: const Color(0xFF606573)
-                                                            ),),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              const Positioned(
-                                                  top: 80,
-                                                  // bottom: 0,
-                                                  left: 20,
-                                                  right: 20,
-                                                  //   bottom: 0,
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .spaceBetween,
-                                                    children: [
+                                                    children: const [
                                                       Icon(Icons.arrow_back_ios,
                                                         color: Colors.white,size: 20,),
                                                       Icon(Icons.arrow_forward_ios,

@@ -225,10 +225,28 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                 child: Text(
                                                   myAddressController
                                                       .model.value.data![index].flatNo
-                                                      .toString() + myAddressController
+                                                      .toString()+' ' + myAddressController
                                                 .model.value.data![index].landmark
-                                                .toString()+',' + myAddressController
+                                                .toString()+', ' + myAddressController
                                                       .model.value.data![index].pinCode
+                                                      .toString(),
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: const Color(0xff5C5C60)),
+                                                ),
+                                              ),
+                                              addWidth(5),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  myAddressController
+                                                      .model.value.data![index].note
                                                       .toString(),
                                                   style: GoogleFonts.poppins(
                                                       fontSize: 14,

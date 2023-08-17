@@ -75,7 +75,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                   autoScrollController: autoController,
                   // scrollbarThumbVisibility: true,
                   tabController: TabController(length: 3, vsync: this),
-                  listItemData:  [
+                  listItemData:  const [
                     CarteScreen(data: "4"),
                     //  CarteScreen(data: "3"),
                     // CarteScreen(data: "2"),
@@ -220,7 +220,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                               ),
                                               addWidth(7),
 
-                                              const Text( '10-40 min',
+                                               const Text(
+                                                // controller.model.value.data!.storeDetails!.deliveryTime.toString(),
+                                                  '10-40 min',
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Color(0xFF4E5F64),
@@ -399,83 +401,84 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                         ),
                                       ],
                                     )),
-                                Positioned(
-                                    top: 200,
-                                    left: 10,
-                                    right: 15,
-                                    //   bottom: 0,
-                                    child: Row(
-                                      children: [
-                                        InkWell(
-                                            onTap: () {
-                                              showGeneralDialog(
-                                                  context: context,
-                                                  barrierDismissible: true,
-                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                  pageBuilder: (BuildContext context, Animation first, Animation second) {
-                                                    return Stack(
-                                                      children: [
-                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                        Positioned(
-                                                          right: 18,
-                                                          top: 30,
-                                                          child: Container(
-                                                              padding: EdgeInsets.all(10),
-                                                              height: 80,
-                                                              decoration: const BoxDecoration(
-                                                                  color: Colors.white, shape: BoxShape.circle),
-                                                              child: GestureDetector(
-                                                                child: Icon(Icons.clear),
-                                                                onTap: () {
-                                                                  Get.back();
-                                                                },
-                                                              )),
-                                                        )
-                                                      ],
-                                                    );
-                                                  });
-                                            },
-                                            child: Image.asset(
-                                              'assets/images/topChef.png',
-                                              width: 50,
-                                            )),
-                                        InkWell(
-                                            onTap: () {
-                                              showGeneralDialog(
-                                                  context: context,
-                                                  barrierDismissible: true,
-                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                  pageBuilder: (BuildContext context, Animation first, Animation second) {
-                                                    return Stack(
-                                                      children: [
-                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                        Positioned(
-                                                          right: 18,
-                                                          top: 30,
-                                                          child: Container(
-                                                              padding: EdgeInsets.all(10),
-                                                              height: 80,
-                                                              decoration: const BoxDecoration(
-                                                                  color: Colors.white, shape: BoxShape.circle),
-                                                              child: GestureDetector(
-                                                                child: Icon(Icons.clear),
-                                                                onTap: () {
-                                                                  Get.back();
-                                                                },
-                                                              )),
-                                                        )
-                                                      ],
-                                                    );
-                                                  });
-                                            },
-                                            child: Image.asset(
-                                              'assets/images/topChef.png',
-                                              width: 50,
-                                            )),
-                                      ],
-                                    )),
+                                // badge or award image
+                                // Positioned(
+                                //     top: 200,
+                                //     left: 10,
+                                //     right: 15,
+                                //     //   bottom: 0,
+                                //     child: Row(
+                                //       children: [
+                                //         InkWell(
+                                //             onTap: () {
+                                //               showGeneralDialog(
+                                //                   context: context,
+                                //                   barrierDismissible: true,
+                                //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                //                   pageBuilder: (BuildContext context, Animation first, Animation second) {
+                                //                     return Stack(
+                                //                       children: [
+                                //                         Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                //                         Positioned(
+                                //                           right: 18,
+                                //                           top: 30,
+                                //                           child: Container(
+                                //                               padding: EdgeInsets.all(10),
+                                //                               height: 80,
+                                //                               decoration: const BoxDecoration(
+                                //                                   color: Colors.white, shape: BoxShape.circle),
+                                //                               child: GestureDetector(
+                                //                                 child: Icon(Icons.clear),
+                                //                                 onTap: () {
+                                //                                   Get.back();
+                                //                                 },
+                                //                               )),
+                                //                         )
+                                //                       ],
+                                //                     );
+                                //                   });
+                                //             },
+                                //             child: Image.asset(
+                                //               'assets/images/topChef.png',
+                                //               width: 50,
+                                //             )),
+                                //         InkWell(
+                                //             onTap: () {
+                                //               showGeneralDialog(
+                                //                   context: context,
+                                //                   barrierDismissible: true,
+                                //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                //                   pageBuilder: (BuildContext context, Animation first, Animation second) {
+                                //                     return Stack(
+                                //                       children: [
+                                //                         Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                //                         Positioned(
+                                //                           right: 18,
+                                //                           top: 30,
+                                //                           child: Container(
+                                //                               padding: EdgeInsets.all(10),
+                                //                               height: 80,
+                                //                               decoration: const BoxDecoration(
+                                //                                   color: Colors.white, shape: BoxShape.circle),
+                                //                               child: GestureDetector(
+                                //                                 child: Icon(Icons.clear),
+                                //                                 onTap: () {
+                                //                                   Get.back();
+                                //                                 },
+                                //                               )),
+                                //                         )
+                                //                       ],
+                                //                     );
+                                //                   });
+                                //             },
+                                //             child: Image.asset(
+                                //               'assets/images/topChef.png',
+                                //               width: 50,
+                                //             )),
+                                //       ],
+                                //     )),
                               ],
                             ),
                           ),

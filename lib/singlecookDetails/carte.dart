@@ -319,24 +319,29 @@ class _CarteScreenState extends State<CarteScreen> {
                                           InkWell(
                                             onTap: () {
                                               // buttonCount.value++;
-                                              addToCartRepo(
-                                                  product_id: controller
-                                                      .model.value.data!.latestProducts![index].id
-                                                      .toString(),
-                                                  qty: product.productCount+1,
-                                                  //controller.model.value.data!.latestProducts![index].buttonCount.value,
-                                                  context: context)
-                                                  .then((value1) {
-                                                if (value1.status == true) {
-                                                  controller.model.value.data!.latestProducts![index].value = true;
-                                                  // controller.model.value.data!.latestProducts![index].buttonCount.value++;
-                                                  showToast(value1.message.toString());
-                                                  // controller.increaseQty();
-                                                  cartListController.getData().then((value) {
-                                                    setState(() {});
-                                                  });
-                                                }
-                                              });
+                                              if( product.productCount <  int.parse(controller.model.value.data!.latestProducts![index].cookUnitDays)){
+                                                addToCartRepo(
+                                                    product_id: controller
+                                                        .model.value.data!.latestProducts![index].id
+                                                        .toString(),
+                                                    qty: product.productCount+1,
+                                                    //controller.model.value.data!.latestProducts![index].buttonCount.value,
+                                                    context: context)
+                                                    .then((value1) {
+                                                  if (value1.status == true) {
+                                                    controller.model.value.data!.latestProducts![index].value = true;
+                                                    // controller.model.value.data!.latestProducts![index].buttonCount.value++;
+                                                    showToast(value1.message.toString());
+                                                    // controller.increaseQty();
+                                                    cartListController.getData().then((value) {
+                                                      setState(() {});
+                                                    });
+                                                  }
+                                                });
+                                              }else{
+                                                showToast('You reached the maximum Limit of product');
+                                              }
+
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -424,6 +429,9 @@ class _CarteScreenState extends State<CarteScreen> {
           ),
         ),
       ],
-    ): const Center(child: Text('No Meals available')):   const Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));
+    ): const Padding(
+      padding: EdgeInsets.only(top: 80),
+      child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+    ):   const Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));
   }
 }

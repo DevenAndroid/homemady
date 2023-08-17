@@ -42,7 +42,9 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: backAppBar(title: 'My Orders', context: context),
-      body: Column(
+      body:
+
+      Column(
         children: [
            addHeight(20),
           Stack(

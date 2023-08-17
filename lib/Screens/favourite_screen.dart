@@ -324,77 +324,77 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                   ))
                                             )
                                         ),
-                                        Positioned(
-                                            top: 14,
-                                            // bottom: 0,
-                                            left: 10,
-                                            right: 15,
-                                            //   bottom: 0,
-                                            child: Row(
-                                              children:  [
-
-                                                InkWell(
-                                                    onTap: (){
-                                                      showGeneralDialog(
-                                                          context: context,
-                                                          barrierDismissible: true,
-                                                          barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                          pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                            return  Stack(
-                                                              children: [
-                                                                Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                                Positioned(
-                                                                  right: 18,
-                                                                  top: 30,
-                                                                  child: Container(
-                                                                      padding: EdgeInsets.all(10),
-                                                                      height: 80,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Colors.white,
-                                                                          shape: BoxShape.circle
-                                                                      ),
-                                                                      child:  Icon(Icons.clear)
-                                                                  ),)
-                                                              ],
-                                                            );
-                                                          }
-                                                      );
-                                                    },
-                                                    child: Image.asset('assets/images/topChef.png',width: 50,)),
-                                                InkWell(
-                                                    onTap: (){
-                                                      showGeneralDialog(
-                                                          context: context,
-                                                          barrierDismissible: true,
-                                                          barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                          pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                            return  Stack(
-                                                              children: [
-                                                                Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                                Positioned(
-                                                                  right: 18,
-                                                                  top: 50,
-                                                                  child: Container(
-                                                                      padding: EdgeInsets.all(10),
-                                                                      height: 50,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Colors.white,
-                                                                          shape: BoxShape.circle
-                                                                      ),
-                                                                      child:  Icon(Icons.clear)
-                                                                  ),)
-                                                              ],
-                                                            );
-                                                          }
-                                                      );
-                                                    },
-                                                    child: Image.asset('assets/images/topChef.png',width: 50,)),
-
-                                              ],
-                                            )
-                                        ),
+                                        // Positioned(
+                                        //     top: 14,
+                                        //     // bottom: 0,
+                                        //     left: 10,
+                                        //     right: 15,
+                                        //     //   bottom: 0,
+                                        //     child: Row(
+                                        //       children:  [
+                                        //
+                                        //         InkWell(
+                                        //             onTap: (){
+                                        //               showGeneralDialog(
+                                        //                   context: context,
+                                        //                   barrierDismissible: true,
+                                        //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                        //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                        //                   pageBuilder: (BuildContext context,Animation first, Animation second){
+                                        //                     return  Stack(
+                                        //                       children: [
+                                        //                         Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                        //                         Positioned(
+                                        //                           right: 18,
+                                        //                           top: 30,
+                                        //                           child: Container(
+                                        //                               padding: EdgeInsets.all(10),
+                                        //                               height: 80,
+                                        //                               decoration: const BoxDecoration(
+                                        //                                   color: Colors.white,
+                                        //                                   shape: BoxShape.circle
+                                        //                               ),
+                                        //                               child:  Icon(Icons.clear)
+                                        //                           ),)
+                                        //                       ],
+                                        //                     );
+                                        //                   }
+                                        //               );
+                                        //             },
+                                        //             child: Image.asset('assets/images/topChef.png',width: 50,)),
+                                        //         InkWell(
+                                        //             onTap: (){
+                                        //               showGeneralDialog(
+                                        //                   context: context,
+                                        //                   barrierDismissible: true,
+                                        //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                        //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                        //                   pageBuilder: (BuildContext context,Animation first, Animation second){
+                                        //                     return  Stack(
+                                        //                       children: [
+                                        //                         Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                        //                         Positioned(
+                                        //                           right: 18,
+                                        //                           top: 50,
+                                        //                           child: Container(
+                                        //                               padding: EdgeInsets.all(10),
+                                        //                               height: 50,
+                                        //                               decoration: const BoxDecoration(
+                                        //                                   color: Colors.white,
+                                        //                                   shape: BoxShape.circle
+                                        //                               ),
+                                        //                               child:  Icon(Icons.clear)
+                                        //                           ),)
+                                        //                       ],
+                                        //                     );
+                                        //                   }
+                                        //               );
+                                        //             },
+                                        //             child: Image.asset('assets/images/topChef.png',width: 50,)),
+                                        //
+                                        //       ],
+                                        //     )
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -819,10 +819,10 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
             ],
           ),
         ) ,
-          // bottomNavigationBar:
-          // cartListController.isDataLoading.value && cartListController.model.value.data!.cartItems!.isNotEmpty
-          //     ? addCartSection()
-          //     : null,
+          bottomNavigationBar:
+          cartListController.isDataLoading.value && cartListController.model.value.data!.cartItems!.isNotEmpty
+              ? addCartSection()
+              : null,
       );
   }
 }

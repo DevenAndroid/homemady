@@ -57,7 +57,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   List<ItemDropDown> items = <ItemDropDown>[
     const ItemDropDown('sustainable_packaging', 'Sustainable Packaging'),
     const ItemDropDown('quickest_delivery', 'Quickest Delivery'),
-    const ItemDropDown('distance', 'distance'),
+    const ItemDropDown('distance', 'Distance'),
   ];
 
 
@@ -973,7 +973,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   GestureDetector(
                                     onTap: () {
                                       //_showDialogCategory();
+                                      if (selectedDate != "Available Now") {
                                       showUploadWindow();
+                                        // Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);
+                                      } else {
+                                        showToast("Please pick a date");
+                                      }
+
                                     },
                                     child: Container(
                                       height: 40,
@@ -1426,7 +1432,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                       color: const Color(0xFF6A7080)),
                                                                 ),
                                                                 Text(
-                                                                  '(${(homeController.model.value.data!.stores![index].countReviewData!.isEmpty ? '3' : '').toString()})',
+                                                                  '(${(homeController.model.value.data!.stores![index].countReviewData).toString()})',
                                                                   style: GoogleFonts.poppins(
                                                                       fontWeight: FontWeight.w500,
                                                                       fontSize: 11,
@@ -1608,8 +1614,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       homeController.categoryType.value = categoryController.categoryModel.value.data!.category![index].categoryType.toString();
                                     print("Filter category id is ${homeController.filterCategoryId.value}");
                                     print("Filter category type is ${homeController.categoryType.value }");
-                                     homeController.getData();
-                                     setState(() {});
+                                     // homeController.getData();
+                                     // setState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1674,8 +1680,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       homeController.categoryType.value = categoryController.categoryModel.value.data!.secondaryCategory![index].categoryType.toString();
                                       print("Filter  secondary category id is ${homeController.filterCategoryId.value}");
                                       print("Filter category type is ${homeController.categoryType.value }");
-                                      homeController.getData();
-                                      setState(() {});
+                                      // homeController.getData();
+                                      // setState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1740,8 +1746,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       homeController.categoryType.value = categoryController.categoryModel.value.data!.tertiaryCategory![index].categoryType.toString();
                                       print("Filter  tertiary category id is ${homeController.filterCategoryId.value}");
                                       print("Filter category type is ${homeController.categoryType.value }");
-                                      homeController.getData();
-                                       setState(() {});
+                                      // homeController.getData();
+                                      //  setState(() {});
                                     // },
                                     },
                                     child: Column(

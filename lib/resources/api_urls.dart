@@ -4,6 +4,7 @@ class ApiUrl {
   static const registrationApi = "${baseUrl}register";
   static const otpApi = "${baseUrl}verify-otp";
   static const homePageApi = "${baseUrl}home";
+  static const featuredFilterUrl = "${baseUrl}stores";
   static const singleStoreApi = "${baseUrl}store-details";
   static const addCartApi = "${baseUrl}add-cart";
   static const cancelOrderUrl = "${baseUrl}order-cancel";

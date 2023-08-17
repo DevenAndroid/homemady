@@ -301,6 +301,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                            address_id: addressModel.id.toString()).then((value) {
                                              if(value.status == true){
                                                showToast('Address Edited Successfully');
+                                               Get.back();
                                                Get.to(()=> const MyAddressScreen());
                                                myAddressController.getData();
                                              }

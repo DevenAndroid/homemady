@@ -626,7 +626,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 ),
                                                 addWidth(4),
                                                 Text(
-                                                  'Mildly Spicy',
+                                                  controller.model.value.data!.latestProducts![index].spiciness.toString(),
                                                   style: GoogleFonts.poppins(
                                                       fontWeight: FontWeight.w500,
                                                       fontSize: 10,

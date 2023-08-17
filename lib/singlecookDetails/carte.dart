@@ -210,7 +210,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                         addWidth(4),
                                         Expanded(
                                           child: Text(
-                                            'Mildly Spicy',
+                                            controller.model.value.data!.latestProducts![index].spiciness.toString(),
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 10,
@@ -232,7 +232,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                         addWidth(4),
                                         Expanded(
                                           child: Text(
-                                            'Crustaceans',
+                                            controller.model.value.data!.latestProducts![index].allergens.toString(),
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 10,

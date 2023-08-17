@@ -472,7 +472,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     return Scaffold(
       drawer: Drawer(
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           child: Column(
             children: [

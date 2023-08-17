@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../model/order_details_model.dart';
@@ -12,6 +13,7 @@ class OrderDetailsController extends GetxController{
   Rx<OrderDetailsModel> model = OrderDetailsModel().obs;
   RxBool isDataLoading = false.obs;
   RxString id = ''.obs;
+  final TextEditingController feedbackController= TextEditingController();
 
   getData(){
     isDataLoading.value = false;

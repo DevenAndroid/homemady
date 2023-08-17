@@ -647,6 +647,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                         itemCount: filterProductCategoryController.filterDataModel.value.data!.length,
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) {
+
                                           String productID = filterProductCategoryController.filterDataModel.value.data![index].id
                                               .toString().trim();
                                           filterProductCategoryController.filterDataModel.value.data![index].productCount = int.tryParse((cartListController.model.value.data!.cartItems!.firstWhere((element) =>
@@ -768,7 +769,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                       child: Text(
                                                                         filterProductCategoryController.filterDataModel.value.data![index].name
                                                                             .toString()
-                                                                            .replaceAll('homemady product test1284sdf', 'Test'),
+                                                                            .replaceAll('homemady product test1284sdf', 'Test').capitalizeFirst.toString(),
                                                                         style: GoogleFonts.poppins(
                                                                             fontWeight: FontWeight.w700,
                                                                             fontSize: 14,
@@ -787,10 +788,20 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                   ],
                                                                 ),
                                                                 addHeight(3),
-                                                                Text(
-                                                                  '${(filterProductCategoryController.filterDataModel.value.data![index].sizeId ?? '300').toString()}',
-                                                                  style: GoogleFonts.poppins(
-                                                                      fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                                Row(
+                                                                  children: [
+                                                                    Text(
+                                                                      'Size: ${(filterProductCategoryController.filterDataModel.value.data![index].sizeQuantity ?? '').toString().capitalizeFirst}',
+                                                                      style: GoogleFonts.poppins(
+                                                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                                    ),
+                                                                    const SizedBox(width: 10),
+                                                                    Text(
+                                                                      filterProductCategoryController.filterDataModel.value.data![index].sizeId.toString(),
+                                                                      style: GoogleFonts.poppins(
+                                                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                                 addHeight(3),
                                                                 Row(
@@ -805,7 +816,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                     addWidth(4),
                                                                     Expanded(
                                                                       child: Text(
-                                                                        'Mildly Spicy',
+                                                                          filterProductCategoryController.filterDataModel.value.data![index].spiciness ?? ''.toString(),
                                                                         style: GoogleFonts.poppins(
                                                                             fontWeight: FontWeight.w500,
                                                                             fontSize: 10,
@@ -827,7 +838,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                     addWidth(4),
                                                                     Expanded(
                                                                       child: Text(
-                                                                        'Crustaceans',
+                                                                          filterProductCategoryController.filterDataModel.value.data![index].allergens ?? ''.toString(),
                                                                         style: GoogleFonts.poppins(
                                                                             fontWeight: FontWeight.w500,
                                                                             fontSize: 10,

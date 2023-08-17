@@ -23,7 +23,7 @@ class ReviewScreen extends StatefulWidget {
 class _ReviewScreenState extends State<ReviewScreen> {
   final orderDetailsController = Get.put(OrderDetailsController());
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController feedbackController= TextEditingController();
+
   final controller = Get.put(OrderDetailsController());
   String ratingvalue1 = '';
   String ratingvalue2 = '';
@@ -79,7 +79,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
-                  allowHalfRating: false,
+                  allowHalfRating: true,
                   itemBuilder: (context, index) =>
                       Image.asset('assets/images/star.png',
                         color: Colors.amber,
@@ -124,7 +124,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
-                  allowHalfRating: false,
+                  allowHalfRating: true,
                   itemBuilder: (context, index) =>
                       Image.asset('assets/images/star.png',
                         color: Colors.amber,
@@ -168,7 +168,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
-                  allowHalfRating: false,
+                  allowHalfRating: true,
                   itemBuilder: (context, index) =>
                       Image.asset('assets/images/star.png',
                         color: Colors.amber,
@@ -213,7 +213,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   itemSize: 22.0,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   updateOnDrag: true,
-                  allowHalfRating: false,
+                  allowHalfRating: true,
                   itemBuilder: (context, index) =>
                       Image.asset('assets/images/star.png',
                         color: Colors.amber,
@@ -285,17 +285,17 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 ),),
               addHeight(10),
               EditProfileTextFieldWidget(
-                controller: feedbackController,
+                controller: controller.feedbackController,
                 onTap: (){},
-                minLines: 4,
-                maxLines: null,
+                minLines: 1,
+                maxLines: 7,
               ),
               addHeight(25),
 
               CommonButton(title: 'Publish Feedback',onPressed: (){
                 ratingReviewRepo(
                     orderId: controller.model.value.orderDetail!.orderId.toString(),
-                    review: feedbackController.text,
+                    review:controller.feedbackController.text,
                     foodQuality: ratingvalue1.toString(),
                     foodQuantity: ratingvalue2.toString(),
                     communication: ratingvalue3.toString(),
@@ -305,7 +305,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   if(value.status == true){
                     Get.back();
                     Get.back();
-                    feedbackController.clear();
+                    controller.feedbackController.clear();
                     orderDetailsController.getData();
                     showToast(value.message.toString());
                    // Get.toNamed(MyRouters.thankYouScreen);

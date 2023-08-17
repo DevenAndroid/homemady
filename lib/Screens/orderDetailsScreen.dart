@@ -176,7 +176,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                  children: [
-                                                   Text(controller.model.value.orderDetail!.orderItems![index].productName.toString(),
+                                                   Text(controller.model.value.orderDetail!.orderItems![index].productName.toString().capitalizeFirst.toString(),
                                                      style: GoogleFonts.poppins(
                                                          fontWeight: FontWeight.w600,
                                                          fontSize: 18,

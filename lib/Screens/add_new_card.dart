@@ -240,7 +240,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                               context: context)
                           .then((value2) {
                         if (value2.status == true) {
-                          showToast(value2.message.toString());
+                         // showToast(value2.message.toString());
                           myCartController.getData();
                          // print('Order id====' + value2.data!.orderId);
                           Get.offAllNamed(MyRouters.thankYouScreen, arguments: [

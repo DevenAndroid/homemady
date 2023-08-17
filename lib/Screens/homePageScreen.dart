@@ -475,7 +475,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           padding: EdgeInsets.zero,
           children: [
             SizedBox(
-              height: 240,
+              // height: 240,
               child: DrawerHeader(
                   decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -487,55 +487,59 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   child: Align(
                       alignment: Alignment.center,
                       child: Obx(() {
-                        return Column(
-                          children: [
-                            Obx(() {
-                              return Container(
-                                margin: const EdgeInsets.all(4),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                decoration: const ShapeDecoration(
-                                  shape: CircleBorder(),
-                                  color: Colors.white,
-                                ),
-                                child: CachedNetworkImage(
-                                  imageUrl: profileController.isDataLoading.value
-                                      ? (profileController.model.value.data!.profileImage ?? "").toString()
-                                      : "assets/images/dummyPerson.png"
-                                      "",
-                                  height: screenSize.height * 0.12,
-                                  width: screenSize.height * 0.12,
-                                  errorWidget: (_, __, ___) => const SizedBox(),
-                                  placeholder: (_, __) => const SizedBox(),
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            }),
-                            FittedBox(
-                              child: Text(
-                                  profileController.isDataLoading.value
-                                      ? profileController.model.value.data!.email.toString()
-                                      : 'williamsjones@gmail.com',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    color: const Color(0xFFFFFFFF),
-                                    fontWeight: FontWeight.w600,
-                                  )),
-                            ),
-                            FittedBox(
-                              child: Text(
-                                  profileController.isDataLoading.value
-                                      ? profileController.model.value.data!.name.toString()
-                                      : 'Williams Jones',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 15,
-                                    color: const Color(0xFFFFFFFF),
-                                    fontWeight: FontWeight.w400,
-                                  )),
-                            ),
-                          ],
+                        return Expanded(
+                          child: Column(
+                            children: [
+                              Obx(() {
+                                return Container(
+                                  margin: const EdgeInsets.all(4),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  decoration: const ShapeDecoration(
+                                    shape: CircleBorder(),
+                                    color: Colors.white,
+                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl: profileController.isDataLoading.value
+                                        ? (profileController.model.value.data!.profileImage ?? "").toString()
+                                        : "assets/images/dummyPerson.png"
+                                        "",
+                                    height: screenSize.height * 0.10,
+                                    width: screenSize.height * 0.10,
+                                    errorWidget: (_, __, ___) => const SizedBox(),
+                                    placeholder: (_, __) => const SizedBox(),
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              }),
+                              Expanded(
+                                child: Text(
+                                    profileController.isDataLoading.value
+                                        ? profileController.model.value.data!.email.toString()
+                                        : 'williamsjones@gmail.com',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 18,
+                                      color: const Color(0xFFFFFFFF),
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                              ),
+                              SizedBox(height: 2,),
+                              Expanded(
+                                child: Text(
+                                    profileController.isDataLoading.value
+                                        ? profileController.model.value.data!.name.toString()
+                                        : 'Williams Jones',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      color: const Color(0xFFFFFFFF),
+                                      fontWeight: FontWeight.w400,
+                                    )),
+                              ),
+                            ],
+                          ),
                         );
                       }))),
             ),
+            SizedBox(height: 10,),
             ListTile(
               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
               leading: Image.asset(

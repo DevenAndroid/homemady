@@ -151,7 +151,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Expanded(
-                                                    child: Text((controller.model.value.data!.cartItems![index].name!.isEmpty ? 'Test' : controller.model.value.data!.cartItems![index].name).toString(),
+                                                    child: Text((controller.model.value.data!.cartItems![index].name!.isEmpty ? 'Test' : controller.model.value.data!.cartItems![index].name).toString().capitalizeFirst.toString(),
                                                       style: GoogleFonts.poppins(
                                                           fontWeight: FontWeight.w600,
                                                           fontSize: 16,

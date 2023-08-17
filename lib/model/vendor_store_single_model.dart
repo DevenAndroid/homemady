@@ -129,21 +129,21 @@ class StoreDetails {
 }
 
 class LatestProducts {
-  int? id;
-  String? sKU;
-  String? name;
-  int? qty;
-  String? qtyType;
+  dynamic id;
+  dynamic sKU;
+  dynamic name;
+  dynamic qty;
+  dynamic qtyType;
   bool ? value;
-  String? minQty;
-  String? maxQty;
-  String? price;
-  String? content;
-  String? image;
+  dynamic minQty;
+  dynamic maxQty;
+  dynamic price;
+  dynamic content;
+  dynamic image;
   dynamic cookUnitDays;
-  String? size;
-  String? sizeId;
-  String? discountOff;
+  dynamic size;
+  dynamic sizeId;
+  dynamic discountOff;
   dynamic wishlist;
   dynamic spiciness;
   dynamic allergens;

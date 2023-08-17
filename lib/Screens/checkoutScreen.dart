@@ -682,6 +682,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ],
                             ),
                           ),
+                          myCartController.model.value.data!.cartPaymentSummary!.tipAmount == 0 ? SizedBox():
                           Padding(
                             padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
                             child: Row(

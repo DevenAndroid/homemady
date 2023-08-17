@@ -788,7 +788,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                 ),
                                                                 addHeight(3),
                                                                 Text(
-                                                                  '${(filterProductCategoryController.filterDataModel.value.data![index].sizeId ?? '300').toString()} gm',
+                                                                  '${(filterProductCategoryController.filterDataModel.value.data![index].sizeId ?? '300').toString()}',
                                                                   style: GoogleFonts.poppins(
                                                                       fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                                                 ),

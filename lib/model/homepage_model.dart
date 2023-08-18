@@ -66,10 +66,10 @@ class Data {
 }
 
 class SliderData {
-  dynamic id;
-  dynamic title;
-  dynamic link;
-  dynamic image;
+  int? id;
+  String? title;
+  String? link;
+  String? image;
 
   SliderData({this.id, this.title, this.link, this.image});
 
@@ -91,16 +91,16 @@ class SliderData {
 }
 
 class Stores {
-  dynamic id;
-  dynamic name;
-  dynamic distance;
-  dynamic image;
-  List<Null>? award;
-  dynamic rating;
-  dynamic countReviewData;
-  dynamic cookName;
+  int? id;
+  String? name;
+  String? distance;
+  String? image;
+  List<Award>? award;
+  String? rating;
+  int? countReviewData;
+  String? cookName;
   bool? wishlist;
-  dynamic profileImage;
+  String? profileImage;
 
   Stores(
       {this.id,
@@ -120,9 +120,9 @@ class Stores {
     distance = json['distance'];
     image = json['image'];
     if (json['award'] != null) {
-      award = <Null>[];
+      award = <Award>[];
       json['award'].forEach((v) {
-       // award!.add(new Null.fromJson(v));
+        award!.add(new Award.fromJson(v));
       });
     }
     rating = json['rating'];
@@ -139,13 +139,32 @@ class Stores {
     data['distance'] = this.distance;
     data['image'] = this.image;
     if (this.award != null) {
-      //data['award'] = this.award!.map((v) => v.toJson()).toList();
+      data['award'] = this.award!.map((v) => v.toJson()).toList();
     }
     data['rating'] = this.rating;
     data['count_review_Data'] = this.countReviewData;
     data['Cook name'] = this.cookName;
     data['wishlist'] = this.wishlist;
     data['profile image'] = this.profileImage;
+    return data;
+  }
+}
+
+class Award {
+  String? title;
+  String? image;
+
+  Award({this.title, this.image});
+
+  Award.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+    image = json['image'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['image'] = this.image;
     return data;
   }
 }

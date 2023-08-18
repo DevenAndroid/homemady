@@ -1,3 +1,5 @@
+import 'favorite_list_model.dart';
+
 class FeaturedFilterModel {
   bool? status;
   String? message;
@@ -43,7 +45,7 @@ class Data {
   dynamic name;
   dynamic distance;
   dynamic image;
-  List<Null>? award;
+  List<Award>? award;
   dynamic rating;
   dynamic countReviewData;
   dynamic cookName;
@@ -68,9 +70,9 @@ class Data {
     distance = json['distance'];
     image = json['image'];
     if (json['award'] != null) {
-      award = <Null>[];
+      award = <Award>[];
       json['award'].forEach((v) {
-        // award!.add(new Null.fromJson(v));
+        award!.add(new Award.fromJson(v));
       });
     }
     rating = json['rating'];
@@ -87,7 +89,7 @@ class Data {
     data['distance'] = this.distance;
     data['image'] = this.image;
     if (this.award != null) {
-      // data['award'] = this.award!.map((v) => v.toJson()).toList();
+      data['award'] = this.award!.map((v) => v.toJson()).toList();
     }
     data['rating'] = this.rating;
     data['count_review_Data'] = this.countReviewData;

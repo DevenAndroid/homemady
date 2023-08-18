@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'favorite_list_model.dart';
+
 class VendorStoreSingleModel {
   bool? status;
   String? message;
@@ -71,6 +73,7 @@ class StoreDetails {
   String? storeName;
   String? description;
   String? name;
+  List<Award>? award;
   String? profileImage;
   String? storeImage;
   String? avgRating;
@@ -86,6 +89,7 @@ class StoreDetails {
         this.storeName,
         this.description,
         this.name,
+        this.award,
         this.profileImage,
         this.storeImage,
         this.avgRating,
@@ -100,6 +104,12 @@ class StoreDetails {
     storeName = json['store_name'];
     description = json['description'];
     name = json['name'];
+    if (json['award'] != null) {
+      award = <Award>[];
+      json['award'].forEach((v) {
+        award!.add(new Award.fromJson(v));
+      });
+    }
     distance = json['distance'];
     wishlist = json['wishlist'];
     profileImage = json['profile_image'];
@@ -116,6 +126,9 @@ class StoreDetails {
     data['store_name'] = storeName;
     data['description'] = description;
     data['name'] = name;
+    if (this.award != null) {
+      data['award'] = this.award!.map((v) => v.toJson()).toList();
+    }
     data['distance'] = distance;
     data['profile_image'] = profileImage;
     data['store_image'] = storeImage;

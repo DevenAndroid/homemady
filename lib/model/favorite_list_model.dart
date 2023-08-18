@@ -147,6 +147,8 @@ class Product {
   dynamic sizeId;
   dynamic inMenu;
   dynamic status;
+  dynamic spiciness;
+  dynamic allergens;
   dynamic discountOff;
   dynamic avgRating;
   dynamic productCount = 0;
@@ -163,6 +165,8 @@ class Product {
         this.sizeId,
         this.inMenu,
         this.status,
+        this.spiciness,
+        this.allergens,
         this.discountOff,
         this.avgRating});
 
@@ -179,6 +183,8 @@ class Product {
     inMenu = json['in_menu'];
     status = json['status'];
     discountOff = json['discount_off'];
+    spiciness = json['spiciness'];
+    allergens = json['allergens'];
     avgRating = json['avg_rating'];
   }
 
@@ -195,6 +201,8 @@ class Product {
     data['size_id'] = this.sizeId;
     data['in_menu'] = this.inMenu;
     data['status'] = this.status;
+    data['spiciness'] = spiciness;
+    data['allergens'] = allergens;
     data['discount_off'] = this.discountOff;
     data['avg_rating'] = this.avgRating;
     return data;

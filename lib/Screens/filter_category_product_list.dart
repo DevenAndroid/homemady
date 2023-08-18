@@ -797,7 +797,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                     ),
                                                                     const SizedBox(width: 10),
                                                                     Text(
-                                                                      filterProductCategoryController.filterDataModel.value.data![index].sizeId.toString(),
+                                                                      filterProductCategoryController.filterDataModel.value.data![index].sizeId ?? ''.toString(),
                                                                       style: GoogleFonts.poppins(
                                                                           fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                                                     ),

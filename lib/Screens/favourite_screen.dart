@@ -193,8 +193,19 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                       crossAxisAlignment: CrossAxisAlignment
                                                           .start,
                                                       children: [
-                                                        Image.asset(
-                                                            'assets/images/Rectangle 2171.png'),
+                                                        CachedNetworkImage(
+                                                          imageUrl:
+                                                          controller1.model.value.data!.store![index].image.toString(),
+                                                          fit: BoxFit.cover,
+                                                         // height: 55,
+                                                          width: AddSize.screenWidth,
+                                                          errorWidget: (_, __, ___) => Image.asset(
+                                                            'assets/images/dummyPerson.png',
+                                                            fit: BoxFit.cover,
+                                                            width: AddSize.screenWidth,
+                                                          ),
+                                                          placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                                                        ),
                                                         addHeight(6),
                                                         Text(controller1.model.value.data!.store![index].name.toString(),
                                                           style: GoogleFonts.poppins(
@@ -259,7 +270,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                             )
                                                         ),
                                                         addHeight(3),
-                                                        Text(controller1.model.value.data!.store![index].cookName.toString(),
+                                                        Text(controller1.model.value.data!.store![index].cookName.toString().capitalizeFirst.toString(),
                                                           style: GoogleFonts.poppins(
                                                               fontWeight: FontWeight.w500,
                                                               fontSize: 12,
@@ -282,7 +293,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                                   color: const Color(0xFF6A7080)
                                                               ),),
                                                             addWidth(3),
-                                                            Text((controller1.model.value.data!.store![index].countReviewData ?? '10').toString(),
+                                                            Text('(${controller1.model.value.data!.store![index].countReviewData ??'10'})'.toString(),
                                                               style: GoogleFonts.poppins(
                                                                   fontWeight: FontWeight.w500,
                                                                   fontSize: 11,
@@ -325,77 +336,104 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                             ))
                                                     )
                                                 ),
-                                                // Positioned(
-                                                //     top: 14,
-                                                //     // bottom: 0,
-                                                //     left: 10,
-                                                //     right: 15,
-                                                //     //   bottom: 0,
-                                                //     child: Row(
-                                                //       children:  [
-                                                //
-                                                //         InkWell(
-                                                //             onTap: (){
-                                                //               showGeneralDialog(
-                                                //                   context: context,
-                                                //                   barrierDismissible: true,
-                                                //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                //                   pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                //                     return  Stack(
-                                                //                       children: [
-                                                //                         Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                //                         Positioned(
-                                                //                           right: 18,
-                                                //                           top: 30,
-                                                //                           child: Container(
-                                                //                               padding: EdgeInsets.all(10),
-                                                //                               height: 80,
-                                                //                               decoration: const BoxDecoration(
-                                                //                                   color: Colors.white,
-                                                //                                   shape: BoxShape.circle
-                                                //                               ),
-                                                //                               child:  Icon(Icons.clear)
-                                                //                           ),)
-                                                //                       ],
-                                                //                     );
-                                                //                   }
-                                                //               );
-                                                //             },
-                                                //             child: Image.asset('assets/images/topChef.png',width: 50,)),
-                                                //         InkWell(
-                                                //             onTap: (){
-                                                //               showGeneralDialog(
-                                                //                   context: context,
-                                                //                   barrierDismissible: true,
-                                                //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                //                   pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                //                     return  Stack(
-                                                //                       children: [
-                                                //                         Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                //                         Positioned(
-                                                //                           right: 18,
-                                                //                           top: 50,
-                                                //                           child: Container(
-                                                //                               padding: EdgeInsets.all(10),
-                                                //                               height: 50,
-                                                //                               decoration: const BoxDecoration(
-                                                //                                   color: Colors.white,
-                                                //                                   shape: BoxShape.circle
-                                                //                               ),
-                                                //                               child:  Icon(Icons.clear)
-                                                //                           ),)
-                                                //                       ],
-                                                //                     );
-                                                //                   }
-                                                //               );
-                                                //             },
-                                                //             child: Image.asset('assets/images/topChef.png',width: 50,)),
-                                                //
-                                                //       ],
-                                                //     )
-                                                // ),
+                                                controller1.model.value.data!.store![index].award!.isNotEmpty ?
+                                                Positioned(
+                                                    top: 14,
+                                                    // bottom: 0,
+                                                    left: 10,
+                                                    right: 15,
+                                                    //   bottom: 0,
+                                                    child: Row(
+                                                      children:  [
+
+                                                        InkWell(
+                                                            onTap: (){
+                                                              showGeneralDialog(
+                                                                  context: context,
+                                                                  barrierDismissible: true,
+                                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                  pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                    return  Stack(
+                                                                      children: [
+                                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                                                        Positioned(
+                                                                          right: 18,
+                                                                          top: 30,
+                                                                          child: Container(
+                                                                              padding: EdgeInsets.all(10),
+                                                                              height: 80,
+                                                                              decoration: const BoxDecoration(
+                                                                                  color: Colors.white,
+                                                                                  shape: BoxShape.circle
+                                                                              ),
+                                                                              child:  Icon(Icons.clear)
+                                                                          ),)
+                                                                      ],
+                                                                    );
+                                                                  }
+                                                              );
+                                                            },
+                                                            child: CachedNetworkImage(
+                                                              imageUrl:   controller1.model.value.data!.store![index].award![0].image.toString(),
+                                                              //fit: BoxFit.cover,
+                                                              height: 40,
+                                                              width: 40,
+                                                              errorWidget: (_, __, ___) => Image.asset(
+                                                                'assets/images/topChef.png',
+                                                                // fit: BoxFit.cover,
+                                                                height: 40,
+                                                                width: 40,
+                                                              ),
+                                                              placeholder: (_, __) =>
+                                                              const Center(child: CircularProgressIndicator()),
+                                                            )),
+                                                        InkWell(
+                                                            onTap: (){
+                                                              showGeneralDialog(
+                                                                  context: context,
+                                                                  barrierDismissible: true,
+                                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                  pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                    return  Stack(
+                                                                      children: [
+                                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                                                        Positioned(
+                                                                          right: 18,
+                                                                          top: 50,
+                                                                          child: Container(
+                                                                              padding: const EdgeInsets.all(10),
+                                                                              height: 50,
+                                                                              decoration: const BoxDecoration(
+                                                                                  color: Colors.white,
+                                                                                  shape: BoxShape.circle
+                                                                              ),
+                                                                              child:  const Icon(Icons.clear)
+                                                                          ),)
+                                                                      ],
+                                                                    );
+                                                                  }
+                                                              );
+                                                            },
+                                                            child: CachedNetworkImage(
+                                                              imageUrl:   controller1.model.value.data!.store![index].award![0].image.toString(),
+                                                              //fit: BoxFit.cover,
+                                                              height: 40,
+                                                              width: 40,
+                                                              errorWidget: (_, __, ___) => Image.asset(
+                                                                'assets/images/topChef.png',
+                                                                // fit: BoxFit.cover,
+                                                                height: 40,
+                                                                width: 40,
+                                                              ),
+                                                              placeholder: (_, __) =>
+                                                              const Center(child: CircularProgressIndicator()),
+                                                            )),
+
+                                                      ],
+                                                    )
+                                                ):  const SizedBox()
                                               ],
                                             ),
                                           ),
@@ -543,7 +581,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                           child: Text(
                                                             controller1.model.value.data!.product![index].name
                                                                 .toString()
-                                                                .replaceAll('homemady product test1284sdf', 'Test'),
+                                                                .replaceAll('homemady product test1284sdf', 'Test').capitalizeFirst.toString(),
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w700,
                                                                 fontSize: 14,
@@ -562,10 +600,20 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                       ],
                                                     ),
                                                     addHeight(3),
-                                                    Text(
-                                                      '${(controller1.model.value.data!.product![index].sizeId ?? '300').toString()} gm',
-                                                      style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          'Size: ${(controller1.model.value.data!.product![index].sizeQuantity ?? '').toString()}',
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                        ),
+                                                       // const SizedBox(width: 10,),
+                                                        Text(
+                                                          controller1.model.value.data!.product![index].sizeId ?? ''.toString(),
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                        ),
+                                                      ],
                                                     ),
                                                     addHeight(3),
                                                     Row(
@@ -579,8 +627,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                         ),
                                                         addWidth(4),
                                                         Expanded(
-                                                          child: Text(
-                                                            'Mildly Spicy',
+                                                          child: Text(controller1.model.value.data!.product![index].spiciness ?? ''.toString(),
+                                                          //  controller1.model.value.data!.product![index],'
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w500,
                                                                 fontSize: 10,
@@ -602,7 +650,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                         addWidth(4),
                                                         Expanded(
                                                           child: Text(
-                                                            'Crustaceans',
+                                                            controller1.model.value.data!.product![index].allergens ?? ''.toString(),
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w500,
                                                                 fontSize: 10,

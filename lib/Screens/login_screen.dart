@@ -1,15 +1,10 @@
-
-
-
-
 import 'dart:convert';
 import 'dart:developer';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+ import 'package:firebase_auth/firebase_auth.dart';
+ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
@@ -212,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         GestureDetector(
                           onTap: (){
-                            // signInWithGoogle();
+                             signInWithGoogle();
                           },
                           child: Container(
                             width: 152,
@@ -335,29 +330,29 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  // signInWithGoogle() async {
-  //   await GoogleSignIn().signOut();
-  //   final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-  //   final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-  //   final credential = GoogleAuthProvider.credential(
-  //     idToken: googleAuth.idToken,
-  //     accessToken: googleAuth.accessToken,
-  //   );
-  //   print("Token---------${googleAuth.accessToken}");
-  //   final value = await FirebaseAuth.instance.signInWithCredential(credential);
-  //   log(value.credential!.accessToken!);
-  //   //log(value.additionalUserInfo.a);
-  //   var fromToken = await FirebaseMessaging.instance.getToken();
-  //
-  //   socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
-  //     if (value.status == true) {
-  //       SharedPreferences pref = await SharedPreferences.getInstance();
-  //       pref.setString('user_info', jsonEncode(value));
-  //       showToast(value.message);
-  //       Get.offAllNamed(MyRouters.bottomNavbar);
-  //     } else {
-  //       showToast(value.message);
-  //     }
-  //   });
-  // }
+  signInWithGoogle() async {
+    await GoogleSignIn().signOut();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+    print("Token---------${googleAuth.accessToken}");
+    final value = await FirebaseAuth.instance.signInWithCredential(credential);
+    log(value.credential!.accessToken!);
+    //log(value.additionalUserInfo.a);
+    var fromToken = await FirebaseMessaging.instance.getToken();
+
+    socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+      if (value.status == true) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('user_info', jsonEncode(value));
+        showToast(value.message);
+        Get.offAllNamed(MyRouters.bottomNavbar);
+      } else {
+        showToast(value.message);
+      }
+    });
+  }
 }

@@ -2100,7 +2100,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 //    }
                                 //  });
 
-                                Get.toNamed(FilterProductScreen.filterProductScreen,arguments: [items[index].id].toString());
+                                Get.offNamed(FilterProductScreen.filterProductScreen,arguments: [items[index].id].toString());
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),

@@ -15,10 +15,10 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/category_controller.dart';
 import '../controller/fillter_product_category_controller.dart';
+import '../controller/filter_controller.dart';
 import '../controller/homepage_controller.dart';
 import '../controller/my_address_controller.dart';
 import '../controller/my_cart_controller.dart';
@@ -50,11 +50,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final myAddressController = Get.put(MyAddressController());
   final controller = Get.put(VendorSingleStoreController());
   final filterProductCategoryController = Get.put(FilterProductCategoryController());
+  final filterDataController = Get.put(FilterController());
 
   String dateInput11 = "";
   RxBool isValue = false.obs;
   String? selectedCategory;
-  int currentIndex = -1;
+  int currentIndex = 0;
   List categoryItemList=['A la Carte','Catering','Meal Prep'];
   List<ItemDropDown> items = <ItemDropDown>[
     const ItemDropDown('sustainable_packaging', 'Sustainable Packaging'),
@@ -91,10 +92,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
       categoryController.getDietiaryData();
       timeSlotController.getTimeSlotData();
       myAddressController.getData();
+      controller.getStoreKeywordListData();
       int currnetIndex = -1;
       _decrement();
       _increment();
     });
+
   }
 
   Future<void> _showSimpleDialog3(BuildContext context) async {
@@ -147,7 +150,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               errorWidget: (_, __, ___) => Image.asset(
                                                 'assets/images/error_image.png',
                                               ),
-                                              placeholder: (_, __) => Center(child: CircularProgressIndicator()),
+                                              placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                             ),
                                           ),
                                           addWidth(10),
@@ -276,8 +279,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ),
                                       addHeight(5),
                                       Container(
-                                        margin: EdgeInsets.only(left: 75),
-                                        color: Color(0xFFE9E9E9),
+                                        margin: const EdgeInsets.only(left: 75),
+                                        color: const Color(0xFFE9E9E9),
                                         width: AddSize.screenWidth,
                                         height: 1,
                                       ),
@@ -341,7 +344,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       );
                     },
                   )
-                : Center(child: CircularProgressIndicator()),
+                : const Center(child: CircularProgressIndicator()),
           );
         });
   }
@@ -380,6 +383,46 @@ class _HomePageScreenState extends State<HomePageScreen> {
       count--;
     });
   }
+  DateTime? pickedDate;
+  showDate() async {
+    return  pickedDate = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFF7ED957),
+              // header background color
+              onPrimary: Colors.white,
+              // header text color
+              onSurface: Color(0xFF7ED957), // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: const Color(0xFF7ED957), // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(const Duration(days: 0)),
+      // firstDate: DateTime(1950),
+      //DateTime.now() - not to allow to choose before today.
+      lastDate: DateTime(2025),
+    ).then((value) {
+      if (pickedDate != null) {
+        // showChooseDate(context);
+        String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate!);
+        setState(() {
+          selectedDate = formattedDate;
+        });
+      }
+    });
+  }
+
 
   showChooseDate(index) {
     RxInt refreshInt = 0.obs;
@@ -418,7 +461,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             child: Container(
                                 //height: 100,
                                 decoration: BoxDecoration(
-                                    color: currentIndex != index ? Colors.white : Color(0xFF7ED957),
+                                    color: currentIndex != index ? Colors.white : const Color(0xFF7ED957),
                                     borderRadius: BorderRadius.circular(4),
                                     border: currentIndex == index
                                         ? Border.all(color: const Color(0xff7ED957), width: 2)
@@ -450,7 +493,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               Get.back();
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Color(0xff7ED957),
+                              primary: const Color(0xff7ED957),
                             ),
                             child: const Text(
                               "OK",
@@ -870,11 +913,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 ),
               ),
               Badge(
-                badgeStyle: BadgeStyle(padding: EdgeInsets.all(7)),
+                badgeStyle: const BadgeStyle(padding: EdgeInsets.all(7)),
                 badgeContent: Obx(() {
                   return Text(
                     myCartController.isDataLoading.value ? myCartController.sum.value.toString() : '0',
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   );
                 }),
                 child: GestureDetector(
@@ -967,12 +1010,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           controller: searchController.searchController1,
                                           prefix: InkWell(
                                             onTap: () {
-                                              if (selectedDate != "Available Now") {
-                                                Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);
-                                              } else {
-                                                showToast("Please pick a date");
+                                              if (selectedDate != "Available now") {
+                                                 filterDataController.sendDate.value= selectedDate;
+                                                Get.toNamed(SearchScreenData.searchScreen,);
                                               }
-                                              print("Date is ${selectedDate}");
+                                              else if(selectedDate == "available_now"){
+                                                filterDataController.availableOption.value= "available_now";
+                                                Get.toNamed(SearchScreenData.searchScreen,);
+                                              }
+                                              else{
+                                                showToast("Please select pick date");
+                                              }
+                                              print("Date is $pickedDate");
                                               print(searchController.searchController1.text);
                                             },
                                             child: Icon(
@@ -1099,7 +1148,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         children: [
                                           Expanded(
                                             child: InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                if(selectedDate == 'Available Now') {
+                                                  filterDataController.availableOption.value = "available_now";
+                                                  selectedDate = "available_now";
+                                                  filterDataController.getFilterData();
+                                               }
+                                                else{
+                                                  showToast("Please pick a date");
+
+                                                }
+
+                                              },
                                               child: Container(
                                                 height: 44,
                                                 decoration: BoxDecoration(
@@ -1155,7 +1215,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             child: InkWell(
                                               onTap: () async {
                                                 showChooseDate(context);
-                                                DateTime? pickedDate = await showDatePicker(
+                                                // showDate();
+                                                pickedDate = await showDatePicker(
                                                   builder: (context, child) {
                                                     return Theme(
                                                       data: Theme.of(context).copyWith(
@@ -1178,7 +1239,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                                   context: context,
                                                   initialDate: DateTime.now(),
-                                                  firstDate: DateTime.now().subtract(Duration(days: 0)),
+                                                  firstDate: DateTime.now().subtract(const Duration(days: 0)),
                                                   // firstDate: DateTime(1950),
                                                   //DateTime.now() - not to allow to choose before today.
                                                   lastDate: DateTime(2025),
@@ -1199,7 +1260,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                                 if (pickedDate != null) {
                                                   // showChooseDate(context);
-                                                  String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
+                                                  String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate!);
                                                   setState(() {
                                                     selectedDate = formattedDate;
                                                     log("Seleted Date     $selectedDate");
@@ -1276,6 +1337,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                                     InkWell(
                                                       onTap: () {
+                                                        homeController.getData(
+                                                          filter: controller.storeKeywordModel.value.data!.productOption![index].id.toString()
+                                                        );
                                                         currentIndex = index;
                                                         setState(() {});
                                                       },
@@ -1286,7 +1350,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           height: 55,
                                                            width: 110,
                                                           decoration: BoxDecoration(
-                                                              color: currentIndex != index ? const Color(0xffF2F2F2): const Color(0xff7ED957),
+                                                              color: currentIndex != index ? const Color(0xffF2F2F2).withOpacity(.10): const Color(0xff7ED957),
                                                               borderRadius: BorderRadius.circular(30)
 
                                                           ),
@@ -1402,7 +1466,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         ),
                                                       ),
                                                     ),
-                                                     Positioned(
+                                                     const Positioned(
                                                         top: 80,
                                                         // bottom: 0,
                                                         left: 20,
@@ -1410,7 +1474,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         //   bottom: 0,
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: const [
+                                                          children: [
                                                             Icon(
                                                               Icons.arrow_back_ios,
                                                               color: Colors.white,
@@ -1695,7 +1759,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       ],
                     )),
                   )
-                : Center(child: CircularProgressIndicator()),
+                : const Center(child: CircularProgressIndicator()),
           );
         })
         //bottomNavigationBar: ,
@@ -1744,23 +1808,26 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 color: const Color(0xFF425159),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
                             categoryController.isDataLoading ?
                             ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: categoryController.categoryModel.value.data!.category!.length,
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext, index) {
+                                  final category = categoryController.categoryModel.value.data!.category![index];
                                   return InkWell(
                                     onTap: () {
-                                      homeController.filterCategoryId.value = categoryController.categoryModel.value.data!.category![index].id.toString();
-                                      homeController.categoryType.value = categoryController.categoryModel.value.data!.category![index].categoryType.toString();
-                                    print("Filter category id is ${homeController.filterCategoryId.value}");
-                                    print("Filter category type is ${homeController.categoryType.value }");
-                                      homeController.getData();
-                                     // setState(() {});
+                                      if(categoryController
+                                          .categoryModel.value.data!.selectedID.value != category.id.toString()) {
+                                        categoryController
+                                            .categoryModel.value.data!.selectedID.value = category.id.toString();
+                                      } else {
+                                        categoryController
+                                            .categoryModel.value.data!.selectedID.value = "";
+                                      }
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1769,7 +1836,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              categoryController.categoryModel.value.data!.category![index].name.toString(),
+                                              category.name.toString(),
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w300,
                                                 fontSize: 18,
@@ -1781,30 +1848,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   side: const BorderSide(color: Colors.black, width: 2),
                                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                                                   value: categoryController
-                                                      .categoryModel.value.data!.category![index].isChecked.value,
+                                                      .categoryModel.value.data!.selectedID.value== category.id.toString(),
                                                   onChanged: (value) {
-                                                    setState(() {
+                                                    if(categoryController
+                                                        .categoryModel.value.data!.selectedID.value != category.id.toString()) {
                                                       categoryController
-                                                              .categoryModel.value.data!.category![index].isChecked.value =
-                                                          !categoryController
-                                                              .categoryModel.value.data!.category![index].isChecked.value;
-                                                      if (categoryController
-                                                              .categoryModel.value.data!.category![index].isChecked.value ==
-                                                          true) {
-                                                        categoryController.categoryModel.value.data!.selectedContacts!.add(
-                                                            categoryController.categoryModel.value.data!.category![index]);
-                                                        // kk.value = index;
-                                                        print(index);
-                                                      } else if (categoryController
-                                                              .categoryModel.value.data!.category![index].isChecked.value ==
-                                                          false) {
-                                                        categoryController.categoryModel.value.data!.selectedContacts!
-                                                            .removeWhere((element) =>
-                                                                element.id ==
-                                                                categoryController
-                                                                    .categoryModel.value.data!.category![index].id);
-                                                      }
-                                                    });
+                                                          .categoryModel.value.data!.selectedID.value = category.id.toString();
+                                                    } else {
+                                                      categoryController
+                                                          .categoryModel.value.data!.selectedID.value = "";
+                                                    }
                                                   });
                                             })
                                           ],
@@ -1812,21 +1865,24 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ],
                                     ),
                                   );
-                                }):SizedBox(),
+                                }):const SizedBox(),
                             categoryController.isDataLoading ?
                             ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: categoryController.categoryModel.value.data!.secondaryCategory!.length,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (BuildContext, index) {
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  final item = categoryController.categoryModel.value.data!.secondaryCategory![index];
                                   return InkWell(
                                     onTap: () {
-                                      homeController.filterCategoryId.value = categoryController.categoryModel.value.data!.secondaryCategory![index].id.toString();
-                                      homeController.categoryType.value = categoryController.categoryModel.value.data!.secondaryCategory![index].categoryType.toString();
-                                      print("Filter  secondary category id is ${homeController.filterCategoryId.value}");
-                                      print("Filter category type is ${homeController.categoryType.value }");
-                                       homeController.getData();
-                                      // setState(() {});
+                                      if(categoryController
+                                          .categoryModel.value.data!.selectedID.value != item.id.toString()) {
+                                        categoryController
+                                            .categoryModel.value.data!.selectedID.value = item.id.toString();
+                                      } else {
+                                        categoryController
+                                            .categoryModel.value.data!.selectedID.value = "";
+                                      }
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1835,7 +1891,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              categoryController.categoryModel.value.data!.secondaryCategory![index].name.toString(),
+                                              item.name.toString(),
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w300,
                                                 fontSize: 18,
@@ -1847,30 +1903,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   side: const BorderSide(color: Colors.black, width: 2),
                                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                                                   value: categoryController
-                                                      .categoryModel.value.data!.secondaryCategory![index].isChecked1.value,
+                                                      .categoryModel.value.data!.selectedID.value == item.id.toString(),
                                                   onChanged: (value) {
-                                                    setState(() {
+                                                    if(categoryController
+                                                        .categoryModel.value.data!.selectedID.value != item.id.toString()) {
                                                       categoryController
-                                                          .categoryModel.value.data!.secondaryCategory![index].isChecked1.value =
-                                                      !categoryController
-                                                          .categoryModel.value.data!.secondaryCategory![index].isChecked1.value;
-                                                      if (categoryController
-                                                          .categoryModel.value.data!.secondaryCategory![index].isChecked1.value ==
-                                                          true) {
-                                                        categoryController.categoryModel.value.data!.selectedContacts1!.add(
-                                                            categoryController.categoryModel.value.data!.secondaryCategory![index]);
-                                                        // kk.value = index;
-                                                        print(index);
-                                                      } else if (categoryController
-                                                          .categoryModel.value.data!.category![index].isChecked.value ==
-                                                          false) {
-                                                        categoryController.categoryModel.value.data!.selectedContacts!
-                                                            .removeWhere((element) =>
-                                                        element.id ==
-                                                            categoryController
-                                                                .categoryModel.value.data!.category![index].id);
-                                                      }
-                                                    });
+                                                          .categoryModel.value.data!.selectedID.value = item.id.toString();
+                                                    } else {
+                                                      categoryController
+                                                          .categoryModel.value.data!.selectedID.value = "";
+                                                    }
                                                   });
                                             })
                                           ],
@@ -1883,17 +1925,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: categoryController.categoryModel.value.data!.tertiaryCategory!.length,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (BuildContext, index) {
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  final item = categoryController.categoryModel.value.data!.tertiaryCategory![index];
                                   return InkWell(
                                     onTap: () {
-                                      homeController.filterCategoryId.value = categoryController.categoryModel.value.data!.tertiaryCategory![index].id.toString();
-                                      homeController.categoryType.value = categoryController.categoryModel.value.data!.tertiaryCategory![index].categoryType.toString();
-                                      print("Filter  tertiary category id is ${homeController.filterCategoryId.value}");
-                                      print("Filter category type is ${homeController.categoryType.value }");
-                                      homeController.getData();
-                                      //  setState(() {});
-                                    // },
+                                      if(categoryController.categoryModel.value.data!.selectedID.value != item.id.toString()) {
+                                        categoryController.categoryModel.value.data!.selectedID.value = item.id.toString();
+                                      } else {
+                                        categoryController.categoryModel.value.data!.selectedID.value = "";
+                                      }
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1902,7 +1943,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              categoryController.categoryModel.value.data!.tertiaryCategory![index].name.toString(),
+                                              item.name.toString(),
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w300,
                                                 fontSize: 18,
@@ -1913,31 +1954,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               return Checkbox(
                                                   side: const BorderSide(color: Colors.black, width: 2),
                                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                                  value: categoryController
-                                                      .categoryModel.value.data!.tertiaryCategory![index].isChecked2.value,
+                                                  value:  categoryController.categoryModel.value.data!.selectedID.value == item.id.toString(),
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      categoryController
-                                                          .categoryModel.value.data!.tertiaryCategory![index].isChecked2.value =
-                                                      !categoryController
-                                                          .categoryModel.value.data!.tertiaryCategory![index].isChecked2.value;
-                                                      if (categoryController
-                                                          .categoryModel.value.data!.tertiaryCategory![index].isChecked2.value ==
-                                                          true) {
-                                                        categoryController.categoryModel.value.data!.selectedContacts2!.add(
-                                                            categoryController.categoryModel.value.data!.tertiaryCategory![index]);
-                                                        // kk.value = index;
-                                                        print(index);
-                                                      } else if (categoryController
-                                                          .categoryModel.value.data!.category![index].isChecked.value ==
-                                                          false) {
-                                                        categoryController.categoryModel.value.data!.selectedContacts!
-                                                            .removeWhere((element) =>
-                                                        element.id ==
-                                                            categoryController
-                                                                .categoryModel.value.data!.category![index].id);
-                                                      }
-                                                    });
+                                                    if(categoryController.categoryModel.value.data!.selectedID.value != item.id.toString()) {
+                                                      categoryController.categoryModel.value.data!.selectedID.value = item.id.toString();
+                                                    } else {
+                                                      categoryController.categoryModel.value.data!.selectedID.value = "";
+                                                    }
                                                   });
                                             })
                                           ],
@@ -1945,7 +1968,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ],
                                     ),
                                   );
-                                }):SizedBox(),
+                                }):const SizedBox(),
 
                             Text(
                               "Dietary:",
@@ -1955,23 +1978,24 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 color: const Color(0xFF425159),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
                             categoryController.isDataLoading ?
                             ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: categoryController.dietiaryModel.value.data!.dietary!.length,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (BuildContext, index) {
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  final item = categoryController.dietiaryModel.value.data!.dietary![index];
                                   return InkWell(
                                     onTap: () {
-                                      homeController.chooseDietaries.value = categoryController.dietiaryModel.value.data!.dietary![index].id.toString();
-                                      // homeController.categoryType.value = categoryController.dietiaryModel.value.data!.dietary![index].categoryType.toString();
-                                      print("Filter  Dietiary category id is ${homeController.filterCategoryId.value}");
-                                     // print("Filter category type is ${homeController.categoryType.value }");
-                                      homeController.getData();
-                                      setState(() {});
+                                     //  homeController.chooseDietaries.value = categoryController.dietiaryModel.value.data!.dietary![index].id.toString();
+                                     //  // homeController.categoryType.value = categoryController.dietiaryModel.value.data!.dietary![index].categoryType.toString();
+                                     //  print("Filter  Dietiary category id is ${homeController.filterCategoryId.value}");
+                                     // // print("Filter category type is ${homeController.categoryType.value }");
+                                     //  homeController.getData();
+                                     //  setState(() {});
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1980,7 +2004,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              categoryController.dietiaryModel.value.data!.dietary![index].title.toString(),
+                                              item.title.toString(),
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w300,
                                                 fontSize: 18,
@@ -1991,25 +2015,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               return Checkbox(
                                                   side: const BorderSide(color: Colors.black, width: 2),
                                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                                  value: categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value,
+                                                  value: categoryController.dietiaryModel.value.data!.selected.value == item.id.toString(),
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value =
-                                                      !categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value;
-                                                      if (categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value ==
-                                                          true) {
-                                                        categoryController.dietiaryModel.value.data!.selectedItems!.add(
-                                                            categoryController.dietiaryModel.value.data!.dietary![index]);
-                                                        // kk.value = index;
-                                                        print(index);
-                                                      } else if (categoryController.dietiaryModel.value.data!.dietary![index].isCheckedItem.value ==
-                                                          false) {
-                                                        categoryController.dietiaryModel.value.data!.selectedItems!
-                                                            .removeWhere((element) =>
-                                                        element.id ==
-                                                            categoryController.dietiaryModel.value.data!.dietary![index].id);
-                                                      }
-                                                    });
+                                                    if(categoryController.dietiaryModel.value.data!.selected.value != item.id.toString()) {
+                                                      categoryController.dietiaryModel.value.data!.selected.value =
+                                                          item.id.toString();
+                                                    } else {
+                                                      categoryController.dietiaryModel.value.data!.selected.value = "";
+                                                    }
                                                   });
                                             })
                                           ],
@@ -2017,7 +2030,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ],
                                     ),
                                   );
-                                }):SizedBox(),
+                                }):const SizedBox(),
 
                             Center(
                               child: Padding(
@@ -2027,11 +2040,23 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     child: ElevatedButton(
                                       child: const Text("Filter"),
                                       onPressed: () {
-                                       //  homeController.filterCategoryId.value = categoryController.categoryModel.value.data!.category![index].id.toString();
-                                        //homeController.categoryType.value = categoryController.categoryModel.value.data!.category![index].categoryType.toString();
-                                        homeController.getData();
+                                        String filter_category = "";
+                                        String category_type = "";
+                                        for (var element in categoryController.categoryModel.value.data!.allCategory) {
+                                          if(categoryController.categoryModel.value.data!.selectedID.value == element.id.toString()){
+                                            filter_category = element.id.toString();
+                                            category_type = element.categoryType.toString();
+                                            break;
+                                          }
+                                        }
+                                        homeController.getData(
+                                          filterCategory: filter_category,
+                                          categoryType: category_type,
+                                          chooseDietaries: categoryController.dietiaryModel.value.data!.selected.value
+                                        );
                                         Get.back();
-                                        setState(() {});
+
+                                        // setState(() {});
                                       },
                                     ),
                                   )),
@@ -2061,7 +2086,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 right: 35,
                 top: 170,
                 child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     height: 80,
                     decoration: BoxDecoration(color: Colors.grey.shade100, shape: BoxShape.circle),
                     child: GestureDetector(
@@ -2087,7 +2112,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 7,
                       ),
                       ListView.builder(
@@ -2128,7 +2153,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               ),
                             );
                           }),
-                      SizedBox(
+                      const SizedBox(
                         height: 7,
                       ),
                       // Center(
@@ -2304,7 +2329,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                 alignment: Alignment.center,
                                                                 child: Padding(
                                                                   padding: const EdgeInsets.only(left: 14.0, right: 14.0),
-                                                                  child: Text('${count}'),
+                                                                  child: Text('$count'),
                                                                 ),
                                                               );
                                                             }),
@@ -2340,8 +2365,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               ),
                                               addHeight(5),
                                               Container(
-                                                margin: EdgeInsets.only(left: 75),
-                                                color: Color(0xFFE9E9E9),
+                                                margin: const EdgeInsets.only(left: 75),
+                                                color: const Color(0xFFE9E9E9),
                                                 width: AddSize.screenWidth,
                                                 height: 1,
                                               ),
@@ -2412,8 +2437,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             );
                           },
                         )
-                      : Center(child: Text('No Search'))
-                  : Center(child: const CircularProgressIndicator()),
+                      : const Center(child: Text('No Search'))
+                  : const Center(child: CircularProgressIndicator()),
             );
           });
         });

@@ -294,7 +294,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   ),
                                                 ),
                                               ),
-                                               Positioned(
+                                               const Positioned(
                                                   top: 80,
                                                   // bottom: 0,
                                                   left: 20,
@@ -303,7 +303,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .spaceBetween,
-                                                    children: const [
+                                                    children: [
                                                       Icon(Icons.arrow_back_ios,
                                                         color: Colors.white,size: 20,),
                                                       Icon(Icons.arrow_forward_ios,

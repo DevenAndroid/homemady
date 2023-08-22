@@ -111,12 +111,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                         Icons.visibility,
                                         color: Color(0xFF53B176),
                                       )),
-                                  validator: MultiValidator([
-                                   /* EmailValidator(
-                                        errorText:
-                                        'enter a valid email address'),*/
+                                  validator:MultiValidator([
                                     RequiredValidator(
-                                        errorText: 'Please enter a password')
+                                        errorText: 'Please Enter The Password'),
+                                    MinLengthValidator(8,
+                                        errorText:
+                                        'Password must be at least 8 digits long'),
+                                    PatternValidator(
+                                        r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])",
+                                        // r"^[a-zA-Z]{8,10}$",
+                                        errorText:
+                                        'Password must be at least 8 digits long,with \nmust have one capital letter, one small letter & one number')
                                   ]),
 
                                 ),

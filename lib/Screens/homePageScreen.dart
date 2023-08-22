@@ -73,7 +73,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
   RxBool selectIcon = false.obs;
   int currentDrawer = 0;
   RxInt count = 0.obs;
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+   // final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   String selectedDate = 'Available Now';
 
   void initState() {
@@ -472,7 +473,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      drawer:const CustomDrawer(),
+     // drawer:const CustomDrawer(),
       // Drawer(
       //   child: SingleChildScrollView(
       //     scrollDirection: Axis.vertical,
@@ -796,7 +797,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           title: Row(
             children: [
               GestureDetector(onTap: () {
-                _scaffoldKey.currentState!.openDrawer();
+                profileController.scaffoldKey.currentState!.openDrawer();
               }, child: Obx(() {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(50),
@@ -901,7 +902,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
           elevation: 0,
           toolbarHeight: 70,
         ),
-        key: _scaffoldKey,
         body: Obx(() {
           return SafeArea(
             child: homeController.isDataLoading.value && profileController.isDataLoading.value

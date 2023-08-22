@@ -12,6 +12,7 @@ import 'package:homemady/routers/routers.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Screens/custom_drawer.dart';
 import '../Screens/featured_store_list.dart';
 import '../Screens/myAddressScreen.dart';
 import '../Screens/notification2.dart';
@@ -77,7 +78,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
   Widget build(BuildContext context) {
     return Obx(() {
       final screenSize = MediaQuery.of(context).size;
-      return Scaffold(
+      return Scaffold(key: profileController.scaffoldKey,
+          drawer: const CustomDrawer(),
       //     drawer: Drawer(
       //   child: ListView(
       //     padding: EdgeInsets.zero,

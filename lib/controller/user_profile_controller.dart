@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +20,7 @@ class UserProfileController extends GetxController{
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
  // FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future getData() async {
     isDataLoading.value = false;

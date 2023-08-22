@@ -10,6 +10,7 @@ class ApiUrl {
   static const cancelOrderUrl = "${baseUrl}order-cancel";
   static const myCartApi = "${baseUrl}my-cart";
   static const orderTipUrl = "${baseUrl}order-tip";
+  static const applyCouponsUrl = "${baseUrl}coupon-apply";
   static const removeTipUrl = "${baseUrl}remove-tip";
   static const mailToAdminUrl = "${baseUrl}request-homemady-inspection";
   static const removeCartItemUrl = "${baseUrl}remove-cart-item";

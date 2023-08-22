@@ -126,7 +126,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                        child: Center(
                                          child: Padding(
                                            padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 3),
-                                           child: Text('Successful',
+                                           child: Text(
+                                             controller.model.value.orderDetail!.deliveryStatus!.toString(),
                                              style: GoogleFonts.poppins(
                                                color: const Color(0xFFFFFFFF),
                                                fontSize: 12,

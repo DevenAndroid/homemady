@@ -29,6 +29,7 @@ import '../controller/vendor_single_store_controller.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
+import 'custom_drawer.dart';
 import 'myAddressScreen.dart';
 import 'notification2.dart';
 
@@ -54,6 +55,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   RxBool isValue = false.obs;
   String? selectedCategory;
   int currentIndex = -1;
+  List categoryItemList=['A la Carte','Catering','Meal Prep'];
   List<ItemDropDown> items = <ItemDropDown>[
     const ItemDropDown('sustainable_packaging', 'Sustainable Packaging'),
     const ItemDropDown('quickest_delivery', 'Quickest Delivery'),
@@ -470,325 +472,326 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: Drawer(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                children: [
-                  SizedBox(
-                    // height: 240,
-                    child: DrawerHeader(
-                        decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xFF7ED957),
-                                Color(0xFF68C541),
-                              ],
-                            )),
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: Obx(() {
-                              return Expanded(
-                                child: Container(
-                                  height: screenSize.height * 0.30,
-                                  width: screenSize.width,
-                                  child: Column(
-                                    children: [
-                                      Obx(() {
-                                        return Container(
-                                          margin: const EdgeInsets.all(4),
-                                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                                          decoration: const ShapeDecoration(
-                                            shape: CircleBorder(),
-                                            color: Colors.white,
-                                          ),
-                                          child: CachedNetworkImage(
-                                            imageUrl: profileController.isDataLoading.value
-                                                ? (profileController.model.value.data!.profileImage ?? "").toString()
-                                                : "assets/images/dummyPerson.png"
-                                                "",
-                                            height: screenSize.height * 0.10,
-                                            width: screenSize.height * 0.10,
-                                            errorWidget: (_, __, ___) => const SizedBox(),
-                                            placeholder: (_, __) => const SizedBox(),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        );
-                                      }),
-                                      Expanded(
-                                        child: Text(
-                                            profileController.isDataLoading.value
-                                                ? profileController.model.value.data!.email.toString()
-                                                : 'williamsjones@gmail.com',
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 18,
-                                              color: const Color(0xFFFFFFFF),
-                                              fontWeight: FontWeight.w600,
-                                            )),
-                                      ),
-                                      SizedBox(height: 2,),
-                                      Expanded(
-                                        child: Text(
-                                            profileController.isDataLoading.value
-                                                ? profileController.model.value.data!.name.toString()
-                                                : 'Williams Jones',
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 15,
-                                              color: const Color(0xFFFFFFFF),
-                                              fontWeight: FontWeight.w400,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }))),
-                  ),
-                  SizedBox(height: 10,),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/note-2.png',
-                      height: 20,
-                    ),
-                    title: Text('My Orders',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 0;
-                        Get.toNamed(MyRouters.myOrderScreen);
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Icon(Icons.favorite_border_outlined),
-                    title: Text('Favorite',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 0;
-                        Get.toNamed(MyRouters.favouriteScreen);
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/personImg.png',
-                      height: 20,
-                    ),
-                    title: Text('My profile',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 1;
-                        Get.toNamed(MyRouters.myProfileScreen);
-                        // Get.to(VendorOrderList());
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/notification-img.png',
-                      height: 20,
-                    ),
-                    title: Text('Notification',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 2;
-                        Get.toNamed(MyRouters.notificationScreen);
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/location-my.png',
-                      height: 20,
-                    ),
-                    title: Text('My Address',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 3;
-                        Get.to(() => const MyAddressScreen());
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/notebook_reference.png',
-                      height: 20,
-                    ),
-                    title: Text('Refer and Earn',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 4;
-                        Get.toNamed(MyRouters.referAndEarn);
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/metro-security.png',
-                      height: 20,
-                    ),
-                    title: Text('Privacy Policy',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 6;
-                        Get.toNamed(MyRouters.privacyPolicy);
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/chatchatting.png',
-                      height: 20,
-                    ),
-                    title: Text('My Chats',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 7;
-                        Get.toNamed(NotificationScreen2.notificationScreen2);
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/helpICon.png',
-                      height: 20,
-                    ),
-                    title: Text('Help Center',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() {
-                        currentDrawer = 8;
-                        Get.toNamed(MyRouters.helpCenterScreen);
-                      });
-                    },
-                  ),
-                  const Divider(
-                    height: 5,
-                    color: Color(0xffEFEFEF),
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                    leading: Image.asset(
-                      'assets/images/logout.png',
-                      height: 16,
-                    ),
-                    title: Text('Logout',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: const Color(0xFF4F535E),
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      setState(() async {
-                        SharedPreferences pref = await SharedPreferences.getInstance();
-                        pref.clear();
-                        Get.toNamed(MyRouters.loginScreen);
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer:const CustomDrawer(),
+      // Drawer(
+      //   child: SingleChildScrollView(
+      //     scrollDirection: Axis.vertical,
+      //     child: Column(
+      //       children: [
+      //         ListView(
+      //           shrinkWrap: true,
+      //           padding: EdgeInsets.zero,
+      //           children: [
+      //             SizedBox(
+      //               // height: 240,
+      //               child: DrawerHeader(
+      //                   decoration: const BoxDecoration(
+      //                       gradient: LinearGradient(
+      //                         colors: [
+      //                           Color(0xFF7ED957),
+      //                           Color(0xFF68C541),
+      //                         ],
+      //                       )),
+      //                   child: Align(
+      //                       alignment: Alignment.center,
+      //                       child: Obx(() {
+      //                         return Expanded(
+      //                           child: Container(
+      //                             height: screenSize.height * 0.30,
+      //                             width: screenSize.width,
+      //                             child: Column(
+      //                               children: [
+      //                                 Obx(() {
+      //                                   return Container(
+      //                                     margin: const EdgeInsets.all(4),
+      //                                     clipBehavior: Clip.antiAliasWithSaveLayer,
+      //                                     decoration: const ShapeDecoration(
+      //                                       shape: CircleBorder(),
+      //                                       color: Colors.white,
+      //                                     ),
+      //                                     child: CachedNetworkImage(
+      //                                       imageUrl: profileController.isDataLoading.value
+      //                                           ? (profileController.model.value.data!.profileImage ?? "").toString()
+      //                                           : "assets/images/dummyPerson.png"
+      //                                           "",
+      //                                       height: screenSize.height * 0.10,
+      //                                       width: screenSize.height * 0.10,
+      //                                       errorWidget: (_, __, ___) => const SizedBox(),
+      //                                       placeholder: (_, __) => const SizedBox(),
+      //                                       fit: BoxFit.cover,
+      //                                     ),
+      //                                   );
+      //                                 }),
+      //                                 Expanded(
+      //                                   child: Text(
+      //                                       profileController.isDataLoading.value
+      //                                           ? profileController.model.value.data!.email.toString()
+      //                                           : 'williamsjones@gmail.com',
+      //                                       style: GoogleFonts.poppins(
+      //                                         fontSize: 18,
+      //                                         color: const Color(0xFFFFFFFF),
+      //                                         fontWeight: FontWeight.w600,
+      //                                       )),
+      //                                 ),
+      //                                 SizedBox(height: 2,),
+      //                                 Expanded(
+      //                                   child: Text(
+      //                                       profileController.isDataLoading.value
+      //                                           ? profileController.model.value.data!.name.toString()
+      //                                           : 'Williams Jones',
+      //                                       style: GoogleFonts.poppins(
+      //                                         fontSize: 15,
+      //                                         color: const Color(0xFFFFFFFF),
+      //                                         fontWeight: FontWeight.w400,
+      //                                       )),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         );
+      //                       }))),
+      //             ),
+      //             SizedBox(height: 10,),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/note-2.png',
+      //                 height: 20,
+      //               ),
+      //               title: Text('My Orders',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 0;
+      //                   Get.toNamed(MyRouters.myOrderScreen);
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Icon(Icons.favorite_border_outlined),
+      //               title: Text('Favorite',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 0;
+      //                   Get.toNamed(MyRouters.favouriteScreen);
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/personImg.png',
+      //                 height: 20,
+      //               ),
+      //               title: Text('My profile',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 1;
+      //                   Get.toNamed(MyRouters.myProfileScreen);
+      //                   // Get.to(VendorOrderList());
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/notification-img.png',
+      //                 height: 20,
+      //               ),
+      //               title: Text('Notification',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 2;
+      //                   Get.toNamed(MyRouters.notificationScreen);
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/location-my.png',
+      //                 height: 20,
+      //               ),
+      //               title: Text('My Address',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 3;
+      //                   Get.to(() => const MyAddressScreen());
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/notebook_reference.png',
+      //                 height: 20,
+      //               ),
+      //               title: Text('Refer and Earn',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 4;
+      //                   Get.toNamed(MyRouters.referAndEarn);
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/metro-security.png',
+      //                 height: 20,
+      //               ),
+      //               title: Text('Privacy Policy',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 6;
+      //                   Get.toNamed(MyRouters.privacyPolicy);
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/chatchatting.png',
+      //                 height: 20,
+      //               ),
+      //               title: Text('My Chats',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 7;
+      //                   Get.toNamed(NotificationScreen2.notificationScreen2);
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/helpICon.png',
+      //                 height: 20,
+      //               ),
+      //               title: Text('Help Center',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() {
+      //                   currentDrawer = 8;
+      //                   Get.toNamed(MyRouters.helpCenterScreen);
+      //                 });
+      //               },
+      //             ),
+      //             const Divider(
+      //               height: 5,
+      //               color: Color(0xffEFEFEF),
+      //               thickness: 1,
+      //             ),
+      //             ListTile(
+      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+      //               leading: Image.asset(
+      //                 'assets/images/logout.png',
+      //                 height: 16,
+      //               ),
+      //               title: Text('Logout',
+      //                   style: GoogleFonts.poppins(
+      //                     fontSize: 15,
+      //                     color: const Color(0xFF4F535E),
+      //                     fontWeight: FontWeight.w400,
+      //                   )),
+      //               onTap: () {
+      //                 setState(() async {
+      //                   SharedPreferences pref = await SharedPreferences.getInstance();
+      //                   pref.clear();
+      //                   Get.toNamed(MyRouters.loginScreen);
+      //                 });
+      //               },
+      //             ),
+      //           ],
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
         appBar: AppBar(
           title: Row(
             children: [
@@ -1257,7 +1260,53 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         ],
                                       ),
                                     ),
-                                    addHeight(20),
+                                    addHeight(10),
+                                    SizedBox(
+                                      height: 80,
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: categoryItemList.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 5),
+                                              child:
+                                              Row(
+                                                  children:[
+
+                                                    InkWell(
+                                                      onTap: () {
+                                                        currentIndex = index;
+                                                        setState(() {});
+                                                      },
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(6.0),
+                                                        child: Container(
+                                                           margin: const EdgeInsets.symmetric(vertical: 5),
+                                                          height: 55,
+                                                           width: 110,
+                                                          decoration: BoxDecoration(
+                                                              color: currentIndex != index ? const Color(0xffF2F2F2): const Color(0xff7ED957),
+                                                              borderRadius: BorderRadius.circular(30)
+
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: Center(
+                                                              child: Text( categoryItemList[index].toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  color: currentIndex != index ? const Color(0xff000000):const Color(0xffFFFFFF)),),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ]
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                    addHeight(10),
                                     ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: homeController.model.value.data!.stores!.length,
@@ -1637,52 +1686,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     ),
                                   ],
                                 ),
-                              // SizedBox(
-                              //    height: 120,
-                              //    child: ListView.builder(
-                              //        shrinkWrap: true,
-                              //        scrollDirection: Axis.horizontal,
-                              //        itemCount: categoryController.categoryModel.value.data!.categories!.length,
-                              //        itemBuilder: (context, index) {
-                              //          return Padding(
-                              //            padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 7),
-                              //            child:
-                              //            Row(
-                              //                children:[
-                              //
-                              //                  InkWell(
-                              //                    onTap: () {
-                              //                      currentIndex = index;
-                              //                      setState(() {
-                              //
-                              //                      });
-                              //                    },
-                              //                    child: Container(
-                              //                      // margin: EdgeInsets.symmetric(vertical: 5),
-                              //                      height: 42,
-                              //                      // width: 110,
-                              //                      decoration: BoxDecoration(
-                              //                          color: currentIndex != index ? Color(0xffF2F2F2): Color(0xff7ED957),
-                              //                          borderRadius: BorderRadius.circular(
-                              //                              5)
-                              //
-                              //                      ),
-                              //                      child: Padding(
-                              //                        padding: const EdgeInsets.all(8.0),
-                              //                        child: Center(
-                              //                          child: Text(categoryController.categoryModel.value.data!.categories![index].name.toString(), textAlign:TextAlign.center,style: GoogleFonts.ibmPlexSansArabic(fontSize: 15,
-                              //                              fontWeight: FontWeight.w600,
-                              //                              color: currentIndex != index ? Color(0xff000000):Color(0xffFFFFFF)),),
-                              //                        ),
-                              //                      ),
-                              //                    ),
-                              //                  ),
-                              //                ]
-                              //            ),
-                              //          );
-                              //        }),
-                              //  ),
-                              // addHeight(20),
+
+                              addHeight(20),
 
                             ],
                           ),
@@ -1754,7 +1759,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       homeController.categoryType.value = categoryController.categoryModel.value.data!.category![index].categoryType.toString();
                                     print("Filter category id is ${homeController.filterCategoryId.value}");
                                     print("Filter category type is ${homeController.categoryType.value }");
-                                     // homeController.getData();
+                                      homeController.getData();
                                      // setState(() {});
                                     },
                                     child: Column(
@@ -1820,7 +1825,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       homeController.categoryType.value = categoryController.categoryModel.value.data!.secondaryCategory![index].categoryType.toString();
                                       print("Filter  secondary category id is ${homeController.filterCategoryId.value}");
                                       print("Filter category type is ${homeController.categoryType.value }");
-                                      // homeController.getData();
+                                       homeController.getData();
                                       // setState(() {});
                                     },
                                     child: Column(
@@ -1886,7 +1891,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       homeController.categoryType.value = categoryController.categoryModel.value.data!.tertiaryCategory![index].categoryType.toString();
                                       print("Filter  tertiary category id is ${homeController.filterCategoryId.value}");
                                       print("Filter category type is ${homeController.categoryType.value }");
-                                      // homeController.getData();
+                                      homeController.getData();
                                       //  setState(() {});
                                     // },
                                     },
@@ -2022,6 +2027,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     child: ElevatedButton(
                                       child: const Text("Filter"),
                                       onPressed: () {
+                                       //  homeController.filterCategoryId.value = categoryController.categoryModel.value.data!.category![index].id.toString();
+                                        //homeController.categoryType.value = categoryController.categoryModel.value.data!.category![index].categoryType.toString();
                                         homeController.getData();
                                         Get.back();
                                         setState(() {});

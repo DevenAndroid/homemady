@@ -566,9 +566,9 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                   addWidth(10),
                                   GestureDetector(
                                     onTap: () {
-
+                                      Get.back();
                                       //_showDialogCategory();
-                                      showUploadWindow(categoryController.categoryModel.value.data!.category!);
+                                      // showUploadWindow(categoryController.categoryModel.value.data!.category!);
                                     },
                                     child: Container(
                                       height: 40,

@@ -13,6 +13,7 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 import '../controller/my_address_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../model/my_address_model.dart';
+import '../repository/apply_coupon_repo.dart';
 import '../repository/checkout_order_repo.dart';
 import '../resources/add_text.dart';
 import '../singlecookDetails/carte.dart';
@@ -30,6 +31,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   final myAddressController = Get.put(MyAddressController());
   final myCartController = Get.put(MyCartListController());
   final TextEditingController specialRequestController = TextEditingController();
+  final TextEditingController codeController = TextEditingController();
   final TextEditingController deliveryInstructionController = TextEditingController();
   bool showError = false;
   Rx<AddressData> addressModel = AddressData().obs;
@@ -260,6 +262,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     child: Padding(
                         padding: const EdgeInsets.only(left: 8, right: 8, top: 14, bottom: 5),
                         child: CustomTextField1(
+                          controller: codeController,
                           obSecure: false.obs,
                           hintText: 'Apply Promo Code'.obs,
                           suffixIcon: Padding(
@@ -273,11 +276,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     Color(0xFF68C541),
                                   ]),
                                   borderRadius: BorderRadius.circular(100)),
-                              child: Center(
-                                child: Text(
-                                  'Apply',
-                                  style:
-                                      GoogleFonts.poppins(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+                              child: GestureDetector(
+                                onTap: () {
+                                  applyCoupons(couponCode: codeController.text
+                                      .toString(), context: context).
+                                  then((value){
+                                    showToast(value.message);
+                                    if(value.status == true){
+                                      codeController.clear();
+                                      myCartController.getData();
+
+                                    }
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'Apply',
+                                    style:
+                                        GoogleFonts.poppins(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                               ),
                             ),
@@ -481,27 +498,29 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 8.0, left: 20),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              myCartController.model.value.data!.cartItems![index].name.toString(),
-                                              style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 16,
-                                                  color: const Color(0xFF21283D)),
-                                            ),
-                                            addHeight(2),
-                                            Text(
-                                              '€ ${myCartController.model.value.data!.cartItems![index].totalPrice.toString()}',
-                                              style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                  color: const Color(0xFF7DD856)),
-                                            ),
-                                          ],
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 8.0, left: 20),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                myCartController.model.value.data!.cartItems![index].name.toString(),
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 16,
+                                                    color: const Color(0xFF21283D)),
+                                              ),
+                                              addHeight(2),
+                                              Text(
+                                                '€ ${myCartController.model.value.data!.cartItems![index].totalPrice.toString()}',
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16,
+                                                    color: const Color(0xFF7DD856)),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                       const Spacer(),
@@ -702,6 +721,26 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ],
                             ),
                           ),
+                          myCartController.model.value.data!.cartPaymentSummary!.couponDiscount == 0 ? SizedBox():
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Coupon Discount:',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.couponDiscount.toString()}',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
+                                ),
+                              ],
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
                             child: Row(
@@ -733,7 +772,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),
                                 const Spacer(),
                                 Text(
-                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}.00',
+                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
                                   style: GoogleFonts.poppins(
                                       fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
                                 ),
@@ -760,7 +799,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),
                                 const Spacer(),
                                 Text(
-                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.total.toString()}.00',
+                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.total.toString()}',
                                   style: GoogleFonts.poppins(
                                       fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
                                 ),
@@ -776,26 +815,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   CommonButton(
                     title: 'Place Order'.toUpperCase(),
                     onPressed: () {
-                  /*    if(_formKey.currentState!.validate()){
-                        showToast('please select delivery option');
-                      }
-                      else{
-
-                        Get.toNamed(MyRouters.thankYouScreen, );
-                      }*/
-
-                       /* setState(() {
-                          if(_selectedGender == null){
-                            showToast('please select delivery option');
-                            showError = true;
-                          }
-                          else{
-                            showError = false;
-                            showToast('go');
-                          }
-                        });*/
-
-
                         if (_formKey.currentState!.validate()) {
 
                           if (myCartController.model.value.data!.orderAddress != null ) {
@@ -821,11 +840,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           }
 
                         }
-
-
-
-
-                      //  Get.toNamed(MyRouters.thankYouScreen);
                     },
                   ),
                 ],
@@ -840,8 +854,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Radio<String>(hoverColor:Color(0xFF68C541),
-          activeColor:  Color(0xFF68C541),
+        Radio<String>(
+          hoverColor:const Color(0xFF68C541),
+          activeColor:  const Color(0xFF68C541),
           value: method[btnValue],
           groupValue: selectedMethod,
           onChanged: (value) {

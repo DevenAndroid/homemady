@@ -418,15 +418,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 BoxDecoration(
                                   borderRadius: BorderRadius.circular(4.0),
                                   color: const Color(0xFFF1F1F1)
-                                  /*boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.shade200,
-                                      offset: const Offset(.1, .1,
-                                      ),
-                                      blurRadius: 19.0,
-                                      spreadRadius: 1.0,
-                                    ),
-                                  ],*/
+
                                 ),
 
                               child: Theme(

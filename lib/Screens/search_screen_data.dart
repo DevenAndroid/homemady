@@ -110,7 +110,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                 ),
               ),
 
-              filterDataController.isDataLoading
+              filterDataController.filterModel.value.data != null && filterDataController.filterModel.value.data!.isNotEmpty
               // ? (searchController.searchDataModel.value.data != null && searchController.searchDataModel.value.data!.isNotEmpty)
                   ? ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -215,7 +215,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                       ),
                                     ),
                                   ),
-                                   Positioned(
+                                   const Positioned(
                                       top: 80,
                                       // bottom: 0,
                                       left: 20,
@@ -223,7 +223,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                       //   bottom: 0,
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: const [
+                                        children: [
                                           Icon(
                                             Icons.arrow_back_ios,
                                             color: Colors.white,
@@ -406,16 +406,14 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                   })
                   : Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: FittedBox(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 60,),
-                      Image.asset('assets/images/searchImage.png'),
-                      SizedBox(height: 10,),
-                      Text("Result Not Found",
-                        style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 60,),
+                    Image.asset('assets/images/searchImage.png'),
+                    SizedBox(height: 10,),
+                    Text("Result Not Found",
+                      style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+                  ],
                 ),
               ) ,
 
@@ -429,10 +427,8 @@ class _SearchScreenDataState extends State<SearchScreenData> {
             SizedBox(height: 60,),
             FittedBox(child: Image.asset('assets/images/searchImage.png')),
             SizedBox(height: 10,),
-            FittedBox(
-              child: Text("Result Not Found",
-                style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
-            ),
+            Text("Result Not Found",
+              style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
           ],
         ),
       ),

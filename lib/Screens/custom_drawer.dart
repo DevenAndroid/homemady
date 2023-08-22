@@ -39,7 +39,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           Container(
             color: AppTheme.backgroundcolor,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: <Widget>[
                   Container(

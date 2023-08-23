@@ -3,6 +3,7 @@ import 'dart:developer';
  import 'package:firebase_auth/firebase_auth.dart';
  import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homemady/resources/add_text.dart';
@@ -145,14 +146,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               Icons.visibility,
                               color: Color(0xFF53B176),
                             )),
-                        validator: (value){
-                          if(value!.isEmpty){
-                            return "Password is required";
-                          }
-                          else{
-                            return null;
-                          }
-                        },
+                        validator: MultiValidator([
+                          RequiredValidator(
+                              errorText: 'Please Enter The Password'),
+                          MinLengthValidator(8,
+                              errorText:
+                              'Password must be at least 8 digits long'),
+                          PatternValidator(
+                              r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])",
+                              // r"^[a-zA-Z]{8,10}$",
+                              errorText:
+                              'Password must be at least 8 digits long,with \nmust have one capital letter, one small letter & one number')
+                        ]),
                       ),
                     ),
                     SizedBox(

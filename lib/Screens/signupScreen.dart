@@ -245,15 +245,15 @@ class _SignupScreenState extends State<SignupScreen> {
                           controller: passwordController,
                           validator: MultiValidator([
                             RequiredValidator(
-                                errorText: 'Please Enter a Password'),
-                            MinLengthValidator(6,
+                                errorText: 'Please Enter The Password'),
+                            MinLengthValidator(8,
                                 errorText:
-                                'Password must be at least 6 digits long'),
-                            //(?=.*\W)(?=.*?[#.?!@$%^&*-])
+                                'Password must be at least 8 digits long'),
                             PatternValidator(
-                                r"(?=.*[A-Z])(?=.*[0-9])",
+                                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])",
+                                // r"^[a-zA-Z]{8,10}$",
                                 errorText:
-                                'Password must be minimum 6 characters, with 1 \nCapital letter  & 1 numerical.')
+                                'Password must be at least 8 digits long,with \nmust have one capital letter, one small letter & one number')
                           ]),
                         ),
                       ),

@@ -171,33 +171,35 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                            // CachedNetworkImage(imageUrl: controller.model.value.orderDetail!.orderItems![index]..toString(),)
                                              Image.asset('assets/images/Rectangle 39702.png',height: 75,),
                                              addWidth(15),
-                                             Padding(
-                                               padding: const EdgeInsets.symmetric(vertical: 5),
-                                               child: Column(
-                                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                                 mainAxisAlignment: MainAxisAlignment.center,
-                                                 children: [
-                                                   Text(controller.model.value.orderDetail!.orderItems![index].productName.toString().capitalizeFirst.toString(),
-                                                     style: GoogleFonts.poppins(
-                                                         fontWeight: FontWeight.w600,
-                                                         fontSize: 18,
-                                                         color: const Color(0xFF1A2E33)
-                                                     ),),
-                                                   addHeight(1),
-                                                   Text('Quantity: ${controller.model.value.orderDetail!.orderItems![index].sizeQuantity.toString()}',
-                                                     style: GoogleFonts.poppins(
-                                                         fontWeight: FontWeight.w400,
-                                                         fontSize: 12,
-                                                         color: const Color(0xFF486769B5).withOpacity(0.71)
-                                                     ),),
-                                                   addHeight(3),
-                                                   Text('€ ${controller.model.value.orderDetail!.orderItems![index].price.toString()}',
-                                                     style: GoogleFonts.poppins(
-                                                         fontWeight: FontWeight.w600,
-                                                         fontSize: 16,
-                                                         color: const Color(0xFF70CC49)
-                                                     ),),
-                                                 ],
+                                             Expanded(
+                                               child: Padding(
+                                                 padding: const EdgeInsets.symmetric(vertical: 5),
+                                                 child: Column(
+                                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                                   mainAxisAlignment: MainAxisAlignment.center,
+                                                   children: [
+                                                     Text(controller.model.value.orderDetail!.orderItems![index].productName.toString().capitalizeFirst.toString(),
+                                                       style: GoogleFonts.poppins(
+                                                           fontWeight: FontWeight.w600,
+                                                           fontSize: 18,
+                                                           color: const Color(0xFF1A2E33)
+                                                       ),),
+                                                     addHeight(1),
+                                                     Text('Quantity: ${controller.model.value.orderDetail!.orderItems![index].sizeQuantity.toString()}',
+                                                       style: GoogleFonts.poppins(
+                                                           fontWeight: FontWeight.w400,
+                                                           fontSize: 12,
+                                                           color: const Color(0xFF486769B5).withOpacity(0.71)
+                                                       ),),
+                                                     addHeight(3),
+                                                     Text('€ ${controller.model.value.orderDetail!.orderItems![index].price.toString()}',
+                                                       style: GoogleFonts.poppins(
+                                                           fontWeight: FontWeight.w600,
+                                                           fontSize: 16,
+                                                           color: const Color(0xFF70CC49)
+                                                       ),),
+                                                   ],
+                                                 ),
                                                ),
                                              ),
                                            ],
@@ -693,7 +695,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                          fontSize: 14),
                                                    ),
                                                    Text(
-                                                     controller.model.value.orderDetail!.vendor!.storeName.toString(),
+                                                     controller.model.value.orderDetail!.vendor!.storeName.toString().capitalizeFirst.toString(),
                                                      style: const TextStyle(
                                                          height: 1.5,
                                                          fontWeight: FontWeight.w600,

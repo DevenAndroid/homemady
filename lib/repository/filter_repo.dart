@@ -8,7 +8,7 @@ import '../model/filter_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 //All Dropdown api
-Future<FilterModel> filterDataRepo({required pickDate,required keyword}) async {
+Future<FilterModel> filterDataRepo({required pickDate,required availableNow, required keyword}) async {
   // var map = <String, dynamic>{};
   //
   //   map['date'] = pickDate;
@@ -23,9 +23,9 @@ Future<FilterModel> filterDataRepo({required pickDate,required keyword}) async {
   };
 
   final response =
-  await http.get(Uri.parse("${ApiUrl.filterDateUrl}?date=$pickDate&keyword=$keyword"), headers: headers);
+  await http.get(Uri.parse("${ApiUrl.filterDateUrl}?date=$pickDate&available_now=$availableNow&keyword=$keyword"), headers: headers);
 
-  log(("Url...${ApiUrl.filterDateUrl}?date=$pickDate&store_name=$keyword"));
+  log(("Url...${ApiUrl.filterDateUrl}?date=$pickDate&available_now=$availableNow&store_name=$keyword"));
 
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {

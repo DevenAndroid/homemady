@@ -39,7 +39,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           Container(
             color: AppTheme.backgroundcolor,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -172,7 +172,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         ),
                         _drawerTile(
                             active: true,
-                            title: "Notification",
+                            title: "Notifications",
                             icon: const ImageIcon(
                               AssetImage('assets/images/notification-img.png'),
                               size: 22,

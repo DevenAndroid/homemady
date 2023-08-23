@@ -8,16 +8,15 @@ import '../repository/filter_repo.dart';
 class FilterController extends GetxController {
   bool isDataLoading = false;
   Rx<FilterModel> filterModel = FilterModel().obs;
-  RxInt sendDate = 0.obs;
+  RxString sendDate = "".obs;
+  RxString availableOption=''.obs;
  final storeSearchController=TextEditingController();
 
   Future getFilterData() async {
     isDataLoading = false;
-    if (Get.arguments[0] != null) {
-      await filterDataRepo(pickDate: Get.arguments[0], keyword:storeSearchController.text ).then((value) {
+      await filterDataRepo(pickDate: sendDate.value, availableNow: availableOption.value, keyword:storeSearchController.text ).then((value) {
         isDataLoading = true;
         filterModel.value = value;
       });
-    }
   }
 }

@@ -1148,12 +1148,12 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (BuildContext, index) {
                               return InkWell(
-                                onTap: () {
-                                  homeController.filterCategoryId.value =
-                                      categoryController.categoryModel.value.data!.category![index].id.toString();
-                                  print("Filter Category Id is.  ${homeController.filterCategoryId}");
-                                  // Get.toNamed(MyRouters.homeDetailsScreen);
-                                },
+                                // onTap: () {
+                                //   homeController.filterCategoryId.value =
+                                //       categoryController.categoryModel.value.data!.category![index].id.toString();
+                                //   print("Filter Category Id is.  ${homeController.filterCategoryId}");
+                                //   // Get.toNamed(MyRouters.homeDetailsScreen);
+                                // },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -1168,37 +1168,37 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                             color: const Color(0xFF425159),
                                           ),
                                         ),
-                                        Obx(() {
-                                          return Checkbox(
-                                              side: const BorderSide(color: Colors.black, width: 2),
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                              value: categoryController
-                                                  .categoryModel.value.data!.category![index].isChecked.value,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  categoryController
-                                                      .categoryModel.value.data!.category![index].isChecked.value =
-                                                  !categoryController
-                                                      .categoryModel.value.data!.category![index].isChecked.value;
-                                                  if (categoryController
-                                                      .categoryModel.value.data!.category![index].isChecked.value ==
-                                                      true) {
-                                                    categoryController.categoryModel.value.data!.selectedContacts!.add(
-                                                        categoryController.categoryModel.value.data!.category![index]);
-                                                    // kk.value = index;
-                                                    print(index);
-                                                  } else if (categoryController
-                                                      .categoryModel.value.data!.category![index].isChecked.value ==
-                                                      false) {
-                                                    categoryController.categoryModel.value.data!.selectedContacts!
-                                                        .removeWhere((element) =>
-                                                    element.id ==
-                                                        categoryController
-                                                            .categoryModel.value.data!.category![index].id);
-                                                  }
-                                                });
-                                              });
-                                        })
+                                        // Obx(() {
+                                        //   return Checkbox(
+                                        //       side: const BorderSide(color: Colors.black, width: 2),
+                                        //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                        //       value: categoryController
+                                        //           .categoryModel.value.data!.category![index].isChecked.value,
+                                        //       onChanged: (value) {
+                                        //         setState(() {
+                                        //           categoryController
+                                        //               .categoryModel.value.data!.category![index].isChecked.value =
+                                        //           !categoryController
+                                        //               .categoryModel.value.data!.category![index].isChecked.value;
+                                        //           if (categoryController
+                                        //               .categoryModel.value.data!.category![index].isChecked.value ==
+                                        //               true) {
+                                        //             categoryController.categoryModel.value.data!.selectedContacts!.add(
+                                        //                 categoryController.categoryModel.value.data!.category![index]);
+                                        //             // kk.value = index;
+                                        //             print(index);
+                                        //           } else if (categoryController
+                                        //               .categoryModel.value.data!.category![index].isChecked.value ==
+                                        //               false) {
+                                        //             categoryController.categoryModel.value.data!.selectedContacts!
+                                        //                 .removeWhere((element) =>
+                                        //             element.id ==
+                                        //                 categoryController
+                                        //                     .categoryModel.value.data!.category![index].id);
+                                        //           }
+                                        //         });
+                                        //       });
+                                        // })
                                       ],
                                     ),
                                   ],

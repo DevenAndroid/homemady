@@ -8,7 +8,7 @@ import '../model/homepage_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 
-Future<HomePageModel> homeData({required filterCategory, required categoryType, required dietaries  }) async {
+Future<HomePageModel> homeData({required filterCategory, required categoryType, required dietaries ,required filter }) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -18,11 +18,32 @@ Future<HomePageModel> homeData({required filterCategory, required categoryType, 
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
   log(user.authToken.toString());
+
+  String url = "${ApiUrl.homePageApi}";
+  List<String> types = [];
+
+  if(filterCategory != ""){
+    types.add("filter_category=$filterCategory");
+  }
+
+  if(categoryType != ""){
+    types.add("category_type=$categoryType");
+  }
+
+  if(dietaries != ""){
+    types.add("dietaries=$dietaries");
+  }
+  if(filter != ""){
+    types.add("filter=$filter");
+  }
+  if(types.isNotEmpty){
+    url = "$url?${types.join("&")}";
+  }
+
+print("generated url....       ${url}");
+
   http.Response response =
-  await http.get(Uri.parse("${ApiUrl.homePageApi}?filter_category=$filterCategory&category_type=$categoryType&dietaries=$dietaries"), headers: headers);
-  //?filter_category=$filter_Id
-//filter_Id
-//   log("<<<<<<<HomePageData=======>${response.body}");
+  await http.get(Uri.parse(url), headers: headers);
   if (response.statusCode == 200) {
     log("<<<<<<<HomePageData=======>${response.body}");
     return HomePageModel.fromJson(json.decode(response.body));

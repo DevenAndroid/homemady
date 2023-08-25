@@ -173,7 +173,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                           child: Text(
                                             controller.model.value.data!.latestProducts![index].name
                                                 .toString()
-                                                .replaceAll('homemady product test1284sdf', 'Test'),
+                                                .replaceAll('homemady product test1284sdf', 'Test').capitalizeFirst.toString(),
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 14,

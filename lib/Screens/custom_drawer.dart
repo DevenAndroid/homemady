@@ -95,7 +95,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         Text(
                             profileController.isDataLoading.value
                                 ? (profileController.model.value.data!.name ?? "")
-                                .toString()
+                                .toString().capitalizeFirst.toString()
                                 : "",
                             textAlign: TextAlign.center,
                             style: const TextStyle(

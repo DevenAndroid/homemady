@@ -1327,10 +1327,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       child: ListView.builder(
                                           shrinkWrap: true,
                                           scrollDirection: Axis.horizontal,
+                                          physics: const NeverScrollableScrollPhysics(),
                                           itemCount: categoryItemList.length,
                                           itemBuilder: (context, index) {
                                             return Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 5),
+                                              padding: const EdgeInsets.symmetric(vertical: 7),
                                               child:
                                               Row(
                                                   children:[
@@ -1466,7 +1467,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         ),
                                                       ),
                                                     ),
-                                                     const Positioned(
+                                                      Positioned(
                                                         top: 80,
                                                         // bottom: 0,
                                                         left: 20,
@@ -1474,7 +1475,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         //   bottom: 0,
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
+                                                          children: const [
                                                             Icon(
                                                               Icons.arrow_back_ios,
                                                               color: Colors.white,

@@ -250,7 +250,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
               ),
               FittedBox(
                 child: RatingBar.builder(
-                  initialRating: 6,
+                  initialRating: 1,
                   glowColor: Colors.white10,
                   minRating: 1,
                   unratedColor: const Color(0xFFE0DEDA),

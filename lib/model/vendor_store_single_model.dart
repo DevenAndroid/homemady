@@ -149,6 +149,8 @@ class LatestProducts {
   dynamic qtyType;
   bool ? value;
   dynamic minQty;
+  dynamic subTitle;
+  dynamic sizeQuantity;
   dynamic maxQty;
   dynamic price;
   dynamic content;
@@ -174,7 +176,9 @@ class LatestProducts {
         this.maxQty,
         this.price,
         this.content,
+        this.sizeQuantity,
         this.image,
+        this.subTitle,
         this.cookUnitDays,
         this.size,
         this.wishlist,
@@ -192,9 +196,11 @@ class LatestProducts {
     spiciness = json['spiciness'];
     qtyType = json['qty_type'];
     minQty = json['min_qty'];
+    subTitle = json['sub_title'];
     maxQty = json['max_qty'];
     price = json['price'];
     allergens = json['allergens'];
+    sizeQuantity = json['size_quantity'];
     content = json['content'];
     wishlist = json['wishlist'];
     image = json['image'];
@@ -216,10 +222,12 @@ class LatestProducts {
     data['min_qty'] = minQty;
     data['spiciness'] = spiciness;
     data['max_qty'] = maxQty;
+    data['sub_title'] = this.subTitle;
     data['price'] = price;
     data['allergens'] = allergens;
     data['content'] = content;
     data['image'] = image;
+    data['size_quantity'] = this.sizeQuantity;
     data['cook_unit_days'] = cookUnitDays;
     data['size'] = size;
     data['size_id'] = sizeId;

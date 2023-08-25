@@ -143,7 +143,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         ),
                         _drawerTile(
                             active: true,
-                            title: "Favorite",
+                            title: "Favorites",
                             icon: const ImageIcon(
                               AssetImage('assets/images/note-2.png'),
                               size: 22,

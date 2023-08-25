@@ -69,10 +69,12 @@ class CartItems {
   dynamic name;
   dynamic spiciness;
   dynamic price;
+  dynamic subTitle;
   dynamic cartItemQty;
   dynamic distance;
   dynamic totalPrice;
   dynamic image;
+  bool? collectionStatus;
 
   CartItems(
       {this.id,
@@ -82,7 +84,9 @@ class CartItems {
         this.price,
         this.cartItemQty,
         this.distance,
+        this.subTitle,
         this.totalPrice,
+        this.collectionStatus,
         this.image});
 
   CartItems.fromJson(Map<String, dynamic> json) {
@@ -90,11 +94,13 @@ class CartItems {
     productId = json['product_id'];
     name = json['name'];
     spiciness = json['spiciness'];
+    subTitle = json['subTitle'];
     price = json['price'];
     cartItemQty = json['cart_item_qty'];
     distance = json['distance'];
     totalPrice = json['total_price'];
     image = json['image'];
+    collectionStatus = json['collection_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -102,12 +108,14 @@ class CartItems {
     data['id'] = this.id;
     data['product_id'] = this.productId;
     data['name'] = this.name;
+    data['subTitle'] = this.subTitle;
     data['spiciness'] = this.spiciness;
     data['price'] = this.price;
     data['cart_item_qty'] = this.cartItemQty;
     data['distance'] = this.distance;
     data['total_price'] = this.totalPrice;
     data['image'] = this.image;
+    data['collection_status'] = this.collectionStatus;
     return data;
   }
 }

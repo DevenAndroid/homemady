@@ -64,7 +64,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
         SingleChildScrollView(
           child: Form(
             key: _formKey,
-            child: Column(
+            child:
+
+            Column(
               children: [
                 addHeight(20),
                 Padding(
@@ -164,6 +166,25 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                       children: [
                                                         InkWell(
                                                           onTap: () {
+                                                            if(controller
+                                                                .model.value
+                                                                .data!
+                                                                .cartItems![index]
+                                                                .cartItemQty == 1){
+                                                              removeCartItemRepo(cart_item_id: controller
+                                                                  .model.value
+                                                                  .data!
+                                                                  .cartItems![index]
+                                                                  .id
+                                                                  .toString(),context: context).then((value) {
+                                                                if(value.status == true){
+                                                                  controller.getData().then((value) {
+                                                                    setState(() {});
+                                                                  });
+                                                                }
+                                                              });
+                                                            }
+                                                            else {
                                                               updateCartRepo(
                                                                   controller
                                                                       .model.value
@@ -186,10 +207,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                                   showToast(value1.message.toString());
                                                                   controller.getData();
                                                                 }
-                                                                else{
+                                                                else {
                                                                   showToast(value1.message);
                                                                 }
                                                               });
+                                                            }
                                                           },
                                                           child: Container(
                                                             decoration: BoxDecoration(
@@ -272,6 +294,12 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                 ],
                                               ),
                                               addHeight(3),
+                                              Text(controller.model.value.data!.cartItems![index].subTitle.toString(),
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12,
+                                                    color: const Color(0xFF486769).withOpacity(0.70)
+                                                ),),
                                               Row(
                                                 children: [
                                                   Text('${controller.model.value.data!.cartItems![index].cartItemQty.toString()} items',
@@ -1368,27 +1396,27 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(15,10,14,0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('Delivery:',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff1A2E33)
-                                ),),
-                              Spacer(),
-                              Text( '€ ${controller.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff486769)
-                                ),),
-                            ],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.fromLTRB(15,10,14,0),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.start,
+                        //     children: [
+                        //       Text('Delivery:',
+                        //         style: GoogleFonts.poppins(
+                        //             fontSize: 16,
+                        //             fontWeight: FontWeight.w600,
+                        //             color: Color(0xff1A2E33)
+                        //         ),),
+                        //       Spacer(),
+                        //       Text( '€ ${controller.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
+                        //         style: GoogleFonts.poppins(
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w500,
+                        //             color: Color(0xff486769)
+                        //         ),),
+                        //     ],
+                        //   ),
+                        // ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15,10,14,0),
                           child: Row(
@@ -1422,13 +1450,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
                 Padding(
                   padding:  EdgeInsets.only(left: 8.0,right: 8.0),
                   child: CommonButton(title: 'Checkout',onPressed: (){
-                    Get.toNamed(MyRouters.checkOutScreen);
+                    Get.toNamed(MyRouters.checkOutScreen,);
                   },),
                 ),
 
                 addHeight(20),
               ],
-            ),
+            )
           ),
         ):
         Padding(

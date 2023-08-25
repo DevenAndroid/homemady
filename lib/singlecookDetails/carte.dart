@@ -193,7 +193,14 @@ class _CarteScreenState extends State<CarteScreen> {
                                     ),
                                     addHeight(3),
                                     Text(
-                                      'Size: ${(controller.model.value.data!.latestProducts![index].size ?? '').toString()}',
+                                      '${(controller.model.value.data!.latestProducts![index].subTitle ?? '').toString()}',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                    ),
+                                    addHeight(3),
+                                    Text(
+                                      'Size: ${(controller.model.value.data!.latestProducts![index].sizeQuantity ?? '').toString()} ' +
+                                          (controller.model.value.data!.latestProducts![index].sizeId ?? '').toString(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                     ),

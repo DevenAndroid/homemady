@@ -18,7 +18,7 @@ Future<ModelVerifyOtp> loginRepo(
   SharedPreferences pref = await SharedPreferences.getInstance();
   //print("These are details.....${pref}");
   var map = <String, dynamic>{};
-  map['email'] = email;
+  map['email_number'] = email;
   map['password'] = password;
  map['device_id'] = pref.getString('deviceId');
  map['device_token'] = fcmToken;

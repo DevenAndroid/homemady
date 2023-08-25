@@ -148,7 +148,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                     onTap: (value) {
                                       print(value);
                                       if(value == 0){
-                                        featuredFilterController.filterId.value="4";
+                                        featuredFilterController.filterId.value="2";
                                         featuredFilterController.getData();
                                       }
                                       if(value == 1){
@@ -156,7 +156,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                         featuredFilterController.getData();
                                       }
                                       if(value == 2){
-                                        featuredFilterController.filterId.value="2";
+                                        featuredFilterController.filterId.value="4";
                                         featuredFilterController.getData();
                                       }
 
@@ -175,19 +175,11 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
                                   controller: tabController,
-                                  indicatorPadding: EdgeInsets.symmetric(horizontal: -5, vertical: -2),
+                                  indicatorPadding: const EdgeInsets.symmetric(horizontal: -5, vertical: -2),
                                   indicator: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30),
-                                    color:  Color(0xff7ED957),
+                                    color:  const Color(0xff7ED957),
                                   ),
-                                  // indicatorColor: Colors.transparent,
-
-                                  // indicatorSize: TabBarIndicatorSize.tab,
-                                  // indicator: const BoxDecoration(
-                                  //     border: Border(
-                                  //         bottom: BorderSide(color: Color(0xFF7ED957),width: 5)
-                                  //     )
-                                  // ),
                                 ),
                               )),
                         ],
@@ -268,7 +260,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                         ),
                                                       ),
                                                       addHeight(6),
-                                                      Text(featuredFilterController.model.value.data![index].name.toString(),
+                                                      Text(featuredFilterController.model.value.data![index].name.toString().capitalizeFirst.toString(),
                                                         style: GoogleFonts.poppins(
                                                             fontWeight: FontWeight.w700,
                                                             fontSize: 16,
@@ -319,15 +311,39 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Container(
-                                                          height: 48,
+                                                          height: 55,
                                                           decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
                                                               color: Colors.white
                                                           ),
                                                           child: Padding(
                                                             padding: const EdgeInsets.all(3),
-                                                            child: Image.asset(
-                                                                'assets/images/avtarImg.png'),
+                                                            child:  SizedBox(
+                                                              height: 50,
+                                                              width: 50,
+                                                              child: ClipRRect(
+                                                                borderRadius: BorderRadius.circular(50),
+                                                                child: CachedNetworkImage(
+                                                                  imageUrl: featuredFilterController.isDataLoading.value
+                                                                      ? featuredFilterController.model.value.data![index]
+                                                                      .profileImage
+                                                                      .toString()
+                                                                      : 'assets/images/avtarImg.png',
+                                                                  // height: 40,
+                                                                  fit: BoxFit.cover,
+                                                                  errorWidget: (_, __, ___) => Image.asset(
+                                                                    'assets/images/dummyPerson.png',
+                                                                    fit: BoxFit.cover,
+                                                                    // height: 20,
+                                                                    // width: 20,
+                                                                  ),
+                                                                  placeholder: (_, __) =>
+                                                                  const Center(child: CircularProgressIndicator()),
+                                                                ),
+                                                              ),
+                                                            )
+                                                            // Image.asset(
+                                                            //     'assets/images/avtarImg.png'),
                                                           )
                                                       ),
                                                       addHeight(3),
@@ -589,7 +605,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                         ),
                                                       ),
                                                       addHeight(6),
-                                                      Text(featuredFilterController.model.value.data![index].name.toString(),
+                                                      Text(featuredFilterController.model.value.data![index].name.toString().capitalizeFirst.toString(),
                                                         style: GoogleFonts.poppins(
                                                             fontWeight: FontWeight.w700,
                                                             fontSize: 16,
@@ -615,7 +631,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   ),
                                                 ),
                                               ),
-                                               Positioned(
+                                               const Positioned(
                                                   top: 80,
                                                   // bottom: 0,
                                                   left: 20,
@@ -624,7 +640,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .spaceBetween,
-                                                    children: const [
+                                                    children: [
                                                       Icon(Icons.arrow_back_ios,
                                                         color: Colors.white,size: 20,),
                                                       Icon(Icons.arrow_forward_ios,
@@ -640,15 +656,39 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Container(
-                                                          height: 48,
+                                                          height: 55,
                                                           decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
                                                               color: Colors.white
                                                           ),
                                                           child: Padding(
-                                                            padding: const EdgeInsets.all(3),
-                                                            child: Image.asset(
-                                                                'assets/images/avtarImg.png'),
+                                                              padding: const EdgeInsets.all(3),
+                                                              child:  SizedBox(
+                                                                height: 50,
+                                                                width: 50,
+                                                                child: ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(50),
+                                                                  child: CachedNetworkImage(
+                                                                    imageUrl: featuredFilterController.isDataLoading.value
+                                                                        ? featuredFilterController.model.value.data![index]
+                                                                        .profileImage
+                                                                        .toString()
+                                                                        : 'assets/images/avtarImg.png',
+                                                                    // height: 40,
+                                                                    fit: BoxFit.cover,
+                                                                    errorWidget: (_, __, ___) => Image.asset(
+                                                                      'assets/images/dummyPerson.png',
+                                                                      fit: BoxFit.cover,
+                                                                      // height: 20,
+                                                                      // width: 20,
+                                                                    ),
+                                                                    placeholder: (_, __) =>
+                                                                    const Center(child: CircularProgressIndicator()),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            // Image.asset(
+                                                            //     'assets/images/avtarImg.png'),
                                                           )
                                                       ),
                                                       addHeight(3),
@@ -910,7 +950,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                         ),
                                                       ),
                                                       addHeight(6),
-                                                      Text(featuredFilterController.model.value.data![index].name.toString(),
+                                                      Text(featuredFilterController.model.value.data![index].name.toString().capitalizeFirst.toString(),
                                                         style: GoogleFonts.poppins(
                                                             fontWeight: FontWeight.w700,
                                                             fontSize: 16,
@@ -936,7 +976,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   ),
                                                 ),
                                               ),
-                                               Positioned(
+                                               const Positioned(
                                                   top: 80,
                                                   // bottom: 0,
                                                   left: 20,
@@ -945,7 +985,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .spaceBetween,
-                                                    children: const [
+                                                    children: [
                                                       Icon(Icons.arrow_back_ios,
                                                         color: Colors.white,size: 20,),
                                                       Icon(Icons.arrow_forward_ios,
@@ -961,15 +1001,39 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Container(
-                                                          height: 48,
+                                                          height: 55,
                                                           decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
                                                               color: Colors.white
                                                           ),
                                                           child: Padding(
-                                                            padding: const EdgeInsets.all(3),
-                                                            child: Image.asset(
-                                                                'assets/images/avtarImg.png'),
+                                                              padding: const EdgeInsets.all(3),
+                                                              child:  SizedBox(
+                                                                height: 50,
+                                                                width: 50,
+                                                                child: ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(50),
+                                                                  child: CachedNetworkImage(
+                                                                    imageUrl: featuredFilterController.isDataLoading.value
+                                                                        ? featuredFilterController.model.value.data![index]
+                                                                        .profileImage
+                                                                        .toString()
+                                                                        : 'assets/images/avtarImg.png',
+                                                                    // height: 40,
+                                                                    fit: BoxFit.cover,
+                                                                    errorWidget: (_, __, ___) => Image.asset(
+                                                                      'assets/images/dummyPerson.png',
+                                                                      fit: BoxFit.cover,
+                                                                      // height: 20,
+                                                                      // width: 20,
+                                                                    ),
+                                                                    placeholder: (_, __) =>
+                                                                    const Center(child: CircularProgressIndicator()),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            // Image.asset(
+                                                            //     'assets/images/avtarImg.png'),
                                                           )
                                                       ),
                                                       addHeight(3),

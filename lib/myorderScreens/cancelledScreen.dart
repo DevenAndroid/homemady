@@ -149,7 +149,7 @@ class _CancelledScreenState extends State<CancelledScreen> {
                       ],
                     ),
                   ):const SizedBox(),
-                  addHeight(15),
+
                 ],
               );
             },

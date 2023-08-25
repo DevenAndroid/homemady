@@ -600,6 +600,12 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                       ],
                                                     ),
                                                     addHeight(3),
+                                                    Text(
+                                                      (controller1.model.value.data!.product![index].subTitle ?? '').toString(),
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                    ),
+                                                    addHeight(3),
                                                     Row(
                                                       children: [
                                                         Text(

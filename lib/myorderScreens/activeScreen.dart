@@ -243,7 +243,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                       ),
                     ):SizedBox(),
                   ),
-                  addHeight(10),
+
                 ],
               );
             },
@@ -253,10 +253,13 @@ class _ActiveScreenState extends State<ActiveScreen> {
             child: Column(
               children: [
                 SizedBox(height: 60,),
-                Image.asset('assets/images/emptyCartImg.png'),
+                Image.asset('assets/images/noOrderImage.png'),
                 SizedBox(height: 10,),
-                Text("No Orders",
-                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+                Text("Empty",
+                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
+                SizedBox(height: 10,),
+                Text("You do not have an active order of this time",
+                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff747474),fontSize: 22),),
               ],
             ),
           )  : const Center(child: CircularProgressIndicator()),

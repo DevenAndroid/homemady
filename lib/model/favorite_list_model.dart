@@ -140,6 +140,7 @@ class Product {
   dynamic name;
   dynamic price;
   dynamic content;
+  dynamic subTitle;
   bool ? value;
   dynamic image;
   dynamic  cookUnitDays;
@@ -161,6 +162,7 @@ class Product {
         this.content,
         this.image,
         this.cookUnitDays,
+        this.subTitle,
         this.sizeQuantity,
         this.sizeId,
         this.inMenu,
@@ -177,6 +179,7 @@ class Product {
     price = json['price'];
     content = json['content'];
     image = json['image'];
+    subTitle = json['sub_title'];
     cookUnitDays = json['cook_unit_days'];
     sizeQuantity = json['size_quantity'];
     sizeId = json['size_id'];
@@ -200,6 +203,7 @@ class Product {
     data['size_quantity'] = this.sizeQuantity;
     data['size_id'] = this.sizeId;
     data['in_menu'] = this.inMenu;
+    data['sub_title'] = this.subTitle;
     data['status'] = this.status;
     data['spiciness'] = spiciness;
     data['allergens'] = allergens;

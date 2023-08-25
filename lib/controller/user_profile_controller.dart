@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'dart:io';
 import '../model/user_profile_model.dart';
 import '../repository/user_profile_repo.dart';
@@ -13,6 +14,8 @@ class UserProfileController extends GetxController{
   RxBool isDataLoading = false.obs;
   Rx<File> image = File("").obs;
   String myProfileID = "";
+  RxString countryCode = "".obs;
+  RxString initialCode = "".obs;
   String get myProfileID1 => model.value.data!.id.toString();
   RxString address = "Select address".obs;
   final ImagePicker picker = ImagePicker();
@@ -31,6 +34,15 @@ class UserProfileController extends GetxController{
         nameController.text = model.value.data!.name.toString();
         emailController.text = model.value.data!.email.toString();
         mobileController.text = model.value.data!.phone.toString();
+        for (var element in countries) {
+          // print("found info....      ${model.value.data!.countryCode.toString().replaceAll("+", "").trim()}     ${element.dialCode}");
+          if(model.value.data!.countryCode.toString().replaceAll("+", "").trim() == element.dialCode){
+            print("found info....      ${model.value.data!.countryCode.toString().replaceAll("+", "").trim()}     ${element.dialCode}");
+            initialCode.value = element.code;
+            break;
+          }
+        }
+        countryCode.value = model.value.data!.countryCode.toString();
       }
     });
     //loginRepo().

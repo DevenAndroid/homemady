@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/app_theme.dart';
@@ -17,7 +14,6 @@ import '../controller/order_details_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../model/order_details_model.dart';
 import '../service/firebase_service.dart';
-import 'chat_screen.dart';
 import 'chat_screen/chat_screen.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -102,17 +98,57 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                      Column(
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
-                                         Text('Order ID: ${controller.model.value.orderDetail!.orderId!.toString()}',style: GoogleFonts.poppins(
+                                         Text('Order ID: ${controller.model.value.orderDetail!.orderId!.toString()}'
+                                           ,style: GoogleFonts.poppins(
                                              fontWeight: FontWeight.w600,
                                              fontSize: 15,
                                              color: const Color(0xFF7ED957)
                                          ),),
-                                         Text(controller.model.value.orderDetail!.placedAt!.toString(),style: GoogleFonts.poppins(
+                                         Text(controller.model.value.orderDetail!.placedAt!.toString(),
+                                           style: GoogleFonts.poppins(
                                              fontWeight: FontWeight.w400,
                                              fontSize: 11,
                                              color: const Color(0xFF303C5E)
                                          ),),
+                                         addHeight(10),
 
+                                         controller.model.value.orderDetail!.specialRequets != '' ?
+                                         Column(
+                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                           children: [
+                                             const SizedBox(height: 3,),
+                                             Text('Special Request'
+                                               ,style: GoogleFonts.poppins(
+                                                   fontWeight: FontWeight.w600,
+                                                   fontSize: 14,
+                                                   color: const Color(0xFF1A2E33)
+                                               ),),
+                                             Text(controller.model.value.orderDetail!.specialRequets!.toString(),
+                                               style: GoogleFonts.poppins(
+                                                   fontWeight: FontWeight.w400,
+                                                   fontSize: 11,
+                                                   color: const Color(0xFF303C5E)
+                                               ),),
+                                           ],
+                                         ) : const SizedBox(),
+                                         controller.model.value.orderDetail!.instructionForDelivery != "" ?
+                                         Column(
+                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                           children: [
+                                             Text('Instruction for delivery'
+                                               ,style: GoogleFonts.poppins(
+                                                   fontWeight: FontWeight.w600,
+                                                   fontSize: 14,
+                                                   color: const Color(0xFF1A2E33)
+                                               ),),
+                                             Text(controller.model.value.orderDetail!.instructionForDelivery!.toString(),
+                                               style: GoogleFonts.poppins(
+                                                   fontWeight: FontWeight.w400,
+                                                   fontSize: 11,
+                                                   color: const Color(0xFF303C5E)
+                                               ),),
+                                           ],
+                                         ): const SizedBox(),
                                        ],
                                      ),
                                      const Spacer(),

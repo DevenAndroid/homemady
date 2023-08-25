@@ -36,6 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+  TextEditingController countryCodeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -189,23 +190,23 @@ class _SignupScreenState extends State<SignupScreen> {
                                 borderSide: const BorderSide(color: Colors.white, width: 3.0),
                                 borderRadius: BorderRadius.circular(15.0)),
                           ),
-                          initialCountryCode: initialCountryCode.isEmpty ? 'IE' : initialCountryCode,
-                          onCountryChanged: (value) {
-                            countryCode = value.dialCode;
-                            initialCountryCode = value.code;
-                            if (kDebugMode) {
-                              print(countryCode);
-                              print(initialCountryCode);
+                            initialCountryCode:  'IE',
+                            onCountryChanged: (phone) {
+                            countryCodeController.text = "+${phone.dialCode}";
+                            print('Dial Code is:'+phone.dialCode);
+                            // countryCode = value.dialCode;
+                            //  initialCountryCode = value.code;
+                            /*  if (kDebugMode) {
+                                                      print(countryCode);
+                                                      print(initialCountryCode);
+                                                    }*/
+                            },
+                            onChanged: (phone){
+                            print(phone);
+                            print(phoneController);
+
                             }
-                          },
-                          onChanged: (phone) {
-                            countryCode = phone.countryCode;
-                            initialCountryCode = phone.countryISOCode;
-                            if (kDebugMode) {
-                              print(countryCode);
-                              print(initialCountryCode);
-                            }
-                          },
+
                         ),
                       ),
                       addHeight(20),
@@ -347,6 +348,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   passwordController.text,
                                   confirmController.text,
                                   '2',
+                                  countryCodeController.text,
                                   context
                               ).then((value){
                                 if(value.status==true){

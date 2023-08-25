@@ -287,8 +287,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
               EditProfileTextFieldWidget(
                 controller: controller.feedbackController,
                 onTap: (){},
-                minLines: 1,
-                maxLines: 7,
+                minLines: 5,
+                maxLines: 10,
               ),
               addHeight(25),
 

@@ -45,6 +45,7 @@ class Data {
   bool? asDriverVerified;
   bool? asVendorVerified;
   bool? isProfileComplete;
+  dynamic countryCode;
 
   Data(
       {this.id,
@@ -62,6 +63,7 @@ class Data {
         this.earnedBalance,
         this.profileImage,
         this.referalCode,
+        this.countryCode,
         this.isDriverOnline,
         this.isVendorOnline,
         this.deliveryRange,
@@ -78,6 +80,7 @@ class Data {
     longitude = json['longitude'];
     location = json['location'];
     name = json['name'];
+    countryCode = json['country_code'];
     lastName = json['last_name'];
     email = json['email'];
     phone = json['phone'];
@@ -108,6 +111,7 @@ class Data {
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
     data['location'] = this.location;
+    data['country_code'] = this.countryCode;
     data['name'] = this.name;
     data['last_name'] = this.lastName;
     data['email'] = this.email;

@@ -47,6 +47,7 @@ class Data {
   dynamic image;
   dynamic cookUnitDays;
   dynamic sizeQuantity;
+  dynamic subTitle;
   dynamic sizeId;
   dynamic spiciness;
   dynamic allergens;
@@ -72,6 +73,7 @@ class Data {
         this.spiciness,
         this.allergens,
         this.inMenu,
+        this.subTitle,
         this.status,
         this.discountOff,
         this.avgRating,
@@ -84,6 +86,7 @@ class Data {
     price = json['price'];
     content = json['content'];
     image = json['image'];
+    subTitle = json['sub_title'];
     cookUnitDays = json['cook_unit_days'];
     sizeQuantity = json['size_quantity'];
     sizeId = json['size_id'];
@@ -106,6 +109,7 @@ class Data {
     data['image'] = this.image;
     data['cook_unit_days'] = this.cookUnitDays;
     data['size_quantity'] = this.sizeQuantity;
+    data['sub_title'] = this.subTitle;
     data['size_id'] = this.sizeId;
     data['productoption_id'] = this.spiciness;
     data['allergen_id'] = this.allergens;

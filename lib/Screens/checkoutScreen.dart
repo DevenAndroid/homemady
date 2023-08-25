@@ -103,6 +103,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           addHeight(10),
                           Row(
                             children: [
+                              myCartController.model.value.data!.cartItems![0].collectionStatus! ? SizedBox():
                               Theme(
                                 data: ThemeData(
                                   unselectedWidgetColor: Colors.green,
@@ -110,12 +111,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 child: addRadioButton(0)
                               ),
                               addWidth(5),
+                              myCartController.model.value.data!.cartItems![0].collectionStatus! ?
+                                  SizedBox():
                               Text(
                                 'Delivery',
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
                               ),
-                              addWidth(40),
+                              myCartController.model.value.data!.cartItems![0].collectionStatus! ? SizedBox(): addWidth(40),
                               Theme(
                                 data: ThemeData(
                                   unselectedWidgetColor: Colors.green,
@@ -281,12 +284,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   applyCoupons(couponCode: codeController.text
                                       .toString(), context: context).
                                   then((value){
-                                    showToast(value.message);
                                     if(value.status == true){
+                                      showToast(value.message);
                                       codeController.clear();
                                       myCartController.getData();
-
                                     }
+                                    else if(value.status == false)
+                                    {
+                                      showToast(value.message);
+                                    }
+
                                   });
                                 },
                                 child: Center(
@@ -760,6 +767,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ],
                             ),
                           ),
+                          myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge != 0 ?
                           Padding(
                             padding: const EdgeInsets.fromLTRB(15, 10, 14, 0),
                             child: Row(
@@ -778,7 +786,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),
                               ],
                             ),
-                          ),
+                          ):SizedBox(),
                           const Padding(
                             padding: EdgeInsets.fromLTRB(15, 10, 14, 0),
                             child: Divider(
@@ -817,12 +825,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     onPressed: () {
                         if (_formKey.currentState!.validate()) {
 
-                          if (myCartController.model.value.data!.orderAddress != null ) {
+                          if (selectedMethod == "Delivery" && myCartController.model.value.data!.orderAddress != null ) {
                             checkOut(
                                 context: context,
                                 payment_type: 'online',
                                 deliveryInstruction: deliveryInstructionController.text,
-                                specialRequest: specialRequestController.text, delivery_type: selectedMethod)
+                                specialRequest: specialRequestController.text,
+                                delivery_type: selectedMethod)
                                 .then((value) {
                               if (value.status == true) {
                                 print('order id is...${value.data!.orderId}');
@@ -836,10 +845,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                            showToast('select Delivery option');
                           }
                          else{
-                            showToast('choose order address');
+                             showToast('choose order address');
                           }
 
                         }
+                      // Get.toNamed(MyRouters.addNewCardScreen);
                     },
                   ),
                 ],

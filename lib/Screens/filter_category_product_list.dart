@@ -680,6 +680,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                     // Get.toNamed(MyRouters.myCartScreen);
                                                   },
                                                   child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       Row(
                                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -788,6 +789,12 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                   ],
                                                                 ),
                                                                 addHeight(3),
+                                                                Text(
+                                                                  ' ${(filterProductCategoryController.filterDataModel.value.data![index].subTitle ?? '').toString().capitalizeFirst}',
+                                                                  style: GoogleFonts.poppins(
+                                                                      fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                                ),
+                                                                addHeight(3),
                                                                 Row(
                                                                   children: [
                                                                     Text(
@@ -795,7 +802,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                       style: GoogleFonts.poppins(
                                                                           fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                                                     ),
-                                                                    const SizedBox(width: 10),
+                                                                    const SizedBox(width: 3),
                                                                     Text(
                                                                       filterProductCategoryController.filterDataModel.value.data![index].sizeId ?? ''.toString(),
                                                                       style: GoogleFonts.poppins(

@@ -35,6 +35,8 @@ class OrderDetail {
   dynamic couponDiscount;
   dynamic serviceCharge;
   dynamic grandTotal;
+  dynamic specialRequets;
+  dynamic instructionForDelivery;
   User? user;
   Vendor? vendor;
   Driver? driver;
@@ -56,9 +58,11 @@ class OrderDetail {
         this.grandTotal,
         this.user,
         this.vendor,
+        this.specialRequets,
         this.serviceCharge,
         this.driver,
         this.address,
+        this.instructionForDelivery,
         this.orderType,
         this.deliveryStatus,
         this.feedback,
@@ -74,6 +78,8 @@ class OrderDetail {
     packingFee = json['packing_fee'];
     couponDiscount = json['coupon_discount'];
     serviceCharge = json['service_charge'];
+    specialRequets = json['special_requets'];
+    instructionForDelivery = json['instruction_for_delivery'];
     grandTotal = json['grand_total'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     vendor =
@@ -101,9 +107,11 @@ class OrderDetail {
     data['service_charge'] = this.serviceCharge;
     data['delivery_charges'] = this.deliveryCharges;
     data['tip_amount'] = this.tipAmount;
+    data['special_requets'] = this.specialRequets;
     data['packing_fee'] = this.packingFee;
     data['coupon_discount'] = this.couponDiscount;
     data['grand_total'] = this.grandTotal;
+    data['instruction_for_delivery'] = this.instructionForDelivery;
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }

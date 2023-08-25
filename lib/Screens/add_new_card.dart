@@ -230,7 +230,11 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                   {
                     log('token--' + value.id.toString());
                     // log('order id--' + value.);
-                    checkOut(payment_type: 'online', context: context, deliveryInstruction: '', specialRequest: '', delivery_type:value )
+                    checkOut(payment_type: 'online',
+                        context: context,
+                        deliveryInstruction: '',
+                        specialRequest: '',
+                        delivery_type:value )
                         .then((value1) {
                       // log('Token iddddddddddddddddddddd'+value.id.toString());
                       payment(

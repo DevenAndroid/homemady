@@ -17,6 +17,7 @@ Future<ModelCommonResponse> register(
     password,
     confirmPassword,
     role,
+    countryCode,
     BuildContext context) async {
   var map = <String, dynamic>{};
   map['email'] = email;
@@ -25,6 +26,7 @@ Future<ModelCommonResponse> register(
   map['confirm_password'] = confirmPassword;
   map['name'] = name;
   map['role'] = role;
+  map['country_code'] = countryCode;
 
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context)!.insert(loader);

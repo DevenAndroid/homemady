@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +7,8 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/notification_controller.dart';
+import '../controller/order_details_controller.dart';
+import 'orderDetailsScreen.dart';
 
 
 class NotificationScreen extends StatefulWidget {
@@ -16,6 +19,7 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   final controller = Get.put(NotificationController());
+  final orderDetailsController = Get.put(OrderDetailsController());
   @override
   void initState() {
     // TODO: implement initState
@@ -39,13 +43,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: (){
-                        Get.toNamed(MyRouters.orderDetailsScreen);
-                      },
-                      child: Padding(
-                        padding:
-                        const EdgeInsets.only(left: 8, right: 8, bottom: 16),
+                    return Padding(
+                      padding:
+                      const EdgeInsets.only(left: 8, right: 8, bottom: 16),
+                      child: GestureDetector(
+                        onTap: (){
+                          orderDetailsController.id.value = controller.model.value.data!.notificationData![index].orderId.toString();
+                          print("Order id is ${orderDetailsController.id.value}");
+                         Get.toNamed(MyRouters.orderDetailsScreen);
+                        },
                         child: Container(
                           height: 95,
                           decoration: BoxDecoration(
@@ -53,10 +59,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
-                                  color: const Color(0xFF04666E).withOpacity(0.14),
+                                  color: Color(0xFF04666E).withOpacity(0.14),
                                   spreadRadius: 1.0,
                                   blurRadius: 20.0,
-                                  offset: const Offset(3.0, 3.0))
+                                  offset: Offset(3.0, 3.0))
                             ],
                           ),
                           width: Get.width,
@@ -147,11 +153,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              const SizedBox(height: 60,),
+              SizedBox(height: 60,),
               Image.asset('assets/images/notifactionIcon.png'),
-              const SizedBox(height: 10,),
+              SizedBox(height: 10,),
                Text("No Notifications Yet",
-                 style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
+                 style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
             ],
           ),
         )  :

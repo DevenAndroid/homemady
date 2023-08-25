@@ -202,7 +202,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                       ],
                     ),
                   ):SizedBox(),
-                  addHeight(10),
+
                 ],
               );
             },

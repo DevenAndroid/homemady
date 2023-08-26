@@ -631,7 +631,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   ),
                                                 ),
                                               ),
-                                               const Positioned(
+                                                Positioned(
                                                   top: 80,
                                                   // bottom: 0,
                                                   left: 20,
@@ -976,7 +976,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   ),
                                                 ),
                                               ),
-                                               const Positioned(
+                                                Positioned(
                                                   top: 80,
                                                   // bottom: 0,
                                                   left: 20,

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/routers/routers.dart';
@@ -37,9 +40,97 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
 
   final RxBool isSelect = false.obs;
   late TabController tabControllerGG;
+  String? referralLink;
+  BranchContentMetaData metadata = BranchContentMetaData();
+  BranchUniversalObject? buo;
+  BranchLinkProperties lp = BranchLinkProperties();
+  BranchEvent? eventStandard;
+  BranchEvent? eventCustom;
+  StreamController<String> controllerData = StreamController<String>();
+  StreamController<String> controllerInitSession = StreamController<String>();
+  StreamController<String> controllerUrl = StreamController<String>();
+  void onShare(code) async {
+    final box = context.findRenderObject() as RenderBox?;
+    await Share.share(code, subject: "link", sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+  }
+  getDataSubscription() {
+    generateLink(
+        BranchUniversalObject(
+            canonicalIdentifier: 'flutter/branch',
+            canonicalUrl: '',
+            title: '',
+            contentDescription: '',
+            contentMetadata: BranchContentMetaData()..addCustomMetadata('referralCode', 47),
+            keywords: ['Plugin', 'Branch', 'Flutter'],
+            publiclyIndex: true,
+            locallyIndex: true,
+            expirationDateInMilliSec: DateTime.now().add(const Duration(days: 365)).millisecondsSinceEpoch),
+        BranchLinkProperties(
+            channel: 'facebook',
+            feature: 'sharing',
+            stage: 'new share',
+            campaign: 'campaign',
+            tags: ['one', 'two', 'three']));
+    // Get.toNamed(ThankuScreen.thanku);
+    print("1111111111111");
+    setState(() {});
+  }
+  void initDeepLinkData() {
+    metadata = BranchContentMetaData()
+      ..addCustomMetadata('referralCode', 47)
+    //--optional Custom Metadata
+      ..contentSchema = BranchContentSchema.COMMERCE_PRODUCT
+      ..price = 50.99
+      ..currencyType = BranchCurrencyType.BRL
+      ..quantity = 50
+      ..sku = 'sku'
+      ..productName = 'productName'
+      ..productBrand = 'productBrand'
+      ..productCategory = BranchProductCategory.ELECTRONICS
+      ..productVariant = 'productVariant'
+      ..condition = BranchCondition.NEW
+      ..rating = 100
+      ..ratingAverage = 50
+      ..ratingMax = 100
+      ..ratingCount = 2
+      ..setAddress(street: 'street', city: 'city', region: 'ES', country: 'Brazil', postalCode: '99999-987')
+      ..setLocation(31.4521685, -114.7352207);
 
+    buo = BranchUniversalObject(
+        canonicalIdentifier: 'flutter/branch',
+        canonicalUrl: '',
+        title: '',
+        contentDescription: '',
+        contentMetadata: metadata,
+        keywords: ['Plugin', 'Branch', 'Flutter'],
+        publiclyIndex: true,
+        locallyIndex: true,
+        expirationDateInMilliSec: DateTime.now().add(const Duration(days: 365)).millisecondsSinceEpoch);
+
+    lp = BranchLinkProperties(
+        channel: 'facebook',
+        feature: 'sharing',
+        stage: 'new share',
+        campaign: 'campaign',
+        tags: ['one', 'two', 'three'])
+      ..addControlParam('\$uri_redirect_mode', '1');
+  }
+  void generateLink(BranchUniversalObject? buo, BranchLinkProperties lp) async {
+    BranchResponse response = await FlutterBranchSdk.getShortUrl(buo: buo!, linkProperties: lp);
+    if (response.success) {
+      controllerUrl.sink.add('${response.result}');
+      referralLink = response.result;
+      setState(() {});
+      print("referralLink $referralLink");
+      print("ProductId ${Get.arguments[0]}");
+    } else {
+      controllerUrl.sink.add('Error : ${response.errorCode} - ${response.errorMessage}');
+    }
+  }
   @override
   void initState() {
+    getDataSubscription();
+    initDeepLinkData();
     super.initState();
     tabControllerGG = TabController(length: 3, vsync: this);
     print(tabControllerGG);
@@ -344,9 +435,10 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                             child: Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 14),
                                               child: Center(
-                                                child: InkWell(
+                                                child: GestureDetector(
                                                   onTap: () async {
-                                                    await Share.share('HomeMady ');
+                                                    //await Share.share('HomeMady ');
+                                                    onShare(referralLink);
                                                   },
                                                   child: const Icon(
                                                     Icons.share_outlined,

@@ -223,20 +223,22 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
             onPressed: () {
               if (controller.details.complete == false) {
                 showToast("Fill the card details correctly");
-              } else {
+              }
+              else {
                 Stripe.instance.createToken(const CreateTokenParams.card(params: CardTokenParams())).then((value) {
                   log(value.toString());
                   log('token--' + value.id.toString());
                   {
                     log('token--' + value.id.toString());
-                    // log('order id--' + value.);
+                    // saveCardDetailsRepo(stripeToken: value.id.toString(), context: context);
+                    log('order id--' + value.id.toString());
                     checkOut(payment_type: 'online',
                         context: context,
                         deliveryInstruction: '',
                         specialRequest: '',
                         delivery_type:value )
                         .then((value1) {
-                      // log('Token iddddddddddddddddddddd'+value.id.toString());
+                      log('Token iddddddddddddddddddddd'+value.id.toString());
                       payment(
                               orderId: value1.data!.orderId.toString(),
                               token: value.id.toString(),
@@ -272,7 +274,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                 textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
             child: Text(
-              "PAY",
+              "SAVE",
               style: Theme.of(context)
                   .textTheme
                   .headline5!

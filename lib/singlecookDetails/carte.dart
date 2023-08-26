@@ -436,7 +436,8 @@ class _CarteScreenState extends State<CarteScreen> {
           ),
         ),
       ],
-    ): const Padding(
+    ):
+      const Padding(
       padding: EdgeInsets.only(top: 80),
       child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
     ):   const Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));

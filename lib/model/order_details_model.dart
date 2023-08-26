@@ -233,98 +233,70 @@ class User {
 }
 
 class Driver {
-  dynamic id;
-  bool? isDriver;
-  bool? isVendor;
-  dynamic latitude;
-  dynamic longitude;
-  dynamic location;
+  int? driverId;
+  dynamic dob;
   dynamic name;
-  dynamic lastName;
-  dynamic email;
   dynamic phone;
-  dynamic walletBalance;
-  dynamic earnedBalance;
-  dynamic profileImage;
-  dynamic referalCode;
-  bool? isDriverOnline;
-  bool? isVendorOnline;
-  dynamic deliveryRange;
-  bool? selfDelivery;
-  bool? asDriverVerified;
-  bool? asVendorVerified;
-  bool? isProfileComplete;
+  dynamic ppsNo;
+  dynamic vehicleType;
+  dynamic address;
+  dynamic vehicleName;
+  dynamic vehicleModel;
+  dynamic vehicleMake;
+  dynamic vehicleColor;
+  dynamic ppsCardImage;
+  dynamic licenceFrontImage;
+  dynamic licenceBackImage;
 
   Driver(
-      {this.id,
-        this.isDriver,
-        this.isVendor,
-        this.latitude,
-        this.longitude,
-        this.location,
+      {this.driverId,
+        this.dob,
         this.name,
-        this.lastName,
-        this.email,
         this.phone,
-        this.walletBalance,
-        this.earnedBalance,
-        this.profileImage,
-        this.referalCode,
-        this.isDriverOnline,
-        this.isVendorOnline,
-        this.deliveryRange,
-        this.selfDelivery,
-        this.asDriverVerified,
-        this.asVendorVerified,
-        this.isProfileComplete});
+        this.ppsNo,
+        this.vehicleType,
+        this.address,
+        this.vehicleName,
+        this.vehicleModel,
+        this.vehicleMake,
+        this.vehicleColor,
+        this.ppsCardImage,
+        this.licenceFrontImage,
+        this.licenceBackImage});
 
   Driver.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    isDriver = json['is_driver'];
-    isVendor = json['is_vendor'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-    location = json['location'];
+    driverId = json['driverId'];
+    dob = json['dob'];
     name = json['name'];
-    lastName = json['last_name'];
-    email = json['email'];
     phone = json['phone'];
-    walletBalance = json['wallet_balance'];
-    earnedBalance = json['earned_balance'];
-    profileImage = json['profile_image'];
-    referalCode = json['referal_code'];
-    isDriverOnline = json['is_driver_online'];
-    isVendorOnline = json['is_vendor_online'];
-    deliveryRange = json['delivery_range'];
-    selfDelivery = json['self_delivery'];
-    asDriverVerified = json['as_driver_verified'];
-    asVendorVerified = json['as_vendor_verified'];
-    isProfileComplete = json['is_profile_complete'];
+    ppsNo = json['pps_no'];
+    vehicleType = json['vehicle_type'];
+    address = json['address'];
+    vehicleName = json['vehicle_name'];
+    vehicleModel = json['vehicle_model'];
+    vehicleMake = json['vehicle_make'];
+    vehicleColor = json['vehicle_color'];
+    ppsCardImage = json['pps_card_image'];
+    licenceFrontImage = json['licence_front_image'];
+    licenceBackImage = json['licence_back_image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['is_driver'] = this.isDriver;
-    data['is_vendor'] = this.isVendor;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['location'] = this.location;
+    data['driverId'] = this.driverId;
+    data['dob'] = this.dob;
     data['name'] = this.name;
-    data['last_name'] = this.lastName;
-    data['email'] = this.email;
     data['phone'] = this.phone;
-    data['wallet_balance'] = this.walletBalance;
-    data['earned_balance'] = this.earnedBalance;
-    data['profile_image'] = this.profileImage;
-    data['referal_code'] = this.referalCode;
-    data['is_driver_online'] = this.isDriverOnline;
-    data['is_vendor_online'] = this.isVendorOnline;
-    data['delivery_range'] = this.deliveryRange;
-    data['self_delivery'] = this.selfDelivery;
-    data['as_driver_verified'] = this.asDriverVerified;
-    data['as_vendor_verified'] = this.asVendorVerified;
-    data['is_profile_complete'] = this.isProfileComplete;
+    data['pps_no'] = this.ppsNo;
+    data['vehicle_type'] = this.vehicleType;
+    data['address'] = this.address;
+    data['vehicle_name'] = this.vehicleName;
+    data['vehicle_model'] = this.vehicleModel;
+    data['vehicle_make'] = this.vehicleMake;
+    data['vehicle_color'] = this.vehicleColor;
+    data['pps_card_image'] = this.ppsCardImage;
+    data['licence_front_image'] = this.licenceFrontImage;
+    data['licence_back_image'] = this.licenceBackImage;
     return data;
   }
 }

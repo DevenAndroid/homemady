@@ -833,6 +833,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 specialRequest: specialRequestController.text,
                                 delivery_type: selectedMethod)
                                 .then((value) {
+
                               if (value.status == true) {
                                 print('order id is...${value.data!.orderId}');
                                // showToast(value.message.toString());

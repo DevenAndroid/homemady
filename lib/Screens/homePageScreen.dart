@@ -60,6 +60,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
     const ItemDropDown('sustainable_packaging', 'Sustainable Packaging'),
     const ItemDropDown('quickest_delivery', 'Quickest Delivery'),
     const ItemDropDown('distance', 'Distance'),
+    const ItemDropDown('top_chefs', 'Distance'),
+    const ItemDropDown('rating', 'Rating'),
   ];
 
 
@@ -515,326 +517,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-     // drawer:const CustomDrawer(),
-      // Drawer(
-      //   child: SingleChildScrollView(
-      //     scrollDirection: Axis.vertical,
-      //     child: Column(
-      //       children: [
-      //         ListView(
-      //           shrinkWrap: true,
-      //           padding: EdgeInsets.zero,
-      //           children: [
-      //             SizedBox(
-      //               // height: 240,
-      //               child: DrawerHeader(
-      //                   decoration: const BoxDecoration(
-      //                       gradient: LinearGradient(
-      //                         colors: [
-      //                           Color(0xFF7ED957),
-      //                           Color(0xFF68C541),
-      //                         ],
-      //                       )),
-      //                   child: Align(
-      //                       alignment: Alignment.center,
-      //                       child: Obx(() {
-      //                         return Expanded(
-      //                           child: Container(
-      //                             height: screenSize.height * 0.30,
-      //                             width: screenSize.width,
-      //                             child: Column(
-      //                               children: [
-      //                                 Obx(() {
-      //                                   return Container(
-      //                                     margin: const EdgeInsets.all(4),
-      //                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-      //                                     decoration: const ShapeDecoration(
-      //                                       shape: CircleBorder(),
-      //                                       color: Colors.white,
-      //                                     ),
-      //                                     child: CachedNetworkImage(
-      //                                       imageUrl: profileController.isDataLoading.value
-      //                                           ? (profileController.model.value.data!.profileImage ?? "").toString()
-      //                                           : "assets/images/dummyPerson.png"
-      //                                           "",
-      //                                       height: screenSize.height * 0.10,
-      //                                       width: screenSize.height * 0.10,
-      //                                       errorWidget: (_, __, ___) => const SizedBox(),
-      //                                       placeholder: (_, __) => const SizedBox(),
-      //                                       fit: BoxFit.cover,
-      //                                     ),
-      //                                   );
-      //                                 }),
-      //                                 Expanded(
-      //                                   child: Text(
-      //                                       profileController.isDataLoading.value
-      //                                           ? profileController.model.value.data!.email.toString()
-      //                                           : 'williamsjones@gmail.com',
-      //                                       style: GoogleFonts.poppins(
-      //                                         fontSize: 18,
-      //                                         color: const Color(0xFFFFFFFF),
-      //                                         fontWeight: FontWeight.w600,
-      //                                       )),
-      //                                 ),
-      //                                 SizedBox(height: 2,),
-      //                                 Expanded(
-      //                                   child: Text(
-      //                                       profileController.isDataLoading.value
-      //                                           ? profileController.model.value.data!.name.toString()
-      //                                           : 'Williams Jones',
-      //                                       style: GoogleFonts.poppins(
-      //                                         fontSize: 15,
-      //                                         color: const Color(0xFFFFFFFF),
-      //                                         fontWeight: FontWeight.w400,
-      //                                       )),
-      //                                 ),
-      //                               ],
-      //                             ),
-      //                           ),
-      //                         );
-      //                       }))),
-      //             ),
-      //             SizedBox(height: 10,),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/note-2.png',
-      //                 height: 20,
-      //               ),
-      //               title: Text('My Orders',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 0;
-      //                   Get.toNamed(MyRouters.myOrderScreen);
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Icon(Icons.favorite_border_outlined),
-      //               title: Text('Favorite',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 0;
-      //                   Get.toNamed(MyRouters.favouriteScreen);
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/personImg.png',
-      //                 height: 20,
-      //               ),
-      //               title: Text('My profile',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 1;
-      //                   Get.toNamed(MyRouters.myProfileScreen);
-      //                   // Get.to(VendorOrderList());
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/notification-img.png',
-      //                 height: 20,
-      //               ),
-      //               title: Text('Notification',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 2;
-      //                   Get.toNamed(MyRouters.notificationScreen);
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/location-my.png',
-      //                 height: 20,
-      //               ),
-      //               title: Text('My Address',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 3;
-      //                   Get.to(() => const MyAddressScreen());
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/notebook_reference.png',
-      //                 height: 20,
-      //               ),
-      //               title: Text('Refer and Earn',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 4;
-      //                   Get.toNamed(MyRouters.referAndEarn);
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/metro-security.png',
-      //                 height: 20,
-      //               ),
-      //               title: Text('Privacy Policy',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 6;
-      //                   Get.toNamed(MyRouters.privacyPolicy);
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/chatchatting.png',
-      //                 height: 20,
-      //               ),
-      //               title: Text('My Chats',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 7;
-      //                   Get.toNamed(NotificationScreen2.notificationScreen2);
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/helpICon.png',
-      //                 height: 20,
-      //               ),
-      //               title: Text('Help Center',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() {
-      //                   currentDrawer = 8;
-      //                   Get.toNamed(MyRouters.helpCenterScreen);
-      //                 });
-      //               },
-      //             ),
-      //             const Divider(
-      //               height: 5,
-      //               color: Color(0xffEFEFEF),
-      //               thickness: 1,
-      //             ),
-      //             ListTile(
-      //               visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-      //               leading: Image.asset(
-      //                 'assets/images/logout.png',
-      //                 height: 16,
-      //               ),
-      //               title: Text('Logout',
-      //                   style: GoogleFonts.poppins(
-      //                     fontSize: 15,
-      //                     color: const Color(0xFF4F535E),
-      //                     fontWeight: FontWeight.w400,
-      //                   )),
-      //               onTap: () {
-      //                 setState(() async {
-      //                   SharedPreferences pref = await SharedPreferences.getInstance();
-      //                   pref.clear();
-      //                   Get.toNamed(MyRouters.loginScreen);
-      //                 });
-      //               },
-      //             ),
-      //           ],
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
         appBar: AppBar(
           title: Row(
             children: [
@@ -1006,17 +688,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           controller: searchController.searchController1,
                                           prefix: InkWell(
                                             onTap: () {
-                                              if (isAvailableSelected == true) {
-                                                filterDataController.availableOption.value= "available_now";
+                                              // if (isAvailableSelected == true) {
+                                                 filterDataController.availableOption.value= "available_now";
                                                 filterDataController.getFilterData();
-                                                Get.toNamed(SearchScreenData.searchScreen,);
-                                              }
-                                              else{
-
-                                                showToast("Please Choose option");
-                                              }
-                                              print("Date is $pickedDate");
-                                              print(searchController.searchController1.text);
+                                                 Get.toNamed(SearchScreenData.searchScreen,);
+                                              // }
+                                              // else{
+                                              //
+                                              //   showToast("Please Choose option");
+                                              // }
+                                              // print("Date is $pickedDate");
+                                              // print(searchController.searchController1.text);
                                             },
                                             child: Icon(
                                               Icons.search,
@@ -1035,7 +717,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   GestureDetector(
                                     onTap: () {
                                       //_showDialogCategory();
-                                      if(selectedDate != "Available Now"){
+                                      if(selectedDate != "Available Now" ||  isAvailableSelected == true){
                                       showUploadWindow();
                                         // Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);
                                       }else {
@@ -1466,27 +1148,28 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         ),
                                                       ),
                                                     ),
-                                                     const Positioned(
-                                                        top: 80,
-                                                        // bottom: 0,
-                                                        left: 20,
-                                                        right: 20,
-                                                        //   bottom: 0,
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Icon(
-                                                              Icons.arrow_back_ios,
-                                                              color: Colors.white,
-                                                              size: 20,
-                                                            ),
-                                                            Icon(
-                                                              Icons.arrow_forward_ios,
-                                                              color: Colors.white,
-                                                              size: 20,
-                                                            )
-                                                          ],
-                                                        )),
+                                                     // Arrows Ui
+                                                     // const Positioned(
+                                                     //    top: 80,
+                                                     //    // bottom: 0,
+                                                     //    left: 20,
+                                                     //    right: 20,
+                                                     //    //   bottom: 0,
+                                                     //    child: Row(
+                                                     //      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                     //      children: [
+                                                     //        Icon(
+                                                     //          Icons.arrow_back_ios,
+                                                     //          color: Colors.white,
+                                                     //          size: 20,
+                                                     //        ),
+                                                     //        Icon(
+                                                     //          Icons.arrow_forward_ios,
+                                                     //          color: Colors.white,
+                                                     //          size: 20,
+                                                     //        )
+                                                     //      ],
+                                                     //    )),
                                                     Positioned(
                                                         bottom: 10,
                                                         right: 20,
@@ -1633,7 +1316,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                         return  Stack(
                                                                           children: [
                                                                             Center(child: CachedNetworkImage(
-                                                                              imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
+                                                                              imageUrl:     homeController.model.value.data!.stores![index].award![index].image.toString(),
                                                                               //fit: BoxFit.cover,
                                                                               height: 50,
                                                                               width: 40,
@@ -1872,7 +1555,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             ],
                                           ),
                                         );
-                                      }):const SizedBox(),
+                                      }):const Padding(
+                                    padding: EdgeInsets.only(top: 80),
+                                    child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+                                  ),
                                   categoryController.isDataLoading ?
                                   ListView.builder(
                                       shrinkWrap: true,
@@ -1927,7 +1613,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             ],
                                           ),
                                         );
-                                      }):const SizedBox(),
+                                      }):const Padding(
+                                    padding: EdgeInsets.only(top: 80),
+                                    child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+                                  ),
                                   categoryController.isDataLoading ?
                                   ListView.builder(
                                       shrinkWrap: true,
@@ -1975,7 +1664,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             ],
                                           ),
                                         );
-                                      }):const SizedBox(),
+                                      }):const Padding(
+                                    padding: EdgeInsets.only(top: 80),
+                                    child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+                                  ),
 
                                   Text(
                                     "Dietary:",
@@ -2037,7 +1729,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             ],
                                           ),
                                         );
-                                      }):const SizedBox(),
+                                      }):const Padding(
+                                    padding: EdgeInsets.only(top: 80),
+                                    child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+                                  ),
 
 
 

@@ -864,7 +864,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                 Image.asset('assets/images/Favaorites.png'),
                                 SizedBox(height: 10,),
                                 Text("No Favaorites",
-                                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+                                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
                               ],
                             ),
                           )

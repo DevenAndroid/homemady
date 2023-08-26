@@ -52,7 +52,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                       Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
                     },
                     child:
-                    controller.model.value.data![index].deliveryStatus == 'Order Placed' ?
+                    controller.isDataLoading.value ?
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -241,7 +241,21 @@ class _ActiveScreenState extends State<ActiveScreen> {
                           addHeight(18),
                         ],
                       ),
-                    ):SizedBox(),
+                    ): Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 60,),
+                          Image.asset('assets/images/noOrderImage.png'),
+                          SizedBox(height: 10,),
+                          Text("Empty",
+                            style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
+                          SizedBox(height: 10,),
+                          Text("You do not have an active order of this time",
+                            style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff747474),fontSize: 22),),
+                        ],
+                      ),
+                    ) ,
                   ),
 
                 ],

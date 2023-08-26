@@ -1333,7 +1333,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     color: const Color(0xff1A2E33)
                                 ),),
                               Spacer(),
-                              Text( '€ ${controller.model.value.data!.cartPaymentSummary!.subTotal.toStringAsFixed(2)}',
+                              Text( '€ ${controller.model.value.data!.cartPaymentSummary!.subTotal.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -1373,6 +1373,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             ],
                           ),
                         ),
+                        controller.model.value.data!.cartPaymentSummary!.serviceCharge != 0 ?
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15,10,14,0),
                           child: Row(
@@ -1395,28 +1396,29 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),),
                             ],
                           ),
-                        ),
-                        // Padding(
-                        //   padding: const EdgeInsets.fromLTRB(15,10,14,0),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.start,
-                        //     children: [
-                        //       Text('Delivery:',
-                        //         style: GoogleFonts.poppins(
-                        //             fontSize: 16,
-                        //             fontWeight: FontWeight.w600,
-                        //             color: Color(0xff1A2E33)
-                        //         ),),
-                        //       Spacer(),
-                        //       Text( '€ ${controller.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
-                        //         style: GoogleFonts.poppins(
-                        //             fontSize: 14,
-                        //             fontWeight: FontWeight.w500,
-                        //             color: Color(0xff486769)
-                        //         ),),
-                        //     ],
-                        //   ),
-                        // ),
+                        ): SizedBox(),
+                        controller.model.value.data!.cartPaymentSummary!.deliveryCharge != 0 ?
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(15,10,14,0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text('Delivery:',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xff1A2E33)
+                                ),),
+                              Spacer(),
+                              Text( '€ ${controller.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff486769)
+                                ),),
+                            ],
+                          ),
+                        ):SizedBox(),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15,10,14,0),
                           child: Row(

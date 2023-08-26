@@ -36,6 +36,7 @@ class OrderDetail {
   dynamic serviceCharge;
   dynamic grandTotal;
   dynamic specialRequets;
+  dynamic deliveryTime;
   dynamic instructionForDelivery;
   User? user;
   Vendor? vendor;
@@ -62,6 +63,7 @@ class OrderDetail {
         this.serviceCharge,
         this.driver,
         this.address,
+        this.deliveryTime,
         this.instructionForDelivery,
         this.orderType,
         this.deliveryStatus,
@@ -75,6 +77,7 @@ class OrderDetail {
     tax = json['tax'];
     deliveryCharges = json['delivery_charges'];
     tipAmount = json['tip_amount'];
+    deliveryTime = json['delivery_time'];
     packingFee = json['packing_fee'];
     couponDiscount = json['coupon_discount'];
     serviceCharge = json['service_charge'];
@@ -107,6 +110,7 @@ class OrderDetail {
     data['service_charge'] = this.serviceCharge;
     data['delivery_charges'] = this.deliveryCharges;
     data['tip_amount'] = this.tipAmount;
+    data['delivery_time'] = this.deliveryTime;
     data['special_requets'] = this.specialRequets;
     data['packing_fee'] = this.packingFee;
     data['coupon_discount'] = this.couponDiscount;

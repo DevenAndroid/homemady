@@ -4,18 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/Screens/thankyou_Screen.dart';
 import 'package:homemady/routers/routers.dart';
-import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
-import 'package:homemady/widgets/editprofiletextfiled.dart';
 
 import '../controller/my_cart_controller.dart';
 import '../repository/checkout_order_repo.dart';
 import '../resources/add_text.dart';
-import '../widgets/app_assets.dart';
-import '../widgets/app_theme.dart';
 import '../widgets/dimenestion.dart';
 
 class AddNewCardScreen extends StatefulWidget {
@@ -26,6 +20,9 @@ class AddNewCardScreen extends StatefulWidget {
 }
 
 class _AddNewCardScreenState extends State<AddNewCardScreen> {
+
+  String? selectedMethod;
+  List method = ["D", "P"];
   bool showErrorMessage = false;
   bool value = false;
   RxBool checkboxColor = false.obs;
@@ -232,11 +229,12 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                     log('token--' + value.id.toString());
                     // saveCardDetailsRepo(stripeToken: value.id.toString(), context: context);
                     log('order id--' + value.id.toString());
-                    checkOut(payment_type: 'online',
+                    checkOut(
+                        payment_type: 'online',
                         context: context,
-                        deliveryInstruction: '',
-                        specialRequest: '',
-                        delivery_type:value )
+                        deliveryInstruction: Get.arguments[2],
+                        specialRequest: Get.arguments[1],
+                        delivery_type: Get.arguments[0] )
                         .then((value1) {
                       log('Token iddddddddddddddddddddd'+value.id.toString());
                       payment(

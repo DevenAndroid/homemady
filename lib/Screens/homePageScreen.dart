@@ -1031,7 +1031,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       child: Container(
                                                          // margin: const EdgeInsets.symmetric(vertical: 5),
                                                         height: 52,
-                                                         width: 120,
+                                                         width: 110,
                                                         decoration: BoxDecoration(
                                                             color: currentIndex != index ? const Color(0xffF2F2F2).withOpacity(.10): const Color(0xff7ED957),
                                                             borderRadius: BorderRadius.circular(30)

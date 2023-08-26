@@ -111,6 +111,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                              color: const Color(0xFF303C5E)
                                          ),),
                                          addHeight(10),
+                                         Text('Delivery Time'
+                                           ,style: GoogleFonts.poppins(
+                                               fontWeight: FontWeight.w600,
+                                               fontSize: 14,
+                                               color: const Color(0xFF1A2E33)
+                                           ),),
+
+                                         // Text(controller.model.value.orderDetail!.deliveryTime!.toString(),
+                                         //   style: GoogleFonts.poppins(
+                                         //       fontWeight: FontWeight.w400,
+                                         //       fontSize: 11,
+                                         //       color: const Color(0xFF303C5E)
+                                         //   ),),
 
                                          controller.model.value.orderDetail!.specialRequets != '' ?
                                          Column(
@@ -572,7 +585,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      color: const Color(0xff1A2E33)
                                                  ),),
                                                const Spacer(),
-                                               Text( "${controller.model.value.orderDetail!.serviceCharge.toString()}.25",
+                                               Text( "€ ${controller.model.value.orderDetail!.serviceCharge.toString()}",
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 14,
                                                      fontWeight: FontWeight.w500,
@@ -581,6 +594,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                              ],
                                            ),
                                            addHeight(10),
+                                           controller.model.value.orderDetail!.deliveryCharges != 0 ?
                                            Row(
                                              mainAxisAlignment: MainAxisAlignment.start,
                                              children: [
@@ -591,14 +605,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      color: const Color(0xff1A2E33)
                                                  ),),
                                                const Spacer(),
-                                               Text(  controller.model.value.orderDetail!.deliveryCharges.toString(),
+                                               Text(  "€ ${controller.model.value.orderDetail!.deliveryCharges.toString()}",
                                                  style: GoogleFonts.poppins(
                                                      fontSize: 14,
                                                      fontWeight: FontWeight.w500,
                                                      color: const Color(0xff486769)
                                                  ),),
                                              ],
-                                           ),
+                                           ):SizedBox(),
                                            addHeight(10),
                                            Row(
                                              mainAxisAlignment: MainAxisAlignment.start,
@@ -651,30 +665,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                    ),
                                  ),
                                  SizedBox(height: AddSize.size20),
-                                 //           InkWell(
-                                 //             onTap: () {
-                                 //               Get.toNamed(MyRouters.reviewScreen);
-                                 //             },
-                                 //             child: Container(
-                                 //               height: 56,
-                                 //               width: AddSize.screenWidth / 1.1,
-                                 //               decoration: BoxDecoration(
-                                 //                   borderRadius: BorderRadius.circular(10),
-                                 //                   border: Border.all(
-                                 //                       color: const Color(0xFFFE724C), width: 2)),
-                                 //               child: Center(
-                                 //                 child: Text(
-                                 //                   'Send Feedback For Driver',
-                                 //                   style: GoogleFonts.poppins(
-                                 //                     color: const Color(0xFFFE724C),
-                                 //                     fontSize: 16,
-                                 //                     fontWeight: FontWeight.w700,
-                                 //                   ),
-                                 //                   textAlign: TextAlign.center,
-                                 //         ),
-                                 //               ),
-                                 //   ),
-                                 // ),
+
                                ]
                            ) : const Center(child: Text('NO Driver Information')): const Center(child: Padding(
                              padding: EdgeInsets.only(top: 100),
@@ -966,6 +957,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                          //   ],
                                          // ),
                                          // addHeight(10),
+                                         controller.model.value.orderDetail!.deliveryCharges != 0 ?
                                          Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
                                            children: [
@@ -983,7 +975,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                    color: const Color(0xff486769)
                                                ),),
                                            ],
-                                         ),
+                                         ):const SizedBox(),
                                          addHeight(10),
                                          Row(
                                            mainAxisAlignment: MainAxisAlignment.start,

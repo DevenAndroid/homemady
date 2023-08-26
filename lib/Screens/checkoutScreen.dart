@@ -40,7 +40,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   RxBool checkboxColor2 = false.obs;
 
   String? selectedMethod;
-  List method = ["Delivery", "Pickup"];
+  List method = ["D", "P"];
 
   @override
   void initState() {
@@ -48,13 +48,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       myCartController.getData();
-     // log('order id'+ )
+      // log('order id'+ )
       // Add Your Code here.
     });
   }
+
   final _formKey = GlobalKey<FormState>();
   @override
- // String selectValue = 'male';
+  // String selectValue = 'male';
   bool value = false;
   bool value2 = false;
   String _selectedValue = 'one';
@@ -103,28 +104,27 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           addHeight(10),
                           Row(
                             children: [
-                              myCartController.model.value.data!.cartItems![0].collectionStatus! ? SizedBox():
-                              Theme(
-                                data: ThemeData(
-                                  unselectedWidgetColor: Colors.green,
-                                ),
-                                child: addRadioButton(0)
-                              ),
+                              myCartController.model.value.data!.cartItems![0].collectionStatus!
+                                  ? SizedBox()
+                                  : Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.green,
+                                      ),
+                                      child: addRadioButton(0)),
                               addWidth(5),
-                              myCartController.model.value.data!.cartItems![0].collectionStatus! ?
-                                  SizedBox():
-                              Text(
-                                'Delivery',
-                                style: GoogleFonts.poppins(
-                                    color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
-                              ),
-                              myCartController.model.value.data!.cartItems![0].collectionStatus! ? SizedBox(): addWidth(40),
+                              myCartController.model.value.data!.cartItems![0].collectionStatus!
+                                  ? SizedBox()
+                                  : Text(
+                                      'Delivery',
+                                      style: GoogleFonts.poppins(
+                                          color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                    ),
+                              myCartController.model.value.data!.cartItems![0].collectionStatus! ? SizedBox() : addWidth(40),
                               Theme(
-                                data: ThemeData(
-                                  unselectedWidgetColor: Colors.green,
-                                ),
-                                child: addRadioButton(1)
-                              ),
+                                  data: ThemeData(
+                                    unselectedWidgetColor: Colors.green,
+                                  ),
+                                  child: addRadioButton(1)),
                               addWidth(5),
                               Text(
                                 'Pickup',
@@ -281,19 +281,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   borderRadius: BorderRadius.circular(100)),
                               child: GestureDetector(
                                 onTap: () {
-                                  applyCoupons(couponCode: codeController.text
-                                      .toString(), context: context).
-                                  then((value){
-                                    if(value.status == true){
+                                  applyCoupons(couponCode: codeController.text.toString(), context: context).then((value) {
+                                    if (value.status == true) {
                                       showToast(value.message);
                                       codeController.clear();
                                       myCartController.getData();
-                                    }
-                                    else if(value.status == false)
-                                    {
+                                    } else if (value.status == false) {
                                       showToast(value.message);
                                     }
-
                                   });
                                 },
                                 child: Center(
@@ -309,123 +304,125 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         )),
                   ),
                   addHeight(15),
-                  selectedMethod.toString() == 'Pickup'?
-                  const SizedBox() :  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF37C666).withOpacity(0.10),
-                          offset: const Offset(
-                            .1,
-                            .1,
-                          ),
-                          blurRadius: 20.0,
-                          spreadRadius: 1.0,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25, top: 10, bottom: 10, right: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Deliver to',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(MyRouters.chooseAddress);
-                                },
-                                child: Image.asset(
-                                  'assets/images/pencilImg.png',
-                                  height: 13,
+                  selectedMethod.toString() == 'P'
+                      ? const SizedBox()
+                      : Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFF37C666).withOpacity(0.10),
+                                offset: const Offset(
+                                  .1,
+                                  .1,
                                 ),
+                                blurRadius: 20.0,
+                                spreadRadius: 1.0,
                               ),
                             ],
                           ),
-                        ),
-                        const Divider(
-                          color: Color(0xFFF2F2F2),
-                          height: 1,
-                          thickness: 1.2,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Get.to(() => const MyAddressScreen());
-                            // Get.toNamed(MyRouters.chooseAddress);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 10, bottom: 15, right: 5),
-                            child: Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  'assets/images/Group 1000004233.png',
-                                  height: 36,
-                                ),
-                                addWidth(10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 25, top: 10, bottom: 10, right: 5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      myCartController.model.value.data!.orderAddress == null
-                                          ? 'Choose address'
-                                          : myCartController.model.value.data!.orderAddress!.addressType,
+                                      'Deliver to',
                                       style: GoogleFonts.poppins(
-                                          fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                          fontSize: 18, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
                                     ),
-                                    Row(
-                                      children: [
-                                        Obx(() {
-                                          return Text(
-                                            (myCartController.model.value.data!.orderAddress == null
-                                                ? 'Select address'
-                                                : myCartController.model.value.data!.orderAddress!.flatNo.toString() +
-                                                ',' +
-                                                myCartController.model.value.data!.orderAddress!.landmark
-                                                    .toString() +
-                                                ',' +
-                                                myCartController.model.value.data!.orderAddress!.pinCode
-                                                    .toString())
-                                                .toString(),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(MyRouters.chooseAddress);
+                                      },
+                                      child: Image.asset(
+                                        'assets/images/pencilImg.png',
+                                        height: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                color: Color(0xFFF2F2F2),
+                                height: 1,
+                                thickness: 1.2,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Get.to(() => const MyAddressScreen());
+                                  // Get.toNamed(MyRouters.chooseAddress);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20, top: 10, bottom: 15, right: 5),
+                                  child: Row(
+                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/Group 1000004233.png',
+                                        height: 36,
+                                      ),
+                                      addWidth(10),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            myCartController.model.value.data!.orderAddress == null
+                                                ? 'Choose address'
+                                                : myCartController.model.value.data!.orderAddress!.addressType,
                                             style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: const Color(0xff5C5C60)),
-                                          );
-                                        })
-                                        // addWidth(5),
-                                        /* Text((myCartController.model.value.data!.orderAddress!.landmark).toString(),
+                                                fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Obx(() {
+                                                return Text(
+                                                  (myCartController.model.value.data!.orderAddress == null
+                                                          ? 'Select address'
+                                                          : myCartController.model.value.data!.orderAddress!.flatNo
+                                                                  .toString() +
+                                                              ',' +
+                                                              myCartController.model.value.data!.orderAddress!.landmark
+                                                                  .toString() +
+                                                              ',' +
+                                                              myCartController.model.value.data!.orderAddress!.pinCode
+                                                                  .toString())
+                                                      .toString(),
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: const Color(0xff5C5C60)),
+                                                );
+                                              })
+                                              // addWidth(5),
+                                              /* Text((myCartController.model.value.data!.orderAddress!.landmark).toString(),
                                       style: GoogleFonts.poppins(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
                                           color: const Color(0xff5C5C60)
                                       ),),*/
-                                      ],
-                                    )
-                                  ],
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      const Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: Color(0xFF04666E),
+                                        size: 17,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                const Spacer(),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Color(0xFF04666E),
-                                  size: 17,
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                 // addHeight(15),
+                        ),
+                  // addHeight(15),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -596,8 +593,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             children: [
                               InkWell(
                                 onTap: () {
-
-                                  Get.toNamed(MyRouters.addNewCardScreen);
+                                  Get.toNamed(MyRouters.addNewCardScreen, arguments: [selectedMethod,specialRequestController.text,deliveryInstructionController.text]);
                                 },
                                 child: Container(
                                   width: 41,
@@ -708,85 +704,90 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ],
                             ),
                           ),
-                          myCartController.model.value.data!.cartPaymentSummary!.tipAmount == 0 ? SizedBox():
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Tip for Delivery Partner:',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                          myCartController.model.value.data!.cartPaymentSummary!.tipAmount == 0
+                              ? const SizedBox()
+                              : Padding(
+                                  padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Tip for Delivery Partner:',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '€ ${myCartController.model.value.data!.cartPaymentSummary!.tipAmount.toString()}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                const Spacer(),
-                                Text(
-                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.tipAmount.toString()}',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
+                          myCartController.model.value.data!.cartPaymentSummary!.couponDiscount == 0
+                              ? const SizedBox()
+                              : Padding(
+                                  padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Coupon Discount:',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '€ ${myCartController.model.value.data!.cartPaymentSummary!.couponDiscount.toString()}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          myCartController.model.value.data!.cartPaymentSummary!.couponDiscount == 0 ? SizedBox():
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Coupon Discount:',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.couponDiscount.toString()}',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Service charges',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.serviceCharge.toString()}',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
-                                ),
-                              ],
-                            ),
-                          ),
-                          myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge != 0 ?
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 10, 14, 0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Delivery fee',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  '€ ${myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
-                                ),
-                              ],
-                            ),
-                          ):SizedBox(),
+                          myCartController.model.value.data!.cartPaymentSummary!.serviceCharge != 0
+                              ? Padding(
+                                  padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Service charges',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '€ ${myCartController.model.value.data!.cartPaymentSummary!.serviceCharge.toString()}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox(),
+                          myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge != 0
+                              ? Padding(
+                                  padding: const EdgeInsets.fromLTRB(15, 10, 14, 0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Delivery fee',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '€ ${myCartController.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(),
                           const Padding(
                             padding: EdgeInsets.fromLTRB(15, 10, 14, 0),
                             child: Divider(
@@ -823,9 +824,30 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   CommonButton(
                     title: 'Place Order'.toUpperCase(),
                     onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-
-                          if (selectedMethod == "Delivery" && myCartController.model.value.data!.orderAddress != null ) {
+                      if (_formKey.currentState!.validate()) {
+                        if (selectedMethod == "D") {
+                           if (myCartController.model.value.data!.orderAddress != null) {
+                            checkOut(
+                                    context: context,
+                                    payment_type: 'online',
+                                    deliveryInstruction: deliveryInstructionController.text,
+                                    specialRequest: specialRequestController.text,
+                                    delivery_type: selectedMethod)
+                                .then((value) {
+                              if (value.status == true) {
+                                print('order id is...${value.data!.orderId}');
+                                // showToast(value.message.toString());
+                                Get.offAllNamed(MyRouters.thankYouScreen, arguments: [value.data!.orderId]);
+                                myAddressController.getData();
+                              }
+                            });
+                          }
+                           else {
+                             showToast('Please select address');
+                           }
+                        }
+                        else {
+                          if (selectedMethod != null) {
                             checkOut(
                                 context: context,
                                 payment_type: 'online',
@@ -833,23 +855,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 specialRequest: specialRequestController.text,
                                 delivery_type: selectedMethod)
                                 .then((value) {
-
                               if (value.status == true) {
                                 print('order id is...${value.data!.orderId}');
-                               // showToast(value.message.toString());
+                                // showToast(value.message.toString());
                                 Get.offAllNamed(MyRouters.thankYouScreen, arguments: [value.data!.orderId]);
                                 myAddressController.getData();
                               }
                             });
+                          } else {
+                            showToast('Please select option');
                           }
-                         else if(selectedMethod == null ){
-                           showToast('select Delivery option');
-                          }
-                         else{
-                             showToast('choose order address');
-                          }
-
                         }
+                      }
                       // Get.toNamed(MyRouters.addNewCardScreen);
                     },
                   ),
@@ -861,19 +878,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       );
     });
   }
+
   Row addRadioButton(int btnValue) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Radio<String>(
-          hoverColor:const Color(0xFF68C541),
-          activeColor:  const Color(0xFF68C541),
+          hoverColor: const Color(0xFF68C541),
+          activeColor: const Color(0xFF68C541),
           value: method[btnValue],
           groupValue: selectedMethod,
           onChanged: (value) {
             setState(() {
-              print(value);
               selectedMethod = value;
+              print(selectedMethod);
             });
           },
         ),

@@ -50,7 +50,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         onTap: (){
                           orderDetailsController.id.value = controller.model.value.data!.notificationData![index].orderId.toString();
                           print("Order id is ${orderDetailsController.id.value}");
-                         Get.toNamed(MyRouters.orderDetailsScreen);
+                         Get.toNamed(MyRouters.orderDetailsScreen,arguments: [controller.model.value.data!.notificationData![index].orderId.toString()]);
                         },
                         child: Container(
                           height: 95,

@@ -155,13 +155,6 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               )
-                  // : Text(controller.model.value.data![index].deliveryStatus.toString(),
-                  //                               style: GoogleFonts.poppins(
-                  //                                 color: const Color(0xFFFFFFFF),
-                  //                                 fontSize: 12,
-                  //                                 fontWeight: FontWeight.w400,
-                  //                               ),
-                  //                             ),
                                             ),
                                           ),
                                         ),

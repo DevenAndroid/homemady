@@ -22,10 +22,10 @@ Future<FilterModel> filterDataRepo({required pickDate,required availableNow, req
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
 
+  log(("Url...${ApiUrl.filterDateUrl}?date=$pickDate&available_now=$availableNow&store_name=$keyword"));
   final response =
   await http.get(Uri.parse("${ApiUrl.filterDateUrl}?date=$pickDate&available_now=$availableNow&keyword=$keyword"), headers: headers);
 
-  log(("Url...${ApiUrl.filterDateUrl}?date=$pickDate&available_now=$availableNow&store_name=$keyword"));
 
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {

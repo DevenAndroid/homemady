@@ -293,8 +293,8 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                   ),
                                                 ],
                                               ),
-                                              addHeight(3),
-                                              Text(controller.model.value.data!.cartItems![index].subTitle.toString(),
+                                              // addHeight(3),
+                                              Text(controller.model.value.data!.cartItems![index].subTitle.toString().capitalizeFirst.toString(),
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 12,

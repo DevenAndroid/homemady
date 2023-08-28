@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +27,20 @@ class _SearchScreenDataState extends State<SearchScreenData> {
   final filterDataController = Get.put(FilterController());
 
   final searchController = Get.put(SearchStoreController());
+
+  Timer? timer;
+
+  debounceSearch(){
+    if(timer != null){
+      timer!.cancel();
+    }
+    timer = Timer(const Duration(milliseconds: 500), () {
+      filterDataController.getFilterData().then((value) {
+        setState(() {});
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -66,7 +82,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                   textAlignVertical: TextAlignVertical.center,
                   textInputAction: TextInputAction.search,
                   onChanged: (value) {
-                    filterDataController.getFilterData();
+                    debounceSearch();
                   },
                   decoration: InputDecoration(
                       focusedBorder: const OutlineInputBorder(
@@ -79,7 +95,6 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                       filled: true,
                       suffixIcon: IconButton(
                         onPressed: () {
-
                           filterDataController.getFilterData();
                         },
                         icon: const Icon(
@@ -105,7 +120,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
               filterDataController.filterModel.value.data != null && filterDataController.filterModel.value.data!.isNotEmpty
               // ? (searchController.searchDataModel.value.data != null && searchController.searchDataModel.value.data!.isNotEmpty)
                   ? ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                   itemCount: filterDataController.filterModel.value.data != null
                       ? filterDataController.filterModel.value.data!.length
                       : 0,
@@ -196,7 +211,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                     ),
                                   ),
                                 ),
-                                  Positioned(
+                                  const Positioned(
                                     top: 80,
                                     // bottom: 0,
                                     left: 20,
@@ -322,12 +337,12 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                                           right: 18,
                                                           top: 30,
                                                           child: Container(
-                                                              padding: EdgeInsets.all(10),
+                                                              padding: const EdgeInsets.all(10),
                                                               height: 80,
                                                               decoration: const BoxDecoration(
                                                                   color: Colors.white,
                                                                   shape: BoxShape.circle),
-                                                              child: Icon(Icons.clear)),
+                                                              child: const Icon(Icons.clear)),
                                                         )
                                                       ],
                                                     );
@@ -357,12 +372,12 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                                           right: 18,
                                                           top: 50,
                                                           child: Container(
-                                                              padding: EdgeInsets.all(10),
+                                                              padding: const EdgeInsets.all(10),
                                                               height: 50,
                                                               decoration: const BoxDecoration(
                                                                   color: Colors.white,
                                                                   shape: BoxShape.circle),
-                                                              child: Icon(Icons.clear)),
+                                                              child: const Icon(Icons.clear)),
                                                         )
                                                       ],
                                                     );
@@ -388,9 +403,9 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
                   children: [
-                    SizedBox(height: 60,),
+                    const SizedBox(height: 60,),
                     Image.asset('assets/images/searchImage.png'),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Text("Result Not Found",
                       style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
                   ],
@@ -400,7 +415,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
             ],
           ),
         ),
-      ): Center(child: CircularProgressIndicator(color: Colors.green,),)
+      ): const Center(child: CircularProgressIndicator(color: Colors.green,),)
       // Padding(
       //   padding: const EdgeInsets.all(45.0),
       //   child: Column(

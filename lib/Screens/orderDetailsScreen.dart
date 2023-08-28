@@ -111,19 +111,20 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                              color: const Color(0xFF303C5E)
                                          ),),
                                          addHeight(10),
+                                         controller.model.value.orderDetail!.deliveryTime != null ?
                                          Text('Delivery Time'
                                            ,style: GoogleFonts.poppins(
                                                fontWeight: FontWeight.w600,
                                                fontSize: 14,
                                                color: const Color(0xFF1A2E33)
-                                           ),),
-
-                                         // Text(controller.model.value.orderDetail!.deliveryTime!.toString(),
-                                         //   style: GoogleFonts.poppins(
-                                         //       fontWeight: FontWeight.w400,
-                                         //       fontSize: 11,
-                                         //       color: const Color(0xFF303C5E)
-                                         //   ),),
+                                           ),):const SizedBox(),
+                                         controller.model.value.orderDetail!.deliveryTime != null ?
+                                         Text(controller.model.value.orderDetail!.deliveryTime!.toString(),
+                                           style: GoogleFonts.poppins(
+                                               fontWeight: FontWeight.w400,
+                                               fontSize: 11,
+                                               color: const Color(0xFF303C5E)
+                                           ),): const SizedBox(),
 
                                          controller.model.value.orderDetail!.specialRequets != '' ?
                                          Column(
@@ -612,7 +613,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      color: const Color(0xff486769)
                                                  ),),
                                              ],
-                                           ):SizedBox(),
+                                           ):const SizedBox(),
                                            addHeight(10),
                                            Row(
                                              mainAxisAlignment: MainAxisAlignment.start,

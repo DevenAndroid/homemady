@@ -347,7 +347,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                           )
                                                       ),
                                                       addHeight(3),
-                                                      Text(featuredFilterController.model.value.data![index].cookName.toString(),
+                                                      Text(featuredFilterController.model.value.data![index].cookName.toString().capitalizeFirst.toString(),
                                                         style: GoogleFonts.poppins(
                                                             fontWeight: FontWeight.w500,
                                                             fontSize: 12,
@@ -692,7 +692,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                           )
                                                       ),
                                                       addHeight(3),
-                                                      Text(featuredFilterController.model.value.data![index].cookName.toString(),
+                                                      Text(featuredFilterController.model.value.data![index].cookName.toString().capitalizeFirst.toString(),
                                                         style: GoogleFonts.poppins(
                                                             fontWeight: FontWeight.w500,
                                                             fontSize: 12,
@@ -1037,7 +1037,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                           )
                                                       ),
                                                       addHeight(3),
-                                                      Text(featuredFilterController.model.value.data![index].cookName.toString(),
+                                                      Text(featuredFilterController.model.value.data![index].cookName.toString().capitalizeFirst.toString(),
                                                         style: GoogleFonts.poppins(
                                                             fontWeight: FontWeight.w500,
                                                             fontSize: 12,

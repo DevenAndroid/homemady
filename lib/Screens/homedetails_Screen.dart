@@ -159,7 +159,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
       child: Obx(() {
         return Scaffold(
 
-          body: controller.isDataLoading.value
+          body: controller.isDataLoading.value && controller.model.value.data != null
               ?
           VerticalScrollableTabView(
                   physics: const BouncingScrollPhysics(),
@@ -310,11 +310,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 height: 24,
                                               ),
                                               addWidth(7),
-
-                                               const Text(
-                                                // controller.model.value.data!.storeDetails!.deliveryTime.toString(),
-                                                  '10-40 min',
-                                                  style: TextStyle(
+                                              // if(controller.model.value.data!.storeDetails!.time != null)
+                                              Text(
+                                                   '${controller.model.value.data!.storeDetails!.time.toString()}'
+                                                       '-${controller.model.value.data!.storeDetails!.time.toString()} mins',
+                                                  style: const TextStyle(
                                                     fontSize: 14,
                                                     color: Color(0xFF4E5F64),
                                                     fontWeight: FontWeight.w400,

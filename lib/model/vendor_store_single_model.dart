@@ -81,6 +81,8 @@ class StoreDetails {
   String? deliveryType;
   String? deliveryTime;
   String? distance;
+  String? time;
+  String? time1;
   dynamic wishlist;
 
 
@@ -96,6 +98,8 @@ class StoreDetails {
         this.reviewCount,
         this.deliveryType,
         this.distance,
+        this.time,
+        this.time1,
         this.wishlist,
         this.deliveryTime});
 
@@ -111,6 +115,8 @@ class StoreDetails {
       });
     }
     distance = json['distance'];
+    time = json['Time'];
+    time1 = json['Time1'];
     wishlist = json['wishlist'];
     profileImage = json['profile_image'];
     storeImage = json['store_image'];
@@ -129,6 +135,9 @@ class StoreDetails {
     if (this.award != null) {
       data['award'] = this.award!.map((v) => v.toJson()).toList();
     }
+    data['distance'] = distance;
+    data['Time'] = time;
+    data['Time1'] = time1;
     data['distance'] = distance;
     data['profile_image'] = profileImage;
     data['store_image'] = storeImage;

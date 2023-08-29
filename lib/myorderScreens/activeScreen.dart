@@ -198,13 +198,11 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                         )
                                     ),
                                     child: Center(
-                                      child: Expanded(
-                                        child: Text('Cancel Order',
-                                          style: GoogleFonts.poppins(
-                                            color: const Color(0xFF7ED957),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                      child: Text('Cancel Order',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF7ED957),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ),

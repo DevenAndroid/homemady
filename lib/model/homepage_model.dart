@@ -10,7 +10,7 @@ class HomePageModel {
   HomePageModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null && json['data'].toString() != "[]" ? new Data.fromJson(json['data']) : null;
     meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
     link = json['link'] != null ? new Link.fromJson(json['link']) : null;
   }

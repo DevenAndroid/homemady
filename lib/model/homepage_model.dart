@@ -94,6 +94,7 @@ class Stores {
   int? id;
   String? name;
   String? distance;
+  String? time;
   String? image;
   List<Award>? award;
   String? rating;
@@ -106,6 +107,7 @@ class Stores {
       {this.id,
         this.name,
         this.distance,
+        this.time,
         this.image,
         this.award,
         this.rating,
@@ -118,6 +120,7 @@ class Stores {
     id = json['id'];
     name = json['name'];
     distance = json['distance'];
+    time = json['Time'];
     image = json['image'];
     if (json['award'] != null) {
       award = <Award>[];
@@ -137,6 +140,7 @@ class Stores {
     data['id'] = this.id;
     data['name'] = this.name;
     data['distance'] = this.distance;
+    data['Time'] = this.time;
     data['image'] = this.image;
     if (this.award != null) {
       data['award'] = this.award!.map((v) => v.toJson()).toList();

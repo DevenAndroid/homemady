@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
+ import 'package:client_information/client_information.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -29,6 +31,24 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var obscureText1 = true;
+  ClientInformation? _clientInfo;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getClientInformation();
+  }
+  Future<void> _getClientInformation() async {
+    ClientInformation? info;
+    try {
+      info = await ClientInformation.fetch();
+    } on PlatformException {}
+    if (!mounted) return;
+    setState(() {
+      _clientInfo = info!;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {

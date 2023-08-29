@@ -75,6 +75,7 @@ dependencies:
   flutter_math_fork: ^0.6.1
   cloud_firestore: ^4.8.4
   flutter_branch_sdk:
+  client_information:
 
 
 dev_dependencies:

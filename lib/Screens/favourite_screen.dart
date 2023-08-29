@@ -197,11 +197,12 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                           imageUrl:
                                                           controller1.model.value.data!.store![index].image.toString(),
                                                           fit: BoxFit.cover,
-                                                         // height: 55,
+                                                         height: 150,
                                                           width: AddSize.screenWidth,
                                                           errorWidget: (_, __, ___) => Image.asset(
                                                             'assets/images/dummyPerson.png',
                                                             fit: BoxFit.cover,
+                                                            height: 150,
                                                             width: AddSize.screenWidth,
                                                           ),
                                                           placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
@@ -233,23 +234,23 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                     ),
                                                   ),
                                                 ),
-                                                Positioned(
-                                                    top: 80,
-                                                    // bottom: 0,
-                                                    left: 20,
-                                                    right: 20,
-                                                    //   bottom: 0,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment
-                                                          .spaceBetween,
-                                                      children: const [
-                                                        Icon(Icons.arrow_back_ios,
-                                                          color: Colors.white,size: 20,),
-                                                        Icon(Icons.arrow_forward_ios,
-                                                          color: Colors.white,size: 20,)
-                                                      ],
-                                                    )
-                                                ),
+                                                // Positioned(
+                                                //     top: 80,
+                                                //     // bottom: 0,
+                                                //     left: 20,
+                                                //     right: 20,
+                                                //     //   bottom: 0,
+                                                //     child: Row(
+                                                //       mainAxisAlignment: MainAxisAlignment
+                                                //           .spaceBetween,
+                                                //       children: const [
+                                                //         Icon(Icons.arrow_back_ios,
+                                                //           color: Colors.white,size: 20,),
+                                                //         Icon(Icons.arrow_forward_ios,
+                                                //           color: Colors.white,size: 20,)
+                                                //       ],
+                                                //     )
+                                                // ),
                                                 Positioned(
                                                     bottom: 10,
                                                     right: 20,

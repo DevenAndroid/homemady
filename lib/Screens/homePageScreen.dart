@@ -1053,6 +1053,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           }),
                                     ),
                                     addHeight(10),
+                                    homeController.model.value.data!.stores!.isNotEmpty ?
                                     ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: homeController.model.value.data!.stores!.length,
@@ -1136,7 +1137,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                 ),
                                                                 addWidth(10),
                                                                 Text(
-                                                                  'Delivery Only 25 mins',
+                                                                  'Delivery Only ${homeController.model.value.data!.stores![index].time ?? ''.toString()} mins',
                                                                   style: GoogleFonts.poppins(
                                                                       fontWeight: FontWeight.w400,
                                                                       fontSize: 12,
@@ -1430,7 +1431,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           ],
                                         );
                                       },
-                                    ),
+                                    ):const Padding(
+                                      padding: EdgeInsets.only(top: 80),
+                                      child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+                                    )
                                   ],
                                 ),
 

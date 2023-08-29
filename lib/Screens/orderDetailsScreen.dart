@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -218,8 +219,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                          child: Row(
                                            crossAxisAlignment: CrossAxisAlignment.start,
                                            children: [
+                                             ClipRRect(
+                                               borderRadius: BorderRadius.circular(10),
+                                               child:
+                                               CachedNetworkImage(
+                                                 imageUrl: controller.model.value.orderDetail!.orderItems![index].productImage.toString(),
+                                                 fit: BoxFit.cover,
+                                                 height: 80,
+                                                 width: 75,
+                                                 errorWidget: (_, __, ___) => Image.asset(
+                                                   'assets/images/Rectangle 23007.png',
+                                                   fit: BoxFit.cover,
+                                                   height: 80,
+                                                   width: 60,
+                                                 ),
+                                                 placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                                               ),
+                                             ),
                                            // CachedNetworkImage(imageUrl: controller.model.value.orderDetail!.orderItems![index]..toString(),)
-                                             Image.asset('assets/images/Rectangle 39702.png',height: 75,),
+                                           //   Image.asset('assets/images/Rectangle 39702.png',height: 75,),
                                              addWidth(15),
                                              Expanded(
                                                child: Padding(
@@ -235,12 +253,23 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                            color: const Color(0xFF1A2E33)
                                                        ),),
                                                      addHeight(1),
-                                                     Text('Quantity: ${controller.model.value.orderDetail!.orderItems![index].sizeQuantity.toString()}',
-                                                       style: GoogleFonts.poppins(
-                                                           fontWeight: FontWeight.w400,
-                                                           fontSize: 12,
-                                                           color: const Color(0xFF486769B5).withOpacity(0.71)
-                                                       ),),
+                                                     Row(
+                                                       children: [
+                                                         Text('Quantity: ${controller.model.value.orderDetail!.orderItems![index].sizeQuantity.toString()}',
+                                                           style: GoogleFonts.poppins(
+                                                               fontWeight: FontWeight.w400,
+                                                               fontSize: 12,
+                                                               color: const Color(0xFF486769B5).withOpacity(0.71)
+                                                           ),),
+                                                         addWidth(3),
+                                                         Text('${controller.model.value.orderDetail!.orderItems![index].sizeId.toString()}',
+                                                           style: GoogleFonts.poppins(
+                                                               fontWeight: FontWeight.w400,
+                                                               fontSize: 12,
+                                                               color: const Color(0xFF486769B5).withOpacity(0.71)
+                                                           ),),
+                                                       ],
+                                                     ),
                                                      addHeight(3),
                                                      Text('€ ${controller.model.value.orderDetail!.orderItems![index].price.toString()}',
                                                        style: GoogleFonts.poppins(

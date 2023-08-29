@@ -19,6 +19,7 @@ class FilterProductCategoryController extends GetxController {
 
   getFilterCategoryData() async {
     isDataLoading.value = false;
+    if(Get.arguments == null)return;
     await filterProductCategoryRepo(distance:Get.arguments[0]).then((value) {
       isDataLoading.value = true;
       filterDataModel.value = value;

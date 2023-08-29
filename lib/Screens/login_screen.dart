@@ -287,10 +287,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: screenHeight * .03,
                     ),
                     CommonButton(title: 'Login',onPressed: () async {
-                      var fcmToken = await FirebaseMessaging
-                          .instance
-                          .getToken();
                       if(_formKey.currentState!.validate()){
+                        var fcmToken = await FirebaseMessaging
+                            .instance
+                            .getToken();
+                        // ignore: use_build_context_synchronously
                         loginRepo(
                             email: emailController.text,
                             password: passwordController.text,

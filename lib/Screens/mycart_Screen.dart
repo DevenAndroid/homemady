@@ -32,7 +32,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
   final _formKey=GlobalKey<FormState>();
   RxBool customTip = false.obs;
   RxString selectedChip = "".obs;
-  final List<String> tips = ["20", "30", "40", "Custom"];
+  final List<String> tips = ["1", "2", "5", "Custom"];
   String getColor = '0xFF#F1F1F1';
   @override
   void initState() {

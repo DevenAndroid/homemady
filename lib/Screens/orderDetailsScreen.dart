@@ -697,10 +697,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                  SizedBox(height: AddSize.size20),
 
                                ]
-                           ) : const Center(child: Text('NO Driver Information')): const Center(child: Padding(
-                             padding: EdgeInsets.only(top: 100),
-                             child: CircularProgressIndicator(),
-                           )),
+                           ) : const Center(child: Text('NO Driver Information')): const Center(child: CircularProgressIndicator()),
                          ),
                        );
                      }),

@@ -237,7 +237,7 @@ class User {
 }
 
 class Driver {
-  int? driverId;
+  dynamic driverId;
   dynamic dob;
   dynamic name;
   dynamic phone;

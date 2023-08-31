@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -34,7 +35,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
         SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: controller.isDataLoading.value ? controller.model.value.data!.isNotEmpty ?
+          child: controller.isDataLoading.value ? controller.model.value.data!.isNotEmpty   ?
           ListView.builder(
             shrinkWrap: true,
             itemCount: controller.model.value.data!.length,
@@ -68,7 +69,23 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(17)
                                   ),
-                                  child: Image.asset('assets/images/Rectangle 39702.png',height: 76,width: 76,)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: CachedNetworkImage(
+                                      imageUrl: controller.model.value.data![index].orderItems![0].productImage.toString(),
+                                      fit: BoxFit.cover,
+                                      height: 76,
+                                      width: 76,
+                                      errorWidget: (_, __, ___) => Image.asset(
+                                        'assets/images/Rectangle 23007.png',
+                                        fit: BoxFit.cover,
+                                        height: 76,
+                                        width: 76,
+                                      ),
+                                      placeholder: (_, __) =>
+                                      const Center(child: CircularProgressIndicator()),
+                                    ),
+                                  ),),
                               addWidth(10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

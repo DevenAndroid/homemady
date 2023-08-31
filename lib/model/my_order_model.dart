@@ -490,6 +490,7 @@ class OrderItems {
   dynamic id;
   dynamic productId;
   dynamic productName;
+  dynamic productImage;
   dynamic price;
   dynamic sizeQuantity;
   dynamic sizeId;
@@ -500,6 +501,7 @@ class OrderItems {
       {this.id,
         this.productId,
         this.productName,
+        this.productImage,
         this.price,
         this.sizeQuantity,
         this.sizeId,
@@ -510,6 +512,7 @@ class OrderItems {
     id = json['id'];
     productId = json['product_id'];
     productName = json['product_name'];
+    productImage = json['product_image'];
     price = json['price'];
     sizeQuantity = json['size_quantity'];
     sizeId = json['size_id'];
@@ -522,6 +525,7 @@ class OrderItems {
     data['id'] = this.id;
     data['product_id'] = this.productId;
     data['product_name'] = this.productName;
+    data['product_image'] = this.productImage;
     data['price'] = this.price;
     data['size_quantity'] = this.sizeQuantity;
     data['size_id'] = this.sizeId;

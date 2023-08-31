@@ -81,12 +81,28 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(17)
                                     ),
-                                    child:
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: CachedNetworkImage(
+                                        imageUrl: controller.model.value.data![index].orderItems![0].productImage.toString(),
+                                        fit: BoxFit.cover,
+                                        height: 76,
+                                        width: 76,
+                                        errorWidget: (_, __, ___) => Image.asset(
+                                          'assets/images/Rectangle 23007.png',
+                                          fit: BoxFit.cover,
+                                          height: 76,
+                                          width: 76,
+                                        ),
+                                        placeholder: (_, __) =>
+                                        const Center(child: CircularProgressIndicator()),
+                                      ),
+                                    ),
                                     // CachedNetworkImage(
                                     //   imageUrl: controller.isDataLoading.value ?
                                     //   controller.model.value.data![index].image.toString():'',
                                     // ),
-                                    Image.asset('assets/images/Rectangle 39702.png',height: 76,width: 76,),
+                                   // Image.asset('assets/images/Rectangle 39702.png',height: 76,width: 76,),
                                 ),
                                 addWidth(10),
                                 Column(
@@ -94,7 +110,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
 
-                                    Text((controller.model.value.data![index].orderItems![0].productName ?? 'Test').toString(),
+                                    Text((controller.model.value.data![index].orderItems![0].productName ?? 'Test').toString().capitalizeFirst.toString(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,
@@ -232,7 +248,8 @@ class _ActiveScreenState extends State<ActiveScreen> {
                           addHeight(18),
                         ],
                       ),
-                    ): Padding(
+                    ):
+                    Padding(
                       padding: const EdgeInsets.all(30.0),
                       child: Column(
                         children: [

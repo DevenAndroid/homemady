@@ -68,7 +68,23 @@ class _CancelledScreenState extends State<CancelledScreen> {
                                       borderRadius: BorderRadius.circular(17)
                                   ),
                                   child:
-                                  Image.asset('assets/images/Rectangle 39702.png',height: 76,width: 76,)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: CachedNetworkImage(
+                                      imageUrl: controller.model.value.data![index].orderItems![0].productImage.toString(),
+                                      fit: BoxFit.cover,
+                                      height: 76,
+                                      width: 76,
+                                      errorWidget: (_, __, ___) => Image.asset(
+                                        'assets/images/Rectangle 23007.png',
+                                        fit: BoxFit.cover,
+                                        height: 76,
+                                        width: 76,
+                                      ),
+                                      placeholder: (_, __) =>
+                                      const Center(child: CircularProgressIndicator()),
+                                    ),
+                                  )
 
                               ),
                               addWidth(10),
@@ -148,7 +164,8 @@ class _CancelledScreenState extends State<CancelledScreen> {
                         ),
                       ],
                     ),
-                  ): const SizedBox(),
+                  ):
+                  const SizedBox() ,
 
                 ],
               );

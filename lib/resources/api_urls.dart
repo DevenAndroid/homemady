@@ -39,6 +39,7 @@ class ApiUrl {
   static const wishlistUrl = "${baseUrl}add-remove-wishlist";
   static const resendOtpUrl = "${baseUrl}resend-otp";
   static const favoriteListUrl = "${baseUrl}list";
+  static const savedCardDetailsUrl = "${baseUrl}card-list";
   static const ratingReviewUrl = "${baseUrl}rating-and-review";
   static const ratingGetUrl = "${baseUrl}rating-and-review";
   static const socialUrl = "${baseUrl}social-login";

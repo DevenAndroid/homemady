@@ -12,6 +12,7 @@ import '../repository/user_profile_repo.dart';
 class UserProfileController extends GetxController{
   Rx<UserProfileModel> model = UserProfileModel().obs;
   RxBool isDataLoading = false.obs;
+  RxInt refreshInt = 0.obs;
   Rx<File> image = File("").obs;
   String myProfileID = "";
   RxString countryCode = "".obs;
@@ -27,10 +28,13 @@ class UserProfileController extends GetxController{
 
   Future getData() async {
     isDataLoading.value = false;
+    refreshInt.value = DateTime.now().millisecondsSinceEpoch;
   await  userProfileData().then((value1) {
       isDataLoading.value = true;
       model.value = value1;
+      refreshInt.value = DateTime.now().millisecondsSinceEpoch;
       if(isDataLoading.value && model.value.data != null){
+        refreshInt.value = DateTime.now().millisecondsSinceEpoch;
         nameController.text = model.value.data!.name.toString();
         emailController.text = model.value.data!.email.toString();
         mobileController.text = model.value.data!.phone.toString();

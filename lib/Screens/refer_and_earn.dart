@@ -196,7 +196,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                         height: height * .005,
                       ),
                       Text(
-                        "For any account you connect",
+                        "For any account you refer",
                         style: Theme
                             .of(context)
                             .textTheme

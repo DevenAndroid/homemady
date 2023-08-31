@@ -861,12 +861,14 @@ class RegistrationTextFieldChk extends StatelessWidget {
   final bool? enable;
   final VoidCallback? onTap;
   final length;
+  final focusNode;
 
   const RegistrationTextFieldChk({
     Key? key,
     this.suffixIcon,
     this.prefixIcon,
     this.hint,
+    this.focusNode,
     this.keyboardType,
     this.textInputAction,
     this.controller,
@@ -887,6 +889,7 @@ class RegistrationTextFieldChk extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: FirstDisabledFocusNode(),
       onTap: onTap,
       readOnly: readOnly!,
       controller: controller,
@@ -1306,5 +1309,11 @@ class RegistrationTextField3 extends StatelessWidget {
           suffixIcon: suffix,
           prefixIcon: prefix),
     );
+  }
+}
+class FirstDisabledFocusNode extends FocusNode {
+  @override
+  bool consumeKeyboardToken() {
+    return false;
   }
 }

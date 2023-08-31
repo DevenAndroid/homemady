@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../model/category_model.dart';
@@ -8,7 +9,7 @@ import '../model/filter_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 //All Dropdown api
-Future<FilterModel> filterDataRepo({required pickDate,required availableNow, required keyword}) async {
+Future<FilterModel> filterDataRepo({required DateTime pickDate,required keyword}) async {
   // var map = <String, dynamic>{};
   //
   //   map['date'] = pickDate;
@@ -21,10 +22,13 @@ Future<FilterModel> filterDataRepo({required pickDate,required availableNow, req
     HttpHeaders.acceptHeader: 'application/json',
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
+  // 2023/09/01
 
-  log(("Url...${ApiUrl.filterDateUrl}?date=$pickDate&available_now=$availableNow&store_name=$keyword"));
+  String url = "${ApiUrl.filterDateUrl}?date=${DateFormat("yyyy/MM/dd").format(pickDate)}&store_name=$keyword";
+
+  log(("Url...$url"));
   final response =
-  await http.get(Uri.parse("${ApiUrl.filterDateUrl}?date=$pickDate&available_now=$availableNow&keyword=$keyword"), headers: headers);
+  await http.get(Uri.parse(url), headers: headers);
 
 
   // print("size data  Repository...${response.body}");

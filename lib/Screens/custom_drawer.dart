@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/user_profile_controller.dart';
 import '../routers/routers.dart';
@@ -141,18 +142,24 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         const Divider(
                           height: 1,
                         ),
-                        _drawerTile(
-                            active: true,
-                            title: "Favorites",
-                            icon: const ImageIcon(
-                              AssetImage('assets/images/note-2.png'),
-                              size: 22,
-                              color: const Color(0xFF4F535E),
-                            ),
-                            onTap: () {
+                        Padding(
+                          padding: const EdgeInsets.only(right: 15,top: 15,bottom: 12,left: 15),
+                          child: InkWell(
+                            onTap: (){
                               Get.toNamed(MyRouters.favouriteScreen);
-                              // }
-                            }),
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(Icons.favorite_border, color:  Color(0xFF4F535E),),
+                                const SizedBox(width: 25,),
+                                Text("Favorites".tr, style: GoogleFonts.ibmPlexSansArabic(
+                                    color: const Color(0xFF4F535E),fontSize: 15
+                                ),),
+                              ],
+                            ),
+                          ),
+                        ),
                         const Divider(
                           height: 1,
                         ),

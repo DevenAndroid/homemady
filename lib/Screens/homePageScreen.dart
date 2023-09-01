@@ -1759,7 +1759,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: SizedBox(
-                                width: 160,
+                                // width: 160,
                                 height: 40,
                                 child: ElevatedButton(
                                   child: const Text("Submit",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),

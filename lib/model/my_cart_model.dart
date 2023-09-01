@@ -75,6 +75,7 @@ class CartItems {
   dynamic totalPrice;
   dynamic image;
   bool? collectionStatus;
+  bool? selfDelivery;
 
   CartItems(
       {this.id,
@@ -82,6 +83,7 @@ class CartItems {
         this.name,
         this.spiciness,
         this.price,
+        this.selfDelivery,
         this.cartItemQty,
         this.distance,
         this.subTitle,
@@ -96,6 +98,7 @@ class CartItems {
     spiciness = json['spiciness'];
     subTitle = json['subTitle'];
     price = json['price'];
+    selfDelivery = json['self_delivery'];
     cartItemQty = json['cart_item_qty'];
     distance = json['distance'];
     totalPrice = json['total_price'];
@@ -111,6 +114,7 @@ class CartItems {
     data['subTitle'] = this.subTitle;
     data['spiciness'] = this.spiciness;
     data['price'] = this.price;
+    data['self_delivery'] = this.selfDelivery;
     data['cart_item_qty'] = this.cartItemQty;
     data['distance'] = this.distance;
     data['total_price'] = this.totalPrice;

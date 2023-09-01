@@ -889,7 +889,6 @@ class RegistrationTextFieldChk extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      focusNode: FirstDisabledFocusNode(),
       onTap: onTap,
       readOnly: readOnly!,
       controller: controller,

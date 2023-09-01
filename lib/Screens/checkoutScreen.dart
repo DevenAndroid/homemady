@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,7 +37,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   RxBool checkboxColor2 = false.obs;
 
   String? selectedMethod;
-  RxString? selectedSavedCard ="".obs;
+  RxString? selectedSavedCard = "".obs;
   List method = ["D", "P"];
 
   @override
@@ -47,25 +45,23 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      myCartController.getData();
+      myCartController.getData().then((value){
+        setState(() {});
+      });
       getSavedDetailsController.getSavedCardData();
-      // log('order id'+ )
-      // Add Your Code here.
     });
   }
 
   final _formKey = GlobalKey<FormState>();
   @override
-  // String selectValue = 'male';
   bool value = false;
   bool value2 = false;
-  String _selectedValue = 'one';
   Widget build(BuildContext context) {
     return Obx(() {
       return GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusManager.instance.primaryFocus!.unfocus();
-          },
+        },
         behavior: HitTestBehavior.translucent,
         child: Scaffold(
           appBar: backAppBar(title: 'Checkout', context: context),
@@ -110,102 +106,42 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             addHeight(10),
                             Row(
                               children: [
-                                myCartController.model.value.data!.cartItems![0].collectionStatus!
-                                    ? const SizedBox()
-                                    : Theme(
-                                        data: ThemeData(
-                                          unselectedWidgetColor: Colors.green,
-                                        ),
-                                        child: addRadioButton(0)),
-                                addWidth(5),
-                                myCartController.model.value.data!.cartItems![0].collectionStatus!
-                                    ? const SizedBox()
-                                    : Text(
-                                        'Delivery',
-                                        style: GoogleFonts.poppins(
-                                            color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                if (myCartController.model.value.data!.cartItems![0].collectionStatus == false ||
+                                    myCartController.model.value.data!.cartItems![0].selfDelivery == true)
+                                  // Delivery
+                                  ...[
+                                  Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.green,
                                       ),
-                                myCartController.model.value.data!.cartItems![0].collectionStatus! ? const SizedBox() : addWidth(40),
-                                Theme(
-                                    data: ThemeData(
-                                      unselectedWidgetColor: Colors.green,
-                                    ),
-                                    child: addRadioButton(1)),
-                                addWidth(5),
-                                Text(
-                                  'Pickup',
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
-                                )
+                                      child: addRadioButton(0)),
+                                  Text(
+                                    'Delivery',
+                                    style: GoogleFonts.poppins(
+                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                  ),
+                                  addWidth(40)
+                                ],
+                                if (!(myCartController.model.value.data!.cartItems![0].collectionStatus == false &&
+                                    myCartController.model.value.data!.cartItems![0].selfDelivery == true))
+                                if (myCartController.model.value.data!.cartItems![0].collectionStatus == true ||
+                                    myCartController.model.value.data!.cartItems![0].selfDelivery == true)
+                                  // Pickup
+                                  ...[
+                                  Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.green,
+                                      ),
+                                      child: addRadioButton(1)),
+                                  addWidth(5),
+                                  Text(
+                                    'Pickup',
+                                    style: GoogleFonts.poppins(
+                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                  )
+                                ]
                               ],
                             ),
-                            // addHeight(20),
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(horizontal: 9.0),
-                            //   child: Text('When',
-                            //     style: GoogleFonts.poppins(
-                            //         fontSize: 18,
-                            //         fontWeight: FontWeight.w500,
-                            //         color: const Color(0xff1A2E33)
-                            //     ),),
-                            // ),
-                            // addHeight(5),
-                            // Row(
-                            //   children: [
-                            // Theme(
-                            // data: ThemeData(
-                            // //here change to your color
-                            // unselectedWidgetColor: Colors.green,
-                            // ),
-                            //       child: Radio<String>(
-                            //         visualDensity: const VisualDensity(
-                            //             horizontal: -4,
-                            //             vertical: -1),
-                            //         value: 'date',
-                            //         activeColor:Colors.green,
-                            //         groupValue: _selectedValue,
-                            //
-                            //         onChanged: (value) {
-                            //           setState(() {
-                            //             _selectedValue = value!;
-                            //           });
-                            //         },
-                            //       ),
-                            //     ),
-                            //     addWidth(5),
-                            //     Text('Now',style: GoogleFonts.poppins(
-                            //         color: Color(0xFF000000),
-                            //         fontWeight: FontWeight.w300,
-                            //         fontSize: 16
-                            //     ),),
-                            //     addWidth(56),
-                            //     Theme(
-                            //       data: ThemeData(
-                            //         //here change to your color
-                            //         unselectedWidgetColor: Colors.green,
-                            //       ),
-                            //       child: Radio<String>(
-                            //         value: 'now',
-                            //         activeColor:Colors.green,
-                            //         groupValue: _selectedValue,
-                            //
-                            //         onChanged: (value) {
-                            //           setState(() {
-                            //             _selectedValue = value!;
-                            //           });
-                            //         },
-                            //       ),
-                            //     ),
-                            //     Expanded(
-                            //       child: Text('Specify Time/Date',style: GoogleFonts.poppins(
-                            //           color: Color(0xFF000000),
-                            //           fontWeight: FontWeight.w300,
-                            //           fontSize: 16
-                            //       ),),
-                            //     )
-                            //   ],
-                            // ),
-
                             addHeight(20),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 9.0),
@@ -220,14 +156,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               padding: const EdgeInsets.symmetric(horizontal: 9.0),
                               child: RegistrationTextFieldChk(
                                 controller: specialRequestController,
-                                focusNode: FirstDisabledFocusNode(),
                                 hint: 'Type here..',
                                 minLines: 3,
                                 maxLines: null,
                                 keyboardType: TextInputType.multiline,
                               ),
                             ),
-
                             addHeight(20),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 9.0),
@@ -301,8 +235,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   child: Center(
                                     child: Text(
                                       'Apply',
-                                      style:
-                                          GoogleFonts.poppins(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                 ),
@@ -344,7 +278,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(MyRouters.chooseAddress);
+                                          Get.to(() => const MyAddressScreen());
+                                          // Get.toNamed(MyRouters.chooseAddress);
                                         },
                                         child: Image.asset(
                                           'assets/images/pencilImg.png',
@@ -374,47 +309,46 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           height: 36,
                                         ),
                                         addWidth(10),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              myCartController.model.value.data!.orderAddress == null
-                                                  ? 'Choose address'
-                                                  : myCartController.model.value.data!.orderAddress!.addressType,
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Obx(() {
-                                                  return Text(
-                                                    (myCartController.model.value.data!.orderAddress == null
-                                                            ? 'Select address'
-                                                            : myCartController.model.value.data!.orderAddress!.flatNo
-                                                                    .toString() +
-                                                                ',' +
-                                                                myCartController.model.value.data!.orderAddress!.landmark
-                                                                    .toString() +
-                                                                ',' +
-                                                                myCartController.model.value.data!.orderAddress!.pinCode
-                                                                    .toString())
-                                                        .toString(),
-                                                    style: GoogleFonts.poppins(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: const Color(0xff5C5C60)),
-                                                  );
-                                                })
-                                                // addWidth(5),
-                                                /* Text((myCartController.model.value.data!.orderAddress!.landmark).toString(),
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: const Color(0xff5C5C60)
-                                        ),),*/
-                                              ],
-                                            )
-                                          ],
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                myCartController.model.value.data!.orderAddress == null
+                                                    ? 'Choose address'
+                                                    : myCartController.model.value.data!.orderAddress!.addressType,
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: const Color(0xff1A2E33)),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Obx(() {
+                                                    return Expanded(
+                                                      child: Text(
+                                                        (myCartController.model.value.data!.orderAddress == null
+                                                                ? 'Select address'
+                                                                : myCartController.model.value.data!.orderAddress!.flatNo
+                                                                        .toString() +
+                                                                    ',' +
+                                                                    myCartController.model.value.data!.orderAddress!.landmark
+                                                                        .toString() +
+                                                                    ',' +
+                                                                    myCartController.model.value.data!.orderAddress!.pinCode
+                                                                        .toString())
+                                                            .toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: const Color(0xff5C5C60)),
+                                                      ),
+                                                    );
+                                                  })
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                         const Spacer(),
                                         const Icon(
@@ -600,7 +534,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    Get.toNamed(MyRouters.addNewCardScreen, arguments: [selectedMethod,specialRequestController.text,deliveryInstructionController.text]);
+                                    Get.toNamed(MyRouters.addNewCardScreen, arguments: [
+                                      selectedMethod,
+                                      specialRequestController.text,
+                                      deliveryInstructionController.text
+                                    ]);
                                   },
                                   child: Container(
                                     width: 41,
@@ -615,8 +553,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     )),
                                   ),
                                 ),
-
-
                                 Container(
                                   height: 60,
                                   width: 57,
@@ -671,81 +607,84 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15,),
-                  getSavedDetailsController.isDataLoading.value && getSavedDetailsController.savedDetailsModel.value.data != null ?
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF37C666).withOpacity(0.10),
-                            offset: const Offset(
-                              .1,
-                              .1,
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    getSavedDetailsController.isDataLoading.value &&
+                            getSavedDetailsController.savedDetailsModel.value.data != null
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF37C666).withOpacity(0.10),
+                                  offset: const Offset(
+                                    .1,
+                                    .1,
+                                  ),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 1.0,
+                                ),
+                              ],
                             ),
-                            blurRadius: 20.0,
-                            spreadRadius: 1.0,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:
-
-                            Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Saved Card',
-                                style: GoogleFonts.alegreyaSans(
-                                    fontSize: 18, fontWeight: FontWeight.w800, color: const Color(0xff000000)),
-                              ),
-                              addHeight(14),
-                              getSavedDetailsController.isDataLoading.value && getSavedDetailsController.savedDetailsModel.value.data!.isNotEmpty ?
-                              SizedBox(
-                                height: 100,
-                                child: Obx(() {
-                                  return ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: getSavedDetailsController.savedDetailsModel.value.data!.length,
-                                      itemBuilder: (BuildContext context, index){
-                                        return InkWell(
-                                          onTap: () {
-                                            //Get.toNamed(MyRouters.addNewCardScreen, arguments: [selectedMethod,specialRequestController.text,deliveryInstructionController.text]);
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                                  child: Text(
-                                                    "**** **** **** ${getSavedDetailsController.savedDetailsModel.value.data![index].last4.toString()}",style: const TextStyle(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 15
-                                                  ),),
-                                                ),
-                                              ),
-                                              Theme(
-                                                  data: ThemeData(
-                                                    unselectedWidgetColor: Colors.green,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Saved Card',
+                                    style: GoogleFonts.alegreyaSans(
+                                        fontSize: 18, fontWeight: FontWeight.w800, color: const Color(0xff000000)),
+                                  ),
+                                  addHeight(14),
+                                  getSavedDetailsController.isDataLoading.value &&
+                                          getSavedDetailsController.savedDetailsModel.value.data!.isNotEmpty
+                                      ? SizedBox(
+                                          // height: 100,
+                                          child: Obx(() {
+                                          return ListView.builder(
+                                              shrinkWrap: true,
+                                              itemCount: getSavedDetailsController.savedDetailsModel.value.data!.length,
+                                              itemBuilder: (BuildContext context, index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    //Get.toNamed(MyRouters.addNewCardScreen, arguments: [selectedMethod,specialRequestController.text,deliveryInstructionController.text]);
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                                          child: Text(
+                                                            "**** **** **** ${getSavedDetailsController.savedDetailsModel.value.data![index].last4.toString()}",
+                                                            style:
+                                                                const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Theme(
+                                                          data: ThemeData(
+                                                            unselectedWidgetColor: Colors.green,
+                                                          ),
+                                                          child: Obx(() {
+                                                            return addRadioButtonCard(
+                                                                cardToken: getSavedDetailsController
+                                                                    .savedDetailsModel.value.data![index].id
+                                                                    .toString());
+                                                          })),
+                                                    ],
                                                   ),
-                                                  child:
-                                                  Obx((){
-                                                    return addRadioButtonCard(cardToken: getSavedDetailsController.savedDetailsModel.value.data![index].id.toString());
-                                                  })),
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                })
-                              ):const SizedBox()
-                            ],
-                          ),
-
-                      ),
-                    )
-                      :SizedBox(),
+                                                );
+                                              });
+                                        }))
+                                      : const SizedBox()
+                                ],
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 15,
@@ -909,17 +848,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       title: 'Place Order'.toUpperCase(),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          if(getSavedDetailsController.savedDetailsModel.value.data!.isEmpty){
+                          if (getSavedDetailsController.savedDetailsModel.value.data!.isEmpty) {
                             showToast("Please add card");
                             return;
                           }
-                          if(selectedSavedCard == null){
+                          if (selectedSavedCard == null) {
                             showToast("Please select card");
                             return;
                           }
                           if (selectedMethod == "D") {
-                             if (myCartController.model.value.data!.orderAddress != null) {
-                               // return;
+                            if (myCartController.model.value.data!.orderAddress != null) {
+                              // return;
                               checkOut(
                                       context: context,
                                       payment_type: 'online',
@@ -927,50 +866,48 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       specialRequest: specialRequestController.text,
                                       delivery_type: selectedMethod)
                                   .then((value1) {
-                                   // log('Token iddddddddddddddddddddd'+value.id.toString());
-                                    payment(
+                                // log('Token iddddddddddddddddddddd'+value.id.toString());
+                                payment(
                                         orderId: value1.data!.orderId.toString(),
                                         token: selectedSavedCard,
                                         amount: value1.data!.grandTotal,
                                         context: context)
-                                        .then((value2) {
-                                      if (value2.status == true) {
-                                        // showToast(value2.message.toString());
-                                        myCartController.getData();
-                                        // print('Order id====' + value2.data!.orderId);
-                                        Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                                          value2.data!.orderDetail!.orderId,
-                                          value2.data!.orderDetail!.placedAt,
-                                          value2.data!.orderDetail!.stateTax,
-                                          value2.data!.orderDetail!.muncipalTax,
-                                          value2.data!.orderDetail!.grandTotal,
-                                          // value2.data!.or,
-                                          // value2.data!.card,
-                                          value2.data!.orderDetail!.itemTotal,
-                                        ]);
-                                      }
-                                    });
-                                  });
+                                    .then((value2) {
+                                  if (value2.status == true) {
+                                    // showToast(value2.message.toString());
+                                    myCartController.getData();
+                                    // print('Order id====' + value2.data!.orderId);
+                                    Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                                      value2.data!.orderDetail!.orderId,
+                                      value2.data!.orderDetail!.placedAt,
+                                      value2.data!.orderDetail!.stateTax,
+                                      value2.data!.orderDetail!.muncipalTax,
+                                      value2.data!.orderDetail!.grandTotal,
+                                      // value2.data!.or,
+                                      // value2.data!.card,
+                                      value2.data!.orderDetail!.itemTotal,
+                                    ]);
+                                  }
+                                });
+                              });
+                            } else {
+                              showToast('Please select address');
                             }
-                             else {
-                               showToast('Please select address');
-                             }
-                          }
-                          else {
+                          } else {
                             if (selectedMethod != null) {
                               checkOut(
-                                  context: context,
-                                  payment_type: 'online',
-                                  deliveryInstruction: deliveryInstructionController.text,
-                                  specialRequest: specialRequestController.text,
-                                  delivery_type: selectedMethod)
+                                      context: context,
+                                      payment_type: 'online',
+                                      deliveryInstruction: deliveryInstructionController.text,
+                                      specialRequest: specialRequestController.text,
+                                      delivery_type: selectedMethod)
                                   .then((value1) {
                                 // log('Token iddddddddddddddddddddd'+value.id.toString());
                                 payment(
-                                    orderId: value1.data!.orderId.toString(),
-                                    token: selectedSavedCard,
-                                    amount: value1.data!.grandTotal,
-                                    context: context)
+                                        orderId: value1.data!.orderId.toString(),
+                                        token: selectedSavedCard,
+                                        amount: value1.data!.grandTotal,
+                                        context: context)
                                     .then((value2) {
                                   if (value2.status == true) {
                                     // showToast(value2.message.toString());
@@ -990,9 +927,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 });
                               });
                             }
-
                           }
-
                         }
                         // Get.toNamed(MyRouters.addNewCardScreen);
                       },
@@ -1027,30 +962,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     );
   }
 
-
-
-  Row addRadioButtonCard({
-    required String cardToken
-  }) {
+  Row addRadioButtonCard({required String cardToken}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-       Obx(() {
-         return  Radio<String>(
-           hoverColor: const Color(0xFF68C541),
-           activeColor: const Color(0xFF68C541),
-           value: cardToken,
-           groupValue: selectedSavedCard!.value,
-           onChanged: (value) {
-             setState(() {
-               selectedSavedCard!.value = value!;
-               print(selectedSavedCard);
-             });
-           },
-         );
-       })
+        Obx(() {
+          return Radio<String>(
+            hoverColor: const Color(0xFF68C541),
+            activeColor: const Color(0xFF68C541),
+            value: cardToken,
+            groupValue: selectedSavedCard!.value,
+            onChanged: (value) {
+              setState(() {
+                selectedSavedCard!.value = value!;
+                print(selectedSavedCard);
+              });
+            },
+          );
+        })
       ],
     );
   }
-
 }

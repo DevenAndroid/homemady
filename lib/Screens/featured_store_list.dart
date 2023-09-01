@@ -115,7 +115,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                     tabs: [
                                       Tab(
                                         child: Text(
-                                          "A La Carte",
+                                          "A' La Carte",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
                                         ),

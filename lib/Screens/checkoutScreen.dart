@@ -869,7 +869,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 // log('Token iddddddddddddddddddddd'+value.id.toString());
                                 payment(
                                         orderId: value1.data!.orderId.toString(),
-                                        token: selectedSavedCard,
+                                        token: selectedSavedCard!.value,
                                         amount: value1.data!.grandTotal,
                                         context: context)
                                     .then((value2) {
@@ -905,7 +905,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 // log('Token iddddddddddddddddddddd'+value.id.toString());
                                 payment(
                                         orderId: value1.data!.orderId.toString(),
-                                        token: selectedSavedCard,
+                                        token: selectedSavedCard!.value,
                                         amount: value1.data!.grandTotal,
                                         context: context)
                                     .then((value2) {

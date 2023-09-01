@@ -55,7 +55,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   String? selectedCategory;
   bool? isAvailableSelected=false;
   int currentIndex = 0;
-  List categoryItemList=['A la Carte','Catering','Meal Prep'];
+  List categoryItemList=['A\' la Carte','Catering','Meal Prep'];
   List<ItemDropDown> items = <ItemDropDown>[
     const ItemDropDown('sustainable_packaging', 'Sustainable Packaging'),
     const ItemDropDown('quickest_delivery', 'Quickest Delivery'),

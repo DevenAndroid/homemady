@@ -645,7 +645,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                           ),
                           tabs: const [
                             Tab(
-                              text: 'A la carte',
+                              text: 'A\' la carte',
                             ),
                             Tab(
                               text: 'Catering',

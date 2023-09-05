@@ -75,6 +75,7 @@ class CartItems {
   dynamic totalPrice;
   dynamic image;
   bool? collectionStatus;
+  bool? selfDelivery;
 
   CartItems(
       {this.id,
@@ -82,6 +83,7 @@ class CartItems {
         this.name,
         this.spiciness,
         this.price,
+        this.selfDelivery,
         this.cartItemQty,
         this.distance,
         this.subTitle,
@@ -96,6 +98,7 @@ class CartItems {
     spiciness = json['spiciness'];
     subTitle = json['subTitle'];
     price = json['price'];
+    selfDelivery = json['self_delivery'];
     cartItemQty = json['cart_item_qty'];
     distance = json['distance'];
     totalPrice = json['total_price'];
@@ -111,6 +114,7 @@ class CartItems {
     data['subTitle'] = this.subTitle;
     data['spiciness'] = this.spiciness;
     data['price'] = this.price;
+    data['self_delivery'] = this.selfDelivery;
     data['cart_item_qty'] = this.cartItemQty;
     data['distance'] = this.distance;
     data['total_price'] = this.totalPrice;
@@ -129,6 +133,7 @@ class CartPaymentSummary {
   dynamic deliveryCharge;
   dynamic serviceCharge;
   dynamic packingFee;
+  dynamic minOrderCharge;
   dynamic tax1;
   dynamic tax2;
   dynamic taxAndFee;
@@ -140,6 +145,7 @@ class CartPaymentSummary {
         this.couponDiscount,
         this.couponCode,
         this.orderCount,
+        this.minOrderCharge,
         this.freeDeliveryMinOrderValue,
         this.deliveryCharge,
         this.serviceCharge,
@@ -160,6 +166,7 @@ class CartPaymentSummary {
     deliveryCharge = json['deliveryCharge'];
     serviceCharge = json['serviceCharge'];
     packingFee = json['packingFee'];
+    minOrderCharge = json['min_order_charge'];
     tax1 = json['tax_1'];
     tax2 = json['tax_2'];
     taxAndFee = json['tax_and_fee'];
@@ -175,6 +182,7 @@ class CartPaymentSummary {
     data['tipAmount'] = this.tipAmount;
     data['free_delivery_min_order_value'] = this.freeDeliveryMinOrderValue;
     data['deliveryCharge'] = this.deliveryCharge;
+    data['min_order_charge'] = this.minOrderCharge;
     data['serviceCharge'] = this.serviceCharge;
     data['packingFee'] = this.packingFee;
     data['tax_1'] = this.tax1;

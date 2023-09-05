@@ -279,68 +279,80 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                             height: 20,
                                             color: const Color(0xFF6AC643),
                                           ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              if(controller.model.value.data?.storeDetails != null)
-                                              Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km",
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 16,
-                                                    color: const Color(0xFF1A2E33),
-                                                    fontWeight: FontWeight.w600,
-                                                  )),
-                                              Text('Delivery Now',
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 12,
-                                                    color: const Color(0xFF4E5F64),
-                                                    fontWeight: FontWeight.w400,
-                                                  )),
-                                            ],
+                                          const SizedBox(width: 10,),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                if(controller.model.value.data?.storeDetails != null)
+                                                Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km",
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 16,
+                                                      color: const Color(0xFF1A2E33),
+                                                      fontWeight: FontWeight.w600,
+                                                    )),
+                                                Text('Delivery Now',
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 12,
+                                                      color: const Color(0xFF4E5F64),
+                                                      fontWeight: FontWeight.w400,
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+
+                                          Container(
+                                            width: 1.5,
+                                            height: 30,
+                                            color: const Color(0xFFE7E7E7),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/clockImg.png',
+                                                  height: 24,
+                                                ),
+                                                addWidth(7),
+                                                // if(controller.model.value.data!.storeDetails!.time != null)
+                                                Expanded(
+                                                  child: Text(
+                                                       '${controller.model.value.data!.storeDetails!.time.toString()}'
+                                                           '-${controller.model.value.data!.storeDetails!.time.toString()} mins',
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color: Color(0xFF4E5F64),
+                                                        fontWeight: FontWeight.w400,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           Container(
                                             width: 1.5,
                                             height: 30,
                                             color: const Color(0xFFE7E7E7),
                                           ),
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                'assets/images/clockImg.png',
-                                                height: 24,
-                                              ),
-                                              addWidth(7),
-                                              // if(controller.model.value.data!.storeDetails!.time != null)
-                                              Text(
-                                                   '${controller.model.value.data!.storeDetails!.time.toString()}'
-                                                       '-${controller.model.value.data!.storeDetails!.time.toString()} mins',
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: Color(0xFF4E5F64),
-                                                    fontWeight: FontWeight.w400,
-                                                  )),
-                                            ],
-                                          ),
-                                          Container(
-                                            width: 1.5,
-                                            height: 30,
-                                            color: const Color(0xFFE7E7E7),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                'assets/images/truckimg.png',
-                                                height: 24,
-                                                color: const Color(0xFF6AC643),
-                                              ),
-                                              addWidth(7),
-                                              const Text('Delivery Only',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Color(0xFF4E5F64),
-                                                    fontWeight: FontWeight.w400,
-                                                  )),
-                                            ],
+                                          Expanded(
+                                            child: Row(
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/truckimg.png',
+                                                  height: 24,
+                                                  color: const Color(0xFF6AC643),
+                                                ),
+                                                addWidth(7),
+                                                const Expanded(
+                                                  child: Text('Delivery Only',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Color(0xFF4E5F64),
+                                                        fontWeight: FontWeight.w400,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -635,7 +647,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                           ),
                           tabs: const [
                             Tab(
-                              text: 'A la carte',
+                              text: 'A\' la carte',
                             ),
                             Tab(
                               text: 'Catering',

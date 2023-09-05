@@ -145,18 +145,13 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                   profileController.getData().then((value) {
                                     profileController.address.value = profileController.model.value.data!.defaultAddress![0].addressType.toString();
                                   });
-
-
                                   showToast(value.message.toString());
                                   Get.back();
-                                  //  Get.toNamed(MyRouters.checkOutScreen);
-                                  // myCartController.getData();
+
                                 }
                               });
 
-                              setState(() {
-
-                              });
+                              setState(() {});
 
                             },
                             child: Container(

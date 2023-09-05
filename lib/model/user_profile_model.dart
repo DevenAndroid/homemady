@@ -33,7 +33,7 @@ class Data {
   String? lastName;
   String? email;
   String? phone;
-  List<DefaultAddress>? defaultAddress;
+  List<DefaultAddress>? defaultAddress = [];
   String? walletBalance;
   String? earnedBalance;
   String? profileImage;
@@ -89,6 +89,8 @@ class Data {
       json['default_address '].forEach((v) {
         defaultAddress!.add(new DefaultAddress.fromJson(v));
       });
+    } else {
+      defaultAddress = [];
     }
     walletBalance = json['wallet_balance'];
     earnedBalance = json['earned_balance'];

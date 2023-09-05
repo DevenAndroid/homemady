@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/user_profile_controller.dart';
 import '../routers/routers.dart';
@@ -58,36 +59,38 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         SizedBox(
                           height: screenSize.height * 0.05,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            // Get.to(navigationPage.elementAt(_currentPage))
-                            // Get.to(MyProfile());
-                          },
-                          child: Card(
-                              elevation: 3,
-                              shape: const CircleBorder(),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Container(
-                                  margin: const EdgeInsets.all(4),
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  decoration: const ShapeDecoration(
-                                    shape: CircleBorder(),
-                                    color: Colors.white,
-                                  ),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                    profileController.isDataLoading.value
-                                        ? (profileController.model.value.data!
-                                        .profileImage ??
-                                        "")
-                                        .toString()
-                                        : "",
-                                    height: screenSize.height * 0.12,
-                                    width: screenSize.height * 0.12,
-                                    errorWidget: (_, __, ___) => const SizedBox(),
-                                    placeholder: (_, __) => const SizedBox(),
-                                    fit: BoxFit.cover,
-                                  ))),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              // Get.to(navigationPage.elementAt(_currentPage))
+                              // Get.to(MyProfile());
+                            },
+                            child: Card(
+                                elevation: 3,
+                                shape: const CircleBorder(),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                child: Container(
+                                    margin: const EdgeInsets.all(4),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    decoration: const ShapeDecoration(
+                                      shape: CircleBorder(),
+                                      color: Colors.white,
+                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                      profileController.isDataLoading.value
+                                          ? (profileController.model.value.data!
+                                          .profileImage ??
+                                          "")
+                                          .toString()
+                                          : "",
+                                      height: screenSize.height * 0.12,
+                                      width: screenSize.height * 0.12,
+                                      errorWidget: (_, __, ___) => const SizedBox(),
+                                      placeholder: (_, __) => const SizedBox(),
+                                      fit: BoxFit.cover,
+                                    ))),
+                          ),
                         ),
                         SizedBox(
                           height: screenSize.height * 0.02,
@@ -114,7 +117,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400)),
                         const SizedBox(
-                          // height: SizeConfig.heightMultiplier! * 1.8,
+                          height: 4,
                         ),
                       ],
                     ),
@@ -141,18 +144,24 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         const Divider(
                           height: 1,
                         ),
-                        _drawerTile(
-                            active: true,
-                            title: "Favorites",
-                            icon: const ImageIcon(
-                              AssetImage('assets/images/note-2.png'),
-                              size: 22,
-                              color: const Color(0xFF4F535E),
-                            ),
-                            onTap: () {
+                        Padding(
+                          padding: const EdgeInsets.only(right: 15,top: 15,bottom: 12,left: 15),
+                          child: InkWell(
+                            onTap: (){
                               Get.toNamed(MyRouters.favouriteScreen);
-                              // }
-                            }),
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(Icons.favorite_border, color:  Color(0xFF4F535E),),
+                                const SizedBox(width: 25,),
+                                Text("Favorites".tr, style: GoogleFonts.ibmPlexSansArabic(
+                                    color: const Color(0xFF4F535E),fontSize: 15
+                                ),),
+                              ],
+                            ),
+                          ),
+                        ),
                         const Divider(
                           height: 1,
                         ),

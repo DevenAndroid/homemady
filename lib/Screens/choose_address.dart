@@ -121,10 +121,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
   }
 
   final TextEditingController otherController = TextEditingController();
- // final TextEditingController flatNoController = TextEditingController();
-//  final TextEditingController streetController = TextEditingController();
- // final TextEditingController recipientController = TextEditingController();
-  // otherController.text = addressModel.addressType ?? "Home";
   showChangeAddressSheet(AddressData addressModel) {
     final TextEditingController flatNoController = TextEditingController(text: addressModel.flatNo ?? '');
     final TextEditingController cityController = TextEditingController(text: addressModel.landmark ?? '');
@@ -133,7 +129,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
     final TextEditingController deliveryInstructionController = TextEditingController(text:  addressModel.note ?? '');
     selectedChip.value = addressModel.addressType ?? "Home";
 
-    // selectedChip.value = addressModel.addressType ?? "Home";
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -301,8 +296,9 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                            address_id: addressModel.id.toString()).then((value) {
                                              if(value.status == true){
                                                showToast('Address Edited Successfully');
-                                               Get.back();
-                                               Get.to(()=> const MyAddressScreen());
+                                              Get.back();
+                                              Get.back();
+
                                                myAddressController.getData();
                                              }
                                            }) :
@@ -310,92 +306,15 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                             address_type: selectedChip.value,location: _address,note: deliveryInstructionController.text,pinCode: postalCodeController.text).then((value1) {
                                           if(value1.status == true){
                                             showToast(value1.message.toString());
-                                            Get.to(()=> const MyAddressScreen());
+                                            Get.back();
+                                            Get.back();
+                                            // Get.to(()=> const MyAddressScreen());
                                             myAddressController.getData();
                                           }
                                         });
                                       }
                                   },),
-                                  // ElevatedButton(
-                                  //     onPressed: () {
-                                  //       // if (_formKey.currentState!.validate()) {
-                                  //       //   addressModel.street != null &&
-                                  //       //       addressModel.flatNo != null &&
-                                  //       //       addressModel.landmark != null
-                                  //       //       ? editAddress(
-                                  //       //       location: _address,
-                                  //       //       flat_no:
-                                  //       //       flatNoController.text,
-                                  //       //       street:
-                                  //       //       streetController.text,
-                                  //       //       landmark:
-                                  //       //       streetController.text,
-                                  //       //       address_type:
-                                  //       //       otherController.text,
-                                  //       //       context: context,
-                                  //       //       address_id: addressModel
-                                  //       //           .id
-                                  //       //           .toString())
-                                  //       //       .then((value) {
-                                  //       //     showToast(value.message);
-                                  //       //     if (value.status == true) {
-                                  //       //       Get.toNamed(MyAddress
-                                  //       //           .myAddressScreen);
-                                  //       //       addressController
-                                  //       //           .getAddress();
-                                  //       //       flatNoController.clear();
-                                  //       //       streetController.clear();
-                                  //       //       otherController.clear();
-                                  //       //       recipientController.clear();
-                                  //       //       selectedChip.value = "";
-                                  //       //     }
-                                  //       //   })
-                                  //       //       : addAddress(
-                                  //       //       location: _address,
-                                  //       //       flat_no:
-                                  //       //       flatNoController.text,
-                                  //       //       street:
-                                  //       //       streetController.text,
-                                  //       //       landmark:
-                                  //       //       streetController.text,
-                                  //       //       address_type:
-                                  //       //       otherController.text,
-                                  //       //       context: context)
-                                  //       //       .then((value) {
-                                  //       //     showToast(value.message);
-                                  //       //     if (value.status == true) {
-                                  //       //       Get.toNamed(MyAddress
-                                  //       //           .myAddressScreen);
-                                  //       //       addressController
-                                  //       //           .getAddress();
-                                  //       //       flatNoController.clear();
-                                  //       //       streetController.clear();
-                                  //       //       otherController.clear();
-                                  //       //       recipientController.clear();
-                                  //       //       selectedChip.value = "";
-                                  //       //     }
-                                  //       //   });
-                                  //       // }
-                                  //     },
-                                  //     style: ElevatedButton.styleFrom(
-                                  //       minimumSize:
-                                  //       const Size(double.maxFinite, 60),
-                                  //       primary: AppTheme.primaryColor,
-                                  //       elevation: 0,
-                                  //       shape: RoundedRectangleBorder(
-                                  //           borderRadius:
-                                  //           BorderRadius.circular(10)),
-                                  //     ),
-                                  //     child: Text(
-                                  //       "SAVE ADDRESS",
-                                  //       style: Theme.of(context)
-                                  //           .textTheme
-                                  //           .headline5!
-                                  //           .copyWith(
-                                  //           color: AppTheme.backgroundcolor,
-                                  //           fontWeight: FontWeight.w500,
-                                  //           fontSize: AddSize.font18),
-                                  //     )),
+
                                 ],
                               ),
                             ),
@@ -664,32 +583,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                               // Get.toNamed(MyRouter.chooseAddressScreen);
                             },
                           ),
-                          // ElevatedButton(
-                          //     onPressed: () {
-                          //       setState(() {
-                          //         _isValue.value = !_isValue.value;
-                          //         selectedChip.value = "Home";
-                          //       });
-                          //       showChangeAddressSheet();
-                          //       // Get.toNamed(MyRouter.chooseAddressScreen);
-                          //     },
-                          //     style: ElevatedButton.styleFrom(
-                          //       minimumSize: const Size(double.maxFinite, 60),
-                          //       primary: Colors.green,
-                          //       elevation: 0,
-                          //       shape: RoundedRectangleBorder(
-                          //           borderRadius: BorderRadius.circular(10)),
-                          //     ),
-                          //     child: Text(
-                          //       "Enter complete address",
-                          //       style: Theme.of(context)
-                          //           .textTheme
-                          //           .headline5!
-                          //           .copyWith(
-                          //           color: AppTheme.backgroundcolor,
-                          //           fontWeight: FontWeight.w500,
-                          //           fontSize: AddSize.font16),
-                          //     )),
+
                         ],
                       ),
                     ),

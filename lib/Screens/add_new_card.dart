@@ -227,8 +227,17 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                   log('token--' + value.id.toString());
                   {
                     log('token--' + value.id.toString());
-                    // saveCardDetailsRepo(stripeToken: value.id.toString(), context: context);
+                    saveCardDetailsRepo(stripeToken: value.id.toString(), context: context).then((value){
+                      if(value.status==true){
+                        showToast(value.message);
+                        Get.back();
+                      }
+                      else{
+                        showToast(value.message);
+                      }
+                    });
                     log('order id--' + value.id.toString());
+                    // check
                     checkOut(
                         payment_type: 'online',
                         context: context,
@@ -260,6 +269,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                         }
                       });
                     });
+                    // out
                   }
                 });
               }

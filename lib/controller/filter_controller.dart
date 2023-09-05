@@ -7,14 +7,16 @@ import '../repository/filter_repo.dart';
 
 class FilterController extends GetxController {
   bool isDataLoading = false;
-  Rx<FilterModel> filterModel = FilterModel().obs;
-  RxString sendDate = "".obs;
-  RxString availableOption=''.obs;
+  Rx<FilterProductModel> filterModel = FilterProductModel().obs;
+  // RxString sendDate = "".obs;
+  // RxString availableOption="".obs;
  final storeSearchController=TextEditingController();
+
+ DateTime sendDate = DateTime.now();
 
   Future getFilterData() async {
     isDataLoading = false;
-      await filterDataRepo(pickDate: sendDate.value, availableNow: availableOption.value, keyword:storeSearchController.text ).then((value) {
+      await filterDataRepo(pickDate: sendDate, keyword:storeSearchController.text ).then((value) {
         isDataLoading = true;
         filterModel.value = value;
       });

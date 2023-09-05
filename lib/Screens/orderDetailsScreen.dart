@@ -96,77 +96,79 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                    children: [
                                      Image.asset('assets/images/order_details.png',height: 18,),
                                      addWidth(15),
-                                     Column(
-                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                       children: [
-                                         Text('Order ID: ${controller.model.value.orderDetail!.orderId!.toString()}'
-                                           ,style: GoogleFonts.poppins(
-                                             fontWeight: FontWeight.w600,
-                                             fontSize: 15,
-                                             color: const Color(0xFF7ED957)
-                                         ),),
-                                         Text(controller.model.value.orderDetail!.placedAt!.toString(),
-                                           style: GoogleFonts.poppins(
-                                             fontWeight: FontWeight.w400,
-                                             fontSize: 11,
-                                             color: const Color(0xFF303C5E)
-                                         ),),
-                                         addHeight(10),
-                                         controller.model.value.orderDetail!.deliveryTime != null ?
-                                         Text('Delivery Time'
-                                           ,style: GoogleFonts.poppins(
+                                     Expanded(
+                                       child: Column(
+                                         crossAxisAlignment: CrossAxisAlignment.start,
+                                         children: [
+                                           Text('Order ID: ${controller.model.value.orderDetail!.orderId!.toString()}'
+                                             ,style: GoogleFonts.poppins(
                                                fontWeight: FontWeight.w600,
-                                               fontSize: 14,
-                                               color: const Color(0xFF1A2E33)
-                                           ),):const SizedBox(),
-                                         controller.model.value.orderDetail!.deliveryTime != null ?
-                                         Text(controller.model.value.orderDetail!.deliveryTime!.toString(),
-                                           style: GoogleFonts.poppins(
+                                               fontSize: 15,
+                                               color: const Color(0xFF7ED957)
+                                           ),),
+                                           Text(controller.model.value.orderDetail!.placedAt!.toString(),
+                                             style: GoogleFonts.poppins(
                                                fontWeight: FontWeight.w400,
                                                fontSize: 11,
                                                color: const Color(0xFF303C5E)
-                                           ),): const SizedBox(),
+                                           ),),
+                                           addHeight(10),
+                                           controller.model.value.orderDetail!.deliveryTime != null ?
+                                           Text('Delivery Time'
+                                             ,style: GoogleFonts.poppins(
+                                                 fontWeight: FontWeight.w600,
+                                                 fontSize: 14,
+                                                 color: const Color(0xFF1A2E33)
+                                             ),):const SizedBox(),
+                                           controller.model.value.orderDetail!.deliveryTime != null ?
+                                           Text(controller.model.value.orderDetail!.deliveryTime!.toString(),
+                                             style: GoogleFonts.poppins(
+                                                 fontWeight: FontWeight.w400,
+                                                 fontSize: 11,
+                                                 color: const Color(0xFF303C5E)
+                                             ),): const SizedBox(),
 
-                                         controller.model.value.orderDetail!.specialRequets != '' ?
-                                         Column(
-                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                           children: [
-                                             const SizedBox(height: 3,),
-                                             Text('Special Request'
-                                               ,style: GoogleFonts.poppins(
-                                                   fontWeight: FontWeight.w600,
-                                                   fontSize: 14,
-                                                   color: const Color(0xFF1A2E33)
-                                               ),),
-                                             Text(controller.model.value.orderDetail!.specialRequets!.toString(),
-                                               style: GoogleFonts.poppins(
-                                                   fontWeight: FontWeight.w400,
-                                                   fontSize: 11,
-                                                   color: const Color(0xFF303C5E)
-                                               ),),
-                                           ],
-                                         ) : const SizedBox(),
-                                         controller.model.value.orderDetail!.instructionForDelivery != "" ?
-                                         Column(
-                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                           children: [
-                                             Text('Instruction for delivery'
-                                               ,style: GoogleFonts.poppins(
-                                                   fontWeight: FontWeight.w600,
-                                                   fontSize: 14,
-                                                   color: const Color(0xFF1A2E33)
-                                               ),),
-                                             Text(controller.model.value.orderDetail!.instructionForDelivery!.toString(),
-                                               style: GoogleFonts.poppins(
-                                                   fontWeight: FontWeight.w400,
-                                                   fontSize: 11,
-                                                   color: const Color(0xFF303C5E)
-                                               ),),
-                                           ],
-                                         ): const SizedBox(),
-                                       ],
+                                           controller.model.value.orderDetail!.specialRequets != '' ?
+                                           Column(
+                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                             children: [
+                                               const SizedBox(height: 3,),
+                                               Text('Special Request'
+                                                 ,style: GoogleFonts.poppins(
+                                                     fontWeight: FontWeight.w600,
+                                                     fontSize: 14,
+                                                     color: const Color(0xFF1A2E33)
+                                                 ),),
+                                               Text(controller.model.value.orderDetail!.specialRequets!.toString(),
+                                                 style: GoogleFonts.poppins(
+                                                     fontWeight: FontWeight.w400,
+                                                     fontSize: 11,
+                                                     color: const Color(0xFF303C5E)
+                                                 ),),
+                                             ],
+                                           ) : const SizedBox(),
+                                           controller.model.value.orderDetail!.instructionForDelivery != "" ?
+                                           Column(
+                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                             children: [
+                                               Text('Instruction for delivery'
+                                                 ,style: GoogleFonts.poppins(
+                                                     fontWeight: FontWeight.w600,
+                                                     fontSize: 14,
+                                                     color: const Color(0xFF1A2E33)
+                                                 ),),
+                                               Text(controller.model.value.orderDetail!.instructionForDelivery!.toString(),
+                                                 style: GoogleFonts.poppins(
+                                                     fontWeight: FontWeight.w400,
+                                                     fontSize: 11,
+                                                     color: const Color(0xFF303C5E)
+                                                 ),),
+                                             ],
+                                           ): const SizedBox(),
+                                         ],
+                                       ),
                                      ),
-                                     const Spacer(),
+                                     // const Spacer(),
                                      Container(
                                        // height: 25,
                                        // width: 100,

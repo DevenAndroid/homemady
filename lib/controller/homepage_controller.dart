@@ -13,18 +13,20 @@ class HomePageController extends GetxController {
   // RxString categoryType="".obs;
   // RxString chooseDietaries="".obs;
 
-  getData({
+ Future getData({
     String? filterCategory,
     String? categoryType,
     String? chooseDietaries,
     String? filter,
-  }) {
+   BuildContext? context
+  }) async{
     isDataLoading.value = false;
-    homeData(
+  await  homeData(
       filterCategory: filterCategory ?? "",
       categoryType: categoryType ?? "",
       dietaries: chooseDietaries ?? "",
       filter: filter ?? "",
+    context: context
     ).then((value1) {
       isDataLoading.value = true;
       model.value = value1;

@@ -34,6 +34,7 @@ import '../Screens/chat_screen/chat_screen.dart';
 import '../Screens/faqs_screen.dart';
 import '../Screens/filter_category_product_list.dart';
 import '../Screens/help_center_screen.dart';
+import '../Screens/home_filter_screen.dart';
 import '../Screens/login_screen.dart';
 import '../Screens/notification2.dart';
 import '../Screens/search_screen_data.dart';
@@ -117,5 +118,6 @@ class MyRouters {
   GetPage(name: FilterProductScreen.filterProductScreen, page: () => const FilterProductScreen()),
     GetPage(name: NotificationScreen2.notificationScreen2, page: () => const NotificationScreen2()),
     GetPage(name: ChatScreen1.chatScreen1, page: () => const ChatScreen1()),
+    GetPage(name: HomeFilterScreen.homeFilterScreen, page: () => const HomeFilterScreen()),
   ];
 }

@@ -713,6 +713,28 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             ],
                           ),
                         ),
+                        controller.model.value.data!.cartPaymentSummary!.minOrderCharge !=0 ?
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(15,10,14,0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text('Small Order fee:',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xff1A2E33)
+                                ),),
+                              Spacer(),
+                              Text( '€ ${controller.model.value.data!.cartPaymentSummary!.minOrderCharge.toString()}',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff486769)
+                                ),),
+                            ],
+                          ),
+                        ):SizedBox(),
                         controller.model.value.data!.cartPaymentSummary!.serviceCharge != 0 ?
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15,10,14,0),

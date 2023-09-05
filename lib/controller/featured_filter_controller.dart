@@ -8,11 +8,12 @@ class FeaturedFilterController extends GetxController{
   Rx<FeaturedFilterModel> model = FeaturedFilterModel().obs;
   RxBool isDataLoading = false.obs;
   RxString filterId="4".obs;
+  DateTime sendDate=DateTime.now();
 
 
   getData(){
     isDataLoading.value = false;
-    featuredFilterRepo(filter:filterId.value).then((value1) {
+    featuredFilterRepo(filter:filterId.value, pickDate: sendDate).then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

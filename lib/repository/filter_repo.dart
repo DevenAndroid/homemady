@@ -9,10 +9,7 @@ import '../model/filter_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 //All Dropdown api
-Future<FilterModel> filterDataRepo({required DateTime pickDate,required keyword}) async {
-  // var map = <String, dynamic>{};
-  //
-  //   map['date'] = pickDate;
+Future<FilterProductModel> filterDataRepo({required DateTime pickDate,required keyword}) async {
 
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
@@ -24,7 +21,7 @@ Future<FilterModel> filterDataRepo({required DateTime pickDate,required keyword}
   };
   // 2023/09/01
 
-  String url = "${ApiUrl.filterDateUrl}?date=${DateFormat("yyyy/MM/dd").format(pickDate)}&store_name=$keyword";
+  String url = "${ApiUrl.filterDateUrl}?date=${DateFormat("yyyy/MM/dd").format(pickDate)}&keyword=$keyword";
 
   log(("Url...$url"));
   final response =
@@ -34,7 +31,7 @@ Future<FilterModel> filterDataRepo({required DateTime pickDate,required keyword}
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
     print("Filter store Repository...${response.body}");
-    return FilterModel.fromJson(jsonDecode(response.body));
+    return FilterProductModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);
   }

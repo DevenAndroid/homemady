@@ -748,6 +748,27 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ],
                                     ),
                                   ),
+
+                            myCartController.model.value.data!.cartPaymentSummary!.minOrderCharge !=0 ?
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Small Order fee:',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '€ ${myCartController.model.value.data!.cartPaymentSummary!.minOrderCharge.toString()}',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
+                                  ),
+                                ],
+                              ),
+                            ):SizedBox(),
                             myCartController.model.value.data!.cartPaymentSummary!.couponDiscount == 0
                                 ? const SizedBox()
                                 : Padding(

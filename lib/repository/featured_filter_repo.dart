@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/featured_filter_ model.dart';
@@ -10,7 +11,7 @@ import '../model/model_verify_otp.dart';
 import '../model/vendor_store_single_model.dart';
 import '../resources/api_urls.dart';
 
-Future<FeaturedFilterModel> featuredFilterRepo({required filter}) async {
+Future<FeaturedFilterModel> featuredFilterRepo({required filter, required DateTime? pickDate}) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -22,7 +23,7 @@ Future<FeaturedFilterModel> featuredFilterRepo({required filter}) async {
   };
   log(user.authToken.toString());
   http.Response response =
-  await http.get(Uri.parse('${ApiUrl.featuredFilterUrl}?filter=$filter'), headers: headers);
+  await http.get(Uri.parse('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=${DateFormat("yyyy/MM/dd").format(pickDate!)}'), headers: headers);
   // log("<<<<<<<Featured Filter Repo data=======>${response.body}");
   log('${ApiUrl.featuredFilterUrl}?filter=$filter');
   if (response.statusCode == 200) {

@@ -316,14 +316,16 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 ),
                                                 addWidth(7),
                                                 // if(controller.model.value.data!.storeDetails!.time != null)
-                                                Text(
-                                                     '${controller.model.value.data!.storeDetails!.time.toString()}'
-                                                         '-${controller.model.value.data!.storeDetails!.time.toString()} mins',
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      color: Color(0xFF4E5F64),
-                                                      fontWeight: FontWeight.w400,
-                                                    )),
+                                                Expanded(
+                                                  child: Text(
+                                                       '${controller.model.value.data!.storeDetails!.time.toString()}'
+                                                           '-${controller.model.value.data!.storeDetails!.time.toString()} mins',
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color: Color(0xFF4E5F64),
+                                                        fontWeight: FontWeight.w400,
+                                                      )),
+                                                ),
                                               ],
                                             ),
                                           ),

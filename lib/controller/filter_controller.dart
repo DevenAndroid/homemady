@@ -7,7 +7,7 @@ import '../repository/filter_repo.dart';
 
 class FilterController extends GetxController {
   bool isDataLoading = false;
-  Rx<FilterModel> filterModel = FilterModel().obs;
+  Rx<FilterProductModel> filterModel = FilterProductModel().obs;
   // RxString sendDate = "".obs;
   // RxString availableOption="".obs;
  final storeSearchController=TextEditingController();

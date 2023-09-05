@@ -211,7 +211,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                     ),
                                   ),
                                 ),
-                                  const Positioned(
+                                   Positioned(
                                     top: 80,
                                     // bottom: 0,
                                     left: 20,

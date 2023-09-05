@@ -59,36 +59,38 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         SizedBox(
                           height: screenSize.height * 0.05,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            // Get.to(navigationPage.elementAt(_currentPage))
-                            // Get.to(MyProfile());
-                          },
-                          child: Card(
-                              elevation: 3,
-                              shape: const CircleBorder(),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Container(
-                                  margin: const EdgeInsets.all(4),
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  decoration: const ShapeDecoration(
-                                    shape: CircleBorder(),
-                                    color: Colors.white,
-                                  ),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                    profileController.isDataLoading.value
-                                        ? (profileController.model.value.data!
-                                        .profileImage ??
-                                        "")
-                                        .toString()
-                                        : "",
-                                    height: screenSize.height * 0.12,
-                                    width: screenSize.height * 0.12,
-                                    errorWidget: (_, __, ___) => const SizedBox(),
-                                    placeholder: (_, __) => const SizedBox(),
-                                    fit: BoxFit.cover,
-                                  ))),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              // Get.to(navigationPage.elementAt(_currentPage))
+                              // Get.to(MyProfile());
+                            },
+                            child: Card(
+                                elevation: 3,
+                                shape: const CircleBorder(),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                child: Container(
+                                    margin: const EdgeInsets.all(4),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    decoration: const ShapeDecoration(
+                                      shape: CircleBorder(),
+                                      color: Colors.white,
+                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                      profileController.isDataLoading.value
+                                          ? (profileController.model.value.data!
+                                          .profileImage ??
+                                          "")
+                                          .toString()
+                                          : "",
+                                      height: screenSize.height * 0.12,
+                                      width: screenSize.height * 0.12,
+                                      errorWidget: (_, __, ___) => const SizedBox(),
+                                      placeholder: (_, __) => const SizedBox(),
+                                      fit: BoxFit.cover,
+                                    ))),
+                          ),
                         ),
                         SizedBox(
                           height: screenSize.height * 0.02,
@@ -115,7 +117,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400)),
                         const SizedBox(
-                          // height: SizeConfig.heightMultiplier! * 1.8,
+                          height: 4,
                         ),
                       ],
                     ),

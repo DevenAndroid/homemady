@@ -1498,13 +1498,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     height: height * .6,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                          child: SingleChildScrollView(
-                            child:
-                            SizedBox(
-                              height: height * .5,
-                              child: SingleChildScrollView(
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                            child: SingleChildScrollView(
+                              child:
+                              SingleChildScrollView(
                                 child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
                                   Text(
                                     "Cuisine:",

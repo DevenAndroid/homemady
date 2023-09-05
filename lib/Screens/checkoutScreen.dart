@@ -530,7 +530,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             addHeight(14),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
                                   onTap: () {
@@ -553,6 +553,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     )),
                                   ),
                                 ),
+                                addWidth(5),
                                 Container(
                                   height: 60,
                                   width: 57,
@@ -565,30 +566,31 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     height: 36,
                                   )),
                                 ),
-                                Container(
-                                  height: 60,
-                                  width: 57,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(14),
-                                      border: Border.all(color: const Color(0xFFF2F2F2))),
-                                  child: Center(
-                                      child: Image.asset(
-                                    'assets/images/google_pay.png',
-                                    height: 16,
-                                  )),
-                                ),
-                                Container(
-                                  height: 60,
-                                  width: 57,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(14),
-                                      border: Border.all(color: const Color(0xFFF2F2F2))),
-                                  child: Center(
-                                      child: Image.asset(
-                                    'assets/images/paytm_img.png',
-                                    height: 20,
-                                  )),
-                                ),
+                                addWidth(5),
+                                // Container(
+                                //   height: 60,
+                                //   width: 57,
+                                //   decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(14),
+                                //       border: Border.all(color: const Color(0xFFF2F2F2))),
+                                //   child: Center(
+                                //       child: Image.asset(
+                                //     'assets/images/google_pay.png',
+                                //     height: 16,
+                                //   )),
+                                // ),
+                                // Container(
+                                //   height: 60,
+                                //   width: 57,
+                                //   decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(14),
+                                //       border: Border.all(color: const Color(0xFFF2F2F2))),
+                                //   child: Center(
+                                //       child: Image.asset(
+                                //     'assets/images/paytm_img.png',
+                                //     height: 20,
+                                //   )),
+                                // ),
                                 Container(
                                   height: 60,
                                   width: 57,

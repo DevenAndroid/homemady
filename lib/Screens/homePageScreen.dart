@@ -631,7 +631,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
             elevation: 0,
-            toolbarHeight: 70,
+            //toolbarHeight: 70,
+            //toolbarHeight: 70,
           ),
           body: RefreshIndicator(
             onRefresh: ()async{

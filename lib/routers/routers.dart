@@ -38,6 +38,9 @@ import '../Screens/home_filter_screen.dart';
 import '../Screens/login_screen.dart';
 import '../Screens/notification2.dart';
 import '../Screens/search_screen_data.dart';
+import '../Screens/subscription_history.dart';
+import '../Screens/subscription_screen.dart';
+import '../Screens/thankyou_screen2.dart';
 import '../singlecookDetails/carte.dart';
 
 
@@ -119,5 +122,9 @@ class MyRouters {
     GetPage(name: NotificationScreen2.notificationScreen2, page: () => const NotificationScreen2()),
     GetPage(name: ChatScreen1.chatScreen1, page: () => const ChatScreen1()),
     GetPage(name: HomeFilterScreen.homeFilterScreen, page: () => const HomeFilterScreen()),
+    GetPage(name: SubscriptionScreen.subscriptionScreen, page: () => const  SubscriptionScreen()),
+    GetPage(name: SubscriptionHistoryScreen.subscriptionHistoryScreen, page: () => const  SubscriptionHistoryScreen()),
+    GetPage(name: ThankYouScreen2.thankYouScreen2, page: () => const  ThankYouScreen2()),
+
   ];
 }

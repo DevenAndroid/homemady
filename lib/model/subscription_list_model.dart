@@ -32,27 +32,33 @@ class Data {
   String? userId;
   String? transactionId;
   String? amount;
-  String? subscriptionExpiryDate;
   String? subscriptionStartDate;
+  String? subscriptionExpiryDate;
   String? type;
+  String? paymentMode;
+  String? purchasedOn;
 
   Data(
       {this.id,
         this.userId,
         this.transactionId,
         this.amount,
-        this.subscriptionExpiryDate,
         this.subscriptionStartDate,
-        this.type});
+        this.subscriptionExpiryDate,
+        this.type,
+        this.paymentMode,
+        this.purchasedOn});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
     transactionId = json['transaction_id'];
     amount = json['amount'];
-    subscriptionExpiryDate = json['subscription_expiry_date'];
     subscriptionStartDate = json['subscription_start_date'];
+    subscriptionExpiryDate = json['subscription_expiry_date'];
     type = json['type'];
+    paymentMode = json['payment_mode'];
+    purchasedOn = json['purchased_on'];
   }
 
   Map<String, dynamic> toJson() {
@@ -61,9 +67,11 @@ class Data {
     data['user_id'] = this.userId;
     data['transaction_id'] = this.transactionId;
     data['amount'] = this.amount;
-    data['subscription_expiry_date'] = this.subscriptionExpiryDate;
     data['subscription_start_date'] = this.subscriptionStartDate;
+    data['subscription_expiry_date'] = this.subscriptionExpiryDate;
     data['type'] = this.type;
+    data['payment_mode'] = this.paymentMode;
+    data['purchased_on'] = this.purchasedOn;
     return data;
   }
 }

@@ -35,7 +35,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: [ controller.isDataLoading.value ?
            ListView.builder(
              physics: const BouncingScrollPhysics(),
                shrinkWrap: true,
@@ -195,7 +195,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                ),
              ),
              );
-           })
+           }): const Center(child:  CircularProgressIndicator())
 
           ],
         ),

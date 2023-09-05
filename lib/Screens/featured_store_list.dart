@@ -41,7 +41,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
   int currentDrawer = 0;
   RxInt count = 0.obs;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String?  selectedDate;
+  String?  selectedDate = DateFormat('yyyy/MM/dd').format(DateTime.now());
   late TabController tabController;
   final autoController = AutoScrollController();
   bool isClicked = false;
@@ -121,19 +121,21 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                           },
 
                                           context: context,
-                                          initialDate: featuredFilterController.sendDate,
+                                          initialDate: DateTime.now(),
                                           firstDate: DateTime.now().subtract(const Duration(days: 0)),
                                           // firstDate: DateTime(1950),
                                           //DateTime.now() - not to allow to choose before today.
                                           lastDate: DateTime(2025),
                                         ).then((value) {
                                           if (value != null) {
-                                            featuredFilterController.sendDate = value;
+                                            // featuredFilterController.sendDate.value = value;
                                             String formattedDate = DateFormat('yyyy/MM/dd').format(value);
                                             setState(() {
                                               // var selectedDate=formattedDate;
                                               selectedDate = formattedDate; //set output date to TextField value.
                                               log("Seleted Date     $selectedDate");
+                                              featuredFilterController.sendDate.value = selectedDate!;
+                                              featuredFilterController.getData();
                                             });
                                           }
                                         });
@@ -144,6 +146,8 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                           setState(() {
                                             selectedDate = formattedDate;
                                             log("Seleted Date     $selectedDate");
+                                            featuredFilterController.sendDate.value = selectedDate!;
+                                            featuredFilterController.getData();
                                           });
                                         }
                                       },
@@ -218,12 +222,40 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                         ],
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
                                         child: Image.asset(
                                           'assets/images/filterImg.png',
-                                          height: 18,
                                         ),
                                       ),
+                                    ),
+                                  ),
+                                  addWidth(10),
+                                  GestureDetector(
+                                    onTap: () {
+                                      featuredFilterController.sendDate.value = "";
+                                      featuredFilterController.status.value = "";
+                                      featuredFilterController.filterId.value = "";
+                                      featuredFilterController.getData();
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: const Color(0xFF7ED957),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0xFF37C666).withOpacity(0.30),
+                                            offset: const Offset(
+                                              .1,
+                                              .1,
+                                            ),
+                                            blurRadius: 20.0,
+                                            spreadRadius: 1.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Icon(Icons.replay_sharp,color: Colors.white,size: 30,),
                                     ),
                                   ),
                                 ],
@@ -266,17 +298,17 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                       print(value);
                                       if (value == 0) {
                                         featuredFilterController.filterId.value = "2";
-                                        featuredFilterController.sendDate = DateTime.now();
+                                        featuredFilterController.sendDate.value = selectedDate!;
                                         featuredFilterController.getData();
                                       }
                                       if (value == 1) {
                                         featuredFilterController.filterId.value = "3";
-                                        featuredFilterController.sendDate = DateTime.now();
+                                        featuredFilterController.sendDate.value = selectedDate!;
                                         featuredFilterController.getData();
                                       }
                                       if (value == 2) {
                                         featuredFilterController.filterId.value = "4";
-                                        featuredFilterController.sendDate = DateTime.now();
+                                        featuredFilterController.sendDate.value = selectedDate!;
                                         featuredFilterController.getData();
                                       }
 
@@ -1547,26 +1579,40 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                       child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            "Stock",
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Colors.black87,
+                          child: InkWell(
+                            onTap: (){
+                              featuredFilterController.status.value = "1";
+                              featuredFilterController.getData();
+                              Get.back();
+                            },
+                            child: Text(
+                              "Stock",
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: Colors.black87,
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            "Out of Stock",
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Colors.black87,
+                          child: InkWell(
+                            onTap: (){
+                              featuredFilterController.status.value = "0";
+                              featuredFilterController.getData();
+                              Get.back();
+                            },
+                            child: Text(
+                              "Out of Stock",
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: Colors.black87,
+                              ),
                             ),
                           ),
                         ),

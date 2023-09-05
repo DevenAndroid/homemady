@@ -9,6 +9,7 @@ class AppAssets {
   static const String ONB2 = "assets/images/Group 1000004213222.png";
   static const String ONB3 = "assets/images/Onboeading3.png";
   static const String ONB134 =  "assets/images/newOnb.png";
+  static const String thankYouImg = "assets/images/thankYouImg.png";
 
 
 }

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/Screens/subscription_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/user_profile_controller.dart';
 import '../routers/routers.dart';
@@ -220,6 +221,21 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             ),
                             onTap: () async {
                               Get.toNamed(MyRouters.referAndEarn);
+                              // }
+                            }),
+                        const Divider(
+                          height: 1,
+                        ),
+                        _drawerTile(
+                            active: true,
+                            title: "My Subscription Plan",
+                            icon: const ImageIcon(
+                              AssetImage('assets/images/subscription.png'),
+                              size: 22,
+                              color: const Color(0xFF4F535E),
+                            ),
+                            onTap: () async {
+                              Get.toNamed(SubscriptionScreen.subscriptionScreen);
                               // }
                             }),
                         const Divider(

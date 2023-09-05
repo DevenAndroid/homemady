@@ -71,6 +71,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: backAppBar(
             title: 'Featured Today',
@@ -94,53 +95,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  // Expanded(
-                                  //   child: InkWell(
-                                  //     onTap: () {
-                                  //     },
-                                  //     child: Container(
-                                  //       height: 44,
-                                  //       decoration: BoxDecoration(
-                                  //           borderRadius: BorderRadius.circular(4),
-                                  //           border: selectedDate == 'Available Now' && isAvailableSelected == false
-                                  //               ? Border.all(color: const Color(0xff7ED957), width: 2)
-                                  //               : Border.all(
-                                  //               color: const Color(0xFF717171).withOpacity(0.22), width: 1)),
-                                  //       child: Row(
-                                  //         crossAxisAlignment: CrossAxisAlignment.center,
-                                  //         mainAxisAlignment: MainAxisAlignment.center,
-                                  //         children: [
-                                  //
-                                  //           selectedDate == 'Available Now'  && isAvailableSelected == false
-                                  //               ? Padding(
-                                  //             padding: const EdgeInsets.all(8.0),
-                                  //             child: Image.asset(
-                                  //               'assets/images/clockImg.png',
-                                  //               height: 18,
-                                  //             ),
-                                  //           )
-                                  //               : Padding(
-                                  //             padding: const EdgeInsets.all(8.0),
-                                  //             child: Image.asset(
-                                  //               'assets/images/calendar_date.png',
-                                  //               height: 18,
-                                  //               color: const Color(0xFF262626).withOpacity(0.62),
-                                  //             ),
-                                  //           ),
-                                  //           Text(
-                                  //             selectedDate,
-                                  //             style: GoogleFonts.poppins(
-                                  //               color: const Color(0xFF262626).withOpacity(0.62),
-                                  //               fontSize: 16,
-                                  //               fontWeight: FontWeight.w400,
-                                  //             ),
-                                  //           )
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-
                                   Expanded(
                                     child: InkWell(
                                       onTap: () async {
@@ -1567,11 +1521,12 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
     await showDialog<void>(
         context: context,
         builder: (BuildContext context) {
+          final height = MediaQuery.of(context).size.height;
           return Stack(
             children: [
               Positioned(
                 right: 35,
-                top: 270,
+                top: height * .2,
                 child: Container(
                     padding: const EdgeInsets.all(10),
                     height: 80,

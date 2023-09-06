@@ -626,6 +626,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                              ],
                                            ),
                                            addHeight(10),
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
+                                               Text('Small Order Fee:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 16,
+                                                     fontWeight: FontWeight.w600,
+                                                     color: const Color(0xff1A2E33)
+                                                 ),),
+                                               const Spacer(),
+                                               Text( "€ ${controller.model.value.orderDetail!.minOrderCharge.toString()}",
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 14,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: const Color(0xff486769)
+                                                 ),),
+                                             ],
+                                           ),
+                                           addHeight(10),
                                            controller.model.value.orderDetail!.deliveryCharges != 0 ?
                                            Row(
                                              mainAxisAlignment: MainAxisAlignment.start,
@@ -959,6 +978,26 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                ),),
                                              const Spacer(),
                                              Text( '€ ${controller.model.value.orderDetail!.serviceCharge.toString()}',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 14,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: const Color(0xff486769)
+                                               ),),
+                                           ],
+                                         ),
+
+                                         addHeight(10),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
+                                             Text('Small Order Fee:',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 16,
+                                                   fontWeight: FontWeight.w600,
+                                                   color: const Color(0xff1A2E33)
+                                               ),),
+                                             const Spacer(),
+                                             Text( "€ ${controller.model.value.orderDetail!.minOrderCharge.toString()}",
                                                style: GoogleFonts.poppins(
                                                    fontSize: 14,
                                                    fontWeight: FontWeight.w500,

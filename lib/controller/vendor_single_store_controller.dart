@@ -18,7 +18,7 @@ class VendorSingleStoreController extends GetxController{
   Rx<StorebyKeywords> storeKeywordModel = StorebyKeywords().obs;
   RxBool isDataLoading = false.obs;
   RxString vendorStoreId = ''.obs;
-  RxString filterId = ''.obs;
+  RxString filterId = '2'.obs;
   //RxString storeKeyword = '4'.obs;
 
 

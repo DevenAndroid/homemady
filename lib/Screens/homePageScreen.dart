@@ -21,6 +21,7 @@ import '../controller/category_controller.dart';
 import '../controller/fillter_product_category_controller.dart';
 import '../controller/filter_controller.dart';
 import '../controller/homepage_controller.dart';
+import '../controller/location_controller.dart';
 import '../controller/my_address_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/search_store_conbtroller.dart';
@@ -50,6 +51,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final controller = Get.put(VendorSingleStoreController());
   final filterProductCategoryController = Get.put(FilterProductCategoryController());
   final filterDataController = Get.put(FilterController());
+  final locationController = Get.put(LocationController());
 
   String dateInput11 = "";
   RxBool isValue = false.obs;
@@ -83,6 +85,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    locationController.checkGps(context);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       profileController.getData();
       scrollController.addListener((_scrollListener));
@@ -95,6 +98,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       timeSlotController.getTimeSlotData();
       myAddressController.getData();
       controller.getStoreKeywordListData();
+
       int currnetIndex = -1;
       _decrement();
       _increment();
@@ -1785,7 +1789,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       context: context
                                     ).then((value){
                                       // if() {
-                                        Get.toNamed(HomeFilterScreen.homeFilterScreen);
+                                      //   Get.toNamed(HomeFilterScreen.homeFilterScreen);
+                                      Get.back();
                                        //}
                                     });
                                     // Get.back();

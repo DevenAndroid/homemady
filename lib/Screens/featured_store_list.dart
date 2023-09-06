@@ -34,6 +34,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
   final categoryController = Get.put(CategoryController());
   final controller = Get.put(VendorSingleStoreController());
   final filterDataController = Get.put(FilterController());
+  // bool? dateOptionPicked=false;
 
   final scrollController = ScrollController();
   RxBool isSelect = false.obs;
@@ -70,8 +71,8 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final height = MediaQuery.of(context).size.height;
+    // final screenSize = MediaQuery.of(context).size;
+    // final height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: backAppBar(
             title: 'Featured Today',

@@ -7,7 +7,7 @@ class FeaturedFilterController extends GetxController{
 
   Rx<FeaturedFilterModel> model = FeaturedFilterModel().obs;
   RxBool isDataLoading = false.obs;
-  RxString filterId="4".obs;
+  RxString filterId="".obs;
   // DateTime sendDate=DateTime.now();
   RxString sendDate ="".obs;
   RxString status ="".obs;

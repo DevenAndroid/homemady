@@ -56,12 +56,12 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     child: Column(
                       children: [
                         SizedBox(height: height * .03,),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:  [
                             Column(
-                              children: const [
+                              children: [
                                 Text('9.99',
                                   style: TextStyle(
                                       fontSize: 40,
@@ -79,7 +79,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                               ],
                             ),
                             Column(
-                              children: const [
+                              children: [
                                 Text('€',
                                   style: TextStyle(
                                       fontSize: 20,
@@ -109,7 +109,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 ),
                 SizedBox(height: height * .04,),
                 CardFormField(
-                  controller: controller,enablePostalCode: false,
+                  controller: controller,
                   autofocus: true,
                   style: CardFormStyle(
                     // borderColor: Colors.black

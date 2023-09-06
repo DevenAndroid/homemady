@@ -37,6 +37,7 @@ class Data {
   String? type;
   String? paymentMode;
   String? purchasedOn;
+  String? status;
 
   Data(
       {this.id,
@@ -47,7 +48,8 @@ class Data {
         this.subscriptionExpiryDate,
         this.type,
         this.paymentMode,
-        this.purchasedOn});
+        this.purchasedOn,
+        this.status});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -59,6 +61,7 @@ class Data {
     type = json['type'];
     paymentMode = json['payment_mode'];
     purchasedOn = json['purchased_on'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,6 +75,7 @@ class Data {
     data['type'] = this.type;
     data['payment_mode'] = this.paymentMode;
     data['purchased_on'] = this.purchasedOn;
+    data['status'] = this.status;
     return data;
   }
 }

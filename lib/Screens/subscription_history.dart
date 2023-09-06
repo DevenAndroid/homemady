@@ -82,7 +82,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                                    child: Text('Active',
+                                    child: Text(controller.model.value.data![index].status.toString(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 15,
@@ -103,16 +103,14 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                       fontSize: 15,
                                       color: Colors.black
                                   ),),
-                                const SizedBox(width: 50,),
+                              //  const SizedBox(width: 50,),
                                 controller.model.value.data![index].purchasedOn != null  ?
-                                Expanded(
-                                  child: Text(controller.model.value.data![index].purchasedOn.toString(),
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 15,
-                                        color: Colors.black
-                                    ),),
-                                ): const SizedBox() ,
+                                Text(controller.model.value.data![index].purchasedOn.toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 15,
+                                      color: Colors.black
+                                  ),): const SizedBox() ,
                               ],
                             ),
                             SizedBox(height: 15,),
@@ -129,15 +127,16 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                               ),),
                             SizedBox(height: 10,),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Order ID',
+                                Text('Transition ID',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 15,
                                       color: Colors.black
                                   ),),
-                                Spacer(),
+                                SizedBox(width: 120,),
                                 Expanded(
                                   child: Text(controller.model.value.data![index].transactionId.toString(),
                                     style: GoogleFonts.poppins(
@@ -157,7 +156,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                       fontSize: 15,
                                       color: Colors.black
                                   ),),
-                                Spacer(),
+                                const Spacer(),
                                 controller.model.value.data![index].purchasedOn != null  ?
                                 Text(controller.model.value.data![index].paymentMode.toString().capitalizeFirst.toString(),
                                   style: GoogleFonts.poppins(

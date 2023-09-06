@@ -622,15 +622,15 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                           onTap: (value) {
                             print(value);
                             if(value == 0){
-                              controller.storeKeyword.value="4";
+                              controller.filterId.value="4";
                               controller.getData();
                             }
                             if(value == 1){
-                              controller.storeKeyword.value="3";
+                              controller.filterId.value="3";
                               controller.getData();
                             }
                             if(value == 2){
-                              controller.storeKeyword.value="2";
+                              controller.filterId.value="2";
                               controller.getData();
                             }
 

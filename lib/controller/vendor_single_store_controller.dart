@@ -18,26 +18,13 @@ class VendorSingleStoreController extends GetxController{
   Rx<StorebyKeywords> storeKeywordModel = StorebyKeywords().obs;
   RxBool isDataLoading = false.obs;
   RxString vendorStoreId = ''.obs;
-  RxString storeKeyword = '4'.obs;
-  // RxInt counter= 0.obs;
+  RxString filterId = ''.obs;
+  //RxString storeKeyword = '4'.obs;
 
-  // increaseQty(){
-  //   counter=counter++;
-  // }
-  // decreaseQty(){
-  //   if(counter.value>=1){
-  //     counter=counter--;
-  //   }
-  //   else{
-  //     showToast("Qty should be 1");
-  //   }
-
-
-  // }
 
   getData(){
     isDataLoading.value = false;
-    singleStoreData(id: Get.arguments[0], keyword:storeKeyword.value ).then((value1) {
+    singleStoreData(id: Get.arguments[0], filterId: filterId.value ).then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

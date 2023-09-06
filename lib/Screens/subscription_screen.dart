@@ -56,7 +56,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     child: Column(
                       children: [
                         SizedBox(height: height * .03,),
-                        const Row(
+                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:  [

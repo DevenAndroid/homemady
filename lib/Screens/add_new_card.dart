@@ -39,7 +39,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
     return Scaffold(
       appBar: backAppBar(title: 'Add New Card', context: context),
       body: Container(
-        color: const Color(0xffEFFFEF),
+        color:  Colors.white,
         child: Stack(
           children: [
             Positioned(
@@ -52,13 +52,13 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                 style: CardFormStyle(
                     // borderColor: Colors.black
                     backgroundColor: Colors.white,
-                    textColor: Colors.black,
+                    textColor: const Color(0xFF535353),
                     placeholderColor: Colors.black,
                     textErrorColor: Colors.red,
                     fontSize: AddSize.padding16.toInt(),
                     cursorColor: Colors.black,
                     borderRadius: 10,
-                    borderWidth: 0),
+                    borderWidth: 1),
               ),
               // Container(
               //   decoration:  BoxDecoration(
@@ -276,7 +276,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
             },
             style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(10),
-                backgroundColor: const Color(0xff101213),
+                backgroundColor: const  Color(0xff7ED957),
                 minimumSize: const Size(double.maxFinite, 62),
                 elevation: 0,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),

@@ -76,8 +76,11 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                       color: Colors.black
                                   ),),
                                 Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF6BC743),
+                                  decoration: controller.model.value.data![index].status == 'Active' ? BoxDecoration(
+                                    color: const Color(0xFF6BC743),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ): BoxDecoration(
+                                    color: const Color(0xFFC74343),
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   child: Padding(
@@ -114,7 +117,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                               ],
                             ),
                             SizedBox(height: 15,),
-                            Divider(
+                            const Divider(
                               height: 3,
                               color: Color(0xFFD9D9D99E),
                             ),

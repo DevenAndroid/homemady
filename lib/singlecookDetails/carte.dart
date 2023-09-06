@@ -326,7 +326,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                           InkWell(
                                             onTap: () {
                                               // buttonCount.value++;
-                                              if( product.productCount <  int.parse(controller.model.value.data!.latestProducts![index].cookUnitDays)){
+                                              // if( product.productCount <  int.parse(controller.model.value.data!.latestProducts![index].cookUnitDays)){
                                                 addToCartRepo(
                                                     product_id: controller
                                                         .model.value.data!.latestProducts![index].id
@@ -345,9 +345,10 @@ class _CarteScreenState extends State<CarteScreen> {
                                                     });
                                                   }
                                                 });
-                                              }else{
-                                                showToast('You reached the maximum Limit of product');
-                                              }
+                                              // }
+                                              // else{
+                                              //   showToast('You reached the maximum Limit of product');
+                                              // }
 
                                             },
                                             child: Container(
@@ -414,12 +415,35 @@ class _CarteScreenState extends State<CarteScreen> {
                               ),
                               addWidth(4),
                               Text(
+                                'How long it takes to cook: ',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                              ),
+                              Text(
+                                '${controller.model.value.data!.latestProducts![index].cookUnitDays ?? '5'.toString()} ',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                              ),
+                            ],
+                          ),
+                          addHeight(4),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              addWidth(80),
+                              Image.asset(
+                                'assets/images/helpimg.png',
+                                height: 13,
+                              ),
+                              addWidth(4),
+                              Text(
                                 'Available stock: ',
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                               ),
                               Text(
-                                '${controller.model.value.data!.latestProducts![index].cookUnitDays ?? '5'.toString()} Units',
+                                '${controller.model.value.data!.latestProducts![index].qty ?? ''.toString()} Units',
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
                               ),

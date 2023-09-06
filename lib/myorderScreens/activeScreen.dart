@@ -43,7 +43,10 @@ class _ActiveScreenState extends State<ActiveScreen> {
             shrinkWrap: true,
             itemCount: controller.model.value.data!.length,
             itemBuilder: (context, index) {
-              return Column(
+              return
+
+                controller.model.value.data![index].deliveryStatus != 'Cancelled' ?
+                Column(
                 children: [
                   InkWell(
                     onTap: (){
@@ -67,8 +70,8 @@ class _ActiveScreenState extends State<ActiveScreen> {
                           ),
                         ],
                       ),
-                      child: 
-                      
+                      child:
+
                       Column(
                         children: [
                           Padding(
@@ -267,7 +270,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                   ),
 
                 ],
-              );
+              ):SizedBox();
             },
           ) :
           Padding(

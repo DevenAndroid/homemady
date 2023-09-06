@@ -228,7 +228,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         ),
                         _drawerTile(
                             active: true,
-                            title: "My Subscription Plan",
+                            title: "Subscriptions",
                             icon: const ImageIcon(
                               AssetImage('assets/images/subscription.png'),
                               size: 22,

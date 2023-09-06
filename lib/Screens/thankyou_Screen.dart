@@ -41,7 +41,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
                children: [
                  addHeight(62),
-                  Image.asset('assets/images/thankyouImg.png',width: 232,),
+                  Image.asset('assets/images/orderEnd.png',width: 232,),
                  addHeight(15),
                  GestureDetector(
                    onTap: (){

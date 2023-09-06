@@ -539,36 +539,8 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                   ],
                                 ),
                               ),
-                              // TextButton(
-                              //     onPressed: () {
-                              //       setState(() {
-                              //         _isValue.value = !_isValue.value;
-                              //       });
-                              //       showChangeAddressSheet();
-                              //     },
-                              //     child: Text(
-                              //       "CHANGE",
-                              //       style: Theme
-                              //           .of(context)
-                              //           .textTheme
-                              //           .headline5!
-                              //           .copyWith(
-                              //           fontWeight: FontWeight.w500,
-                              //           fontSize: AddSize.font12,
-                              //           color: AppTheme.primaryColor),
-                              //     ))
                             ],
                           ),
-                          // Text(
-                          //   _currentAddress ?? "",
-                          //   style: Theme.of(context)
-                          //       .textTheme
-                          //       .headline5!
-                          //       .copyWith(
-                          //           fontWeight: FontWeight.w400,
-                          //           fontSize: AddSize.font14,
-                          //           color: AppTheme.lightblack),
-                          // ),
                           SizedBox(
                             height: AddSize.size30,
                           ),

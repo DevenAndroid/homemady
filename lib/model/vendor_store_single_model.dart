@@ -171,6 +171,7 @@ class LatestProducts {
   dynamic wishlist;
   dynamic spiciness;
   dynamic allergens;
+  dynamic exclude;
 
   Null? avgRating;
   // RxInt buttonCount = 0.obs;
@@ -195,6 +196,7 @@ class LatestProducts {
         this.spiciness,
         this.allergens,
         this.discountOff,
+        this.exclude,
         this.avgRating});
 
   LatestProducts.fromJson(Map<String, dynamic> json) {
@@ -217,6 +219,7 @@ class LatestProducts {
     size = json['size'];
     sizeId = json['size_id'];
     discountOff = json['discount_off'];
+    exclude = json['exclude'];
     avgRating = json['avg_rating'];
   }
 
@@ -242,6 +245,7 @@ class LatestProducts {
     data['size_id'] = sizeId;
     data['discount_off'] = discountOff;
     data['avg_rating'] = avgRating;
+    data['exclude'] = exclude;
     return data;
   }
 }

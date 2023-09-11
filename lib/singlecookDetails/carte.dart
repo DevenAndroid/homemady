@@ -326,12 +326,14 @@ class _CarteScreenState extends State<CarteScreen> {
                                           InkWell(
                                             onTap: () {
                                               // buttonCount.value++;
-                                              // if( product.productCount <  int.parse(controller.model.value.data!.latestProducts![index].cookUnitDays)){
+                                              if( product.productCount <  controller.model.value.data!.latestProducts![index].qty) {
+                                                controller.model.value.data!.latestProducts![index].exclude == false ?
+                                                showToast('Out of Stock') :
                                                 addToCartRepo(
                                                     product_id: controller
                                                         .model.value.data!.latestProducts![index].id
                                                         .toString(),
-                                                    qty: product.productCount+1,
+                                                    qty: product.productCount + 1,
                                                     //controller.model.value.data!.latestProducts![index].buttonCount.value,
                                                     context: context)
                                                     .then((value1) {
@@ -345,11 +347,11 @@ class _CarteScreenState extends State<CarteScreen> {
                                                     });
                                                   }
                                                 });
-                                              // }
-                                              // else{
-                                              //   showToast('You reached the maximum Limit of product');
-                                              // }
-
+                                                // }
+                                              }
+                                              else{
+                                                showToast('You reached the maximum Limit of product');
+                                              }
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(

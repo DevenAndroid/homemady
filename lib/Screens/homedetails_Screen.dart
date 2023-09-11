@@ -213,7 +213,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                       addHeight(10),
                                       if(controller.model.value.data?.storeDetails != null)
                                       Text(
-                                        controller.model.value.data!.storeDetails!.description.toString(),
+                                        controller.model.value.data!.storeDetails!.description.toString().capitalizeFirst.toString(),
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w300, fontSize: 12, color: const Color(0xFF364A4F)),
                                       ),

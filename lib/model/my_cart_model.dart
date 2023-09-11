@@ -28,6 +28,7 @@ class Data {
   CartPaymentSummary? cartPaymentSummary;
   OrderAddress? orderAddress;
 
+
   Data({this.orderCount,this.cartItems, this.cartPaymentSummary, this.orderAddress});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -74,9 +75,11 @@ class CartItems {
   dynamic distance;
   dynamic totalPrice;
   dynamic image;
+  dynamic productQty;
   bool? collectionStatus;
   bool? selfDelivery;
 
+  int productCount = 0;
   CartItems(
       {this.id,
         this.productId,
@@ -89,6 +92,7 @@ class CartItems {
         this.subTitle,
         this.totalPrice,
         this.collectionStatus,
+        this.productQty,
         this.image});
 
   CartItems.fromJson(Map<String, dynamic> json) {
@@ -103,6 +107,7 @@ class CartItems {
     distance = json['distance'];
     totalPrice = json['total_price'];
     image = json['image'];
+    productQty = json['product_qty'];
     collectionStatus = json['collection_status'];
   }
 
@@ -119,6 +124,7 @@ class CartItems {
     data['distance'] = this.distance;
     data['total_price'] = this.totalPrice;
     data['image'] = this.image;
+    data['product_qty'] = this.productQty;
     data['collection_status'] = this.collectionStatus;
     return data;
   }

@@ -12,6 +12,9 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/my_cart_controller.dart';
+import '../controller/vendor_single_store_controller.dart';
+import '../model/my_cart_model.dart';
+import '../model/my_cart_model.dart';
 import '../repository/remove_cartitem_repo.dart';
 import '../repository/tip_repo.dart';
 import '../repository/update_cart_repo.dart';
@@ -40,6 +43,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
       controller.getData();
+
       // Add Your Code here.
     });
   }
@@ -73,8 +77,10 @@ class _MyCartScreenState extends State<MyCartScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
                     shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
                     itemCount: controller.model.value.data!.cartItems!.length,
                     itemBuilder: (context, index) {
+                      final product = controller.model.value.data!.cartItems![index];
                       return GestureDetector(onTap: (){
                         print(controller.model.value.data!.cartItems![index].id.toString(),);
                         print(controller.model.value.data!.cartItems![index].productId.toString(),);
@@ -185,32 +191,33 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                               });
                                                             }
                                                             else {
-                                                              updateCartRepo(
-                                                                  controller
-                                                                      .model.value
-                                                                      .data!
-                                                                      .cartItems![index]
-                                                                      .id
-                                                                      .toString(),
-                                                                  int.parse(
-                                                                      (controller
-                                                                          .model
-                                                                          .value
-                                                                          .data!
-                                                                          .cartItems![index]
-                                                                          .cartItemQty ??
-                                                                          "")
-                                                                          .toString()) -
-                                                                      1, context)
-                                                                  .then((value1) {
-                                                                if (value1.status == true) {
-                                                                  showToast(value1.message.toString());
-                                                                  controller.getData();
-                                                                }
-                                                                else {
-                                                                  showToast(value1.message);
-                                                                }
-                                                              });
+                                                               updateCartRepo(
+                                                                   controller
+                                                                       .model.value
+                                                                       .data!
+                                                                       .cartItems![index]
+                                                                       .id
+                                                                       .toString(),
+                                                                   int.parse(
+                                                                       (controller
+                                                                           .model
+                                                                           .value
+                                                                           .data!
+                                                                           .cartItems![index]
+                                                                           .cartItemQty ??
+                                                                           "")
+                                                                           .toString()) -
+                                                                       1, context)
+                                                                   .then((value1) {
+                                                                 if (value1.status == true) {
+                                                                   showToast(value1.message.toString());
+                                                                   controller.getData();
+                                                                 }
+                                                                 else {
+                                                                   showToast(value1.message);
+                                                                 }
+                                                               });
+
                                                             }
                                                           },
                                                           child: Container(
@@ -245,31 +252,40 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                         InkWell(
                                                           onTap: () {
                                                             // buttonCount.value++;
-                                                            updateCartRepo(
-                                                                controller
-                                                                    .model.value
-                                                                    .data!
-                                                                    .cartItems![index]
-                                                                    .id
-                                                                    .toString(),
-                                                                int.parse(
-                                                                    (controller
-                                                                        .model
-                                                                        .value
-                                                                        .data!
-                                                                        .cartItems![index]
-                                                                        .cartItemQty ??
-                                                                        "")
-                                                                        .toString()) +
-                                                                    1, context)
-                                                                .then((value1) {
-                                                              if (value1.status == true) {
-                                                                showToast(value1.message.toString());
-                                                                controller.getData().then((value) {
-                                                                  setState(() {});
-                                                                });
-                                                              }
-                                                            });
+                                                            if( controller.model.value.data!.cartItems![index].cartItemQty <=  controller.model.value.data!.cartItems![index].productQty)
+                                                            {
+                                                              showToast('You reached the maximum Limit of product');
+
+                                                            }
+                                                            else{
+                                                              updateCartRepo(
+                                                                  controller
+                                                                      .model.value
+                                                                      .data!
+                                                                      .cartItems![index]
+                                                                      .id
+                                                                      .toString(),
+                                                                  int.parse(
+                                                                      (controller
+                                                                          .model
+                                                                          .value
+                                                                          .data!
+                                                                          .cartItems![index]
+                                                                          .cartItemQty ??
+                                                                          "")
+                                                                          .toString()) +
+                                                                      1, context)
+                                                                  .then((value1) {
+                                                                if (value1.status == true) {
+                                                                  showToast(value1.message.toString());
+                                                                  controller.getData().then((value) {
+                                                                    setState(() {});
+                                                                  });
+                                                                }
+                                                              });
+                                                            }
+
+
                                                           },
                                                           child: Container(
                                                             decoration: BoxDecoration(

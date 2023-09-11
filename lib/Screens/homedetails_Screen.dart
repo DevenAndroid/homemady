@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:homemady/Screens/store_review_screen.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/singlecookDetails/carte.dart';
 import 'package:homemady/singlecookDetails/cartingScreen.dart';
@@ -17,6 +18,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../controller/my_cart_controller.dart';
+import '../controller/review_screen_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../model/My_Cart_Model.dart';
 import '../model/vendor_store_single_model.dart';
@@ -35,6 +37,7 @@ class HomeDetailsScreen extends StatefulWidget {
 class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProviderStateMixin {
   final controller = Get.put(VendorSingleStoreController());
   final myCartController = Get.put(MyCartListController());
+  final storeReviewController = Get.put(StoreRevierwController());
   Rx<CartItems> model = CartItems().obs;
   int tabIndex = 0;
 
@@ -168,10 +171,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                   tabController: TabController(length: 3, vsync: this),
                   listItemData:  const [
                     CarteScreen(data: "4"),
-                    //  CarteScreen(data: "3"),
-                    // CarteScreen(data: "2"),
-                    // //carteingScreen(),
-                    // mealPrepScreen()
                   ],
                   verticalScrollPosition: VerticalScrollPosition.begin,
                   eachItemChild: (object, index) => object,
@@ -206,7 +205,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                       addHeight(20),
                                       if(controller.model.value.data?.storeDetails != null)
                                       Text(
-                                        controller.model.value.data!.storeDetails!.name.toString().capitalizeFirst.toString(),
+                                        controller.model.value.data!.storeDetails!.storeName.toString().capitalizeFirst.toString(),
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w600, fontSize: 20, color: Color(0xFF21283D)),
                                       ),
@@ -226,7 +225,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                       addHeight(15),
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(MyRouters.reviewScreen);
+                                          storeReviewController.vendorId.value = controller.model.value.data!.storeDetails!.id.toString();
+                                          print("VENDOR ID ${ storeReviewController.vendorId.value  }");
+                                          Get.toNamed(StoreReviewScreen.storeReviewScreen);
                                         },
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,7 +255,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 )),
                                             const Spacer(),
                                             InkWell(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  Get.toNamed(StoreReviewScreen.storeReviewScreen);
+                                                },
                                                 child: const Icon(
                                                   Icons.arrow_forward_ios,
                                                   size: 13,
@@ -318,8 +321,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 // if(controller.model.value.data!.storeDetails!.time != null)
                                                 Expanded(
                                                   child: Text(
-                                                       '${controller.model.value.data!.storeDetails!.time.toString()}'
-                                                           '-${controller.model.value.data!.storeDetails!.time.toString()} mins',
+                                                       '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+10} - '+''
+                                                           '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+15} mins',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         color: Color(0xFF4E5F64),
@@ -343,8 +346,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                   color: const Color(0xFF6AC643),
                                                 ),
                                                 addWidth(7),
-                                                const Expanded(
-                                                  child: Text('Delivery Only',
+                                                 Expanded(
+                                                  child: Text(controller.model.value.data!.storeDetails!.collection.toString(),
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: Color(0xFF4E5F64),
@@ -386,18 +389,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 ),
                                               ),
                                             )
-                                            // Padding(
-                                            //   padding: const EdgeInsets.all(3),
-                                            //   child: CachedNetworkImage(
-                                            //     imageUrl: controller.model.value.data!.storeDetails!.profileImage.toString(),
-                                            //     fit: BoxFit.cover,
-                                            //     errorWidget: (_, __, ___) => Image.asset(
-                                            //       'assets/images/Ellipse 67.png',
-                                            //     ),
-                                            //     placeholder: (_, __) =>
-                                            //         Center(child: CircularProgressIndicator()),
-                                            //   ),
-                                            // )
+
                                             ),
                                         addHeight(3),
                                       ],
@@ -419,6 +411,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                         ),
                                       )),
                                 ),
+
+
                                 Positioned(
                                     top: 20,
                                     right: 14,
@@ -506,104 +500,134 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                       ],
                                     )),
                                // badge or award image
-                               controller.model.value.data != null && controller.model.value.data!.storeDetails!.award!.isNotEmpty ?
+                                controller.model.value.data!.storeDetails!.award!.isNotEmpty || controller.model.value.data!.storeDetails!.sustainablePackagingStatus == true?
                                 Positioned(
-                                    top: 200,
+                                    top: height * .240,
+                                    // bottom: 0,
                                     left: 10,
-                                    right: 15,
+                                    // right: 15,
                                     //   bottom: 0,
                                     child: Row(
                                       children: [
-                                        InkWell(
-                                            onTap: () {
+                                        Row(
+                                          children:  [
+                                            ...List.generate(controller.model.value.data!.storeDetails!.award!.length, (index1){
+                                              return  InkWell(
+                                                onTap: (){
+                                                  showGeneralDialog(
+                                                      context: context,
+                                                      barrierDismissible: true,
+                                                      barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                      pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                        return  Stack(
+                                                          children: [
+                                                            Center(child: CachedNetworkImage(
+                                                              imageUrl:     controller.model.value.data!.storeDetails!.award![index1].image.toString(),
+                                                              //fit: BoxFit.cover,
+                                                              height: height * .7,
+                                                              width: width * .7,
+                                                              errorWidget: (_, __, ___) => Image.asset(
+                                                                'assets/images/topChef.png',
+                                                                // fit: BoxFit.cover,
+                                                                height: 40,
+                                                                width: 40,
+                                                              ),
+                                                              placeholder: (_, __) =>
+                                                              const Center(child: CircularProgressIndicator()),
+                                                            )),
+                                                            Positioned(
+                                                              right: 22,
+                                                              top: 100,
+                                                              child: GestureDetector(
+                                                                onTap:(){
+                                                                  Get.back();
+                                                                },
+                                                                child: Container(
+                                                                    padding: const EdgeInsets.all(10),
+                                                                    height: 50,
+                                                                    decoration: const BoxDecoration(
+                                                                        color: Colors.white,
+                                                                        shape: BoxShape.circle
+                                                                    ),
+                                                                    child:  const Icon(Icons.clear)
+                                                                ),
+                                                              ),)
+                                                          ],
+                                                        );
+                                                      }
+                                                  );
+                                                },
+                                                child:    CachedNetworkImage(
+                                                  imageUrl:     controller.model.value.data!.storeDetails!.award![index1].image.toString(),
+                                                  //fit: BoxFit.cover,
+                                                  height: 40,
+                                                  width: 40,
+                                                  errorWidget: (_, __, ___) => Image.asset(
+                                                    'assets/images/topChef.png',
+                                                    // fit: BoxFit.cover,
+                                                    height: 40,
+                                                    width: 40,
+                                                  ),
+                                                  placeholder: (_, __) =>
+                                                  const Center(child: CircularProgressIndicator()),
+                                                ),);
+                                            })
+
+
+
+                                          ],
+                                        ),
+                                        if(controller.model.value.data!.storeDetails!.sustainablePackagingStatus == true)
+                                          InkWell(
+                                            onTap: (){
                                               showGeneralDialog(
                                                   context: context,
                                                   barrierDismissible: true,
                                                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
                                                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                  pageBuilder: (BuildContext context, Animation first, Animation second) {
-                                                    return Stack(
+                                                  pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                    return  Stack(
                                                       children: [
-                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                                        Center(
+                                                          child: Image.asset(
+                                                            'assets/images/leavesIcon.png',
+                                                            // fit: BoxFit.cover,
+                                                            height: height * .3,
+                                                            // width: width * .4,
+                                                          ),),
                                                         Positioned(
-                                                          right: 18,
-                                                          top: 30,
-                                                          child: Container(
-                                                              padding: const EdgeInsets.all(10),
-                                                              height: 80,
-                                                              decoration: const BoxDecoration(
-                                                                  color: Colors.white, shape: BoxShape.circle),
-                                                              child: GestureDetector(
-                                                                child: const Icon(Icons.clear),
-                                                                onTap: () {
-                                                                  Get.back();
-                                                                },
-                                                              )),
-                                                        )
+                                                          right: 20,
+                                                          top: 100,
+                                                          child: GestureDetector(
+                                                            onTap: (){
+                                                              Get.back();
+                                                            },
+                                                            child: Container(
+                                                                padding: const EdgeInsets.all(10),
+                                                                height: 50,
+                                                                decoration: const BoxDecoration(
+                                                                    color: Colors.white,
+                                                                    shape: BoxShape.circle
+                                                                ),
+                                                                child:  const Icon(Icons.clear)
+                                                            ),
+                                                          ),)
                                                       ],
                                                     );
-                                                  });
+                                                  }
+                                              );
                                             },
-                                            child: CachedNetworkImage(
-                                              imageUrl:    controller.model.value.data!.storeDetails!.award![0].image.toString(),
-                                              //fit: BoxFit.cover,
-                                              height: 40,
-                                              width: 40,
-                                              errorWidget: (_, __, ___) => Image.asset(
-                                                'assets/images/topChef.png',
-                                                // fit: BoxFit.cover,
-                                                height: 40,
-                                                width: 40,
-                                              ),
-                                              placeholder: (_, __) =>
-                                              const Center(child: CircularProgressIndicator()),
-                                            ),),
-                                        InkWell(
-                                            onTap: () {
-                                              showGeneralDialog(
-                                                  context: context,
-                                                  barrierDismissible: true,
-                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                  pageBuilder: (BuildContext context, Animation first, Animation second) {
-                                                    return Stack(
-                                                      children: [
-                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                        Positioned(
-                                                          right: 18,
-                                                          top: 30,
-                                                          child: Container(
-                                                              padding: EdgeInsets.all(10),
-                                                              height: 80,
-                                                              decoration: const BoxDecoration(
-                                                                  color: Colors.white, shape: BoxShape.circle),
-                                                              child: GestureDetector(
-                                                                child: Icon(Icons.clear),
-                                                                onTap: () {
-                                                                  Get.back();
-                                                                },
-                                                              )),
-                                                        )
-                                                      ],
-                                                    );
-                                                  });
-                                            },
-                                            child: CachedNetworkImage(
-                                              imageUrl:    controller.model.value.data!.storeDetails!.award![0].image.toString(),
-                                              //fit: BoxFit.cover,
-                                              height: 40,
-                                              width: 40,
-                                              errorWidget: (_, __, ___) => Image.asset(
-                                                'assets/images/topChef.png',
-                                                // fit: BoxFit.cover,
-                                                height: 40,
-                                                width: 40,
-                                              ),
-                                              placeholder: (_, __) =>
-                                              const Center(child: CircularProgressIndicator()),
-                                            )),
+                                            child: Image.asset(
+                                              'assets/images/leavesIcon.png',
+                                              // fit: BoxFit.cover,
+                                              height: 35,
+                                              width: 35,
+                                            ),
+                                          )
                                       ],
-                                    )) : const SizedBox() ,
+                                    )
+                                ) : const SizedBox(),
                               ],
                             ),
                           ),
@@ -671,243 +695,243 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
     );
   }
 
-  Future<void> _showSimpleDialog3(BuildContext context) async {
-    await showDialog(
-        barrierDismissible: true,
-        context: context,
-        barrierColor: const Color(0x01000000),
-        builder: (context) {
-          return Dialog(
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-            insetPadding: const EdgeInsets.only(bottom: 0, top: 0),
-            child: ListView.builder(
-              itemCount: controller.model.value.data!.latestProducts!.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF37C666).withOpacity(0.10),
-                                    offset: const Offset(
-                                      .1,
-                                      .1,
-                                    ),
-                                    blurRadius: 20.0,
-                                    spreadRadius: 1.0,
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      child: CachedNetworkImage(
-                                        imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
-                                        fit: BoxFit.cover,
-                                        errorWidget: (_, __, ___) => Image.asset(
-                                          'assets/images/error_image.png',
-                                        ),
-                                        placeholder: (_, __) => Center(child: CircularProgressIndicator()),
-                                      ),
-                                    ),
-                                    addWidth(10),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          controller.model.value.data!.latestProducts![index].name.toString(),
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w700, fontSize: 14, color: const Color(0xFF21283D)),
-                                        ),
-                                        addHeight(3),
-                                        Text(
-                                          'Size: 200gm',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
-                                        ),
-                                        addHeight(3),
-                                        Row(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  'spiciness :',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF1F2D30)),
-                                                ),
-                                                addWidth(4),
-                                                Text(
-                                                  controller.model.value.data!.latestProducts![index].spiciness.toString(),
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF6CC844)),
-                                                ),
-                                              ],
-                                            ),
-                                            addWidth(10),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    'Allergens :',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w500,
-                                                        fontSize: 10,
-                                                        color: const Color(0xFF1F2D30)),
-                                                  ),
-                                                ),
-                                                addWidth(4),
-                                                Text(
-                                                  'Crustaceans',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF6CC844)),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        addHeight(6),
-                                        IntrinsicHeight(
-                                          child: Row(
-                                            children: [
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(color: const Color(0xFF72CD4A)),
-                                                      shape: BoxShape.circle),
-                                                  alignment: Alignment.center,
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                    child: Text(
-                                                      '-',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.w600,
-                                                          fontSize: 16,
-                                                          color: Color(0xFF72CD4A)),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                child: const Padding(
-                                                  padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                                                  child: Text('0'),
-                                                ),
-                                              ),
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: const Color(0xFF72CD4A),
-                                                      border: Border.all(color: const Color(0xFF72CD4A)),
-                                                      shape: BoxShape.circle),
-                                                  alignment: Alignment.center,
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 8),
-                                                    child: Text(
-                                                      '+',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                addHeight(5),
-                                Container(
-                                  margin: EdgeInsets.only(left: 75),
-                                  color: Color(0xFFE9E9E9),
-                                  width: AddSize.screenWidth,
-                                  height: 1,
-                                ),
-                                addHeight(7),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    addWidth(80),
-                                    Image.asset(
-                                      'assets/images/helpimg.png',
-                                      height: 13,
-                                    ),
-                                    addWidth(4),
-                                    Text(
-                                      'Can cook more units by: 30th June 2023',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
-                                    ),
-                                  ],
-                                ),
-                                addHeight(4),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    addWidth(80),
-                                    Image.asset(
-                                      'assets/images/helpimg.png',
-                                      height: 13,
-                                    ),
-                                    addWidth(4),
-                                    Text(
-                                      'Available stock: ',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
-                                    ),
-                                    Text(
-                                      ' 3 units',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 14,
-                            right: 20,
-                            child: Text(
-                              '€6.99',
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w700, fontSize: 15, color: const Color(0xFF70CC49)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          );
-        });
-  }
+  // Future<void> _showSimpleDialog3(BuildContext context) async {
+  //   await showDialog(
+  //       barrierDismissible: true,
+  //       context: context,
+  //       barrierColor: const Color(0x01000000),
+  //       builder: (context) {
+  //         return Dialog(
+  //           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+  //           insetPadding: const EdgeInsets.only(bottom: 0, top: 0),
+  //           child: ListView.builder(
+  //             itemCount: controller.model.value.data!.latestProducts!.length,
+  //             shrinkWrap: true,
+  //             itemBuilder: (context, index) {
+  //               return Padding(
+  //                 padding: const EdgeInsets.all(8.0),
+  //                 child: Column(
+  //                   children: [
+  //                     Stack(
+  //                       children: [
+  //                         Container(
+  //                           padding: const EdgeInsets.all(14),
+  //                           decoration: BoxDecoration(
+  //                               color: Colors.white,
+  //                               boxShadow: [
+  //                                 BoxShadow(
+  //                                   color: const Color(0xFF37C666).withOpacity(0.10),
+  //                                   offset: const Offset(
+  //                                     .1,
+  //                                     .1,
+  //                                   ),
+  //                                   blurRadius: 20.0,
+  //                                   spreadRadius: 1.0,
+  //                                 ),
+  //                               ],
+  //                               borderRadius: BorderRadius.circular(12)),
+  //                           child: Column(
+  //                             children: [
+  //                               Row(
+  //                                 mainAxisAlignment: MainAxisAlignment.start,
+  //                                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                                 children: [
+  //                                   Container(
+  //                                     child: CachedNetworkImage(
+  //                                       imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
+  //                                       fit: BoxFit.cover,
+  //                                       errorWidget: (_, __, ___) => Image.asset(
+  //                                         'assets/images/error_image.png',
+  //                                       ),
+  //                                       placeholder: (_, __) => Center(child: CircularProgressIndicator()),
+  //                                     ),
+  //                                   ),
+  //                                   addWidth(10),
+  //                                   Column(
+  //                                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                                     children: [
+  //                                       Text(
+  //                                         controller.model.value.data!.latestProducts![index].name.toString(),
+  //                                         style: GoogleFonts.poppins(
+  //                                             fontWeight: FontWeight.w700, fontSize: 14, color: const Color(0xFF21283D)),
+  //                                       ),
+  //                                       addHeight(3),
+  //                                       Text(
+  //                                         'Size: 200gm',
+  //                                         style: GoogleFonts.poppins(
+  //                                             fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+  //                                       ),
+  //                                       addHeight(3),
+  //                                       Row(
+  //                                         children: [
+  //                                           Row(
+  //                                             children: [
+  //                                               Text(
+  //                                                 'spiciness :',
+  //                                                 style: GoogleFonts.poppins(
+  //                                                     fontWeight: FontWeight.w500,
+  //                                                     fontSize: 10,
+  //                                                     color: const Color(0xFF1F2D30)),
+  //                                               ),
+  //                                               addWidth(4),
+  //                                               Text(
+  //                                                 controller.model.value.data!.latestProducts![index].spiciness.toString(),
+  //                                                 style: GoogleFonts.poppins(
+  //                                                     fontWeight: FontWeight.w500,
+  //                                                     fontSize: 10,
+  //                                                     color: const Color(0xFF6CC844)),
+  //                                               ),
+  //                                             ],
+  //                                           ),
+  //                                           addWidth(10),
+  //                                           Row(
+  //                                             children: [
+  //                                               Expanded(
+  //                                                 child: Text(
+  //                                                   'Allergens :',
+  //                                                   style: GoogleFonts.poppins(
+  //                                                       fontWeight: FontWeight.w500,
+  //                                                       fontSize: 10,
+  //                                                       color: const Color(0xFF1F2D30)),
+  //                                                 ),
+  //                                               ),
+  //                                               addWidth(4),
+  //                                               Text(
+  //                                                 'Crustaceans',
+  //                                                 style: GoogleFonts.poppins(
+  //                                                     fontWeight: FontWeight.w500,
+  //                                                     fontSize: 10,
+  //                                                     color: const Color(0xFF6CC844)),
+  //                                               ),
+  //                                             ],
+  //                                           ),
+  //                                         ],
+  //                                       ),
+  //                                       addHeight(6),
+  //                                       IntrinsicHeight(
+  //                                         child: Row(
+  //                                           children: [
+  //                                             InkWell(
+  //                                               onTap: () {},
+  //                                               child: Container(
+  //                                                 decoration: BoxDecoration(
+  //                                                     border: Border.all(color: const Color(0xFF72CD4A)),
+  //                                                     shape: BoxShape.circle),
+  //                                                 alignment: Alignment.center,
+  //                                                 child: const Padding(
+  //                                                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+  //                                                   child: Text(
+  //                                                     '-',
+  //                                                     style: TextStyle(
+  //                                                         fontWeight: FontWeight.w600,
+  //                                                         fontSize: 16,
+  //                                                         color: Color(0xFF72CD4A)),
+  //                                                     textAlign: TextAlign.center,
+  //                                                   ),
+  //                                                 ),
+  //                                               ),
+  //                                             ),
+  //                                             Container(
+  //                                               alignment: Alignment.center,
+  //                                               child: const Padding(
+  //                                                 padding: EdgeInsets.only(left: 14.0, right: 14.0),
+  //                                                 child: Text('0'),
+  //                                               ),
+  //                                             ),
+  //                                             InkWell(
+  //                                               onTap: () {},
+  //                                               child: Container(
+  //                                                 decoration: BoxDecoration(
+  //                                                     color: const Color(0xFF72CD4A),
+  //                                                     border: Border.all(color: const Color(0xFF72CD4A)),
+  //                                                     shape: BoxShape.circle),
+  //                                                 alignment: Alignment.center,
+  //                                                 child: const Padding(
+  //                                                   padding: EdgeInsets.symmetric(horizontal: 8),
+  //                                                   child: Text(
+  //                                                     '+',
+  //                                                     style: TextStyle(
+  //                                                         fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white),
+  //                                                     textAlign: TextAlign.center,
+  //                                                   ),
+  //                                                 ),
+  //                                               ),
+  //                                             ),
+  //                                           ],
+  //                                         ),
+  //                                       ),
+  //                                     ],
+  //                                   ),
+  //                                 ],
+  //                               ),
+  //                               addHeight(5),
+  //                               Container(
+  //                                 margin: EdgeInsets.only(left: 75),
+  //                                 color: Color(0xFFE9E9E9),
+  //                                 width: AddSize.screenWidth,
+  //                                 height: 1,
+  //                               ),
+  //                               addHeight(7),
+  //                               Row(
+  //                                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                                 mainAxisAlignment: MainAxisAlignment.start,
+  //                                 children: [
+  //                                   addWidth(80),
+  //                                   Image.asset(
+  //                                     'assets/images/helpimg.png',
+  //                                     height: 13,
+  //                                   ),
+  //                                   addWidth(4),
+  //                                   Text(
+  //                                     'Can cook more units by: 30th June 2023',
+  //                                     style: GoogleFonts.poppins(
+  //                                         fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+  //                                   ),
+  //                                 ],
+  //                               ),
+  //                               addHeight(4),
+  //                               Row(
+  //                                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                                 mainAxisAlignment: MainAxisAlignment.start,
+  //                                 children: [
+  //                                   addWidth(80),
+  //                                   Image.asset(
+  //                                     'assets/images/helpimg.png',
+  //                                     height: 13,
+  //                                   ),
+  //                                   addWidth(4),
+  //                                   Text(
+  //                                     'Available stock: ',
+  //                                     style: GoogleFonts.poppins(
+  //                                         fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+  //                                   ),
+  //                                   Text(
+  //                                     ' 3 units',
+  //                                     style: GoogleFonts.poppins(
+  //                                         fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+  //                                   ),
+  //                                 ],
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                         Positioned(
+  //                           top: 14,
+  //                           right: 20,
+  //                           child: Text(
+  //                             '€6.99',
+  //                             style: GoogleFonts.poppins(
+  //                                 fontWeight: FontWeight.w700, fontSize: 15, color: const Color(0xFF70CC49)),
+  //                           ),
+  //                         )
+  //                       ],
+  //                     ),
+  //                   ],
+  //                 ),
+  //               );
+  //             },
+  //           ),
+  //         );
+  //       });
+  // }
 }

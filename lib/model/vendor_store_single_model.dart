@@ -69,20 +69,22 @@ class Data {
 }
 
 class StoreDetails {
-  int? id;
-  String? storeName;
-  String? description;
-  String? name;
+  dynamic id;
+  dynamic storeName;
+  dynamic description;
+  dynamic name;
   List<Award>? award;
-  String? profileImage;
-  String? storeImage;
-  String? avgRating;
-  int? reviewCount;
-  String? deliveryType;
-  String? deliveryTime;
-  String? distance;
-  String? time;
-  String? time1;
+  dynamic profileImage;
+  dynamic storeImage;
+  dynamic avgRating;
+  dynamic reviewCount;
+  dynamic collection;
+  dynamic deliveryType;
+  dynamic deliveryTime;
+  dynamic distance;
+  bool? sustainablePackagingStatus;
+  dynamic time;
+  dynamic time1;
   dynamic wishlist;
 
 
@@ -95,7 +97,9 @@ class StoreDetails {
         this.profileImage,
         this.storeImage,
         this.avgRating,
+        this.collection,
         this.reviewCount,
+        this.sustainablePackagingStatus,
         this.deliveryType,
         this.distance,
         this.time,
@@ -107,6 +111,7 @@ class StoreDetails {
     id = json['id'];
     storeName = json['store_name'];
     description = json['description'];
+    collection = json['collection'];
     name = json['name'];
     if (json['award'] != null) {
       award = <Award>[];
@@ -120,6 +125,7 @@ class StoreDetails {
     wishlist = json['wishlist'];
     profileImage = json['profile_image'];
     storeImage = json['store_image'];
+    sustainablePackagingStatus = json['sustainable_packaging_status'];
     avgRating = json['avg_rating'];
     reviewCount = json['review_count'];
     deliveryType = json['delivery_type'];
@@ -136,13 +142,16 @@ class StoreDetails {
       data['award'] = this.award!.map((v) => v.toJson()).toList();
     }
     data['distance'] = distance;
+    data['sustainable_packaging_status'] = sustainablePackagingStatus;
     data['Time'] = time;
     data['Time1'] = time1;
     data['distance'] = distance;
+    data['collection'] = collection;
     data['profile_image'] = profileImage;
     data['store_image'] = storeImage;
     data['avg_rating'] = avgRating;
     data['review_count'] = reviewCount;
+
     data['wishlist'] = wishlist;
     data['delivery_type'] = deliveryType;
     data['delivery_time'] = deliveryTime;

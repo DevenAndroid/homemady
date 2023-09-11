@@ -37,3 +37,28 @@ Future<ModelCommonResponse> applyCoupons(
     throw Exception(response.body);
   }
 }
+
+
+Future<ModelCommonResponse> removeCoupons(
+    {required BuildContext context}) async {
+  OverlayEntry loader = Helpers.overlayLoader(context);
+  Overlay.of(context).insert(loader);
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  ModelVerifyOtp? user =
+  ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+  final headers = {
+    HttpHeaders.contentTypeHeader: 'application/json',
+    HttpHeaders.acceptHeader: 'application/json',
+    HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
+  };
+  http.Response response = await http.get(Uri.parse(ApiUrl.removeCouponsUrl),headers: headers);
+  print(response.body);
+  if (response.statusCode == 200 ||response.statusCode == 400) {
+    Helpers.hideLoader(loader);
+    return ModelCommonResponse.fromJson(json.decode(response.body));
+  } else {
+    Helpers.createSnackBar(context, response.body.toString());
+    Helpers.hideLoader(loader);
+    throw Exception(response.body);
+  }
+}

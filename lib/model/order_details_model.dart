@@ -60,6 +60,7 @@ class OrderDetail {
         this.grandTotal,
         this.minOrderCharge,
         this.user,
+        this.minOrderCharge,
         this.vendor,
         this.specialRequets,
         this.serviceCharge,
@@ -79,6 +80,7 @@ class OrderDetail {
     tax = json['tax'];
     deliveryCharges = json['delivery_charges'];
     tipAmount = json['tip_amount'];
+    minOrderCharge = json['min_order_charge'];
     deliveryTime = json['delivery_time'];
     packingFee = json['packing_fee'];
     couponDiscount = json['coupon_discount'];
@@ -112,6 +114,7 @@ class OrderDetail {
     data['tax'] = this.tax;
     data['service_charge'] = this.serviceCharge;
     data['delivery_charges'] = this.deliveryCharges;
+    data['min_order_charge'] = this.minOrderCharge;
     data['tip_amount'] = this.tipAmount;
     data['delivery_time'] = this.deliveryTime;
     data['special_requets'] = this.specialRequets;

@@ -139,7 +139,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      fontSize: 14,
                                                      color: const Color(0xFF1A2E33)
                                                  ),),
-                                               Text(controller.model.value.orderDetail!.specialRequets!.toString(),
+                                               Text(controller.model.value.orderDetail!.specialRequets!.toString().capitalizeFirst.toString(),
                                                  style: GoogleFonts.poppins(
                                                      fontWeight: FontWeight.w400,
                                                      fontSize: 11,
@@ -157,7 +157,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      fontSize: 14,
                                                      color: const Color(0xFF1A2E33)
                                                  ),),
-                                               Text(controller.model.value.orderDetail!.instructionForDelivery!.toString(),
+                                               Text(controller.model.value.orderDetail!.instructionForDelivery!.toString().capitalizeFirst.toString(),
                                                  style: GoogleFonts.poppins(
                                                      fontWeight: FontWeight.w400,
                                                      fontSize: 11,
@@ -257,7 +257,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                      addHeight(1),
                                                      Row(
                                                        children: [
-                                                         Text('Quantity: ${controller.model.value.orderDetail!.orderItems![index].sizeQuantity.toString()}',
+                                                         Text('Quantity: ${controller.model.value.orderDetail!.orderItems![index].qty.toString()}',
+                                                           style: GoogleFonts.poppins(
+                                                               fontWeight: FontWeight.w400,
+                                                               fontSize: 12,
+                                                               color: const Color(0xFF486769B5).withOpacity(0.71)
+                                                           ),),
+                                                       ],
+                                                     ),
+                                                     Row(
+                                                       children: [
+                                                         Text('Size: ${controller.model.value.orderDetail!.orderItems![index].sizeQuantity.toString()}',
                                                            style: GoogleFonts.poppins(
                                                                fontWeight: FontWeight.w400,
                                                                fontSize: 12,
@@ -331,6 +341,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                          ),
                                        )
                                      ],
+                                     // onTap: (value){
+                                     //   tabController.index=value;
+                                     // },
                                      unselectedLabelColor: const Color(0xFF909090),
                                      labelColor: const Color(0xFF1A2E33),
                                      labelStyle: const TextStyle(
@@ -411,7 +424,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                            fontSize: 14),
                                                      ),
                                                      Text(
-                                                      controller.model.value.orderDetail!.driver!.name.toString(),
+                                                       controller.model.value.orderDetail!.driver!.name.toString(),
                                                        style: const TextStyle(
                                                            height: 1.5,
                                                            fontWeight: FontWeight.w600,
@@ -645,6 +658,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                              ],
                                            ),
                                            addHeight(10),
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
+                                               Text('Small Order Fee:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 16,
+                                                     fontWeight: FontWeight.w600,
+                                                     color: const Color(0xff1A2E33)
+                                                 ),),
+                                               const Spacer(),
+                                               Text( "€ ${controller.model.value.orderDetail!.minOrderCharge.toString()}",
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 14,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: const Color(0xff486769)
+                                                 ),),
+                                             ],
+                                           ),
+                                           addHeight(10),
                                            controller.model.value.orderDetail!.deliveryCharges != 0 ?
                                            Row(
                                              mainAxisAlignment: MainAxisAlignment.start,
@@ -718,10 +750,201 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                  SizedBox(height: AddSize.size20),
 
                                ]
-                           ) : const Center(child: Text('NO Driver Information')): const Center(child: CircularProgressIndicator()),
+                           ) : Padding(
+                             padding: const EdgeInsets.all(5.0),
+                             child: Column(
+                               children: [
+                                 Padding(
+                                   padding: const EdgeInsets.only(top:15),
+                                   child: Container(
+                                     decoration: BoxDecoration(
+                                       color: Colors.white,
+                                       borderRadius: BorderRadius.circular(12),
+                                       boxShadow: [
+                                         BoxShadow(
+                                           color: const Color(0xFF37C666).withOpacity(0.10),
+                                           offset: const Offset(.1, .1,
+                                           ),
+                                           blurRadius: 20.0,
+                                           spreadRadius: 1.0,
+                                         ),
+                                       ],
+                                     ),
+                                     child: Padding(
+                                       padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                                       child: Column(
+                                         crossAxisAlignment: CrossAxisAlignment.start,
+                                         children: [
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
+                                               Text('Payment:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 16,
+                                                     fontWeight: FontWeight.w600,
+                                                     color: const Color(0xff1A2E33)
+                                                 ),),
+                                               const Spacer(),
+                                               Container(
+                                                 height: 25,
+                                                 width: 52,
+                                                 decoration: BoxDecoration(
+                                                   color: const Color(0xFF7ED957),
+                                                   borderRadius: BorderRadius.circular(4),
+                                                 ),
+                                                 child: Center(
+                                                   child: Text(
+                                                     controller.model.value.orderDetail!.orderType.toString(),
+                                                     style: GoogleFonts.poppins(
+                                                         color: Colors.white,
+                                                         fontSize: 13,
+                                                         fontWeight: FontWeight.w500),
+                                                   ),
+                                                 ),
+                                               )
+                                             ],
+                                           ),
+                                           addHeight(10),
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
+                                               Text('Subtotal:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 16,
+                                                     fontWeight: FontWeight.w600,
+                                                     color: const Color(0xff1A2E33)
+                                                 ),),
+                                               const Spacer(),
+                                               Text( '€ ${controller.model.value.orderDetail!.itemTotal.toString()}',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 14,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: const Color(0xff486769)
+                                                 ),),
+                                             ],
+                                           ),
+                                           addHeight(10),
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
+                                               Text('Small Order Fee:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 16,
+                                                     fontWeight: FontWeight.w600,
+                                                     color: const Color(0xff1A2E33)
+                                                 ),),
+                                               const Spacer(),
+                                               Text( "€ ${controller.model.value.orderDetail!.minOrderCharge.toString()}",
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 14,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: const Color(0xff486769)
+                                                 ),),
+                                             ],
+                                           ),
+                                           addHeight(10),
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
+                                               Text('Service charge:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 16,
+                                                     fontWeight: FontWeight.w600,
+                                                     color: const Color(0xff1A2E33)
+                                                 ),),
+                                               const Spacer(),
+                                               Text( "€ ${controller.model.value.orderDetail!.serviceCharge.toString()}",
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 14,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: const Color(0xff486769)
+                                                 ),),
+                                             ],
+                                           ),
+                                           addHeight(10),
+                                           controller.model.value.orderDetail!.deliveryCharges != 0 ?
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
+                                               Text('Delivery:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 16,
+                                                     fontWeight: FontWeight.w600,
+                                                     color: const Color(0xff1A2E33)
+                                                 ),),
+                                               const Spacer(),
+                                               Text(  "€ ${controller.model.value.orderDetail!.deliveryCharges.toString()}",
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 14,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: const Color(0xff486769)
+                                                 ),),
+                                             ],
+                                           ):const SizedBox(),
+                                           addHeight(10),
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.start,
+                                             children: [
+                                               Text('Total:',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 15,
+                                                     fontWeight: FontWeight.w700,
+                                                     color: const Color(0xff6BC744)
+                                                 ),),
+                                               const Spacer(),
+                                               Text( '€ ${controller.model.value.orderDetail!.grandTotal.toString()}',
+                                                 style: GoogleFonts.poppins(
+                                                     fontSize: 14,
+                                                     fontWeight: FontWeight.w500,
+                                                     color: const Color(0xff6BC744)
+                                                 ),),
+                                             ],
+                                           ),
+                                           addHeight(20)
+                                         ],
+
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+                                 Row(mainAxisAlignment: MainAxisAlignment.end,
+                                   children: [
+                                     TextButton(onPressed: () {
+                                       OrderDetail gg = controller.model.value.orderDetail!;
+                                       log(jsonEncode(controller.model.value.orderDetail));
+                                       gg.user = User.fromJson(profileController.model.value.data!.toJson());
+                                       gg.vendorID = gg.vendor!.id.toString();
+                                       String roomId = FirebaseService().createChatRoom(
+                                           user1: gg.user!.id!
+                                               .toString()
+                                               .convertToNum
+                                               .toInt(),
+                                           user2: gg.vendor!.id!
+                                               .toString()
+                                               .convertToNum
+                                               .toInt());
+                                       Get.to(()=> const ChatScreen1(), arguments: [
+                                         roomId,
+                                         controller.model.value.orderDetail!.user!.id!
+                                             .toString()
+                                             .convertToNum
+                                             .toInt()
+                                             .toString(),
+                                         gg
+                                       ]);
+                                     },
+                                         child: const Text('Need any help?',style: TextStyle())),
+                                   ],
+                                 ),
+                               ],
+                             ),
+                           ) :const Center(child: CircularProgressIndicator()),
                          ),
                        );
                      }),
+
+
+
                      Obx(() {
                        return  SingleChildScrollView(
                          physics: const BouncingScrollPhysics(),
@@ -1004,6 +1227,26 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                ),),
                                            ],
                                          ),
+
+                                         addHeight(10),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
+                                             Text('Small Order Fee:',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 16,
+                                                   fontWeight: FontWeight.w600,
+                                                   color: const Color(0xff1A2E33)
+                                               ),),
+                                             const Spacer(),
+                                             Text( "€ ${controller.model.value.orderDetail!.minOrderCharge.toString()}",
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 14,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: const Color(0xff486769)
+                                               ),),
+                                           ],
+                                         ),
                                          addHeight(10),
                                          controller.model.value.orderDetail!.deliveryCharges != 0 ?
                                          Row(
@@ -1096,12 +1339,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
       bottomNavigationBar:
       Obx((){
         return controller.model.value.orderDetail != null ? controller.model.value.orderDetail!.feedback == false ?
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 17),
-          child: InkWell(
-            onTap: () {
-              Get.toNamed(MyRouters.reviewScreen);
-            },
+        InkWell(
+          onTap: () {
+            Get.toNamed(MyRouters.reviewScreen);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
             child: Container(
               height: 56,
               width: AddSize.screenWidth / 1.1,
@@ -1125,7 +1368,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
             ),
           ),
         ): const SizedBox():const SizedBox();
-      })
+      }),
 
 
 

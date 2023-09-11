@@ -10,10 +10,15 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 import '../controller/get_saved_card_details_controller.dart';
 import '../controller/my_address_controller.dart';
 import '../controller/my_cart_controller.dart';
+import '../controller/user_profile_controller.dart';
 import '../model/my_address_model.dart';
 import '../repository/apply_coupon_repo.dart';
 import '../repository/checkout_order_repo.dart';
 import '../resources/add_text.dart';
+import '../widgets/app_assets.dart';
+import '../widgets/app_theme.dart';
+import '../widgets/dimenestion.dart';
+import 'coupon_list_screen.dart';
 import 'myAddressScreen.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -27,6 +32,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   final myAddressController = Get.put(MyAddressController());
   final getSavedDetailsController = Get.put(SavedCardDetailsController());
   final myCartController = Get.put(MyCartListController());
+  final profileController = Get.put(UserProfileController());
   final TextEditingController specialRequestController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
   final TextEditingController deliveryInstructionController = TextEditingController();
@@ -45,6 +51,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      profileController.getData();
       myCartController.getData().then((value){
         setState(() {});
       });
@@ -104,30 +111,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                             ),
                             addHeight(10),
+
                             Row(
                               children: [
-                                if (myCartController.model.value.data!.cartItems![0].collectionStatus == false ||
-                                    myCartController.model.value.data!.cartItems![0].selfDelivery == true)
-                                  // Delivery
-                                  ...[
-                                  Theme(
+
+                                  myCartController.model.value.data!.cartItems![0].collectionStatus == true ?
+                                      SizedBox() :Theme(
                                       data: ThemeData(
                                         unselectedWidgetColor: Colors.green,
                                       ),
                                       child: addRadioButton(0)),
-                                  Text(
+                                  myCartController.model.value.data!.cartItems![0].collectionStatus == true ?
+                                  SizedBox() : Text(
                                     'Delivery',
                                     style: GoogleFonts.poppins(
                                         color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
                                   ),
-                                  addWidth(40)
-                                ],
-                                if (!(myCartController.model.value.data!.cartItems![0].collectionStatus == false &&
-                                    myCartController.model.value.data!.cartItems![0].selfDelivery == true))
-                                if (myCartController.model.value.data!.cartItems![0].collectionStatus == true ||
-                                    myCartController.model.value.data!.cartItems![0].selfDelivery == true)
-                                  // Pickup
-                                  ...[
+                                  myCartController.model.value.data!.cartItems![0].collectionStatus == true ?
+                                  SizedBox(): addWidth(40),
+
                                   Theme(
                                       data: ThemeData(
                                         unselectedWidgetColor: Colors.green,
@@ -139,9 +141,46 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     style: GoogleFonts.poppins(
                                         color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
                                   )
-                                ]
                               ],
                             ),
+                            // Row(
+                            //   children: [
+                            //     if (myCartController.model.value.data!.cartItems![0].collectionStatus == false ||
+                            //         myCartController.model.value.data!.cartItems![0].selfDelivery == false)
+                            //       // Delivery
+                            //       ...[
+                            //       Theme(
+                            //           data: ThemeData(
+                            //             unselectedWidgetColor: Colors.green,
+                            //           ),
+                            //           child: addRadioButton(0)),
+                            //       Text(
+                            //         'Delivery',
+                            //         style: GoogleFonts.poppins(
+                            //             color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                            //       ),
+                            //       addWidth(40)
+                            //     ],
+                            //     if (!(myCartController.model.value.data!.cartItems![0].collectionStatus == false &&
+                            //         myCartController.model.value.data!.cartItems![0].selfDelivery == true))
+                            //     if (myCartController.model.value.data!.cartItems![0].collectionStatus == true ||
+                            //         myCartController.model.value.data!.cartItems![0].selfDelivery == true)
+                            //       // Pickup
+                            //       ...[
+                            //       Theme(
+                            //           data: ThemeData(
+                            //             unselectedWidgetColor: Colors.green,
+                            //           ),
+                            //           child: addRadioButton(1)),
+                            //       addWidth(5),
+                            //       Text(
+                            //         'Pickup',
+                            //         style: GoogleFonts.poppins(
+                            //             color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                            //       )
+                            //     ]
+                            //   ],
+                            // ),
                             addHeight(20),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 9.0),
@@ -187,63 +226,224 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                     ),
                     addHeight(15),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF37C666).withOpacity(0.10),
-                            offset: const Offset(
-                              .1,
-                              .1,
-                            ),
-                            blurRadius: 20.0,
-                            spreadRadius: 1.0,
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.circular(12),
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: const Color(0xFF37C666).withOpacity(0.10),
+                    //         offset: const Offset(
+                    //           .1,
+                    //           .1,
+                    //         ),
+                    //         blurRadius: 20.0,
+                    //         spreadRadius: 1.0,
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   child: Padding(
+                    //       padding: const EdgeInsets.only(left: 8, right: 8, top: 14, bottom: 5),
+                    //       child: CustomTextField1(
+                    //         controller: codeController,
+                    //         obSecure: false.obs,
+                    //         hintText: 'Apply Promo Code'.obs,
+                    //         suffixIcon: Padding(
+                    //           padding: const EdgeInsets.all(10),
+                    //           child: Container(
+                    //             height: 36,
+                    //             width: 94,
+                    //             decoration: BoxDecoration(
+                    //                 gradient: const LinearGradient(colors: [
+                    //                   Color(0xFF7ED957),
+                    //                   Color(0xFF68C541),
+                    //                 ]),
+                    //                 borderRadius: BorderRadius.circular(100)),
+                    //             child: GestureDetector(
+                    //               onTap: () {
+                    //                 applyCoupons(couponCode: codeController.text.toString(), context: context).then((value) {
+                    //                   if (value.status == true) {
+                    //                     showToast(value.message);
+                    //                     codeController.clear();
+                    //                     myCartController.getData();
+                    //                   } else if (value.status == false) {
+                    //                     showToast(value.message);
+                    //                   }
+                    //                 });
+                    //               },
+                    //               child: Center(
+                    //                 child: Text(
+                    //                   'Apply',
+                    //                   style: GoogleFonts.poppins(
+                    //                       color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       )),
+                    // ),
+                    Obx(() {
+                      return Card(
+                        child: Container(
+                          // height: height * .06,
+                          decoration: BoxDecoration(
+
+                              borderRadius: BorderRadius.circular(15)
                           ),
-                        ],
-                      ),
-                      child: Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 8, top: 14, bottom: 5),
-                          child: CustomTextField1(
-                            controller: codeController,
-                            obSecure: false.obs,
-                            hintText: 'Apply Promo Code'.obs,
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Container(
-                                height: 36,
-                                width: 94,
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(colors: [
-                                      Color(0xFF7ED957),
-                                      Color(0xFF68C541),
-                                    ]),
-                                    borderRadius: BorderRadius.circular(100)),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    applyCoupons(couponCode: codeController.text.toString(), context: context).then((value) {
-                                      if (value.status == true) {
-                                        showToast(value.message);
-                                        codeController.clear();
-                                        myCartController.getData();
-                                      } else if (value.status == false) {
-                                        showToast(value.message);
-                                      }
-                                    });
-                                  },
-                                  child: Center(
-                                    child: Text(
-                                      'Apply',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 10),
+                            child:
+                            Column(
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      Get.toNamed(
+                                          CouponsScreen.couponsScreen);
+                                    },
+                                    child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .center,
+                                        children: [
+                                          Expanded(
+                                            child: Row(children: [
+                                              const Image(
+                                                  color: Color(0xff7ED957),
+                                                  height: 22,
+                                                  width: 28,
+                                                  image: AssetImage(AppAssets
+                                                      .couponList,)),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text("Use Coupons".tr,
+                                                  style: TextStyle(
+                                                      color:
+                                                      AppTheme.blackcolor,
+                                                      fontSize:
+                                                      AddSize.font14,
+                                                      fontWeight:
+                                                      FontWeight.w500)),
+                                            ]),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            color: Colors.black,
+                                            size: AddSize.size15,
+                                          ),
+                                        ])),
+                                myCartController.model.value.data!
+                                    .cartPaymentSummary!.couponCode == 0 ||
+                                    myCartController
+                                        .model
+                                        .value
+                                        .data!
+                                        .cartPaymentSummary
+                                    !.couponCode
+                                        .toString() ==
+                                        ""
+                                    ? const SizedBox()
+                                    :
+                                Obx(() {
+                                  return Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .spaceBetween,
+                                      children: [
+                                        Container(
+                                          height: 20,
+                                          width: 20,
+                                          decoration:
+                                          const ShapeDecoration(
+                                              color: AppTheme
+                                                  .userActive,
+                                              shape:
+                                              CircleBorder()),
+                                          child: Center(
+                                              child: Icon(
+                                                Icons.check,
+                                                color: AppTheme
+                                                    .backgroundcolor,
+                                                size: AddSize.size12,
+                                              )),
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment
+                                                .start,
+                                            children: [
+                                              Text(
+                                                  "${myCartController.model
+                                                      .value.data!
+                                                      .cartPaymentSummary
+                                                      ?.couponCode
+                                                      .toString()} applied successfully",
+                                                  style: TextStyle(
+                                                      color: AppTheme
+                                                          .userActive,
+                                                      fontSize:
+                                                      AddSize
+                                                          .font14,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500)),
+                                              Text(
+                                                  "You saved ₹${myCartController
+                                                      .model.value.data!
+                                                      .cartPaymentSummary
+                                                      ?.couponDiscount
+                                                      .toString()}",
+                                                  style: TextStyle(
+                                                      color: AppTheme
+                                                          .userActive,
+                                                      fontSize:
+                                                      AddSize
+                                                          .font12,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500)),
+                                            ],
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            removeCoupons(
+                                                context: context)
+                                                .then((value) {
+                                              print("hello offer");
+                                              if (value.status == true) {
+                                                showToast(value.message);
+                                                myCartController
+                                                    .getData();
+                                                setState(() {});
+                                              }
+                                            });
+                                          },
+                                          style: TextButton.styleFrom(
+                                              padding:
+                                              EdgeInsets.zero),
+                                          child: Text("Remove",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize:
+                                                  AddSize.font12,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w500)),
+                                        ),
+                                      ]);
+                                }),
+                              ],
                             ),
-                          )),
-                    ),
+                          ),
+                        ),
+                      );
+                    }),
                     addHeight(15),
                     selectedMethod.toString() == 'P'
                         ? const SizedBox()
@@ -315,13 +515,53 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             children: [
                                               Text(
                                                 myCartController.model.value.data!.orderAddress == null
-                                                    ? 'Choose address'
-                                                    : myCartController.model.value.data!.orderAddress!.addressType,
+                                                    ? "Choose address" : myCartController.model.value.data!.orderAddress!.addressType,
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.w500,
                                                     color: const Color(0xff1A2E33)),
                                               ),
+
+                                               myCartController.model.value.data!.orderAddress == null ?
+                                              // // Row(
+                                              // //   children: [
+                                              // //     ...List.generate(profileController.model.value.data!.defaultAddress!.length, (index){
+                                              // //       return  Row(
+                                              // //         children: [
+                                              // //           Obx(() {
+                                              // //             return Expanded(
+                                              // //               child: Text(
+                                              // //                 profileController.model.value.data!.defaultAddress![index].flatNo.toString() + ''
+                                              // //                     + profileController.model.value.data!.defaultAddress![index].landmark.toString() + ''
+                                              // //                     +profileController.model.value.data!.defaultAddress![index].pinCode.toString(),
+                                              // //                 style: GoogleFonts.poppins(
+                                              // //                     fontSize: 14,
+                                              // //                     fontWeight: FontWeight.w400,
+                                              // //                     color: const Color(0xff5C5C60)),
+                                              // //               ),
+                                              // //             );
+                                              // //           })
+                                              // //         ],
+                                              // //       );
+                                              // //     }),
+                                              // //   ],
+                                              // // )
+                                              Row(
+                                                children: [
+                                                  Obx(() {
+                                                    return Expanded(
+                                                      child: Text(profileController.model.value.data!.defaultAddress![0].flatNo.toString() + ','
+                                                                        + profileController.model.value.data!.defaultAddress![0].landmark.toString() + ','
+                                                                            +profileController.model.value.data!.defaultAddress![0].pinCode.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: const Color(0xff5C5C60)),
+                                                      ),
+                                                    );
+                                                  })
+                                                ],
+                                              ):
                                               Row(
                                                 children: [
                                                   Obx(() {
@@ -393,6 +633,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
                                 ),
                                 InkWell(
+                                  onTap: (){
+                                    Get.toNamed(MyRouters.homePageScreen);
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(color: const Color(0xFF6CC845)),
@@ -567,30 +810,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   )),
                                 ),
                                 addWidth(5),
-                                // Container(
-                                //   height: 60,
-                                //   width: 57,
-                                //   decoration: BoxDecoration(
-                                //       borderRadius: BorderRadius.circular(14),
-                                //       border: Border.all(color: const Color(0xFFF2F2F2))),
-                                //   child: Center(
-                                //       child: Image.asset(
-                                //     'assets/images/google_pay.png',
-                                //     height: 16,
-                                //   )),
-                                // ),
-                                // Container(
-                                //   height: 60,
-                                //   width: 57,
-                                //   decoration: BoxDecoration(
-                                //       borderRadius: BorderRadius.circular(14),
-                                //       border: Border.all(color: const Color(0xFFF2F2F2))),
-                                //   child: Center(
-                                //       child: Image.asset(
-                                //     'assets/images/paytm_img.png',
-                                //     height: 20,
-                                //   )),
-                                // ),
+
                                 Container(
                                   height: 60,
                                   width: 57,
@@ -655,17 +875,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                     //Get.toNamed(MyRouters.addNewCardScreen, arguments: [selectedMethod,specialRequestController.text,deliveryInstructionController.text]);
                                                   },
                                                   child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Expanded(
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                                          child: Text(
-                                                            "**** **** **** ${getSavedDetailsController.savedDetailsModel.value.data![index].last4.toString()}",
-                                                            style:
-                                                                const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
-                                                          ),
-                                                        ),
-                                                      ),
                                                       Theme(
                                                           data: ThemeData(
                                                             unselectedWidgetColor: Colors.green,
@@ -676,6 +888,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                                     .savedDetailsModel.value.data![index].id
                                                                     .toString());
                                                           })),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                                          child: Text(
+                                                            "**** **** **** ${getSavedDetailsController.savedDetailsModel.value.data![index].last4.toString()}",
+                                                            style:
+                                                                const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+                                                          ),
+                                                        ),
+                                                      ),
+
                                                     ],
                                                   ),
                                                 );
@@ -880,7 +1103,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             return;
                           }
                           if (selectedMethod == "D") {
-                            if (myCartController.model.value.data!.orderAddress != null) {
+                            if (myCartController.model.value.data!.orderAddress != null || profileController.model.value.data!.defaultAddress != null) {
                               // return;
                               checkOut(
                                       context: context,

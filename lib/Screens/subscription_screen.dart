@@ -56,7 +56,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     child: Column(
                       children: [
                         SizedBox(height: height * .03,),
-                         Row(
+                         const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:  [
@@ -178,7 +178,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       backgroundColor: Colors.transparent,
                       minimumSize: const Size(double.maxFinite, 62),
                       elevation: 0,
-                      side: const BorderSide(color: Color(0xff7ED957)),
+                      side: const BorderSide(width:3, color: Color(0xff7ED957)),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                       textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                   child: Text(

@@ -41,7 +41,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
                children: [
                  addHeight(62),
-                  Image.asset('assets/images/thankyouImg.png',width: 232,),
+                  Image.asset('assets/images/orderEnd.png',width: 232,),
                  addHeight(15),
                  GestureDetector(
                    onTap: (){
@@ -92,7 +92,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                            ),
                          ),
 
-                         Text(Get.arguments[0].toString(),
+                         Text("#${Get.arguments[0].toString()}",
                            style: GoogleFonts.poppins(
                              fontSize: 14,
                              fontWeight: FontWeight.w400,

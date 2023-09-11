@@ -91,17 +91,18 @@ class SliderData {
 }
 
 class Stores {
-  int? id;
-  String? name;
-  String? distance;
-  String? time;
-  String? image;
+  dynamic id;
+  dynamic name;
+  dynamic distance;
+  dynamic time;
+  dynamic image;
   List<Award>? award;
-  String? rating;
-  int? countReviewData;
-  String? cookName;
+  dynamic rating;
+  dynamic countReviewData;
+  dynamic cookName;
+  bool ? sustainablePackagingStatus;
   bool? wishlist;
-  String? profileImage;
+  dynamic? profileImage;
 
   Stores(
       {this.id,
@@ -111,6 +112,7 @@ class Stores {
         this.image,
         this.award,
         this.rating,
+        this.sustainablePackagingStatus,
         this.countReviewData,
         this.cookName,
         this.wishlist,
@@ -121,6 +123,7 @@ class Stores {
     name = json['name'];
     distance = json['distance'];
     time = json['Time'];
+    sustainablePackagingStatus = json['sustainable_packaging_status'];
     image = json['image'];
     if (json['award'] != null) {
       award = <Award>[];
@@ -141,6 +144,7 @@ class Stores {
     data['name'] = this.name;
     data['distance'] = this.distance;
     data['Time'] = this.time;
+    data['sustainable_packaging_status'] = this.sustainablePackagingStatus;
     data['image'] = this.image;
     if (this.award != null) {
       data['award'] = this.award!.map((v) => v.toJson()).toList();

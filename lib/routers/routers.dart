@@ -31,6 +31,8 @@ import 'package:homemady/Screens/thankyou_Screen.dart';
 import 'package:homemady/myorderScreens/activeScreen.dart';
 import 'package:homemady/widgets/customeNavbar.dart';
 import '../Screens/chat_screen/chat_screen.dart';
+import '../Screens/coupon_list_screen.dart';
+import '../Screens/customer_order_tracking_screen.dart';
 import '../Screens/faqs_screen.dart';
 import '../Screens/filter_category_product_list.dart';
 import '../Screens/help_center_screen.dart';
@@ -38,6 +40,7 @@ import '../Screens/home_filter_screen.dart';
 import '../Screens/login_screen.dart';
 import '../Screens/notification2.dart';
 import '../Screens/search_screen_data.dart';
+import '../Screens/store_review_screen.dart';
 import '../Screens/subscription_history.dart';
 import '../Screens/subscription_screen.dart';
 import '../Screens/thankyou_screen2.dart';
@@ -125,6 +128,9 @@ class MyRouters {
     GetPage(name: SubscriptionScreen.subscriptionScreen, page: () => const  SubscriptionScreen()),
     GetPage(name: SubscriptionHistoryScreen.subscriptionHistoryScreen, page: () => const  SubscriptionHistoryScreen()),
     GetPage(name: ThankYouScreen2.thankYouScreen2, page: () => const  ThankYouScreen2()),
+    GetPage(name: CouponsScreen.couponsScreen, page: () => const  CouponsScreen()),
+    GetPage(name: StoreReviewScreen.storeReviewScreen, page: () => const  StoreReviewScreen()),
+    GetPage(name: OrderTrackingScreen.orderTrackingScreen, page: () => const  OrderTrackingScreen()),
 
   ];
 }

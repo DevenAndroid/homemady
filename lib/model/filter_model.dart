@@ -52,7 +52,7 @@ class Data {
   String? sizeId;
   String? spiciness;
   String? allergens;
-  int? inMenu;
+  bool? inMenu;
   String? status;
   String? discountOff;
   bool? wishlist;

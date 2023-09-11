@@ -82,253 +82,6 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
     });
   }
 
-  Future<void> _showSimpleDialog3(BuildContext context) async {
-    await showDialog(
-        barrierDismissible: true,
-        context: context,
-        barrierColor: const Color(0x01000000),
-        builder: (context) {
-          return Dialog(
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-            insetPadding: const EdgeInsets.only(bottom: 0, top: 0),
-            child: controller.isDataLoading.value
-                ? ListView.builder(
-              itemCount: controller.model.value.data!.latestProducts!.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF37C666).withOpacity(0.10),
-                                    offset: const Offset(
-                                      .1,
-                                      .1,
-                                    ),
-                                    blurRadius: 20.0,
-                                    spreadRadius: 1.0,
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      child: CachedNetworkImage(
-                                        imageUrl: controller.model.value.data!.latestProducts![index].image.toString(),
-                                        fit: BoxFit.cover,
-                                        errorWidget: (_, __, ___) => Image.asset(
-                                          'assets/images/error_image.png',
-                                        ),
-                                        placeholder: (_, __) => Center(child: CircularProgressIndicator()),
-                                      ),
-                                    ),
-                                    addWidth(10),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          controller.model.value.data!.latestProducts![index].name.toString(),
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14,
-                                              color: const Color(0xFF21283D)),
-                                        ),
-                                        addHeight(3),
-                                        Text(
-                                          'Size: 200gm',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: 11,
-                                              color: const Color(0xFF364A4F)),
-                                        ),
-                                        addHeight(3),
-                                        Row(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  'spiciness :',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF1F2D30)),
-                                                ),
-                                                addWidth(4),
-                                                Text(
-                                                  'Mildly Spicy',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF6CC844)),
-                                                ),
-                                              ],
-                                            ),
-                                            addWidth(10),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    'Allergens :',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w500,
-                                                        fontSize: 10,
-                                                        color: const Color(0xFF1F2D30)),
-                                                  ),
-                                                ),
-                                                addWidth(4),
-                                                Text(
-                                                  'Crustaceans',
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 10,
-                                                      color: const Color(0xFF6CC844)),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        addHeight(6),
-                                        IntrinsicHeight(
-                                          child: Row(
-                                            children: [
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(color: const Color(0xFF72CD4A)),
-                                                      shape: BoxShape.circle),
-                                                  alignment: Alignment.center,
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                    child: Text(
-                                                      '-',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.w600,
-                                                          fontSize: 16,
-                                                          color: Color(0xFF72CD4A)),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                child: const Padding(
-                                                  padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                                                  child: Text('0'),
-                                                ),
-                                              ),
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: const Color(0xFF72CD4A),
-                                                      border: Border.all(color: const Color(0xFF72CD4A)),
-                                                      shape: BoxShape.circle),
-                                                  alignment: Alignment.center,
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 8),
-                                                    child: Text(
-                                                      '+',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.w600,
-                                                          fontSize: 16,
-                                                          color: Colors.white),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                addHeight(5),
-                                Container(
-                                  margin: EdgeInsets.only(left: 75),
-                                  color: Color(0xFFE9E9E9),
-                                  width: AddSize.screenWidth,
-                                  height: 1,
-                                ),
-                                addHeight(7),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    addWidth(80),
-                                    Image.asset(
-                                      'assets/images/helpimg.png',
-                                      height: 13,
-                                    ),
-                                    addWidth(4),
-                                    Text(
-                                      'Can cook more units by: 30th June 2023',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
-                                    ),
-                                  ],
-                                ),
-                                addHeight(4),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    addWidth(80),
-                                    Image.asset(
-                                      'assets/images/helpimg.png',
-                                      height: 13,
-                                    ),
-                                    addWidth(4),
-                                    Text(
-                                      'Available stock: ',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
-                                    ),
-                                    Text(
-                                      ' 3 units',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 14,
-                            right: 20,
-                            child: Text(
-                              '€6.99',
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w700, fontSize: 15, color: const Color(0xFF70CC49)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            )
-                : Center(child: CircularProgressIndicator()),
-          );
-        });
-  }
 
   void _scrollListener() {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
@@ -483,7 +236,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
         // key: _scaffoldKey,
         body: Obx(() {
           return SafeArea(
-            child: filterProductCategoryController.isDataLoading.value
+            child: filterProductCategoryController.isDataLoading.value ? filterProductCategoryController.filterDataModel.value.data != null
                 ? SingleChildScrollView(
                   // physics: const AlwaysScrollableScrollPhysics(),
                     child: Column(
@@ -713,7 +466,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
 
                                                                   child: InkWell(
                                                                     onTap: (){
-                                                                      print("store  id..${filterProductCategoryController.filterDataModel.value.data![index].id.toString()}");
+                                                                      print("Product  id..${filterProductCategoryController.filterDataModel.value.data![index].productId.toString()}");
 
                                                                       wishlistRepo(productId: filterProductCategoryController.filterDataModel.value.data![index].id.toString(),id: ''
                                                                       ).then((value){
@@ -931,23 +684,28 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                       InkWell(
                                                                         onTap: () {
                                                                           // buttonCount.value++;
-                                                                          addToCartRepo(
-                                                                              product_id: filterProductCategoryController.filterDataModel.value.data![index].id
-                                                                                  .toString(),
-                                                                              qty: product.productCount+1,
-                                                                              //controller.model.value.data!.latestProducts![index].buttonCount.value,
-                                                                              context: context)
-                                                                              .then((value1) {
-                                                                            if (value1.status == true) {
-                                                                              filterProductCategoryController.filterDataModel.value.data![index].value = true;
-                                                                              // controller.model.value.data!.latestProducts![index].buttonCount.value++;
-                                                                              showToast(value1.message.toString());
-                                                                              // controller.increaseQty();
-                                                                              cartListController.getData().then((value) {
-                                                                                setState(() {});
-                                                                              });
-                                                                            }
-                                                                          });
+                                                                          if( product.productCount < int.parse(filterProductCategoryController.filterDataModel.value.data![index].qty.toString())){
+                                                                            addToCartRepo(
+                                                                                product_id: filterProductCategoryController.filterDataModel.value.data![index].id
+                                                                                    .toString(),
+                                                                                qty: product.productCount+1,
+                                                                                //controller.model.value.data!.latestProducts![index].buttonCount.value,
+                                                                                context: context)
+                                                                                .then((value1) {
+                                                                              if (value1.status == true) {
+                                                                                filterProductCategoryController.filterDataModel.value.data![index].value = true;
+                                                                                // controller.model.value.data!.latestProducts![index].buttonCount.value++;
+                                                                                showToast(value1.message.toString());
+                                                                                // controller.increaseQty();
+                                                                                cartListController.getData().then((value) {
+                                                                                  setState(() {});
+                                                                                });
+                                                                              }
+                                                                            });
+                                                                          }
+                                                                          else{
+                                                                            showToast('You reached the maximum Limit of product');
+                                                                          }
                                                                         },
                                                                         child: Container(
                                                                           decoration: BoxDecoration(
@@ -1013,12 +771,35 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                           ),
                                                           addWidth(4),
                                                           Text(
-                                                            'Available stock: ',
+                                                            'How long it takes to cook: ',
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                                           ),
                                                           Text(
-                                                            '${filterProductCategoryController.filterDataModel.value.data![index].cookUnitDays ?? '5'.toString()} Units',
+                                                            '${filterProductCategoryController.filterDataModel.value.data![index].cookUnitDays ?? '5'.toString()}',
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      addHeight(4),
+                                                      Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          addWidth(80),
+                                                          Image.asset(
+                                                            'assets/images/helpimg.png',
+                                                            height: 13,
+                                                          ),
+                                                          addWidth(4),
+                                                          Text(
+                                                            'Available Stock: ',
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                          ),
+                                                          Text(
+                                                            '${filterProductCategoryController.filterDataModel.value.data![index].qty ?? '5'.toString()} Units',
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
                                                           ),
@@ -1042,11 +823,17 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                           ),
                         ),
                       ],
-                    ))
-                : Center(child: CircularProgressIndicator()),
+                    )):  const Padding(
+              padding: EdgeInsets.only(top: 80),
+              child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+            ): Center(child: CircularProgressIndicator())
+           ,
           );
-        })
-      //bottomNavigationBar: ,
+        }),
+        bottomNavigationBar:
+    myCartController.isDataLoading.value && myCartController.model.value.data!.cartItems!.isNotEmpty
+        ? addCartSection()
+        : null,
     );
   }
 

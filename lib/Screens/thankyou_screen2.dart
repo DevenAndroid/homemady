@@ -36,7 +36,7 @@ class _ThankYouScreen2State extends State<ThankYouScreen2> {
                   child: Image(
                     height: AddSize.size300,
                     width: double.maxFinite,
-                    image:  AssetImage('assets/images/thankYouImg.png'),
+                    image:  AssetImage('assets/images/thn.png'),
                     fit: BoxFit.contain,
                     opacity: AlwaysStoppedAnimation(.80),
                   ),

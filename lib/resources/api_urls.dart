@@ -9,7 +9,12 @@ class ApiUrl {
   static const addCartApi = "${baseUrl}add-cart";
   static const cancelOrderUrl = "${baseUrl}order-cancel";
   static const myCartApi = "${baseUrl}my-cart";
+  static const orderTrackingUrl = "${baseUrl}order-activity";
+  static const feedbackUrl = "${baseUrl}review-list";
+  static const removeCouponsUrl = "${baseUrl}remove-coupon";
+  static const couponsUrl = "${baseUrl}coupons";
   static const orderTipUrl = "${baseUrl}order-tip";
+  static const reOrderUrl = "${baseUrl}re-order/";
   static const applyCouponsUrl = "${baseUrl}coupon-apply";
   static const updateLocationUrl = "${baseUrl}update-location";
   static const removeTipUrl = "${baseUrl}remove-tip";

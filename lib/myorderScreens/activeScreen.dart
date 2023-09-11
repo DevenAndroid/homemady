@@ -7,8 +7,10 @@ import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
+import '../Screens/customer_order_tracking_screen.dart';
 import '../controller/my_order_controller.dart';
 import '../controller/order_details_controller.dart';
+import '../controller/order_tracking_controller.dart';
 import '../repository/cancel_order_repo.dart';
 
 
@@ -32,6 +34,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
   }
   final controller = Get.put(MyOrderController());
   final orderDetailsController = Get.put(OrderDetailsController());
+  final orderTrackingController = Get.put(OrderTrackingController());
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -45,7 +48,8 @@ class _ActiveScreenState extends State<ActiveScreen> {
             itemBuilder: (context, index) {
               return
 
-                controller.model.value.data![index].deliveryStatus != 'Cancelled' ?
+                controller.model.value.data![index].deliveryStatus != 'Cancelled' &&
+                    controller.model.value.data![index].deliveryStatus != 'Delivered' ?
                 Column(
                 children: [
                   InkWell(
@@ -113,7 +117,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
 
-                                    Text((controller.model.value.data![index].orderItems![0].productName ?? 'Test').toString().capitalizeFirst.toString(),
+                                    Text('Order Id #${(controller.model.value.data![index].orderId).toString().capitalizeFirst.toString()}',
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,
@@ -135,7 +139,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                           color: Colors.grey,
                                         ),
                                         addWidth(10),
-                                        Text('1.5km',
+                                        Text('${controller.model.value.data![index].deliveryDistance.toString()} KM',
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w400,
                                               fontSize: 12,
@@ -228,19 +232,29 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                   ),
                                 ),
                                 addWidth(15),
-                                Container(
-                                  height: 30,
-                                  width: 132,
-                                  decoration:  BoxDecoration(
-                                      borderRadius: BorderRadius.circular(14),
-                                      color: Color(0xFF7ED957)
-                                  ),
-                                  child: Center(
-                                    child: Text('Track Driver',
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xFFFFFFFF),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
+                                GestureDetector(
+                                  onTap: (){
+                                    orderTrackingController.orderIdTracking.value = controller.model.value.data![index].orderId.toString();
+                                    print(controller.model.value.data![index].orderId.toString());
+                                    Get.toNamed(OrderTrackingScreen.orderTrackingScreen);
+                                  },
+                                  child: Container(
+                                    // height: 30,
+                                    // width: 132,
+                                    decoration:  BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: Color(0xFF7ED957)
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
+                                        child: Text('Track Driver',
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFFFFFFFF),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),

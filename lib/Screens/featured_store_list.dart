@@ -42,7 +42,8 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
   int currentDrawer = 0;
   RxInt count = 0.obs;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String?  selectedDate = DateFormat('yyyy/MM/dd').format(DateTime.now());
+  String?  selectedDate = "";
+  // DateFormat('yyyy/MM/dd').format(DateTime.now());
   late TabController tabController;
   final autoController = AutoScrollController();
   bool isClicked = false;
@@ -72,7 +73,8 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
   @override
   Widget build(BuildContext context) {
     // final screenSize = MediaQuery.of(context).size;
-    // final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: backAppBar(
             title: 'Featured Today',
@@ -156,13 +158,13 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                           height: 44,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(4),
-                                            color:  selectedDate == null ?  Color(0xFF7ED957): Colors.white70,
+                                            color:  selectedDate == "" ?  Color(0xFF7ED957): Colors.white70,
                                           ),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              selectedDate == null ?
+                                              selectedDate == "" ?
                                               Padding(
                                                 padding: const EdgeInsets.all(8.0),
                                                 child: Image.asset(
@@ -177,7 +179,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                   color: const Color(0xFF262626).withOpacity(0.62),
                                                 ),
                                               ),
-                                              selectedDate == null ?
+                                              selectedDate == "" ?
                                               Text(
                                                 'Pick a Date',
                                                 style: GoogleFonts.poppins(
@@ -596,52 +598,66 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                                 Icons.favorite_outline,
                                                                                 color: Color(0xFF7ED957),
                                                                               ))))),
-                                                          featuredFilterController.model.value.data![index].award!.isNotEmpty
-                                                              ? Positioned(
-                                                                  top: 14,
-                                                                  // bottom: 0,
-                                                                  left: 10,
-                                                                  right: 15,
-                                                                  //   bottom: 0,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      InkWell(
-                                                                          onTap: () {
+                                                          featuredFilterController.model.value.data![index].award!.isNotEmpty || featuredFilterController.model.value.data![index].sustainablePackagingStatus == true?
+                                                          Positioned(
+                                                              top: 14,
+                                                              // bottom: 0,
+                                                              left: 10,
+                                                              right: 15,
+                                                              //   bottom: 0,
+                                                              child: Row(
+                                                                children: [
+                                                                  Row(
+                                                                    children:  [
+                                                                      ...List.generate(featuredFilterController.model.value.data![index].award!.length, (index1){
+                                                                        return  InkWell(
+                                                                          onTap: (){
                                                                             showGeneralDialog(
                                                                                 context: context,
                                                                                 barrierDismissible: true,
-                                                                                barrierColor: const Color(0xFF000000)
-                                                                                    .withOpacity(0.58),
-                                                                                barrierLabel:
-                                                                                    MaterialLocalizations.of(context)
-                                                                                        .modalBarrierDismissLabel,
-                                                                                pageBuilder: (BuildContext context,
-                                                                                    Animation first, Animation second) {
-                                                                                  return Stack(
+                                                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                                pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                                  return  Stack(
                                                                                     children: [
-                                                                                      Center(
-                                                                                          child: Image.asset(
-                                                                                              'assets/images/dialogboximg.png')),
+                                                                                      Center(child: CachedNetworkImage(
+                                                                                        imageUrl:     featuredFilterController.model.value.data![index].award![index1].image.toString(),
+                                                                                        //fit: BoxFit.cover,
+                                                                                        height: height * .7,
+                                                                                        width: width * .7,
+                                                                                        errorWidget: (_, __, ___) => Image.asset(
+                                                                                          'assets/images/topChef.png',
+                                                                                          // fit: BoxFit.cover,
+                                                                                          height: 40,
+                                                                                          width: 40,
+                                                                                        ),
+                                                                                        placeholder: (_, __) =>
+                                                                                        const Center(child: CircularProgressIndicator()),
+                                                                                      )),
                                                                                       Positioned(
-                                                                                        right: 18,
-                                                                                        top: 30,
-                                                                                        child: Container(
-                                                                                            padding:
-                                                                                                const EdgeInsets.all(10),
-                                                                                            height: 80,
-                                                                                            decoration: const BoxDecoration(
-                                                                                                color: Colors.white,
-                                                                                                shape: BoxShape.circle),
-                                                                                            child: const Icon(Icons.clear)),
-                                                                                      )
+                                                                                        right: 22,
+                                                                                        top: 100,
+                                                                                        child: GestureDetector(
+                                                                                          onTap:(){
+                                                                                            Get.back();
+                                                                                          },
+                                                                                          child: Container(
+                                                                                              padding: const EdgeInsets.all(10),
+                                                                                              height: 50,
+                                                                                              decoration: const BoxDecoration(
+                                                                                                  color: Colors.white,
+                                                                                                  shape: BoxShape.circle
+                                                                                              ),
+                                                                                              child:  const Icon(Icons.clear)
+                                                                                          ),
+                                                                                        ),)
                                                                                     ],
                                                                                   );
-                                                                                });
+                                                                                }
+                                                                            );
                                                                           },
-                                                                          child: CachedNetworkImage(
-                                                                            imageUrl: featuredFilterController
-                                                                                .model.value.data![index].award![0].image
-                                                                                .toString(),
+                                                                          child:    CachedNetworkImage(
+                                                                            imageUrl:     featuredFilterController.model.value.data![index].award![index1].image.toString(),
                                                                             //fit: BoxFit.cover,
                                                                             height: 40,
                                                                             width: 40,
@@ -651,61 +667,119 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                               height: 40,
                                                                               width: 40,
                                                                             ),
-                                                                            placeholder: (_, __) => const Center(
-                                                                                child: CircularProgressIndicator()),
-                                                                          )),
-                                                                      InkWell(
-                                                                          onTap: () {
-                                                                            showGeneralDialog(
-                                                                                context: context,
-                                                                                barrierDismissible: true,
-                                                                                barrierColor: const Color(0xFF000000)
-                                                                                    .withOpacity(0.58),
-                                                                                barrierLabel:
-                                                                                    MaterialLocalizations.of(context)
-                                                                                        .modalBarrierDismissLabel,
-                                                                                pageBuilder: (BuildContext context,
-                                                                                    Animation first, Animation second) {
-                                                                                  return Stack(
-                                                                                    children: [
-                                                                                      Center(
-                                                                                          child: Image.asset(
-                                                                                              'assets/images/dialogboximg.png')),
-                                                                                      Positioned(
-                                                                                        right: 18,
-                                                                                        top: 50,
-                                                                                        child: Container(
-                                                                                            padding:
-                                                                                                const EdgeInsets.all(10),
-                                                                                            height: 50,
-                                                                                            decoration: const BoxDecoration(
-                                                                                                color: Colors.white,
-                                                                                                shape: BoxShape.circle),
-                                                                                            child: const Icon(Icons.clear)),
-                                                                                      )
-                                                                                    ],
-                                                                                  );
-                                                                                });
-                                                                          },
-                                                                          child: CachedNetworkImage(
-                                                                            imageUrl: featuredFilterController
-                                                                                .model.value.data![index].award![0].image
-                                                                                .toString(),
-                                                                            //fit: BoxFit.cover,
-                                                                            height: 40,
-                                                                            width: 40,
-                                                                            errorWidget: (_, __, ___) => Image.asset(
-                                                                              'assets/images/topChef.png',
-                                                                              // fit: BoxFit.cover,
-                                                                              height: 40,
-                                                                              width: 40,
-                                                                            ),
-                                                                            placeholder: (_, __) => const Center(
-                                                                                child: CircularProgressIndicator()),
-                                                                          )),
+                                                                            placeholder: (_, __) =>
+                                                                            const Center(child: CircularProgressIndicator()),
+                                                                          ),);
+                                                                      })
+
+
+
                                                                     ],
-                                                                  ))
-                                                              : const SizedBox(),
+                                                                  ),
+                                                                  if(featuredFilterController.model.value.data![index].sustainablePackagingStatus == true)
+                                                                  InkWell(
+                                                                    onTap: (){
+                                                                      showGeneralDialog(
+                                                                          context: context,
+                                                                          barrierDismissible: true,
+                                                                          barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                          pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                            return  Stack(
+                                                                              children: [
+                                                                                Center(
+                                                                                  child: Image.asset(
+                                                                                    'assets/images/leavesIcon.png',
+                                                                                    // fit: BoxFit.cover,
+                                                                                    height: height * .3,
+                                                                                    // width: width * .4,
+                                                                                  ),),
+                                                                                Positioned(
+                                                                                  right: 20,
+                                                                                  top: 100,
+                                                                                  child: GestureDetector(
+                                                                                    onTap: (){
+                                                                                      Get.back();
+                                                                                    },
+                                                                                    child: Container(
+                                                                                        padding: const EdgeInsets.all(10),
+                                                                                        height: 50,
+                                                                                        decoration: const BoxDecoration(
+                                                                                            color: Colors.white,
+                                                                                            shape: BoxShape.circle
+                                                                                        ),
+                                                                                        child:  const Icon(Icons.clear)
+                                                                                    ),
+                                                                                  ),)
+                                                                              ],
+                                                                            );
+                                                                          }
+                                                                      );
+                                                                    },
+                                                                    child: Image.asset(
+                                                                      'assets/images/leavesIcon.png',
+                                                                      // fit: BoxFit.cover,
+                                                                      height: 35,
+                                                                      width: 35,
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              )
+                                                          ) : const SizedBox(),
+                                                          //
+                                                          // featuredFilterController.model.value.data![index].sustainablePackagingStatus!  ?
+                                                          // Positioned(
+                                                          //   top: 14,
+                                                          //   // bottom: 0,
+                                                          //   left:   featuredFilterController.model.value.data![index].award!.isNotEmpty  ? 100 : 15,
+                                                          //   //right: 15,
+                                                          //   child: InkWell(
+                                                          //     onTap: (){
+                                                          //       showGeneralDialog(
+                                                          //           context: context,
+                                                          //           barrierDismissible: true,
+                                                          //           barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                          //           barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                          //           pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                          //             return  Stack(
+                                                          //               children: [
+                                                          //                 Center(
+                                                          //                   child: Image.asset(
+                                                          //                     'assets/images/leavesIcon.png',
+                                                          //                     // fit: BoxFit.cover,
+                                                          //                     height: height * .3,
+                                                          //                     // width: width * .4,
+                                                          //                   ),),
+                                                          //                 Positioned(
+                                                          //                   right: 20,
+                                                          //                   top: 100,
+                                                          //                   child: GestureDetector(
+                                                          //                     onTap: (){
+                                                          //                       Get.back();
+                                                          //                     },
+                                                          //                     child: Container(
+                                                          //                         padding: const EdgeInsets.all(10),
+                                                          //                         height: 50,
+                                                          //                         decoration: const BoxDecoration(
+                                                          //                             color: Colors.white,
+                                                          //                             shape: BoxShape.circle
+                                                          //                         ),
+                                                          //                         child:  const Icon(Icons.clear)
+                                                          //                     ),
+                                                          //                   ),)
+                                                          //               ],
+                                                          //             );
+                                                          //           }
+                                                          //       );
+                                                          //     },
+                                                          //     child: Image.asset(
+                                                          //       'assets/images/leavesIcon.png',
+                                                          //       // fit: BoxFit.cover,
+                                                          //       height: 35,
+                                                          //       width: 35,
+                                                          //     ),
+                                                          //   ),
+                                                          // ) : const SizedBox()
                                                         ],
                                                       ),
                                                     ),
@@ -826,27 +900,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                               ),
                                                             ),
                                                           ),
-                                                          // Positioned(
-                                                          //     top: 80,
-                                                          //     // bottom: 0,
-                                                          //     left: 20,
-                                                          //     right: 20,
-                                                          //     //   bottom: 0,
-                                                          //     child: Row(
-                                                          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          //       children: [
-                                                          //         Icon(
-                                                          //           Icons.arrow_back_ios,
-                                                          //           color: Colors.white,
-                                                          //           size: 20,
-                                                          //         ),
-                                                          //         Icon(
-                                                          //           Icons.arrow_forward_ios,
-                                                          //           color: Colors.white,
-                                                          //           size: 20,
-                                                          //         )
-                                                          //       ],
-                                                          //     )),
+
                                                           Positioned(
                                                               bottom: 10,
                                                               right: 20,
@@ -977,51 +1031,66 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                                 Icons.favorite_outline,
                                                                                 color: Color(0xFF7ED957),
                                                                               ))))),
-                                                          featuredFilterController.model.value.data![index].award!.isNotEmpty
-                                                              ? Positioned(
-                                                                  top: 14,
-                                                                  // bottom: 0,
-                                                                  left: 10,
-                                                                  right: 15,
-                                                                  //   bottom: 0,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      InkWell(
-                                                                          onTap: () {
+                                                          featuredFilterController.model.value.data![index].award!.isNotEmpty || featuredFilterController.model.value.data![index].sustainablePackagingStatus == true?
+                                                          Positioned(
+                                                              top: 14,
+                                                              // bottom: 0,
+                                                              left: 10,
+                                                              right: 15,
+                                                              //   bottom: 0,
+                                                              child: Row(
+                                                                children: [
+                                                                  Row(
+                                                                    children:  [
+                                                                      ...List.generate(featuredFilterController.model.value.data![index].award!.length, (index1){
+                                                                        return  InkWell(
+                                                                          onTap: (){
                                                                             showGeneralDialog(
                                                                                 context: context,
                                                                                 barrierDismissible: true,
-                                                                                barrierColor: const Color(0xFF000000)
-                                                                                    .withOpacity(0.58),
-                                                                                barrierLabel:
-                                                                                    MaterialLocalizations.of(context)
-                                                                                        .modalBarrierDismissLabel,
-                                                                                pageBuilder: (BuildContext context,
-                                                                                    Animation first, Animation second) {
-                                                                                  return Stack(
+                                                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                                pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                                  return  Stack(
                                                                                     children: [
-                                                                                      Center(
-                                                                                          child: Image.asset(
-                                                                                              'assets/images/dialogboximg.png')),
+                                                                                      Center(child: CachedNetworkImage(
+                                                                                        imageUrl:     featuredFilterController.model.value.data![index].award![index1].image.toString(),
+                                                                                        //fit: BoxFit.cover,
+                                                                                        height: height * .7,
+                                                                                        width: width * .7,
+                                                                                        errorWidget: (_, __, ___) => Image.asset(
+                                                                                          'assets/images/topChef.png',
+                                                                                          // fit: BoxFit.cover,
+                                                                                          height: 40,
+                                                                                          width: 40,
+                                                                                        ),
+                                                                                        placeholder: (_, __) =>
+                                                                                        const Center(child: CircularProgressIndicator()),
+                                                                                      )),
                                                                                       Positioned(
-                                                                                        right: 18,
-                                                                                        top: 30,
-                                                                                        child: Container(
-                                                                                            padding: EdgeInsets.all(10),
-                                                                                            height: 80,
-                                                                                            decoration: const BoxDecoration(
-                                                                                                color: Colors.white,
-                                                                                                shape: BoxShape.circle),
-                                                                                            child: Icon(Icons.clear)),
-                                                                                      )
+                                                                                        right: 22,
+                                                                                        top: 100,
+                                                                                        child: GestureDetector(
+                                                                                          onTap:(){
+                                                                                            Get.back();
+                                                                                          },
+                                                                                          child: Container(
+                                                                                              padding: const EdgeInsets.all(10),
+                                                                                              height: 50,
+                                                                                              decoration: const BoxDecoration(
+                                                                                                  color: Colors.white,
+                                                                                                  shape: BoxShape.circle
+                                                                                              ),
+                                                                                              child:  const Icon(Icons.clear)
+                                                                                          ),
+                                                                                        ),)
                                                                                     ],
                                                                                   );
-                                                                                });
+                                                                                }
+                                                                            );
                                                                           },
-                                                                          child: CachedNetworkImage(
-                                                                            imageUrl: featuredFilterController
-                                                                                .model.value.data![index].award![0].image
-                                                                                .toString(),
+                                                                          child:    CachedNetworkImage(
+                                                                            imageUrl:     featuredFilterController.model.value.data![index].award![index1].image.toString(),
                                                                             //fit: BoxFit.cover,
                                                                             height: 40,
                                                                             width: 40,
@@ -1031,61 +1100,65 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                               height: 40,
                                                                               width: 40,
                                                                             ),
-                                                                            placeholder: (_, __) => const Center(
-                                                                                child: CircularProgressIndicator()),
-                                                                          )),
-                                                                      InkWell(
-                                                                          onTap: () {
-                                                                            showGeneralDialog(
-                                                                                context: context,
-                                                                                barrierDismissible: true,
-                                                                                barrierColor: const Color(0xFF000000)
-                                                                                    .withOpacity(0.58),
-                                                                                barrierLabel:
-                                                                                    MaterialLocalizations.of(context)
-                                                                                        .modalBarrierDismissLabel,
-                                                                                pageBuilder: (BuildContext context,
-                                                                                    Animation first, Animation second) {
-                                                                                  return Stack(
-                                                                                    children: [
-                                                                                      Center(
-                                                                                          child: Image.asset(
-                                                                                              'assets/images/dialogboximg.png')),
-                                                                                      Positioned(
-                                                                                        right: 18,
-                                                                                        top: 50,
-                                                                                        child: Container(
-                                                                                            padding:
-                                                                                                const EdgeInsets.all(10),
-                                                                                            height: 50,
-                                                                                            decoration: const BoxDecoration(
-                                                                                                color: Colors.white,
-                                                                                                shape: BoxShape.circle),
-                                                                                            child: const Icon(Icons.clear)),
-                                                                                      )
-                                                                                    ],
-                                                                                  );
-                                                                                });
-                                                                          },
-                                                                          child: CachedNetworkImage(
-                                                                            imageUrl: featuredFilterController
-                                                                                .model.value.data![index].award![0].image
-                                                                                .toString(),
-                                                                            //fit: BoxFit.cover,
-                                                                            height: 40,
-                                                                            width: 40,
-                                                                            errorWidget: (_, __, ___) => Image.asset(
-                                                                              'assets/images/topChef.png',
-                                                                              // fit: BoxFit.cover,
-                                                                              height: 40,
-                                                                              width: 40,
-                                                                            ),
-                                                                            placeholder: (_, __) => const Center(
-                                                                                child: CircularProgressIndicator()),
-                                                                          )),
+                                                                            placeholder: (_, __) =>
+                                                                            const Center(child: CircularProgressIndicator()),
+                                                                          ),);
+                                                                      })
+
+
+
                                                                     ],
-                                                                  ))
-                                                              : const SizedBox(),
+                                                                  ),
+                                                                  if(featuredFilterController.model.value.data![index].sustainablePackagingStatus == true)
+                                                                    InkWell(
+                                                                      onTap: (){
+                                                                        showGeneralDialog(
+                                                                            context: context,
+                                                                            barrierDismissible: true,
+                                                                            barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                            barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                            pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                              return  Stack(
+                                                                                children: [
+                                                                                  Center(
+                                                                                    child: Image.asset(
+                                                                                      'assets/images/leavesIcon.png',
+                                                                                      // fit: BoxFit.cover,
+                                                                                      height: height * .3,
+                                                                                      // width: width * .4,
+                                                                                    ),),
+                                                                                  Positioned(
+                                                                                    right: 20,
+                                                                                    top: 100,
+                                                                                    child: GestureDetector(
+                                                                                      onTap: (){
+                                                                                        Get.back();
+                                                                                      },
+                                                                                      child: Container(
+                                                                                          padding: const EdgeInsets.all(10),
+                                                                                          height: 50,
+                                                                                          decoration: const BoxDecoration(
+                                                                                              color: Colors.white,
+                                                                                              shape: BoxShape.circle
+                                                                                          ),
+                                                                                          child:  const Icon(Icons.clear)
+                                                                                      ),
+                                                                                    ),)
+                                                                                ],
+                                                                              );
+                                                                            }
+                                                                        );
+                                                                      },
+                                                                      child: Image.asset(
+                                                                        'assets/images/leavesIcon.png',
+                                                                        // fit: BoxFit.cover,
+                                                                        height: 35,
+                                                                        width: 35,
+                                                                      ),
+                                                                    )
+                                                                ],
+                                                              )
+                                                          ) : const SizedBox(),
                                                         ],
                                                       ),
                                                     ),
@@ -1206,27 +1279,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                               ),
                                                             ),
                                                           ),
-                                                          // Positioned(
-                                                          //     top: 80,
-                                                          //     // bottom: 0,
-                                                          //     left: 20,
-                                                          //     right: 20,
-                                                          //     //   bottom: 0,
-                                                          //     child: Row(
-                                                          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          //       children: [
-                                                          //         Icon(
-                                                          //           Icons.arrow_back_ios,
-                                                          //           color: Colors.white,
-                                                          //           size: 20,
-                                                          //         ),
-                                                          //         Icon(
-                                                          //           Icons.arrow_forward_ios,
-                                                          //           color: Colors.white,
-                                                          //           size: 20,
-                                                          //         )
-                                                          //       ],
-                                                          //     )),
                                                           Positioned(
                                                               bottom: 10,
                                                               right: 20,
@@ -1357,51 +1409,66 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                                 Icons.favorite_outline,
                                                                                 color: Color(0xFF7ED957),
                                                                               ))))),
-                                                          featuredFilterController.model.value.data![index].award!.isNotEmpty
-                                                              ? Positioned(
-                                                                  top: 14,
-                                                                  // bottom: 0,
-                                                                  left: 10,
-                                                                  right: 15,
-                                                                  //   bottom: 0,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      InkWell(
-                                                                          onTap: () {
+                                                          featuredFilterController.model.value.data![index].award!.isNotEmpty || featuredFilterController.model.value.data![index].sustainablePackagingStatus == true?
+                                                          Positioned(
+                                                              top: 14,
+                                                              // bottom: 0,
+                                                              left: 10,
+                                                              right: 15,
+                                                              //   bottom: 0,
+                                                              child: Row(
+                                                                children: [
+                                                                  Row(
+                                                                    children:  [
+                                                                      ...List.generate(featuredFilterController.model.value.data![index].award!.length, (index1){
+                                                                        return  InkWell(
+                                                                          onTap: (){
                                                                             showGeneralDialog(
                                                                                 context: context,
                                                                                 barrierDismissible: true,
-                                                                                barrierColor: const Color(0xFF000000)
-                                                                                    .withOpacity(0.58),
-                                                                                barrierLabel:
-                                                                                    MaterialLocalizations.of(context)
-                                                                                        .modalBarrierDismissLabel,
-                                                                                pageBuilder: (BuildContext context,
-                                                                                    Animation first, Animation second) {
-                                                                                  return Stack(
+                                                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                                pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                                  return  Stack(
                                                                                     children: [
-                                                                                      Center(
-                                                                                          child: Image.asset(
-                                                                                              'assets/images/dialogboximg.png')),
+                                                                                      Center(child: CachedNetworkImage(
+                                                                                        imageUrl:     featuredFilterController.model.value.data![index].award![index1].image.toString(),
+                                                                                        //fit: BoxFit.cover,
+                                                                                        height: height * .7,
+                                                                                        width: width * .7,
+                                                                                        errorWidget: (_, __, ___) => Image.asset(
+                                                                                          'assets/images/topChef.png',
+                                                                                          // fit: BoxFit.cover,
+                                                                                          height: 40,
+                                                                                          width: 40,
+                                                                                        ),
+                                                                                        placeholder: (_, __) =>
+                                                                                        const Center(child: CircularProgressIndicator()),
+                                                                                      )),
                                                                                       Positioned(
-                                                                                        right: 18,
-                                                                                        top: 30,
-                                                                                        child: Container(
-                                                                                            padding: EdgeInsets.all(10),
-                                                                                            height: 80,
-                                                                                            decoration: const BoxDecoration(
-                                                                                                color: Colors.white,
-                                                                                                shape: BoxShape.circle),
-                                                                                            child: Icon(Icons.clear)),
-                                                                                      )
+                                                                                        right: 22,
+                                                                                        top: 100,
+                                                                                        child: GestureDetector(
+                                                                                          onTap:(){
+                                                                                            Get.back();
+                                                                                          },
+                                                                                          child: Container(
+                                                                                              padding: const EdgeInsets.all(10),
+                                                                                              height: 50,
+                                                                                              decoration: const BoxDecoration(
+                                                                                                  color: Colors.white,
+                                                                                                  shape: BoxShape.circle
+                                                                                              ),
+                                                                                              child:  const Icon(Icons.clear)
+                                                                                          ),
+                                                                                        ),)
                                                                                     ],
                                                                                   );
-                                                                                });
+                                                                                }
+                                                                            );
                                                                           },
-                                                                          child: CachedNetworkImage(
-                                                                            imageUrl: featuredFilterController
-                                                                                .model.value.data![index].award![0].image
-                                                                                .toString(),
+                                                                          child:    CachedNetworkImage(
+                                                                            imageUrl:     featuredFilterController.model.value.data![index].award![index1].image.toString(),
                                                                             //fit: BoxFit.cover,
                                                                             height: 40,
                                                                             width: 40,
@@ -1411,60 +1478,65 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                               height: 40,
                                                                               width: 40,
                                                                             ),
-                                                                            placeholder: (_, __) => const Center(
-                                                                                child: CircularProgressIndicator()),
-                                                                          )),
-                                                                      InkWell(
-                                                                          onTap: () {
-                                                                            showGeneralDialog(
-                                                                                context: context,
-                                                                                barrierDismissible: true,
-                                                                                barrierColor: const Color(0xFF000000)
-                                                                                    .withOpacity(0.58),
-                                                                                barrierLabel:
-                                                                                    MaterialLocalizations.of(context)
-                                                                                        .modalBarrierDismissLabel,
-                                                                                pageBuilder: (BuildContext context,
-                                                                                    Animation first, Animation second) {
-                                                                                  return Stack(
-                                                                                    children: [
-                                                                                      Center(
-                                                                                          child: Image.asset(
-                                                                                              'assets/images/dialogboximg.png')),
-                                                                                      Positioned(
-                                                                                        right: 18,
-                                                                                        top: 50,
-                                                                                        child: Container(
-                                                                                            padding: EdgeInsets.all(10),
-                                                                                            height: 50,
-                                                                                            decoration: const BoxDecoration(
-                                                                                                color: Colors.white,
-                                                                                                shape: BoxShape.circle),
-                                                                                            child: Icon(Icons.clear)),
-                                                                                      )
-                                                                                    ],
-                                                                                  );
-                                                                                });
-                                                                          },
-                                                                          child: CachedNetworkImage(
-                                                                            imageUrl: featuredFilterController
-                                                                                .model.value.data![index].award![0].image
-                                                                                .toString(),
-                                                                            //fit: BoxFit.cover,
-                                                                            height: 40,
-                                                                            width: 40,
-                                                                            errorWidget: (_, __, ___) => Image.asset(
-                                                                              'assets/images/topChef.png',
-                                                                              // fit: BoxFit.cover,
-                                                                              height: 40,
-                                                                              width: 40,
-                                                                            ),
-                                                                            placeholder: (_, __) => const Center(
-                                                                                child: CircularProgressIndicator()),
-                                                                          )),
+                                                                            placeholder: (_, __) =>
+                                                                            const Center(child: CircularProgressIndicator()),
+                                                                          ),);
+                                                                      })
+
+
+
                                                                     ],
-                                                                  ))
-                                                              : const SizedBox(),
+                                                                  ),
+                                                                  if(featuredFilterController.model.value.data![index].sustainablePackagingStatus == true)
+                                                                    InkWell(
+                                                                      onTap: (){
+                                                                        showGeneralDialog(
+                                                                            context: context,
+                                                                            barrierDismissible: true,
+                                                                            barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                            barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                            pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                              return  Stack(
+                                                                                children: [
+                                                                                  Center(
+                                                                                    child: Image.asset(
+                                                                                      'assets/images/leavesIcon.png',
+                                                                                      // fit: BoxFit.cover,
+                                                                                      height: height * .3,
+                                                                                      // width: width * .4,
+                                                                                    ),),
+                                                                                  Positioned(
+                                                                                    right: 20,
+                                                                                    top: 100,
+                                                                                    child: GestureDetector(
+                                                                                      onTap: (){
+                                                                                        Get.back();
+                                                                                      },
+                                                                                      child: Container(
+                                                                                          padding: const EdgeInsets.all(10),
+                                                                                          height: 50,
+                                                                                          decoration: const BoxDecoration(
+                                                                                              color: Colors.white,
+                                                                                              shape: BoxShape.circle
+                                                                                          ),
+                                                                                          child:  const Icon(Icons.clear)
+                                                                                      ),
+                                                                                    ),)
+                                                                                ],
+                                                                              );
+                                                                            }
+                                                                        );
+                                                                      },
+                                                                      child: Image.asset(
+                                                                        'assets/images/leavesIcon.png',
+                                                                        // fit: BoxFit.cover,
+                                                                        height: 35,
+                                                                        width: 35,
+                                                                      ),
+                                                                    )
+                                                                ],
+                                                              )
+                                                          ) : const SizedBox(),
                                                         ],
                                                       ),
                                                     ),

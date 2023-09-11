@@ -43,8 +43,7 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
     return Scaffold(
       appBar: backAppBar(title: 'My Orders', context: context),
       body:
-
-      Column(
+          Column(
         children: [
            addHeight(20),
           Stack(
@@ -88,9 +87,10 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
                 ],
               ),
             ],
+
           ),
           addHeight(20),
-          Expanded(
+    Expanded(
             child: TabBarView(
                 physics: const BouncingScrollPhysics(),
                 controller: tabController,
@@ -98,6 +98,8 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
                   ActiveScreen(),
                   CompleteScreen(),
                   CancelledScreen()
+
+
             ]),
           ),
 

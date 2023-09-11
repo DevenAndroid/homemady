@@ -49,6 +49,7 @@ class Data {
   dynamic rating;
   dynamic countReviewData;
   dynamic cookName;
+  bool? sustainablePackagingStatus;
   bool? wishlist;
   dynamic profileImage;
 
@@ -60,6 +61,7 @@ class Data {
         this.award,
         this.rating,
         this.countReviewData,
+        this.sustainablePackagingStatus,
         this.cookName,
         this.wishlist,
         this.profileImage});
@@ -76,6 +78,7 @@ class Data {
       });
     }
     rating = json['rating'];
+    sustainablePackagingStatus = json['sustainable_packaging_status'];
     countReviewData = json['count_review_Data'];
     cookName = json['Cook name'];
     wishlist = json['wishlist'];
@@ -92,6 +95,7 @@ class Data {
       data['award'] = this.award!.map((v) => v.toJson()).toList();
     }
     data['rating'] = this.rating;
+    data['sustainable_packaging_status'] = this.sustainablePackagingStatus;
     data['count_review_Data'] = this.countReviewData;
     data['Cook name'] = this.cookName;
     data['wishlist'] = this.wishlist;

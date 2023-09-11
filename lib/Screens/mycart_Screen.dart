@@ -160,7 +160,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                           color: const Color(0xFF21283D)
                                                       ),),
                                                   ),
-                                                   SizedBox(width: width * .25,),
+                                                   SizedBox(width: width * .20,),
                                                   IntrinsicHeight(
                                                     child: Row(
                                                       children: [
@@ -308,19 +308,19 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                         fontSize: 12,
                                                         color: const Color(0xFF486769).withOpacity(0.70)
                                                     ),),
-                                                  addWidth(10),
-                                                  Container(
-                                                    width: 1,
-                                                    height: 10,
-                                                    color: Colors.grey,
-                                                  ),
-                                                  addWidth(10),
-                                                  Text('${(controller.model.value.data!.cartItems![index].distance ?? '5').toString()} km',
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w400,
-                                                        fontSize: 12,
-                                                        color: const Color(0xFF486769).withOpacity(0.70)
-                                                    ),),
+                                                  // addWidth(10),
+                                                  // Container(
+                                                  //   width: 1,
+                                                  //   height: 10,
+                                                  //   color: Colors.grey,
+                                                  // ),
+                                                  // addWidth(10),
+                                                  // Text('${(controller.model.value.data!.cartItems![index].distance ?? '5').toString()} km',
+                                                  //   style: GoogleFonts.poppins(
+                                                  //       fontWeight: FontWeight.w400,
+                                                  //       fontSize: 12,
+                                                  //       color: const Color(0xFF486769).withOpacity(0.70)
+                                                  //   ),),
                                                 ],
                                               ),
                                               addHeight(5),
@@ -381,59 +381,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           ),
                         ),
                         addHeight(10),
-                        // Wrap(
-                        //   children: List.generate(10, (index){
-                        //   return  Row(
-                        //     children: [
-                        //       InkWell(
-                        //         onTap: (){
-                        //           //isSelect1.value =! isSelect1.value;
-                        //         },
-                        //         child: Container(
-                        //           height: 28,
-                        //           width: 28,
-                        //           padding: const EdgeInsets.symmetric(horizontal: 4),
-                        //           decoration: isSelect1.value == false ?
-                        //           BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(4.0),
-                        //             color: Colors.white,
-                        //             boxShadow: [
-                        //               BoxShadow(
-                        //                 color: Colors.grey.shade300,
-                        //                 offset: const Offset(.1, .1,
-                        //                 ),
-                        //                 blurRadius: 19.0,
-                        //                 spreadRadius: 1.0,
-                        //               ),
-                        //             ],
-                        //           ) : BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(4.0),
-                        //             color: const Color(0xFF7ED957),
-                        //             boxShadow: [
-                        //               BoxShadow(
-                        //                 color: Colors.grey.shade300,
-                        //                 offset: const Offset(.1, .1,
-                        //                 ),
-                        //                 blurRadius: 19.0,
-                        //                 spreadRadius: 1.0,
-                        //               ),
-                        //             ],
-                        //           ),
-                        //           child: Center(
-                        //             child:   isSelect1.value == true ? const SizedBox() : Image.asset('assets/images/image_2023_07_19T09_51_38_771Z.png') ,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //       // addHeight(5),
-                        //       /*const Text('Mo',style: TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: FontWeight.w400,
-                        //               color: Color(0xFF303C5E)
-                        //           ),)*/
-                        //     ],
-                        //   );
-                        // }),
-                        // ),
 
                         Wrap(children: List.generate(10, (index) {
                           return Padding(
@@ -457,7 +404,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(2)
                                   ),
-                                  value: index < int.parse(controller.model.value.data!.cartPaymentSummary!.orderCount.toString())+1,
+                                  value: index < int.parse(controller.model.value.data!.cartPaymentSummary!.orderCount.toString()),
                                   checkColor: Colors.white,
                                   activeColor: const Color(0xff7ED957),
                                   onChanged: (value){

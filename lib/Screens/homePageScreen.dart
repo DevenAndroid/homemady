@@ -1,22 +1,21 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
-
 import 'package:badges/badges.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/Screens/filter_category_product_list.dart';
-import 'package:homemady/Screens/home_filter_screen.dart';
 import 'package:homemady/Screens/search_screen_data.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:intl/intl.dart';
-
 import '../controller/category_controller.dart';
 import '../controller/fillter_product_category_controller.dart';
 import '../controller/filter_controller.dart';
@@ -28,10 +27,14 @@ import '../controller/search_store_conbtroller.dart';
 import '../controller/time_slot_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
+import '../model/model_verify_otp.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
+import 'home_filter_screen.dart';
 import 'myAddressScreen.dart';
+
+io.Socket? socket1;
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -67,9 +70,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     const ItemDropDown('rating', 'Rating'),
   ];
 
-
-  final RxBool _isValue1 = false.obs;
-  final RxBool _isValue2 = false.obs;
   bool? isChoosedFilterOption = false;
 
   final scrollController = ScrollController();
@@ -82,11 +82,113 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   String selectedDate = 'Available Now';
 
+  connectToServer() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+    if (socket1 != null) {
+      socket1!.disconnect();
+      socket1!.dispose();
+    }
+    //192.168.1.28      54.204.238.132
+    io.Socket socket = io.io('https://e333-2401-4900-1c1b-2c01-3185-2425-3a8-6b85.ngrok.io', <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false,
+      "auth": {"access_token":user.authToken.toString()},
+    });
+
+    socket.onError((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('==================  onError $data');
+      }
+    });
+    socket.onDisconnect((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('==================  onDisconnect $data');
+      }
+    });
+    socket.onConnecting((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('onConnecting $data');
+      }
+    });
+    socket.onConnectTimeout((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('onConnectTimeout $data');
+      }
+    });
+    socket.connect();
+    socket1 = socket;
+    socket.onConnect((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('==================  onConnect $data');
+        // onlineOffline();
+      }
+
+    });
+  }
+
+
+
+
+
+
+  // connectToServer() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+  //   print("Auth TOekn for socket${user.authToken.toString()}");
+  //   if (socket1 != null) {
+  //     socket1!.disconnect();
+  //     socket1!.dispose();
+  //   }
+  //   //192.168.1.28      54.204.238.132
+  //   io.Socket socket = io.io('https://3e04-2401-4900-1c1b-2c01-3185-2425-3a8-6b85.ngrok.io/app', <String, dynamic>{
+  //     "transports": ["websocket"],
+  //     "autoConnect": false,
+  //      // "auth": {'access_token':'Bearer ${user.authToken}'},
+  //    // "extraHeaders": {"access_token": 'Bearer ${user.authToken}'},
+  //       "auth":{
+  //         'access_token':'${user.authToken.toString()}'
+  //       }
+  //   });
+  //
+  //   socket.onError((data) {
+  //     if (kDebugMode) {
+  //       if (kDebugMode) print('==================  onError $data');
+  //     }
+  //   });
+  //   socket.onDisconnect((data) {
+  //     if (kDebugMode) {
+  //       if (kDebugMode) print('==================  onDisconnect Geeting close $data');
+  //     }
+  //   });
+  //   socket.onConnecting((data) {
+  //     if (kDebugMode) {
+  //       if (kDebugMode) print('onConnecting $data');
+  //     }
+  //   });
+  //   socket.onConnectTimeout((data) {
+  //     if (kDebugMode) {
+  //       if (kDebugMode) print('onConnectTimeout $data');
+  //     }
+  //   });
+  //   socket.connect();
+  //   socket1 = socket;
+  //   socket.onConnect((data) {
+  //     if (kDebugMode) {
+  //       if (kDebugMode) print('==================  onConnect $data');
+  //       // onlineOffline();
+  //     }
+  //
+  //   });
+  // }
+
   void initState() {
     // TODO: implement initState
     super.initState();
+    // connectToServer();
     locationController.checkGps(context);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      connectToServer();
       profileController.getData();
       scrollController.addListener((_scrollListener));
       // scrollController1.addListener((_scrollListener1));
@@ -521,6 +623,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus!.unfocus();
@@ -812,7 +916,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
-                                          height: 144,
+                                          height: 150,
                                           child: ListView.builder(
                                             itemCount: homeController.model.value.data!.sliderData!.length,
                                             physics: const BouncingScrollPhysics(),
@@ -821,16 +925,29 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             itemBuilder: (context, index) {
                                               return Row(
                                                 children: [
-                                                  CachedNetworkImage(
-                                                    imageUrl:
-                                                        homeController.model.value.data!.sliderData![index].image.toString(),
-                                                    fit: BoxFit.cover,
-                                                    errorWidget: (_, __, ___) => Image.asset(
-                                                      'assets/images/Ellipse 67.png',
+                                                  Container(
+                                                width: width * .55,
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: width * .01),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius.circular(15),
+                                                    color: AppTheme.backgroundcolor),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                  BorderRadius.circular(15),
+                                                    child: CachedNetworkImage(
+                                                      imageUrl:
+                                                          homeController.model.value.data!.sliderData![index].image.toString(),
+                                                      fit: BoxFit.cover,
+                                                      errorWidget: (_, __, ___) => Image.asset(
+                                                        'assets/images/Ellipse 67.png',
+                                                      ),
+                                                      placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                                     ),
-                                                    placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                                   ),
-                                                  addWidth(20)
+                                                  )
+                                                  // addWidth(20)
                                                 ],
                                               );
                                             },
@@ -1166,28 +1283,196 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                         // Arrows Ui
-                                                         // const Positioned(
-                                                         //    top: 80,
-                                                         //    // bottom: 0,
-                                                         //    left: 20,
-                                                         //    right: 20,
-                                                         //    //   bottom: 0,
-                                                         //    child: Row(
-                                                         //      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                         //      children: [
-                                                         //        Icon(
-                                                         //          Icons.arrow_back_ios,
-                                                         //          color: Colors.white,
-                                                         //          size: 20,
-                                                         //        ),
-                                                         //        Icon(
-                                                         //          Icons.arrow_forward_ios,
-                                                         //          color: Colors.white,
-                                                         //          size: 20,
-                                                         //        )
-                                                         //      ],
-                                                         //    )),
+
+                                                        homeController.model.value.data!.stores![index].award!.isNotEmpty || homeController.model.value.data!.stores![index].sustainablePackagingStatus == true?
+                                                        Positioned(
+                                                            top: 14,
+                                                            // bottom: 0,
+                                                            left: 10,
+                                                            right: 15,
+                                                            //   bottom: 0,
+                                                            child: Row(
+                                                              children: [
+                                                                Row(
+                                                                  children:  [
+                                                                    ...List.generate(homeController.model.value.data!.stores![index].award!.length, (index1){
+                                                                      return  InkWell(
+                                                                        onTap: (){
+                                                                          showGeneralDialog(
+                                                                              context: context,
+                                                                              barrierDismissible: true,
+                                                                              barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                              barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                              pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                                return  Stack(
+                                                                                  children: [
+                                                                                    Center(child: CachedNetworkImage(
+                                                                                      imageUrl:     homeController.model.value.data!.stores![index].award![index1].image.toString(),
+                                                                                      //fit: BoxFit.cover,
+                                                                                      height: height * .7,
+                                                                                      width: width * .7,
+                                                                                      errorWidget: (_, __, ___) => Image.asset(
+                                                                                        'assets/images/topChef.png',
+                                                                                        // fit: BoxFit.cover,
+                                                                                        height: 40,
+                                                                                        width: 40,
+                                                                                      ),
+                                                                                      placeholder: (_, __) =>
+                                                                                      const Center(child: CircularProgressIndicator()),
+                                                                                    )),
+                                                                                    Positioned(
+                                                                                      right: 22,
+                                                                                      top: 100,
+                                                                                      child: GestureDetector(
+                                                                                        onTap:(){
+                                                                                          Get.back();
+                                                                                        },
+                                                                                        child: Container(
+                                                                                            padding: const EdgeInsets.all(10),
+                                                                                            height: 50,
+                                                                                            decoration: const BoxDecoration(
+                                                                                                color: Colors.white,
+                                                                                                shape: BoxShape.circle
+                                                                                            ),
+                                                                                            child:  const Icon(Icons.clear)
+                                                                                        ),
+                                                                                      ),)
+                                                                                  ],
+                                                                                );
+                                                                              }
+                                                                          );
+                                                                        },
+                                                                        child:    CachedNetworkImage(
+                                                                          imageUrl:     homeController.model.value.data!.stores![index].award![index1].image.toString(),
+                                                                          //fit: BoxFit.cover,
+                                                                          height: 40,
+                                                                          width: 40,
+                                                                          errorWidget: (_, __, ___) => Image.asset(
+                                                                            'assets/images/topChef.png',
+                                                                            // fit: BoxFit.cover,
+                                                                            height: 40,
+                                                                            width: 40,
+                                                                          ),
+                                                                          placeholder: (_, __) =>
+                                                                          const Center(child: CircularProgressIndicator()),
+                                                                        ),);
+                                                                    })
+                                                                    // InkWell(
+                                                                    //     onTap: (){
+                                                                    //       showGeneralDialog(
+                                                                    //           context: context,
+                                                                    //           barrierDismissible: true,
+                                                                    //           barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                    //           barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                    //           pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                    //             return  Stack(
+                                                                    //               children: [
+                                                                    //                 Center(child: CachedNetworkImage(
+                                                                    //                   imageUrl:     homeController.model.value.data!.stores![index].award![index].image.toString(),
+                                                                    //                   //fit: BoxFit.cover,
+                                                                    //                   height: height * .7,
+                                                                    //                   width: width * .7,
+                                                                    //                   errorWidget: (_, __, ___) => Image.asset(
+                                                                    //                     'assets/images/topChef.png',
+                                                                    //                     // fit: BoxFit.cover,
+                                                                    //                     height: height * .3,
+                                                                    //                     width: width * .4,
+                                                                    //                   ),
+                                                                    //                   placeholder: (_, __) =>
+                                                                    //                   const Center(child: CircularProgressIndicator()),
+                                                                    //                 )),
+                                                                    //                 Positioned(
+                                                                    //                   right: 20,
+                                                                    //                   top: 100,
+                                                                    //                   child: GestureDetector(
+                                                                    //                     onTap: (){
+                                                                    //                       Get.back();
+                                                                    //                     },
+                                                                    //                     child: Container(
+                                                                    //                         padding: const EdgeInsets.all(10),
+                                                                    //                         height: 80,
+                                                                    //                         decoration: const BoxDecoration(
+                                                                    //                             color: Colors.white,
+                                                                    //                             shape: BoxShape.circle
+                                                                    //                         ),
+                                                                    //                         child:  const Icon(Icons.clear)
+                                                                    //                     ),
+                                                                    //                   ),)
+                                                                    //               ],
+                                                                    //             );
+                                                                    //           }
+                                                                    //       );
+                                                                    //     },
+                                                                    //     child:    CachedNetworkImage(
+                                                                    //       imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
+                                                                    //       //fit: BoxFit.cover,
+                                                                    //       height: 40,
+                                                                    //       width: 40,
+                                                                    //       errorWidget: (_, __, ___) => Image.asset(
+                                                                    //         'assets/images/topChef.png',
+                                                                    //         // fit: BoxFit.cover,
+                                                                    //         height: 40,
+                                                                    //         width: 40,
+                                                                    //       ),
+                                                                    //       placeholder: (_, __) =>
+                                                                    //       const Center(child: CircularProgressIndicator()),
+                                                                    //     ),
+                                                                    // ),
+
+
+                                                                  ],
+                                                                ),
+                                                                if(homeController.model.value.data!.stores![index].sustainablePackagingStatus == true)
+                                                                  InkWell(
+                                                                    onTap: (){
+                                                                      showGeneralDialog(
+                                                                          context: context,
+                                                                          barrierDismissible: true,
+                                                                          barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                          pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                            return  Stack(
+                                                                              children: [
+                                                                                Center(
+                                                                                  child: Image.asset(
+                                                                                    'assets/images/leavesIcon.png',
+                                                                                    // fit: BoxFit.cover,
+                                                                                    height: height * .3,
+                                                                                    // width: width * .4,
+                                                                                  ),),
+                                                                                Positioned(
+                                                                                  right: 20,
+                                                                                  top: 100,
+                                                                                  child: GestureDetector(
+                                                                                    onTap: (){
+                                                                                      Get.back();
+                                                                                    },
+                                                                                    child: Container(
+                                                                                        padding: const EdgeInsets.all(10),
+                                                                                        height: 50,
+                                                                                        decoration: const BoxDecoration(
+                                                                                            color: Colors.white,
+                                                                                            shape: BoxShape.circle
+                                                                                        ),
+                                                                                        child:  const Icon(Icons.clear)
+                                                                                    ),
+                                                                                  ),)
+                                                                              ],
+                                                                            );
+                                                                          }
+                                                                      );
+                                                                    },
+                                                                    child: Image.asset(
+                                                                      'assets/images/leavesIcon.png',
+                                                                      // fit: BoxFit.cover,
+                                                                      height: 35,
+                                                                      width: 35,
+                                                                    ),
+                                                                  )
+                                                              ],
+                                                            )
+                                                        ) : const SizedBox(),
+
                                                         Positioned(
                                                             bottom: 10,
                                                             right: 20,
@@ -1314,130 +1599,197 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                               Icons.favorite_outline,
                                                                               color: Color(0xFF7ED957),
                                                                             ))))),
-                                                        homeController.model.value.data!.stores![index].award!.isNotEmpty ?
-                                                        Positioned(
-                                                            top: 14,
-                                                            // bottom: 0,
-                                                            left: 10,
-                                                            right: 15,
-                                                            //   bottom: 0,
-                                                            child: Row(
-                                                              children:  [
-                                                                InkWell(
-                                                                    onTap: (){
-                                                                      showGeneralDialog(
-                                                                          context: context,
-                                                                          barrierDismissible: true,
-                                                                          barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                                          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                                          pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                                            return  Stack(
-                                                                              children: [
-                                                                                Center(child: CachedNetworkImage(
-                                                                                  imageUrl:     homeController.model.value.data!.stores![index].award![index].image.toString(),
-                                                                                  //fit: BoxFit.cover,
-                                                                                  height: 50,
-                                                                                  width: 40,
-                                                                                  errorWidget: (_, __, ___) => Image.asset(
-                                                                                    'assets/images/topChef.png',
-                                                                                    // fit: BoxFit.cover,
-                                                                                    height: 40,
-                                                                                    width: 40,
-                                                                                  ),
-                                                                                  placeholder: (_, __) =>
-                                                                                  const Center(child: CircularProgressIndicator()),
-                                                                                )),
-                                                                                Positioned(
-                                                                                  right: 18,
-                                                                                  top: 30,
-                                                                                  child: Container(
-                                                                                      padding: const EdgeInsets.all(10),
-                                                                                      height: 80,
-                                                                                      decoration: const BoxDecoration(
-                                                                                          color: Colors.white,
-                                                                                          shape: BoxShape.circle
-                                                                                      ),
-                                                                                      child:  const Icon(Icons.clear)
-                                                                                  ),)
-                                                                              ],
-                                                                            );
-                                                                          }
-                                                                      );
-                                                                    },
-                                                                    child:    CachedNetworkImage(
-                                                                      imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
-                                                                      //fit: BoxFit.cover,
-                                                                      height: 40,
-                                                                      width: 40,
-                                                                      errorWidget: (_, __, ___) => Image.asset(
-                                                                        'assets/images/topChef.png',
-                                                                        // fit: BoxFit.cover,
-                                                                        height: 40,
-                                                                        width: 40,
-                                                                      ),
-                                                                      placeholder: (_, __) =>
-                                                                      const Center(child: CircularProgressIndicator()),
-                                                                    ),
-                                                                ),
-                                                                InkWell(
-                                                                    onTap: (){
-                                                                      showGeneralDialog(
-                                                                          context: context,
-                                                                          barrierDismissible: true,
-                                                                          barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                                          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                                          pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                                            return  Stack(
-                                                                              children: [
-                                                                                Center(child: CachedNetworkImage(
-                                                                                  imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
-                                                                                  //fit: BoxFit.cover,
-                                                                                  height: 40,
-                                                                                  width: 40,
-                                                                                  errorWidget: (_, __, ___) => Image.asset(
-                                                                                    'assets/images/topChef.png',
-                                                                                    // fit: BoxFit.cover,
-                                                                                    height: 40,
-                                                                                    width: 40,
-                                                                                  ),
-                                                                                  placeholder: (_, __) =>
-                                                                                  const Center(child: CircularProgressIndicator()),
-                                                                                )),
-                                                                                Positioned(
-                                                                                  right: 18,
-                                                                                  top: 50,
-                                                                                  child: Container(
-                                                                                      padding: const EdgeInsets.all(10),
-                                                                                      height: 50,
-                                                                                      decoration: const BoxDecoration(
-                                                                                          color: Colors.white,
-                                                                                          shape: BoxShape.circle
-                                                                                      ),
-                                                                                      child:  const Icon(Icons.clear)
-                                                                                  ),)
-                                                                              ],
-                                                                            );
-                                                                          }
-                                                                      );
-                                                                    },
-                                                                    child:    CachedNetworkImage(
-                                                                      imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
-                                                                      //fit: BoxFit.cover,
-                                                                      height: 40,
-                                                                      width: 40,
-                                                                      errorWidget: (_, __, ___) => Image.asset(
-                                                                        'assets/images/topChef.png',
-                                                                        // fit: BoxFit.cover,
-                                                                        height: 40,
-                                                                        width: 40,
-                                                                      ),
-                                                                      placeholder: (_, __) =>
-                                                                      const Center(child: CircularProgressIndicator()),
-                                                                    ),),
-
-                                                              ],
-                                                            )
-                                                        ) : const SizedBox()
+                                                        // homeController.model.value.data!.stores![index].award!.isNotEmpty ?
+                                                        // Positioned(
+                                                        //     top: 14,
+                                                        //     // bottom: 0,
+                                                        //     left: 10,
+                                                        //     right: 15,
+                                                        //     //   bottom: 0,
+                                                        //     child: Row(
+                                                        //       children:  [
+                                                        //         ...List.generate(homeController.model.value.data!.stores![index].award!.length, (index1){
+                                                        //           return  InkWell(
+                                                        //             onTap: (){
+                                                        //               showGeneralDialog(
+                                                        //                   context: context,
+                                                        //                   barrierDismissible: true,
+                                                        //                   barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                        //                   barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                        //                   pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                        //                     return  Stack(
+                                                        //                       children: [
+                                                        //                         Center(child: CachedNetworkImage(
+                                                        //                           imageUrl:     homeController.model.value.data!.stores![index].award![index1].image.toString(),
+                                                        //                           //fit: BoxFit.cover,
+                                                        //                           height: height * .7,
+                                                        //                           width: width * .7,
+                                                        //                           errorWidget: (_, __, ___) => Image.asset(
+                                                        //                             'assets/images/topChef.png',
+                                                        //                             // fit: BoxFit.cover,
+                                                        //                             height: 40,
+                                                        //                             width: 40,
+                                                        //                           ),
+                                                        //                           placeholder: (_, __) =>
+                                                        //                           const Center(child: CircularProgressIndicator()),
+                                                        //                         )),
+                                                        //                         Positioned(
+                                                        //                           right: 22,
+                                                        //                           top: 100,
+                                                        //                           child: GestureDetector(
+                                                        //                             onTap:(){
+                                                        //                               Get.back();
+                                                        //                             },
+                                                        //                             child: Container(
+                                                        //                                 padding: const EdgeInsets.all(10),
+                                                        //                                 height: 50,
+                                                        //                                 decoration: const BoxDecoration(
+                                                        //                                     color: Colors.white,
+                                                        //                                     shape: BoxShape.circle
+                                                        //                                 ),
+                                                        //                                 child:  const Icon(Icons.clear)
+                                                        //                             ),
+                                                        //                           ),)
+                                                        //                       ],
+                                                        //                     );
+                                                        //                   }
+                                                        //               );
+                                                        //             },
+                                                        //             child:    CachedNetworkImage(
+                                                        //               imageUrl:     homeController.model.value.data!.stores![index].award![index1].image.toString(),
+                                                        //               //fit: BoxFit.cover,
+                                                        //               height: 40,
+                                                        //               width: 40,
+                                                        //               errorWidget: (_, __, ___) => Image.asset(
+                                                        //                 'assets/images/topChef.png',
+                                                        //                 // fit: BoxFit.cover,
+                                                        //                 height: 40,
+                                                        //                 width: 40,
+                                                        //               ),
+                                                        //               placeholder: (_, __) =>
+                                                        //               const Center(child: CircularProgressIndicator()),
+                                                        //             ),);
+                                                        //         })
+                                                        //         // InkWell(
+                                                        //         //     onTap: (){
+                                                        //         //       showGeneralDialog(
+                                                        //         //           context: context,
+                                                        //         //           barrierDismissible: true,
+                                                        //         //           barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                        //         //           barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                        //         //           pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                        //         //             return  Stack(
+                                                        //         //               children: [
+                                                        //         //                 Center(child: CachedNetworkImage(
+                                                        //         //                   imageUrl:     homeController.model.value.data!.stores![index].award![index].image.toString(),
+                                                        //         //                   //fit: BoxFit.cover,
+                                                        //         //                   height: height * .7,
+                                                        //         //                   width: width * .7,
+                                                        //         //                   errorWidget: (_, __, ___) => Image.asset(
+                                                        //         //                     'assets/images/topChef.png',
+                                                        //         //                     // fit: BoxFit.cover,
+                                                        //         //                     height: height * .3,
+                                                        //         //                     width: width * .4,
+                                                        //         //                   ),
+                                                        //         //                   placeholder: (_, __) =>
+                                                        //         //                   const Center(child: CircularProgressIndicator()),
+                                                        //         //                 )),
+                                                        //         //                 Positioned(
+                                                        //         //                   right: 20,
+                                                        //         //                   top: 100,
+                                                        //         //                   child: GestureDetector(
+                                                        //         //                     onTap: (){
+                                                        //         //                       Get.back();
+                                                        //         //                     },
+                                                        //         //                     child: Container(
+                                                        //         //                         padding: const EdgeInsets.all(10),
+                                                        //         //                         height: 80,
+                                                        //         //                         decoration: const BoxDecoration(
+                                                        //         //                             color: Colors.white,
+                                                        //         //                             shape: BoxShape.circle
+                                                        //         //                         ),
+                                                        //         //                         child:  const Icon(Icons.clear)
+                                                        //         //                     ),
+                                                        //         //                   ),)
+                                                        //         //               ],
+                                                        //         //             );
+                                                        //         //           }
+                                                        //         //       );
+                                                        //         //     },
+                                                        //         //     child:    CachedNetworkImage(
+                                                        //         //       imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
+                                                        //         //       //fit: BoxFit.cover,
+                                                        //         //       height: 40,
+                                                        //         //       width: 40,
+                                                        //         //       errorWidget: (_, __, ___) => Image.asset(
+                                                        //         //         'assets/images/topChef.png',
+                                                        //         //         // fit: BoxFit.cover,
+                                                        //         //         height: 40,
+                                                        //         //         width: 40,
+                                                        //         //       ),
+                                                        //         //       placeholder: (_, __) =>
+                                                        //         //       const Center(child: CircularProgressIndicator()),
+                                                        //         //     ),
+                                                        //         // ),
+                                                        //
+                                                        //
+                                                        //       ],
+                                                        //     )
+                                                        // ) : const SizedBox(),
+                                                        //
+                                                        // homeController.model.value.data!.stores![index].sustainablePackagingStatus!  ?
+                                                        // Positioned(
+                                                        //   top: 14,
+                                                        //   // bottom: 0,
+                                                        //   left:   homeController.model.value.data!.stores![index].award!.isNotEmpty  ? 100 : 15,
+                                                        //   //right: 15,
+                                                        //   child: InkWell(
+                                                        //     onTap: (){
+                                                        //       showGeneralDialog(
+                                                        //           context: context,
+                                                        //           barrierDismissible: true,
+                                                        //           barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                        //           barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                        //           pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                        //             return  Stack(
+                                                        //               children: [
+                                                        //                 Center(
+                                                        //                   child: Image.asset(
+                                                        //                   'assets/images/leavesIcon.png',
+                                                        //                   // fit: BoxFit.cover,
+                                                        //                   height: height * .3,
+                                                        //                   // width: width * .4,
+                                                        //                 ),),
+                                                        //                 Positioned(
+                                                        //                   right: 20,
+                                                        //                   top: 100,
+                                                        //                   child: GestureDetector(
+                                                        //                     onTap: (){
+                                                        //                       Get.back();
+                                                        //                     },
+                                                        //                     child: Container(
+                                                        //                         padding: const EdgeInsets.all(10),
+                                                        //                         height: 50,
+                                                        //                         decoration: const BoxDecoration(
+                                                        //                             color: Colors.white,
+                                                        //                             shape: BoxShape.circle
+                                                        //                         ),
+                                                        //                         child:  const Icon(Icons.clear)
+                                                        //                     ),
+                                                        //                   ),)
+                                                        //               ],
+                                                        //             );
+                                                        //           }
+                                                        //       );
+                                                        //     },
+                                                        //     child: Image.asset(
+                                                        //     'assets/images/leavesIcon.png',
+                                                        //     // fit: BoxFit.cover,
+                                                        //     height: 35,
+                                                        //     width: 35,
+                                                        //      ),
+                                                        //   ),
+                                                        // ) : const SizedBox()
                                                       ],
                                                     ),
                                                   ),
@@ -1788,9 +2140,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         chooseDietaries: categoryController.dietiaryModel.value.data!.selected.value,
                                       context: context
                                     ).then((value){
-                                      // if() {
-                                      //   Get.toNamed(HomeFilterScreen.homeFilterScreen);
-                                      Get.back();
+                                      //if() {
+                                        Get.toNamed(HomeFilterScreen.homeFilterScreen);
+                                      //Get.back();
                                        //}
                                     });
                                     // Get.back();
@@ -1799,7 +2151,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   },
                                 ),
                               )),
-                        )
+                        ),
+                        SizedBox(height: 5,),
                       ],
                     ),
                   )),

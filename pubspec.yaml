@@ -54,6 +54,8 @@ dependencies:
   scroll_to_index:
   share_plus:
   push: ^1.0.0
+  readmore: ^2.2.0
+  dotted_border:
   firebase_messaging: ^14.6.5
   file_picker:
   flutter_google_places:
@@ -72,10 +74,13 @@ dependencies:
   flutter_html:
   country_code_picker: ^3.0.0
   intl_phone_field:
+  socket_io_client: ^2.0.2
   flutter_math_fork: ^0.6.1
   cloud_firestore: ^4.8.4
   flutter_branch_sdk:
+  web_socket_channel: ^2.2.0
   client_information:
+  dotted_decoration: ^2.0.0
 
 
 dev_dependencies:

@@ -51,6 +51,7 @@ class Data {
   dynamic sizeId;
   dynamic spiciness;
   dynamic allergens;
+  dynamic qty;
   dynamic inMenu;
   dynamic status;
   dynamic discountOff;
@@ -68,6 +69,7 @@ class Data {
         this.content,
         this.image,
         this.cookUnitDays,
+        this.qty,
         this.sizeQuantity,
         this.sizeId,
         this.spiciness,
@@ -87,11 +89,12 @@ class Data {
     content = json['content'];
     image = json['image'];
     subTitle = json['sub_title'];
+    qty = json['qty'];
     cookUnitDays = json['cook_unit_days'];
     sizeQuantity = json['size_quantity'];
     sizeId = json['size_id'];
-    spiciness = json['productoption_id'];
-    allergens = json['allergen_id'];
+    spiciness = json['spiciness'];
+    allergens = json['allergens'];
     inMenu = json['in_menu'];
     status = json['status'];
     discountOff = json['discount_off'];
@@ -106,12 +109,13 @@ class Data {
     data['name'] = this.name;
     data['price'] = this.price;
     data['content'] = this.content;
+    data['qty'] = this.qty;
     data['image'] = this.image;
     data['cook_unit_days'] = this.cookUnitDays;
     data['size_quantity'] = this.sizeQuantity;
     data['sub_title'] = this.subTitle;
     data['size_id'] = this.sizeId;
-    data['productoption_id'] = this.spiciness;
+    data['spiciness'] = this.spiciness;
     data['allergen_id'] = this.allergens;
     data['in_menu'] = this.inMenu;
     data['status'] = this.status;

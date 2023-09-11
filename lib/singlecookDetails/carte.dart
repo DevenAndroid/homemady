@@ -326,7 +326,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                           InkWell(
                                             onTap: () {
                                               // buttonCount.value++;
-                                              // if( product.productCount <  int.parse(controller.model.value.data!.latestProducts![index].cookUnitDays)){
+                                              if( product.productCount <  int.parse(controller.model.value.data!.latestProducts![index].qty.toString())){
                                                 addToCartRepo(
                                                     product_id: controller
                                                         .model.value.data!.latestProducts![index].id
@@ -345,10 +345,10 @@ class _CarteScreenState extends State<CarteScreen> {
                                                     });
                                                   }
                                                 });
-                                              // }
-                                              // else{
-                                              //   showToast('You reached the maximum Limit of product');
-                                              // }
+                                              }
+                                              else{
+                                                showToast('You reached the maximum Limit of product');
+                                              }
 
                                             },
                                             child: Container(

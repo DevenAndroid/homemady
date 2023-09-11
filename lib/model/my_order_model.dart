@@ -41,6 +41,7 @@ class Data {
   dynamic driver;
   dynamic address;
   dynamic orderType;
+  dynamic deliveryDistance;
   dynamic deliveryType;
   dynamic deliveryStatus;
   dynamic itemCount;
@@ -60,6 +61,7 @@ class Data {
         this.user,
         this.vendor,
         this.driver,
+        this.deliveryDistance,
         this.address,
         this.orderType,
         this.deliveryType,
@@ -78,6 +80,7 @@ class Data {
     packingFee = json['packing_fee'];
     couponDiscount = json['coupon_discount'];
     grandTotal = json['grand_total'];
+    deliveryDistance = json['delivery_distance'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     vendor =
     json['vendor'] != null ? new Vendor.fromJson(json['vendor']) : null;
@@ -104,6 +107,7 @@ class Data {
     data['item_total'] = this.itemTotal;
     data['surcharge'] = this.surcharge;
     data['tax'] = this.tax;
+    data['delivery_distance'] = this.deliveryDistance;
     data['delivery_charges'] = this.deliveryCharges;
     data['packing_fee'] = this.packingFee;
     data['coupon_discount'] = this.couponDiscount;
@@ -492,6 +496,7 @@ class OrderItems {
   dynamic productName;
   dynamic productImage;
   dynamic price;
+  dynamic qty;
   dynamic sizeQuantity;
   dynamic sizeId;
   dynamic totalPrice;
@@ -503,6 +508,7 @@ class OrderItems {
         this.productName,
         this.productImage,
         this.price,
+        this.qty,
         this.sizeQuantity,
         this.sizeId,
         this.totalPrice,
@@ -514,6 +520,7 @@ class OrderItems {
     productName = json['product_name'];
     productImage = json['product_image'];
     price = json['price'];
+    qty = json['qty'];
     sizeQuantity = json['size_quantity'];
     sizeId = json['size_id'];
     totalPrice = json['total_price'];
@@ -527,6 +534,7 @@ class OrderItems {
     data['product_name'] = this.productName;
     data['product_image'] = this.productImage;
     data['price'] = this.price;
+    data['qty'] = this.qty;
     data['size_quantity'] = this.sizeQuantity;
     data['size_id'] = this.sizeId;
     data['total_price'] = this.totalPrice;

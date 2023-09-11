@@ -164,13 +164,28 @@ class _CancelledScreenState extends State<CancelledScreen> {
                         ),
                       ],
                     ),
-                  ):
-                  const SizedBox() ,
+                  ): index == -1 ?
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 60,),
+                        Image.asset('assets/images/noOrderImage.png'),
+                        SizedBox(height: 10,),
+                        Text("Empty",
+                          style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
+                        SizedBox(height: 10,),
+                        Text("You do not have an active order of this time",
+                          style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff747474),fontSize: 22),),
+                      ],
+                    ),
+                  ) :  const SizedBox(),
 
                 ],
               );
             },
-          ) : Padding(
+          ) :
+          Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [

@@ -693,7 +693,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  myCartController.model.value.data!.cartItems![index].name.toString(),
+                                                  myCartController.model.value.data!.cartItems![index].name.toString().capitalizeFirst.toString(),
                                                   style: GoogleFonts.poppins(
                                                       fontWeight: FontWeight.w700,
                                                       fontSize: 16,

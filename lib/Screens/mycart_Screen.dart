@@ -252,7 +252,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                         InkWell(
                                                           onTap: () {
                                                             // buttonCount.value++;
-                                                            if( controller.model.value.data!.cartItems![index].cartItemQty <=  controller.model.value.data!.cartItems![index].productQty)
+                                                            if( controller.model.value.data!.cartItems![index].productQty ==  controller.model.value.data!.cartItems![index].cartItemQty)
                                                             {
                                                               showToast('You reached the maximum Limit of product');
 

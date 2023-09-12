@@ -89,9 +89,7 @@ class _CarteScreenState extends State<CarteScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Stack(
-
                                 children: [
-
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child:
@@ -192,7 +190,22 @@ class _CarteScreenState extends State<CarteScreen> {
                                       ],
                                     ),
                                     addHeight(3),
-                                    Text(
+                                    controller.model.value.data!.latestProducts![index].exclude == false ?
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '${(controller.model.value.data!.latestProducts![index].subTitle ?? '').toString().capitalizeFirst}',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                        ),
+                                        Text(
+                                          'Out of Stock',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500, fontSize: 11, color: Colors.red),
+                                        ),
+                                      ],
+                                    ) :  Text(
                                       '${(controller.model.value.data!.latestProducts![index].subTitle ?? '').toString().capitalizeFirst}',
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),

@@ -164,7 +164,8 @@ class _CancelledScreenState extends State<CancelledScreen> {
                         ),
                       ],
                     ),
-                  ): index == -1 ?
+                  ): index == 0 && !controller.model.value.data!.map((element) =>
+                  element.deliveryStatus == 'Completed').toList().contains(true) ?
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Column(
@@ -179,7 +180,7 @@ class _CancelledScreenState extends State<CancelledScreen> {
                           style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff747474),fontSize: 22),),
                       ],
                     ),
-                  ) :  const SizedBox(),
+                  ): const SizedBox()
 
                 ],
               );

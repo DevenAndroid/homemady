@@ -49,7 +49,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
               return
 
                 controller.model.value.data![index].deliveryStatus != 'Cancelled' &&
-                    controller.model.value.data![index].deliveryStatus != 'Delivered' ?
+                    controller.model.value.data![index].deliveryStatus != 'Completed' ?
                 Column(
                 children: [
                   InkWell(

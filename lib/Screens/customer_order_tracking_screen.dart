@@ -341,75 +341,90 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                 shrinkWrap: true,
                                   itemCount: orderTrackingController.orderTrackingModel.value.data!.length,
                                   itemBuilder: (BuildContext, index){
-                                    return  IntrinsicHeight(
-                                      child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
+                                    return  Column(
+                                      children: [
+                                        IntrinsicHeight(
+                                          child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
 
-                                            Flexible(
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 7),
-                                                child: Column(
-                                                  children: [
-                                                    Container(
-                                                      height: AddSize.size20,
-                                                      width: AddSize.size20,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                        BorderRadius.circular(50),
-                                                        color:const Color(0xff6CC845),),
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                    decoration: BoxDecoration(
+
+                                                      border: Border.all(color: Colors.green),
+                                                      shape: BoxShape.circle
                                                     ),
-                                                    Expanded(
-                                                      child: Container(
-                                                        width: width * 0.007,
-                                                        height: 2,
-                                                        decoration: const BoxDecoration(
-                                                          color:  Color(0xff6CC845),
-                                                          borderRadius: BorderRadius.all(
-                                                              Radius.circular(5)),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(5.0),
+                                                            child: Container(
+                                                              height: AddSize.size20,
+                                                              width: AddSize.size20,
+                                                              decoration: BoxDecoration(
+                                                                color:const Color(0xff6CC845),
+                                                              shape: BoxShape.circle),
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
+                                                        // Expanded(
+                                                        //   child: Container(
+                                                        //     width: width * 0.001,
+                                                        //     height: 2,
+                                                        //     decoration: const BoxDecoration(
+                                                        //       color:  Color(0xff6CC845),
+                                                        //       borderRadius: BorderRadius.all(
+                                                        //           Radius.circular(5)),
+                                                        //     ),
+                                                        //   ),
+                                                        // ),
+                                                        DottedVerticalLine()
+                                                      ],
                                                     ),
-
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                            addWidth(10),
-                                            Expanded(
-                                              flex:8,
-                                              child: SizedBox(
-                                                width: double.maxFinite,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      orderTrackingController.orderTrackingModel.value.data![index].note.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w400,
-                                                          color: Color(0xff141C19),
-                                                          fontSize: AddSize.font16),
-                                                    ),
-                                                    SizedBox(height: AddSize.size5,),
-                                                    Text(
-                                                      orderTrackingController.orderTrackingModel.value.data![index].date.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w300,
-                                                          color:Color(0xff48585E),
-                                                          fontSize: AddSize.font12),
-                                                    ),
+                                                addWidth(10),
+                                                Expanded(
+                                                  flex:8,
+                                                  child: SizedBox(
+                                                    width: double.maxFinite,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          orderTrackingController.orderTrackingModel.value.data![index].note.toString(),
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w400,
+                                                              color: Color(0xff141C19),
+                                                              fontSize: AddSize.font16),
+                                                        ),
+                                                        SizedBox(height: AddSize.size5,),
+                                                        Text(
+                                                          orderTrackingController.orderTrackingModel.value.data![index].date.toString(),
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w300,
+                                                              color:Color(0xff48585E),
+                                                              fontSize: AddSize.font12),
+                                                        ),
 
-                                                    // SizedBox(height: AddSize.size10,),
+                                                        // SizedBox(height: AddSize.size10,),
 
-                                                  ],
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          ]),
+
+                                              ]),
+                                        ),
+                                        // SizedBox(height: height * .02,),
+                                      ],
                                     );
                                   }),
                               SizedBox(height: height * .02,),
@@ -490,47 +505,46 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     );
   }
 
-  chipList(
-      title,
-      ) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    return Obx(() {
-      return Column(
-        children: [
-          ChoiceChip(
-            padding: EdgeInsets.symmetric(
-                horizontal: width * .01, vertical: height * .01),
-            backgroundColor: AppTheme.backgroundcolor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(
-                    color: title != selectedChip.value
-                        ? Colors.grey.shade300
-                        : const Color(0xff7ED957))),
-            label: Text("$title",
-                style: TextStyle(
-                    color: title != selectedChip.value
-                        ? Colors.grey.shade600
-                        : const Color(0xff7ED957),
-                    fontSize: AddSize.font14,
-                    fontWeight: FontWeight.w500)),
-            selected: title == selectedChip.value,
-            selectedColor: const Color(0xff7ED957).withOpacity(.13),
-            onSelected: (value) {
-              selectedChip.value = title;
-              if (title == "Other") {
-                customTip.value = true;
-                otherController.text = "";
-              } else {
-                customTip.value = false;
-                otherController.text = title;
-              }
-              setState(() {});
-            },
-          )
-        ],
+}
+
+
+
+
+class DottedVerticalLine extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      size: Size(2.0, 40.0), // Adjust the size as needed
+      painter: DottedVerticalLinePainter(),
+    );
+  }
+}
+
+class DottedVerticalLinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = Colors.green // Color of the dots
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0; // Width of the line
+
+    final double dashWidth = 2.0; // Width of each dash
+    final double dashSpace = 5.0; // Space between dashes
+    double startY = 0;
+
+    while (startY < size.height) {
+      canvas.drawLine(
+        Offset(size.width / 2, startY),
+        Offset(size.width / 2, startY + dashWidth),
+        paint,
       );
-    });
+      startY += dashWidth + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }

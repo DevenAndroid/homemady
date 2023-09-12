@@ -223,7 +223,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                         height: 1,
                                       ),
                                       addHeight(15),
-                                      GestureDetector(
+                                      InkWell(
                                         onTap: () {
                                           storeReviewController.vendorId.value = controller.model.value.data!.storeDetails!.id.toString();
                                           print("VENDOR ID ${ storeReviewController.vendorId.value  }");
@@ -254,15 +254,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                   fontWeight: FontWeight.w400,
                                                 )),
                                             const Spacer(),
-                                            InkWell(
-                                                onTap: () {
-                                                  Get.toNamed(StoreReviewScreen.storeReviewScreen);
-                                                },
-                                                child: const Icon(
-                                                  Icons.arrow_forward_ios,
-                                                  size: 13,
-                                                  color: Color(0xFF000000),
-                                                ))
+                                            const Icon(
+                                              Icons.arrow_forward_ios,
+                                              size: 13,
+                                              color: Color(0xFF000000),
+                                            )
                                           ],
                                         ),
                                       ),

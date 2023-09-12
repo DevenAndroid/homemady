@@ -308,7 +308,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                   Column(
                     children: [
                       Container(
-                        height: height * .55,
+                      //  height: height * .55,
                         width: MediaQuery.of(context).size.width,
                         decoration: const BoxDecoration(
                             color: AppTheme.backgroundcolor,
@@ -387,8 +387,6 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                                   crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                                   children: [
-
-
                                                     Text(
                                                       orderTrackingController.orderTrackingModel.value.data![index].note.toString(),
                                                       style: GoogleFonts.poppins(
@@ -416,7 +414,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                   }),
                               SizedBox(height: height * .02,),
                               Container(
-                                height: height * .12,
+                                //height: height * .12,
                                decoration: BoxDecoration(
                                  color: Color(0xff6CC844).withOpacity(.10),
                                  borderRadius: BorderRadius.circular(17)
@@ -424,42 +422,45 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
-                                     // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Image.asset('assets/images/trackBox.png',height: 62,width: 70,),
-                                      SizedBox(width: 5,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 15),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                         // mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Bike - RJ-14745',
-                                              style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xff262F33),
-                                                  fontSize: AddSize.font16),
-                                            ),
-                                            Text(
-                                             "Satyam rathore",
-                                              style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Color(0xff666666),
-                                                  fontSize: AddSize.font16),
-                                            ),
-                                          ],
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Image.asset('assets/images/trackBox.png',height: 62,width: 70,),
+                                         SizedBox(width: 5,),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 5),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            // mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Bike - RJ-14745',
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Color(0xff262F33),
+                                                    fontSize: AddSize.font16),
+                                              ),
+                                              Text(
+                                                "Satyam rathore",
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0xff666666),
+                                                    fontSize: AddSize.font16),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                       SizedBox(width: AddSize.size50,),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: GestureDetector(
-                                            onTap: (){
-                                              _makingPhoneCall("tel:+91${8854952858}");
-                                            },
-                                            child: Image.asset('assets/images/callIcon.png',height: 60,width: 70,)),
-                                      ),
+                                      ],
+                                    ),
+                                     // SizedBox(width: AddSize.size50,),
+                                      GestureDetector(
+                                          onTap: (){
+                                            _makingPhoneCall("tel:+91${8854952858}");
+                                          },
+                                          child: Image.asset('assets/images/callIcon.png',height: 60,width: 70,)),
                                     ],
                                   ),
                                 ),

@@ -60,7 +60,6 @@ class OrderDetail {
         this.grandTotal,
         this.minOrderCharge,
         this.user,
-        this.minOrderCharge,
         this.vendor,
         this.specialRequets,
         this.serviceCharge,

@@ -226,219 +226,164 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                     ),
                     addHeight(15),
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.white,
-                    //     borderRadius: BorderRadius.circular(12),
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         color: const Color(0xFF37C666).withOpacity(0.10),
-                    //         offset: const Offset(
-                    //           .1,
-                    //           .1,
-                    //         ),
-                    //         blurRadius: 20.0,
-                    //         spreadRadius: 1.0,
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   child: Padding(
-                    //       padding: const EdgeInsets.only(left: 8, right: 8, top: 14, bottom: 5),
-                    //       child: CustomTextField1(
-                    //         controller: codeController,
-                    //         obSecure: false.obs,
-                    //         hintText: 'Apply Promo Code'.obs,
-                    //         suffixIcon: Padding(
-                    //           padding: const EdgeInsets.all(10),
-                    //           child: Container(
-                    //             height: 36,
-                    //             width: 94,
-                    //             decoration: BoxDecoration(
-                    //                 gradient: const LinearGradient(colors: [
-                    //                   Color(0xFF7ED957),
-                    //                   Color(0xFF68C541),
-                    //                 ]),
-                    //                 borderRadius: BorderRadius.circular(100)),
-                    //             child: GestureDetector(
-                    //               onTap: () {
-                    //                 applyCoupons(couponCode: codeController.text.toString(), context: context).then((value) {
-                    //                   if (value.status == true) {
-                    //                     showToast(value.message);
-                    //                     codeController.clear();
-                    //                     myCartController.getData();
-                    //                   } else if (value.status == false) {
-                    //                     showToast(value.message);
-                    //                   }
-                    //                 });
-                    //               },
-                    //               child: Center(
-                    //                 child: Text(
-                    //                   'Apply',
-                    //                   style: GoogleFonts.poppins(
-                    //                       color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       )),
-                    // ),
-                    Obx(() {
-                      return Card(
-                        child: Container(
-                          // height: height * .06,
-                          decoration: BoxDecoration(
 
-                              borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 10),
-                            child:
-                            Column(
-                              children: [
-                                InkWell(
-                                    onTap: () {
-                                      Get.toNamed(
-                                          CouponsScreen.couponsScreen);
-                                    },
-                                    child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .center,
-                                        children: [
-                                          Expanded(
-                                            child: Row(children: [
-                                              const Image(
-                                                  color: Color(0xff7ED957),
-                                                  height: 22,
-                                                  width: 28,
-                                                  image: AssetImage(AppAssets
-                                                      .couponList,)),
-                                              const SizedBox(
-                                                width: 8,
-                                              ),
-                                              Text("Use Coupons".tr,
-                                                  style: TextStyle(
-                                                      color:
-                                                      AppTheme.blackcolor,
-                                                      fontSize:
-                                                      AddSize.font14,
-                                                      fontWeight:
-                                                      FontWeight.w500)),
-                                            ]),
-                                          ),
-                                          Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.black,
-                                            size: AddSize.size15,
-                                          ),
-                                        ])),
-                                myCartController.model.value.data!
-                                    .cartPaymentSummary!.couponCode == 0 ||
-                                    myCartController
-                                        .model
-                                        .value
-                                        .data!
-                                        .cartPaymentSummary
-                                    !.couponCode
-                                        .toString() ==
-                                        ""
-                                    ? const SizedBox()
-                                    :
-                                Obx(() {
-                                  return Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment
-                                          .spaceBetween,
+                    Obx(() {
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(
+                              CouponsScreen.couponsScreen);
+                        },
+                        child: Card(
+                          child: Container(
+                            // height: height * .06,
+                            decoration: BoxDecoration(
+
+                                borderRadius: BorderRadius.circular(15)
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 10),
+                              child:
+                              Column(
+                                children: [
+                                  Row(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .center,
                                       children: [
-                                        Container(
-                                          height: 20,
-                                          width: 20,
-                                          decoration:
-                                          const ShapeDecoration(
-                                              color: AppTheme
-                                                  .userActive,
-                                              shape:
-                                              CircleBorder()),
-                                          child: Center(
-                                              child: Icon(
-                                                Icons.check,
-                                                color: AppTheme
-                                                    .backgroundcolor,
-                                                size: AddSize.size12,
-                                              )),
-                                        ),
-                                        const SizedBox(
-                                          width: 16,
-                                        ),
                                         Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment
-                                                .start,
-                                            children: [
-                                              Text(
-                                                  "${myCartController.model
-                                                      .value.data!
-                                                      .cartPaymentSummary
-                                                      ?.couponCode
-                                                      .toString()} applied successfully",
-                                                  style: TextStyle(
-                                                      color: AppTheme
-                                                          .userActive,
-                                                      fontSize:
-                                                      AddSize
-                                                          .font14,
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w500)),
-                                              Text(
-                                                  "You saved ₹${myCartController
-                                                      .model.value.data!
-                                                      .cartPaymentSummary
-                                                      ?.couponDiscount
-                                                      .toString()}",
-                                                  style: TextStyle(
-                                                      color: AppTheme
-                                                          .userActive,
-                                                      fontSize:
-                                                      AddSize
-                                                          .font12,
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w500)),
-                                            ],
+                                          child: Row(children: [
+                                            const Image(
+                                                color: Color(0xff7ED957),
+                                                height: 22,
+                                                width: 28,
+                                                image: AssetImage(AppAssets
+                                                    .couponList,)),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text("Use Coupons".tr,
+                                                style: TextStyle(
+                                                    color:
+                                                    AppTheme.blackcolor,
+                                                    fontSize:
+                                                    AddSize.font14,
+                                                    fontWeight:
+                                                    FontWeight.w500)),
+                                          ]),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.black,
+                                          size: AddSize.size15,
+                                        ),
+                                      ]),
+                                  myCartController.model.value.data!
+                                      .cartPaymentSummary!.couponCode == 0 ||
+                                      myCartController
+                                          .model
+                                          .value
+                                          .data!
+                                          .cartPaymentSummary
+                                      !.couponCode
+                                          .toString() ==
+                                          ""
+                                      ? const SizedBox()
+                                      :
+                                  Obx(() {
+                                    return Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Container(
+                                            height: 20,
+                                            width: 20,
+                                            decoration:
+                                            const ShapeDecoration(
+                                                color: AppTheme
+                                                    .userActive,
+                                                shape:
+                                                CircleBorder()),
+                                            child: Center(
+                                                child: Icon(
+                                                  Icons.check,
+                                                  color: AppTheme
+                                                      .backgroundcolor,
+                                                  size: AddSize.size12,
+                                                )),
                                           ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            removeCoupons(
-                                                context: context)
-                                                .then((value) {
-                                              print("hello offer");
-                                              if (value.status == true) {
-                                                showToast(value.message);
-                                                myCartController
-                                                    .getData();
-                                                setState(() {});
-                                              }
-                                            });
-                                          },
-                                          style: TextButton.styleFrom(
-                                              padding:
-                                              EdgeInsets.zero),
-                                          child: Text("Remove",
-                                              style: TextStyle(
-                                                  color: Colors.red,
-                                                  fontSize:
-                                                  AddSize.font12,
-                                                  fontWeight:
-                                                  FontWeight
-                                                      .w500)),
-                                        ),
-                                      ]);
-                                }),
-                              ],
+                                          const SizedBox(
+                                            width: 16,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                Text(
+                                                    "${myCartController.model
+                                                        .value.data!
+                                                        .cartPaymentSummary
+                                                        ?.couponCode
+                                                        .toString()} applied successfully",
+                                                    style: TextStyle(
+                                                        color: AppTheme
+                                                            .userActive,
+                                                        fontSize:
+                                                        AddSize
+                                                            .font14,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500)),
+                                                Text(
+                                                    "You saved ₹${myCartController
+                                                        .model.value.data!
+                                                        .cartPaymentSummary
+                                                        ?.couponDiscount
+                                                        .toString()}",
+                                                    style: TextStyle(
+                                                        color: AppTheme
+                                                            .userActive,
+                                                        fontSize:
+                                                        AddSize
+                                                            .font12,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500)),
+                                              ],
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              removeCoupons(
+                                                  context: context)
+                                                  .then((value) {
+                                                print("hello offer");
+                                                if (value.status == true) {
+                                                  showToast(value.message);
+                                                  myCartController
+                                                      .getData();
+                                                  setState(() {});
+                                                }
+                                              });
+                                            },
+                                            style: TextButton.styleFrom(
+                                                padding:
+                                                EdgeInsets.zero),
+                                            child: Text("Remove",
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize:
+                                                    AddSize.font12,
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500)),
+                                          ),
+                                        ]);
+                                  }),
+                                ],
+                              ),
                             ),
                           ),
                         ),

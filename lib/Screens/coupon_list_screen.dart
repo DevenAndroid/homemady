@@ -3,6 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/coupon_list_controller.dart';
 import '../repository/apply_coupon_repo.dart';
@@ -46,6 +47,66 @@ class _CouponsScreenState extends State<CouponsScreen> {
                   horizontal: width * 0.03, vertical: height * .01),
               child: Column(
                 children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF37C666).withOpacity(0.10),
+                          offset: const Offset(
+                            .1,
+                            .1,
+                          ),
+                          blurRadius: 20.0,
+                          spreadRadius: 1.0,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8, top: 14, bottom: 5),
+                        child: CustomTextField1(
+                          controller: codeController,
+                          obSecure: false.obs,
+                          hintText: 'Apply Promo Code'.obs,
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              height: 36,
+                              width: 94,
+                              decoration: BoxDecoration(
+                                  gradient: const LinearGradient(colors: [
+                                    Color(0xFF7ED957),
+                                    Color(0xFF68C541),
+                                  ]),
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: GestureDetector(
+                                onTap: () {
+                                  applyCoupons(couponCode: codeController.text.toString(), context: context).then((value) {
+                                    if (value.status == true) {
+                                      showToast(value.message);
+                                      codeController.clear();
+                                      myCartController.getData();
+                                      Get.back();
+                                      setState(() {});
+                                    } else if (value.status == false) {
+                                      showToast(value.message);
+                                    }
+                                  });
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'Apply',
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )),
+                  ),
+
                   Obx(() {
                     return couponController.isDataLoading.value
                         ? couponController.model.value.data!.isEmpty ?
@@ -123,12 +184,12 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text("Max Discount: "),
-                                                  Text(couponController
+                                                  Text("€ ${couponController
                                                       .model
                                                       .value
                                                       .data![index]
                                                       .maxDiscount
-                                                      .toString()),
+                                                      .toString()}"),
 
                                                 ],
                                               ),
@@ -139,12 +200,12 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text("Min order value: "),
-                                                  Text(couponController
+                                                  Text("€ ${couponController
                                                       .model
                                                       .value
                                                       .data![index]
                                                       .minOrderValue
-                                                      .toString()),
+                                                      .toString()}"),
 
                                                 ],
                                               ),

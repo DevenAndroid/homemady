@@ -340,7 +340,8 @@ class _CarteScreenState extends State<CarteScreen> {
                                             onTap: () {
                                               // buttonCount.value++;
                                               if( product.productCount <  controller.model.value.data!.latestProducts![index].qty) {
-                                                addToCartRepo(
+                                                controller.model.value.data!.latestProducts![index].exclude == true ?
+                                                 const SizedBox() : addToCartRepo(
                                                     product_id: controller
                                                         .model.value.data!.latestProducts![index].id
                                                         .toString(),

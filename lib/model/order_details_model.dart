@@ -32,7 +32,7 @@ class OrderDetail {
   dynamic deliveryCharges;
   dynamic packingFee;
   dynamic tipAmount;
-  dynamic couponDiscount;
+  CouponDiscount? couponDiscount;
   dynamic serviceCharge;
   dynamic grandTotal;
   dynamic minOrderCharge;
@@ -82,7 +82,9 @@ class OrderDetail {
     minOrderCharge = json['min_order_charge'];
     deliveryTime = json['delivery_time'];
     packingFee = json['packing_fee'];
-    couponDiscount = json['coupon_discount'];
+    couponDiscount = json['coupon_discount'] != null
+        ? new CouponDiscount.fromJson(json['coupon_discount'])
+        : null;
     minOrderCharge = json['min_order_charge'];
     serviceCharge = json['service_charge'];
     specialRequets = json['special_requets'];
@@ -119,7 +121,9 @@ class OrderDetail {
     data['special_requets'] = this.specialRequets;
     data['packing_fee'] = this.packingFee;
     data['min_order_charge'] = this.minOrderCharge;
-    data['coupon_discount'] = this.couponDiscount;
+    if (this.couponDiscount != null) {
+      data['coupon_discount'] = this.couponDiscount!.toJson();
+    }
     data['grand_total'] = this.grandTotal;
     data['instruction_for_delivery'] = this.instructionForDelivery;
     if (this.user != null) {
@@ -141,6 +145,46 @@ class OrderDetail {
       data['order_items'] = this.orderItems!.map((v) => v.toJson()).toList();
     }
     data['placed_at'] = this.placedAt;
+    return data;
+  }
+}
+class CouponDiscount {
+  int? id;
+  int? userId;
+  String? couponCode;
+  String? discountType;
+  int? discountedPrice;
+  String? createdAt;
+  String? updatedAt;
+
+  CouponDiscount(
+      {this.id,
+        this.userId,
+        this.couponCode,
+        this.discountType,
+        this.discountedPrice,
+        this.createdAt,
+        this.updatedAt});
+
+  CouponDiscount.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    couponCode = json['coupon_code'];
+    discountType = json['discount_type'];
+    discountedPrice = json['discounted_price'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['coupon_code'] = this.couponCode;
+    data['discount_type'] = this.discountType;
+    data['discounted_price'] = this.discountedPrice;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

@@ -71,6 +71,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
   ];
 
   bool? isChoosedFilterOption = false;
+  bool? isFilterOff = false;
+
+
 
   final scrollController = ScrollController();
   final scrollController1 = ScrollController();
@@ -446,7 +449,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
             onRefresh: ()async{
               await profileController.getData();
             },
-            child: Obx(() {
+            child:
+
+            Obx(() {
               return SafeArea(
                 child: homeController.isDataLoading.value && profileController.isDataLoading.value
                     ? RefreshIndicator(
@@ -482,6 +487,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           ),
                                         ],
                                       ),
+                                      // l
                                     ],
                                   ),
                                   addHeight(20),
@@ -611,7 +617,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     ],
                                   ),
                                    addHeight(26),
-
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -1517,7 +1522,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       )
                     : const Center(child: CircularProgressIndicator()),
               );
-            }),
+            })
+
           )
           //bottomNavigationBar: ,
           ),
@@ -1840,8 +1846,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         chooseDietaries: categoryController.dietiaryModel.value.data!.selected.value,
                                       context: context
                                     ).then((value){
-                                      //if() {
-                                        Get.toNamed(HomeFilterScreen.homeFilterScreen);
+
+                                                                           //if() {
+                                      Get.toNamed(HomeFilterScreen.homeFilterScreen);
                                       //Get.back();
                                        //}
                                     });

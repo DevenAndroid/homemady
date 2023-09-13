@@ -338,6 +338,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                               ),
                               SizedBox(height: 20,),
                               ListView.builder(
+                                physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                   itemCount: orderTrackingController.orderTrackingModel.value.data!.length,
                                   itemBuilder: (BuildContext, index){
@@ -348,12 +349,12 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-
                                                 Flexible(
                                                   child: Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal: 8),
                                                     child: Column(
                                                       children: [
+                                                        orderTrackingController.orderTrackingModel.value.data![index].note != "Completed" ?
                                                         Container(
                                                     decoration: BoxDecoration(
 
@@ -370,7 +371,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                                               shape: BoxShape.circle),
                                                             ),
                                                           ),
-                                                        ),
+                                                        ): const Icon(Icons.location_on_outlined, color: Color(0xff141C19),),
                                                         // Expanded(
                                                         //   child: Container(
                                                         //     width: width * 0.001,
@@ -382,6 +383,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                                         //     ),
                                                         //   ),
                                                         // ),
+
                                                         DottedVerticalLine()
                                                       ],
                                                     ),

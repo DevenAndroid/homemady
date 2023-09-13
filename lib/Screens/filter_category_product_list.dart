@@ -542,7 +542,21 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                   ],
                                                                 ),
                                                                 addHeight(3),
-                                                                Text(
+                                                                filterProductCategoryController.filterDataModel.value.data![index].exclude == true ?
+                                                                Row(
+                                                                  children: [
+                                                                    Text(
+                                                                      ' ${(filterProductCategoryController.filterDataModel.value.data![index].subTitle ?? '').toString().capitalizeFirst}',
+                                                                      style: GoogleFonts.poppins(
+                                                                          fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                                    ),
+                                                                    Text(
+                                                                      'Out of Stock',
+                                                                      style: GoogleFonts.poppins(
+                                                                          fontWeight: FontWeight.w500, fontSize: 11, color: Colors.red),
+                                                                    ),
+                                                                  ],
+                                                                ): Text(
                                                                   ' ${(filterProductCategoryController.filterDataModel.value.data![index].subTitle ?? '').toString().capitalizeFirst}',
                                                                   style: GoogleFonts.poppins(
                                                                       fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),

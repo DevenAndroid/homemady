@@ -358,7 +358,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
                     ),
                   ),
                   SizedBox(
-                    width: 210,
+                    width: 260,
                     child: CommonTextFieldWidgetSearch1(
                       controller: messageController,
                       hint: 'Type messages...',
@@ -386,10 +386,10 @@ class _ChatScreen1State extends State<ChatScreen1> {
                       ),
                     ),
                   ),
-                  Image.asset(
+                /*  Image.asset(
                     'assets/images/Group 1727.png',
                     height: 48,
-                  ),
+                  ),*/
                 ],
               ),
             ),

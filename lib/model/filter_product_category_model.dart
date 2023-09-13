@@ -56,6 +56,7 @@ class Data {
   dynamic status;
   dynamic discountOff;
   dynamic avgRating;
+  dynamic exclude;
   bool? wishlist;
   bool ? value;
   dynamic productId;
@@ -79,6 +80,7 @@ class Data {
         this.status,
         this.discountOff,
         this.avgRating,
+        this.exclude,
         this.wishlist});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -99,6 +101,7 @@ class Data {
     status = json['status'];
     discountOff = json['discount_off'];
     avgRating = json['avg_rating'];
+    exclude = json['exclude'];
     wishlist = json['wishlist'];
   }
 
@@ -121,6 +124,7 @@ class Data {
     data['status'] = this.status;
     data['discount_off'] = this.discountOff;
     data['avg_rating'] = this.avgRating;
+    data['exclude'] = this.exclude;
     data['wishlist'] = this.wishlist;
     return data;
   }

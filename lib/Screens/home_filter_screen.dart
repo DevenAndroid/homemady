@@ -65,114 +65,8 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       // backgroundColor: const Color(0xffFFFFFF),
-        appBar: AppBar(
-          title: Row(
-            children: [
-              GestureDetector(onTap: () {
-                profileController.scaffoldKey.currentState!.openDrawer();
-              }, child: Obx(() {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: CachedNetworkImage(
-                    imageUrl: profileController.isDataLoading.value
-                        ? (profileController.model.value.data!.profileImage).toString()
-                        : '',
-                    fit: BoxFit.cover,
-                    height: 50,
-                    width: 50,
-                    errorWidget: (_, __, ___) => Image.asset(
-                      'assets/images/dummyPerson.png',
-                      fit: BoxFit.cover,
-                      height: 50,
-                      width: 50,
-                    ),
-                    placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
-                  ),
-                );
-              })
-                // Image.asset('assets/images/avtarImg.png', height: 45,)
-              ),
-              addWidth(6),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Address',
-                      style: GoogleFonts.poppins(
-                        color: const Color(0xFF636869),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    addHeight(3),
-                    GestureDetector(onTap: () {
-                      Get.to(() => const MyAddressScreen(), arguments: 'home');
-                    }, child: Obx(() {
-                      return Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset(
-                            'assets/images/location.png',
-                            height: 13,
-                          ),
-                          addWidth(4),
-                          Flexible(
-                            child: Text(
-                              profileController.address.value.toString(),
-                              style: GoogleFonts.poppins(
-                                color: const Color(0xFF000000),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          addWidth(5),
-                          Image.asset(
-                            'assets/images/pencilImg.png',
-                            height: 15,
-                          ),
-                        ],
-                      );
-                    })),
-                  ],
-                ),
-              ),
-              Badge(
-                badgeStyle: const BadgeStyle(padding: EdgeInsets.all(7)),
-                badgeContent: Obx(() {
-                  return Text(
-                    myCartController.isDataLoading.value ? myCartController.sum.value.toString() : '0',
-                    style: const TextStyle(color: Colors.white),
-                  );
-                }),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed(MyRouters.myCartScreen);
-                  },
-                  child: Container(
-                    height: 42,
-                    width: 42,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFF7ED957)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        'assets/images/shoppingImg.png',
-                        height: 30,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          toolbarHeight: 70,
-        ),
-        body:
-        true ?
+        appBar: backAppBar(title: 'Cooks', context: context),
+        body: true ?
         SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
@@ -182,27 +76,6 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
             child: Column(
               children: [
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hello',
-                          style: GoogleFonts.poppins(
-                              color: const Color(0xFF676767), fontWeight: FontWeight.w300, fontSize: 16),
-                        ),
-                        Text(
-                          profileController.model.value.data!.name.toString().capitalizeFirst.toString(),
-                          style: GoogleFonts.poppins(
-                              color: const Color(0xFF353535), fontWeight: FontWeight.w600, fontSize: 22),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
                 addHeight(20),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -741,7 +614,8 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
               ],
             ),
           ),
-        ): const Center(child: CircularProgressIndicator(color: Colors.green,),)
+        ): const Center(child: CircularProgressIndicator(color: Colors.green,),),
+
 
     );
   }

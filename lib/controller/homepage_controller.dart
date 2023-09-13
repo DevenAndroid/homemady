@@ -17,7 +17,7 @@ class HomePageController extends GetxController {
     String? filterCategory,
     String? categoryType,
     String? chooseDietaries,
-    String? filter,
+    String? filter = '2',
    BuildContext? context
   }) async{
     isDataLoading.value = false;

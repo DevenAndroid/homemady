@@ -729,7 +729,11 @@ class _SearchScreenDataState extends State<SearchScreenData> {
               ],
             ),
           ),
-        ): const Center(child: CircularProgressIndicator(color: Colors.green,),)
+        ): const Center(child: CircularProgressIndicator(color: Colors.green,),),
+        bottomNavigationBar:
+        cartListController.isDataLoading.value && cartListController.model.value.data!.cartItems!.isNotEmpty
+            ? addCartSection()
+            : null,
 
       ),
     );

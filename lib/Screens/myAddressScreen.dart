@@ -350,7 +350,8 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
               addHeight(30)
             ],
           ),
-        ):   Center(
+        ):
+        Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: CommonButton(

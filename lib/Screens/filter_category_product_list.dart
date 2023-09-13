@@ -699,6 +699,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                         onTap: () {
                                                                           // buttonCount.value++;
                                                                           if( product.productCount < int.parse(filterProductCategoryController.filterDataModel.value.data![index].qty.toString())){
+                                                                            controller.model.value.data!.latestProducts![index].exclude == true ? const SizedBox() :
                                                                             addToCartRepo(
                                                                                 product_id: filterProductCategoryController.filterDataModel.value.data![index].id
                                                                                     .toString(),

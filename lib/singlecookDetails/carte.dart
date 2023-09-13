@@ -190,7 +190,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                       ],
                                     ),
                                     addHeight(3),
-                                    controller.model.value.data!.latestProducts![index].exclude == false ?
+                                    controller.model.value.data!.latestProducts![index].exclude == true ?
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -340,8 +340,6 @@ class _CarteScreenState extends State<CarteScreen> {
                                             onTap: () {
                                               // buttonCount.value++;
                                               if( product.productCount <  controller.model.value.data!.latestProducts![index].qty) {
-                                                controller.model.value.data!.latestProducts![index].exclude == false ?
-                                                showToast('Out of Stock') :
                                                 addToCartRepo(
                                                     product_id: controller
                                                         .model.value.data!.latestProducts![index].id

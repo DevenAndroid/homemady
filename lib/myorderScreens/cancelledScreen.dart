@@ -165,7 +165,7 @@ class _CancelledScreenState extends State<CancelledScreen> {
                       ],
                     ),
                   ): index == 0 && !controller.model.value.data!.map((element) =>
-                  element.deliveryStatus == 'Completed').toList().contains(true) ?
+                  element.deliveryStatus == 'Cancelled').toList().contains(true) ?
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Column(

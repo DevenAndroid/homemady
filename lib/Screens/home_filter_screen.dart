@@ -472,7 +472,7 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
                                                   Icons.favorite_outline,
                                                   color: Color(0xFF7ED957),
                                                 ))))),
-                                homeController.model.value.data!.stores![index].award!.isNotEmpty ?
+                                homeController.model.value.data!.stores![index].award!.isNotEmpty || homeController.model.value.data!.stores![index].sustainablePackagingStatus == true?
                                 Positioned(
                                     top: 14,
                                     // bottom: 0,
@@ -480,122 +480,186 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
                                     right: 15,
                                     //   bottom: 0,
                                     child: Row(
-                                      children:  [
-                                        InkWell(
-                                          onTap: (){
-                                            showGeneralDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                  return  Stack(
-                                                    children: [
-                                                      Center(child: CachedNetworkImage(
-                                                        imageUrl:     homeController.model.value.data!.stores![index].award![index].image.toString(),
-                                                        //fit: BoxFit.cover,
-                                                        height: 50,
-                                                        width: 40,
-                                                        errorWidget: (_, __, ___) => Image.asset(
-                                                          'assets/images/topChef.png',
-                                                          // fit: BoxFit.cover,
-                                                          height: 40,
-                                                          width: 40,
-                                                        ),
-                                                        placeholder: (_, __) =>
-                                                        const Center(child: CircularProgressIndicator()),
-                                                      )),
-                                                      Positioned(
-                                                        right: 18,
-                                                        top: 30,
-                                                        child: Container(
-                                                            padding: const EdgeInsets.all(10),
-                                                            height: 80,
-                                                            decoration: const BoxDecoration(
-                                                                color: Colors.white,
-                                                                shape: BoxShape.circle
-                                                            ),
-                                                            child:  const Icon(Icons.clear)
-                                                        ),)
-                                                    ],
+                                      children: [
+                                        Row(
+                                          children:  [
+                                            ...List.generate(homeController.model.value.data!.stores![index].award!.length, (index1){
+                                              return  InkWell(
+                                                onTap: (){
+                                                  showGeneralDialog(
+                                                      context: context,
+                                                      barrierDismissible: true,
+                                                      barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                      pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                        return  Stack(
+                                                          children: [
+                                                            Center(child: CachedNetworkImage(
+                                                              imageUrl:     homeController.model.value.data!.stores![index].award![index1].image.toString(),
+                                                              //fit: BoxFit.cover,
+                                                              height: height * .7,
+                                                              width: width * .7,
+                                                              errorWidget: (_, __, ___) => Image.asset(
+                                                                'assets/images/topChef.png',
+                                                                // fit: BoxFit.cover,
+                                                                height: 40,
+                                                                width: 40,
+                                                              ),
+                                                              placeholder: (_, __) =>
+                                                              const Center(child: CircularProgressIndicator()),
+                                                            )),
+                                                            Positioned(
+                                                              right: 22,
+                                                              top: 100,
+                                                              child: GestureDetector(
+                                                                onTap:(){
+                                                                  Get.back();
+                                                                },
+                                                                child: Container(
+                                                                    padding: const EdgeInsets.all(10),
+                                                                    height: 50,
+                                                                    decoration: const BoxDecoration(
+                                                                        color: Colors.white,
+                                                                        shape: BoxShape.circle
+                                                                    ),
+                                                                    child:  const Icon(Icons.clear)
+                                                                ),
+                                                              ),)
+                                                          ],
+                                                        );
+                                                      }
                                                   );
-                                                }
-                                            );
-                                          },
-                                          child:    CachedNetworkImage(
-                                            imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
-                                            //fit: BoxFit.cover,
-                                            height: 40,
-                                            width: 40,
-                                            errorWidget: (_, __, ___) => Image.asset(
-                                              'assets/images/topChef.png',
-                                              // fit: BoxFit.cover,
-                                              height: 40,
-                                              width: 40,
-                                            ),
-                                            placeholder: (_, __) =>
-                                            const Center(child: CircularProgressIndicator()),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: (){
-                                            showGeneralDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                  return  Stack(
-                                                    children: [
-                                                      Center(child: CachedNetworkImage(
-                                                        imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
-                                                        //fit: BoxFit.cover,
-                                                        height: 40,
-                                                        width: 40,
-                                                        errorWidget: (_, __, ___) => Image.asset(
-                                                          'assets/images/topChef.png',
-                                                          // fit: BoxFit.cover,
-                                                          height: 40,
-                                                          width: 40,
-                                                        ),
-                                                        placeholder: (_, __) =>
-                                                        const Center(child: CircularProgressIndicator()),
-                                                      )),
-                                                      Positioned(
-                                                        right: 18,
-                                                        top: 50,
-                                                        child: Container(
-                                                            padding: const EdgeInsets.all(10),
-                                                            height: 50,
-                                                            decoration: const BoxDecoration(
-                                                                color: Colors.white,
-                                                                shape: BoxShape.circle
-                                                            ),
-                                                            child:  const Icon(Icons.clear)
-                                                        ),)
-                                                    ],
-                                                  );
-                                                }
-                                            );
-                                          },
-                                          child:    CachedNetworkImage(
-                                            imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
-                                            //fit: BoxFit.cover,
-                                            height: 40,
-                                            width: 40,
-                                            errorWidget: (_, __, ___) => Image.asset(
-                                              'assets/images/topChef.png',
-                                              // fit: BoxFit.cover,
-                                              height: 40,
-                                              width: 40,
-                                            ),
-                                            placeholder: (_, __) =>
-                                            const Center(child: CircularProgressIndicator()),
-                                          ),),
+                                                },
+                                                child:    CachedNetworkImage(
+                                                  imageUrl:     homeController.model.value.data!.stores![index].award![index1].image.toString(),
+                                                  //fit: BoxFit.cover,
+                                                  height: 40,
+                                                  width: 40,
+                                                  errorWidget: (_, __, ___) => Image.asset(
+                                                    'assets/images/topChef.png',
+                                                    // fit: BoxFit.cover,
+                                                    height: 40,
+                                                    width: 40,
+                                                  ),
+                                                  placeholder: (_, __) =>
+                                                  const Center(child: CircularProgressIndicator()),
+                                                ),);
+                                            })
+                                            // InkWell(
+                                            //     onTap: (){
+                                            //       showGeneralDialog(
+                                            //           context: context,
+                                            //           barrierDismissible: true,
+                                            //           barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                            //           barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                            //           pageBuilder: (BuildContext context,Animation first, Animation second){
+                                            //             return  Stack(
+                                            //               children: [
+                                            //                 Center(child: CachedNetworkImage(
+                                            //                   imageUrl:     homeController.model.value.data!.stores![index].award![index].image.toString(),
+                                            //                   //fit: BoxFit.cover,
+                                            //                   height: height * .7,
+                                            //                   width: width * .7,
+                                            //                   errorWidget: (_, __, ___) => Image.asset(
+                                            //                     'assets/images/topChef.png',
+                                            //                     // fit: BoxFit.cover,
+                                            //                     height: height * .3,
+                                            //                     width: width * .4,
+                                            //                   ),
+                                            //                   placeholder: (_, __) =>
+                                            //                   const Center(child: CircularProgressIndicator()),
+                                            //                 )),
+                                            //                 Positioned(
+                                            //                   right: 20,
+                                            //                   top: 100,
+                                            //                   child: GestureDetector(
+                                            //                     onTap: (){
+                                            //                       Get.back();
+                                            //                     },
+                                            //                     child: Container(
+                                            //                         padding: const EdgeInsets.all(10),
+                                            //                         height: 80,
+                                            //                         decoration: const BoxDecoration(
+                                            //                             color: Colors.white,
+                                            //                             shape: BoxShape.circle
+                                            //                         ),
+                                            //                         child:  const Icon(Icons.clear)
+                                            //                     ),
+                                            //                   ),)
+                                            //               ],
+                                            //             );
+                                            //           }
+                                            //       );
+                                            //     },
+                                            //     child:    CachedNetworkImage(
+                                            //       imageUrl:     homeController.model.value.data!.stores![index].award![0].image.toString(),
+                                            //       //fit: BoxFit.cover,
+                                            //       height: 40,
+                                            //       width: 40,
+                                            //       errorWidget: (_, __, ___) => Image.asset(
+                                            //         'assets/images/topChef.png',
+                                            //         // fit: BoxFit.cover,
+                                            //         height: 40,
+                                            //         width: 40,
+                                            //       ),
+                                            //       placeholder: (_, __) =>
+                                            //       const Center(child: CircularProgressIndicator()),
+                                            //     ),
+                                            // ),
 
+
+                                          ],
+                                        ),
+                                        if(homeController.model.value.data!.stores![index].sustainablePackagingStatus == true)
+                                          InkWell(
+                                            onTap: (){
+                                              showGeneralDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                  pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                    return  Stack(
+                                                      children: [
+                                                        Center(
+                                                          child: Image.asset(
+                                                            'assets/images/leavesIcon.png',
+                                                            // fit: BoxFit.cover,
+                                                            height: height * .3,
+                                                            // width: width * .4,
+                                                          ),),
+                                                        Positioned(
+                                                          right: 20,
+                                                          top: 100,
+                                                          child: GestureDetector(
+                                                            onTap: (){
+                                                              Get.back();
+                                                            },
+                                                            child: Container(
+                                                                padding: const EdgeInsets.all(10),
+                                                                height: 50,
+                                                                decoration: const BoxDecoration(
+                                                                    color: Colors.white,
+                                                                    shape: BoxShape.circle
+                                                                ),
+                                                                child:  const Icon(Icons.clear)
+                                                            ),
+                                                          ),)
+                                                      ],
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                            child: Image.asset(
+                                              'assets/images/leavesIcon.png',
+                                              // fit: BoxFit.cover,
+                                              height: 35,
+                                              width: 35,
+                                            ),
+                                          )
                                       ],
                                     )
-                                ) : const SizedBox()
+                                ) : const SizedBox(),
                               ],
                             ),
                           ),

@@ -24,7 +24,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
     controller.getData();
   }
   final controller = Get.put(FaqController());
-  bool senderExpansion = true;
+  bool senderExpansion = false;
 
   @override
   Widget build(BuildContext context) {

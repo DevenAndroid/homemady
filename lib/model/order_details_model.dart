@@ -35,6 +35,7 @@ class OrderDetail {
   CouponDiscount? couponDiscount;
   dynamic serviceCharge;
   dynamic grandTotal;
+  dynamic deliveryType;
   dynamic minOrderCharge;
   dynamic specialRequets;
   dynamic deliveryTime;
@@ -58,6 +59,7 @@ class OrderDetail {
         this.packingFee,
         this.couponDiscount,
         this.grandTotal,
+        this.deliveryType,
         this.minOrderCharge,
         this.user,
         this.vendor,
@@ -79,6 +81,7 @@ class OrderDetail {
     tax = json['tax'];
     deliveryCharges = json['delivery_charges'];
     tipAmount = json['tip_amount'];
+    deliveryType = json['delivery_type'];
     minOrderCharge = json['min_order_charge'];
     deliveryTime = json['delivery_time'];
     packingFee = json['packing_fee'];
@@ -120,6 +123,7 @@ class OrderDetail {
     data['delivery_time'] = this.deliveryTime;
     data['special_requets'] = this.specialRequets;
     data['packing_fee'] = this.packingFee;
+    data['delivery_type'] = this.deliveryType;
     data['min_order_charge'] = this.minOrderCharge;
     if (this.couponDiscount != null) {
       data['coupon_discount'] = this.couponDiscount!.toJson();

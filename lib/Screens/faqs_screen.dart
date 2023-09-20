@@ -60,6 +60,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
                           )
                               : const Icon(
                             Icons.remove,
+
                             color: Color(0xFF7ED957),
                           ),
                           onExpansionChanged: (value) {

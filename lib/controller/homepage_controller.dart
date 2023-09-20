@@ -7,7 +7,6 @@ import '../repository/homepage_repo.dart';
 class HomePageController extends GetxController {
   Rx<HomePageModel> model = HomePageModel().obs;
   RxBool isDataLoading = false.obs;
-
   final storeSearchController=TextEditingController();
   // RxString filterCategoryId="".obs;
   // RxString categoryType="".obs;

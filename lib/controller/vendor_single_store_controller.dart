@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -24,7 +26,7 @@ class VendorSingleStoreController extends GetxController{
 
   getData(){
     isDataLoading.value = false;
-    singleStoreData(id: Get.arguments[0], filterId: filterId.value ).then((value1) {
+    singleStoreData(id: Get.arguments[0], filterId: filterId.value, ).then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

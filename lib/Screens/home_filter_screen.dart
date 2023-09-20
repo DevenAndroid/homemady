@@ -105,6 +105,7 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
                               onTap: () {
 
                                 filterDataController.getFilterData();
+                                setState(() {});
                               },
                               child: Icon(
                                 Icons.search,
@@ -114,6 +115,7 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
                             ),
                             onChanged: (val) {
                               debounceSearch();
+
                             },
                           )),
                     ),

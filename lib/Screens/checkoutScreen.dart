@@ -491,10 +491,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               // //     }),
                                               // //   ],
                                               // // )
+
                                               Row(
                                                 children: [
                                                   Obx(() {
-                                                    return Expanded(
+                                                    return profileController.model.value.data!.defaultAddress!.isNotEmpty  ?  Expanded(
                                                       child: Text(profileController.model.value.data!.defaultAddress![0].flatNo.toString() + ','
                                                                         + profileController.model.value.data!.defaultAddress![0].landmark.toString() + ','
                                                                             +profileController.model.value.data!.defaultAddress![0].pinCode.toString(),
@@ -503,7 +504,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                             fontWeight: FontWeight.w400,
                                                             color: const Color(0xff5C5C60)),
                                                       ),
-                                                    );
+                                                    ):SizedBox();
                                                   })
                                                 ],
                                               ):

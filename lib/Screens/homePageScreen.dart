@@ -93,7 +93,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       socket1!.dispose();
     }
     //192.168.1.28      54.204.238.132
-    io.Socket socket = io.io('https://e333-2401-4900-1c1b-2c01-3185-2425-3a8-6b85.ngrok.io', <String, dynamic>{
+    io.Socket socket = io.io('https://3ea2-2401-4900-1c1b-2c01-5411-32c-c6b8-21ac.ngrok.io/app', <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false,
       "auth": {"access_token":user.authToken.toString()},
@@ -114,6 +114,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         if (kDebugMode) print('onConnecting $data');
       }
     });
+
     socket.onConnectTimeout((data) {
       if (kDebugMode) {
         if (kDebugMode) print('onConnectTimeout $data');
@@ -125,10 +126,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
       if (kDebugMode) {
         if (kDebugMode) print('==================  onConnect $data');
         // onlineOffline();
+        // socket1!.emit("event",lat,long);
       }
 
     });
   }
+
+
+
 
 
 
@@ -1831,18 +1836,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 child: ElevatedButton(
                                   child: const Text("Submit",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
                                   onPressed: () {
-                                    String filter_category = "";
-                                    String category_type = "";
+                                    String filterCategory = "";
+                                    String categoryType = "";
                                     for (var element in categoryController.categoryModel.value.data!.allCategory) {
                                       if(categoryController.categoryModel.value.data!.selectedID.value == element.id.toString()){
-                                        filter_category = element.id.toString();
-                                        category_type = element.categoryType.toString();
+                                        filterCategory = element.id.toString();
+                                        categoryType = element.categoryType.toString();
                                         break;
                                       }
                                     }
                                     homeController.getData(
-                                        filterCategory: filter_category,
-                                        categoryType: category_type,
+                                        filterCategory: filterCategory,
+                                        categoryType: categoryType,
                                         chooseDietaries: categoryController.dietiaryModel.value.data!.selected.value,
                                       context: context
                                     ).then((value){

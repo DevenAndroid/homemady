@@ -823,6 +823,32 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                  ],
                                                ),
                                                addHeight(10),
+
+                                               Row(
+                                                 mainAxisAlignment: MainAxisAlignment.start,
+                                                 children: [
+                                                   Text('Order Type:',
+                                                     style: GoogleFonts.poppins(
+                                                         fontSize: 16,
+                                                         fontWeight: FontWeight.w600,
+                                                         color: const Color(0xff1A2E33)
+                                                     ),),
+                                                   const Spacer(),
+                                                   controller.model.value.orderDetail!.deliveryType == "D" ?
+                                                   Text( 'Delivery',
+                                                     style: GoogleFonts.poppins(
+                                                         fontSize: 14,
+                                                         fontWeight: FontWeight.w500,
+                                                         color: const Color(0xff486769)
+                                                     ),): Text( 'Pick Up',
+                                                     style: GoogleFonts.poppins(
+                                                         fontSize: 14,
+                                                         fontWeight: FontWeight.w500,
+                                                         color: const Color(0xff486769)
+                                                     ),),
+                                                 ],
+                                               ),
+                                               addHeight(10),
                                                Row(
                                                  mainAxisAlignment: MainAxisAlignment.start,
                                                  children: [
@@ -1233,6 +1259,32 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                            ],
                                          ),
                                          addHeight(10),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
+                                             Text('Order Type:',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 16,
+                                                   fontWeight: FontWeight.w600,
+                                                   color: const Color(0xff1A2E33)
+                                               ),),
+                                             const Spacer(),
+                                             controller.model.value.orderDetail!.deliveryType == "D" ?
+                                             Text( 'Delivery',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 14,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: const Color(0xff486769)
+                                               ),): Text( 'Pick Up',
+                                               style: GoogleFonts.poppins(
+                                                   fontSize: 14,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: const Color(0xff486769)
+                                               ),),
+                                           ],
+                                         ),
+                                         addHeight(10),
+
                                          Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
                                            children: [

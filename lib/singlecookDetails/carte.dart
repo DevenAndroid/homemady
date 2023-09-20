@@ -341,7 +341,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                               // buttonCount.value++;
                                               if( product.productCount <  controller.model.value.data!.latestProducts![index].qty) {
                                                 controller.model.value.data!.latestProducts![index].exclude == true ?
-                                                 const SizedBox() : addToCartRepo(
+                                                 showToast('Out of Stock') : addToCartRepo(
                                                     product_id: controller
                                                         .model.value.data!.latestProducts![index].id
                                                         .toString(),

@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  String roleText = 'customer';
   var obscureText1 = true;
   ClientInformation? _clientInfo;
   @override
@@ -297,6 +298,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             password: passwordController.text,
                             context: context,
                           fcmToken: fcmToken!,
+                          role: roleText,
                         ).then((value) async {
                           if(value.status==true){
                             SharedPreferences pref =

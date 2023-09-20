@@ -12,6 +12,7 @@ Future<ModelVerifyOtp> loginRepo(
     {required String email,
       required String password,
       required String fcmToken,
+      required String role,
       required BuildContext context}) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context).insert(loader);
@@ -20,8 +21,10 @@ Future<ModelVerifyOtp> loginRepo(
   var map = <String, dynamic>{};
   map['email_number'] = email;
   map['password'] = password;
+  map['role'] = role;
  map['device_id'] = pref.getString('deviceId');
  map['device_token'] = fcmToken;
+
 
   log("Login Data map$map");
   try {

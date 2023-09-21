@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +14,7 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import '../controller/user_profile_controller.dart';
 import '../repository/signup_repository.dart';
 import '../widgets/phone_filed.dart';
 
@@ -22,6 +27,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final profileController = Get.put(UserProfileController());
   final _formKey1 = GlobalKey<FormState>();
   RxBool checkboxColor = false.obs;
   bool showErrorMessage = false;
@@ -35,7 +41,36 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+  TextEditingController referController = TextEditingController();
   final TextEditingController countryCodeController = TextEditingController(text: "353");
+  StreamSubscription<Map>? streamSubscription;
+  void listenDynamicLinks() async {
+    streamSubscription = FlutterBranchSdk.initSession().listen((data) async {
+      print('listenDynamicLinks - DeepLink Data: $data');
+      print('------------------------------------Link clicked----------------------------------------------');
+      if (data.containsKey('+clicked_branch_link') && data['+clicked_branch_link'] == true) {
+        print('------------------------------------Link clicked----------------------------------------------');
+        print('productId: ${data['productId']}');
+        print('referralCode: ${data['referralCode']}');
+        print('------------------------------------------------------------------------------------------------  $data["referralCode"]');
+          if (data["referralCode"] != null){
+            referController.text = data["referralCode"];
+        }
+        else{
+
+        }
+      }
+    }, onError: (error) {
+      print('InitSession error: ${error.toString()}');
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    listenDynamicLinks();
+  }
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -338,6 +373,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       CommonButton(
                           title: 'Signup',
                           onPressed: () async{
+                            log(referController.text.toString());
                             if(_formKey1.currentState!.validate()){
                               //print("Hello");
                               register(
@@ -348,7 +384,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                   confirmController.text,
                                   '2',
                                   countryCodeController.text,
-                                  context
+                                  referController.text,
+                                  context,
                               ).then((value){
                                 if(value.status==true){
                                   showToast(value.message);

@@ -33,17 +33,8 @@ class DeepLinkingController extends GetxController{
     // ..addCustomMetadata('referralCode', referralCode);
     metadata.addCustomMetadata("productId", productId);
     if(referralCode != null) {
-      metadata.addCustomMetadata("referralCode", profileController.model.value.data!.referalCode.toString());
+      metadata.addCustomMetadata("referralCode", referralCode);
     }
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-   /* if(sharedPreferences.getBool("influncerId") == true){
-      metadata.addCustomMetadata("referralCode", profileController.model.value.data!.referalCode.toString());
-      influencerClicksCountsRepo(productId: productId).then((value){
-        if(value.status == true){
-          log(value.status.toString());
-        }
-      });
-    }*/
     log("metadata...       "+metadata.toMap().toString());
 
     buo = BranchUniversalObject(

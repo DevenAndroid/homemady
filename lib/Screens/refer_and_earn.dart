@@ -256,7 +256,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  shareController.generateLink(controller.model.value.data!.referCode.toString());
+                                  shareController.generateLink("",referralCode: controller.model.value.data!.referCode.toString());
                                   //onShare(controller.model.value.data!.referCode.toString(), context) ;
                                   // onShare(controller.referAndEarnModel.value.data!.referCode.toString(),context);
                                 },

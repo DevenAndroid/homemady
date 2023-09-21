@@ -18,6 +18,7 @@ Future<ModelCommonResponse> register(
     confirmPassword,
     role,
     countryCode,
+    referalCode,
     BuildContext context) async {
   var map = <String, dynamic>{};
   map['email'] = email;
@@ -27,6 +28,7 @@ Future<ModelCommonResponse> register(
   map['name'] = name;
   map['role'] = role;
   map['country_code'] = countryCode;
+  map['referred_code'] = referalCode;
 
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
@@ -38,6 +40,7 @@ Future<ModelCommonResponse> register(
 
   http.Response response = await http.post(Uri.parse(ApiUrl.registrationApi),
       body: jsonEncode(map), headers: headers);
+  log(map.toString());
   log(response.body);
   if (response.statusCode == 200 || response.statusCode == 400) {
     print("work");

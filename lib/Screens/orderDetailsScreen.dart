@@ -67,7 +67,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                headerSliverBuilder: (_, __){
                  return [
                    Obx(() {
-                     return SliverToBoxAdapter(
+                     return
+
+                       SliverToBoxAdapter(
                        child: Padding(
                          padding: EdgeInsets.symmetric(
                              horizontal: AddSize.padding16, vertical: AddSize.padding10),
@@ -995,6 +997,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                      ),
                                    ),
                                  ),
+
                                  Row(mainAxisAlignment: MainAxisAlignment.end,
                                    children: [
                                      TextButton(onPressed: () {

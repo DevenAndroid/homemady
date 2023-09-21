@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:get/get.dart';
 import 'package:homemady/resources/helper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +14,8 @@ import 'package:intl/intl.dart';
 import '../../controller/user_profile_controller.dart';
 import '../../model/chat_model/model_chat_data.dart';
 import '../../model/order_details_model.dart';
+import '../../repository/send_image_repo.dart';
+import '../../resources/add_text.dart';
 import '../../service/firebase_service.dart';
 import '../../widgets/app_theme.dart';
 import '../../widgets/custome_textfiled.dart';
@@ -37,7 +42,23 @@ class _ChatScreen1State extends State<ChatScreen1> {
 
   File pickedImage = File("");
   RxString profileImage = "".obs;
-
+  File image2 = File("");
+  File? selectedImage;
+  String? base64Image;
+  List imageTypes = [
+    "jpeg",
+    "jpg",
+    "png",
+    "gif",
+    "bmp",
+    "webp",
+    "svg+xml",
+    "tiff",
+    "x-icon",
+    "vnd.microsoft.icon",
+    "vnd.adobe.photoshop",
+    "xcf",
+  ];
   pickImage(ImageSource imageType) async {
     try {
       final photo =
@@ -187,6 +208,61 @@ class _ChatScreen1State extends State<ChatScreen1> {
       ),
     );
   }
+
+  Future<void> chooseImage(type) async {
+    var image;
+    if (type == "camera") {
+      image = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        // source: ImageSource.camera,
+        imageQuality: 15,
+      );
+    } else {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        image = File(result.files.single.path.toString());
+
+        if (imageTypes.contains(result.files.single.path.toString().split(".").last)) {
+          image2 = (await FileCompressionApi.compressImage(image))!;
+          image = image2;
+          print("333333333333333333${image!.path}");
+        }
+      }
+    }
+    if (image != null) {
+      setState(() {
+        selectedImage = File(image!.path);
+        base64Image = base64Encode(selectedImage!.readAsBytesSync());
+        // OverlayEntry loader = Helpers.overlayLoader(context);
+        // Overlay.of(context).insert(loader);
+        sendImage(
+          fieldName1: "image",
+          file1: selectedImage!,
+        ).then((value) {
+          log("00000000000000${selectedImage}");
+          if (value.status == true) {
+            log("55555555555${value.data!.image.toString()}");
+            service
+                .sendMessage(
+                roomId: chatRoomId,
+                message: value.data!.image.toString(),
+                senderId: senderID,
+                messageType: MessageType.withImage,
+                orderDetail: orderDetails,
+                allowSet: !fromApi)
+                .then((value) {
+              messageController.clear();
+            });
+
+          } else {
+            log("55555555555${value.data!.image.toString()}");
+
+            showToast(value.status);
+          }
+        });
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -308,6 +384,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
                                     ? lastTimeByOther.value >
                                         messagesList[index].messageSentTime!.microsecondsSinceEpoch
                                     : false,
+                                messageType: messagesList[index].messageType.toString(),
                               ),
                             );
                           });
@@ -340,7 +417,8 @@ class _ChatScreen1State extends State<ChatScreen1> {
                 children: [
                   GestureDetector(
                     onTap:(){
-                      pickImage(ImageSource.gallery);
+                      // pickImage(ImageSource.gallery);
+                      chooseImage('Gallery');
 
             },
                     child: Image.asset(
@@ -350,8 +428,9 @@ class _ChatScreen1State extends State<ChatScreen1> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      imagePickerOption();
-                    },
+                      // imagePickerOption();
+                      chooseImage('camera');
+                     },
                     child: Image.asset(
                       'assets/images/camera1.png',
                       height: 28,
@@ -397,5 +476,18 @@ class _ChatScreen1State extends State<ChatScreen1> {
         ),
       ),
     );
+  }
+}
+class FileCompressionApi {
+  //Compressing the picked image
+  static Future<File?> compressImage(File file) async {
+    try {
+      final compressedFile = await FlutterNativeImage.compressImage(file.path,
+          quality: 50, percentage: 10);
+      return compressedFile;
+    } catch (e) {
+      print(e.toString());
+      return null; //If any error occurs during compression, the process is stopped.
+    }
   }
 }

@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Homemady',
       theme: ThemeData(
         fontFamily: 'poppinsSans',
         primarySwatch: Colors.green,

@@ -81,6 +81,7 @@ dependencies:
   web_socket_channel: ^2.2.0
   client_information:
   dotted_decoration: ^2.0.0
+  flutter_native_image:
 
 
 dev_dependencies:

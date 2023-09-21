@@ -14,7 +14,7 @@ class ApiUrl {
   static const removeCouponsUrl = "${baseUrl}remove-coupon";
   static const couponsUrl = "${baseUrl}coupons";
   static const orderTipUrl = "${baseUrl}order-tip";
-
+  static const sendImageUrl = "${baseUrl}send-image";
   static const reOrderUrl = "${baseUrl}re-order/";
   static const applyCouponsUrl = "${baseUrl}coupon-apply";
   static const updateLocationUrl = "${baseUrl}update-location";

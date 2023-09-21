@@ -153,13 +153,13 @@ class OrderDetail {
   }
 }
 class CouponDiscount {
-  int? id;
-  int? userId;
-  String? couponCode;
-  String? discountType;
-  int? discountedPrice;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic userId;
+  dynamic couponCode;
+  dynamic discountType;
+  dynamic discountedPrice;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   CouponDiscount(
       {this.id,

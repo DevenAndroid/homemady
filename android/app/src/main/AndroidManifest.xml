@@ -40,8 +40,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="r28nx.app.link" />
-                <data android:scheme="https" android:host="r28nx-alternate.app.link" />
+                <data android:scheme="https" android:host="homemady1.app.link" />
+                <data android:scheme="https" android:host="homemady1-alternate.app.link" />
             </intent-filter>
         </activity>
        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_kvokY1VxQ0WsthRyQQZdmckorug72NaM" />

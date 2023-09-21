@@ -57,6 +57,7 @@ class ApiUrl {
   static const saveCardDetailsUrl = "${baseUrl}add-card";
   static const filterProductCategoryUrl = "${baseUrl}home-filter";
   static const subscriptionListUrl = "${baseUrl}subscription-list";
+  static const referAndEarnUrl = "${baseUrl}refer-and-earn";
 
 
 

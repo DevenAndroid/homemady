@@ -31,7 +31,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
     return Obx(() {
       return Scaffold(
         backgroundColor: Colors.white,
-        appBar: backAppBar(title: 'Faqs', context: context),
+        appBar: backAppBar(title: 'FAQS :', context: context),
 
         body: controller.isDataLoading.value ?
         SingleChildScrollView(

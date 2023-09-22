@@ -8,7 +8,7 @@ import '../model/faq_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 
-Future<FaqModel> faqData() async {
+Future<FaqModel> faqData({required faqType}) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -19,7 +19,8 @@ Future<FaqModel> faqData() async {
   };
   log(user.authToken.toString());
   http.Response response =
-  await http.get(Uri.parse(ApiUrl.faqListUrl), headers: headers);
+  await http.get(Uri.parse("${ApiUrl.faqListUrl}?type=$faqType"), headers: headers);
+  log("${ApiUrl.faqListUrl}?type=$faqType");
   log("<<<<<<<FaqData=======>${response.body}");
   if (response.statusCode == 200) {
     log("<<<<<<<FaqPageData=======>${response.body}");

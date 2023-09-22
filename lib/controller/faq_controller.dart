@@ -16,7 +16,7 @@ import '../repository/login_repository.dart';
 
   getData(){
     isDataLoading.value = false;
-    faqData().then((value1) {
+    faqData(faqType: "customer").then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

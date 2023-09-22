@@ -98,7 +98,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
 
                                       Tab(
                                         child: Text(
-                                          "Meal",
+                                          "Meals",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
                                               fontSize: 18,

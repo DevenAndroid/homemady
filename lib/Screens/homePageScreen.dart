@@ -342,29 +342,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
               children: [
                 GestureDetector(onTap: () {
                   profileController.scaffoldKey.currentState!.openDrawer();
-                }, child: Obx(() {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: CachedNetworkImage(
-                      imageUrl: profileController.isDataLoading.value
-                          ? (profileController.model.value.data!.profileImage).toString()
-                          : '',
-                      fit: BoxFit.cover,
-                      height: 50,
-                      width: 50,
-                      errorWidget: (_, __, ___) => Image.asset(
-                        'assets/images/dummyPerson.png',
-                        fit: BoxFit.cover,
-                        height: 50,
-                        width: 50,
-                      ),
-                      placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
-                    ),
-                  );
-                })
+                }, child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Image.asset('assets/images/BurgerIcon.png',height: 35,),
+                ),
+                // Obx(() {
+                //   return ClipRRect(
+                //     borderRadius: BorderRadius.circular(50),
+                //     child: CachedNetworkImage(
+                //       imageUrl: profileController.isDataLoading.value
+                //           ? (profileController.model.value.data!.profileImage).toString()
+                //           : '',
+                //       fit: BoxFit.cover,
+                //       height: 50,
+                //       width: 50,
+                //       errorWidget: (_, __, ___) => Image.asset(
+                //         'assets/images/dummyPerson.png',
+                //         fit: BoxFit.cover,
+                //         height: 50,
+                //         width: 50,
+                //       ),
+                //       placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                //     ),
+                //   );
+                // })
                     // Image.asset('assets/images/avtarImg.png', height: 45,)
                     ),
-                addWidth(6),
+                addWidth(10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -314,6 +314,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                       ),
                       child: ElevatedButton(
                           onPressed: () {
+                            shareController.generateLink("",referralCode: controller.model.value.data!.referCode.toString());
                             // onShare(controller.referAndEarnModel.value.data!.referCode.toString(),context);
                           },
                           style: ElevatedButton.styleFrom(

@@ -46,6 +46,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   RxString? selectedSavedCard = "".obs;
   List method = ["D", "P"];
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -810,8 +811,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   getSavedDetailsController.isDataLoading.value &&
                                           getSavedDetailsController.savedDetailsModel.value.data!.isNotEmpty
                                       ? SizedBox(
-                                          // height: 100,
+                                          //height: 150,
                                           child: Obx(() {
+                                            // if(refreshInt.value > 0){}
                                           return ListView.builder(
                                               shrinkWrap: true,
                                               itemCount: getSavedDetailsController.savedDetailsModel.value.data!.length,

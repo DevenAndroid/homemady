@@ -5,6 +5,7 @@ import '../repository/get_saved_card_detaills_repo.dart';
 
 class SavedCardDetailsController extends GetxController {
   RxBool isDataLoading = false.obs;
+  RxInt refreshInt= 0.obs;
   Rx<GetSavedCardDetails> savedDetailsModel = GetSavedCardDetails().obs;
 
   Future getSavedCardData() async {

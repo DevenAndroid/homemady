@@ -33,6 +33,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
   @override
   void initState() {
     super.initState();
+    profileController.getData();
     controller.getData();
     tabController = TabController(length: 2, vsync: this);
   }
@@ -1014,7 +1015,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                .toString()
                                                .convertToNum
                                                .toInt());
-                                       Get.to(()=> const ChatScreen1(), arguments: [
+                                       Get.to(const ChatScreen1(), arguments: [
                                          roomId,
                                          controller.model.value.orderDetail!.user!.id!
                                              .toString()

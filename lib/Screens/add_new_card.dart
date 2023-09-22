@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
+import '../controller/get_saved_card_details_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../repository/checkout_order_repo.dart';
 import '../resources/add_text.dart';
@@ -27,6 +28,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
   bool value = false;
   RxBool checkboxColor = false.obs;
   CardFormEditController controller = CardFormEditController();
+  final getSavedDetailsController = Get.put(SavedCardDetailsController());
   final myCartController = Get.put(MyCartListController());
   @override
   void initState() {
@@ -230,6 +232,8 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                     saveCardDetailsRepo(stripeToken: value.id.toString(), context: context).then((value){
                       if(value.status==true){
                         showToast(value.message);
+                        myCartController.getData();
+                        getSavedDetailsController.getSavedCardData();
                         Get.back();
                       }
                       else{
@@ -255,6 +259,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                         if (value2.status == true) {
                          // showToast(value2.message.toString());
                           myCartController.getData();
+                          getSavedDetailsController.getSavedCardData();
                          // print('Order id====' + value2.data!.orderId);
                           Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
                             value2.data!.orderDetail!.orderId,

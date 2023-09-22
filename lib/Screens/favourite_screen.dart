@@ -601,11 +601,28 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                       ],
                                                     ),
                                                     addHeight(3),
-                                                    Text(
-                                                      (controller1.model.value.data!.product![index].subTitle ?? '').toString(),
+
+                                                    controller1.model.value.data!.product![index].exclude == true ?
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          '${(controller1.model.value.data!.product![index].subTitle ?? '').toString().capitalizeFirst}',
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                        ),
+                                                        Text(
+                                                          'Out of Stock',
+                                                          style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w500, fontSize: 11, color: Colors.red),
+                                                        ),
+                                                      ],
+                                                    ) :  Text(
+                                                      '${(controller1.model.value.data!.product![index].subTitle ?? '').toString().capitalizeFirst}',
                                                       style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                          fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
                                                     ),
+
                                                     addHeight(3),
                                                     Row(
                                                       children: [
@@ -744,14 +761,40 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                           InkWell(
                                                             onTap: () {
                                                               // buttonCount.value++;
-                                                              if(product.productCount <
-                                                                  int.parse(controller1.model.value.data!.product![index].cookUnitDays.toString())){
-
-                                                                addToCartRepo(
+                                                              // if(product.productCount <
+                                                              //     int.parse(controller1.model.value.data!.product![index].cookUnitDays.toString())){
+                                                              //
+                                                              //   addToCartRepo(
+                                                              //       product_id: controller1
+                                                              //           .model.value.data!.product![index].id
+                                                              //           .toString(),
+                                                              //       qty: product.productCount+1,
+                                                              //       //controller.model.value.data!.latestProducts![index].buttonCount.value,
+                                                              //       context: context)
+                                                              //       .then((value1) {
+                                                              //     if (value1.status == true) {
+                                                              //       controller1.model.value.data!.product![index].value = true;
+                                                              //       // controller.model.value.data!.latestProducts![index].buttonCount.value++;
+                                                              //       showToast(value1.message.toString());
+                                                              //       // controller.increaseQty();
+                                                              //       cartListController.getData().then((value) {
+                                                              //         setState(() {});
+                                                              //       });
+                                                              //     }
+                                                              //   });
+                                                              //
+                                                              // }
+                                                              // else{
+                                                              //   showToast("You reached the maximum Limit of product");
+                                                              //
+                                                              // }
+                                                              if( product.productCount <  controller1.model.value.data!.product![index].qty) {
+                                                                controller1.model.value.data!.product![index].exclude == true ?
+                                                                showToast('Out of Stock') : addToCartRepo(
                                                                     product_id: controller1
                                                                         .model.value.data!.product![index].id
                                                                         .toString(),
-                                                                    qty: product.productCount+1,
+                                                                    qty: product.productCount + 1,
                                                                     //controller.model.value.data!.latestProducts![index].buttonCount.value,
                                                                     context: context)
                                                                     .then((value1) {
@@ -765,11 +808,10 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                                     });
                                                                   }
                                                                 });
-
+                                                                // }
                                                               }
                                                               else{
-                                                                showToast("You reached the maximum Limit of product");
-
+                                                                showToast('You reached the maximum Limit of product');
                                                               }
 
                                                             },
@@ -837,12 +879,36 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                               ),
                                               addWidth(4),
                                               Text(
+                                                "How long it takes to cook:",
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                              ),
+                                              Text(
+                                                '${controller1.model.value.data!.product![index].cookUnitDays ?? '5'.toString()}',
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                              ),
+                                            ],
+                                          ),
+
+                                          addHeight(4),
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              addWidth(80),
+                                              Image.asset(
+                                                'assets/images/helpimg.png',
+                                                height: 13,
+                                              ),
+                                              addWidth(4),
+                                              Text(
                                                 'Available stock: ',
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                               ),
                                               Text(
-                                                '${controller1.model.value.data!.product![index].cookUnitDays ?? '5'.toString()} Units',
+                                                '${controller1.model.value.data!.product![index].qty ?? '5'.toString()} Units',
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
                                               ),

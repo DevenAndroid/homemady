@@ -16,10 +16,10 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  if(Platform.isAndroid){
+  //if(Platform.isAndroid){
 
     FlutterBranchSdk.validateSDKIntegration();
-  }
+ // }
   Stripe.publishableKey = stripeApiKey;
   runApp(const MyApp());
 }

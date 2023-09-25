@@ -28,6 +28,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.583798062201-l2up8jrvqp9et8vrofk5e51brvhgdosl</string>
+				<string>Homemady</string>
 			</array>
 		</dict>
 	</array>
@@ -72,5 +73,20 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleTypeRole</key>
+	<string>Editor</string>
+	<key>CFBundleURLName</key>
+	<string>com.homemady.ios</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+		<string>Homemady</string>
+	</array>
+	<key>branch_key</key>
+	<string>key_live_mxjFoHaxOABgCyLZoEBGLliawAewbs0g</string>
+	<key>branch_universal_link_domains</key>
+	<array>
+		<string>j1tmk.app.link</string>
+		<string>j1tmk-alternate.app.link</string>
+	</array>
 </dict>
 </plist>

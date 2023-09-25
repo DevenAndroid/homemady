@@ -176,7 +176,7 @@ class _OtpForgotScreenState extends State<OtpForgotScreen> {
                           resendOtpRepo(email: text, context: context).then((value) {
                             if(value.status == true){
                               showToast(value.message.toString());
-                              Get.toNamed(MyRouters.otpScreen);
+                              // Get.toNamed(MyRouters.otpScreen);
                             }
                           });
                         },

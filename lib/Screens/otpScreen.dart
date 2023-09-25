@@ -158,7 +158,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       addHeight(height*0.030),
                       InkWell(
                         onTap: (){
-                          resendOtpRepo(email: Get.arguments[0], context: context).then((value) {
+                          resendOtpRepo(email: text, context: context).then((value) {
                             if(value.status == true){
                               showToast(value.message.toString());
                               Get.toNamed(MyRouters.otpScreen);

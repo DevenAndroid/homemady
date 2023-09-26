@@ -18,7 +18,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   //if(Platform.isAndroid){
 
-    FlutterBranchSdk.validateSDKIntegration();
+    // FlutterBranchSdk.validateSDKIntegration();
  // }
   Stripe.publishableKey = stripeApiKey;
   runApp(const MyApp());

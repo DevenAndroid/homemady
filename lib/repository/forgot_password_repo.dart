@@ -10,7 +10,7 @@ import '../widgets/new_helper.dart';
 
 Future<ForgotPasswordModel> forgotPasswordRepo(
     {required String email,
-      // required String fcmToken,
+      required String roleText,
       required BuildContext context}) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context).insert(loader);
@@ -26,7 +26,7 @@ Future<ForgotPasswordModel> forgotPasswordRepo(
       HttpHeaders.acceptHeader: 'application/json',
     };
 
-    http.Response response = await http.get(Uri.parse('${ApiUrl.forgotPasswordUrl}?email=$email'),
+    http.Response response = await http.get(Uri.parse('${ApiUrl.forgotPasswordUrl}?email=$email&role=$roleText'),
          headers: headers);
 
     if (response.statusCode == 200||response.statusCode == 400) {

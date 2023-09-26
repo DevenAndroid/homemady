@@ -11,7 +11,7 @@ import '../widgets/new_helper.dart';
 Future<ResetPasswordOtpModel> verifyResetRepo(
     {required String email,
       required String otp,
-      // required String fcmToken,
+      required String roleText,
       required BuildContext context}) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context).insert(loader);
@@ -20,6 +20,7 @@ Future<ResetPasswordOtpModel> verifyResetRepo(
   var map = <String, dynamic>{};
   map['email'] = email;
   map['otp'] = otp;
+  map['role'] = roleText;
 
   log("Login Data map$map");
   try {

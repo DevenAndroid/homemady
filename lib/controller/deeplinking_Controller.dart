@@ -38,6 +38,7 @@ class DeepLinkingController extends GetxController{
     log("metadata...       "+metadata.toMap().toString());
 
     buo = BranchUniversalObject(
+      imageUrl: "assets/images/burgerIcon.png",
         canonicalIdentifier: 'flutter/branch',
         canonicalUrl: '',
         title: '',
@@ -63,6 +64,7 @@ class DeepLinkingController extends GetxController{
       controllerUrl.sink.add('${response.result}');
       referralLink = response.result;
       log("referralLink $productId");
+
       Share.share(referralLink!, subject: "link");
       log("referralLink $referralLink");
     } else {

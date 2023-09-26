@@ -158,7 +158,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       addHeight(height*0.030),
                       InkWell(
                         onTap: (){
-                          resendOtpRepo(email: text, context: context).then((value) {
+                          resendOtpRepo(email: text, context: context, roleText: '2').then((value) {
                             if(value.status == true){
                               showToast(value.message.toString());
                               Get.toNamed(MyRouters.otpScreen);
@@ -180,7 +180,7 @@ class _OtpScreenState extends State<OtpScreen> {
                          onPressed: (){
                           //print("Hello");
                           if(formKey99.currentState!.validate()){
-                            verifyOTPPassword(Get.arguments[0],otpController.text,context).then((value){
+                            verifyOTPPassword(Get.arguments[0],otpController.text, '2' ,context).then((value){
                               if(value.status==true){
                                 showToast(value.message);
                                 Get.toNamed(MyRouters.loginScreen);

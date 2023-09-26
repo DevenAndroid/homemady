@@ -12,6 +12,7 @@ Future<ResetPasswordModel> resetPasswordRepo(
     {required String email,
       required String password,
       required String confirmPassword,
+      required String roleText,
       required BuildContext context}) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context).insert(loader);
@@ -20,6 +21,7 @@ Future<ResetPasswordModel> resetPasswordRepo(
   var map = <String, dynamic>{};
   map['email'] = email;
   map['password'] = password;
+  map['role'] = roleText;
   map['confirm_password'] = confirmPassword;
   log("Forgot password Data map$map");
   try {

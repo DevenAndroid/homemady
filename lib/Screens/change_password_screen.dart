@@ -177,7 +177,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               addHeight(34),
                               CommonButton(title: 'Continue',onPressed: (){
                                 if(_formKey.currentState!.validate()){
-                                  resetPasswordRepo(email: text,password: newPasswordController.text, confirmPassword: confirmPasswordController.text, context: context,).then((value) {
+                                  resetPasswordRepo(email: text,password: newPasswordController.text, confirmPassword: confirmPasswordController.text, context: context, roleText: '2',).then((value) {
                                     if(value.status == true){
                                       showToast(value.message);
                                       Get.offAllNamed(MyRouters.loginScreen);

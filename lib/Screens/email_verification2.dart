@@ -106,7 +106,7 @@ class _EmailVerificationScreen2State extends State<EmailVerificationScreen2> {
                               addHeight(25),
                               CommonButton(title: 'Send',onPressed: (){
                                 if(_formKey.currentState!.validate()){
-                                  forgotPasswordRepo(email: emailController.text, context: context).then((value) {
+                                  forgotPasswordRepo(email: emailController.text, context: context, roleText: '2').then((value) {
                                     if(value.status == true){
                                       showToast(value.message.toString());
                                       Get.toNamed(MyRouters.otpForgotScreen,arguments: emailController.text);

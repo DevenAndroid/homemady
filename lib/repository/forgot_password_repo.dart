@@ -11,6 +11,7 @@ import '../widgets/new_helper.dart';
 Future<ForgotPasswordModel> forgotPasswordRepo(
     {required String email,
       required String roleText,
+      // required String fcmToken,
       required BuildContext context}) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context).insert(loader);
@@ -18,6 +19,7 @@ Future<ForgotPasswordModel> forgotPasswordRepo(
   //print("These are details.....${pref}");
   var map = <String, dynamic>{};
   map['email'] = email;
+  //map['role'] = roleText;
 
   log("Forgot password Data map$map");
   try {

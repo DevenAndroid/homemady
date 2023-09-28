@@ -25,7 +25,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
   }
   final controller = Get.put(FaqController());
   bool senderExpansion = false;
-
+int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -53,8 +53,9 @@ class _FaqsScreenState extends State<FaqsScreen> {
                       child: Theme(
                         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
-                          trailing: (senderExpansion == false)
-                              ? const Icon(
+                          trailing:
+                           (senderExpansion == false) ?
+                          const Icon(
                             Icons.add,
                             color: Color(0xFF7ED957),
                           )

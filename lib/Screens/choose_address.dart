@@ -293,12 +293,11 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                        addressModel.landmark != null && addressModel.flatNo != null && addressModel.name != null ?
                                            editAddress(context: context,location: _address,address_type:selectedChip.value,name: recipientController.text,
                                            flat_no: flatNoController.text,landmark: cityController.text,
-                                           address_id: addressModel.id.toString()).then((value) {
+                                           address_id: addressModel.id.toString(), postalCode: postalCodeController.text, deliveryInstruction: deliveryInstructionController.text).then((value) {
                                              if(value.status == true){
                                                showToast('Address Edited Successfully');
                                               Get.back();
                                               Get.back();
-
                                                myAddressController.getData();
                                              }
                                            }) :

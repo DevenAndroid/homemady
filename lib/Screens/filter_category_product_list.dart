@@ -466,7 +466,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
 
                                                                   child: InkWell(
                                                                     onTap: (){
-                                                                      print("Product  id..${filterProductCategoryController.filterDataModel.value.data![index].productId.toString()}");
+                                                                      print("Product  id..${filterProductCategoryController.filterDataModel.value.data![index].id.toString()}");
 
                                                                       wishlistRepo(productId: filterProductCategoryController.filterDataModel.value.data![index].id.toString(),id: ''
                                                                       ).then((value){
@@ -699,7 +699,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                         onTap: () {
                                                                           // buttonCount.value++;
                                                                           if( product.productCount < int.parse(filterProductCategoryController.filterDataModel.value.data![index].qty.toString())){
-                                                                            controller.model.value.data!.latestProducts![index].exclude == true ? const SizedBox() :
+                                                                            filterProductCategoryController.filterDataModel.value.data![index].exclude == true ? const SizedBox() :
                                                                             addToCartRepo(
                                                                                 product_id: filterProductCategoryController.filterDataModel.value.data![index].id
                                                                                     .toString(),

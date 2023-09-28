@@ -84,10 +84,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                           .profileImage ??
                                           "")
                                           .toString()
-                                          : "",
+                                          : "assets/images/user_img.png",
                                       height: screenSize.height * 0.12,
                                       width: screenSize.height * 0.12,
-                                      errorWidget: (_, __, ___) => const SizedBox(),
+                                      errorWidget: (_, __, ___) => Image.asset(
+                                        'assets/images/user_img.png',
+                                        fit: BoxFit.cover,
+                                        height: 50,
+                                        width: 50,
+                                      ),
                                       placeholder: (_, __) => const SizedBox(),
                                       fit: BoxFit.cover,
                                     ))),

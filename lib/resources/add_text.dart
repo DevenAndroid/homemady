@@ -99,10 +99,11 @@ addCartSection(){
                                     color: AppTheme.backgroundcolor,
                                     fontWeight: FontWeight.w400),
                               ),
+                             // if(myCartController.model.value.data!.cartPaymentSummary!.subTotal != null)
                               Text(
                                 "€ ${(myCartController.model.value.data!.cartPaymentSummary!.subTotal ?? '').toString()}",
                                 //'sgdhs',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18,
                                     color: AppTheme.backgroundcolor,
                                     fontWeight: FontWeight.w600),
@@ -110,8 +111,8 @@ addCartSection(){
                             ],
                           ),
                         ),
-                        Row(
-                          children: const [
+                        const Row(
+                          children: [
                             Text(
                               "View Cart",
                               style: TextStyle(
@@ -137,6 +138,6 @@ addCartSection(){
             ),
           ],
         )
-            : SizedBox();
+            : const SizedBox();
       }));
 }

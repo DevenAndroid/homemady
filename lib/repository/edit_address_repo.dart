@@ -17,6 +17,8 @@ Future<EditAddressModel> editAddress(
       required name,
       required address_type,
       required address_id,
+      required postalCode,
+      required deliveryInstruction,
       required BuildContext context}) async {
   var map = <String, dynamic>{};
   map['location'] = location;
@@ -25,6 +27,8 @@ Future<EditAddressModel> editAddress(
   map['landmark'] = landmark;
   map['address_type'] = address_type;
   map['address_id'] = address_id;
+  map['pin_code'] = postalCode;
+  map['note'] = deliveryInstruction;
   log(map.toString());
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context).insert(loader);

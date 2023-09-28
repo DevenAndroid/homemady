@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../controller/subscription_list_controller.dart';
-import '../widgets/custome_size.dart';
 import '../widgets/custome_textfiled.dart';
 
 class SubscriptionHistoryScreen extends StatefulWidget {
@@ -32,7 +30,9 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
     return Obx(() {
       return Scaffold(
         appBar: backAppBar(title: 'Subscribe Plan', context: context),
-        body: Padding(
+        body:
+        controller.isDataLoading.value && controller.model.value.data != null ? controller.model.value.data!.isNotEmpty ?
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -215,7 +215,10 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
               ],
             ),
           ),
-        ),
+        ):Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Center(child: Text('No Subscription Plan',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+        ):Center(child: CircularProgressIndicator(color: Colors.green,)),
       );
     });
   }

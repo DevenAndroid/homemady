@@ -29,7 +29,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
     final Uri params = Uri(
       scheme: 'mailto',
       path: 'mailto:support@homemady.com',
-      query: 'subject=Hello%20from%20Flutter',
+      query: '',
     );
 
     // if (await canLaunch(params.toString())) {
@@ -96,7 +96,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
             addHeight(15),
             InkWell(
               onTap: (){
-                Get.toNamed(MyRouters.chatScreen);
+                // Get.toNamed(MyRouters.chatScreen);
               },
               child: Container(
                 decoration: BoxDecoration(

@@ -244,8 +244,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               color: const Color(0xFF4F535E),
                             ),
                             onTap: () async {
-                              controller.model.value.data![0].status == "Active" ?
-                                  showToast("your have already subscribed") :
+                              // controller.model.value.data![0].status == "Active" ?
+                              //     showToast("your have already subscribed") :
                               Get.toNamed(SubscriptionScreen.subscriptionScreen);
                               // }
                             }),

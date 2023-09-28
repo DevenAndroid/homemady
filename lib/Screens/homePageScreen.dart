@@ -270,6 +270,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           var itemdata = timeSlotController.timeSlotModel.value.data![index];
                           return GestureDetector(
                             onTap: () {
+
+
                               currentIndex = index;
                               refreshInt.value = DateTime.now().millisecondsSinceEpoch;
                             },
@@ -305,7 +307,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
+                              print(selectedDate);
+                              timeSlotController.sendDate.value = selectedDate;
+                              timeSlotController.getTimeSlotData();
                               Get.back();
+                              FocusManager.instance.primaryFocus!.unfocus();
                             },
                             style: ElevatedButton.styleFrom(
                               primary: const Color(0xff7ED957),
@@ -720,7 +726,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           onTap: (){
                                                             print(isAvailableSelected);
                                                             isAvailableSelected = !isAvailableSelected!;
-                                                            print(isAvailableSelected);
+                                                            print("THisis date${isAvailableSelected}");
                                                             setState(() {});
                                                           },
                                                               child: Text(
@@ -749,6 +755,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               Expanded(
                                                 child: InkWell(
                                                   onTap: () async {
+                                                    FocusManager.instance.primaryFocus!.unfocus();
                                                     showChooseDate(context);
                                                     // showDate();
                                                     pickedDate = await showDatePicker(
@@ -785,7 +792,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         setState(() {
                                                           // var selectedDate=formattedDate;
                                                           selectedDate = formattedDate; //set output date to TextField value.
-                                                          log("Seleted Date     $selectedDate");
+                                                          log("Seleted Date for slot is    $selectedDate");
                                                         });
                                                       }
                                                     });

@@ -54,7 +54,7 @@ int currentIndex = 0;
                         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
                           trailing:
-                           (senderExpansion == false) ?
+                           (controller.model.value.data![index].selectedExpansion == false) ?
                           const Icon(
                             Icons.add,
                             color: Color(0xFF7ED957),
@@ -66,7 +66,7 @@ int currentIndex = 0;
                           ),
                           onExpansionChanged: (value) {
                             setState(() {
-                              senderExpansion = value;
+                              controller.model.value.data![index].selectedExpansion = value;
                             });
                           },
                           title:  Text(

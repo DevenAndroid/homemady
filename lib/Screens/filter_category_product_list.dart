@@ -813,7 +813,12 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                                           ),
+                                                          filterProductCategoryController.filterDataModel.value.data![index].exclude == true ?
                                                           Text(
+                                                            '0 Units',
+                                                            style: GoogleFonts.poppins(
+                                                                fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                          ):Text(
                                                             '${filterProductCategoryController.filterDataModel.value.data![index].qty ?? '5'.toString()} Units',
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),

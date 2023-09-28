@@ -194,10 +194,12 @@ class _CarteScreenState extends State<CarteScreen> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          '${(controller.model.value.data!.latestProducts![index].subTitle ?? '').toString().capitalizeFirst}',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                        Expanded(
+                                          child: Text(
+                                            '${(controller.model.value.data!.latestProducts![index].subTitle ?? '').toString().capitalizeFirst}',
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                          ),
                                         ),
                                         Text(
                                           'Out of Stock',
@@ -456,7 +458,12 @@ class _CarteScreenState extends State<CarteScreen> {
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                               ),
+                              controller.model.value.data!.latestProducts![index].exclude == true ?
                               Text(
+                                '0 Units',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                              ):Text(
                                 '${controller.model.value.data!.latestProducts![index].qty ?? ''.toString()} Units',
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
@@ -477,7 +484,8 @@ class _CarteScreenState extends State<CarteScreen> {
     ):
       const Padding(
       padding: EdgeInsets.only(top: 80),
-      child: Center(child: Text('No Meals available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+      child: Center(child: Text('No Meals available',
+        style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
     ):   const Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));
   }
 }

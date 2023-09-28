@@ -28,6 +28,7 @@ class FaqModel {
 }
 
 class Data {
+  bool selectedExpansion= false;
   int? id;
   String? question;
   String? answer;

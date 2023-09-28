@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,7 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../repository/signup_repository.dart';
 
@@ -182,10 +185,14 @@ class _OtpScreenState extends State<OtpScreen> {
 
                           //print("Hello");
                           if(formKey99.currentState!.validate()){
-                            verifyOTPPassword(Get.arguments[0],otpController.text, '2' ,context).then((value){
+                            verifyOTPPassword(Get.arguments[0],otpController.text, '2' ,context).then((value) async {
                               if(value.status==true){
                                 showToast(value.message);
-                                Get.toNamed(MyRouters.loginScreen);
+                                SharedPreferences pref =
+                                    await SharedPreferences.getInstance();
+                                pref.setString(
+                                    'user_info', jsonEncode(value));
+                                Get.toNamed(MyRouters.bottomNavbar);
                               }
                               else{
                                 showToast(value.message);

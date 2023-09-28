@@ -28,17 +28,17 @@ class MyAddressModel {
 }
 
 class AddressData {
-  int? id;
-  int? userId;
-  String? name;
-  String? latitude;
-  String? longitude;
-  String? location;
-  String? flatNo;
-  String? landmark;
-  String? addressType;
-  String? note;
-  String? pinCode;
+  dynamic id;
+  dynamic userId;
+  dynamic name;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic location;
+  dynamic flatNo;
+  dynamic landmark;
+  dynamic addressType;
+  dynamic note;
+  dynamic pinCode;
 
   AddressData(
       {this.id,

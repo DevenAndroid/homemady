@@ -276,7 +276,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                           Text("Empty",
                             style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
                           SizedBox(height: 10,),
-                          Text("You do not have an active order of this time",
+                          Text("You do not have an active order at this time",
                             style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff747474),fontSize: 22),),
                         ],
                       ),

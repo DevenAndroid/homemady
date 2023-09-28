@@ -110,15 +110,12 @@ class _CouponsScreenState extends State<CouponsScreen> {
                   Obx(() {
                     return couponController.isDataLoading.value
                         ? couponController.model.value.data!.isEmpty ?
-                    Center(
-                      child: Text("! Coupons Not Available".tr,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5!
-                            .copyWith(
-                            fontWeight:
-                            FontWeight.w500,
-                            fontSize: AddSize.font16),),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 250),
+                      child: Center(
+                        child: Text("Coupons Not Available".tr,
+                          style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),),
+                      ),
                     )
                         :ListView.builder(
                         itemCount:

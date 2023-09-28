@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/Screens/subscription_screen.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../controller/subscription_list_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../routers/routers.dart';
 import '../widgets/app_theme.dart';
@@ -24,11 +26,13 @@ class CustomDrawer extends StatefulWidget {
 
 class _CustomDrawerState extends State<CustomDrawer> {
   final profileController = Get.put(UserProfileController());
+  final controller = Get.put(SubscriptionListController());
 
 
   @override
   void initState() {
     super.initState();
+    controller.getData();
   }
 
   @override
@@ -240,6 +244,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               color: const Color(0xFF4F535E),
                             ),
                             onTap: () async {
+                              controller.model.value.data![0].status == "Active" ?
+                                  showToast("your have already subscribed") :
                               Get.toNamed(SubscriptionScreen.subscriptionScreen);
                               // }
                             }),

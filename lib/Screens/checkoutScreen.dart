@@ -46,14 +46,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   RxString? selectedSavedCard = "".obs;
   List method = ["D", "P"];
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       profileController.getData();
-      myCartController.getData().then((value){
+      myCartController.getData().then((value) {
         setState(() {});
       });
       getSavedDetailsController.getSavedCardData();
@@ -115,33 +114,34 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
                             Row(
                               children: [
-
-                                  myCartController.model.value.data!.cartItems![0].collectionStatus == true ?
-                                      SizedBox() :Theme(
-                                      data: ThemeData(
-                                        unselectedWidgetColor: Colors.green,
+                                myCartController.model.value.data!.cartItems![0].collectionStatus == true
+                                    ? SizedBox()
+                                    : Theme(
+                                        data: ThemeData(
+                                          unselectedWidgetColor: Colors.green,
+                                        ),
+                                        child: addRadioButton(0)),
+                                myCartController.model.value.data!.cartItems![0].collectionStatus == true
+                                    ? SizedBox()
+                                    : Text(
+                                        'Delivery',
+                                        style: GoogleFonts.poppins(
+                                            color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
                                       ),
-                                      child: addRadioButton(0)),
-                                  myCartController.model.value.data!.cartItems![0].collectionStatus == true ?
-                                  SizedBox() : Text(
-                                    'Delivery',
-                                    style: GoogleFonts.poppins(
-                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
-                                  ),
-                                  myCartController.model.value.data!.cartItems![0].collectionStatus == true ?
-                                  SizedBox(): addWidth(40),
-
-                                  Theme(
-                                      data: ThemeData(
-                                        unselectedWidgetColor: Colors.green,
-                                      ),
-                                      child: addRadioButton(1)),
-                                  addWidth(5),
-                                  Text(
-                                    'Pickup',
-                                    style: GoogleFonts.poppins(
-                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
-                                  )
+                                myCartController.model.value.data!.cartItems![0].collectionStatus == true
+                                    ? SizedBox()
+                                    : addWidth(40),
+                                Theme(
+                                    data: ThemeData(
+                                      unselectedWidgetColor: Colors.green,
+                                    ),
+                                    child: addRadioButton(1)),
+                                addWidth(5),
+                                Text(
+                                  'Pickup',
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                )
                               ],
                             ),
                             // Row(
@@ -231,158 +231,101 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Obx(() {
                       return InkWell(
                         onTap: () {
-                          Get.toNamed(
-                              CouponsScreen.couponsScreen);
+                          Get.toNamed(CouponsScreen.couponsScreen);
                         },
                         child: Card(
                           child: Container(
                             // height: height * .06,
-                            decoration: BoxDecoration(
-
-                                borderRadius: BorderRadius.circular(15)
-                            ),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10),
-                              child:
-                              Column(
+                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                              child: Column(
                                 children: [
-                                  Row(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .center,
-                                      children: [
-                                        Expanded(
-                                          child: Row(children: [
-                                            const Image(
-                                                color: Color(0xff7ED957),
-                                                height: 22,
-                                                width: 28,
-                                                image: AssetImage(AppAssets
-                                                    .couponList,)),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text("Use Coupons".tr,
-                                                style: TextStyle(
-                                                    color:
-                                                    AppTheme.blackcolor,
-                                                    fontSize:
-                                                    AddSize.font14,
-                                                    fontWeight:
-                                                    FontWeight.w500)),
-                                          ]),
+                                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                    Expanded(
+                                      child: Row(children: [
+                                        const Image(
+                                            color: Color(0xff7ED957),
+                                            height: 22,
+                                            width: 28,
+                                            image: AssetImage(
+                                              AppAssets.couponList,
+                                            )),
+                                        const SizedBox(
+                                          width: 8,
                                         ),
-                                        Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.black,
-                                          size: AddSize.size15,
-                                        ),
+                                        Text("Use Coupons".tr,
+                                            style: TextStyle(
+                                                color: AppTheme.blackcolor,
+                                                fontSize: AddSize.font14,
+                                                fontWeight: FontWeight.w500)),
                                       ]),
-                                  myCartController.model.value.data!
-                                      .cartPaymentSummary!.couponCode == 0 ||
-                                      myCartController
-                                          .model
-                                          .value
-                                          .data!
-                                          .cartPaymentSummary
-                                      !.couponCode
-                                          .toString() ==
-                                          ""
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.black,
+                                      size: AddSize.size15,
+                                    ),
+                                  ]),
+                                  myCartController.model.value.data!.cartPaymentSummary!.couponCode == 0 ||
+                                          myCartController.model.value.data!.cartPaymentSummary!.couponCode.toString() == ""
                                       ? const SizedBox()
-                                      :
-                                  Obx(() {
-                                    return Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceBetween,
-                                        children: [
-                                          Container(
-                                            height: 20,
-                                            width: 20,
-                                            decoration:
-                                            const ShapeDecoration(
-                                                color: AppTheme
-                                                    .userActive,
-                                                shape:
-                                                CircleBorder()),
-                                            child: Center(
-                                                child: Icon(
-                                                  Icons.check,
-                                                  color: AppTheme
-                                                      .backgroundcolor,
-                                                  size: AddSize.size12,
-                                                )),
-                                          ),
-                                          const SizedBox(
-                                            width: 16,
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment
-                                                  .start,
-                                              children: [
-                                                Text(
-                                                    "${myCartController.model
-                                                        .value.data!
-                                                        .cartPaymentSummary
-                                                        ?.couponCode
-                                                        .toString()} applied successfully",
-                                                    style: TextStyle(
-                                                        color: AppTheme
-                                                            .userActive,
-                                                        fontSize:
-                                                        AddSize
-                                                            .font14,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w500)),
-                                                Text(
-                                                    "You saved ₹${myCartController
-                                                        .model.value.data!
-                                                        .cartPaymentSummary
-                                                        ?.couponDiscount
-                                                        .toString()}",
-                                                    style: TextStyle(
-                                                        color: AppTheme
-                                                            .userActive,
-                                                        fontSize:
-                                                        AddSize
-                                                            .font12,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w500)),
-                                              ],
+                                      : Obx(() {
+                                          return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                            Container(
+                                              height: 20,
+                                              width: 20,
+                                              decoration:
+                                                  const ShapeDecoration(color: AppTheme.userActive, shape: CircleBorder()),
+                                              child: Center(
+                                                  child: Icon(
+                                                Icons.check,
+                                                color: AppTheme.backgroundcolor,
+                                                size: AddSize.size12,
+                                              )),
                                             ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              removeCoupons(
-                                                  context: context)
-                                                  .then((value) {
-                                                print("hello offer");
-                                                if (value.status == true) {
-                                                  showToast(value.message);
-                                                  myCartController
-                                                      .getData();
-                                                  setState(() {});
-                                                }
-                                              });
-                                            },
-                                            style: TextButton.styleFrom(
-                                                padding:
-                                                EdgeInsets.zero),
-                                            child: Text("Remove",
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontSize:
-                                                    AddSize.font12,
-                                                    fontWeight:
-                                                    FontWeight
-                                                        .w500)),
-                                          ),
-                                        ]);
-                                  }),
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      "${myCartController.model.value.data!.cartPaymentSummary?.couponCode.toString()} applied successfully",
+                                                      style: TextStyle(
+                                                          color: AppTheme.userActive,
+                                                          fontSize: AddSize.font14,
+                                                          fontWeight: FontWeight.w500)),
+                                                  Text(
+                                                      "You saved ₹${myCartController.model.value.data!.cartPaymentSummary?.couponDiscount.toString()}",
+                                                      style: TextStyle(
+                                                          color: AppTheme.userActive,
+                                                          fontSize: AddSize.font12,
+                                                          fontWeight: FontWeight.w500)),
+                                                ],
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                removeCoupons(context: context).then((value) {
+                                                  print("hello offer");
+                                                  if (value.status == true) {
+                                                    showToast(value.message);
+                                                    myCartController.getData();
+                                                    setState(() {});
+                                                  }
+                                                });
+                                              },
+                                              style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                                              child: Text("Remove",
+                                                  style: TextStyle(
+                                                      color: Colors.red,
+                                                      fontSize: AddSize.font12,
+                                                      fontWeight: FontWeight.w500)),
+                                            ),
+                                          ]);
+                                        }),
                                 ],
                               ),
                             ),
@@ -461,79 +404,95 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             children: [
                                               Text(
                                                 myCartController.model.value.data!.orderAddress == null
-                                                    ? "Choose address" : myCartController.model.value.data!.orderAddress!.addressType,
+                                                    ? "Choose address"
+                                                    : myCartController.model.value.data!.orderAddress!.addressType,
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.w500,
                                                     color: const Color(0xff1A2E33)),
                                               ),
+                                              myCartController.model.value.data!.orderAddress == null
+                                                  ?
+                                                  // // Row(
+                                                  // //   children: [
+                                                  // //     ...List.generate(profileController.model.value.data!.defaultAddress!.length, (index){
+                                                  // //       return  Row(
+                                                  // //         children: [
+                                                  // //           Obx(() {
+                                                  // //             return Expanded(
+                                                  // //               child: Text(
+                                                  // //                 profileController.model.value.data!.defaultAddress![index].flatNo.toString() + ''
+                                                  // //                     + profileController.model.value.data!.defaultAddress![index].landmark.toString() + ''
+                                                  // //                     +profileController.model.value.data!.defaultAddress![index].pinCode.toString(),
+                                                  // //                 style: GoogleFonts.poppins(
+                                                  // //                     fontSize: 14,
+                                                  // //                     fontWeight: FontWeight.w400,
+                                                  // //                     color: const Color(0xff5C5C60)),
+                                                  // //               ),
+                                                  // //             );
+                                                  // //           })
+                                                  // //         ],
+                                                  // //       );
+                                                  // //     }),
+                                                  // //   ],
+                                                  // // )
 
-                                               myCartController.model.value.data!.orderAddress == null ?
-                                              // // Row(
-                                              // //   children: [
-                                              // //     ...List.generate(profileController.model.value.data!.defaultAddress!.length, (index){
-                                              // //       return  Row(
-                                              // //         children: [
-                                              // //           Obx(() {
-                                              // //             return Expanded(
-                                              // //               child: Text(
-                                              // //                 profileController.model.value.data!.defaultAddress![index].flatNo.toString() + ''
-                                              // //                     + profileController.model.value.data!.defaultAddress![index].landmark.toString() + ''
-                                              // //                     +profileController.model.value.data!.defaultAddress![index].pinCode.toString(),
-                                              // //                 style: GoogleFonts.poppins(
-                                              // //                     fontSize: 14,
-                                              // //                     fontWeight: FontWeight.w400,
-                                              // //                     color: const Color(0xff5C5C60)),
-                                              // //               ),
-                                              // //             );
-                                              // //           })
-                                              // //         ],
-                                              // //       );
-                                              // //     }),
-                                              // //   ],
-                                              // // )
-
-                                              Row(
-                                                children: [
-                                                  Obx(() {
-                                                    return profileController.model.value.data!.defaultAddress!.isNotEmpty  ?  Expanded(
-                                                      child: Text(profileController.model.value.data!.defaultAddress![0].flatNo.toString() + ','
-                                                                        + profileController.model.value.data!.defaultAddress![0].landmark.toString() + ','
-                                                                            +profileController.model.value.data!.defaultAddress![0].pinCode.toString(),
-                                                        style: GoogleFonts.poppins(
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: const Color(0xff5C5C60)),
-                                                      ),
-                                                    ):SizedBox();
-                                                  })
-                                                ],
-                                              ):
-                                              Row(
-                                                children: [
-                                                  Obx(() {
-                                                    return Expanded(
-                                                      child: Text(
-                                                        (myCartController.model.value.data!.orderAddress == null
-                                                                ? 'Select address'
-                                                                : myCartController.model.value.data!.orderAddress!.flatNo
-                                                                        .toString() +
-                                                                    ',' +
-                                                                    myCartController.model.value.data!.orderAddress!.landmark
-                                                                        .toString() +
-                                                                    ',' +
-                                                                    myCartController.model.value.data!.orderAddress!.pinCode
-                                                                        .toString())
-                                                            .toString(),
-                                                        style: GoogleFonts.poppins(
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: const Color(0xff5C5C60)),
-                                                      ),
-                                                    );
-                                                  })
-                                                ],
-                                              )
+                                                  Row(
+                                                      children: [
+                                                        Obx(() {
+                                                          return profileController
+                                                                  .model.value.data!.defaultAddress!.isNotEmpty
+                                                              ? Expanded(
+                                                                  child: Text(
+                                                                    profileController
+                                                                            .model.value.data!.defaultAddress![0].flatNo
+                                                                            .toString() +
+                                                                        ',' +
+                                                                        profileController
+                                                                            .model.value.data!.defaultAddress![0].landmark
+                                                                            .toString() +
+                                                                        ',' +
+                                                                        profileController
+                                                                            .model.value.data!.defaultAddress![0].pinCode
+                                                                            .toString(),
+                                                                    style: GoogleFonts.poppins(
+                                                                        fontSize: 14,
+                                                                        fontWeight: FontWeight.w400,
+                                                                        color: const Color(0xff5C5C60)),
+                                                                  ),
+                                                                )
+                                                              : SizedBox();
+                                                        })
+                                                      ],
+                                                    )
+                                                  : Row(
+                                                      children: [
+                                                        Obx(() {
+                                                          return Expanded(
+                                                            child: Text(
+                                                              (myCartController.model.value.data!.orderAddress == null
+                                                                      ? 'Select address'
+                                                                      : myCartController
+                                                                              .model.value.data!.orderAddress!.flatNo
+                                                                              .toString() +
+                                                                          ',' +
+                                                                          myCartController
+                                                                              .model.value.data!.orderAddress!.landmark
+                                                                              .toString() +
+                                                                          ',' +
+                                                                          myCartController
+                                                                              .model.value.data!.orderAddress!.pinCode
+                                                                              .toString())
+                                                                  .toString(),
+                                                              style: GoogleFonts.poppins(
+                                                                  fontSize: 14,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: const Color(0xff5C5C60)),
+                                                            ),
+                                                          );
+                                                        })
+                                                      ],
+                                                    )
                                             ],
                                           ),
                                         ),
@@ -580,7 +539,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
                                 ),
                                 InkWell(
-                                  onTap: (){
+                                  onTap: () {
                                     Get.toNamed(MyRouters.homePageScreen);
                                   },
                                   child: Container(
@@ -640,7 +599,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  myCartController.model.value.data!.cartItems![index].name.toString().capitalizeFirst.toString(),
+                                                  myCartController.model.value.data!.cartItems![index].name
+                                                      .toString()
+                                                      .capitalizeFirst
+                                                      .toString(),
                                                   style: GoogleFonts.poppins(
                                                       fontWeight: FontWeight.w700,
                                                       fontSize: 16,
@@ -720,7 +682,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             addHeight(14),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
                                   onTap: () {
@@ -757,7 +719,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   )),
                                 ),
                                 addWidth(5),
-
                                 Container(
                                   height: 60,
                                   width: 57,
@@ -813,7 +774,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ? SizedBox(
                                           //height: 150,
                                           child: Obx(() {
-                                            // if(refreshInt.value > 0){}
+                                          // if(refreshInt.value > 0){}
                                           return ListView.builder(
                                               shrinkWrap: true,
                                               itemCount: getSavedDetailsController.savedDetailsModel.value.data!.length,
@@ -846,7 +807,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                           ),
                                                         ),
                                                       ),
-
                                                     ],
                                                   ),
                                                 );
@@ -921,27 +881,27 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ],
                                     ),
                                   ),
-
-                            myCartController.model.value.data!.cartPaymentSummary!.minOrderCharge !=0 ?
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Small Order fee:',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    '€ ${myCartController.model.value.data!.cartPaymentSummary!.minOrderCharge.toString()}',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
-                                  ),
-                                ],
-                              ),
-                            ):SizedBox(),
+                            myCartController.model.value.data!.cartPaymentSummary!.minOrderCharge != 0
+                                ? Padding(
+                                    padding: const EdgeInsets.fromLTRB(15, 18, 14, 0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Small Order fee:',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff1A2E33)),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          '€ ${myCartController.model.value.data!.cartPaymentSummary!.minOrderCharge.toString()}',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff3A3A3A)),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : SizedBox(),
                             myCartController.model.value.data!.cartPaymentSummary!.couponDiscount == 0
                                 ? const SizedBox()
                                 : Padding(
@@ -1042,16 +1002,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       title: 'Place Order'.toUpperCase(),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          if (getSavedDetailsController.savedDetailsModel.value.data!.isEmpty) {
-                            showToast("Please add card");
-                            return;
-                          }
-                          if (selectedSavedCard == null) {
-                            showToast("Please select card");
-                            return;
-                          }
+                          // if (getSavedDetailsController.savedDetailsModel.value.data!.isEmpty) {
+                          //   showToast("Please add card");
+                          //   return;
+                          // }
+                          // if (selectedSavedCard == null) {
+                          //   showToast("Please select card");
+                          //   return;
+                          // }
+                          print(selectedMethod);
                           if (selectedMethod == "D") {
-                            if (myCartController.model.value.data!.orderAddress != null || profileController.model.value.data!.defaultAddress != null) {
+                            if (myCartController.model.value.data!.orderAddress != null ||
+                                profileController.model.value.data!.defaultAddress!.isNotEmpty) {
                               // return;
                               checkOut(
                                       context: context,
@@ -1081,6 +1043,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       // value2.data!.card,
                                       value2.data!.orderDetail!.itemTotal,
                                     ]);
+                                  } else {
+                                    showToast("Please select the card for payment");
                                   }
                                 });
                               });
@@ -1117,9 +1081,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       // value2.data!.card,
                                       value2.data!.orderDetail!.itemTotal,
                                     ]);
+                                  } else {
+                                    showToast("Please select the card for payment");
                                   }
                                 });
                               });
+                            } else {
+                              showToast("Please choose delivery type");
                             }
                           }
                         }

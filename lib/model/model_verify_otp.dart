@@ -29,13 +29,15 @@ class Data {
   int? id;
   bool? isDriver;
   bool? isVendor;
-  bool? isMarketingManager;
   String? latitude;
   String? longitude;
   String? location;
   String? name;
+  String? lastName;
   String? email;
+  String? countryCode;
   String? phone;
+  List<Null>? defaultAddress;
   String? walletBalance;
   String? earnedBalance;
   String? profileImage;
@@ -46,20 +48,21 @@ class Data {
   bool? selfDelivery;
   bool? asDriverVerified;
   bool? asVendorVerified;
-  bool? asMarketingManagerVerified;
   bool? isProfileComplete;
 
   Data(
       {this.id,
         this.isDriver,
         this.isVendor,
-        this.isMarketingManager,
         this.latitude,
         this.longitude,
         this.location,
         this.name,
+        this.lastName,
         this.email,
+        this.countryCode,
         this.phone,
+        this.defaultAddress,
         this.walletBalance,
         this.earnedBalance,
         this.profileImage,
@@ -70,20 +73,26 @@ class Data {
         this.selfDelivery,
         this.asDriverVerified,
         this.asVendorVerified,
-        this.asMarketingManagerVerified,
         this.isProfileComplete});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     isDriver = json['is_driver'];
     isVendor = json['is_vendor'];
-    isMarketingManager = json['is_marketing_manager'];
     latitude = json['latitude'];
     longitude = json['longitude'];
     location = json['location'];
     name = json['name'];
+    lastName = json['last_name'];
     email = json['email'];
+    countryCode = json['country_code'];
     phone = json['phone'];
+    if (json['default_address '] != null) {
+      defaultAddress = <Null>[];
+      json['default_address '].forEach((v) {
+        //defaultAddress!.add(new Null.fromJson(v));
+      });
+    }
     walletBalance = json['wallet_balance'];
     earnedBalance = json['earned_balance'];
     profileImage = json['profile_image'];
@@ -94,7 +103,6 @@ class Data {
     selfDelivery = json['self_delivery'];
     asDriverVerified = json['as_driver_verified'];
     asVendorVerified = json['as_vendor_verified'];
-    asMarketingManagerVerified = json['as_marketing_manager_verified'];
     isProfileComplete = json['is_profile_complete'];
   }
 
@@ -103,13 +111,18 @@ class Data {
     data['id'] = this.id;
     data['is_driver'] = this.isDriver;
     data['is_vendor'] = this.isVendor;
-    data['is_marketing_manager'] = this.isMarketingManager;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
     data['location'] = this.location;
     data['name'] = this.name;
+    data['last_name'] = this.lastName;
     data['email'] = this.email;
+    data['country_code'] = this.countryCode;
     data['phone'] = this.phone;
+    if (this.defaultAddress != null) {
+      // data['default_address '] =
+      //     this.defaultAddress!.map((v) => v.toJson()).toList();
+    }
     data['wallet_balance'] = this.walletBalance;
     data['earned_balance'] = this.earnedBalance;
     data['profile_image'] = this.profileImage;
@@ -120,7 +133,6 @@ class Data {
     data['self_delivery'] = this.selfDelivery;
     data['as_driver_verified'] = this.asDriverVerified;
     data['as_vendor_verified'] = this.asVendorVerified;
-    data['as_marketing_manager_verified'] = this.asMarketingManagerVerified;
     data['is_profile_complete'] = this.isProfileComplete;
     return data;
   }

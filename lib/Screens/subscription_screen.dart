@@ -94,7 +94,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         ),
 
                         SizedBox(height: height * .03,),
-                        const Text('Get 0 Service Charge On All\n Orders',
+                        const Text('Get 0€ Service Charge On All\n Orders',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 15,

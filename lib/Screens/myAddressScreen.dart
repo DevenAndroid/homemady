@@ -224,7 +224,9 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                 .model.value.data![index].landmark
                                                 .toString()+', ' + myAddressController
                                                       .model.value.data![index].pinCode
-                                                      .toString(),
+                                                      .toString()+', ' + myAddressController
+                                            .model.value.data![index].name
+                                        .toString(),
                                                   style: GoogleFonts.poppins(
                                                       fontSize: 14,
                                                       fontWeight: FontWeight.w400,

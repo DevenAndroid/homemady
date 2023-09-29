@@ -718,7 +718,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     height: 36,
                                   )),
                                 ),
-                                addWidth(5),
+                              /*  addWidth(5),
                                 Container(
                                   height: 60,
                                   width: 57,
@@ -730,7 +730,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     'assets/images/paypal.png',
                                     height: 30,
                                   )),
-                                ),
+                                ),*/
                               ],
                             )
                           ],

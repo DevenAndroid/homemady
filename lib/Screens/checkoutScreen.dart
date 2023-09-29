@@ -718,7 +718,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     height: 36,
                                   )),
                                 ),
-                                addWidth(5),
+                              /*  addWidth(5),
                                 Container(
                                   height: 60,
                                   width: 57,
@@ -730,7 +730,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     'assets/images/paypal.png',
                                     height: 30,
                                   )),
-                                ),
+                                ),*/
                               ],
                             )
                           ],
@@ -1010,24 +1010,67 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           //   showToast("Please select card");
                           //   return;
                           // }
-                          print(selectedMethod);
-                          if (selectedMethod == "D") {
-                            if (myCartController.model.value.data!.orderAddress != null ||
-                                profileController.model.value.data!.defaultAddress!.isNotEmpty) {
-                              // return;
+                          if(selectedMethod != null){
+                           if(selectedMethod == "D"){
+                             if(myCartController.model.value.data!.orderAddress != null ){
+                               if(selectedSavedCard!.value != ""){
+                                 checkOut(
+                                     context: context,
+                                     payment_type: 'online',
+                                     deliveryInstruction: deliveryInstructionController.text,
+                                     specialRequest: specialRequestController.text,
+                                     delivery_type: selectedMethod)
+                                     .then((value1) {
+                                   // log('Token iddddddddddddddddddddd'+value.id.toString());
+                                   payment(
+                                       orderId: value1.data!.orderId.toString(),
+                                       token: selectedSavedCard!.value,
+                                       amount: value1.data!.grandTotal,
+                                       context: context)
+                                       .then((value2) {
+                                     if (value2.status == true) {
+                                       // showToast(value2.message.toString());
+                                       myCartController.getData();
+                                       // print('Order id====' + value2.data!.orderId);
+                                       Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                                         value2.data!.orderDetail!.orderId,
+                                         value2.data!.orderDetail!.placedAt,
+                                         value2.data!.orderDetail!.stateTax,
+                                         value2.data!.orderDetail!.muncipalTax,
+                                         value2.data!.orderDetail!.grandTotal,
+                                         // value2.data!.or,
+                                         // value2.data!.card,
+                                         value2.data!.orderDetail!.itemTotal,
+                                       ]);
+                                     } else {
+                                       showToast("Please select the card for payment");
+                                     }
+                                   });
+                                 });
+                               }
+                               else{
+                                 showToast("Please select the card for payment");
+                               }
+                             }
+                             else{
+                               showToast('Please select address');
+                             }
+                           }
+                           else{
+                            if(selectedSavedCard!.value != ""){
                               checkOut(
-                                      context: context,
-                                      payment_type: 'online',
-                                      deliveryInstruction: deliveryInstructionController.text,
-                                      specialRequest: specialRequestController.text,
-                                      delivery_type: selectedMethod)
+                                  context: context,
+                                  payment_type: 'online',
+                                  deliveryInstruction: deliveryInstructionController.text,
+                                  specialRequest: specialRequestController.text,
+                                  delivery_type: selectedMethod)
                                   .then((value1) {
                                 // log('Token iddddddddddddddddddddd'+value.id.toString());
                                 payment(
-                                        orderId: value1.data!.orderId.toString(),
-                                        token: selectedSavedCard!.value,
-                                        amount: value1.data!.grandTotal,
-                                        context: context)
+                                    orderId: value1.data!.orderId.toString(),
+                                    token: selectedSavedCard!.value,
+                                    amount: value1.data!.grandTotal,
+                                    context: context)
                                     .then((value2) {
                                   if (value2.status == true) {
                                     // showToast(value2.message.toString());
@@ -1048,48 +1091,95 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   }
                                 });
                               });
-                            } else {
-                              showToast('Please select address');
                             }
-                          } else {
-                            if (selectedMethod != null) {
-                              checkOut(
-                                      context: context,
-                                      payment_type: 'online',
-                                      deliveryInstruction: deliveryInstructionController.text,
-                                      specialRequest: specialRequestController.text,
-                                      delivery_type: selectedMethod)
-                                  .then((value1) {
-                                // log('Token iddddddddddddddddddddd'+value.id.toString());
-                                payment(
-                                        orderId: value1.data!.orderId.toString(),
-                                        token: selectedSavedCard!.value,
-                                        amount: value1.data!.grandTotal,
-                                        context: context)
-                                    .then((value2) {
-                                  if (value2.status == true) {
-                                    // showToast(value2.message.toString());
-                                    myCartController.getData();
-                                    // print('Order id====' + value2.data!.orderId);
-                                    Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                                      value2.data!.orderDetail!.orderId,
-                                      value2.data!.orderDetail!.placedAt,
-                                      value2.data!.orderDetail!.stateTax,
-                                      value2.data!.orderDetail!.muncipalTax,
-                                      value2.data!.orderDetail!.grandTotal,
-                                      // value2.data!.or,
-                                      // value2.data!.card,
-                                      value2.data!.orderDetail!.itemTotal,
-                                    ]);
-                                  } else {
-                                    showToast("Please select the card for payment");
-                                  }
-                                });
-                              });
-                            } else {
-                              showToast("Please choose delivery type");
-                            }
+                             else{
+                               showToast("Please select the card for payment");
+                             }
+                           }
                           }
+                          else{
+                            showToast("Please choose delivery type");
+                          }
+                          // print(selectedMethod);
+                          // if (selectedMethod == "D") {
+                          //   if (myCartController.model.value.data!.orderAddress != null ||
+                          //       profileController.model.value.data!.defaultAddress!.isNotEmpty && selectedSavedCard!.value != "") {
+                          //     // return;
+                          //     checkOut(
+                          //             context: context,
+                          //             payment_type: 'online',
+                          //             deliveryInstruction: deliveryInstructionController.text,
+                          //             specialRequest: specialRequestController.text,
+                          //             delivery_type: selectedMethod)
+                          //         .then((value1) {
+                          //       // log('Token iddddddddddddddddddddd'+value.id.toString());
+                          //       payment(
+                          //               orderId: value1.data!.orderId.toString(),
+                          //               token: selectedSavedCard!.value,
+                          //               amount: value1.data!.grandTotal,
+                          //               context: context)
+                          //           .then((value2) {
+                          //         if (value2.status == true) {
+                          //           // showToast(value2.message.toString());
+                          //           myCartController.getData();
+                          //           // print('Order id====' + value2.data!.orderId);
+                          //           Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                          //             value2.data!.orderDetail!.orderId,
+                          //             value2.data!.orderDetail!.placedAt,
+                          //             value2.data!.orderDetail!.stateTax,
+                          //             value2.data!.orderDetail!.muncipalTax,
+                          //             value2.data!.orderDetail!.grandTotal,
+                          //             // value2.data!.or,
+                          //             // value2.data!.card,
+                          //             value2.data!.orderDetail!.itemTotal,
+                          //           ]);
+                          //         } else {
+                          //           showToast("Please select the card for payment");
+                          //         }
+                          //       });
+                          //     });
+                          //   } else {
+                          //     showToast('Please select address');
+                          //   }
+                          // } else {
+                          //   if (selectedMethod != null && selectedSavedCard!.value != "") {
+                          //     checkOut(
+                          //             context: context,
+                          //             payment_type: 'online',
+                          //             deliveryInstruction: deliveryInstructionController.text,
+                          //             specialRequest: specialRequestController.text,
+                          //             delivery_type: selectedMethod)
+                          //         .then((value1) {
+                          //       // log('Token iddddddddddddddddddddd'+value.id.toString());
+                          //       payment(
+                          //               orderId: value1.data!.orderId.toString(),
+                          //               token: selectedSavedCard!.value,
+                          //               amount: value1.data!.grandTotal,
+                          //               context: context)
+                          //           .then((value2) {
+                          //         if (value2.status == true) {
+                          //           // showToast(value2.message.toString());
+                          //           myCartController.getData();
+                          //           // print('Order id====' + value2.data!.orderId);
+                          //           Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                          //             value2.data!.orderDetail!.orderId,
+                          //             value2.data!.orderDetail!.placedAt,
+                          //             value2.data!.orderDetail!.stateTax,
+                          //             value2.data!.orderDetail!.muncipalTax,
+                          //             value2.data!.orderDetail!.grandTotal,
+                          //             // value2.data!.or,
+                          //             // value2.data!.card,
+                          //             value2.data!.orderDetail!.itemTotal,
+                          //           ]);
+                          //         } else {
+                          //           showToast("Please select the card for payment");
+                          //         }
+                          //       });
+                          //     });
+                          //   } else {
+                          //     showToast("Please choose delivery type");
+                          //   }
+                          // }
                         }
                         // Get.toNamed(MyRouters.addNewCardScreen);
                       },

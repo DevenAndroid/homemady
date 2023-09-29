@@ -88,15 +88,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
   connectToServer() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+    log("THis is token for socket${user.authToken}");
     if (socket1 != null) {
       socket1!.disconnect();
       socket1!.dispose();
     }
+
     //192.168.1.28      54.204.238.132
-    io.Socket socket = io.io('https://3ea2-2401-4900-1c1b-2c01-5411-32c-c6b8-21ac.ngrok.io/app', <String, dynamic>{
+    io.Socket socket = io.io('http://3.25.233.116:3001/app', <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false,
-      "auth": {"access_token":user.authToken.toString()},
+      "extraHeaders": {"access_token":user.authToken.toString()},
     });
 
     socket.onError((data) {
@@ -140,10 +142,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    connectToServer();
+
     // connectToServer();
     locationController.checkGps(context);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      connectToServer();
+      filterDataController.getFilterData();
       profileController.getData();
       scrollController.addListener((_scrollListener));
       // scrollController1.addListener((_scrollListener1));
@@ -532,9 +536,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               controller: filterDataController.storeSearchController,
                                               prefix: InkWell(
                                                 onTap: () {
+                                                  FocusManager.instance.primaryFocus!.unfocus();
                                                   print(selectedDate);
 
                                                   if(selectedDate != "Available Now" ||  isAvailableSelected == true) {
+                                                    // filterDataController.storeSearchController.text = "";
                                                     filterDataController.getFilterData();
                                                     Get.toNamed(SearchScreenData.searchScreen,);
                                                   }

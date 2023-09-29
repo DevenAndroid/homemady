@@ -387,180 +387,186 @@ class _ChooseAddressState extends State<ChooseAddress> {
         mapController!.dispose();
         return true;
       },
-      child: Scaffold(
-          appBar: backAppBar(
-              title: _isValue.value == true
-                  ? "Complete Address"
-                  : "Choose Address",
-              context: context,
-              dispose: "dispose",
-              disposeController: () {
-                mapController!.dispose();
-              }),
-          body: Stack(
-            children: [
-              GoogleMap(
-                zoomGesturesEnabled: true,
-                //enable Zoom in, out on map
-                initialCameraPosition: const CameraPosition(
-                  target: LatLng(0, 0),
-                  zoom: 14.0, //initial zoom level
+      child: GestureDetector(
+        onTap: (){
+          FocusManager.instance.primaryFocus!.unfocus();
+        },
+        child: Scaffold(
+            appBar: backAppBar(
+                title: _isValue.value == true
+                    ? "Complete Address"
+                    : "Choose Address",
+                context: context,
+                dispose: "dispose",
+                disposeController: () {
+                  mapController!.dispose();
+                }),
+            body: Stack(
+              children: [
+                GoogleMap(
+                  zoomGesturesEnabled: true,
+                  //enable Zoom in, out on map
+                  initialCameraPosition: const CameraPosition(
+                    target: LatLng(0, 0),
+                    zoom: 14.0, //initial zoom level
+                  ),
+                  mapType: MapType.normal,
+                  //map type
+                  onMapCreated: (controller) {
+                    setState(() async {
+                      mapController = controller;
+                    });
+                  },
+                  markers: markers,
+
+                  // myLocationEnabled: true,
+                  // myLocationButtonEnabled: true,
+                  // compassEnabled: true,
+                  // markers: Set<Marker>.of(_markers),
+                  onCameraMove: (CameraPosition cameraPositions) {
+                    cameraPosition = cameraPositions;
+                  },
+                  onCameraIdle: () async {},
                 ),
-                mapType: MapType.normal,
-                //map type
-                onMapCreated: (controller) {
-                  setState(() async {
-                    mapController = controller;
-                  });
-                },
-                markers: markers,
-
-                // myLocationEnabled: true,
-                // myLocationButtonEnabled: true,
-                // compassEnabled: true,
-                // markers: Set<Marker>.of(_markers),
-                onCameraMove: (CameraPosition cameraPositions) {
-                  cameraPosition = cameraPositions;
-                },
-                onCameraIdle: () async {},
-              ),
-              _isValue.value == true
-                  ? const SizedBox()
-                  : Positioned(
-                //search input bar
-                  top: 10,
-                  child: InkWell(
-                      onTap: () async {
-                        var place = await PlacesAutocomplete.show(
-                            context: context,
-                            apiKey: googleApikey,
-                            mode: Mode.overlay,
-                            types: [],
-                            strictbounds: false,
-                            // components: [
-                            //   Component(Component.country, 'np')
-                            // ],
-                            onError: (err) {
-                              log("error.....   ${err.errorMessage}");
-                            });
-                        if (place != null) {
-                          setState(() {
-                            _address = place.description.toString();
-                          });
-                          final plist = GoogleMapsPlaces(
-                            apiKey: googleApikey,
-                            apiHeaders:
-                            await const GoogleApiHeaders().getHeaders(),
-                          );
-                          print(plist);
-                          String placeid = place.placeId ?? "0";
-                          final detail =
-                          await plist.getDetailsByPlaceId(placeid);
-                          final geometry = detail.result.geometry!;
-                          final lat = geometry.location.lat;
-                          final lang = geometry.location.lng;
-                          var newlatlang = LatLng(lat, lang);
-                          setState(() {
-                            _address = place.description.toString();
-                            _onAddMarkerButtonPressed(
-                                LatLng(lat, lang), place.description);
-                          });
-                          mapController?.animateCamera(
-                              CameraUpdate.newCameraPosition(CameraPosition(
-                                  target: newlatlang, zoom: 17)));
-                          setState(() {});
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Card(
-                          child: Container(
-                              padding: const EdgeInsets.all(0),
-                              width: MediaQuery.of(context).size.width - 40,
-                              child: ListTile(
-                                leading: Image.asset(
-                                  AppAssets.drawer_location,
-                                  width: AddSize.size15,
-                                ),
-                                title: Text(
-                                  _address.toString(),
-                                  style:
-                                  TextStyle(fontSize: AddSize.font14),
-                                ),
-                                trailing: const Icon(Icons.search),
-                                dense: true,
-                              )),
-                        ),
-                      ))),
-              Positioned(
-                  bottom: 0,
-                  child: Container(
-                    height: AddSize.size200,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        color: AppTheme.backgroundcolor,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AddSize.padding16,
-                        vertical: AddSize.padding10,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: AppTheme.primaryColor,
-                                      size: AddSize.size25,
-                                    ),
-                                    SizedBox(
-                                      width: AddSize.size12,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        _address.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5!
-                                            .copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: AddSize.font16),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: AddSize.size30,
-                          ),
-                          CommonButton1(
-                              title: 'Enter complete address',
-                            onPressed: () {
-                              setState(() {
-                                _isValue.value = !_isValue.value;
-                                selectedChip.value = "Home";
+                _isValue.value == true
+                    ? const SizedBox()
+                    : Positioned(
+                  //search input bar
+                    top: 10,
+                    child: InkWell(
+                        onTap: () async {
+                          var place = await PlacesAutocomplete.show(
+                              context: context,
+                              apiKey: googleApikey,
+                              mode: Mode.overlay,
+                              types: [],
+                              strictbounds: false,
+                              // components: [
+                              //   Component(Component.country, 'np')
+                              // ],
+                              onError: (err) {
+                                log("error.....   ${err.errorMessage}");
                               });
-                              showChangeAddressSheet(addressModel.value);
-                              // Get.toNamed(MyRouter.chooseAddressScreen);
-                            },
+                          if (place != null) {
+                            setState(() {
+                              _address = place.description.toString();
+                            });
+                            final plist = GoogleMapsPlaces(
+                              apiKey: googleApikey,
+                              apiHeaders:
+                              await const GoogleApiHeaders().getHeaders(),
+                            );
+                            print(plist);
+                            String placeid = place.placeId ?? "0";
+                            final detail =
+                            await plist.getDetailsByPlaceId(placeid);
+                            final geometry = detail.result.geometry!;
+                            final lat = geometry.location.lat;
+                            final lang = geometry.location.lng;
+                            var newlatlang = LatLng(lat, lang);
+                            setState(() {
+                              _address = place.description.toString();
+                              _onAddMarkerButtonPressed(
+                                  LatLng(lat, lang), place.description);
+                            });
+                            mapController?.animateCamera(
+                                CameraUpdate.newCameraPosition(CameraPosition(
+                                    target: newlatlang, zoom: 17)));
+                            setState(() {});
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Card(
+                            child: Container(
+                                padding: const EdgeInsets.all(0),
+                                width: MediaQuery.of(context).size.width - 40,
+                                child: ListTile(
+                                  leading: Image.asset(
+                                    AppAssets.drawer_location,
+                                    width: AddSize.size15,
+                                  ),
+                                  title: Text(
+                                    _address.toString(),
+                                    style:
+                                    TextStyle(fontSize: AddSize.font14),
+                                  ),
+                                  trailing: const Icon(Icons.search),
+                                  dense: true,
+                                )),
                           ),
+                        ))),
+                Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: AddSize.size200,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                          color: AppTheme.backgroundcolor,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20))),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AddSize.padding16,
+                          vertical: AddSize.padding10,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_on,
+                                        color: AppTheme.primaryColor,
+                                        size: AddSize.size25,
+                                      ),
+                                      SizedBox(
+                                        width: AddSize.size12,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          _address.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5!
+                                              .copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: AddSize.font16),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: AddSize.size30,
+                            ),
+                            CommonButton1(
+                                title: 'Enter complete address',
+                              onPressed: () {
+                                setState(() {
+                                  _isValue.value = !_isValue.value;
+                                  selectedChip.value = "Home";
+                                });
+                                // FocusManager.instance.primaryFocus!.unfocus();
+                                showChangeAddressSheet(addressModel.value);
+                                // Get.toNamed(MyRouter.chooseAddressScreen);
+                              },
+                            ),
 
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ))
-            ],
-          )),
+                    ))
+              ],
+            )),
+      ),
     );
   }
 

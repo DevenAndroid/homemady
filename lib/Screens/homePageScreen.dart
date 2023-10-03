@@ -281,6 +281,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             },
                             child: Container(
                                 //height: 100,
+
                                 decoration: BoxDecoration(
                                     color: currentIndex != index ? Colors.white : const Color(0xFF7ED957),
                                     borderRadius: BorderRadius.circular(4),
@@ -292,7 +293,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      itemdata.startTime.toString() + "-" + itemdata.endTime.toString().capitalizeFirst!,
+                                      itemdata.startTime.toString() + "-" + itemdata.endTime.toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
@@ -712,13 +713,21 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       children: [
 
                                                         selectedDate == 'Available Now'  && isAvailableSelected == false
-                                                            ? Padding(
-                                                                padding: const EdgeInsets.all(8.0),
-                                                                child: Image.asset(
-                                                                  'assets/images/clockImg.png',
-                                                                  height: 18,
+                                                            ? GestureDetector(
+                                                          onTap: (){
+                                                            print(isAvailableSelected);
+                                                            isAvailableSelected = !isAvailableSelected!;
+                                                            print("THisis date${isAvailableSelected}");
+                                                            setState(() {});
+                                                          },
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child: Image.asset(
+                                                                    'assets/images/clockImg.png',
+                                                                    height: 18,
+                                                                  ),
                                                                 ),
-                                                              )
+                                                            )
                                                             : Padding(
                                                                 padding: const EdgeInsets.all(8.0),
                                                                 child: Image.asset(
@@ -998,7 +1007,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                     ),
                                                                     addWidth(10),
                                                                     Text(
-                                                                      'Delivery Only ${homeController.model.value.data!.stores![index].time ?? ''.toString()} mins',
+                                                                      '${homeController.model.value.data!.stores![index].collection.toString()} ',
+                                                                      style: GoogleFonts.poppins(
+                                                                          fontWeight: FontWeight.w400,
+                                                                          fontSize: 12,
+                                                                          color: const Color(0xFF606573)),
+                                                                    ),
+                                                                    Text(
+                                                                      '${homeController.model.value.data!.stores![index].time ?? ''.toString()} mins',
                                                                       style: GoogleFonts.poppins(
                                                                           fontWeight: FontWeight.w400,
                                                                           fontSize: 12,
@@ -1625,14 +1641,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      category.name.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 18,
-                                                        color: const Color(0xFF425159),
-                                                      ),
+                                                  Text(
+                                                    category.name.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w300,
+                                                      fontSize: 18,
+                                                      color: const Color(0xFF425159),
                                                     ),
                                                   ),
                                                   Obx(() {

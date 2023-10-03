@@ -645,29 +645,29 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                      addHeight(4),
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          addWidth(80),
-                                                          Image.asset(
-                                                            'assets/images/helpimg.png',
-                                                            height: 13,
-                                                          ),
-                                                          addWidth(4),
-                                                          Text(
-                                                            'How long it takes to cook: ',
-                                                            style: GoogleFonts.poppins(
-                                                                fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
-                                                          ),
-                                                          Text(
-                                                            '${filterProductCategoryController.filterDataModel.value.data![index].cookUnitDays ?? '5'.toString()}',
-                                                            style: GoogleFonts.poppins(
-                                                                fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                      // addHeight(4),
+                                                      // Row(
+                                                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                                                      //   mainAxisAlignment: MainAxisAlignment.start,
+                                                      //   children: [
+                                                      //     addWidth(80),
+                                                      //     Image.asset(
+                                                      //       'assets/images/helpimg.png',
+                                                      //       height: 13,
+                                                      //     ),
+                                                      //     addWidth(4),
+                                                      //     Text(
+                                                      //       'How long it takes to cook: ',
+                                                      //       style: GoogleFonts.poppins(
+                                                      //           fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                      //     ),
+                                                      //     Text(
+                                                      //       '${filterProductCategoryController.filterDataModel.value.data![index].cookUnitDays ?? '5'.toString()}',
+                                                      //       style: GoogleFonts.poppins(
+                                                      //           fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                                      //     ),
+                                                      //   ],
+                                                      // ),
                                                       addHeight(4),
                                                       Row(
                                                         crossAxisAlignment: CrossAxisAlignment.start,

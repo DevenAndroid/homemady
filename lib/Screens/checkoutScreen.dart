@@ -111,39 +111,73 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                             ),
                             addHeight(10),
-
-                            Row(
-                              children: [
-                                myCartController.model.value.data!.cartItems![0].collectionStatus == true
-                                    ? SizedBox()
-                                    : Theme(
-                                        data: ThemeData(
-                                          unselectedWidgetColor: Colors.green,
-                                        ),
-                                        child: addRadioButton(0)),
-                                myCartController.model.value.data!.cartItems![0].collectionStatus == true
-                                    ? SizedBox()
-                                    : Text(
-                                        'Delivery',
-                                        style: GoogleFonts.poppins(
-                                            color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                            if (myCartController.model.value.data!.cartItems![0].collectionStatus == true &&
+                                    myCartController.model.value.data!.cartItems![0].selfDelivery == true ||
+                                myCartController.model.value.data!.cartItems![0].collectionStatus == false &&
+                                    myCartController.model.value.data!.cartItems![0].selfDelivery == false)
+                              Row(
+                                children: [
+                                  Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.green,
                                       ),
-                                myCartController.model.value.data!.cartItems![0].collectionStatus == true
-                                    ? SizedBox()
-                                    : addWidth(40),
-                                Theme(
-                                    data: ThemeData(
-                                      unselectedWidgetColor: Colors.green,
-                                    ),
-                                    child: addRadioButton(1)),
-                                addWidth(5),
-                                Text(
-                                  'Pickup',
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
-                                )
-                              ],
-                            ),
+                                      child: addRadioButton(0)),
+                                  Text(
+                                    'Delivery',
+                                    style: GoogleFonts.poppins(
+                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                  ),
+                                  addWidth(40),
+                                  Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.green,
+                                      ),
+                                      child: addRadioButton(1)),
+                                  addWidth(5),
+                                  Text(
+                                    'Pickup',
+                                    style: GoogleFonts.poppins(
+                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                  )
+                                ],
+                              ),
+
+                            if (myCartController.model.value.data!.cartItems![0].collectionStatus == true &&
+                                myCartController.model.value.data!.cartItems![0].selfDelivery == false)
+                              Row(
+                                children: [
+                                  Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.green,
+                                      ),
+                                      child: addRadioButton(1)),
+                                  addWidth(5),
+                                  Text(
+                                    'Pickup',
+                                    style: GoogleFonts.poppins(
+                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                  )
+                                ],
+                              ),
+
+                            if (myCartController.model.value.data!.cartItems![0].collectionStatus == false &&
+                                myCartController.model.value.data!.cartItems![0].selfDelivery == true)
+                              Row(
+                                children: [
+                                  Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.green,
+                                      ),
+                                      child: addRadioButton(0)),
+                                  addWidth(5),
+                                  Text(
+                                    'Delivery',
+                                    style: GoogleFonts.poppins(
+                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                  )
+                                ],
+                              ),
+                            // older above
                             // Row(
                             //   children: [
                             //     if (myCartController.model.value.data!.cartItems![0].collectionStatus == false ||
@@ -718,7 +752,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     height: 36,
                                   )),
                                 ),
-                              /*  addWidth(5),
+                                /*  addWidth(5),
                                 Container(
                                   height: 60,
                                   width: 57,
@@ -1010,94 +1044,89 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           //   showToast("Please select card");
                           //   return;
                           // }
-                          if(selectedMethod != null){
-                           if(selectedMethod == "D"){
-                             if(myCartController.model.value.data!.orderAddress != null ){
-                               if(selectedSavedCard!.value != ""){
-                                 checkOut(
-                                     context: context,
-                                     payment_type: 'online',
-                                     deliveryInstruction: deliveryInstructionController.text,
-                                     specialRequest: specialRequestController.text,
-                                     delivery_type: selectedMethod)
-                                     .then((value1) {
-                                   // log('Token iddddddddddddddddddddd'+value.id.toString());
-                                   payment(
-                                       orderId: value1.data!.orderId.toString(),
-                                       token: selectedSavedCard!.value,
-                                       amount: value1.data!.grandTotal,
-                                       context: context)
-                                       .then((value2) {
-                                     if (value2.status == true) {
-                                       // showToast(value2.message.toString());
-                                       myCartController.getData();
-                                       // print('Order id====' + value2.data!.orderId);
-                                       Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                                         value2.data!.orderDetail!.orderId,
-                                         value2.data!.orderDetail!.placedAt,
-                                         value2.data!.orderDetail!.stateTax,
-                                         value2.data!.orderDetail!.muncipalTax,
-                                         value2.data!.orderDetail!.grandTotal,
-                                         // value2.data!.or,
-                                         // value2.data!.card,
-                                         value2.data!.orderDetail!.itemTotal,
-                                       ]);
-                                     } else {
-                                       showToast("Please select the card for payment");
-                                     }
-                                   });
-                                 });
-                               }
-                               else{
-                                 showToast("Please select the card for payment");
-                               }
-                             }
-                             else{
-                               showToast('Please select address');
-                             }
-                           }
-                           else{
-                            if(selectedSavedCard!.value != ""){
-                              checkOut(
-                                  context: context,
-                                  payment_type: 'online',
-                                  deliveryInstruction: deliveryInstructionController.text,
-                                  specialRequest: specialRequestController.text,
-                                  delivery_type: selectedMethod)
-                                  .then((value1) {
-                                // log('Token iddddddddddddddddddddd'+value.id.toString());
-                                payment(
-                                    orderId: value1.data!.orderId.toString(),
-                                    token: selectedSavedCard!.value,
-                                    amount: value1.data!.grandTotal,
-                                    context: context)
-                                    .then((value2) {
-                                  if (value2.status == true) {
-                                    // showToast(value2.message.toString());
-                                    myCartController.getData();
-                                    // print('Order id====' + value2.data!.orderId);
-                                    Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                                      value2.data!.orderDetail!.orderId,
-                                      value2.data!.orderDetail!.placedAt,
-                                      value2.data!.orderDetail!.stateTax,
-                                      value2.data!.orderDetail!.muncipalTax,
-                                      value2.data!.orderDetail!.grandTotal,
-                                      // value2.data!.or,
-                                      // value2.data!.card,
-                                      value2.data!.orderDetail!.itemTotal,
-                                    ]);
-                                  } else {
-                                    showToast("Please select the card for payment");
-                                  }
+                          if (selectedMethod != null) {
+                            if (selectedMethod == "D") {
+                              if (myCartController.model.value.data!.orderAddress != null) {
+                                if (selectedSavedCard!.value != "") {
+                                  checkOut(
+                                          context: context,
+                                          payment_type: 'online',
+                                          deliveryInstruction: deliveryInstructionController.text,
+                                          specialRequest: specialRequestController.text,
+                                          delivery_type: selectedMethod)
+                                      .then((value1) {
+                                    // log('Token iddddddddddddddddddddd'+value.id.toString());
+                                    payment(
+                                            orderId: value1.data!.orderId.toString(),
+                                            token: selectedSavedCard!.value,
+                                            amount: value1.data!.grandTotal,
+                                            context: context)
+                                        .then((value2) {
+                                      if (value2.status == true) {
+                                        // showToast(value2.message.toString());
+                                        myCartController.getData();
+                                        // print('Order id====' + value2.data!.orderId);
+                                        Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                                          value2.data!.orderDetail!.orderId,
+                                          value2.data!.orderDetail!.placedAt,
+                                          value2.data!.orderDetail!.stateTax,
+                                          value2.data!.orderDetail!.muncipalTax,
+                                          value2.data!.orderDetail!.grandTotal,
+                                          // value2.data!.or,
+                                          // value2.data!.card,
+                                          value2.data!.orderDetail!.itemTotal,
+                                        ]);
+                                      } else {
+                                        showToast("Please select the card for payment");
+                                      }
+                                    });
+                                  });
+                                } else {
+                                  showToast("Please select the card for payment");
+                                }
+                              } else {
+                                showToast('Please select address');
+                              }
+                            } else {
+                              if (selectedSavedCard!.value != "") {
+                                checkOut(
+                                        context: context,
+                                        payment_type: 'online',
+                                        deliveryInstruction: deliveryInstructionController.text,
+                                        specialRequest: specialRequestController.text,
+                                        delivery_type: selectedMethod)
+                                    .then((value1) {
+                                  // log('Token iddddddddddddddddddddd'+value.id.toString());
+                                  payment(
+                                          orderId: value1.data!.orderId.toString(),
+                                          token: selectedSavedCard!.value,
+                                          amount: value1.data!.grandTotal,
+                                          context: context)
+                                      .then((value2) {
+                                    if (value2.status == true) {
+                                      // showToast(value2.message.toString());
+                                      myCartController.getData();
+                                      // print('Order id====' + value2.data!.orderId);
+                                      Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                                        value2.data!.orderDetail!.orderId,
+                                        value2.data!.orderDetail!.placedAt,
+                                        value2.data!.orderDetail!.stateTax,
+                                        value2.data!.orderDetail!.muncipalTax,
+                                        value2.data!.orderDetail!.grandTotal,
+                                        // value2.data!.or,
+                                        // value2.data!.card,
+                                        value2.data!.orderDetail!.itemTotal,
+                                      ]);
+                                    } else {
+                                      showToast("Please select the card for payment");
+                                    }
+                                  });
                                 });
-                              });
+                              } else {
+                                showToast("Please select the card for payment");
+                              }
                             }
-                             else{
-                               showToast("Please select the card for payment");
-                             }
-                           }
-                          }
-                          else{
+                          } else {
                             showToast("Please choose delivery type");
                           }
                           // print(selectedMethod);

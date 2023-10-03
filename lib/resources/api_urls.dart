@@ -59,7 +59,4 @@ class ApiUrl {
   static const subscriptionListUrl = "${baseUrl}subscription-list";
   static const referAndEarnUrl = "${baseUrl}refer-and-earn";
 
-
-
-
 }

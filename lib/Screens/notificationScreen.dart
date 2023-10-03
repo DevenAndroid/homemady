@@ -118,7 +118,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 10,top: 2),
                                       child: Text(
-                                        controller.model.value.data!.notificationData![index].title.toString(),
+                                        controller.model.value.data!.notificationData![index].title.toString().capitalize
+                                            .toString(),
                                         style: GoogleFonts.poppins(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w400,

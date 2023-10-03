@@ -100,6 +100,7 @@ class Stores {
   dynamic rating;
   dynamic countReviewData;
   dynamic cookName;
+  dynamic collection;
   bool ? sustainablePackagingStatus;
   bool? wishlist;
   dynamic? profileImage;
@@ -112,6 +113,7 @@ class Stores {
         this.image,
         this.award,
         this.rating,
+        this.collection,
         this.sustainablePackagingStatus,
         this.countReviewData,
         this.cookName,
@@ -122,6 +124,7 @@ class Stores {
     id = json['id'];
     name = json['name'];
     distance = json['distance'];
+    collection = json['collection'];
     time = json['Time'];
     sustainablePackagingStatus = json['sustainable_packaging_status'];
     image = json['image'];
@@ -150,6 +153,7 @@ class Stores {
       data['award'] = this.award!.map((v) => v.toJson()).toList();
     }
     data['rating'] = this.rating;
+    data['collection'] = this.collection;
     data['count_review_Data'] = this.countReviewData;
     data['Cook name'] = this.cookName;
     data['wishlist'] = this.wishlist;

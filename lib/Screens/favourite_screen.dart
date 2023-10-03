@@ -220,14 +220,23 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                             Image.asset(
                                                               'assets/images/truckimg.png',
                                                               height: 22,
-                                                              color: const Color(0xFF04666E),),
+                                                              color: const Color(0xFF04666E),
+                                                            ),
                                                             addWidth(10),
-                                                            Text('Delivery Only 25 mins',
+                                                            Text(
+                                                              '${controller1.model.value.data!.store![index].collection.toString()} ',
                                                               style: GoogleFonts.poppins(
                                                                   fontWeight: FontWeight.w400,
                                                                   fontSize: 12,
-                                                                  color: const Color(0xFF606573)
-                                                              ),),
+                                                                  color: const Color(0xFF606573)),
+                                                            ),
+                                                            Text(
+                                                              '${controller1.model.value.data!.store![index].time ?? ''.toString()} mins',
+                                                              style: GoogleFonts.poppins(
+                                                                  fontWeight: FontWeight.w400,
+                                                                  fontSize: 12,
+                                                                  color: const Color(0xFF606573)),
+                                                            ),
                                                           ],
                                                         )
                                                       ],
@@ -602,7 +611,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                     ),
                                                     addHeight(3),
 
-                                                    controller1.model.value.data!.product![index].exclude == true ?
+                                                    controller1.model.value.data!.product![index].qty == 0 ?
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
@@ -789,7 +798,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                               //
                                                               // }
                                                               if( product.productCount <  controller1.model.value.data!.product![index].qty) {
-                                                                controller1.model.value.data!.product![index].exclude == true ?
+                                                                controller1.model.value.data!.product![index].qty == 0 ?
                                                                 showToast('Out of Stock') : addToCartRepo(
                                                                     product_id: controller1
                                                                         .model.value.data!.product![index].id
@@ -811,7 +820,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                                 // }
                                                               }
                                                               else{
-                                                                showToast('You reached the maximum Limit of product');
+                                                                // showToast('You reached the maximum Limit of product');
+                                                                showToast('You have reached the product limit');
                                                               }
 
                                                             },
@@ -860,36 +870,36 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                               addWidth(4),
                                               Expanded(
                                                 child: Text(
-                                                  'Can cook more units by: 30th June 2023',
+                                                  'Can cook more units by: ${controller1.model.value.data!.product![index].date.toString()}',
                                                   style: GoogleFonts.poppins(
                                                       fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          addHeight(4),
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              addWidth(80),
-                                              Image.asset(
-                                                'assets/images/helpimg.png',
-                                                height: 13,
-                                              ),
-                                              addWidth(4),
-                                              Text(
-                                                "How long it takes to cook:",
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
-                                              ),
-                                              Text(
-                                                '${controller1.model.value.data!.product![index].cookUnitDays ?? '5'.toString()}',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
-                                              ),
-                                            ],
-                                          ),
+                                          // addHeight(4),
+                                          // Row(
+                                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                                          //   mainAxisAlignment: MainAxisAlignment.start,
+                                          //   children: [
+                                          //     addWidth(80),
+                                          //     Image.asset(
+                                          //       'assets/images/helpimg.png',
+                                          //       height: 13,
+                                          //     ),
+                                          //     addWidth(4),
+                                          //     Text(
+                                          //       "How long it takes to cook:",
+                                          //       style: GoogleFonts.poppins(
+                                          //           fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                                          //     ),
+                                          //     Text(
+                                          //       '${controller1.model.value.data!.product![index].cookUnitDays ?? '5'.toString()}',
+                                          //       style: GoogleFonts.poppins(
+                                          //           fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                                          //     ),
+                                          //   ],
+                                          // ),
 
                                           addHeight(4),
                                           Row(
@@ -907,7 +917,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                               ),
-                                              controller1.model.value.data!.product![index].exclude == true ?
+                                              controller1.model.value.data!.product![index].qty == 0 ?
                                               Text(
                                                 '0 Units',
                                                 style: GoogleFonts.poppins(

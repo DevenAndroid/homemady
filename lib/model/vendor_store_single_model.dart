@@ -85,6 +85,7 @@ class StoreDetails {
   bool? sustainablePackagingStatus;
   dynamic time;
   dynamic time1;
+
   dynamic wishlist;
 
 
@@ -102,6 +103,7 @@ class StoreDetails {
         this.sustainablePackagingStatus,
         this.deliveryType,
         this.distance,
+
         this.time,
         this.time1,
         this.wishlist,
@@ -167,6 +169,7 @@ class LatestProducts {
   dynamic qtyType;
   bool ? value;
   dynamic minQty;
+  dynamic date;
   dynamic subTitle;
   dynamic sizeQuantity;
   dynamic maxQty;
@@ -192,6 +195,7 @@ class LatestProducts {
         this.qty,
         this.qtyType,
         this.minQty,
+        this.date,
         this.maxQty,
         this.price,
         this.content,
@@ -219,6 +223,7 @@ class LatestProducts {
     subTitle = json['sub_title'];
     maxQty = json['max_qty'];
     price = json['price'];
+    date = json['Date'];
     allergens = json['allergens'];
     sizeQuantity = json['size_quantity'];
     content = json['content'];
@@ -238,6 +243,7 @@ class LatestProducts {
     data['SKU'] = sKU;
     data['name'] = name;
     data['qty'] = qty;
+    data['Date'] = date;
     data['wishlist'] = wishlist;
     data['qty_type'] = qtyType;
     data['min_qty'] = minQty;

@@ -190,7 +190,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                       ],
                                     ),
                                     addHeight(3),
-                                    controller.model.value.data!.latestProducts![index].exclude == true ?
+                                    controller.model.value.data!.latestProducts![index].qty == 0 ?
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -342,7 +342,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                             onTap: () {
                                               // buttonCount.value++;
                                               if( product.productCount <  controller.model.value.data!.latestProducts![index].qty) {
-                                                controller.model.value.data!.latestProducts![index].exclude == true ?
+                                                controller.model.value.data!.latestProducts![index].qty == 0 ?
                                                  showToast('Out of Stock') : addToCartRepo(
                                                     product_id: controller
                                                         .model.value.data!.latestProducts![index].id
@@ -364,7 +364,8 @@ class _CarteScreenState extends State<CarteScreen> {
                                                 // }
                                               }
                                               else{
-                                                showToast('You reached the maximum Limit of product');
+                                                 showToast('You have reached the product limit');
+                                                //showToast('Out of stock');
                                               }
                                             },
                                             child: Container(
@@ -412,36 +413,36 @@ class _CarteScreenState extends State<CarteScreen> {
                               addWidth(4),
                               Expanded(
                                 child: Text(
-                                  'Can cook more units by: 30th June 2023',
+                                  'Can cook more units by: ${controller.model.value.data!.latestProducts![index].date.toString()}',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                 ),
                               ),
                             ],
                           ),
-                          addHeight(4),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              addWidth(80),
-                              Image.asset(
-                                'assets/images/helpimg.png',
-                                height: 13,
-                              ),
-                              addWidth(4),
-                              Text(
-                                'How long it takes to cook: ',
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
-                              ),
-                              Text(
-                                '${controller.model.value.data!.latestProducts![index].cookUnitDays ?? '5'.toString()} ',
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
-                              ),
-                            ],
-                          ),
+                          // addHeight(4),
+                          // Row(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //     addWidth(80),
+                          //     Image.asset(
+                          //       'assets/images/helpimg.png',
+                          //       height: 13,
+                          //     ),
+                          //     addWidth(4),
+                          //     Text(
+                          //       'How long it takes to cook: ',
+                          //       style: GoogleFonts.poppins(
+                          //           fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
+                          //     ),
+                          //     Text(
+                          //       '${controller.model.value.data!.latestProducts![index].cookUnitDays ?? '5'.toString()} ',
+                          //       style: GoogleFonts.poppins(
+                          //           fontWeight: FontWeight.w500, fontSize: 11, color: const Color(0xFF364A4F)),
+                          //     ),
+                          //   ],
+                          // ),
                           addHeight(4),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,

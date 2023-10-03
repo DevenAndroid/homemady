@@ -62,8 +62,10 @@ class Store {
   dynamic image;
   List<Award>? award;
   dynamic rating;
+  dynamic time;
   dynamic countReviewData;
   dynamic cookName;
+  dynamic collection;
   bool? wishlist;
   dynamic profileImage;
 
@@ -73,7 +75,9 @@ class Store {
         this.distance,
         this.image,
         this.award,
+        this.time,
         this.rating,
+        this.collection,
         this.countReviewData,
         this.cookName,
         this.wishlist,
@@ -91,6 +95,8 @@ class Store {
       });
     }
     rating = json['rating'];
+    time = json['Time'];
+    collection = json['collection'];
     countReviewData = json['count_review_Data'];
     cookName = json['Cook name'];
     wishlist = json['wishlist'];
@@ -101,7 +107,9 @@ class Store {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['collection'] = this.collection;
     data['distance'] = this.distance;
+    data['Time'] = this.time;
     data['image'] = this.image;
     if (this.award != null) {
       data['award'] = this.award!.map((v) => v.toJson()).toList();
@@ -149,6 +157,7 @@ class Product {
   dynamic sizeQuantity;
   dynamic sizeId;
   dynamic inMenu;
+  dynamic date;
   dynamic status;
   dynamic spiciness;
   dynamic allergens;
@@ -163,6 +172,7 @@ class Product {
         this.price,
         this.content,
         this.exclude,
+        this.date,
         this.image,
         this.cookUnitDays,
         this.qty,
@@ -180,6 +190,7 @@ class Product {
     id = json['id'];
     sKU = json['SKU'];
     name = json['name'];
+    date = json['Date'];
     price = json['price'];
     content = json['content'];
     exclude = json['exclude'];
@@ -202,6 +213,7 @@ class Product {
     data['id'] = this.id;
     data['SKU'] = this.sKU;
     data['name'] = this.name;
+    data['Date'] = this.date;
     data['exclude'] = this.exclude;
     data['price'] = this.price;
     data['qty'] = this.qty;

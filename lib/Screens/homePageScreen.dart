@@ -292,7 +292,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      itemdata.startTime.toString() + "-" + itemdata.endTime.toString().capitalizeFirst!,
+                                      itemdata.startTime.toString().capitalizeFirst! + "-" + itemdata.endTime.toString().capitalizeFirst!,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,

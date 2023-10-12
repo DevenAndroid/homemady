@@ -3,6 +3,7 @@ import 'dart:developer';
  import 'package:client_information/client_information.dart';
 import 'package:firebase_auth/firebase_auth.dart';
  import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -15,6 +16,7 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../repository/login_repository.dart';
 import '../repository/social_login_repo.dart';
+import 'dart:io';
 
 
 class LoginScreen extends StatefulWidget {
@@ -228,6 +230,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
+
+                        if(Platform.isAndroid)
                         GestureDetector(
                           onTap: (){
                              signInWithGoogle();
@@ -263,6 +267,43 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+
+                        if(Platform.isIOS)
+                          GestureDetector(
+                            onTap: (){
+                              loginWithApple(context);
+                            },
+                            child: Container(
+                              width: 152,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF37C666).withOpacity(0.10),
+                                    offset: const Offset(.1, .1,
+                                    ),
+                                    blurRadius: 20.0,
+                                    spreadRadius: 1.0,
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/images/apple.png',height: 25,),
+                                  addWidth(10),
+                                  const Text('Apple',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        color:  Color(0xFF4C5369)
+                                    ),)
+                                ],
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                     SizedBox(
@@ -378,6 +419,40 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         showToast(value.message);
       }
+    });
+  }
+}
+loginWithApple(context) async {
+  final appleProvider = AppleAuthProvider().addScope("email").addScope("fullName");
+  if (kIsWeb) {
+    await FirebaseAuth.instance.signInWithPopup(appleProvider).then((value) async {
+      var fromToken = await FirebaseMessaging.instance.getToken();
+
+      socialLogin(provider: "google", token: fromToken!, context: context).then((value) async {
+        if (value.status == true) {
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          pref.setString('user_info', jsonEncode(value));
+          showToast(value.message);
+          Get.offAllNamed(MyRouters.bottomNavbar);
+        } else {
+          showToast(value.message);
+        }
+      });
+    });
+  } else {
+    await FirebaseAuth.instance.signInWithProvider(appleProvider).then((value) async {
+      var fromToken = await FirebaseMessaging.instance.getToken();
+
+      socialLogin(provider: "google", token: fromToken!, context: context).then((value) async {
+        if (value.status == true) {
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          pref.setString('user_info', jsonEncode(value));
+          showToast(value.message);
+          Get.offAllNamed(MyRouters.bottomNavbar);
+        } else {
+          showToast(value.message);
+        }
+      });
     });
   }
 }

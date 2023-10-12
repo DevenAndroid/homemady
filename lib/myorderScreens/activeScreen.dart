@@ -232,6 +232,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                   ),
                                 ),
                                 addWidth(15),
+                                controller.model.value.data![index].deliveryStatus == 'Accepted' ?
                                 GestureDetector(
                                   onTap: (){
                                     orderTrackingController.orderIdTracking.value = controller.model.value.data![index].orderId.toString();
@@ -258,7 +259,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                       ),
                                     ),
                                   ),
-                                ),
+                                ): SizedBox(),
                               ],
                             ),
                           ),

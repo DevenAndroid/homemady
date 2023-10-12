@@ -55,6 +55,7 @@ dependencies:
   share_plus:
   push: ^1.0.0
   readmore: ^2.2.0
+  flutter_polyline_points: ^1.0.0
   dotted_border:
   firebase_messaging: ^14.6.5
   file_picker:

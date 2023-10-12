@@ -7,6 +7,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -23,12 +24,15 @@ import 'package:homemady/widgets/dimenestion.dart';
 import 'package:homemady/widgets/editprofiletextfiled.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../controller/location_controller.dart';
 import '../controller/my_address_controller.dart';
 import '../controller/order_tracking_controller.dart';
+import '../model/lat_long_ model.dart';
 import '../model/my_address_model.dart';
 import '../repository/add_address_repo.dart';
 import '../repository/edit_address_repo.dart';
 import '../widgets/custome_size.dart';
+import 'homePageScreen.dart';
 import 'myAddressScreen.dart';
 
 
@@ -41,11 +45,21 @@ class OrderTrackingScreen extends StatefulWidget {
 }
 
 class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
+  PolylinePoints polylinePoints = PolylinePoints();
+
+  
   final orderTrackingController = Get.put(OrderTrackingController());
+  final locationController = Get.put(LocationController());
   Rx<AddressData> addressModel = AddressData().obs;
   final _formKey = GlobalKey<FormState>();
+  static  LatLng destination = const LatLng(26.9059, 75.7727);
+  static const LatLng sourceDestination = LatLng(26.9059, 75.7727);
+  BitmapDescriptor customerIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor driverIcon = BitmapDescriptor.defaultMarker;
   //  final addressController = Get.put(MyAddressController());
   // Rx<AddressData> addressModel = AddressData().obs;
+
+
 
   final RxBool _isValue = false.obs;
   RxBool customTip = false.obs;
@@ -57,6 +71,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   String? _currentAddress;
   String? _address = "";
   Position? _currentPosition;
+
 
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
@@ -106,7 +121,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
       setState(() {});
       // location = _currentAddress!;
     }).catchError((e) {
-      debugPrint(e);
+      debugPrint(e.toString());
     });
   }
 
@@ -138,11 +153,31 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   }
 
 
+  setCustomMarkerIcon() {
+    BitmapDescriptor.fromAssetImage(
+        ImageConfiguration.empty, "assets/images/track_icon.png")
+        .then(
+            (icon) {
+          customerIcon = icon;
+        });
+
+    BitmapDescriptor.fromAssetImage(
+        ImageConfiguration.empty, "assets/images/track_icon.png")
+        .then(
+            (icon) {
+          driverIcon = icon;
+        });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("THis is latitude from emit ${latLongModel.latitude}");
+    print(latLongModel.longitude.toString());
     orderTrackingController.getOrderTrackingDetails();
+    setCustomMarkerIcon();
+    getPolyPoints();
     _getCurrentPosition();
     if (Get.arguments != null) {
       addressModel.value = Get.arguments[0];
@@ -150,11 +185,34 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     }
   }
 
+  List<LatLng> polylineCoordinates = [];
+  void getPolyPoints() async {
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyDgfjvvO5nK84Bh9jNVbdQ3ja8B6RNyf3k",
+      // const PointLatLng(26.9059, 75.7727),
+        PointLatLng(double.parse(latLongModel.latitude.toString()), double.parse(latLongModel.longitude.toString()) ),
+      PointLatLng(double.parse(locationController.lat.toString()), double.parse(locationController.long.toString())),
+    );
+    print("THis is latitude from emit ${latLongModel.latitude}");
+    print(latLongModel.longitude.toString());
+    if (result.points.isNotEmpty) {
+      for (var point in result.points) {
+        polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        );
+      }
+      setState(() {});
+    }
+
+  }
+
   String googleApikey = "AIzaSyDDl-_JOy_bj4MyQhYbKbGkZ0sfpbTZDNU";
   GoogleMapController? mapController1; //contrller for Google map
   CameraPosition? cameraPosition;
   String location = "Search Location";
-  final Set<Marker> markers = {};
+  final Set<Marker> markers = {
+  };
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
@@ -168,7 +226,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   Future<void> _onAddMarkerButtonPressed(LatLng lastMapPosition, markerTitle,
       {allowZoomIn = true}) async {
     final Uint8List markerIcon =
-    await getBytesFromAsset(AppAssets.locationMarker, 100);
+    await getBytesFromAsset(AppAssets.customerLocationMarker, 100,);
     markers.clear();
     markers.add(Marker(
         markerId: MarkerId(lastMapPosition.toString()),
@@ -177,6 +235,10 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
           title: "",
         ),
         icon: BitmapDescriptor.fromBytes(markerIcon)));
+
+
+
+
     // BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan,)));
     if (googleMapController.isCompleted) {
       mapController!.animateCamera(CameraUpdate.newCameraPosition(
@@ -185,6 +247,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     }
     setState(() {});
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -211,23 +274,47 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
               GoogleMap(
                 zoomGesturesEnabled: true,
                 //enable Zoom in, out on map
-                initialCameraPosition: const CameraPosition(
+                initialCameraPosition:  const CameraPosition(
                   target: LatLng(0, 0),
                   zoom: 14.0, //initial zoom level
                 ),
                 mapType: MapType.normal,
                 //map type
                 onMapCreated: (controller) {
-                  setState(() async {
+                  // setState(() async {
                     mapController = controller;
-                  });
+                  // });
                 },
-                markers: markers,
+                // markers: markers,
+            markers: {
+                Marker(
+                markerId: const MarkerId("source"),
+                position: LatLng(double.parse(locationController.lat.toString()), double.parse(locationController.long.toString())),
+                  infoWindow: const InfoWindow(
+                    title: "customer",
+                  ),
+                icon: customerIcon
 
-                // myLocationEnabled: true,
-                // myLocationButtonEnabled: true,
-                // compassEnabled: true,
-                // markers: Set<Marker>.of(_markers),
+              ),
+                Marker(
+                markerId: const MarkerId("destination"),
+                // position: const LatLng(26.9059, 75.7727),
+                position: LatLng(double.parse((latLongModel.latitude ?? 0.0).toString()), double.parse((latLongModel.longitude ?? 0.0).toString()), ),
+                infoWindow: const InfoWindow(
+                  title: "driver",
+                ),
+              icon: driverIcon,
+              ),
+
+            },
+              polylines: {
+                Polyline(
+                  polylineId: const PolylineId("route"),
+                  points: polylineCoordinates,
+                  color: Colors.red,
+                  width: 3,
+                ),
+              },
                 onCameraMove: (CameraPosition cameraPositions) {
                   cameraPosition = cameraPositions;
                 },
@@ -448,22 +535,15 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                         Image.asset('assets/images/trackBox.png',height: 62,width: 70,),
                                          SizedBox(width: 5,),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 5),
+                                          padding: const EdgeInsets.only(top: 15),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             // mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Bike - RJ-14745',
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff262F33),
-                                                    fontSize: AddSize.font16),
-                                              ),
-                                              Text(
                                                 "Satyam rathore",
                                                 style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w400,
+                                                    fontWeight: FontWeight.w700,
                                                     color: Color(0xff666666),
                                                     fontSize: AddSize.font16),
                                               ),
@@ -489,6 +569,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                               CommonButton1(
                                 title: 'Confirm Delivery',
                                 onPressed: () {
+                                  // getPolyline();
 
                                 },
                               ),

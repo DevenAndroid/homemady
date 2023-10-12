@@ -19,7 +19,7 @@ Future<ResetPasswordModel> resetPasswordRepo(
   SharedPreferences pref = await SharedPreferences.getInstance();
   //print("These are details.....${pref}");
   var map = <String, dynamic>{};
-  map['email'] = email;
+  map['phone'] = email;
   map['password'] = password;
   map['role'] = roleText;
   map['confirm_password'] = confirmPassword;
@@ -32,7 +32,7 @@ Future<ResetPasswordModel> resetPasswordRepo(
     http.Response response = await http.post(Uri.parse(ApiUrl.resetPasswordUrl),
         body: jsonEncode(map), headers: headers);
     if (response.statusCode == 200||response.statusCode == 400) {
-      print("<<<<<<<Forgot password from repository=======>${response.body}");
+      print("<<<<<<<SEt new  password  repository=======>${response.body}");
       NewHelper.hideLoader(loader);
       return ResetPasswordModel.fromJson(json.decode(response.body));
     } else {

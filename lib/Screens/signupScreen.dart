@@ -188,7 +188,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           ],
                         ),
-                        child: CustomIntlPhoneField(
+                        child:
+                        CustomIntlPhoneField(
                           controller: phoneController,
                           dropdownIconPosition:
                           IconPosition.trailing,
@@ -389,7 +390,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               ).then((value){
                                 if(value.status==true){
                                   showToast(value.message);
-                                  Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text]);
+                                  Get.toNamed(MyRouters.otpScreen,arguments: [phoneController.text]);
                                 }else{
                                   showToast(value.message);
                                 }

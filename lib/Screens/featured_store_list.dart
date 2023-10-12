@@ -19,6 +19,7 @@ import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
 import '../widgets/custome_textfiled.dart';
+import 'homePageScreen.dart';
 
 class StoreListScreen extends StatefulWidget {
   final Function(bool gg) performAction;
@@ -56,6 +57,9 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
   @override
   void initState() {
     super.initState();
+    socket1!.on("result", (data){
+      log("rrrrrrrrrrr$data");
+    } );
 
     tabController = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {

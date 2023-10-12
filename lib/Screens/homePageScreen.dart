@@ -27,12 +27,14 @@ import '../controller/search_store_conbtroller.dart';
 import '../controller/time_slot_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
+import '../model/lat_long_ model.dart';
 import '../model/model_verify_otp.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
 import 'home_filter_screen.dart';
 import 'myAddressScreen.dart';
+LatlongModel latLongModel= LatlongModel();
 
 io.Socket? socket1;
 
@@ -99,6 +101,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       "transports": ["websocket"],
       "autoConnect": false,
       "extraHeaders": {"access_token":user.authToken.toString()},
+
     });
 
     socket.onError((data) {
@@ -120,6 +123,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     socket.onConnectTimeout((data) {
       if (kDebugMode) {
         if (kDebugMode) print('onConnectTimeout $data');
+
       }
     });
     socket.connect();
@@ -127,6 +131,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
     socket.onConnect((data) {
       if (kDebugMode) {
         if (kDebugMode) print('==================  onConnect $data');
+        socket1!.on("result", (data){
+          log("kkkkkkkk 1111${data}");
+          getLatLongFrom(data);
+         // latLongModel=LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
+
+        } );
+        //socket1!.on("result", data );
+       // socket.io.hasListeners("get_data");
         // onlineOffline();
         // socket1!.emit("event",lat,long);
       }
@@ -134,9 +146,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
     });
   }
 
+  getLatLongFrom(dynamic data){
+    log("rrrrrrrrrrr  11111${data}");
+    latLongModel=LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
+    log("rrrrrrrrrrr  11111${latLongModel.latitude}");
+    log("rrrrrrrrrrr  11111${latLongModel.longitude}");
 
-
-
+  }
 
 
   void initState() {
@@ -145,8 +161,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
     connectToServer();
 
     // connectToServer();
+    print("THis is latitude from emit "+latLongModel.latitude.toString());
+    print(latLongModel.longitude.toString());
     locationController.checkGps(context);
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
       filterDataController.getFilterData();
       profileController.getData();
       scrollController.addListener((_scrollListener));
@@ -1953,8 +1973,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           itemBuilder: (BuildContext, index) {
                             return InkWell(
                               onTap: () {
-
-
                                 Get.offNamed(FilterProductScreen.filterProductScreen,arguments: [items[index].id].toString());
                               },
                               child: Padding(

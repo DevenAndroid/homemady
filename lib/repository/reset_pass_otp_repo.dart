@@ -18,7 +18,7 @@ Future<ResetPasswordOtpModel> verifyResetRepo(
   SharedPreferences pref = await SharedPreferences.getInstance();
   //print("These are details.....${pref}");
   var map = <String, dynamic>{};
-  map['email'] = email;
+  map['phone'] = email;
   map['otp'] = otp;
   map['role'] = roleText;
 

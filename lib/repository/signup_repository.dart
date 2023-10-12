@@ -56,11 +56,12 @@ Future<ModelCommonResponse> register(
 Future<ModelVerifyOtp> verifyOTPPassword(
     userEmail, otp,roleText, BuildContext context) async {
   var map = <String, dynamic>{};
-  map["email"] = userEmail;
+  map["phone"] = userEmail;
   map["otp"] = otp;
   map["role"] = roleText;
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
+  log(map.toString());
 log(map.toString());
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',

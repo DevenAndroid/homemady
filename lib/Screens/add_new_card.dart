@@ -48,11 +48,13 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
           color:  Colors.white,
           child: Stack(
             children: [
+
               Positioned(
                 left: 20,
                 right: 20,
                 top: 30,
                 child: CardFormField(
+
                   controller: controller,
                   autofocus: true,
                   style: CardFormStyle(
@@ -75,6 +77,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                 //   width: AddSize.screenWidth,
                 // ),
               ),
+
             ],
           ),
         ),
@@ -230,9 +233,9 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                 else {
                   Stripe.instance.createToken(const CreateTokenParams.card(params: CardTokenParams())).then((value) {
                     log(value.toString());
-                    log('token--' + value.id.toString());
+                    log('token--${value.id}');
                     {
-                      log('token--' + value.id.toString());
+                      log('token--${value.id}');
                       saveCardDetailsRepo(stripeToken: value.id.toString(), context: context).then((value){
                         if(value.status==true){
                           showToast(value.message);

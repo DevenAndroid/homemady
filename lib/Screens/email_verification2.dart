@@ -92,15 +92,15 @@ class _EmailVerificationScreen2State extends State<EmailVerificationScreen2> {
                                     color: Colors.white
                                 ),
                                 child: CommonTextFieldWidget(
-                                  hint: 'Email',
+                                  hint: 'Phone Number',
                                   controller: emailController,
-                                  validator: MultiValidator([
-                                    EmailValidator(
-                                        errorText:
-                                        'enter a valid email address'),
-                                    RequiredValidator(
-                                        errorText: 'Please enter a email')
-                                  ]),
+                                  // validator: MultiValidator([
+                                  //   EmailValidator(
+                                  //       errorText:
+                                  //       'enter a valid email address'),
+                                  //   RequiredValidator(
+                                  //       errorText: 'Please enter a email')
+                                  // ]),
                                 ),
                               ),
                               addHeight(25),

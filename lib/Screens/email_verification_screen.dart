@@ -89,13 +89,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                  child: CommonTextFieldWidget(
                                    hint: 'Email',
                                    controller: emailController,
-                                   validator: (value) {
-
-                                   },
                                  ),
                                ),
                                addHeight(25),
                                CommonButton(title: 'Send',onPressed: (){
+                                 print("Hello");
                                  Get.toNamed(MyRouters.otpScreen);
                                },),
                              ],

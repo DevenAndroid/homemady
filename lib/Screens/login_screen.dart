@@ -29,7 +29,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
+  String removeFirstLetter(String input) {
+    if(input.isEmpty)return input;
+    print(input.substring(0,1));
+    if(input.substring(0,1) != "0") return input;
+    return input.substring(1, input.length);
 
+  }
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String roleText = 'customer';
@@ -335,7 +341,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             .getToken();
                         // ignore: use_build_context_synchronously
                         loginRepo(
-                            email: emailController.text,
+                            email: removeFirstLetter(emailController.text),
                             password: passwordController.text,
                             context: context,
                           fcmToken: fcmToken!,

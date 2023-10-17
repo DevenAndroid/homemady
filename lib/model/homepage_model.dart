@@ -95,6 +95,7 @@ class Stores {
   dynamic name;
   dynamic distance;
   dynamic time;
+  dynamic time1;
   dynamic image;
   List<Award>? award;
   dynamic rating;
@@ -118,6 +119,7 @@ class Stores {
         this.countReviewData,
         this.cookName,
         this.wishlist,
+        this.time1,
         this.profileImage});
 
   Stores.fromJson(Map<String, dynamic> json) {
@@ -138,6 +140,7 @@ class Stores {
     countReviewData = json['count_review_Data'];
     cookName = json['Cook name'];
     wishlist = json['wishlist'];
+    time1 = json['Time1'];
     profileImage = json['profile image'];
   }
 
@@ -157,6 +160,7 @@ class Stores {
     data['count_review_Data'] = this.countReviewData;
     data['Cook name'] = this.cookName;
     data['wishlist'] = this.wishlist;
+    data['Time1'] = this.time1;
     data['profile image'] = this.profileImage;
     return data;
   }

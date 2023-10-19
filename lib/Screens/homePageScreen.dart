@@ -172,7 +172,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       scrollController.addListener((_scrollListener));
       // scrollController1.addListener((_scrollListener1));
       homeController.getData();
-      filterProductCategoryController.getFilterCategoryData();
+      filterProductCategoryController.getFilterCategoryData(distance: "");
       myCartController.getData();
       categoryController.getCategoryData();
       categoryController.getDietiaryData();
@@ -203,7 +203,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void _scrollListener1() {
     if (scrollController1.position.pixels == scrollController1.position.maxScrollExtent) {
       // filterProductCategoryController.page.value = filterProductCategoryController.page.value + 1;
-      filterProductCategoryController.getFilterCategoryData();
+     // filterProductCategoryController.getFilterCategoryData();
     } else {
       if (kDebugMode) {
         print("Not calling");
@@ -560,14 +560,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   FocusManager.instance.primaryFocus!.unfocus();
                                                   print(selectedDate);
 
-                                                  if(selectedDate != "Available Now" ||  isAvailableSelected == true) {
-                                                    // filterDataController.storeSearchController.text = "";
-                                                    filterDataController.getFilterData();
+                                                  // if(selectedDate != "Available Now" ||  isAvailableSelected == true) {
+                                                  //   // filterDataController.storeSearchController.text = "";
+                                                  //   filterDataController.getFilterData();
+                                                  if(filterDataController.storeSearchController.text.isNotEmpty) {
                                                     Get.toNamed(SearchScreenData.searchScreen,);
                                                   }
-                                                  else{
-                                                    showToast("Please choose option");
-                                                  }
+                                                  // }
+                                                  // else{
+                                                  //   showToast("Please search meals");
+                                                  // }
 
                                                 },
                                                 child: Icon(
@@ -672,27 +674,34 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             itemBuilder: (context, index) {
                                               return Row(
                                                 children: [
-                                                  Container(
+                                                  GestureDetector(
+                                                    onTap: (){
+                                                      Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                        homeController.model.value.data!.stores![index].id.toString()
+                                                      ]);
+                                                    },
+                                                    child: Container(
                                                 width: width * .55,
                                                 margin: EdgeInsets.symmetric(
-                                                    horizontal: width * .01),
+                                                      horizontal: width * .01),
                                                 decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius.circular(15),
+                                                      color: AppTheme.backgroundcolor),
+                                                child: ClipRRect(
                                                     borderRadius:
                                                     BorderRadius.circular(15),
-                                                    color: AppTheme.backgroundcolor),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                  BorderRadius.circular(15),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl:
-                                                          homeController.model.value.data!.sliderData![index].image.toString(),
-                                                      fit: BoxFit.cover,
-                                                      errorWidget: (_, __, ___) => Image.asset(
-                                                        'assets/images/Ellipse 67.png',
+                                                      child: CachedNetworkImage(
+                                                        imageUrl:
+                                                            homeController.model.value.data!.sliderData![index].image.toString(),
+                                                        fit: BoxFit.cover,
+                                                        errorWidget: (_, __, ___) => Image.asset(
+                                                          'assets/images/Ellipse 67.png',
+                                                        ),
+                                                        placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                                       ),
-                                                      placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                                     ),
-                                                  ),
+                                                    ),
                                                   )
                                                   // addWidth(20)
                                                 ],
@@ -1685,12 +1694,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    category.name.toString(),
-                                                    style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w300,
-                                                      fontSize: 18,
-                                                      color: const Color(0xFF425159),
+                                                  Expanded(
+                                                    child: Text(
+                                                      category.name.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 18,
+                                                        color: const Color(0xFF425159),
+                                                      ),
                                                     ),
                                                   ),
                                                   Obx(() {
@@ -1994,10 +2005,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           shrinkWrap: true,
                           itemCount: items.length,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext, index) {
+                          itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
-                                Get.offNamed(FilterProductScreen.filterProductScreen,arguments: [items[index].id].toString());
+                                Get.off(()=> FilterProductScreen(filterId: items[index].id,));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),

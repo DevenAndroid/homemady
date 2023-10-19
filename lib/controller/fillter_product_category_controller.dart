@@ -17,16 +17,18 @@ class FilterProductCategoryController extends GetxController {
   final searchController1 = TextEditingController();
   RxString name = ''.obs;
 
-  getFilterCategoryData() async {
+  String id = "";
+
+  getFilterCategoryData({
+    required String distance,
+  }) async {
     isDataLoading.value = false;
-    if(Get.arguments == null)return;
-    await filterProductCategoryRepo(distance:Get.arguments[0]).then((value) {
-      isDataLoading.value = true;
+    if(distance.isEmpty)return;
+    await filterProductCategoryRepo(
+        distance: distance
+    ).then((value) {
       filterDataModel.value = value;
-     // loading.value = false;
-      /*loadMore.value = value.link!.next ?? false;
-      filterDataModel.value.data!.addAll(value.data!);
-      filterDataModel.value.data!.clear();*/
+      isDataLoading.value = true;
     }
     );
   }

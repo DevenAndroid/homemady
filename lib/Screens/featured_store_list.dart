@@ -439,7 +439,10 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                       ),
                                                                       addWidth(10),
                                                                       Text(
-                                                                        'Delivery Only 25 mins',
+                                                                        '${featuredFilterController.model.value.data![index].collection
+                                                                            .toString()
+                                                                            .capitalizeFirst
+                                                                            .toString()} ',
                                                                         style: GoogleFonts.poppins(
                                                                             fontWeight: FontWeight.w400,
                                                                             fontSize: 12,
@@ -1658,12 +1661,12 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                           padding: const EdgeInsets.only(left: 5),
                           child: InkWell(
                             onTap: (){
-                              featuredFilterController.status.value = "1";
+                              featuredFilterController.status.value = "3";
                               featuredFilterController.getData();
                               Get.back();
                             },
                             child: Text(
-                              "Stock",
+                              "Collection",
                               style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16,
@@ -1679,12 +1682,12 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                           padding: const EdgeInsets.only(left: 5),
                           child: InkWell(
                             onTap: (){
-                              featuredFilterController.status.value = "0";
+                              featuredFilterController.status.value = "1";
                               featuredFilterController.getData();
                               Get.back();
                             },
                             child: Text(
-                              "Out of Stock",
+                              "Delivery",
                               style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16,

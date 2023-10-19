@@ -221,6 +221,27 @@ class _CarteScreenState extends State<CarteScreen> {
                                     ),
                                     addHeight(3),
                                     Row(
+
+                                      children: [
+                                        Text(
+                                            '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+10} - '+''
+                                                '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+15} mins  -',
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              color: Color(0xFF4E5F64),
+                                              fontWeight: FontWeight.w400,
+                                            )),
+                                        addWidth(6),
+                                        Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km away",
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 13,
+                                              color: const Color(0xFF4E5F64),
+                                              fontWeight: FontWeight.w400,
+                                            )),
+                                      ],
+                                    ),
+                                    addHeight(3),
+                                    Row(
                                       children: [
                                         Text(
                                           'Spiciness :',

@@ -8,15 +8,12 @@ import '../model/model_verify_otp.dart';
 import '../model/search_store_model.dart';
 import '../resources/api_urls.dart';
 
-Future<FilterProductCategoryModel> filterProductCategoryRepo(
-    {
-      required  distance,
-    }) async {
-
+Future<FilterProductCategoryModel> filterProductCategoryRepo({
+  required distance,
+}) async {
 
   SharedPreferences pref = await SharedPreferences.getInstance();
-  ModelVerifyOtp? user =
-  ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+  ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
 
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
@@ -24,12 +21,14 @@ Future<FilterProductCategoryModel> filterProductCategoryRepo(
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
 
+  print("${ApiUrl.filterProductCategoryUrl}?filter=$distance");
+
   try {
-    final response = await http.get(Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$distance"),headers: headers);
-    log(response.body.toString());
+    final response = await http.get(Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$distance"), headers: headers);
+    // log(response.body.toString());
     if (response.statusCode == 200) {
       //Helpers.hideShimmer(loader);
-      log("Product Based on product Category...${response.body}");
+      log("sort stores by category...${response.body}");
       return FilterProductCategoryModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

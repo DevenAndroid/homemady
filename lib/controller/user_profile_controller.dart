@@ -11,6 +11,7 @@ import '../repository/user_profile_repo.dart';
 
 class UserProfileController extends GetxController{
   Rx<UserProfileModel> model = UserProfileModel().obs;
+  RxInt currentIndex = 0.obs;
   RxBool isDataLoading = false.obs;
   RxInt refreshInt = 0.obs;
   Rx<File> image = File("").obs;

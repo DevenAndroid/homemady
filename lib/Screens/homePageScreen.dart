@@ -1033,8 +1033,32 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                           fontSize: 12,
                                                                           color: const Color(0xFF606573)),
                                                                     ),
+                                                                    homeController.model.value.data!.stores![index].collection == 'Collection Only' ||
+                                                                        homeController.model.value.data!.stores![index].collection == 'Both Delivery & Collection' ?
+                                                                    const SizedBox() :
                                                                     Text(
-                                                                      '${homeController.model.value.data!.stores![index].time ?? ''.toString()} mins',
+                                                                      '${homeController.model.value.data!.stores![index].time ?? ''.toString()} - ${homeController.model.value.data!.stores![index].time1 ?? ''.toString()} mins',
+                                                                      style: GoogleFonts.poppins(
+                                                                          fontWeight: FontWeight.w400,
+                                                                          fontSize: 12,
+                                                                          color: const Color(0xFF606573)),
+                                                                    ),
+                                                                    const SizedBox(width: 4,),
+                                                                    homeController.model.value.data!.stores![index].collection == 'Collection Only' ?
+                                                                    const SizedBox() :
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(bottom: 5),
+                                                                      child: Text(
+                                                                        '.',
+                                                                        style: GoogleFonts.poppins(
+                                                                            fontWeight: FontWeight.w400,
+                                                                            fontSize: 12,
+                                                                            color: const Color(0xFF606573)),
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(width: 4,),
+                                                                    Text(
+                                                                      "${homeController.model.value.data!.stores![index].distance.toString()} km",
                                                                       style: GoogleFonts.poppins(
                                                                           fontWeight: FontWeight.w400,
                                                                           fontSize: 12,

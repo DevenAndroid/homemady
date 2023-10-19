@@ -98,7 +98,7 @@ class MyRouters {
   GetPage(name: '/homeDetailsScreen', page: () => const HomeDetailsScreen()),
   GetPage(name: '/checkOutScreen', page: () => const CheckOutScreen()),
  // GetPage(name: carteScreen.carteScreenPage, page: () => const CarteScreen()),
-  GetPage(name: '/myOrderScreen', page: () => const MyOrderScreen()),
+ //  GetPage(name: '/myOrderScreen', page: () =>  MyOrderScreen()),
   GetPage(name: '/bottomNavbar', page: () => const BottomNavbar()),
   GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
   GetPage(name: '/myProfileScreen', page: () => const MyProfileScreen()),

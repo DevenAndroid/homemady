@@ -148,7 +148,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               color: const Color(0xFF4F535E),
                             ),
                             onTap: () {
-                              Get.toNamed(MyRouters.myOrderScreen);
+                              profileController.currentIndex.value = 2;
+                               Get.toNamed(MyRouters.bottomNavbar);
+                               Get.back();
                               // }
                             }),
                         const Divider(

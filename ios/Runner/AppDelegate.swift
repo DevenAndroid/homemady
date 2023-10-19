@@ -18,7 +18,6 @@ import GoogleMaps
   override func application(_ application: UIApplication,
           didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
               Messaging.messaging().apnsToken = deviceToken
-//              if (kDebugMode) print("Token: \(deviceToken)")
               super.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
           }
 }

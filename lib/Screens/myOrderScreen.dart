@@ -15,14 +15,15 @@ import '../controller/my_order_controller.dart';
 
 
 class MyOrderScreen extends StatefulWidget {
-  const MyOrderScreen({Key? key}) : super(key: key);
-
+  const MyOrderScreen({Key? key, required this.performAction}) : super(key: key);
+  final Function(bool gg) performAction;
   @override
   State<MyOrderScreen> createState() => _MyOrderScreenState();
 }
 
 class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderStateMixin{
   RxBool isSelect = false.obs;
+
   late TabController tabController;
   final controller = Get.put(MyOrderController());
   @override
@@ -41,7 +42,9 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: backAppBar(title: 'My Orders', context: context),
+      appBar: backAppBar(title: 'My Orders', context: context,performAction: (bool sd) {
+        widget.performAction(sd);
+      }),
       body:
           Column(
         children: [

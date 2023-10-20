@@ -52,6 +52,7 @@ class Data {
   bool? sustainablePackagingStatus;
   bool? wishlist;
   dynamic profileImage;
+  String? collection;
 
   Data(
       {this.id,
@@ -60,6 +61,7 @@ class Data {
         this.image,
         this.award,
         this.rating,
+        this.collection,
         this.countReviewData,
         this.sustainablePackagingStatus,
         this.cookName,
@@ -70,6 +72,7 @@ class Data {
     id = json['id'];
     name = json['name'];
     distance = json['distance'];
+    collection = json['collection'];
     image = json['image'];
     if (json['award'] != null) {
       award = <Award>[];
@@ -89,6 +92,7 @@ class Data {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['collection'] = this.collection;
     data['distance'] = this.distance;
     data['image'] = this.image;
     if (this.award != null) {

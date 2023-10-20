@@ -109,16 +109,21 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 ),
                 SizedBox(height: height * .04,),
                 CardFormField(
+                  // enablePostalCode: true,
+                  // countryCode: 'Ireland',
+
                   controller: controller,
                   autofocus: true,
                   style: CardFormStyle(
                     // borderColor: Colors.black
+
                       backgroundColor: Colors.white,
                       textColor: const Color(0xFF535353),
                       placeholderColor: Colors.black,
                       textErrorColor: Colors.red,
                       fontSize: AddSize.padding16.toInt(),
                       cursorColor: Colors.black,
+
                       borderRadius: 10,borderColor: const Color(0xFFCDCDCD),
                       borderWidth: 1),
                 ),

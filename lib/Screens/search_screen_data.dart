@@ -453,9 +453,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                           itemBuilder: (BuildContext, index) {
                             return InkWell(
                               onTap: () {
-
-
-                                Get.offNamed(FilterProductScreen.filterProductScreen,arguments: [items[index].id].toString());
+                                Get.off(()=> FilterProductScreen(filterId: items[index].id,));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),

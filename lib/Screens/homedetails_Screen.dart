@@ -56,6 +56,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
     final box = context.findRenderObject() as RenderBox?;
     await Share.share(code, subject: "link", sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
   }
+
   getDataSubscription() {
     generateLink(
         BranchUniversalObject(
@@ -78,10 +79,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
     print("1111111111111");
     setState(() {});
   }
+
   void initDeepLinkData() {
     metadata = BranchContentMetaData()
       ..addCustomMetadata('referralCode', 47)
-    //--optional Custom Metadata
+      //--optional Custom Metadata
       ..contentSchema = BranchContentSchema.COMMERCE_PRODUCT
       ..price = 50.99
       ..currencyType = BranchCurrencyType.BRL
@@ -111,13 +113,10 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
         expirationDateInMilliSec: DateTime.now().add(const Duration(days: 365)).millisecondsSinceEpoch);
 
     lp = BranchLinkProperties(
-        channel: 'facebook',
-        feature: 'sharing',
-        stage: 'new share',
-        campaign: 'campaign',
-        tags: ['one', 'two', 'three'])
+        channel: 'facebook', feature: 'sharing', stage: 'new share', campaign: 'campaign', tags: ['one', 'two', 'three'])
       ..addControlParam('\$uri_redirect_mode', '1');
   }
+
   void generateLink(BranchUniversalObject? buo, BranchLinkProperties lp) async {
     BranchResponse response = await FlutterBranchSdk.getShortUrl(buo: buo!, linkProperties: lp);
     if (response.success) {
@@ -130,6 +129,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
       controllerUrl.sink.add('Error : ${response.errorCode} - ${response.errorMessage}');
     }
   }
+
   @override
   void initState() {
     getDataSubscription();
@@ -155,21 +155,19 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
 
   @override
   Widget build(BuildContext context) {
-   // var storeId="2";
+    // var storeId="2";
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Obx(() {
         return Scaffold(
-
           body: controller.isDataLoading.value && controller.model.value.data != null
-              ?
-          VerticalScrollableTabView(
+              ? VerticalScrollableTabView(
                   physics: const BouncingScrollPhysics(),
                   autoScrollController: autoController,
                   // scrollbarThumbVisibility: true,
                   tabController: TabController(length: 3, vsync: this),
-                  listItemData:  const [
+                  listItemData: const [
                     CarteScreen(data: "4"),
                   ],
                   verticalScrollPosition: VerticalScrollPosition.begin,
@@ -186,36 +184,42 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      if(controller.model.value.data?.storeDetails != null)
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: CachedNetworkImage(
-                                          imageUrl: controller.model.value.data!.storeDetails!.storeImage.toString(),
-                                          fit: BoxFit.cover,
-                                          height: 240,
-                                          width: AddSize.screenWidth,
-                                          errorWidget: (_, __, ___) => Image.asset(
-                                            'assets/images/Rectangle 23007.png',
+                                      if (controller.model.value.data?.storeDetails != null)
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: CachedNetworkImage(
+                                            imageUrl: controller.model.value.data!.storeDetails!.storeImage.toString(),
+                                            fit: BoxFit.cover,
                                             height: 240,
                                             width: AddSize.screenWidth,
+                                            errorWidget: (_, __, ___) => Image.asset(
+                                              'assets/images/Rectangle 23007.png',
+                                              height: 240,
+                                              width: AddSize.screenWidth,
+                                            ),
+                                            placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                           ),
-                                          placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                         ),
-                                      ),
                                       addHeight(20),
-                                      if(controller.model.value.data?.storeDetails != null)
-                                      Text(
-                                        controller.model.value.data!.storeDetails!.storeName.toString().capitalizeFirst.toString(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w600, fontSize: 20, color: Color(0xFF21283D)),
-                                      ),
+                                      if (controller.model.value.data?.storeDetails != null)
+                                        Text(
+                                          controller.model.value.data!.storeDetails!.storeName
+                                              .toString()
+                                              .capitalizeFirst
+                                              .toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w600, fontSize: 20, color: Color(0xFF21283D)),
+                                        ),
                                       addHeight(10),
-                                      if(controller.model.value.data?.storeDetails != null)
-                                      Text(
-                                        controller.model.value.data!.storeDetails!.description.toString().capitalizeFirst.toString(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w300, fontSize: 12, color: const Color(0xFF364A4F)),
-                                      ),
+                                      if (controller.model.value.data?.storeDetails != null)
+                                        Text(
+                                          controller.model.value.data!.storeDetails!.description
+                                              .toString()
+                                              .capitalizeFirst
+                                              .toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w300, fontSize: 12, color: const Color(0xFF364A4F)),
+                                        ),
                                       addHeight(20),
                                       const Divider(
                                         color: Color(0xFFF2F2F2),
@@ -225,8 +229,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                       addHeight(15),
                                       InkWell(
                                         onTap: () {
-                                          storeReviewController.vendorId.value = controller.model.value.data!.storeDetails!.id.toString();
-                                          print("VENDOR ID ${ storeReviewController.vendorId.value  }");
+                                          storeReviewController.vendorId.value =
+                                              controller.model.value.data!.storeDetails!.id.toString();
+                                          print("VENDOR ID ${storeReviewController.vendorId.value}");
                                           Get.toNamed(StoreReviewScreen.storeReviewScreen);
                                         },
                                         child: Row(
@@ -237,22 +242,22 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                               height: 18,
                                             ),
                                             addWidth(7),
-                                            if(controller.model.value.data?.storeDetails != null)
-                                            Text(controller.model.value.data!.storeDetails!.avgRating.toString(),
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Color(0xFF1A2E33),
-                                                  fontWeight: FontWeight.w700,
-                                                )),
+                                            if (controller.model.value.data?.storeDetails != null)
+                                              Text(controller.model.value.data!.storeDetails!.avgRating.toString(),
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color(0xFF1A2E33),
+                                                    fontWeight: FontWeight.w700,
+                                                  )),
                                             addWidth(7),
-                                            if(controller.model.value.data?.storeDetails != null)
-                                            Text(
-                                                '(${controller.model.value.data!.storeDetails!.reviewCount.toString()} reviews)',
-                                                style: const TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color(0xFF4E5F64),
-                                                  fontWeight: FontWeight.w400,
-                                                )),
+                                            if (controller.model.value.data?.storeDetails != null)
+                                              Text(
+                                                  '(${controller.model.value.data!.storeDetails!.reviewCount.toString()} reviews)',
+                                                  style: const TextStyle(
+                                                    fontSize: 13,
+                                                    color: Color(0xFF4E5F64),
+                                                    fontWeight: FontWeight.w400,
+                                                  )),
                                             const Spacer(),
                                             const Icon(
                                               Icons.arrow_forward_ios,
@@ -278,19 +283,22 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                             height: 20,
                                             color: const Color(0xFF6AC643),
                                           ),
-                                          const SizedBox(width: 10,),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
                                           Expanded(
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                if(controller.model.value.data?.storeDetails != null)
-                                                Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km",
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: 16,
-                                                      color: const Color(0xFF1A2E33),
-                                                      fontWeight: FontWeight.w600,
-                                                    )),
+                                                if (controller.model.value.data?.storeDetails != null)
+                                                  Text(
+                                                      "${controller.model.value.data!.storeDetails!.distance.toString()} Km",
+                                                      style: GoogleFonts.poppins(
+                                                        fontSize: 16,
+                                                        color: const Color(0xFF1A2E33),
+                                                        fontWeight: FontWeight.w600,
+                                                      )),
                                                 Text('Delivery Now',
                                                     style: GoogleFonts.poppins(
                                                       fontSize: 12,
@@ -300,7 +308,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                               ],
                                             ),
                                           ),
-
                                           Container(
                                             width: 1.5,
                                             height: 30,
@@ -317,8 +324,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 // if(controller.model.value.data!.storeDetails!.time != null)
                                                 Expanded(
                                                   child: Text(
-                                                       '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+10} - '+''
-                                                           '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+15} mins',
+                                                      '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 10} - ' +
+                                                          ''
+                                                              '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 15} mins',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         color: Color(0xFF4E5F64),
@@ -342,13 +350,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                   color: const Color(0xFF6AC643),
                                                 ),
                                                 addWidth(7),
-                                                 Expanded(
-                                                  child: Text(controller.model.value.data!.storeDetails!.collection.toString(),
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Color(0xFF4E5F64),
-                                                        fontWeight: FontWeight.w400,
-                                                      )),
+                                                Expanded(
+                                                  child:
+                                                      Text(controller.model.value.data!.storeDetails!.collection.toString(),
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Color(0xFF4E5F64),
+                                                            fontWeight: FontWeight.w400,
+                                                          )),
                                                 ),
                                               ],
                                             ),
@@ -364,29 +373,27 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                     right: 26,
                                     child: Column(
                                       children: [
-                                        if(controller.model.value.data?.storeDetails != null)
-                                        Container(
-                                            height: 67,
-                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(6),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(100),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      controller.model.value.data!.storeDetails!.profileImage.toString(),
-                                                  fit: BoxFit.cover,
-                                                  height: 55,
-                                                  width: 55,
-                                                  errorWidget: (_, __, ___) => Image.asset(
-                                                    'assets/images/dummyPerson.png',
+                                        if (controller.model.value.data?.storeDetails != null)
+                                          Container(
+                                              height: 67,
+                                              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(6),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(100),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        controller.model.value.data!.storeDetails!.profileImage.toString(),
+                                                    fit: BoxFit.cover,
+                                                    height: 55,
+                                                    width: 55,
+                                                    errorWidget: (_, __, ___) => Image.asset(
+                                                      'assets/images/dummyPerson.png',
+                                                    ),
+                                                    placeholder: (_, __) => Center(child: CircularProgressIndicator()),
                                                   ),
-                                                  placeholder: (_, __) => Center(child: CircularProgressIndicator()),
                                                 ),
-                                              ),
-                                            )
-
-                                            ),
+                                              )),
                                         addHeight(3),
                                       ],
                                     )),
@@ -407,7 +414,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                         ),
                                       )),
                                 ),
-
 
                                 Positioned(
                                     top: 20,
@@ -450,180 +456,186 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 ),
                                               ),
                                             )),
-                                          if(controller.model.value.data != null)
-                                        InkWell(
-                                          onTap: (){
-                                            print("store  id..${controller.model.value.data!.storeDetails!.id.toString()}");
+                                        if (controller.model.value.data != null)
+                                          InkWell(
+                                            onTap: () {
+                                              print(
+                                                  "store  id..${controller.model.value.data!.storeDetails!.id.toString()}");
 
-                                            wishlistRepo(productId: '',id: controller.model.value.data!.storeDetails!.id.toString()
-                                            ).then((value){
-                                              if(value.status==true){
-                                                showToast(value.message);
-                                                controller.getData();
-                                              }
-                                            });
-                                          },
-                                          child:
-                                          controller.model.value.data!.storeDetails!.wishlist! ?
-                                          Container(
-                                              height: 35,
-                                              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                              child: const Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 14),
-                                                child: Center(
-                                                  child:
-                                                    Icon(
-                                                        Icons.favorite,
-                                                        color: Color(0xFF54C523),
+                                              wishlistRepo(
+                                                      productId: '',
+                                                      id: controller.model.value.data!.storeDetails!.id.toString())
+                                                  .then((value) {
+                                                if (value.status == true) {
+                                                  showToast(value.message);
+                                                  controller.getData();
+                                                }
+                                              });
+                                            },
+                                            child: controller.model.value.data!.storeDetails!.wishlist!
+                                                ? Container(
+                                                    height: 35,
+                                                    decoration:
+                                                        const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                    child: const Padding(
+                                                      padding: EdgeInsets.symmetric(horizontal: 14),
+                                                      child: Center(
+                                                        child: Icon(
+                                                          Icons.favorite,
+                                                          color: Color(0xFF54C523),
+                                                        ),
                                                       ),
-
-                                                ),
-                                              )):
-                                          Container(
-                                              height: 35,
-                                              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                              child: const Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 14),
-                                                child: Center(
-                                                  child: Icon(
-                                                      Icons.favorite_outline,
-                                                      color: Color(0xFF54C523),
-                                                    ),
-
-                                                ),
-                                              )),
-                                        ),
+                                                    ))
+                                                : Container(
+                                                    height: 35,
+                                                    decoration:
+                                                        const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                    child: const Padding(
+                                                      padding: EdgeInsets.symmetric(horizontal: 14),
+                                                      child: Center(
+                                                        child: Icon(
+                                                          Icons.favorite_outline,
+                                                          color: Color(0xFF54C523),
+                                                        ),
+                                                      ),
+                                                    )),
+                                          ),
                                       ],
                                     )),
-                               // badge or award image
-                                controller.model.value.data!.storeDetails!.award!.isNotEmpty || controller.model.value.data!.storeDetails!.sustainablePackagingStatus == true?
-                                Positioned(
-                                    top: height * .240,
-                                    // bottom: 0,
-                                    left: 10,
-                                    // right: 15,
-                                    //   bottom: 0,
-                                    child: Row(
-                                      children: [
-                                        Row(
-                                          children:  [
-                                            ...List.generate(controller.model.value.data!.storeDetails!.award!.length, (index1){
-                                              return  InkWell(
-                                                onTap: (){
+                                // badge or award image
+                                controller.model.value.data!.storeDetails!.award!.isNotEmpty ||
+                                        controller.model.value.data!.storeDetails!.sustainablePackagingStatus == true
+                                    ? Positioned(
+                                        top: height * .240,
+                                        // bottom: 0,
+                                        left: 10,
+                                        // right: 15,
+                                        //   bottom: 0,
+                                        child: Row(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                ...List.generate(controller.model.value.data!.storeDetails!.award!.length,
+                                                    (index1) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      showGeneralDialog(
+                                                          context: context,
+                                                          barrierDismissible: true,
+                                                          barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                          barrierLabel:
+                                                              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                          pageBuilder:
+                                                              (BuildContext context, Animation first, Animation second) {
+                                                            return Stack(
+                                                              children: [
+                                                                Center(
+                                                                    child: CachedNetworkImage(
+                                                                  imageUrl: controller
+                                                                      .model.value.data!.storeDetails!.award![index1].image
+                                                                      .toString(),
+                                                                  //fit: BoxFit.cover,
+                                                                  height: height * .7,
+                                                                  width: width * .7,
+                                                                  errorWidget: (_, __, ___) => Image.asset(
+                                                                    'assets/images/topChef.png',
+                                                                    // fit: BoxFit.cover,
+                                                                    height: 40,
+                                                                    width: 40,
+                                                                  ),
+                                                                  placeholder: (_, __) =>
+                                                                      const Center(child: CircularProgressIndicator()),
+                                                                )),
+                                                                Positioned(
+                                                                  right: 22,
+                                                                  top: 100,
+                                                                  child: GestureDetector(
+                                                                    onTap: () {
+                                                                      Get.back();
+                                                                    },
+                                                                    child: Container(
+                                                                        padding: const EdgeInsets.all(10),
+                                                                        height: 50,
+                                                                        decoration: const BoxDecoration(
+                                                                            color: Colors.white, shape: BoxShape.circle),
+                                                                        child: const Icon(Icons.clear)),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            );
+                                                          });
+                                                    },
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: controller
+                                                          .model.value.data!.storeDetails!.award![index1].image
+                                                          .toString(),
+                                                      //fit: BoxFit.cover,
+                                                      height: 40,
+                                                      width: 40,
+                                                      errorWidget: (_, __, ___) => Image.asset(
+                                                        'assets/images/topChef.png',
+                                                        // fit: BoxFit.cover,
+                                                        height: 40,
+                                                        width: 40,
+                                                      ),
+                                                      placeholder: (_, __) =>
+                                                          const Center(child: CircularProgressIndicator()),
+                                                    ),
+                                                  );
+                                                })
+                                              ],
+                                            ),
+                                            if (controller.model.value.data!.storeDetails!.sustainablePackagingStatus ==
+                                                true)
+                                              InkWell(
+                                                onTap: () {
                                                   showGeneralDialog(
                                                       context: context,
                                                       barrierDismissible: true,
                                                       barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                      pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                        return  Stack(
+                                                      barrierLabel:
+                                                          MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                      pageBuilder:
+                                                          (BuildContext context, Animation first, Animation second) {
+                                                        return Stack(
                                                           children: [
-                                                            Center(child: CachedNetworkImage(
-                                                              imageUrl:     controller.model.value.data!.storeDetails!.award![index1].image.toString(),
-                                                              //fit: BoxFit.cover,
-                                                              height: height * .7,
-                                                              width: width * .7,
-                                                              errorWidget: (_, __, ___) => Image.asset(
-                                                                'assets/images/topChef.png',
+                                                            Center(
+                                                              child: Image.asset(
+                                                                'assets/images/leavesIcon.png',
                                                                 // fit: BoxFit.cover,
-                                                                height: 40,
-                                                                width: 40,
+                                                                height: height * .3,
+                                                                // width: width * .4,
                                                               ),
-                                                              placeholder: (_, __) =>
-                                                              const Center(child: CircularProgressIndicator()),
-                                                            )),
+                                                            ),
                                                             Positioned(
-                                                              right: 22,
+                                                              right: 20,
                                                               top: 100,
                                                               child: GestureDetector(
-                                                                onTap:(){
+                                                                onTap: () {
                                                                   Get.back();
                                                                 },
                                                                 child: Container(
                                                                     padding: const EdgeInsets.all(10),
                                                                     height: 50,
                                                                     decoration: const BoxDecoration(
-                                                                        color: Colors.white,
-                                                                        shape: BoxShape.circle
-                                                                    ),
-                                                                    child:  const Icon(Icons.clear)
-                                                                ),
-                                                              ),)
+                                                                        color: Colors.white, shape: BoxShape.circle),
+                                                                    child: const Icon(Icons.clear)),
+                                                              ),
+                                                            )
                                                           ],
                                                         );
-                                                      }
-                                                  );
+                                                      });
                                                 },
-                                                child:    CachedNetworkImage(
-                                                  imageUrl:     controller.model.value.data!.storeDetails!.award![index1].image.toString(),
-                                                  //fit: BoxFit.cover,
-                                                  height: 40,
-                                                  width: 40,
-                                                  errorWidget: (_, __, ___) => Image.asset(
-                                                    'assets/images/topChef.png',
-                                                    // fit: BoxFit.cover,
-                                                    height: 40,
-                                                    width: 40,
-                                                  ),
-                                                  placeholder: (_, __) =>
-                                                  const Center(child: CircularProgressIndicator()),
-                                                ),);
-                                            })
-
-
-
+                                                child: Image.asset(
+                                                  'assets/images/leavesIcon.png',
+                                                  // fit: BoxFit.cover,
+                                                  height: 35,
+                                                  width: 35,
+                                                ),
+                                              )
                                           ],
-                                        ),
-                                        if(controller.model.value.data!.storeDetails!.sustainablePackagingStatus == true)
-                                          InkWell(
-                                            onTap: (){
-                                              showGeneralDialog(
-                                                  context: context,
-                                                  barrierDismissible: true,
-                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                  pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                    return  Stack(
-                                                      children: [
-                                                        Center(
-                                                          child: Image.asset(
-                                                            'assets/images/leavesIcon.png',
-                                                            // fit: BoxFit.cover,
-                                                            height: height * .3,
-                                                            // width: width * .4,
-                                                          ),),
-                                                        Positioned(
-                                                          right: 20,
-                                                          top: 100,
-                                                          child: GestureDetector(
-                                                            onTap: (){
-                                                              Get.back();
-                                                            },
-                                                            child: Container(
-                                                                padding: const EdgeInsets.all(10),
-                                                                height: 50,
-                                                                decoration: const BoxDecoration(
-                                                                    color: Colors.white,
-                                                                    shape: BoxShape.circle
-                                                                ),
-                                                                child:  const Icon(Icons.clear)
-                                                            ),
-                                                          ),)
-                                                      ],
-                                                    );
-                                                  }
-                                              );
-                                            },
-                                            child: Image.asset(
-                                              'assets/images/leavesIcon.png',
-                                              // fit: BoxFit.cover,
-                                              height: 35,
-                                              width: 35,
-                                            ),
-                                          )
-                                      ],
-                                    )
-                                ) : const SizedBox(),
+                                        ))
+                                    : const SizedBox(),
                               ],
                             ),
                           ),
@@ -641,16 +653,16 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                           labelPadding: const EdgeInsets.symmetric(horizontal: 20.0),
                           onTap: (value) {
                             print(value);
-                            if(value == 0){
-                              controller.filterId.value="2";
+                            if (value == 0) {
+                              controller.filterId.value = "2";
                               controller.getData();
                             }
-                            if(value == 1){
-                              controller.filterId.value="3";
+                            if (value == 1) {
+                              controller.filterId.value = "3";
                               controller.getData();
                             }
-                            if(value == 2){
-                              controller.filterId.value="4";
+                            if (value == 2) {
+                              controller.filterId.value = "4";
                               controller.getData();
                             }
 

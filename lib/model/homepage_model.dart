@@ -67,6 +67,7 @@ class Data {
 
 class SliderData {
   int? id;
+  dynamic storeId;
   String? title;
   String? link;
   String? image;
@@ -75,6 +76,7 @@ class SliderData {
 
   SliderData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    storeId = json['store_id'];
     title = json['title'];
     link = json['link'];
     image = json['image'];
@@ -83,6 +85,7 @@ class SliderData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['store_id'] = this.storeId;
     data['title'] = this.title;
     data['link'] = this.link;
     data['image'] = this.image;

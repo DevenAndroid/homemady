@@ -230,8 +230,18 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                                   fontSize: 12,
                                                                   color: const Color(0xFF606573)),
                                                             ),
+                                                            controller1.model.value.data!.store![index].collection == 'Collection Only' ?
+                                                            const SizedBox() :
                                                             Text(
                                                               '${controller1.model.value.data!.store![index].time ?? ''.toString()} mins',
+                                                              style: GoogleFonts.poppins(
+                                                                  fontWeight: FontWeight.w400,
+                                                                  fontSize: 12,
+                                                                  color: const Color(0xFF606573)),
+                                                            ),
+                                                            addWidth(5),
+                                                            Text(
+                                                              '${controller1.model.value.data!.store![index].distance ?? ''.toString()} km',
                                                               style: GoogleFonts.poppins(
                                                                   fontWeight: FontWeight.w400,
                                                                   fontSize: 12,

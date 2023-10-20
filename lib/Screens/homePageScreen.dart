@@ -676,8 +676,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 children: [
                                                   GestureDetector(
                                                     onTap: (){
+                                                      print("Store id is..."+homeController.model.value.data!.sliderData![index].storeId.toString());
                                                       Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                        homeController.model.value.data!.stores![index].id.toString()
+                                                        homeController.model.value.data!.sliderData![index].storeId.toString()
                                                       ]);
                                                     },
                                                     child: Container(

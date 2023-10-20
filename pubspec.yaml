@@ -45,10 +45,10 @@ dependencies:
   readmore: ^2.2.0
   flutter_polyline_points: ^1.0.0
   dotted_border:
-  firebase_core: ^2.16.0
-  firebase_auth: 4.10.1
-  cloud_firestore: ^4.9.2
-  firebase_messaging: ^14.6.3
+  firebase_core: ^2.19.0
+  firebase_auth: ^4.11.1
+  cloud_firestore: ^4.11.0
+  firebase_messaging: ^14.7.1
   file_picker:
   flutter_google_places:
   flutter_google_places_hoc081098:

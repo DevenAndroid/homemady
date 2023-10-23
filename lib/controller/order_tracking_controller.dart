@@ -1,9 +1,6 @@
 
 import 'package:get/get.dart';
-import '../model/category_model.dart';
-import '../model/dietiary_model.dart';
 import '../model/order_tracking_model.dart';
-import '../repository/category_repo.dart';
 import '../repository/order_tracking_repo.dart';
 
 class OrderTrackingController extends GetxController{

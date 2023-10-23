@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,20 +9,18 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/widgets/app_assets.dart';
 import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:homemady/widgets/editprofiletextfiled.dart';
-
 import '../controller/my_address_controller.dart';
 import '../model/my_address_model.dart';
 import '../repository/add_address_repo.dart';
 import '../repository/edit_address_repo.dart';
-import 'myAddressScreen.dart';
 
 
 class ChooseAddress extends StatefulWidget {
@@ -48,7 +45,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
   final Completer<GoogleMapController> googleMapController = Completer();
   GoogleMapController? mapController;
 
-  String? _currentAddress;
   String? _address = "";
   Position? _currentPosition;
 
@@ -110,8 +106,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
       setState(() {
-        _currentAddress =
-        '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
         _address =
         '${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
       });
@@ -254,6 +248,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                       if(value!.length<7){
                                         return "Enter valid Eircode";
                                       }
+                                      return null;
                                     }
                                   ),
                                   SizedBox(
@@ -340,7 +335,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
     _getCurrentPosition();
     if (Get.arguments != null) {
       addressModel.value = Get.arguments[0];
-      print(Get.arguments[0]);
     }
   }
 
@@ -456,7 +450,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
                               apiHeaders:
                               await const GoogleApiHeaders().getHeaders(),
                             );
-                            print(plist);
                             String placeid = place.placeId ?? "0";
                             final detail =
                             await plist.getDetailsByPlaceId(placeid);
@@ -533,7 +526,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                           _address.toString(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5!
+                                              .headlineSmall!
                                               .copyWith(
                                               fontWeight: FontWeight.w500,
                                               fontSize: AddSize.font16),

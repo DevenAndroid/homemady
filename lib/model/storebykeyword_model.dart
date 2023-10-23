@@ -8,13 +8,13 @@ class StorebyKeywords {
   StorebyKeywords.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -31,16 +31,16 @@ class Data {
     if (json['ProductOption'] != null) {
       productOption = <ProductOption>[];
       json['ProductOption'].forEach((v) {
-        productOption!.add(new ProductOption.fromJson(v));
+        productOption!.add(ProductOption.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.productOption != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (productOption != null) {
       data['ProductOption'] =
-          this.productOption!.map((v) => v.toJson()).toList();
+          productOption!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -58,9 +58,9 @@ class ProductOption {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
     return data;
   }
 }

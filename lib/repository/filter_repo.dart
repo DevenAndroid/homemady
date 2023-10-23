@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import '../model/category_model.dart';
 import '../model/filter_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
@@ -30,7 +29,6 @@ Future<FilterProductModel> filterDataRepo({required DateTime pickDate,required k
 
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
-    print("Filter store Repository...${response.body}");
     return FilterProductModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);

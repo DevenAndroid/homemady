@@ -20,7 +20,6 @@ Future<OrderTrackingModel> orderTrackingRepo({required orderId}) async {
   await http.get(Uri.parse("${ApiUrl.orderTrackingUrl}?order_id=$orderId"), headers: headers);
 
   if (response.statusCode == 200) {
-    print("Order Tracking Details...${response.body}");
     return OrderTrackingModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);

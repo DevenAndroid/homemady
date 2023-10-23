@@ -31,7 +31,7 @@ Future<ModelCommonResponse> register(
   map['referred_code'] = referalCode;
 
   OverlayEntry loader = NewHelper.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
 
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
@@ -43,7 +43,6 @@ Future<ModelCommonResponse> register(
   log(map.toString());
   log(response.body);
   if (response.statusCode == 200 || response.statusCode == 400) {
-    print("work");
     NewHelper.hideLoader(loader);
     return ModelCommonResponse.fromJson(json.decode(response.body));
   } else {
@@ -60,7 +59,7 @@ Future<ModelVerifyOtp> verifyOTPPassword(
   map["otp"] = otp;
   map["role"] = roleText;
   OverlayEntry loader = NewHelper.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
   log(map.toString());
 log(map.toString());
   final headers = {

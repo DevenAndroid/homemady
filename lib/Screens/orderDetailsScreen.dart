@@ -264,7 +264,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                            style: GoogleFonts.poppins(
                                                                fontWeight: FontWeight.w400,
                                                                fontSize: 12,
-                                                               color: const Color(0xFF486769B5).withOpacity(0.71)
+                                                               color: const Color(0xff486769b5).withOpacity(0.71)
                                                            ),),
                                                        ],
                                                      ),
@@ -274,14 +274,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                                                            style: GoogleFonts.poppins(
                                                                fontWeight: FontWeight.w400,
                                                                fontSize: 12,
-                                                               color: const Color(0xFF486769B5).withOpacity(0.71)
+                                                               color: const Color(0xff486769b5).withOpacity(0.71)
                                                            ),),
                                                          addWidth(3),
-                                                         Text('${controller.model.value.orderDetail!.orderItems![index].sizeId.toString()}',
+                                                         Text(controller.model.value.orderDetail!.orderItems![index].sizeId.toString(),
                                                            style: GoogleFonts.poppins(
                                                                fontWeight: FontWeight.w400,
                                                                fontSize: 12,
-                                                               color: const Color(0xFF486769B5).withOpacity(0.71)
+                                                               color: const Color(0xff486769b5).withOpacity(0.71)
                                                            ),),
                                                        ],
                                                      ),
@@ -757,9 +757,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                            ) :
                            Column(
                              children: [
-                               SizedBox(height: 10,),
+                               const SizedBox(height: 10,),
                                const Center(child: Text('Driver not assigned yet')),
-                               SizedBox(height: 10,),
+                               const SizedBox(height: 10,),
                                Padding(
                                  padding: const EdgeInsets.all(5.0),
                                  child: Column(
@@ -1521,7 +1521,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
               ),
             ),
           ),
-        ): const SizedBox():SizedBox();
+        ): const SizedBox():const SizedBox();
       }),
 
 

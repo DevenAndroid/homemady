@@ -10,13 +10,13 @@ class CheckoutOrderModel {
   CheckoutOrderModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -62,7 +62,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     orderDetail = json['orderDetail'] != null
-        ? new OrderDetail.fromJson(json['orderDetail'])
+        ? OrderDetail.fromJson(json['orderDetail'])
         : null;
     orderId = json['order_id'];
     itemTotal = json['item_total'];
@@ -71,48 +71,48 @@ class Data {
     packingFee = json['packing_fee'];
     couponDiscount = json['coupon_discount'];
     grandTotal = json['grand_total'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
    // vendor = json['vendor'];
    // driver = json['driver'];
     address =
-    json['address'] != null ? new Address.fromJson(json['address']) : null;
+    json['address'] != null ? Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
     deliveryStatus = json['delivery_status'];
     if (json['order_items'] != null) {
       orderItems = <OrderItems>[];
       json['order_items'].forEach((v) {
-        orderItems!.add(new OrderItems.fromJson(v));
+        orderItems!.add(OrderItems.fromJson(v));
       });
     }
     placedAt = json['placed_at'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.orderDetail != null) {
-      data['orderDetail'] = this.orderDetail!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (orderDetail != null) {
+      data['orderDetail'] = orderDetail!.toJson();
     }
-    data['order_id'] = this.orderId;
-    data['item_total'] = this.itemTotal;
-    data['tax'] = this.tax;
-    data['delivery_charges'] = this.deliveryCharges;
-    data['packing_fee'] = this.packingFee;
-    data['coupon_discount'] = this.couponDiscount;
-    data['grand_total'] = this.grandTotal;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    data['order_id'] = orderId;
+    data['item_total'] = itemTotal;
+    data['tax'] = tax;
+    data['delivery_charges'] = deliveryCharges;
+    data['packing_fee'] = packingFee;
+    data['coupon_discount'] = couponDiscount;
+    data['grand_total'] = grandTotal;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
    // data['vendor'] = this.vendor;
    // data['driver'] = this.driver;
-    if (this.address != null) {
-      data['address'] = this.address!.toJson();
+    if (address != null) {
+      data['address'] = address!.toJson();
     }
-    data['order_type'] = this.orderType;
-    data['delivery_status'] = this.deliveryStatus;
-    if (this.orderItems != null) {
-      data['order_items'] = this.orderItems!.map((v) => v.toJson()).toList();
+    data['order_type'] = orderType;
+    data['delivery_status'] = deliveryStatus;
+    if (orderItems != null) {
+      data['order_items'] = orderItems!.map((v) => v.toJson()).toList();
     }
-    data['placed_at'] = this.placedAt;
+    data['placed_at'] = placedAt;
     return data;
   }
 }
@@ -149,39 +149,39 @@ class OrderDetail {
     muncipalTax = json['muncipal_tax'];
     stateTax = json['state_tax'];
     grandTotal = json['grand_total'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
     vendor =
-    json['vendor'] != null ? new Vendor.fromJson(json['vendor']) : null;
+    json['vendor'] != null ? Vendor.fromJson(json['vendor']) : null;
     orderType = json['order_type'];
     deliveryStatus = json['delivery_status'];
     if (json['order_items'] != null) {
       orderItems = <OrderItems>[];
       json['order_items'].forEach((v) {
-        orderItems!.add(new OrderItems.fromJson(v));
+        orderItems!.add(OrderItems.fromJson(v));
       });
     }
     placedAt = json['placed_at'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['order_id'] = this.orderId;
-    data['item_total'] = this.itemTotal;
-    data['muncipal_tax'] = this.muncipalTax;
-    data['state_tax'] = this.stateTax;
-    data['grand_total'] = this.grandTotal;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['order_id'] = orderId;
+    data['item_total'] = itemTotal;
+    data['muncipal_tax'] = muncipalTax;
+    data['state_tax'] = stateTax;
+    data['grand_total'] = grandTotal;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
-    if (this.vendor != null) {
-      data['vendor'] = this.vendor!.toJson();
+    if (vendor != null) {
+      data['vendor'] = vendor!.toJson();
     }
-    data['order_type'] = this.orderType;
-    data['delivery_status'] = this.deliveryStatus;
-    if (this.orderItems != null) {
-      data['order_items'] = this.orderItems!.map((v) => v.toJson()).toList();
+    data['order_type'] = orderType;
+    data['delivery_status'] = deliveryStatus;
+    if (orderItems != null) {
+      data['order_items'] = orderItems!.map((v) => v.toJson()).toList();
     }
-    data['placed_at'] = this.placedAt;
+    data['placed_at'] = placedAt;
     return data;
   }
 }
@@ -257,28 +257,28 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['is_driver'] = this.isDriver;
-    data['is_vendor'] = this.isVendor;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['location'] = this.location;
-    data['name'] = this.name;
-    data['last_name'] = this.lastName;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['wallet_balance'] = this.walletBalance;
-    data['earned_balance'] = this.earnedBalance;
-    data['profile_image'] = this.profileImage;
-    data['referal_code'] = this.referalCode;
-    data['is_driver_online'] = this.isDriverOnline;
-    data['is_vendor_online'] = this.isVendorOnline;
-    data['delivery_range'] = this.deliveryRange;
-    data['self_delivery'] = this.selfDelivery;
-    data['as_driver_verified'] = this.asDriverVerified;
-    data['as_vendor_verified'] = this.asVendorVerified;
-    data['is_profile_complete'] = this.isProfileComplete;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['is_driver'] = isDriver;
+    data['is_vendor'] = isVendor;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['location'] = location;
+    data['name'] = name;
+    data['last_name'] = lastName;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['wallet_balance'] = walletBalance;
+    data['earned_balance'] = earnedBalance;
+    data['profile_image'] = profileImage;
+    data['referal_code'] = referalCode;
+    data['is_driver_online'] = isDriverOnline;
+    data['is_vendor_online'] = isVendorOnline;
+    data['delivery_range'] = deliveryRange;
+    data['self_delivery'] = selfDelivery;
+    data['as_driver_verified'] = asDriverVerified;
+    data['as_vendor_verified'] = asVendorVerified;
+    data['is_profile_complete'] = isProfileComplete;
     return data;
   }
 }
@@ -324,18 +324,18 @@ class Address {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['location'] = this.location;
-    data['flat_no'] = this.flatNo;
-    data['landmark'] = this.landmark;
-    data['address_type'] = this.addressType;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['location'] = location;
+    data['flat_no'] = flatNo;
+    data['landmark'] = landmark;
+    data['address_type'] = addressType;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['deleted_at'] = deletedAt;
     return data;
   }
 }
@@ -372,15 +372,15 @@ class OrderItems {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['product_id'] = this.productId;
-    data['product_name'] = this.productName;
-    data['price'] = this.price;
-    data['qty'] = this.qty;
-    data['total_price'] = this.totalPrice;
-    data['status'] = this.status;
-    data['special_requets'] = this.specialRequets;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['product_id'] = productId;
+    data['product_name'] = productName;
+    data['price'] = price;
+    data['qty'] = qty;
+    data['total_price'] = totalPrice;
+    data['status'] = status;
+    data['special_requets'] = specialRequets;
     return data;
   }
 }

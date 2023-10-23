@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/repository/reset_password_repo.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
@@ -29,7 +28,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(Get.arguments);
     text = Get.arguments;
   }
   String text = '';

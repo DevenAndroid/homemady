@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:readmore/readmore.dart';
 import '../controller/review_screen_controller.dart';
@@ -278,10 +277,10 @@ class _StoreReviewScreenState extends State<StoreReviewScreen> {
                       ],
                     );
                   },
-                ) : Column(
+                ) : const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text('No FeedBack',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),),
                   ],
                 ),

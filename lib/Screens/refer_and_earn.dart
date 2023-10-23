@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,7 +54,6 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
             campaign: 'campaign',
             tags: ['one', 'two', 'three']));
     // Get.toNamed(ThankuScreen.thanku);
-    print("1111111111111");
     setState(() {});
   }
   void initDeepLinkData() {
@@ -104,8 +102,6 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
       controllerUrl.sink.add('${response.result}');
       controller.model.value.data!.referCode = response.result;
       setState(() {});
-      print("referralLink ${ controller.model.value.data!.referCode}");
-      print("ProductId ${Get.arguments[0]}");
     } else {
       controllerUrl.sink.add('Error : ${response.errorCode} - ${response.errorMessage}');
     }
@@ -182,7 +178,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                       style: Theme
                           .of(context)
                           .textTheme
-                          .headline5!
+                          .headlineSmall!
                           .copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
@@ -192,12 +188,12 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                       height: height * .005,
                     ),
                     Text(
-                      "Share you referral link and\nearn \€${controller.model.value.data!.referAmount.toString()}",
+                      "Share you referral link and\nearn €${controller.model.value.data!.referAmount.toString()}",
                       textAlign: TextAlign.center,
                       style: Theme
                           .of(context)
                           .textTheme
-                          .headline5!
+                          .headlineSmall!
                           .copyWith(
                           fontWeight: FontWeight.w300,
                           fontSize: 14,
@@ -293,7 +289,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                       style: Theme
                           .of(context)
                           .textTheme
-                          .headline5!
+                          .headlineSmall!
                           .copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
@@ -318,9 +314,8 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             // onShare(controller.referAndEarnModel.value.data!.referCode.toString(),context);
                           },
                           style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10), backgroundColor: Colors.transparent,
                               minimumSize: const Size(double.maxFinite, 55),
-                              primary: Colors.transparent,
                               elevation: 0,
                               textStyle: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w600)),
@@ -329,7 +324,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                             style: Theme
                                 .of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(
                                 color: AppTheme.backgroundcolor,
                                 fontWeight: FontWeight.w600,

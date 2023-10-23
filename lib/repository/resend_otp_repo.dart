@@ -34,7 +34,6 @@ Future<ResendOtpModel> resendOtpRepo(
         body: jsonEncode(map), headers: headers);
 
     if (response.statusCode == 200||response.statusCode == 400) {
-      print("<<<<<<<Resend otp  Data from repository=======>${response.body}");
       NewHelper.hideLoader(loader);
       return ResendOtpModel.fromJson(json.decode(response.body));
     } else {

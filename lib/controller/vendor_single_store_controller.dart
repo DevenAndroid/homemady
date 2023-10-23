@@ -1,18 +1,11 @@
 
-import 'dart:ffi';
 
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
-import '../model/homepage_model.dart';
-import '../model/model_verify_otp.dart';
 import '../model/storebykeyword_model.dart';
 import '../model/vendor_store_single_model.dart';
-import '../repository/homepage_repo.dart';
-import '../repository/login_repository.dart';
 import '../repository/store_byKeyword_repo.dart';
 import '../repository/vendor_store_single_repo.dart';
-import '../resources/add_text.dart';
 
 class VendorSingleStoreController extends GetxController{
 

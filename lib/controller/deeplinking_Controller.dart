@@ -3,10 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:homemady/controller/user_profile_controller.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DeepLinkingController extends GetxController{
   String? referralLink;
@@ -35,7 +33,7 @@ class DeepLinkingController extends GetxController{
     if(referralCode != null) {
       metadata.addCustomMetadata("referralCode", referralCode);
     }
-    log("metadata...       "+metadata.toMap().toString());
+    log("metadata...       ${metadata.toMap()}");
 
     buo = BranchUniversalObject(
       imageUrl: "assets/images/burgerIcon.png",

@@ -16,25 +16,25 @@ class FeaturedFilterModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
-    link = json['link'] != null ? new Link.fromJson(json['link']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
+    link = json['link'] != null ? Link.fromJson(json['link']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
-    if (this.link != null) {
-      data['link'] = this.link!.toJson();
+    if (link != null) {
+      data['link'] = link!.toJson();
     }
     return data;
   }
@@ -77,7 +77,7 @@ class Data {
     if (json['award'] != null) {
       award = <Award>[];
       json['award'].forEach((v) {
-        award!.add(new Award.fromJson(v));
+        award!.add(Award.fromJson(v));
       });
     }
     rating = json['rating'];
@@ -89,21 +89,21 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['collection'] = this.collection;
-    data['distance'] = this.distance;
-    data['image'] = this.image;
-    if (this.award != null) {
-      data['award'] = this.award!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['collection'] = collection;
+    data['distance'] = distance;
+    data['image'] = image;
+    if (award != null) {
+      data['award'] = award!.map((v) => v.toJson()).toList();
     }
-    data['rating'] = this.rating;
-    data['sustainable_packaging_status'] = this.sustainablePackagingStatus;
-    data['count_review_Data'] = this.countReviewData;
-    data['Cook name'] = this.cookName;
-    data['wishlist'] = this.wishlist;
-    data['profile image'] = this.profileImage;
+    data['rating'] = rating;
+    data['sustainable_packaging_status'] = sustainablePackagingStatus;
+    data['count_review_Data'] = countReviewData;
+    data['Cook name'] = cookName;
+    data['wishlist'] = wishlist;
+    data['profile image'] = profileImage;
     return data;
   }
 }
@@ -124,11 +124,11 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_page'] = this.totalPage;
-    data['current_page'] = this.currentPage;
-    data['total_item'] = this.totalItem;
-    data['per_page'] = this.perPage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total_page'] = totalPage;
+    data['current_page'] = currentPage;
+    data['total_item'] = totalItem;
+    data['per_page'] = perPage;
     return data;
   }
 }
@@ -145,9 +145,9 @@ class Link {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['next'] = this.next;
-    data['prev'] = this.prev;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['next'] = next;
+    data['prev'] = prev;
     return data;
   }
 }

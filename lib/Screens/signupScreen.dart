@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
@@ -46,13 +44,7 @@ class _SignupScreenState extends State<SignupScreen> {
   StreamSubscription<Map>? streamSubscription;
   void listenDynamicLinks() async {
     streamSubscription = FlutterBranchSdk.initSession().listen((data) async {
-      print('listenDynamicLinks - DeepLink Data: $data');
-      print('------------------------------------Link clicked----------------------------------------------');
       if (data.containsKey('+clicked_branch_link') && data['+clicked_branch_link'] == true) {
-        print('------------------------------------Link clicked----------------------------------------------');
-        print('productId: ${data['productId']}');
-        print('referralCode: ${data['referralCode']}');
-        print('------------------------------------------------------------------------------------------------  $data["referralCode"]');
           if (data["referralCode"] != null){
             referController.text = data["referralCode"];
         }
@@ -61,7 +53,6 @@ class _SignupScreenState extends State<SignupScreen> {
         }
       }
     }, onError: (error) {
-      print('InitSession error: ${error.toString()}');
     });
   }
 
@@ -228,7 +219,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             initialCountryCode:  'IE',
                             onCountryChanged: (phone) {
                             countryCodeController.text = "+${phone.dialCode}";
-                            print('Dial Code is:'+phone.dialCode);
                             // countryCode = value.dialCode;
                             //  initialCountryCode = value.code;
                             /*  if (kDebugMode) {
@@ -237,8 +227,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                                     }*/
                             },
                             onChanged: (phone){
-                            print(phone);
-                            print(phoneController);
 
                             }
 

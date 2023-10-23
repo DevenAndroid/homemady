@@ -381,7 +381,7 @@ class CustomIntlPhoneFieldState extends State<CustomIntlPhoneField> {
         enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.all(Radius.circular(10.0))),
         border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFD8DCDD), width: 3.0), borderRadius: BorderRadius.circular(15.0)),
+            borderSide: const BorderSide(color: Color(0xFFD8DCDD), width: 3.0), borderRadius: BorderRadius.circular(15.0)),
       ),
       style: widget.style,
       onSaved: (value) {

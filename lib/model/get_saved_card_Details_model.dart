@@ -1,6 +1,6 @@
 class GetSavedCardDetails {
   bool? status;
-  String? message;
+  dynamic message;
   List<Data>? data;
 
   GetSavedCardDetails({this.status, this.message, this.data});
@@ -11,15 +11,15 @@ class GetSavedCardDetails {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -28,30 +28,30 @@ class GetSavedCardDetails {
 }
 
 class Data {
-  String? id;
-  String? object;
-  Null? addressCity;
-  String? addressCountry;
-  Null? addressLine1;
-  Null? addressLine1Check;
-  Null? addressLine2;
-  Null? addressState;
-  String? addressZip;
-  String? addressZipCheck;
-  String? brand;
-  String? country;
-  String? customer;
-  String? cvcCheck;
-  Null? dynamicLast4;
-  int? expMonth;
-  int? expYear;
-  String? fingerprint;
-  String? funding;
-  String? last4;
-  List<Null>? metadata;
-  Null? name;
-  Null? tokenizationMethod;
-  Null? wallet;
+  dynamic id;
+  dynamic object;
+  dynamic addressCity;
+  dynamic addressCountry;
+  dynamic addressLine1;
+  dynamic addressLine1Check;
+  dynamic addressLine2;
+  dynamic addressState;
+  dynamic addressZip;
+  dynamic addressZipCheck;
+  dynamic brand;
+  dynamic country;
+  dynamic customer;
+  dynamic cvcCheck;
+  dynamic dynamicLast4;
+  dynamic expMonth;
+  dynamic expYear;
+  dynamic fingerprint;
+  dynamic funding;
+  dynamic last4;
+  List<dynamic>? metadata;
+  dynamic name;
+  dynamic tokenizationMethod;
+  dynamic wallet;
 
   Data(
       {this.id,
@@ -112,33 +112,33 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['object'] = this.object;
-    data['address_city'] = this.addressCity;
-    data['address_country'] = this.addressCountry;
-    data['address_line1'] = this.addressLine1;
-    data['address_line1_check'] = this.addressLine1Check;
-    data['address_line2'] = this.addressLine2;
-    data['address_state'] = this.addressState;
-    data['address_zip'] = this.addressZip;
-    data['address_zip_check'] = this.addressZipCheck;
-    data['brand'] = this.brand;
-    data['country'] = this.country;
-    data['customer'] = this.customer;
-    data['cvc_check'] = this.cvcCheck;
-    data['dynamic_last4'] = this.dynamicLast4;
-    data['exp_month'] = this.expMonth;
-    data['exp_year'] = this.expYear;
-    data['fingerprint'] = this.fingerprint;
-    data['funding'] = this.funding;
-    data['last4'] = this.last4;
-    if (this.metadata != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['object'] = object;
+    data['address_city'] = addressCity;
+    data['address_country'] = addressCountry;
+    data['address_line1'] = addressLine1;
+    data['address_line1_check'] = addressLine1Check;
+    data['address_line2'] = addressLine2;
+    data['address_state'] = addressState;
+    data['address_zip'] = addressZip;
+    data['address_zip_check'] = addressZipCheck;
+    data['brand'] = brand;
+    data['country'] = country;
+    data['customer'] = customer;
+    data['cvc_check'] = cvcCheck;
+    data['dynamic_last4'] = dynamicLast4;
+    data['exp_month'] = expMonth;
+    data['exp_year'] = expYear;
+    data['fingerprint'] = fingerprint;
+    data['funding'] = funding;
+    data['last4'] = last4;
+    if (metadata != null) {
      // data['metadata'] = this.metadata!.map((v) => v.toJson()).toList();
     }
-    data['name'] = this.name;
-    data['tokenization_method'] = this.tokenizationMethod;
-    data['wallet'] = this.wallet;
+    data['name'] = name;
+    data['tokenization_method'] = tokenizationMethod;
+    data['wallet'] = wallet;
     return data;
   }
 }

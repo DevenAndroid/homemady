@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
@@ -12,9 +11,6 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/my_cart_controller.dart';
-import '../controller/vendor_single_store_controller.dart';
-import '../model/my_cart_model.dart';
-import '../model/my_cart_model.dart';
 import '../repository/remove_cartitem_repo.dart';
 import '../repository/tip_repo.dart';
 import '../repository/update_cart_repo.dart';
@@ -82,8 +78,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                     itemBuilder: (context, index) {
                       final product = controller.model.value.data!.cartItems![index];
                       return GestureDetector(onTap: (){
-                        print(controller.model.value.data!.cartItems![index].id.toString(),);
-                        print(controller.model.value.data!.cartItems![index].productId.toString(),);
                       },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +106,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                           removeCartItemRepo(cart_item_id: controller.model.value.data!.cartItems![index].id.toString(),context: context).then((value) {
                                             if(value.status == true){
                                               showToast('Cart Removed Successfully');
-                                              print(controller.model.value.data!.cartItems![index].id.toString());
                                               setState(() {
                                                 controller.getData();
                                               });
@@ -519,7 +512,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                         },
                                         child: Text("Clear",
                                             style: TextStyle(
-                                                color: Color(0xff7ED957),
+                                                color: const Color(0xff7ED957),
                                                 fontSize:
                                                 AddSize
                                                     .font14,
@@ -593,7 +586,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       },
                                       child: Text("Add",
                                           style: TextStyle(
-                                              color:  Color(0xff7ED957),
+                                              color:  const Color(0xff7ED957),
                                               fontSize:
                                               AddSize.font16,
                                               fontWeight:
@@ -635,7 +628,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     fontWeight: FontWeight.w600,
                                     color: const Color(0xff1A2E33)
                                 ),),
-                              Spacer(),
+                              const Spacer(),
                               Text( '€ ${controller.model.value.data!.cartPaymentSummary!.subTotal.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
@@ -662,16 +655,16 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: Color(0xff1A2E33)
+                                    color: const Color(0xff1A2E33)
                                 ),),
-                              Spacer(),
+                              const Spacer(),
                               Text(
 
                                 '€ ${controller.model.value.data!.cartPaymentSummary!.tipAmount.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: Color(0xff486769)
+                                    color: const Color(0xff486769)
                                 ),),
                             ],
                           ),
@@ -686,18 +679,18 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: Color(0xff1A2E33)
+                                    color: const Color(0xff1A2E33)
                                 ),),
-                              Spacer(),
+                              const Spacer(),
                               Text( '€ ${controller.model.value.data!.cartPaymentSummary!.minOrderCharge.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: Color(0xff486769)
+                                    color: const Color(0xff486769)
                                 ),),
                             ],
                           ),
-                        ):SizedBox(),
+                        ):const SizedBox(),
                         controller.model.value.data!.cartPaymentSummary!.serviceCharge != 0 ?
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15,10,14,0),
@@ -708,20 +701,20 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: Color(0xff1A2E33)
+                                    color: const Color(0xff1A2E33)
                                 ),),
-                              Spacer(),
+                              const Spacer(),
                               Text(
 
                                 '€ ${controller.model.value.data!.cartPaymentSummary!.serviceCharge.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: Color(0xff486769)
+                                    color: const Color(0xff486769)
                                 ),),
                             ],
                           ),
-                        ): SizedBox(),
+                        ): const SizedBox(),
                         controller.model.value.data!.cartPaymentSummary!.deliveryCharge != 0 ?
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15,10,14,0),
@@ -732,18 +725,18 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: Color(0xff1A2E33)
+                                    color: const Color(0xff1A2E33)
                                 ),),
-                              Spacer(),
+                              const Spacer(),
                               Text( '€ ${controller.model.value.data!.cartPaymentSummary!.deliveryCharge.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: Color(0xff486769)
+                                    color: const Color(0xff486769)
                                 ),),
                             ],
                           ),
-                        ):SizedBox(),
+                        ):const SizedBox(),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15,10,14,0),
                           child: Row(
@@ -755,7 +748,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     fontWeight: FontWeight.w700,
                                     color: const Color(0xff6BC744)
                                 ),),
-                              Spacer(),
+                              const Spacer(),
                               Text( '€ ${controller.model.value.data!.cartPaymentSummary!.total.toString()}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
@@ -775,7 +768,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
                 addHeight(39),
                 Padding(
-                  padding:  EdgeInsets.only(left: 8.0,right: 8.0),
+                  padding:  const EdgeInsets.only(left: 8.0,right: 8.0),
                   child: CommonButton(title: 'Checkout',onPressed: (){
                     Get.toNamed(MyRouters.checkOutScreen,);
                   },),
@@ -790,13 +783,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              SizedBox(height: 60,),
+              const SizedBox(height: 60,),
               Image.asset('assets/images/emptyCartImg.png'),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               const Text("No Product",style: TextStyle(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
             ],
           ),
-        ) :Center(child: CircularProgressIndicator()),
+        ) :const Center(child: CircularProgressIndicator()),
       );
     });
 
@@ -833,11 +826,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
             if (title == "Custom") {
               customTip.value = true;
               tipController.text = "";
-              print(tipController.text);
             } else {
               customTip.value = false;
               tipController.text = title;
-              print(tipController.text);
             }
             tipController.text != ""
                 ? orderTip(tipAmount: tipController.text, context: context)

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +7,6 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/notification_controller.dart';
 import '../controller/order_details_controller.dart';
-import 'orderDetailsScreen.dart';
 
 
 class NotificationScreen extends StatefulWidget {
@@ -59,10 +57,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
-                                  color: Color(0xFF04666E).withOpacity(0.14),
+                                  color: const Color(0xFF04666E).withOpacity(0.14),
                                   spreadRadius: 1.0,
                                   blurRadius: 20.0,
-                                  offset: Offset(3.0, 3.0))
+                                  offset: const Offset(3.0, 3.0))
                             ],
                           ),
                           width: Get.width,
@@ -154,11 +152,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              SizedBox(height: 60,),
+              const SizedBox(height: 60,),
               Image.asset('assets/images/notifactionIcon.png'),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
                Text("No Notifications Yet",
-                 style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+                 style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
             ],
           ),
         )  :

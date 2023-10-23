@@ -8,13 +8,13 @@ class FavoriteListModel {
   FavoriteListModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -32,24 +32,24 @@ class Data {
     if (json['store'] != null) {
       store = <Store>[];
       json['store'].forEach((v) {
-        store!.add(new Store.fromJson(v));
+        store!.add(Store.fromJson(v));
       });
     }
     if (json['product'] != null) {
       product = <Product>[];
       json['product'].forEach((v) {
-        product!.add(new Product.fromJson(v));
+        product!.add(Product.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.store != null) {
-      data['store'] = this.store!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (store != null) {
+      data['store'] = store!.map((v) => v.toJson()).toList();
     }
-    if (this.product != null) {
-      data['product'] = this.product!.map((v) => v.toJson()).toList();
+    if (product != null) {
+      data['product'] = product!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -91,7 +91,7 @@ class Store {
     if (json['award'] != null) {
       award = <Award>[];
       json['award'].forEach((v) {
-        award!.add(new Award.fromJson(v));
+        award!.add(Award.fromJson(v));
       });
     }
     rating = json['rating'];
@@ -104,21 +104,21 @@ class Store {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['collection'] = this.collection;
-    data['distance'] = this.distance;
-    data['Time'] = this.time;
-    data['image'] = this.image;
-    if (this.award != null) {
-      data['award'] = this.award!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['collection'] = collection;
+    data['distance'] = distance;
+    data['Time'] = time;
+    data['image'] = image;
+    if (award != null) {
+      data['award'] = award!.map((v) => v.toJson()).toList();
     }
-    data['rating'] = this.rating;
-    data['count_review_Data'] = this.countReviewData;
-    data['Cook name'] = this.cookName;
-    data['wishlist'] = this.wishlist;
-    data['profile image'] = this.profileImage;
+    data['rating'] = rating;
+    data['count_review_Data'] = countReviewData;
+    data['Cook name'] = cookName;
+    data['wishlist'] = wishlist;
+    data['profile image'] = profileImage;
     return data;
   }
 }
@@ -135,9 +135,9 @@ class Award {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['image'] = image;
     return data;
   }
 }
@@ -209,26 +209,26 @@ class Product {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['SKU'] = this.sKU;
-    data['name'] = this.name;
-    data['Date'] = this.date;
-    data['exclude'] = this.exclude;
-    data['price'] = this.price;
-    data['qty'] = this.qty;
-    data['content'] = this.content;
-    data['image'] = this.image;
-    data['cook_unit_days'] = this.cookUnitDays;
-    data['size_quantity'] = this.sizeQuantity;
-    data['size_id'] = this.sizeId;
-    data['in_menu'] = this.inMenu;
-    data['sub_title'] = this.subTitle;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['SKU'] = sKU;
+    data['name'] = name;
+    data['Date'] = date;
+    data['exclude'] = exclude;
+    data['price'] = price;
+    data['qty'] = qty;
+    data['content'] = content;
+    data['image'] = image;
+    data['cook_unit_days'] = cookUnitDays;
+    data['size_quantity'] = sizeQuantity;
+    data['size_id'] = sizeId;
+    data['in_menu'] = inMenu;
+    data['sub_title'] = subTitle;
+    data['status'] = status;
     data['spiciness'] = spiciness;
     data['allergens'] = allergens;
-    data['discount_off'] = this.discountOff;
-    data['avg_rating'] = this.avgRating;
+    data['discount_off'] = discountOff;
+    data['avg_rating'] = avgRating;
     return data;
   }
 }

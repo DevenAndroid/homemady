@@ -12,7 +12,6 @@ import '../widgets/app_assets.dart';
 import '../widgets/app_theme.dart';
 import '../widgets/custome_size.dart';
 import '../widgets/custome_textfiled.dart';
-import '../widgets/dimenestion.dart';
 
 class CouponsScreen extends StatefulWidget {
   const CouponsScreen({Key? key}) : super(key: key);
@@ -162,14 +161,14 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                                     width: width * .10,
                                                     decoration:
                                                      ShapeDecoration(
-                                                        color: Color(0xff7ED957).withOpacity(.10),
+                                                        color: const Color(0xff7ED957).withOpacity(.10),
                                                         shape:
-                                                        CircleBorder()),
+                                                        const CircleBorder()),
                                                     child: Center(
                                                         child: Image(
                                                             height: height * .02,
                                                             width: width * .04,
-                                                            color: Color(0xff7ED957),
+                                                            color: const Color(0xff7ED957),
                                                             image: const AssetImage(
                                                               AppAssets.couponList,))),
                                                   )
@@ -184,7 +183,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    Text("Max Discount: "),
+                                                    const Text("Max Discount: "),
                                                     Text("€ ${couponController
                                                         .model
                                                         .value
@@ -200,7 +199,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    Text("Min order value: "),
+                                                    const Text("Min order value: "),
                                                     Text("€ ${couponController
                                                         .model
                                                         .value
@@ -226,12 +225,12 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                                       BorderType.RRect,
                                                       dashPattern: const [5, 5],
                                                       color:
-                                                      Color(0xff7ED957),
+                                                      const Color(0xff7ED957),
                                                       strokeWidth: 1.5,
                                                       child: Container(
                                                         decoration:
                                                          BoxDecoration(
-                                                            color: Color(0xff7ED957).withOpacity(.10),),
+                                                            color: const Color(0xff7ED957).withOpacity(.10),),
                                                         child: Padding(
                                                           padding: EdgeInsets
                                                               .symmetric(
@@ -251,7 +250,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                                             style: Theme.of(
                                                                 context)
                                                                 .textTheme
-                                                                .headline5!
+                                                                .headlineSmall!
                                                                 .copyWith(
                                                                 color: AppTheme
                                                                     .blackcolor,
@@ -287,9 +286,9 @@ class _CouponsScreenState extends State<CouponsScreen> {
                                                       "APPLY".tr,
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .headline5!
+                                                          .headlineSmall!
                                                           .copyWith(
-                                                          color: Color(0xff7ED957),
+                                                          color: const Color(0xff7ED957),
                                                           fontWeight:
                                                           FontWeight.w500,
                                                           fontSize: 16),

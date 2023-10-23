@@ -33,7 +33,6 @@ Future<ResetPasswordOtpModel> verifyResetRepo(
         body: jsonEncode(map), headers: headers);
 
     if (response.statusCode == 200||response.statusCode == 400) {
-      print("<<<<<<<reset verify from repository=======>${response.body}");
       NewHelper.hideLoader(loader);
       return ResetPasswordOtpModel.fromJson(json.decode(response.body));
     } else {

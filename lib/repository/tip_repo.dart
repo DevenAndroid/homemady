@@ -16,7 +16,7 @@ Future<ModelCommonResponse> orderTip(
   map['tip_amount'] = tipAmount;
   log(map.toString());
   OverlayEntry loader = Helpers.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -27,7 +27,6 @@ Future<ModelCommonResponse> orderTip(
   };
   http.Response response = await http.post(Uri.parse(ApiUrl.orderTipUrl),
       body: jsonEncode(map), headers: headers);
-  print(response.body);
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
     return ModelCommonResponse.fromJson(json.decode(response.body));
@@ -41,7 +40,7 @@ Future<ModelCommonResponse> orderTip(
 Future<ModelCommonResponse> removeTip(
     {required BuildContext context}) async {
   OverlayEntry loader = Helpers.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -51,7 +50,6 @@ Future<ModelCommonResponse> removeTip(
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
   http.Response response = await http.get(Uri.parse(ApiUrl.removeTipUrl),headers: headers);
-  print(response.body);
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
     return ModelCommonResponse.fromJson(json.decode(response.body));

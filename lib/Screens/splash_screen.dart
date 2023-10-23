@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../routers/routers.dart';
@@ -32,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
 
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery
         .of(context)

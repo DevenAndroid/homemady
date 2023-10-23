@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/faq_controller.dart';
@@ -81,7 +79,7 @@ int currentIndex = 0;
                             ListTile(
                                 visualDensity: VisualDensity.compact,
                                 dense: true,
-                                iconColor: Color(0xFF07B6CA),
+                                iconColor: const Color(0xFF07B6CA),
                                 subtitle: Html(
                                   data: controller.model.value.data![index].answer.toString(),
                                   style: {

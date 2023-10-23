@@ -35,7 +35,7 @@ class _ChatBubbleState extends State<ChatBubble> {
   Widget build(BuildContext context) {
     print(widget.sentTime);
     // var width = MediaQuery.of(context).size.width;
-    return Container(
+    return SizedBox(
       width: double.maxFinite,
       // color: Colors.white,
       child: Column(
@@ -82,7 +82,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                                       style: TextStyle(
                                           fontSize: AddSize.font16,
                                           fontWeight: FontWeight.w400,
-                                          color: widget.isMe ? Colors.white : Color(0xff3D4260))),
+                                          color: widget.isMe ? Colors.white : const Color(0xff3D4260))),
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -94,7 +94,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                                               style: TextStyle(
                                                   fontSize: AddSize.font12,
                                                   fontWeight: FontWeight.w500,
-                                                  color: widget.isMe ? Colors.white : Color(0xffAAAFB5))),
+                                                  color: widget.isMe ? Colors.white : const Color(0xffAAAFB5))),
                                         ),
                                       if (widget.isMe == true) ...[
                                         const SizedBox(

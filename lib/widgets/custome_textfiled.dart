@@ -26,7 +26,7 @@ class CustomTextField extends StatefulWidget {
 
   List<TextInputFormatter>? inputFormatters1 = [];
 
-  CustomTextField({
+  CustomTextField({super.key, 
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
@@ -137,7 +137,7 @@ class CustomTextField1 extends StatefulWidget {
 
   List<TextInputFormatter>? inputFormatters1 = [];
 
-  CustomTextField1({
+  CustomTextField1({super.key, 
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
@@ -255,7 +255,7 @@ class CustomTextField2 extends StatefulWidget {
 
   List<TextInputFormatter>? inputFormatters1 = [];
 
-  CustomTextField2({
+  CustomTextField2({super.key, 
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
@@ -907,7 +907,7 @@ class RegistrationTextFieldChk extends StatelessWidget {
           hintText: hint,
           focusColor: Colors.green,
           hintStyle: GoogleFonts.poppins(
-            color: const Color(0x000000).withOpacity(0.57),
+            color: const Color(0x00000000).withOpacity(0.57),
             fontSize: 14,
             fontWeight: FontWeight.w300,
           ),
@@ -995,7 +995,7 @@ class RegistrationTextField extends StatelessWidget {
           hintText: hint,
           focusColor: Colors.green,
           hintStyle: GoogleFonts.poppins(
-            color: const Color(0x000000).withOpacity(0.57),
+            color: const Color(0x00000000).withOpacity(0.57),
             fontSize: 14,
             fontWeight: FontWeight.w300,
           ),

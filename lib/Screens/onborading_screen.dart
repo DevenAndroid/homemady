@@ -324,11 +324,10 @@ class OnboardContent extends StatelessWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(),
-                      primary: const Color(0xFF7ED957),
+                      shape: const CircleBorder(), backgroundColor: const Color(0xFF7ED957),
                       textStyle: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w500)),
-                  child: Icon(Icons.arrow_forward,size: 35,)
+                  child: const Icon(Icons.arrow_forward,size: 35,)
               )),
           SizedBox(
             height: height * .007,

@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/Screens/subscription_screen.dart';
-import 'package:homemady/resources/add_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/subscription_list_controller.dart';
 import '../controller/user_profile_controller.dart';
@@ -145,7 +143,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/note-2.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () {
                               profileController.currentIndex.value = 2;
@@ -183,7 +181,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/personImg.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
                               Get.toNamed(MyRouters.myProfileScreen);
@@ -197,7 +195,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/notification-img.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () {
                               Get.toNamed(MyRouters.notificationScreen);
@@ -212,7 +210,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/location-my.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () {
                               Get.to(() => const MyAddressScreen());
@@ -228,7 +226,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/notebook_reference.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
                               Get.toNamed(MyRouters.referAndEarn);
@@ -243,7 +241,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/subscription.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
                               // controller.model.value.data![0].status == "Active" ?
@@ -260,7 +258,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/metro-security.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
                               Get.toNamed(MyRouters.privacyPolicy);
@@ -275,7 +273,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/chatchatting.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
                               Get.toNamed(NotificationScreen2.notificationScreen2);
@@ -290,7 +288,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/helpICon.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
                               Get.toNamed(MyRouters.helpCenterScreen);
@@ -305,7 +303,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: const ImageIcon(
                               AssetImage('assets/images/logout.png'),
                               size: 22,
-                              color: const Color(0xFF4F535E),
+                              color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
                               setState(() async {
@@ -339,7 +337,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         title,
         style: const TextStyle(
           fontSize: 14,
-          color: const Color(0xFF4F535E),
+          color: Color(0xFF4F535E),
           fontWeight: FontWeight.w400,
         ),
       ),

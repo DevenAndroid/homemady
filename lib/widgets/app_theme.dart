@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class AppTheme {
 
   static const Color lightPrimaryColor = Color(0xffEFFFEF);
-  final Shader linearGradient = LinearGradient(
+  final Shader linearGradient = const LinearGradient(
     colors: <Color>[Color(0xffFFA302), Color(0xffFF5102)],
-  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+  ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
   static const Color shadowColor = Color(0xffA7A7A7);
   static const Color newprimaryColor = Color(0xffDAE3FF);
   static Color newBackgroundColor = Colors.grey.shade50;

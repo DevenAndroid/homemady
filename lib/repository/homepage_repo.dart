@@ -29,7 +29,7 @@ BuildContext? context}) async {
     };
     log(user.authToken.toString());
 
-    String url = "${ApiUrl.homePageApi}";
+    String url = ApiUrl.homePageApi;
     List<String> types = [];
 
     if (filterCategory != "") {
@@ -50,7 +50,6 @@ BuildContext? context}) async {
       url = "$url?${types.join("&")}";
     }
 
-    print("generated url....       $url");
 
     http.Response response =
     await http.get(Uri.parse(url), headers: headers);

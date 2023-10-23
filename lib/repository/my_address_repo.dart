@@ -19,9 +19,7 @@ Future<MyAddressModel> myAddressRepo() async {
   try {
     final response =
     await http.get(Uri.parse(ApiUrl.myAddressUrl), headers: headers);
-    print("My Address Repository...${response.body}");
     if (response.statusCode == 200) {
-      print("My Address Repository...${response.body}");
       return MyAddressModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

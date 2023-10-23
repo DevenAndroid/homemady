@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/repository/ratingreview_repo.dart';
 import 'package:homemady/resources/add_text.dart';
-import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -31,11 +29,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
   String ratingvalue4 = '';
   String ratingvalue5 = '';
   double fullRating = 0;
-  bool _isValue = false;
-  bool _isValue1 = false;
-  bool _isValue2 = false;
-  bool _isValue3 = false;
-  bool _isValue4 = false;
+  final bool _isValue = false;
+  final bool _isValue1 = false;
+  final bool _isValue2 = false;
+  final bool _isValue3 = false;
+  final bool _isValue4 = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -60,9 +58,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height *.034,
                 ),
-                 Row(
+                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text('Food Quality',style: TextStyle(
                         color: Color(0xFF1A1917),
                         fontWeight: FontWeight.w500,
@@ -94,7 +92,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue1 = double.parse(rating.toString()).round().toString();
-                        print("Rating 1.....${ratingvalue1}");
                       });
                     },
                   ),
@@ -102,9 +99,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height *.022,
                 ),
-                 Row(
+                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text('Communication',style: TextStyle(
                           color: Color(0xFF1A1917),
@@ -139,7 +136,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue2 = double.parse(rating.toString()).round().toString();
-                        print("Rating 2.....${ratingvalue2}");
                       });
                     },
                   ),
@@ -147,9 +143,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height *.022,
                 ),
-                 Row(
+                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text('Hygiene',style: TextStyle(
                           color: Color(0xFF1A1917),
@@ -183,7 +179,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue3 = double.parse(rating.toString()).round().toString();
-                        print("Rating 3.....${ratingvalue3}");
                       });
                     },
                   ),
@@ -191,9 +186,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height *.022,
                 ),
-                 Row(
+                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text('Food Quantity',style: TextStyle(
                           color: Color(0xFF1A1917),
@@ -228,7 +223,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue4 = double.parse(rating.toString()).round().toString();
-                        print("Rating 4.....${ratingvalue4}");
                       });
                     },
                   ),
@@ -236,9 +230,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height *.022,
                 ),
-                 Row(
+                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text('Delivery',style: TextStyle(
                           color: Color(0xFF1A1917),
@@ -273,7 +267,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue5 = double.parse(rating.toString()).round().toString();
-                        print("Rating 5.....${ratingvalue5}");
                       });
                     },
                   ),

@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/model_verify_otp.dart';
-import '../model/notification_model.dart';
 import '../model/subscription_list_model.dart';
 import '../resources/api_urls.dart';
 

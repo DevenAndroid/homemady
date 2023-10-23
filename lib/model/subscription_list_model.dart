@@ -11,15 +11,15 @@ class SubscriptionListModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -65,17 +65,17 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['transaction_id'] = this.transactionId;
-    data['amount'] = this.amount;
-    data['subscription_start_date'] = this.subscriptionStartDate;
-    data['subscription_expiry_date'] = this.subscriptionExpiryDate;
-    data['type'] = this.type;
-    data['payment_mode'] = this.paymentMode;
-    data['purchased_on'] = this.purchasedOn;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['transaction_id'] = transactionId;
+    data['amount'] = amount;
+    data['subscription_start_date'] = subscriptionStartDate;
+    data['subscription_expiry_date'] = subscriptionExpiryDate;
+    data['type'] = type;
+    data['payment_mode'] = paymentMode;
+    data['purchased_on'] = purchasedOn;
+    data['status'] = status;
     return data;
   }
 }

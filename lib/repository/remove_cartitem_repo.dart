@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -22,16 +21,13 @@ Future<RemoveCartModel> removeCartItemRepo(
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
   OverlayEntry loader = Helpers.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
   try {
-    print(map);
     final response = await http.post(Uri.parse(ApiUrl.removeCartItemUrl),
         body: jsonEncode(map), headers: headers);
     Helpers.hideLoader(loader);
-    print("Remove Cart Data...${response.body}");
     if (response.statusCode == 200 || response.statusCode == 400) {
       Helpers.hideLoader(loader);
-      print("Remove Cart Data...${response.body}");
       return RemoveCartModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

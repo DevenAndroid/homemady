@@ -1,21 +1,13 @@
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/Screens/add_new_card.dart';
 import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/myOrderScreen.dart';
 import 'package:homemady/Screens/myprofileScreen.dart';
-import 'package:homemady/controller/bottomNavbarController.dart';
-import 'package:homemady/routers/routers.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Screens/custom_drawer.dart';
 import '../Screens/featured_store_list.dart';
-import '../Screens/myAddressScreen.dart';
-import '../Screens/notification2.dart';
 import '../controller/user_profile_controller.dart';
 
 class BottomNavbar extends StatefulWidget {

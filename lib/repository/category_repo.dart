@@ -22,7 +22,6 @@ Future<CategoryModel> categoryListData() async {
 
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
-    print("Category Repository...${response.body}");
     return CategoryModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);
@@ -46,7 +45,6 @@ Future<DietiartyModel> dietiaryListData() async {
 
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
-    print("Dietiarty Repository...${response.body}");
     return DietiartyModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);

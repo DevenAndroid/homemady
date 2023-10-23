@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ui';
 import 'package:badges/badges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
@@ -132,7 +131,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       if (kDebugMode) {
         if (kDebugMode) print('==================  onConnect $data');
         socket1!.on("result", (data){
-          log("kkkkkkkk 1111${data}");
+          log("kkkkkkkk 1111$data");
           getLatLongFrom(data);
          // latLongModel=LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
 
@@ -147,7 +146,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   getLatLongFrom(dynamic data){
-    log("rrrrrrrrrrr  11111${data}");
+    log("rrrrrrrrrrr  11111$data");
     latLongModel=LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
     log("rrrrrrrrrrr  11111${latLongModel.latitude}");
     log("rrrrrrrrrrr  11111${latLongModel.longitude}");
@@ -155,14 +154,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     connectToServer();
 
     // connectToServer();
-    print("THis is latitude from emit "+latLongModel.latitude.toString());
-    print(latLongModel.longitude.toString());
     locationController.checkGps(context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -259,6 +257,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           selectedDate = formattedDate;
         });
       }
+      return null;
     });
   }
 
@@ -313,7 +312,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      itemdata.startTime.toString() + "-" + itemdata.endTime.toString(),
+                                      "${itemdata.startTime}-${itemdata.endTime}",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
@@ -332,14 +331,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
-                              print(selectedDate);
                               timeSlotController.sendDate.value = selectedDate;
                               timeSlotController.getTimeSlotData();
                               Get.back();
                               FocusManager.instance.primaryFocus!.unfocus();
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xff7ED957),
+                              backgroundColor: const Color(0xff7ED957),
                             ),
                             child: const Text(
                               "OK",
@@ -558,7 +556,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               prefix: InkWell(
                                                 onTap: () {
                                                   FocusManager.instance.primaryFocus!.unfocus();
-                                                  print(selectedDate);
 
                                                   // if(selectedDate != "Available Now" ||  isAvailableSelected == true) {
                                                   //   // filterDataController.storeSearchController.text = "";
@@ -589,7 +586,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       GestureDetector(
                                         onTap: () {
                                           //_showDialogCategory();
-                                          print(selectedDate);
                                           if(selectedDate != "Available Now" ||  isAvailableSelected == true){
                                           showUploadWindow();
                                             // Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);
@@ -628,7 +624,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       addWidth(5),
                                       GestureDetector(
                                         onTap: () {
-                                          print("AAAAAA");
                                           _showSimpleDialog1();
                                         },
                                         child: Container(
@@ -676,7 +671,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 children: [
                                                   GestureDetector(
                                                     onTap: (){
-                                                      print("Store id is..."+homeController.model.value.data!.sliderData![index].storeId.toString());
                                                       Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
                                                         homeController.model.value.data!.sliderData![index].storeId.toString()
                                                       ]);
@@ -745,9 +739,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         selectedDate == 'Available Now'  && isAvailableSelected == false
                                                             ? GestureDetector(
                                                           onTap: (){
-                                                            print(isAvailableSelected);
                                                             isAvailableSelected = !isAvailableSelected!;
-                                                            print("THisis date${isAvailableSelected}");
                                                             setState(() {});
                                                           },
                                                               child: Padding(
@@ -769,9 +761,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         selectedDate == 'Available Now' && isAvailableSelected == false
                                                             ? GestureDetector(
                                                           onTap: (){
-                                                            print(isAvailableSelected);
                                                             isAvailableSelected = !isAvailableSelected!;
-                                                            print("THisis date${isAvailableSelected}");
                                                             setState(() {});
                                                           },
                                                               child: Text(
@@ -840,6 +830,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           log("Seleted Date for slot is    $selectedDate");
                                                         });
                                                       }
+                                                      return null;
                                                     });
 
                                                     if (pickedDate != null) {
@@ -1359,8 +1350,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                             right: 10,
                                                             child: InkWell(
                                                                 onTap: () {
-                                                                  print(
-                                                                      "store  id..${homeController.model.value.data!.stores![index].id.toString()}");
 
                                                                   wishlistRepo(
                                                                           id: homeController.model.value.data!.stores![index].id
@@ -1951,7 +1940,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ),
                               )),
                         ),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                       ],
                     ),
                   )),

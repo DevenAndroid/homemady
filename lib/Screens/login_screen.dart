@@ -31,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
   String removeFirstLetter(String input) {
     if(input.isEmpty)return input;
-    print(input.substring(0,1));
     if(input.substring(0,1) != "0") return input;
     return input.substring(1, input.length);
 
@@ -410,7 +409,6 @@ class _LoginScreenState extends State<LoginScreen> {
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
     );
-    print("Token---------${googleAuth.accessToken}");
     final value = await FirebaseAuth.instance.signInWithCredential(credential);
     log(value.credential!.accessToken!);
     //log(value.additionalUserInfo.a);

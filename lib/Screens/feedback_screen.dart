@@ -42,7 +42,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                          unratedColor: const Color(0xFFECE3D0),
                          itemCount: 5,
                          itemSize: 16.0,
-                         itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                         itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                          updateOnDrag: true,
                          itemBuilder: (context, index) =>
                              Image.asset('assets/images/star.png',

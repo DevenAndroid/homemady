@@ -20,7 +20,6 @@ Future<CouponModel> couponData(context) async {
   await http.get(Uri.parse(ApiUrl.couponsUrl), headers: headers);
 
   if (response.statusCode == 200) {
-    print("<<<<<<<CouponData from repository=======>${response.body}");
     return CouponModel.fromJson(json.decode(response.body));
   } else {
     throw Exception(response.body);

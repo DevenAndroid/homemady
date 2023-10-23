@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../model/model_verify_otp.dart';
@@ -20,10 +18,8 @@ Future<TimeSlotModel> timeSlotListData({required pickDate}) async {
   // log('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status');
   final response =
   await http.get(Uri.parse("${ApiUrl.timeSlotUrl}?date=$pickDate"), headers: headers);
-    print(("${ApiUrl.timeSlotUrl}?date=$pickDate"));
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
-    print("Time Slot Repository...${response.body}");
     return TimeSlotModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);

@@ -110,7 +110,6 @@ class _CarteScreenState extends State<CarteScreen> {
                                       child:
                                       InkWell(
                                         onTap: (){
-                                           print("store  id..${controller.model.value.data!.latestProducts![index].id.toString()}");
 
                                            wishlistRepo(productId: controller.model.value.data!.latestProducts![index].id.toString(),id: ''
                                            ).then((value){
@@ -210,8 +209,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                     ),
                                     addHeight(3),
                                     Text(
-                                      'Size: ${(controller.model.value.data!.latestProducts![index].sizeQuantity ?? '').toString()} ' +
-                                          (controller.model.value.data!.latestProducts![index].sizeId ?? '').toString(),
+                                      'Size: ${(controller.model.value.data!.latestProducts![index].sizeQuantity ?? '').toString()} ${controller.model.value.data!.latestProducts![index].sizeId ?? ''}',
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                     ),
@@ -220,7 +218,7 @@ class _CarteScreenState extends State<CarteScreen> {
 
                                       children: [
                                         Text(
-                                            '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+10} - '+''
+                                            '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+10} - '''
                                                 '${int.parse(controller.model.value.data!.storeDetails!.time.toString())+15} mins  -',
                                             style: const TextStyle(
                                               fontSize: 13,
@@ -291,10 +289,6 @@ class _CarteScreenState extends State<CarteScreen> {
                                                   .toList()
                                                   .contains(productID) &&
                                                   product.productCount == 1) {
-                                                print("sssssssssssssssssssssssss");
-                                                print("sssssssssssssssssssssssss${cartListController.model.value.data!.cartItems!
-                                                    .map((e) => e.productId.toString())
-                                                    .toList()}");
                                                 String gg = (cartListController.model.value.data!.cartItems!.firstWhere((element) =>
                                                 element.productId.toString() == productID,orElse: ()=> CartItems()).id ?? "").toString();
                                                 if(gg.isEmpty)return;
@@ -412,8 +406,8 @@ class _CarteScreenState extends State<CarteScreen> {
                           ),
                           addHeight(5),
                           Container(
-                            margin: EdgeInsets.only(left: 82),
-                            color: Color(0xFFE9E9E9),
+                            margin: const EdgeInsets.only(left: 82),
+                            color: const Color(0xFFE9E9E9),
                             width: AddSize.screenWidth,
                             height: 1,
                           ),

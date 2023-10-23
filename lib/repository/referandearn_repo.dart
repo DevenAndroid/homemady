@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../model/model_verify_otp.dart';
-import '../model/privacy_policy_model.dart';
 import '../model/referandearn_model.dart';
 import '../resources/api_urls.dart';
 

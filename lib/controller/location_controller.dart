@@ -82,14 +82,11 @@ class LocationController extends GetxController {
         desiredAccuracy: LocationAccuracy.high);
     long.value = position.longitude.toString();
     lat.value = position.latitude.toString();
-    print("Address$position");
     await placemarkFromCoordinates(
         double.parse(lat.value), double.parse(long.value))
         .then((value) async {
       locality.value = value.last.locality!;
       country.value = 'Country : ${value.last.country}';
-      print(locality.value);
-      print(country.value);
       await updateLocation(
         latitude: lat.toString(),
         longitude: long.toString(),

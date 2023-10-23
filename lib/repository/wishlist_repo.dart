@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import '../model/model_verify_otp.dart';
-import '../model/wishlist_model.dart';
 import '../resources/api_urls.dart';
 
 Future<ModelCommonResponse> wishlistRepo({required productId, required id}) async {

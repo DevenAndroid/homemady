@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -36,7 +35,6 @@ Future<ResendOtpModel> ratingReviewRepo(
   map['is_communication'] = communication;
   map['is_hygiene'] = hygiene;
   map['is_delivery'] = delivery;
-print(map);
   try {
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -46,7 +44,6 @@ print(map);
     http.Response response = await http.post(Uri.parse(ApiUrl.ratingReviewUrl),
         body: jsonEncode(map), headers: headers);
     if (response.statusCode == 200||response.statusCode == 400) {
-      print("<<<<<<<Rating Review Data from repository=======>${response.body}");
       NewHelper.hideLoader(loader);
       return ResendOtpModel.fromJson(json.decode(response.body));
     } else {

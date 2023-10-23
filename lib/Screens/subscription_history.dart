@@ -95,7 +95,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,19 +116,19 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                   ),): const SizedBox() ,
                               ],
                             ),
-                            SizedBox(height: 15,),
+                            const SizedBox(height: 15,),
                             const Divider(
                               height: 3,
-                              color: Color(0xFFD9D9D99E),
+                              color: Color(0xffd9d9d99e),
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Text('Transition Details',
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 15,
                                   color: Colors.black
                               ),),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +139,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                       fontSize: 15,
                                       color: Colors.black
                                   ),),
-                                SizedBox(width: 120,),
+                                const SizedBox(width: 120,),
                                 Expanded(
                                   child: Text(controller.model.value.data![index].transactionId.toString(),
                                     style: GoogleFonts.poppins(
@@ -150,7 +150,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5,),
+                            const SizedBox(height: 5,),
                             Row(
                               children: [
                                 Text('Payment Mode',
@@ -169,7 +169,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                   ),):const SizedBox(),
                               ],
                             ),
-                            SizedBox(height: 5,),
+                            const SizedBox(height: 5,),
                             Row(
                               children: [
                                 Text('Plan Start Date',
@@ -178,7 +178,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                       fontSize: 15,
                                       color: Colors.black
                                   ),),
-                                Spacer(),
+                                const Spacer(),
                                 Text(controller.model.value.data![index].subscriptionStartDate.toString(),
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w300,
@@ -187,7 +187,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                   ),),
                               ],
                             ),
-                            SizedBox(height: 5,),
+                            const SizedBox(height: 5,),
                             Row(
                               children: [
                                 Text('Plan End Date',
@@ -196,7 +196,7 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
                                       fontSize: 15,
                                       color: Colors.black
                                   ),),
-                                Spacer(),
+                                const Spacer(),
                                 Text(controller.model.value.data![index].subscriptionExpiryDate.toString(),
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w300,
@@ -215,10 +215,10 @@ class _SubscriptionHistoryScreenState extends State<SubscriptionHistoryScreen> {
               ],
             ),
           ),
-        ):Padding(
+        ):const Padding(
           padding: EdgeInsets.only(top: 10),
           child: Center(child: Text('No Subscription Plan',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
-        ):Center(child: CircularProgressIndicator(color: Colors.green,)),
+        ):const Center(child: CircularProgressIndicator(color: Colors.green,)),
       );
     });
   }

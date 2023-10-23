@@ -10,23 +10,23 @@ class RatingGetModel {
   RatingGetModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
-    link = json['link'] != null ? new Link.fromJson(json['link']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
+    link = json['link'] != null ? Link.fromJson(json['link']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
-    if (this.link != null) {
-      data['link'] = this.link!.toJson();
+    if (link != null) {
+      data['link'] = link!.toJson();
     }
     return data;
   }
@@ -52,7 +52,7 @@ class Data {
     if (json['reviews'] != null) {
       reviews = <Reviews>[];
       json['reviews'].forEach((v) {
-        reviews!.add(new Reviews.fromJson(v));
+        reviews!.add(Reviews.fromJson(v));
       });
     }
     avgRating = json['avg_rating'];
@@ -63,15 +63,15 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.reviews != null) {
-      data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (reviews != null) {
+      data['reviews'] = reviews!.map((v) => v.toJson()).toList();
     }
-    data['avg_rating'] = this.avgRating;
-    data['foodQuality'] = this.foodQuality;
-    data['FoodQuantity'] = this.foodQuantity;
-    data['Communication'] = this.communication;
-    data['Hygiene'] = this.hygiene;
+    data['avg_rating'] = avgRating;
+    data['foodQuality'] = foodQuality;
+    data['FoodQuantity'] = foodQuantity;
+    data['Communication'] = communication;
+    data['Hygiene'] = hygiene;
     return data;
   }
 }
@@ -102,13 +102,13 @@ class Reviews {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_name'] = this.userName;
-    data['profile_image'] = this.profileImage;
-    data['review'] = this.review;
-    data['rating'] = this.rating;
-    data['date'] = this.date;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_name'] = userName;
+    data['profile_image'] = profileImage;
+    data['review'] = review;
+    data['rating'] = rating;
+    data['date'] = date;
     return data;
   }
 }
@@ -129,11 +129,11 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_page'] = this.totalPage;
-    data['current_page'] = this.currentPage;
-    data['total_item'] = this.totalItem;
-    data['per_page'] = this.perPage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total_page'] = totalPage;
+    data['current_page'] = currentPage;
+    data['total_item'] = totalItem;
+    data['per_page'] = perPage;
     return data;
   }
 }
@@ -150,9 +150,9 @@ class Link {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['next'] = this.next;
-    data['prev'] = this.prev;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['next'] = next;
+    data['prev'] = prev;
     return data;
   }
 }

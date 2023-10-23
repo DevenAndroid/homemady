@@ -165,8 +165,6 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                               } else {
                                                 showToast("Please pick a date");
                                               }
-                                              print("Date is ${selectedDate}");
-                                              print(searchController.searchController1.text);
                                             },
                                             child: Icon(
                                               Icons.search,
@@ -218,7 +216,6 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                   addWidth(5),
                                   GestureDetector(
                                     onTap: () {
-                                      print("AAAAAA");
                                       Get.back();
                                       // _showSimpleDialog1();
                                     },
@@ -663,8 +660,6 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                           right: 10,
                                                           child: InkWell(
                                                               onTap: () {
-                                                                print(
-                                                                    "store  id..${filterProductCategoryController.filterDataModel.value.data![index].id.toString()}");
 
                                                                 wishlistRepo(
                                                                     id: filterProductCategoryController.filterDataModel.value.data![index].id
@@ -1353,7 +1348,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                     )) :  const Padding(
               padding: EdgeInsets.only(top: 80),
               child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
-            ): Center(child: CircularProgressIndicator())
+            ): const Center(child: CircularProgressIndicator())
            ,
           );
         }),
@@ -1374,7 +1369,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
               right: 35,
               top: 37,
               child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   height: 80,
                   decoration: BoxDecoration(color: Colors.grey.shade100, shape: BoxShape.circle),
                   child: GestureDetector(
@@ -1401,7 +1396,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                             color: const Color(0xFF425159),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
                         Row(
@@ -1441,7 +1436,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                             ),
                             Obx(() {
                               return Checkbox(
-                                  side: BorderSide(color: Colors.black, width: 2),
+                                  side: const BorderSide(color: Colors.black, width: 2),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                                   value: _isValue2.value,
                                   onChanged: (value) {
@@ -1460,13 +1455,13 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                             color: const Color(0xFF425159),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
                         ListView.builder(
                             shrinkWrap: true,
                             itemCount: category.length,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (BuildContext, index) {
                               return InkWell(
                                 // onTap: () {
@@ -1563,7 +1558,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                 right: 35,
                 top: 170,
                 child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     height: 80,
                     decoration: BoxDecoration(color: Colors.grey.shade100, shape: BoxShape.circle),
                     child: GestureDetector(
@@ -1589,7 +1584,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 7,
                       ),
                       ListView.builder(
@@ -1619,7 +1614,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                               ),
                             );
                           }),
-                      SizedBox(
+                      const SizedBox(
                         height: 7,
                       ),
                       Center(

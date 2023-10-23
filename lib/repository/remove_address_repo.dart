@@ -15,7 +15,7 @@ Future<ModelCommonResponse> removeAddress(
   var map = <String, dynamic>{};
   map['address_id'] = addressId;
   OverlayEntry loader = Helpers.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user =
   ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));

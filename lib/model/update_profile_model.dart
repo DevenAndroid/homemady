@@ -8,13 +8,13 @@ class UpdateProfileModel {
   UpdateProfileModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -93,28 +93,28 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['is_driver'] = this.isDriver;
-    data['is_vendor'] = this.isVendor;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['location'] = this.location;
-    data['name'] = this.name;
-    data['last_name'] = this.lastName;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['wallet_balance'] = this.walletBalance;
-    data['earned_balance'] = this.earnedBalance;
-    data['profile_image'] = this.profileImage;
-    data['referal_code'] = this.referalCode;
-    data['is_driver_online'] = this.isDriverOnline;
-    data['is_vendor_online'] = this.isVendorOnline;
-    data['delivery_range'] = this.deliveryRange;
-    data['self_delivery'] = this.selfDelivery;
-    data['as_driver_verified'] = this.asDriverVerified;
-    data['as_vendor_verified'] = this.asVendorVerified;
-    data['is_profile_complete'] = this.isProfileComplete;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['is_driver'] = isDriver;
+    data['is_vendor'] = isVendor;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['location'] = location;
+    data['name'] = name;
+    data['last_name'] = lastName;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['wallet_balance'] = walletBalance;
+    data['earned_balance'] = earnedBalance;
+    data['profile_image'] = profileImage;
+    data['referal_code'] = referalCode;
+    data['is_driver_online'] = isDriverOnline;
+    data['is_vendor_online'] = isVendorOnline;
+    data['delivery_range'] = deliveryRange;
+    data['self_delivery'] = selfDelivery;
+    data['as_driver_verified'] = asDriverVerified;
+    data['as_vendor_verified'] = asVendorVerified;
+    data['is_profile_complete'] = isProfileComplete;
     return data;
   }
 }

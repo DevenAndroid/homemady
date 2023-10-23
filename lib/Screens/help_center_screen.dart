@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
-import 'package:homemady/widgets/dimenestion.dart';
-import 'package:homemady/widgets/new_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../repository/mail_send_toadmin.dart';
 import '../routers/routers.dart';
-import 'chat_screen.dart';
-import 'faqs_screen.dart';
 
 
 
@@ -122,8 +114,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                       width: 52,
                       height:40,
                     ),
-                    SizedBox(width: 20,),
-                    Expanded(
+                    const SizedBox(width: 20,),
+                    const Expanded(
                       child: Text("Chat HomeMady Support",
                         style:TextStyle(
                             fontWeight: FontWeight.w500,

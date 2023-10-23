@@ -45,7 +45,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
   final Completer<GoogleMapController> googleMapController = Completer();
   GoogleMapController? mapController;
 
-  String? _currentAddress;
   String? _address = "";
   Position? _currentPosition;
 
@@ -107,8 +106,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
       setState(() {
-        _currentAddress =
-        '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
         _address =
         '${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
       });

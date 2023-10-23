@@ -48,7 +48,7 @@ dependencies:
   firebase_core: ^2.19.0
   firebase_auth: ^4.11.1
   cloud_firestore: ^4.11.0
-  firebase_messaging: ^14.2.6
+  firebase_messaging: ^14.2.0
   file_picker:
 #  flutter_google_places:
   flutter_google_places_hoc081098: ^1.2.0

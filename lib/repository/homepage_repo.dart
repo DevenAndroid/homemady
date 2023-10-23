@@ -50,7 +50,6 @@ BuildContext? context}) async {
       url = "$url?${types.join("&")}";
     }
 
-    print("generated url....       $url");
 
     http.Response response =
     await http.get(Uri.parse(url), headers: headers);

@@ -70,7 +70,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
             campaign: 'campaign',
             tags: ['one', 'two', 'three']));
     // Get.toNamed(ThankuScreen.thanku);
-    print("1111111111111");
     setState(() {});
   }
 
@@ -117,8 +116,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
       controllerUrl.sink.add('${response.result}');
       referralLink = response.result;
       setState(() {});
-      print("referralLink $referralLink");
-      print("ProductId ${Get.arguments[0]}");
     } else {
       controllerUrl.sink.add('Error : ${response.errorCode} - ${response.errorMessage}');
     }
@@ -130,7 +127,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
     initDeepLinkData();
     super.initState();
     tabControllerGG = TabController(length: 3, vsync: this);
-    print(tabControllerGG);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.getData();
       controller.getStoreKeywordListData();
@@ -141,7 +137,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
 
   @override
   void dispose() {
-    print(tabControllerGG);
     tabControllerGG.dispose();
     autoController.dispose();
     super.dispose();
@@ -225,7 +220,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                         onTap: () {
                                           storeReviewController.vendorId.value =
                                               controller.model.value.data!.storeDetails!.id.toString();
-                                          print("VENDOR ID ${storeReviewController.vendorId.value}");
                                           Get.toNamed(StoreReviewScreen.storeReviewScreen);
                                         },
                                         child: Row(
@@ -452,8 +446,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                         if (controller.model.value.data != null)
                                           InkWell(
                                             onTap: () {
-                                              print(
-                                                  "store  id..${controller.model.value.data!.storeDetails!.id.toString()}");
 
                                               wishlistRepo(
                                                       productId: '',
@@ -645,7 +637,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           labelPadding: const EdgeInsets.symmetric(horizontal: 20.0),
                           onTap: (value) {
-                            print(value);
                             if (value == 0) {
                               controller.filterId.value = "2";
                               controller.getData();

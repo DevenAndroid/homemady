@@ -45,14 +45,12 @@ class _CompleteScreenState extends State<CompleteScreen> {
             shrinkWrap: true,
             itemCount: controller.model.value.data!.length,
             itemBuilder: (context, index) {
-              print(controller.model.value.data![index].deliveryStatus);
               return Column(
                 children: [
                   controller.model.value.data![index].deliveryStatus == 'Completed' ?
                   GestureDetector(
                     onTap: (){
                       orderDetailsController.id.value = controller.model.value.data![index].orderId.toString();
-                      print( orderDetailsController.id.value);
                       Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
                     },
                     child: Container(

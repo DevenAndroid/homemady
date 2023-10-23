@@ -14,7 +14,6 @@ class MyOrderController extends GetxController{
     myOrderData().then((value1) {
       isDataLoading.value = true;
       model.value = value1;
-      print(model.value.toString());
     });
     //loginRepo().
   }

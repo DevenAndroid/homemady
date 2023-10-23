@@ -110,7 +110,6 @@ class _CarteScreenState extends State<CarteScreen> {
                                       child:
                                       InkWell(
                                         onTap: (){
-                                           print("store  id..${controller.model.value.data!.latestProducts![index].id.toString()}");
 
                                            wishlistRepo(productId: controller.model.value.data!.latestProducts![index].id.toString(),id: ''
                                            ).then((value){
@@ -290,10 +289,6 @@ class _CarteScreenState extends State<CarteScreen> {
                                                   .toList()
                                                   .contains(productID) &&
                                                   product.productCount == 1) {
-                                                print("sssssssssssssssssssssssss");
-                                                print("sssssssssssssssssssssssss${cartListController.model.value.data!.cartItems!
-                                                    .map((e) => e.productId.toString())
-                                                    .toList()}");
                                                 String gg = (cartListController.model.value.data!.cartItems!.firstWhere((element) =>
                                                 element.productId.toString() == productID,orElse: ()=> CartItems()).id ?? "").toString();
                                                 if(gg.isEmpty)return;

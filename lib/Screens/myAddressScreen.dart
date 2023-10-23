@@ -120,7 +120,6 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                   itemCount: myAddressController.model.value.data!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(onTap: (){
-                      print("choose here");
                      // Get.toNamed(MyRouters.checkOutScreen);
                      //  chooseOrderAddress(context: context,addressId: myAddressController.model.value.data![index].id.toString()).then((value) {
                      //    if(value.status == true){
@@ -131,7 +130,6 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                      //      // myCartController.getData();
                      //    }
                      //  });
-                      print(myAddressController.model.value.data![index].id.toString());
                     },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -308,7 +306,6 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                   onPressed: () {
                                                     myAddressController.id.value = myAddressController.model.value.data![index].id.toString();
                                                     Get.toNamed(MyRouters.chooseAddress,arguments: [myAddressController.model.value.data![index]]);
-                                                    print(myAddressController.model.value.data![index].id.toString());
                                                   },
                                                   child: const Text(
                                                     "Edit",

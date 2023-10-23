@@ -691,7 +691,6 @@ class _SearchScreenDataState extends State<SearchScreenData> {
 
                                             child: GestureDetector(
                                                 onTap: (){
-                                                  print("store  id..${filterDataController.filterModel.value.data![index].id.toString()}");
 
                                                   wishlistRepo(productId: filterDataController.filterModel.value.data![index].id.toString(),id: ''
                                                   ).then((value){
@@ -841,10 +840,6 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                                         .toList()
                                                         .contains(productID) &&
                                                         product.productCount == 1) {
-                                                      print("sssssssssssssssssssssssss");
-                                                      print("sssssssssssssssssssssssss${cartListController.model.value.data!.cartItems!
-                                                          .map((e) => e.productId.toString())
-                                                          .toList()}");
                                                       String gg = (cartListController.model.value.data!.cartItems!.firstWhere((element) =>
                                                       element.productId.toString() == productID,orElse: ()=> CartItems()).id ?? "").toString();
                                                       if(gg.isEmpty)return;

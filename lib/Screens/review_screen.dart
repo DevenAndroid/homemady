@@ -92,7 +92,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue1 = double.parse(rating.toString()).round().toString();
-                        print("Rating 1.....$ratingvalue1");
                       });
                     },
                   ),
@@ -137,7 +136,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue2 = double.parse(rating.toString()).round().toString();
-                        print("Rating 2.....$ratingvalue2");
                       });
                     },
                   ),
@@ -181,7 +179,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue3 = double.parse(rating.toString()).round().toString();
-                        print("Rating 3.....$ratingvalue3");
                       });
                     },
                   ),
@@ -226,7 +223,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue4 = double.parse(rating.toString()).round().toString();
-                        print("Rating 4.....$ratingvalue4");
                       });
                     },
                   ),
@@ -271,7 +267,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           .toString());
                       setState(() {
                         ratingvalue5 = double.parse(rating.toString()).round().toString();
-                        print("Rating 5.....$ratingvalue5");
                       });
                     },
                   ),

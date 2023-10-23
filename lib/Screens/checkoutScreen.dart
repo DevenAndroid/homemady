@@ -343,7 +343,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             TextButton(
                                               onPressed: () {
                                                 removeCoupons(context: context).then((value) {
-                                                  print("hello offer");
                                                   if (value.status == true) {
                                                     showToast(value.message);
                                                     myCartController.getData();
@@ -1221,7 +1220,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           onChanged: (value) {
             setState(() {
               selectedMethod = value;
-              print(selectedMethod);
             });
           },
         ),
@@ -1242,7 +1240,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             onChanged: (value) {
               setState(() {
                 selectedSavedCard!.value = value!;
-                print(selectedSavedCard);
               });
             },
           );

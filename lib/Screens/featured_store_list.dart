@@ -207,7 +207,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                   addWidth(10),
                                   GestureDetector(
                                     onTap: () {
-                                      print("hello");
                                       _showSimpleDialog1();
                                     },
                                     child: Container(
@@ -302,7 +301,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                       )
                                     ],
                                     onTap: (value) {
-                                      print(value);
                                       if (value == 0) {
                                         featuredFilterController.filterId.value = "2";
                                         featuredFilterController.sendDate.value = selectedDate!;
@@ -566,8 +564,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                               right: 10,
                                                               child: InkWell(
                                                                   onTap: () {
-                                                                    print(
-                                                                        "store  id..${featuredFilterController.model.value.data![index].id.toString()}");
 
                                                                     wishlistRepo(
                                                                             id: featuredFilterController
@@ -999,8 +995,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                               right: 10,
                                                               child: InkWell(
                                                                   onTap: () {
-                                                                    print(
-                                                                        "store  id..${featuredFilterController.model.value.data![index].id.toString()}");
 
                                                                     wishlistRepo(
                                                                             id: featuredFilterController
@@ -1377,8 +1371,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                               right: 10,
                                                               child: InkWell(
                                                                   onTap: () {
-                                                                    print(
-                                                                        "store  id..${featuredFilterController.model.value.data![index].id.toString()}");
 
                                                                     wishlistRepo(
                                                                             id: featuredFilterController
@@ -1623,7 +1615,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
       onChanged: (newValue) {
         setState(() {
           chooseUnit = newValue!;
-          print(chooseUnit);
         });
       },
     );

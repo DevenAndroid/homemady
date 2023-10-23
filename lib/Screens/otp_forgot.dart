@@ -27,7 +27,6 @@ class _OtpForgotScreenState extends State<OtpForgotScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(Get.arguments);
     text = Get.arguments;
   }
   String text = "";
@@ -191,7 +190,6 @@ class _OtpForgotScreenState extends State<OtpForgotScreen> {
                         padding: const EdgeInsets.only(left: 24.0,right: 24,top: 70,bottom: 20),
                         child: CommonButton(title: 'Verify OTP',
                           onPressed: (){
-                            print(text);
                           if(formKey99.currentState!.validate()){
                             verifyResetRepo(email: text, otp: otpController.text, context: context, roleText: '2').then((value) {
                               if(value.status == true){

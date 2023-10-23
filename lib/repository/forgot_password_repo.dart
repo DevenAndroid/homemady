@@ -32,7 +32,6 @@ Future<ForgotPasswordModel> forgotPasswordRepo(
          headers: headers);
 
     if (response.statusCode == 200||response.statusCode == 400) {
-      print("<<<<<<<Forgot password from repository=======>${response.body}");
       NewHelper.hideLoader(loader);
       return ForgotPasswordModel.fromJson(json.decode(response.body));
     } else {

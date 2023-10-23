@@ -20,7 +20,6 @@ Future<FilterProductCategoryModel> filterProductCategoryRepo({
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
 
-  print("${ApiUrl.filterProductCategoryUrl}?filter=$distance");
 
   try {
     final response = await http.get(Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$distance"), headers: headers);

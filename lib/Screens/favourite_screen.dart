@@ -326,7 +326,6 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                     right: 10,
                                                     child: InkWell(
                                                         onTap: (){
-                                                          print("store  id..${homeController.model.value.data!.stores![index].id.toString()}");
 
                                                           wishlistRepo(id: controller1.model.value.data!.store![index].id.toString(),productId: ''
                                                           ).then((value){
@@ -555,7 +554,6 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
 
                                                       child: GestureDetector(
                                                           onTap: (){
-                                                            print("store  id..${controller1.model.value.data!.product![index].id.toString()}");
 
                                                             wishlistRepo(productId: controller1.model.value.data!.product![index].id.toString(),id: ''
                                                             ).then((value){
@@ -710,10 +708,6 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                                   .toList()
                                                                   .contains(productID) &&
                                                                   product.productCount == 1) {
-                                                                print("sssssssssssssssssssssssss");
-                                                                print("sssssssssssssssssssssssss${cartListController.model.value.data!.cartItems!
-                                                                    .map((e) => e.productId.toString())
-                                                                    .toList()}");
                                                                 String gg = (cartListController.model.value.data!.cartItems!.firstWhere((element) =>
                                                                 element.productId.toString() == productID,orElse: ()=> CartItems()).id ?? "").toString();
                                                                 if(gg.isEmpty)return;

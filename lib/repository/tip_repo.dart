@@ -27,7 +27,6 @@ Future<ModelCommonResponse> orderTip(
   };
   http.Response response = await http.post(Uri.parse(ApiUrl.orderTipUrl),
       body: jsonEncode(map), headers: headers);
-  print(response.body);
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
     return ModelCommonResponse.fromJson(json.decode(response.body));
@@ -51,7 +50,6 @@ Future<ModelCommonResponse> removeTip(
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
   http.Response response = await http.get(Uri.parse(ApiUrl.removeTipUrl),headers: headers);
-  print(response.body);
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
     return ModelCommonResponse.fromJson(json.decode(response.body));

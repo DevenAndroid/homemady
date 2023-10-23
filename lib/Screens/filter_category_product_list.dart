@@ -165,8 +165,6 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                               } else {
                                                 showToast("Please pick a date");
                                               }
-                                              print("Date is $selectedDate");
-                                              print(searchController.searchController1.text);
                                             },
                                             child: Icon(
                                               Icons.search,
@@ -218,7 +216,6 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                   addWidth(5),
                                   GestureDetector(
                                     onTap: () {
-                                      print("AAAAAA");
                                       Get.back();
                                       // _showSimpleDialog1();
                                     },
@@ -663,8 +660,6 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                           right: 10,
                                                           child: InkWell(
                                                               onTap: () {
-                                                                print(
-                                                                    "store  id..${filterProductCategoryController.filterDataModel.value.data![index].id.toString()}");
 
                                                                 wishlistRepo(
                                                                     id: filterProductCategoryController.filterDataModel.value.data![index].id

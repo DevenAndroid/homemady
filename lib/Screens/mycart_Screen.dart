@@ -78,8 +78,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                     itemBuilder: (context, index) {
                       final product = controller.model.value.data!.cartItems![index];
                       return GestureDetector(onTap: (){
-                        print(controller.model.value.data!.cartItems![index].id.toString(),);
-                        print(controller.model.value.data!.cartItems![index].productId.toString(),);
                       },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +106,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                           removeCartItemRepo(cart_item_id: controller.model.value.data!.cartItems![index].id.toString(),context: context).then((value) {
                                             if(value.status == true){
                                               showToast('Cart Removed Successfully');
-                                              print(controller.model.value.data!.cartItems![index].id.toString());
                                               setState(() {
                                                 controller.getData();
                                               });
@@ -829,11 +826,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
             if (title == "Custom") {
               customTip.value = true;
               tipController.text = "";
-              print(tipController.text);
             } else {
               customTip.value = false;
               tipController.text = title;
-              print(tipController.text);
             }
             tipController.text != ""
                 ? orderTip(tipAmount: tipController.text, context: context)

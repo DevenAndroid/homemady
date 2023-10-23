@@ -23,14 +23,11 @@ Future<RemoveCartModel> removeCartItemRepo(
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context).insert(loader);
   try {
-    print(map);
     final response = await http.post(Uri.parse(ApiUrl.removeCartItemUrl),
         body: jsonEncode(map), headers: headers);
     Helpers.hideLoader(loader);
-    print("Remove Cart Data...${response.body}");
     if (response.statusCode == 200 || response.statusCode == 400) {
       Helpers.hideLoader(loader);
-      print("Remove Cart Data...${response.body}");
       return RemoveCartModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

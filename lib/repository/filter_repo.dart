@@ -29,7 +29,6 @@ Future<FilterProductModel> filterDataRepo({required DateTime pickDate,required k
 
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
-    print("Filter store Repository...${response.body}");
     return FilterProductModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);

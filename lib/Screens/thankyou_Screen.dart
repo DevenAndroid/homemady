@@ -25,7 +25,6 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(Get.arguments[0]);
   }
   String text = '';
   @override
@@ -106,7 +105,6 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                  InkWell(
                    onTap: () {
                      orderDetailsController.id.value=Get.arguments[0].toString();
-                     print("Order details order id is ${ orderDetailsController.id.value}");
                      Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
                    },
                    child: Container(

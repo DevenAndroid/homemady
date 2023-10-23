@@ -35,7 +35,6 @@ Future<ModelVerifyOtp> loginRepo(
 
     http.Response response = await http.post(Uri.parse(ApiUrl.loginApi),
         body: jsonEncode(map), headers: headers);
-    print("<<<<<<<Login Data from repository=======>${response.body}");
     if (response.statusCode == 200||response.statusCode == 400) {
 
       NewHelper.hideLoader(loader);
@@ -72,7 +71,6 @@ Future<ModelVerifyOtp> profileRepo() async {
          headers: headers);
 
     if (response.statusCode == 200||response.statusCode == 400) {
-      print("<<<<<<<Profile from repository=======>${response.body}");
       //NewHelper.hideLoader(loader);
       return ModelVerifyOtp.fromJson(json.decode(response.body));
     } else {

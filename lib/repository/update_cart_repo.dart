@@ -29,10 +29,8 @@ Future<UpdateCartRepo> updateCartRepo(cartItemId, qty, context) async {
   try {
     final response = await http.post(Uri.parse(ApiUrl.updateCartUrl),
         body: jsonEncode(map), headers: headers);
-    print("Update Cart Data...${response.body}");
     if (response.statusCode == 200 || response.statusCode == 400) {
       Helpers.hideShimmer(loader);
-      print("Update Cart Data...${response.body}");
       return UpdateCartRepo.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

@@ -20,9 +20,7 @@ Future<StripeModel> stripeSaveDataRepo() async {
     final response = await http.get(
         Uri.parse(ApiUrl.stripeDetailsUrl),
         headers: headers);
-    print("stripe Details Repository...${response.body}");
     if (response.statusCode == 200) {
-      print("stripe Details Repository....${response.body}");
       return StripeModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

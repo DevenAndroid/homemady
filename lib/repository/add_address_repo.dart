@@ -41,7 +41,6 @@ Future<AddAddressModel> addAddress(
   };
   http.Response response = await http.post(Uri.parse(ApiUrl.addAddressUrl),
       body: jsonEncode(map), headers: headers);
-  print(response.body);
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
     return AddAddressModel.fromJson(json.decode(response.body));

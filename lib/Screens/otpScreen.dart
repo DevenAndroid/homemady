@@ -28,7 +28,6 @@ class _OtpScreenState extends State<OtpScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(Get.arguments);
     text = Get.arguments[0];
   }
   String text = '';

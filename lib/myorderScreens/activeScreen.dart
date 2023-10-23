@@ -53,7 +53,6 @@ class _ActiveScreenState extends State<ActiveScreen> {
                   InkWell(
                     onTap: (){
                       orderDetailsController.id.value = controller.model.value.data![index].orderId.toString();
-                      print( orderDetailsController.id.value);
                       Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
                     },
                     child:
@@ -234,7 +233,6 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                 GestureDetector(
                                   onTap: (){
                                     orderTrackingController.orderIdTracking.value = controller.model.value.data![index].orderId.toString();
-                                    print(controller.model.value.data![index].orderId.toString());
                                     Get.toNamed(OrderTrackingScreen.orderTrackingScreen);
                                   },
                                   child: Container(

@@ -30,12 +30,10 @@ class FirebaseService{
     required DateTime lastSeen
   }) async {
     int length = 0;
-    print(lastSeen);
     await fireStore.collection(messageCollection).doc(roomId)
         .collection("messages")
         .where("last_message_time",isLessThan: lastSeen)
         .limit(12).get().then((value) {
-      print(value.docs.length);
       length = value.docs.length;
       // return value;
     });

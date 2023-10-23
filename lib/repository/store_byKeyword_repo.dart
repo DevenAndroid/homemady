@@ -21,7 +21,6 @@ Future<StorebyKeywords> storeKeywordListData() async {
 
   // print("size data  Repository...${response.body}");
   if (response.statusCode == 200) {
-    print("Store by keywords Repository...${response.body}");
     return StorebyKeywords.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);

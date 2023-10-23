@@ -54,7 +54,6 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
             campaign: 'campaign',
             tags: ['one', 'two', 'three']));
     // Get.toNamed(ThankuScreen.thanku);
-    print("1111111111111");
     setState(() {});
   }
   void initDeepLinkData() {
@@ -103,8 +102,6 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
       controllerUrl.sink.add('${response.result}');
       controller.model.value.data!.referCode = response.result;
       setState(() {});
-      print("referralLink ${ controller.model.value.data!.referCode}");
-      print("ProductId ${Get.arguments[0]}");
     } else {
       controllerUrl.sink.add('Error : ${response.errorCode} - ${response.errorMessage}');
     }

@@ -225,7 +225,6 @@ class _ChatScreen1State extends State<ChatScreen1> {
         if (imageTypes.contains(result.files.single.path.toString().split(".").last)) {
           image2 = (await FileCompressionApi.compressImage(image))!;
           image = image2;
-          print("333333333333333333${image.path}");
         }
       }
     }
@@ -486,7 +485,6 @@ class FileCompressionApi {
           quality: 50, percentage: 10);
       return compressedFile;
     } catch (e) {
-      print(e.toString());
       return null; //If any error occurs during compression, the process is stopped.
     }
   }

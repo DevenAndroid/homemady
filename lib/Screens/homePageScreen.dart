@@ -161,8 +161,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     connectToServer();
 
     // connectToServer();
-    print("THis is latitude from emit ${latLongModel.latitude}");
-    print(latLongModel.longitude.toString());
     locationController.checkGps(context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -333,7 +331,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
-                              print(selectedDate);
                               timeSlotController.sendDate.value = selectedDate;
                               timeSlotController.getTimeSlotData();
                               Get.back();
@@ -559,7 +556,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               prefix: InkWell(
                                                 onTap: () {
                                                   FocusManager.instance.primaryFocus!.unfocus();
-                                                  print(selectedDate);
 
                                                   // if(selectedDate != "Available Now" ||  isAvailableSelected == true) {
                                                   //   // filterDataController.storeSearchController.text = "";
@@ -590,7 +586,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       GestureDetector(
                                         onTap: () {
                                           //_showDialogCategory();
-                                          print(selectedDate);
                                           if(selectedDate != "Available Now" ||  isAvailableSelected == true){
                                           showUploadWindow();
                                             // Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);
@@ -629,7 +624,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       addWidth(5),
                                       GestureDetector(
                                         onTap: () {
-                                          print("AAAAAA");
                                           _showSimpleDialog1();
                                         },
                                         child: Container(
@@ -677,7 +671,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 children: [
                                                   GestureDetector(
                                                     onTap: (){
-                                                      print("Store id is...${homeController.model.value.data!.sliderData![index].storeId}");
                                                       Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
                                                         homeController.model.value.data!.sliderData![index].storeId.toString()
                                                       ]);
@@ -746,9 +739,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         selectedDate == 'Available Now'  && isAvailableSelected == false
                                                             ? GestureDetector(
                                                           onTap: (){
-                                                            print(isAvailableSelected);
                                                             isAvailableSelected = !isAvailableSelected!;
-                                                            print("THisis date$isAvailableSelected");
                                                             setState(() {});
                                                           },
                                                               child: Padding(
@@ -770,9 +761,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         selectedDate == 'Available Now' && isAvailableSelected == false
                                                             ? GestureDetector(
                                                           onTap: (){
-                                                            print(isAvailableSelected);
                                                             isAvailableSelected = !isAvailableSelected!;
-                                                            print("THisis date$isAvailableSelected");
                                                             setState(() {});
                                                           },
                                                               child: Text(
@@ -1361,8 +1350,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                             right: 10,
                                                             child: InkWell(
                                                                 onTap: () {
-                                                                  print(
-                                                                      "store  id..${homeController.model.value.data!.stores![index].id.toString()}");
 
                                                                   wishlistRepo(
                                                                           id: homeController.model.value.data!.stores![index].id

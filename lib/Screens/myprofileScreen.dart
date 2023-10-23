@@ -41,7 +41,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.getData().then((value){
         controller.address.value = controller.model.value.data!.defaultAddress![0].addressType.toString();
-        print("Address is ..${controller.address.value}");
       });
     });
 
@@ -409,11 +408,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                                     initialCountryCode: controller.initialCode.value,
                                                     onCountryChanged: (phone) {
                                                       controller.countryCode.value = "+${phone.dialCode}";
-                                                      print(phone.dialCode);
                                                     },
                                                     onChanged: (phone){
-                                                      print(phone);
-                                                      print(controller.mobileController);
 
                                                     }
                                                 ),

@@ -32,7 +32,6 @@ Future<ResetPasswordModel> resetPasswordRepo(
     http.Response response = await http.post(Uri.parse(ApiUrl.resetPasswordUrl),
         body: jsonEncode(map), headers: headers);
     if (response.statusCode == 200||response.statusCode == 400) {
-      print("<<<<<<<SEt new  password  repository=======>${response.body}");
       NewHelper.hideLoader(loader);
       return ResetPasswordModel.fromJson(json.decode(response.body));
     } else {

@@ -43,7 +43,6 @@ Future<ModelCommonResponse> register(
   log(map.toString());
   log(response.body);
   if (response.statusCode == 200 || response.statusCode == 400) {
-    print("work");
     NewHelper.hideLoader(loader);
     return ModelCommonResponse.fromJson(json.decode(response.body));
   } else {

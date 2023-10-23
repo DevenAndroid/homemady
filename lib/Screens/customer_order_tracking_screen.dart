@@ -161,15 +161,12 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("THis is latitude from emit ${latLongModel.latitude}");
-    print(latLongModel.longitude.toString());
     orderTrackingController.getOrderTrackingDetails();
     setCustomMarkerIcon();
     getPolyPoints();
     _getCurrentPosition();
     if (Get.arguments != null) {
       addressModel.value = Get.arguments[0];
-      print(Get.arguments[0]);
     }
   }
 
@@ -182,8 +179,6 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
         PointLatLng(double.parse(latLongModel.latitude.toString()), double.parse(latLongModel.longitude.toString()) ),
       PointLatLng(double.parse(locationController.lat.toString()), double.parse(locationController.long.toString())),
     );
-    print("THis is latitude from emit ${latLongModel.latitude}");
-    print(latLongModel.longitude.toString());
     if (result.points.isNotEmpty) {
       for (var point in result.points) {
         polylineCoordinates.add(

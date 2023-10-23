@@ -27,7 +27,6 @@ Future<ModelCommonResponse> applyCoupons(
   };
   http.Response response = await http.post(Uri.parse(ApiUrl.applyCouponsUrl),
       body: jsonEncode(map), headers: headers);
-  print(response.body);
   if (response.statusCode == 200 || response.statusCode ==400) {
     Helpers.hideLoader(loader);
     return ModelCommonResponse.fromJson(json.decode(response.body));
@@ -52,7 +51,6 @@ Future<ModelCommonResponse> removeCoupons(
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
   http.Response response = await http.get(Uri.parse(ApiUrl.removeCouponsUrl),headers: headers);
-  print(response.body);
   if (response.statusCode == 200 ||response.statusCode == 400) {
     Helpers.hideLoader(loader);
     return ModelCommonResponse.fromJson(json.decode(response.body));

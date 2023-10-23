@@ -434,7 +434,7 @@ loginWithApple(context) async {
     await FirebaseAuth.instance.signInWithPopup(appleProvider).then((value) async {
       var fromToken = await FirebaseMessaging.instance.getToken();
 
-      socialLogin(provider: "google", token: fromToken!, context: context).then((value) async {
+      socialLogin(provider: "apple", token: fromToken!, context: context).then((value) async {
         if (value.status == true) {
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('user_info', jsonEncode(value));
@@ -449,7 +449,7 @@ loginWithApple(context) async {
     await FirebaseAuth.instance.signInWithProvider(appleProvider).then((value) async {
       var fromToken = await FirebaseMessaging.instance.getToken();
 
-      socialLogin(provider: "google", token: fromToken!, context: context).then((value) async {
+      socialLogin(provider: "apple", token: fromToken!, context: context).then((value) async {
         if (value.status == true) {
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('user_info', jsonEncode(value));

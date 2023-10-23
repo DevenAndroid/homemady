@@ -1,4 +1,4 @@
-package com.example.homemady
+package com.homemady.homemady.customer
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity

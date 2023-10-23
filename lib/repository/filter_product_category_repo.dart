@@ -25,7 +25,7 @@ Future<FilterProductCategoryModel> filterProductCategoryRepo({
 
   try {
     final response = await http.get(Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$distance"), headers: headers);
-    // log(response.body.toString());
+    log("Url issss...${ApiUrl.filterProductCategoryUrl}?filter=$distance");
     if (response.statusCode == 200) {
       //Helpers.hideShimmer(loader);
       log("sort stores by category...${response.body}");

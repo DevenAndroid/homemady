@@ -22,9 +22,9 @@ class _CountUnSeenMessagesState extends State<CountUnSeenMessages> {
         ),
         builder: (context, snapshot){
           if(snapshot.hasData){
-            if(snapshot.data! < 1)return SizedBox.shrink();
+            if(snapshot.data! < 1)return const SizedBox.shrink();
             return Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: LinearGradient(
                       begin: Alignment.centerLeft,
@@ -38,13 +38,13 @@ class _CountUnSeenMessagesState extends State<CountUnSeenMessages> {
                 padding: const EdgeInsets.all(7.0),
                 child: Text(
                   snapshot.data.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ),
             );
           }
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         });
   }
 }

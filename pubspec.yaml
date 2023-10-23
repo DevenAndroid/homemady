@@ -26,14 +26,14 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  get:
-  shared_preferences:
-  cached_network_image:
-  smooth_page_indicator:
+  get: ^4.6.6
+  shared_preferences: ^2.2.2
+  cached_network_image: ^3.3.0
   google_fonts:
-  form_field_validator:
+  form_field_validator: ^1.1.0
   flutter_stripe:
   intl: ^0.17.0
+  http: ^0.13.0
   google_sign_in: ^6.0.0
   flutter_slidable:
   fluttertoast:
@@ -41,17 +41,19 @@ dependencies:
   vertical_scrollable_tabview:
   scroll_to_index:
   share_plus:
-  push: ^1.0.0
+#  push: ^1.0.0
   readmore: ^2.2.0
   flutter_polyline_points: ^1.0.0
   dotted_border:
   firebase_core: ^2.19.0
   firebase_auth: ^4.11.1
   cloud_firestore: ^4.11.0
-  firebase_messaging: ^14.7.1
+  firebase_messaging: ^14.2.6
   file_picker:
-  flutter_google_places:
-  flutter_google_places_hoc081098:
+#  flutter_google_places:
+  flutter_google_places_hoc081098: ^1.2.0
+#  google_places_flutter: ^2.0.6
+  google_api_headers: ^2.0.3
   geocoding:
   google_maps_flutter:
   google_maps_webservice:
@@ -69,7 +71,7 @@ dependencies:
   socket_io_client: ^2.0.2
   flutter_math_fork: ^0.6.1
   flutter_branch_sdk:
-  web_socket_channel: ^2.2.0
+#  web_socket_channel: ^2.2.0
   client_information:
   dotted_decoration: ^2.0.0
   flutter_native_image:

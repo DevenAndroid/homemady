@@ -4,12 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/Screens/store_review_screen.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/singlecookDetails/carte.dart';
-import 'package:homemady/singlecookDetails/cartingScreen.dart';
-import 'package:homemady/singlecookDetails/mealPrepScreen.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,11 +18,8 @@ import '../controller/my_cart_controller.dart';
 import '../controller/review_screen_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../model/My_Cart_Model.dart';
-import '../model/vendor_store_single_model.dart';
-import '../repository/vendor_store_single_repo.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
-import '../widgets/app_theme.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
   const HomeDetailsScreen({Key? key}) : super(key: key);
@@ -218,7 +212,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                               .capitalizeFirst
                                               .toString(),
                                           style: const TextStyle(
-                                              fontWeight: FontWeight.w300, fontSize: 12, color: const Color(0xFF364A4F)),
+                                              fontWeight: FontWeight.w300, fontSize: 12, color: Color(0xFF364A4F)),
                                         ),
                                       addHeight(20),
                                       const Divider(
@@ -324,8 +318,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 // if(controller.model.value.data!.storeDetails!.time != null)
                                                 Expanded(
                                                   child: Text(
-                                                      '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 10} - ' +
-                                                          ''
+                                                      '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 10} - ' ''
                                                               '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 15} mins',
                                                       style: const TextStyle(
                                                         fontSize: 14,
@@ -353,7 +346,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 Expanded(
                                                   child:
                                                       Text(controller.model.value.data!.storeDetails!.collection.toString(),
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                             fontSize: 14,
                                                             color: Color(0xFF4E5F64),
                                                             fontWeight: FontWeight.w400,
@@ -390,7 +383,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                     errorWidget: (_, __, ___) => Image.asset(
                                                       'assets/images/dummyPerson.png',
                                                     ),
-                                                    placeholder: (_, __) => Center(child: CircularProgressIndicator()),
+                                                    placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                                   ),
                                                 ),
                                               )),
@@ -693,7 +686,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                         )),
                   ],
                 )
-              : Center(child: CircularProgressIndicator()),
+              : const Center(child: CircularProgressIndicator()),
           bottomNavigationBar:
               myCartController.isDataLoading.value && myCartController.model.value.data!.cartItems!.isNotEmpty
                   ? addCartSection()

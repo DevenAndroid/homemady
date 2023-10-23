@@ -1,39 +1,27 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:dotted_decoration/dotted_decoration.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+// import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import 'package:google_api_headers/google_api_headers.dart';
+// import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_webservice/places.dart';
+// import 'package:google_maps_webservice/places.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/widgets/app_assets.dart';
 import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
-import 'package:homemady/widgets/editprofiletextfiled.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../controller/location_controller.dart';
-import '../controller/my_address_controller.dart';
 import '../controller/order_tracking_controller.dart';
-import '../model/lat_long_ model.dart';
 import '../model/my_address_model.dart';
-import '../repository/add_address_repo.dart';
-import '../repository/edit_address_repo.dart';
 import '../widgets/custome_size.dart';
 import 'homePageScreen.dart';
-import 'myAddressScreen.dart';
 
 
 class OrderTrackingScreen extends StatefulWidget {
@@ -417,15 +405,15 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                     height: 10,
                                     width: 90,
                                     decoration: BoxDecoration(
-                                        color: Color(0xffEEEEEE),
+                                        color: const Color(0xffEEEEEE),
                                         borderRadius: BorderRadius.circular(50)
                                     ),
                                   )
                                 ],
                               ),
-                              SizedBox(height: 20,),
+                              const SizedBox(height: 20,),
                               ListView.builder(
-                                physics: BouncingScrollPhysics(),
+                                physics: const BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                   itemCount: orderTrackingController.orderTrackingModel.value.data!.length,
                                   itemBuilder: (BuildContext, index){
@@ -453,8 +441,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                                             child: Container(
                                                               height: AddSize.size20,
                                                               width: AddSize.size20,
-                                                              decoration: BoxDecoration(
-                                                                color:const Color(0xff6CC845),
+                                                              decoration: const BoxDecoration(
+                                                                color:Color(0xff6CC845),
                                                               shape: BoxShape.circle),
                                                             ),
                                                           ),
@@ -471,7 +459,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                                         //   ),
                                                         // ),
 
-                                                        DottedVerticalLine()
+                                                        const DottedVerticalLine()
                                                       ],
                                                     ),
                                                   ),
@@ -491,7 +479,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                                           orderTrackingController.orderTrackingModel.value.data![index].note.toString(),
                                                           style: GoogleFonts.poppins(
                                                               fontWeight: FontWeight.w400,
-                                                              color: Color(0xff141C19),
+                                                              color: const Color(0xff141C19),
                                                               fontSize: AddSize.font16),
                                                         ),
                                                         SizedBox(height: AddSize.size5,),
@@ -499,7 +487,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                                           orderTrackingController.orderTrackingModel.value.data![index].date.toString(),
                                                           style: GoogleFonts.poppins(
                                                               fontWeight: FontWeight.w300,
-                                                              color:Color(0xff48585E),
+                                                              color:const Color(0xff48585E),
                                                               fontSize: AddSize.font12),
                                                         ),
 
@@ -520,7 +508,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                               Container(
                                 //height: height * .12,
                                decoration: BoxDecoration(
-                                 color: Color(0xff6CC844).withOpacity(.10),
+                                 color: const Color(0xff6CC844).withOpacity(.10),
                                  borderRadius: BorderRadius.circular(17)
                                ),
                                 child: Padding(
@@ -533,7 +521,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Image.asset('assets/images/trackBox.png',height: 62,width: 70,),
-                                         SizedBox(width: 5,),
+                                         const SizedBox(width: 5,),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 15),
                                           child: Column(
@@ -544,7 +532,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                                 "Satyam rathore",
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w700,
-                                                    color: Color(0xff666666),
+                                                    color: const Color(0xff666666),
                                                     fontSize: AddSize.font16),
                                               ),
                                             ],
@@ -580,7 +568,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                       ),
                     ],
                   ))
-                  :Center(child: CircularProgressIndicator())
+                  :const Center(child: CircularProgressIndicator())
 
             ],
           )
@@ -594,10 +582,12 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
 
 
 class DottedVerticalLine extends StatelessWidget {
+  const DottedVerticalLine({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(2.0, 40.0), // Adjust the size as needed
+      size: const Size(2.0, 40.0), // Adjust the size as needed
       painter: DottedVerticalLinePainter(),
     );
   }
@@ -612,8 +602,8 @@ class DottedVerticalLinePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0; // Width of the line
 
-    final double dashWidth = 2.0; // Width of each dash
-    final double dashSpace = 5.0; // Space between dashes
+    const double dashWidth = 2.0; // Width of each dash
+    const double dashSpace = 5.0; // Space between dashes
     double startY = 0;
 
     while (startY < size.height) {

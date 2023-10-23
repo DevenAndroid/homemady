@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
@@ -64,7 +63,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                           child: Text("No",
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xFF7ED957),
+                                  color: const Color(0xFF7ED957),
                                   fontSize: AddSize.font18)),
                           onPressed: () {
                             Get.back();
@@ -74,7 +73,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                           child: Text("Yes",
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xFF7ED957),
+                                  color: const Color(0xFF7ED957),
                                   fontSize: AddSize.font18)),
                           onPressed: () {
                             removeAddress(
@@ -117,7 +116,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                 addHeight(30),
                 ListView.builder(
                   shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: myAddressController.model.value.data!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(onTap: (){
@@ -164,14 +163,14 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                   borderRadius: BorderRadius.zero,
                                   border: Border.all(
                                       width: 2,
-                                      color: currentIndex == index ? Color(0xff7ED957): Colors.transparent),
+                                      color: currentIndex == index ? const Color(0xff7ED957): Colors.transparent),
                                   boxShadow: [
                                     BoxShadow(
-                                      color:  currentIndex == index ?  Color(0xFF37C666).withOpacity(0.10):Colors.transparent,
-                                      offset:  currentIndex == index ?  Offset(
+                                      color:  currentIndex == index ?  const Color(0xFF37C666).withOpacity(0.10):Colors.transparent,
+                                      offset:  currentIndex == index ?  const Offset(
                                         .2,
                                         .2,
-                                      ):Offset(0, 0),
+                                      ):const Offset(0, 0),
                                       blurRadius: 20.0,
                                       spreadRadius: 1.0,
                                     ),
@@ -222,13 +221,10 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                               children: [
                                                 Expanded(
                                                   child: Text(
-                                                    myAddressController
-                                                        .model.value.data![index].flatNo
-                                                        .toString()+' ' + myAddressController
-                                                  .model.value.data![index].landmark
-                                                  .toString()+', ' + myAddressController
-                                                        .model.value.data![index].pinCode
-                                                        .toString(),
+                                                    '${myAddressController
+                                                        .model.value.data![index].flatNo} ${myAddressController
+                                                  .model.value.data![index].landmark}, ${myAddressController
+                                                        .model.value.data![index].pinCode}',
                                                     style: GoogleFonts.poppins(
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w400,

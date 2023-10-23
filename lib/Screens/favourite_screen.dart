@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
@@ -117,7 +114,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500),
                                     controller: tabController,
-                                    indicatorPadding: EdgeInsets.symmetric(horizontal: -5, vertical: -2),
+                                    indicatorPadding: const EdgeInsets.symmetric(horizontal: -5, vertical: -2),
                                     indicator: BoxDecoration(
                                       borderRadius: BorderRadius.circular(6),
                                       color:  const Color(0xff7ED957),
@@ -381,13 +378,13 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                                           right: 18,
                                                                           top: 30,
                                                                           child: Container(
-                                                                              padding: EdgeInsets.all(10),
+                                                                              padding: const EdgeInsets.all(10),
                                                                               height: 80,
                                                                               decoration: const BoxDecoration(
                                                                                   color: Colors.white,
                                                                                   shape: BoxShape.circle
                                                                               ),
-                                                                              child:  Icon(Icons.clear)
+                                                                              child:  const Icon(Icons.clear)
                                                                           ),)
                                                                       ],
                                                                     );
@@ -469,11 +466,11 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                 padding: const EdgeInsets.all(30.0),
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 60,),
+                                    const SizedBox(height: 60,),
                                     Image.asset('assets/images/Favaorites.png'),
-                                    SizedBox(height: 10,),
+                                    const SizedBox(height: 10,),
                                     Text("No Favaorites",
-                                      style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: Color(0xff000000),fontSize: 22),),
+                                      style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
                                   ],
                                 ),
                               )
@@ -862,8 +859,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                           ),
                                           addHeight(5),
                                           Container(
-                                            margin: EdgeInsets.only(left: 82),
-                                            color: Color(0xFFE9E9E9),
+                                            margin: const EdgeInsets.only(left: 82),
+                                            color: const Color(0xFFE9E9E9),
                                             width: AddSize.screenWidth,
                                             height: 1,
                                           ),
@@ -953,9 +950,9 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                             padding: const EdgeInsets.all(30.0),
                             child: Column(
                               children: [
-                                SizedBox(height: 60,),
+                                const SizedBox(height: 60,),
                                 Image.asset('assets/images/Favaorites.png'),
-                                SizedBox(height: 10,),
+                                const SizedBox(height: 10,),
                                 Text("No Favaorites",
                                   style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
                               ],

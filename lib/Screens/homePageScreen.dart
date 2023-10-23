@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ui';
 import 'package:badges/badges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
@@ -132,7 +131,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       if (kDebugMode) {
         if (kDebugMode) print('==================  onConnect $data');
         socket1!.on("result", (data){
-          log("kkkkkkkk 1111${data}");
+          log("kkkkkkkk 1111$data");
           getLatLongFrom(data);
          // latLongModel=LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
 
@@ -147,7 +146,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   getLatLongFrom(dynamic data){
-    log("rrrrrrrrrrr  11111${data}");
+    log("rrrrrrrrrrr  11111$data");
     latLongModel=LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
     log("rrrrrrrrrrr  11111${latLongModel.latitude}");
     log("rrrrrrrrrrr  11111${latLongModel.longitude}");
@@ -155,13 +154,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     connectToServer();
 
     // connectToServer();
-    print("THis is latitude from emit "+latLongModel.latitude.toString());
+    print("THis is latitude from emit ${latLongModel.latitude}");
     print(latLongModel.longitude.toString());
     locationController.checkGps(context);
 
@@ -259,6 +259,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           selectedDate = formattedDate;
         });
       }
+      return null;
     });
   }
 
@@ -313,7 +314,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      itemdata.startTime.toString() + "-" + itemdata.endTime.toString(),
+                                      "${itemdata.startTime}-${itemdata.endTime}",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
@@ -339,7 +340,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               FocusManager.instance.primaryFocus!.unfocus();
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xff7ED957),
+                              backgroundColor: const Color(0xff7ED957),
                             ),
                             child: const Text(
                               "OK",
@@ -676,7 +677,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 children: [
                                                   GestureDetector(
                                                     onTap: (){
-                                                      print("Store id is..."+homeController.model.value.data!.sliderData![index].storeId.toString());
+                                                      print("Store id is...${homeController.model.value.data!.sliderData![index].storeId}");
                                                       Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
                                                         homeController.model.value.data!.sliderData![index].storeId.toString()
                                                       ]);
@@ -747,7 +748,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           onTap: (){
                                                             print(isAvailableSelected);
                                                             isAvailableSelected = !isAvailableSelected!;
-                                                            print("THisis date${isAvailableSelected}");
+                                                            print("THisis date$isAvailableSelected");
                                                             setState(() {});
                                                           },
                                                               child: Padding(
@@ -771,7 +772,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           onTap: (){
                                                             print(isAvailableSelected);
                                                             isAvailableSelected = !isAvailableSelected!;
-                                                            print("THisis date${isAvailableSelected}");
+                                                            print("THisis date$isAvailableSelected");
                                                             setState(() {});
                                                           },
                                                               child: Text(
@@ -840,6 +841,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           log("Seleted Date for slot is    $selectedDate");
                                                         });
                                                       }
+                                                      return null;
                                                     });
 
                                                     if (pickedDate != null) {
@@ -1951,7 +1953,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ),
                               )),
                         ),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                       ],
                     ),
                   )),

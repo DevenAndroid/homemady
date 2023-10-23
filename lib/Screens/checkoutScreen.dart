@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
@@ -63,6 +62,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   bool value = false;
   bool value2 = false;
+  @override
   Widget build(BuildContext context) {
     return Obx(() {
       return GestureDetector(
@@ -478,24 +478,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                                   .model.value.data!.defaultAddress!.isNotEmpty
                                                               ? Expanded(
                                                                   child: Text(
-                                                                    profileController
-                                                                            .model.value.data!.defaultAddress![0].flatNo
-                                                                            .toString() +
-                                                                        ',' +
-                                                                        profileController
-                                                                            .model.value.data!.defaultAddress![0].landmark
-                                                                            .toString() +
-                                                                        ',' +
-                                                                        profileController
-                                                                            .model.value.data!.defaultAddress![0].pinCode
-                                                                            .toString(),
+                                                                    '${profileController
+                                                                            .model.value.data!.defaultAddress![0].flatNo},${profileController
+                                                                            .model.value.data!.defaultAddress![0].landmark},${profileController
+                                                                            .model.value.data!.defaultAddress![0].pinCode}',
                                                                     style: GoogleFonts.poppins(
                                                                         fontSize: 14,
                                                                         fontWeight: FontWeight.w400,
                                                                         color: const Color(0xff5C5C60)),
                                                                   ),
                                                                 )
-                                                              : SizedBox();
+                                                              : const SizedBox();
                                                         })
                                                       ],
                                                     )
@@ -506,17 +499,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                             child: Text(
                                                               (myCartController.model.value.data!.orderAddress == null
                                                                       ? 'Select address'
-                                                                      : myCartController
-                                                                              .model.value.data!.orderAddress!.flatNo
-                                                                              .toString() +
-                                                                          ',' +
-                                                                          myCartController
-                                                                              .model.value.data!.orderAddress!.landmark
-                                                                              .toString() +
-                                                                          ',' +
-                                                                          myCartController
-                                                                              .model.value.data!.orderAddress!.pinCode
-                                                                              .toString())
+                                                                      : '${myCartController
+                                                                              .model.value.data!.orderAddress!.flatNo},${myCartController
+                                                                              .model.value.data!.orderAddress!.landmark},${myCartController
+                                                                              .model.value.data!.orderAddress!.pinCode}')
                                                                   .toString(),
                                                               style: GoogleFonts.poppins(
                                                                   fontSize: 14,
@@ -851,7 +837,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                             ),
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 15,
@@ -935,7 +921,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ],
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                             myCartController.model.value.data!.cartPaymentSummary!.couponDiscount == 0
                                 ? const SizedBox()
                                 : Padding(

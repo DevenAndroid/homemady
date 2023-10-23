@@ -92,7 +92,7 @@ class NotificationScreen2State extends State<NotificationScreen2> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Theme(
-        data: ThemeData(useMaterial3: true, backgroundColor: Colors.transparent, dividerColor: Colors.transparent),
+        data: ThemeData(useMaterial3: true, dividerColor: Colors.transparent, backgroundColor: Colors.transparent),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -169,7 +169,7 @@ class NotificationScreen2State extends State<NotificationScreen2> {
                                 : orderDetail.user!.id.toString();
                             int otherTime = chatData.completeData!["last_time_$otherID"] ?? 0;
                             // log("other TIme.....     ${otherTime}");
-                            log("other TIme.....     ${otherID}");
+                            log("other TIme.....     $otherID");
                             // log("other TIme.....     ${chatData.completeData!}");
 
                             String roomId = FirebaseService().createChatRoom(
@@ -211,7 +211,7 @@ class NotificationScreen2State extends State<NotificationScreen2> {
                                                     child: ClipRRect(
                                                       borderRadius: BorderRadius.circular(40),
                                                       child: Image.network(
-                                                        "${displayImage.toString()}",
+                                                        displayImage.toString(),
                                                         height: 50,
                                                         width: 50,
                                                         fit: BoxFit.contain,
@@ -378,7 +378,7 @@ class NotificationScreen2State extends State<NotificationScreen2> {
                       TextSpan(
                           text: ' end-to-end encrypted'.tr,
                           style:
-                          TextStyle(fontSize: AddSize.font12, fontWeight: FontWeight.w500, color: Color(0xff6EE23B))),
+                          TextStyle(fontSize: AddSize.font12, fontWeight: FontWeight.w500, color: const Color(0xff6EE23B))),
                     ])),
               ],
             ),
@@ -430,7 +430,7 @@ class NotificationScreen2State extends State<NotificationScreen2> {
                       "B".tr,
                       style: Theme.of(context)
                           .textTheme
-                          .headline5!
+                          .headlineSmall!
                           .copyWith(fontWeight: FontWeight.w500, fontSize: 24, color: AppTheme.backgroundcolor),
                     )),
               ),
@@ -444,7 +444,7 @@ class NotificationScreen2State extends State<NotificationScreen2> {
                   children: [
                     Text(
                       date,
-                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontWeight: FontWeight.w400,
                         color: AppTheme.primaryColor,
                         fontSize: 12,
@@ -453,7 +453,7 @@ class NotificationScreen2State extends State<NotificationScreen2> {
                     addHeight(4),
                     Text(
                       title,
-                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontWeight: FontWeight.w400,
                         color: AppTheme.blackcolor,
                         fontSize: 14,
@@ -465,7 +465,7 @@ class NotificationScreen2State extends State<NotificationScreen2> {
                       description,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontWeight: FontWeight.w400,
                         color: AppTheme.subText,
                         fontSize: 12,

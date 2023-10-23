@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/widgets/new_helper.dart';
 import '../controller/filter_controller.dart';
 import '../controller/homepage_controller.dart';
 import '../controller/my_cart_controller.dart';
@@ -16,7 +14,6 @@ import '../routers/routers.dart';
 import '../widgets/custome_size.dart';
 import '../widgets/custome_textfiled.dart';
 import '../widgets/dimenestion.dart';
-import 'myAddressScreen.dart';
 
 class HomeFilterScreen extends StatefulWidget {
   const HomeFilterScreen({Key? key}) : super(key: key);

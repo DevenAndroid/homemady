@@ -6,7 +6,6 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
-import 'app_theme.dart';
 
 class CustomIntlPhoneField1 extends StatefulWidget {
   /// Whether to hide the text being edited (e.g., for passwords).

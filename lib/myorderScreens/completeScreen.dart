@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
@@ -147,7 +146,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                           ),),
                                         addWidth(8),
                                         Container(
-                                          margin: EdgeInsets.symmetric(vertical: 2,horizontal: 2),
+                                          margin: const EdgeInsets.symmetric(vertical: 2,horizontal: 2),
                                           // height: 25,
                                           // width: 80,
                                           decoration:  BoxDecoration(
@@ -185,7 +184,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                           ),
                           addHeight(10),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Row(
                               children: [
                                 GestureDetector(
@@ -234,7 +233,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                     // width: 132,
                                     decoration:  BoxDecoration(
                                         borderRadius: BorderRadius.circular(14),
-                                        color: Color(0xFF7ED957)
+                                        color: const Color(0xFF7ED957)
                                     ),
                                     child: Center(
                                       child: Padding(
@@ -263,12 +262,12 @@ class _CompleteScreenState extends State<CompleteScreen> {
                     padding: const EdgeInsets.all(30.0),
                     child: Column(
                       children: [
-                        SizedBox(height: 60,),
+                        const SizedBox(height: 60,),
                         Image.asset('assets/images/noOrderImage.png'),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Text("Empty",
                           style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Text("You do not have an active order at this time",
                           style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff747474),fontSize: 22),),
                       ],
@@ -283,12 +282,12 @@ class _CompleteScreenState extends State<CompleteScreen> {
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                SizedBox(height: 60,),
+                const SizedBox(height: 60,),
                 Image.asset('assets/images/noOrderImage.png'),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Text("Empty",
                   style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff000000),fontSize: 22),),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Text("You do not have an active order at this time",
                   style: GoogleFonts.dmSans(fontWeight: FontWeight.w700,color: const Color(0xff747474),fontSize: 22),),
               ],

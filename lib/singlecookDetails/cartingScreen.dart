@@ -1,18 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:homemady/routers/routers.dart';
-import 'package:homemady/widgets/custome_size.dart';
-import 'package:homemady/widgets/dimenestion.dart';
 
-import '../controller/homepage_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
-import '../repository/add_cart_repo.dart';
-import '../repository/update_cart_repo.dart';
-import '../resources/add_text.dart';
 
 
 class carteingScreen extends StatefulWidget {
@@ -27,7 +17,7 @@ class _carteingScreenState extends State<carteingScreen> {
   final cartListController = Get.put(MyCartListController());
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         // Padding(
         //   padding: const EdgeInsets.all(13.0),

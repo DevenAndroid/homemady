@@ -1,10 +1,8 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/Screens/subscription_history.dart';
 import 'package:homemady/Screens/thankyou_screen2.dart';
 import 'package:homemady/repository/subscription_repo.dart';
@@ -145,9 +143,9 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     } else {
                       Stripe.instance.createToken(const CreateTokenParams.card(params: CardTokenParams())).then((value) {
                         log(value.toString());
-                        log('token--' + value.id.toString());
+                        log('token--${value.id}');
                         {
-                          log('token--' + value.id.toString());
+                          log('token--${value.id}');
                         }
                         subscription(token: value.id.toString(), amount: '9', context: context).then((value) {
                           if(value.status == true){
@@ -170,7 +168,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     "Buy Plan",
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
+                        .headlineSmall!
                         .copyWith(color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700, fontSize: 20),
                   )),
               SizedBox(height: height * .01,),
@@ -190,8 +188,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     "Subscription History",
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
-                        .copyWith(color: Color(0xFF69C541), fontWeight: FontWeight.w700, fontSize: 20),
+                        .headlineSmall!
+                        .copyWith(color: const Color(0xFF69C541), fontWeight: FontWeight.w700, fontSize: 20),
                   )),
             ],
           ),

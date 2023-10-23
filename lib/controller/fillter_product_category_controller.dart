@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../model/filter_product_category_model.dart';
-import '../model/search_store_model.dart';
 import '../repository/filter_product_category_repo.dart';
-import '../repository/search_store_repo.dart';
 
 class FilterProductCategoryController extends GetxController {
   RxBool isDataLoading = false.obs;

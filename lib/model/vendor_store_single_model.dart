@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 
 import 'favorite_list_model.dart';
 
@@ -118,7 +117,7 @@ class StoreDetails {
     if (json['award'] != null) {
       award = <Award>[];
       json['award'].forEach((v) {
-        award!.add(new Award.fromJson(v));
+        award!.add(Award.fromJson(v));
       });
     }
     distance = json['distance'];
@@ -140,8 +139,8 @@ class StoreDetails {
     data['store_name'] = storeName;
     data['description'] = description;
     data['name'] = name;
-    if (this.award != null) {
-      data['award'] = this.award!.map((v) => v.toJson()).toList();
+    if (award != null) {
+      data['award'] = award!.map((v) => v.toJson()).toList();
     }
     data['distance'] = distance;
     data['sustainable_packaging_status'] = sustainablePackagingStatus;
@@ -185,7 +184,7 @@ class LatestProducts {
   dynamic allergens;
   dynamic exclude;
 
-  Null? avgRating;
+  dynamic avgRating;
   // RxInt buttonCount = 0.obs;
   int productCount = 0;
   LatestProducts(
@@ -249,12 +248,12 @@ class LatestProducts {
     data['min_qty'] = minQty;
     data['spiciness'] = spiciness;
     data['max_qty'] = maxQty;
-    data['sub_title'] = this.subTitle;
+    data['sub_title'] = subTitle;
     data['price'] = price;
     data['allergens'] = allergens;
     data['content'] = content;
     data['image'] = image;
-    data['size_quantity'] = this.sizeQuantity;
+    data['size_quantity'] = sizeQuantity;
     data['cook_unit_days'] = cookUnitDays;
     data['size'] = size;
     data['size_id'] = sizeId;

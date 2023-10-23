@@ -25,7 +25,7 @@ Future<UpdateCartRepo> updateCartRepo(cartItemId, qty, context) async {
   };
   log(map.toString());
   OverlayEntry loader = Helpers.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
   try {
     final response = await http.post(Uri.parse(ApiUrl.updateCartUrl),
         body: jsonEncode(map), headers: headers);

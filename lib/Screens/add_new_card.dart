@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
@@ -247,7 +246,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                           showToast(value.message);
                         }
                       });
-                      log('order id--' + value.id.toString());
+                      log('order id--${value.id}');
                       // check
                       checkOut(
                           payment_type: 'online',
@@ -256,7 +255,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                           specialRequest: Get.arguments[1],
                           delivery_type: Get.arguments[0] )
                           .then((value1) {
-                        log('Token iddddddddddddddddddddd'+value.id.toString());
+                        log('Token iddddddddddddddddddddd${value.id}');
                         payment(
                                 orderId: value1.data!.orderId.toString(),
                                 token: value.id.toString(),
@@ -297,7 +296,7 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                 "SAVE",
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700, fontSize: 20),
               )),
         ),

@@ -1,6 +1,5 @@
 
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../model/review_screen_model.dart';
 import '../repository/review_screen_repo.dart';
 

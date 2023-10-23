@@ -14,25 +14,25 @@ class SearchStoreModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
-    link = json['link'] != null ? new Link.fromJson(json['link']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
+    link = json['link'] != null ? Link.fromJson(json['link']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
-    if (this.link != null) {
-      data['link'] = this.link!.toJson();
+    if (link != null) {
+      data['link'] = link!.toJson();
     }
     return data;
   }
@@ -85,20 +85,20 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['SKU'] = this.sKU;
-    data['name'] = this.name;
-    data['qty'] = this.qty;
-    data['price'] = this.price;
-    data['content'] = this.content;
-    data['image'] = this.image;
-    data['cook_unit_days'] = this.cookUnitDays;
-    data['size'] = this.size;
-    data['size_id'] = this.sizeId;
-    data['in_menu'] = this.inMenu;
-    data['discount_off'] = this.discountOff;
-    data['avg_rating'] = this.avgRating;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['SKU'] = sKU;
+    data['name'] = name;
+    data['qty'] = qty;
+    data['price'] = price;
+    data['content'] = content;
+    data['image'] = image;
+    data['cook_unit_days'] = cookUnitDays;
+    data['size'] = size;
+    data['size_id'] = sizeId;
+    data['in_menu'] = inMenu;
+    data['discount_off'] = discountOff;
+    data['avg_rating'] = avgRating;
     return data;
   }
 }
@@ -119,11 +119,11 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_page'] = this.totalPage;
-    data['current_page'] = this.currentPage;
-    data['total_item'] = this.totalItem;
-    data['per_page'] = this.perPage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total_page'] = totalPage;
+    data['current_page'] = currentPage;
+    data['total_item'] = totalItem;
+    data['per_page'] = perPage;
     return data;
   }
 }
@@ -140,9 +140,9 @@ class Link {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['next'] = this.next;
-    data['prev'] = this.prev;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['next'] = next;
+    data['prev'] = prev;
     return data;
   }
 }

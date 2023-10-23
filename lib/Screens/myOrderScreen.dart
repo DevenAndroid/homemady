@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/myorderScreens/activeScreen.dart';
 import 'package:homemady/myorderScreens/cancelledScreen.dart';
 import 'package:homemady/myorderScreens/completeScreen.dart';
-import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
-import 'package:homemady/widgets/dimenestion.dart';
 
 import '../controller/my_order_controller.dart';
 

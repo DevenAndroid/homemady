@@ -11,15 +11,15 @@ class MyOrderModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -81,12 +81,12 @@ class Data {
     couponDiscount = json['coupon_discount'];
     grandTotal = json['grand_total'];
     deliveryDistance = json['delivery_distance'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
     vendor =
-    json['vendor'] != null ? new Vendor.fromJson(json['vendor']) : null;
+    json['vendor'] != null ? Vendor.fromJson(json['vendor']) : null;
     driver = json['driver'];
     address =
-    json['address'] != null ? new Address.fromJson(json['address']) : null;
+    json['address'] != null ? Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
     deliveryType = json['delivery_type'];
     deliveryStatus = json['delivery_status'];
@@ -94,7 +94,7 @@ class Data {
     if (json['order_items'] != null) {
       orderItems = <OrderItems>[];
       json['order_items'].forEach((v) {
-        orderItems!.add(new OrderItems.fromJson(v));
+        orderItems!.add(OrderItems.fromJson(v));
       });
     }
     image = json['image'];
@@ -102,35 +102,35 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['order_id'] = this.orderId;
-    data['item_total'] = this.itemTotal;
-    data['surcharge'] = this.surcharge;
-    data['tax'] = this.tax;
-    data['delivery_distance'] = this.deliveryDistance;
-    data['delivery_charges'] = this.deliveryCharges;
-    data['packing_fee'] = this.packingFee;
-    data['coupon_discount'] = this.couponDiscount;
-    data['grand_total'] = this.grandTotal;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['order_id'] = orderId;
+    data['item_total'] = itemTotal;
+    data['surcharge'] = surcharge;
+    data['tax'] = tax;
+    data['delivery_distance'] = deliveryDistance;
+    data['delivery_charges'] = deliveryCharges;
+    data['packing_fee'] = packingFee;
+    data['coupon_discount'] = couponDiscount;
+    data['grand_total'] = grandTotal;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
-    if (this.vendor != null) {
-      data['vendor'] = this.vendor!.toJson();
+    if (vendor != null) {
+      data['vendor'] = vendor!.toJson();
     }
-    data['driver'] = this.driver;
-    if (this.address != null) {
-      data['address'] = this.address!.toJson();
+    data['driver'] = driver;
+    if (address != null) {
+      data['address'] = address!.toJson();
     }
-    data['order_type'] = this.orderType;
-    data['delivery_type'] = this.deliveryType;
-    data['delivery_status'] = this.deliveryStatus;
-    data['item_count'] = this.itemCount;
-    if (this.orderItems != null) {
-      data['order_items'] = this.orderItems!.map((v) => v.toJson()).toList();
+    data['order_type'] = orderType;
+    data['delivery_type'] = deliveryType;
+    data['delivery_status'] = deliveryStatus;
+    data['item_count'] = itemCount;
+    if (orderItems != null) {
+      data['order_items'] = orderItems!.map((v) => v.toJson()).toList();
     }
-    data['image'] = this.image;
-    data['placed_at'] = this.placedAt;
+    data['image'] = image;
+    data['placed_at'] = placedAt;
     return data;
   }
 }
@@ -260,46 +260,46 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['is_driver'] = this.isDriver;
-    data['is_vendor'] = this.isVendor;
-    data['marketing_balance'] = this.marketingBalance;
-    data['wallet_balance'] = this.walletBalance;
-    data['earned_balance'] = this.earnedBalance;
-    data['name'] = this.name;
-    data['last_name'] = this.lastName;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['otp'] = this.otp;
-    data['otp_created_at'] = this.otpCreatedAt;
-    data['otp_verified'] = this.otpVerified;
-    data['profile_image'] = this.profileImage;
-    data['social_profile_image'] = this.socialProfileImage;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['location'] = this.location;
-    data['default_address'] = this.defaultAddress;
-    data['referal_code'] = this.referalCode;
-    data['device_token'] = this.deviceToken;
-    data['device_id'] = this.deviceId;
-    data['is_driver_online'] = this.isDriverOnline;
-    data['is_vendor_online'] = this.isVendorOnline;
-    data['delivery_range'] = this.deliveryRange;
-    data['self_delivery'] = this.selfDelivery;
-    data['collection_status'] = this.collectionStatus;
-    data['sustainable_packaging_status'] = this.sustainablePackagingStatus;
-    data['admin_commission_type'] = this.adminCommissionType;
-    data['admin_commission'] = this.adminCommission;
-    data['as_driver_verified'] = this.asDriverVerified;
-    data['as_vendor_verified'] = this.asVendorVerified;
-    data['featured_store'] = this.featuredStore;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['status'] = this.status;
-    data['is_profile_complete'] = this.isProfileComplete;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['is_driver'] = isDriver;
+    data['is_vendor'] = isVendor;
+    data['marketing_balance'] = marketingBalance;
+    data['wallet_balance'] = walletBalance;
+    data['earned_balance'] = earnedBalance;
+    data['name'] = name;
+    data['last_name'] = lastName;
+    data['phone'] = phone;
+    data['email'] = email;
+    data['otp'] = otp;
+    data['otp_created_at'] = otpCreatedAt;
+    data['otp_verified'] = otpVerified;
+    data['profile_image'] = profileImage;
+    data['social_profile_image'] = socialProfileImage;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['location'] = location;
+    data['default_address'] = defaultAddress;
+    data['referal_code'] = referalCode;
+    data['device_token'] = deviceToken;
+    data['device_id'] = deviceId;
+    data['is_driver_online'] = isDriverOnline;
+    data['is_vendor_online'] = isVendorOnline;
+    data['delivery_range'] = deliveryRange;
+    data['self_delivery'] = selfDelivery;
+    data['collection_status'] = collectionStatus;
+    data['sustainable_packaging_status'] = sustainablePackagingStatus;
+    data['admin_commission_type'] = adminCommissionType;
+    data['admin_commission'] = adminCommission;
+    data['as_driver_verified'] = asDriverVerified;
+    data['as_vendor_verified'] = asVendorVerified;
+    data['featured_store'] = featuredStore;
+    data['email_verified_at'] = emailVerifiedAt;
+    data['status'] = status;
+    data['is_profile_complete'] = isProfileComplete;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['deleted_at'] = deletedAt;
     return data;
   }
 }
@@ -393,34 +393,34 @@ class Vendor {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['category_id'] = this.categoryId;
-    data['secondarycategory_id'] = this.secondarycategoryId;
-    data['tertiarycategory_id'] = this.tertiarycategoryId;
-    data['collection_id'] = this.collectionId;
-    data['store_name'] = this.storeName;
-    data['number'] = this.number;
-    data['store_image'] = this.storeImage;
-    data['description'] = this.description;
-    data['lat'] = this.lat;
-    data['long'] = this.long;
-    data['location'] = this.location;
-    data['address'] = this.address;
-    data['pps_no'] = this.ppsNo;
-    data['pps_card_image'] = this.ppsCardImage;
-    data['city'] = this.city;
-    data['pin_code'] = this.pinCode;
-    data['address_type'] = this.addressType;
-    data['remark'] = this.remark;
-    data['status'] = this.status;
-    data['delivery_type'] = this.deliveryType;
-    data['delivery_time'] = this.deliveryTime;
-    data['has_file'] = this.hasFile;
-    data['days'] = this.days;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['category_id'] = categoryId;
+    data['secondarycategory_id'] = secondarycategoryId;
+    data['tertiarycategory_id'] = tertiarycategoryId;
+    data['collection_id'] = collectionId;
+    data['store_name'] = storeName;
+    data['number'] = number;
+    data['store_image'] = storeImage;
+    data['description'] = description;
+    data['lat'] = lat;
+    data['long'] = long;
+    data['location'] = location;
+    data['address'] = address;
+    data['pps_no'] = ppsNo;
+    data['pps_card_image'] = ppsCardImage;
+    data['city'] = city;
+    data['pin_code'] = pinCode;
+    data['address_type'] = addressType;
+    data['remark'] = remark;
+    data['status'] = status;
+    data['delivery_type'] = deliveryType;
+    data['delivery_time'] = deliveryTime;
+    data['has_file'] = hasFile;
+    data['days'] = days;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -472,20 +472,20 @@ class Address {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['location'] = this.location;
-    data['flat_no'] = this.flatNo;
-    data['landmark'] = this.landmark;
-    data['note'] = this.note;
-    data['pin_code'] = this.pinCode;
-    data['address_type'] = this.addressType;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['location'] = location;
+    data['flat_no'] = flatNo;
+    data['landmark'] = landmark;
+    data['note'] = note;
+    data['pin_code'] = pinCode;
+    data['address_type'] = addressType;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['deleted_at'] = deletedAt;
     return data;
   }
 }
@@ -528,17 +528,17 @@ class OrderItems {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['product_id'] = this.productId;
-    data['product_name'] = this.productName;
-    data['product_image'] = this.productImage;
-    data['price'] = this.price;
-    data['qty'] = this.qty;
-    data['size_quantity'] = this.sizeQuantity;
-    data['size_id'] = this.sizeId;
-    data['total_price'] = this.totalPrice;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['product_id'] = productId;
+    data['product_name'] = productName;
+    data['product_image'] = productImage;
+    data['price'] = price;
+    data['qty'] = qty;
+    data['size_quantity'] = sizeQuantity;
+    data['size_id'] = sizeId;
+    data['total_price'] = totalPrice;
+    data['status'] = status;
     return data;
   }
 }

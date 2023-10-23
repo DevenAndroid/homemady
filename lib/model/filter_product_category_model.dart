@@ -192,25 +192,25 @@ class FilterProductCategoryModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
-    link = json['link'] != null ? new Link.fromJson(json['link']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
+    link = json['link'] != null ? Link.fromJson(json['link']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
-    if (this.link != null) {
-      data['link'] = this.link!.toJson();
+    if (link != null) {
+      data['link'] = link!.toJson();
     }
     return data;
   }
@@ -262,7 +262,7 @@ class Data {
     if (json['award'] != null) {
       award = <Award>[];
       json['award'].forEach((v) {
-        award!.add(new Award.fromJson(v));
+        award!.add(Award.fromJson(v));
       });
     }
     rating = json['rating'];
@@ -277,25 +277,25 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['distance'] = this.distance;
-    data['Time'] = this.time;
-    data['Time1'] = this.time1;
-    data['image'] = this.image;
-    if (this.award != null) {
-      data['award'] = this.award!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['distance'] = distance;
+    data['Time'] = time;
+    data['Time1'] = time1;
+    data['image'] = image;
+    if (award != null) {
+      data['award'] = award!.map((v) => v.toJson()).toList();
     }
-    data['rating'] = this.rating;
-    data['count_review_Data'] = this.countReviewData;
-    data['Cook name'] = this.cookName;
-    data['description'] = this.description;
-    data['wishlist'] = this.wishlist;
-    data['can_deliver'] = this.canDeliver;
-    data['sustainable_packaging_status'] = this.sustainablePackagingStatus;
-    data['profile image'] = this.profileImage;
-    data['collection'] = this.collection;
+    data['rating'] = rating;
+    data['count_review_Data'] = countReviewData;
+    data['Cook name'] = cookName;
+    data['description'] = description;
+    data['wishlist'] = wishlist;
+    data['can_deliver'] = canDeliver;
+    data['sustainable_packaging_status'] = sustainablePackagingStatus;
+    data['profile image'] = profileImage;
+    data['collection'] = collection;
     return data;
   }
 }
@@ -312,9 +312,9 @@ class Award {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['image'] = image;
     return data;
   }
 }
@@ -335,11 +335,11 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_page'] = this.totalPage;
-    data['current_page'] = this.currentPage;
-    data['total_item'] = this.totalItem;
-    data['per_page'] = this.perPage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total_page'] = totalPage;
+    data['current_page'] = currentPage;
+    data['total_item'] = totalItem;
+    data['per_page'] = perPage;
     return data;
   }
 }
@@ -356,9 +356,9 @@ class Link {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['next'] = this.next;
-    data['prev'] = this.prev;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['next'] = next;
+    data['prev'] = prev;
     return data;
   }
 }

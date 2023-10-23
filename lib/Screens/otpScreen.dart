@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/repository/resend_otp_repo.dart';
 import 'package:homemady/resources/add_text.dart';
@@ -178,7 +177,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       ),
                       addHeight(height*0.033),
                       Padding(
-                        padding:  EdgeInsets.all(8),
+                        padding:  const EdgeInsets.all(8),
                         child: CommonButton(title: 'Verify OTP',
                          onPressed: (){
 

@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../model/filter_product_category_model.dart';
 import '../model/model_verify_otp.dart';
-import '../model/search_store_model.dart';
 import '../resources/api_urls.dart';
 
 Future<FilterProductCategoryModel> filterProductCategoryRepo({

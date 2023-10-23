@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
@@ -145,6 +144,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                               featuredFilterController.getData();
                                             });
                                           }
+                                          return null;
                                         });
 
                                         if (pickedDate != null) {
@@ -162,7 +162,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                           height: 44,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(4),
-                                            color:  selectedDate == "" ?  Color(0xFF7ED957): Colors.white70,
+                                            color:  selectedDate == "" ?  const Color(0xFF7ED957): Colors.white70,
                                           ),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -1574,7 +1574,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                       'No Cooks available',
                       style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
                     ))
-              : Center(
+              : const Center(
                   child: CircularProgressIndicator(
                     color: Colors.green,
                   ),
@@ -1675,7 +1675,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Padding(

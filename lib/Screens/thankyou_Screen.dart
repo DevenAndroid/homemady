@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
@@ -51,7 +50,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                    style: GoogleFonts.ramaraja(
                      fontSize: 65,
                      fontWeight: FontWeight.w400,
-                     color: Color(0xFF423E5E),
+                     color: const Color(0xFF423E5E),
                    ),
                    ),
                  ),
@@ -59,7 +58,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                    style: GoogleFonts.poppins(
                      fontSize: 14,
                      fontWeight: FontWeight.w300,
-                     color: Color(0xFF5E6F71),
+                     color: const Color(0xFF5E6F71),
                    ),
                  ),
                  addHeight(25),
@@ -88,7 +87,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                            style: GoogleFonts.poppins(
                              fontSize: 16,
                              fontWeight: FontWeight.w600,
-                             color: Color(0xFF1A2E33),
+                             color: const Color(0xFF1A2E33),
                            ),
                          ),
 
@@ -96,7 +95,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                            style: GoogleFonts.poppins(
                              fontSize: 14,
                              fontWeight: FontWeight.w400,
-                             color: Color(0xFF486769),
+                             color: const Color(0xFF486769),
                            ),
                          ),
                        ],

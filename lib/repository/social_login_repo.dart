@@ -17,7 +17,7 @@ Future<SocialLoginModel> socialLogin(
   map['token'] = token;
 
   OverlayEntry loader = Helpers.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
 
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',

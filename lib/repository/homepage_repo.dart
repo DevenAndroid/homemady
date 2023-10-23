@@ -29,7 +29,7 @@ BuildContext? context}) async {
     };
     log(user.authToken.toString());
 
-    String url = "${ApiUrl.homePageApi}";
+    String url = ApiUrl.homePageApi;
     List<String> types = [];
 
     if (filterCategory != "") {

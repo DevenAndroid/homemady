@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:homemady/Screens/otp_forgot.dart';
-import 'package:homemady/Screens/otp_forgot.dart';
 import 'package:homemady/repository/forgot_password_repo.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';

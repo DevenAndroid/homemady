@@ -1,12 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../routers/routers.dart';
-import '../widgets/app_assets.dart';
-import '../widgets/custome_size.dart';
 import '../widgets/dimenestion.dart';
 
 class ThankYouScreen2 extends StatefulWidget {
@@ -36,9 +32,9 @@ class _ThankYouScreen2State extends State<ThankYouScreen2> {
                   child: Image(
                     height: AddSize.size300,
                     width: double.maxFinite,
-                    image:  AssetImage('assets/images/thn.png'),
+                    image:  const AssetImage('assets/images/thn.png'),
                     fit: BoxFit.contain,
-                    opacity: AlwaysStoppedAnimation(.80),
+                    opacity: const AlwaysStoppedAnimation(.80),
                   ),
                 ),
                 SizedBox(
@@ -48,7 +44,7 @@ class _ThankYouScreen2State extends State<ThankYouScreen2> {
                   style: GoogleFonts.ramaraja(
                     fontSize: 65,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFF423E5E),
+                    color: const Color(0xFF423E5E),
                   ),
                 ),
                 Text('Your Subscription Plan Purchased\n Successfully',
@@ -56,7 +52,7 @@ class _ThankYouScreen2State extends State<ThankYouScreen2> {
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w300,
-                    color: Color(0xFF5E6F71),
+                    color: const Color(0xFF5E6F71),
                   ),
                 ),
                 SizedBox(
@@ -93,7 +89,7 @@ class _ThankYouScreen2State extends State<ThankYouScreen2> {
                     fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
             child: Text(
               "Go To Home",
-              style: Theme.of(context).textTheme.headline5!.copyWith(
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
                   fontSize: 22),

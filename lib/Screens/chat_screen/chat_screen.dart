@@ -125,10 +125,10 @@ class _ChatScreen1State extends State<ChatScreen1> {
 
   listenToChanges() {
     lastSeenSubscription = service.getRoomInfoStream(roomId: chatRoomId).listen((event) {
-      log("events....    " + event.data().toString());
-      lastTimeByOther.value = event.data()!["last_time_${otherUserId}"];
-      log("events.........    " + lastTimeByOther.value.toString() + "   gggg");
-      log("events.........    " + otherUserId + "   gggg");
+      log("events....    ${event.data()}");
+      lastTimeByOther.value = event.data()!["last_time_$otherUserId"];
+      log("events.........    ${lastTimeByOther.value}   gggg");
+      log("events.........    $otherUserId   gggg");
     });
   }
 
@@ -175,7 +175,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
                       pickImage(ImageSource.camera);
                       //Navigator.pop(context);
                     },
-                    icon:  Icon(Icons.camera,color: Colors.white,),
+                    icon:  const Icon(Icons.camera,color: Colors.white,),
                     label: const Text("CAMERA",style: TextStyle( color:Colors.white),),
                   ),
                   ElevatedButton.icon(
@@ -225,7 +225,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
         if (imageTypes.contains(result.files.single.path.toString().split(".").last)) {
           image2 = (await FileCompressionApi.compressImage(image))!;
           image = image2;
-          print("333333333333333333${image!.path}");
+          print("333333333333333333${image.path}");
         }
       }
     }
@@ -239,7 +239,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
           fieldName1: "image",
           file1: selectedImage!,
         ).then((value) {
-          log("00000000000000${selectedImage}");
+          log("00000000000000$selectedImage");
           if (value.status == true) {
             log("55555555555${value.data!.image.toString()}");
             service
@@ -267,7 +267,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Theme(
-      data: ThemeData(useMaterial3: true, backgroundColor: Colors.transparent, dividerColor: Colors.transparent),
+      data: ThemeData(useMaterial3: true, dividerColor: Colors.transparent, backgroundColor: Colors.transparent),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -294,7 +294,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
                 onTap: () {
                   Get.back();
                 },
-                child: Icon(Icons.arrow_back)),
+                child: const Icon(Icons.arrow_back)),
           ),
           title: Obx(() {
             if (refreshInt.value > 0) {}
@@ -397,7 +397,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
                   }),
             ),
             Container(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -411,7 +411,7 @@ class _ChatScreen1State extends State<ChatScreen1> {
                     ),
                   ],
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40))),
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

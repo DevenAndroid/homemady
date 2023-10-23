@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
@@ -228,7 +226,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             initialCountryCode:  'IE',
                             onCountryChanged: (phone) {
                             countryCodeController.text = "+${phone.dialCode}";
-                            print('Dial Code is:'+phone.dialCode);
+                            print('Dial Code is:${phone.dialCode}');
                             // countryCode = value.dialCode;
                             //  initialCountryCode = value.code;
                             /*  if (kDebugMode) {

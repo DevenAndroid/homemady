@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/app_assets.dart';
 import 'package:homemady/widgets/app_theme.dart';
@@ -17,10 +15,8 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../controller/user_profile_controller.dart';
 import '../repository/update_profile_repo.dart';
-import '../repository/user_profile_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/myprofile_phone_field.dart';
-import '../widgets/phone_filed.dart';
 
 
 
@@ -320,7 +316,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                                 "Name",
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline5!
+                                                    .headlineSmall!
                                                     .copyWith(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 15,color: const Color(0xff828282)),
@@ -340,7 +336,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                                 "E-mail",
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline5!
+                                                    .headlineSmall!
                                                     .copyWith(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 15,color: const Color(0xff828282)),
@@ -361,7 +357,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                                 "Mobile Number",
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline5!
+                                                    .headlineSmall!
                                                     .copyWith(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 15,color: const Color(0xff828282)),
@@ -480,7 +476,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             },
                             child: SizedBox(
                                 width: width * 10,
-                                child: Icon(Icons.arrow_back)),
+                                child: const Icon(Icons.arrow_back)),
                           ),
                         )),
                   ],

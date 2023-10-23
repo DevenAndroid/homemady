@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
@@ -13,14 +12,12 @@ import '../repository/add_cart_repo.dart';
 import '../repository/remove_cartitem_repo.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
-import '../routers/routers.dart';
 import '../widgets/custome_size.dart';
 import '../widgets/custome_textfiled.dart';
 import '../widgets/dimenestion.dart';
 import 'filter_category_product_list.dart';
 import 'homePageScreen.dart';
 import 'home_filter_screen.dart';
-import 'myAddressScreen.dart';
 import '../model/my_cart_model.dart';
 
 class SearchScreenData extends StatefulWidget {
@@ -389,7 +386,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                 ),
                               )),
                         ),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                       ],
                     ),
                   )),
@@ -965,8 +962,8 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                 ),
                                 addHeight(5),
                                 Container(
-                                  margin: EdgeInsets.only(left: 82),
-                                  color: Color(0xFFE9E9E9),
+                                  margin: const EdgeInsets.only(left: 82),
+                                  color: const Color(0xFFE9E9E9),
                                   width: AddSize.screenWidth,
                                   height: 1,
                                 ),

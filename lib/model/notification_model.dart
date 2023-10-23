@@ -8,13 +8,13 @@ class NotificationModel {
   NotificationModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -33,17 +33,17 @@ class Data {
     if (json['notificationData'] != null) {
       notificationData = <NotificationData>[];
       json['notificationData'].forEach((v) {
-        notificationData!.add(new NotificationData.fromJson(v));
+        notificationData!.add(NotificationData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['count'] = this.count;
-    if (this.notificationData != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['count'] = count;
+    if (notificationData != null) {
       data['notificationData'] =
-          this.notificationData!.map((v) => v.toJson()).toList();
+          notificationData!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -78,14 +78,14 @@ class NotificationData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['body'] = this.body;
-    data['order_id'] = this.orderId;
-    data['notification_type'] = this.notificationType;
-    data['seen'] = this.seen;
-    data['time'] = this.time;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['body'] = body;
+    data['order_id'] = orderId;
+    data['notification_type'] = notificationType;
+    data['seen'] = seen;
+    data['time'] = time;
     return data;
   }
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../model/category_model.dart';
 import '../model/filter_model.dart';
-import '../repository/category_repo.dart';
 import '../repository/filter_repo.dart';
 
 class FilterController extends GetxController {

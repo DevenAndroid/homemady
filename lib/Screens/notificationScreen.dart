@@ -7,6 +7,7 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/notification_controller.dart';
 import '../controller/order_details_controller.dart';
+import '../repository/notification_repo.dart';
 
 
 class NotificationScreen extends StatefulWidget {
@@ -48,9 +49,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         onTap: (){
                           orderDetailsController.id.value = controller.model.value.data!.notificationData![index].orderId.toString();
                           print("Order id is ${orderDetailsController.id.value}");
+                          notificationHideRepo(id: controller.model.value.data!.notificationData![index].id.toString());
                          Get.toNamed(MyRouters.orderDetailsScreen,arguments: [controller.model.value.data!.notificationData![index].orderId.toString()]);
                         },
-                        child: Container(
+                        child:
+
+                        Container(
                           height: 95,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),

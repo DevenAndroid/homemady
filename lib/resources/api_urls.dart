@@ -54,6 +54,7 @@ class ApiUrl {
   static const stripeDetailsUrl = "${baseUrl}stripe-details";
   static const paymentUrl = "${baseUrl}payment";
   static const subscriptionUrl = "${baseUrl}subscription";
+  static const notificationHideUpdateUrl = "${baseUrl}notification-seen-update";
   static const saveCardDetailsUrl = "${baseUrl}add-card";
   static const filterProductCategoryUrl = "${baseUrl}home-filter";
   static const subscriptionListUrl = "${baseUrl}subscription-list";

@@ -762,6 +762,7 @@ class CommonTextFieldWidget1 extends StatelessWidget {
   final String? hint;
   final Iterable<String>? autofillHints;
   final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmited;
   final TextEditingController? controller;
   final bool? readOnly;
   final dynamic value = 0;
@@ -791,6 +792,7 @@ class CommonTextFieldWidget1 extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.length,
+    this.onSubmited,
   }) : super(key: key);
 
   @override
@@ -807,6 +809,7 @@ class CommonTextFieldWidget1 extends StatelessWidget {
       textInputAction: textInputAction,
       minLines: minLines,
       maxLines: maxLines,
+      onFieldSubmitted: onSubmited,
       cursorColor: const Color(0xFF7ED957),
       inputFormatters: [
         LengthLimitingTextInputFormatter(length),

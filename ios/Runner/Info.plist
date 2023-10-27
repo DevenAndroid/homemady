@@ -58,6 +58,8 @@
 	<string>Allow this to access photos to update profile.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -30,7 +30,7 @@ Future<SocialLoginModel> socialLogin(
   log(map.toString());
   log(response.statusCode.toString());
   log(response.body);
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200 || response.statusCode == 400) {
     Helpers.hideLoader(loader);
     return SocialLoginModel.fromJson(json.decode(response.body));
   } else {

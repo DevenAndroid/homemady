@@ -276,7 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if(Platform.isIOS)
                           GestureDetector(
                             onTap: (){
-                              loginWithApple(context);
+                              loginWithApple();
                             },
                             child: Container(
                               width: 152,
@@ -425,38 +425,70 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     });
   }
-}
-loginWithApple(context) async {
-  final appleProvider = AppleAuthProvider().addScope("email").addScope("fullName");
-  if (kIsWeb) {
-    await FirebaseAuth.instance.signInWithPopup(appleProvider).then((value) async {
-      var fromToken = await FirebaseMessaging.instance.getToken();
 
-      socialLogin(provider: "apple", token: fromToken!, context: context).then((value) async {
-        if (value.status == true) {
-          SharedPreferences pref = await SharedPreferences.getInstance();
-          pref.setString('user_info', jsonEncode(value));
-          showToast(value.message);
-          Get.offAllNamed(MyRouters.bottomNavbar);
-        } else {
-          showToast(value.message);
-        }
-      });
-    });
-  } else {
-    await FirebaseAuth.instance.signInWithProvider(appleProvider).then((value) async {
-      var fromToken = await FirebaseMessaging.instance.getToken();
+  loginWithApple() async {
+    final appleProvider =
+    AppleAuthProvider().addScope("email").addScope("fullName");
+    await FirebaseAuth.instance
+        .signInWithProvider(appleProvider)
+        .then((value) async {
 
-      socialLogin(provider: "apple", token: fromToken!, context: context).then((value) async {
-        if (value.status == true) {
+      log("Tokenisss -------${value.credential!.accessToken}");
+      socialLogin( provider: "apple", token: value.credential!.accessToken!, context: context, )
+          .then((value1) async {
+        if (value1.status == true) {
           SharedPreferences pref = await SharedPreferences.getInstance();
-          pref.setString('user_info', jsonEncode(value));
-          showToast(value.message);
+          pref.setString('user_info', jsonEncode(value1));
+          // pref.get(value1.authToken!);
+          // log("Tokenisss from auth is -------${value1.authToken}");
+          showToast(value1.message);
           Get.offAllNamed(MyRouters.bottomNavbar);
+          // tokenData().then((value1) async {
+          //   SharedPreferences pref = await SharedPreferences.getInstance();
+          //   pref.setString('token', jsonEncode(value1));
+          // });
         } else {
-          showToast(value.message);
+          showToast(value1.message);
         }
       });
     });
   }
 }
+// loginWithApple (context) async {
+//   final appleProvider = AppleAuthProvider().addScope("email").addScope("fullName");
+//   if (kIsWeb) {
+//     await FirebaseAuth.instance.signInWithPopup(appleProvider).then((value) async {
+//       var fromToken = await FirebaseMessaging.instance.getToken();
+//       //log("THis is apple token$fromToken");
+//
+//       socialLogin(provider: "apple", token: fromToken!, context: context).then((value) async {
+//         if (value.status == true) {
+//           SharedPreferences pref = await SharedPreferences.getInstance();
+//           pref.setString('user_info', jsonEncode(value));
+//           showToast(value.message);
+//           Get.offAllNamed(MyRouters.bottomNavbar);
+//         } else {
+//           showToast(value.message);
+//         }
+//       });
+//     });
+//   } else {
+//     await FirebaseAuth.instance.signInWithProvider(appleProvider).then((value) async {
+//       var fromToken = await FirebaseMessaging.instance.getToken();
+//       print("THis is apple token$fromToken");
+//       socialLogin(provider: "apple", token: fromToken!, context: context).then((value) async {
+//         if (value.status == true) {
+//           SharedPreferences pref = await SharedPreferences.getInstance();
+//           pref.setString('user_info', jsonEncode(value));
+//           showToast(value.message);
+//           Get.offAllNamed(MyRouters.bottomNavbar);
+//         } else {
+//           showToast(value.message);
+//         }
+//       });
+//     });
+//   }
+//
+//
+//
+// }

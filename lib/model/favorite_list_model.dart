@@ -63,6 +63,7 @@ class Store {
   List<Award>? award;
   dynamic rating;
   dynamic time;
+  dynamic time1;
   dynamic countReviewData;
   dynamic cookName;
   dynamic collection;
@@ -76,6 +77,7 @@ class Store {
         this.image,
         this.award,
         this.time,
+        this.time1,
         this.rating,
         this.collection,
         this.countReviewData,
@@ -96,6 +98,7 @@ class Store {
     }
     rating = json['rating'];
     time = json['Time'];
+    time1 = json['Time1'];
     collection = json['collection'];
     countReviewData = json['count_review_Data'];
     cookName = json['Cook name'];
@@ -110,6 +113,7 @@ class Store {
     data['collection'] = collection;
     data['distance'] = distance;
     data['Time'] = time;
+    data['Time1'] = time1;
     data['image'] = image;
     if (award != null) {
       data['award'] = award!.map((v) => v.toJson()).toList();

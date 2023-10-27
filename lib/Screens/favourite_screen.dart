@@ -653,6 +653,28 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                         ),
                                                       ],
                                                     ),
+
+                                                    addHeight(3),
+                                                    Row(
+
+                                                      children: [
+                                                        Text(
+                                                            '${int.parse(controller1.model.value.data!.store![index].time.toString())+10} - '''
+                                                                '${int.parse(controller1.model.value.data!.store![index].time1.toString())+15} mins  -',
+                                                            style: const TextStyle(
+                                                              fontSize: 13,
+                                                              color: Color(0xFF4E5F64),
+                                                              fontWeight: FontWeight.w400,
+                                                            )),
+                                                        addWidth(6),
+                                                        Text("${controller1.model.value.data!.store![index].distance.toString()} Km",
+                                                            style: GoogleFonts.poppins(
+                                                              fontSize: 13,
+                                                              color: const Color(0xFF4E5F64),
+                                                              fontWeight: FontWeight.w400,
+                                                            )),
+                                                      ],
+                                                    ),
                                                     addHeight(3),
                                                     Row(
                                                       children: [

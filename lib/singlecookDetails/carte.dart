@@ -55,6 +55,7 @@ class _CarteScreenState extends State<CarteScreen> {
 
               return Column(
                 children: [
+                  controller.model.value.data!.latestProducts![index].qty != 0 ?
                   Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
@@ -226,7 +227,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                               fontWeight: FontWeight.w400,
                                             )),
                                         addWidth(6),
-                                        Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km away",
+                                        Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km",
                                             style: GoogleFonts.poppins(
                                               fontSize: 13,
                                               color: const Color(0xFF4E5F64),
@@ -470,7 +471,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                               ),
-                              controller.model.value.data!.latestProducts![index].exclude == true ?
+                              controller.model.value.data!.latestProducts![index].qty == 0 ?
                               Text(
                                 '0 Units',
                                 style: GoogleFonts.poppins(
@@ -485,7 +486,7 @@ class _CarteScreenState extends State<CarteScreen> {
                         ],
                       ),
                     ),
-                  ),
+                  ):SizedBox( ),
                   addHeight(10)
                 ],
               );

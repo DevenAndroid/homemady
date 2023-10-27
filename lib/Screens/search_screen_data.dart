@@ -787,6 +787,27 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                           ),
                                           addHeight(3),
                                           Row(
+
+                                            children: [
+                                              Text(
+                                                  '${int.parse(filterDataController.filterModel.value.data![index].time.toString())+10} - '''
+                                                      '${int.parse(filterDataController.filterModel.value.data![index].time.toString())+15} mins  -',
+                                                  style: const TextStyle(
+                                                    fontSize: 13,
+                                                    color: Color(0xFF4E5F64),
+                                                    fontWeight: FontWeight.w400,
+                                                  )),
+                                              addWidth(6),
+                                              Text("${filterDataController.filterModel.value.data![index].distance.toString()} Km",
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 13,
+                                                    color: const Color(0xFF4E5F64),
+                                                    fontWeight: FontWeight.w400,
+                                                  )),
+                                            ],
+                                          ),
+                                          addHeight(3),
+                                          Row(
                                             children: [
                                               Text(
                                                 'Spiciness :',

@@ -264,6 +264,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   showChooseDate(index) {
     RxInt refreshInt = 0.obs;
+    DateTime now = DateTime.now();
+    String formattedTime = "${now.hour}:${now.minute}:${now.second}";
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -293,10 +295,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           var itemdata = timeSlotController.timeSlotModel.value.data![index];
                           return GestureDetector(
                             onTap: () {
-
+                              print("helloo");
+                              timeSlotController.giveTime.value = formattedTime;
+                              timeSlotController.getTimeSlotData();
+                              print(formattedTime);
 
                               currentIndex = index;
                               refreshInt.value = DateTime.now().millisecondsSinceEpoch;
+                              timeSlotController.giveTime.value = formattedTime;
+                              timeSlotController.getTimeSlotData();
                             },
                             child: Container(
                                 //height: 100,
@@ -358,6 +365,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final screenSize = MediaQuery.of(context).size;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -555,6 +563,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               controller: filterDataController.storeSearchController,
                                               prefix: InkWell(
                                                 onTap: () {
+                                                  // print(formattedTime);
                                                   FocusManager.instance.primaryFocus!.unfocus();
 
                                                   // if(selectedDate != "Available Now" ||  isAvailableSelected == true) {
@@ -575,9 +584,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   color: const Color(0xFF000000).withOpacity(0.56),
                                                 ),
                                               ),
+                                              onSubmited: (val1){
+                                                Get.toNamed(SearchScreenData.searchScreen,);
+                                              },
                                               onChanged: (val) {
                                                 isValue.value = true;
                                                 searchController.getSearchData();
+                                                //Get.toNamed(SearchScreenData.searchScreen,);
                                                 // Get.toNamed(SearchScreenData.searchScreen);
                                               },
                                             )),

@@ -54,6 +54,9 @@ class Data {
   String? allergens;
   bool? inMenu;
   String? status;
+  String? time;
+  String? time1;
+  String? distance;
   String? discountOff;
   bool? wishlist;
   dynamic productCount = 0;
@@ -64,11 +67,14 @@ class Data {
         this.subTitle,
         this.name,
         this.price,
+        this.time,
+        this.time1,
         this.content,
         this.image,
         this.cookUnitDays,
         this.sizeQuantity,
         this.sizeId,
+        this.distance,
         this.spiciness,
         this.allergens,
         this.inMenu,
@@ -82,6 +88,9 @@ class Data {
     subTitle = json['sub_title'];
     name = json['name'];
     price = json['price'];
+    distance = json['distance'];
+    time = json['Time'];
+    time1 = json['Time1'];
     content = json['content'];
     image = json['image'];
     cookUnitDays = json['cook_unit_days'];
@@ -102,6 +111,9 @@ class Data {
     data['sub_title'] = subTitle;
     data['name'] = name;
     data['price'] = price;
+    data['distance'] = distance;
+    data['Time'] = time;
+    data['Time1'] = time1;
     data['content'] = content;
     data['image'] = image;
     data['cook_unit_days'] = cookUnitDays;

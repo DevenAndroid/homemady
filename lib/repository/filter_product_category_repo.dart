@@ -1,15 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../model/filter_product_category_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
+import '../widgets/new_helper.dart';
 
 Future<FilterProductCategoryModel> filterProductCategoryRepo({
-  required distance,
+  required distance, required BuildContext context
 }) async {
+  OverlayEntry loader = NewHelper.overlayLoader(context);
+  Overlay.of(context).insert(loader);
 
   SharedPreferences pref = await SharedPreferences.getInstance();
   ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
@@ -25,10 +29,11 @@ Future<FilterProductCategoryModel> filterProductCategoryRepo({
     final response = await http.get(Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$distance"), headers: headers);
     log("Url issss...${ApiUrl.filterProductCategoryUrl}?filter=$distance");
     if (response.statusCode == 200) {
-      //Helpers.hideShimmer(loader);
+      NewHelper.hideLoader(loader);
       log("sort stores by category...${response.body}");
       return FilterProductCategoryModel.fromJson(jsonDecode(response.body));
     } else {
+      NewHelper.hideLoader(loader);
       throw Exception(response.body);
     }
   } catch (e) {

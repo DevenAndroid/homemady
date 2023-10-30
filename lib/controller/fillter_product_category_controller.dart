@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../model/filter_product_category_model.dart';
@@ -18,12 +19,12 @@ class FilterProductCategoryController extends GetxController {
   String id = "";
 
   getFilterCategoryData({
-    required String distance,
+    required String distance, required BuildContext context
   }) async {
     isDataLoading.value = false;
     if(distance.isEmpty)return;
     await filterProductCategoryRepo(
-        distance: distance
+        distance: distance, context: context
     ).then((value) {
       filterDataModel.value = value;
       isDataLoading.value = true;

@@ -64,7 +64,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      filterProductCategoryController.getFilterCategoryData(distance: widget.filterId);
+      filterProductCategoryController.getFilterCategoryData(distance: widget.filterId, context: context);
       myCartController.getData();
       categoryController.getCategoryData();
       timeSlotController.getTimeSlotData();
@@ -668,7 +668,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                     .then((value) {
                                                                   if (value.status == true) {
                                                                     showToast(value.message);
-                                                                    filterProductCategoryController.getFilterCategoryData(distance: widget.filterId);
+                                                                    filterProductCategoryController.getFilterCategoryData(distance: widget.filterId, context: context);
                                                                   }
                                                                 });
                                                               },

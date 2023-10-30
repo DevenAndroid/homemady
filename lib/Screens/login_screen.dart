@@ -205,6 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+
                         Container(
                           width: 152,
                           height: 50,
@@ -427,6 +428,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   loginWithApple() async {
+    log("Hello from apple ");
     final appleProvider =
     AppleAuthProvider().addScope("email").addScope("fullName");
     await FirebaseAuth.instance
@@ -454,41 +456,3 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 }
-// loginWithApple (context) async {
-//   final appleProvider = AppleAuthProvider().addScope("email").addScope("fullName");
-//   if (kIsWeb) {
-//     await FirebaseAuth.instance.signInWithPopup(appleProvider).then((value) async {
-//       var fromToken = await FirebaseMessaging.instance.getToken();
-//       //log("THis is apple token$fromToken");
-//
-//       socialLogin(provider: "apple", token: fromToken!, context: context).then((value) async {
-//         if (value.status == true) {
-//           SharedPreferences pref = await SharedPreferences.getInstance();
-//           pref.setString('user_info', jsonEncode(value));
-//           showToast(value.message);
-//           Get.offAllNamed(MyRouters.bottomNavbar);
-//         } else {
-//           showToast(value.message);
-//         }
-//       });
-//     });
-//   } else {
-//     await FirebaseAuth.instance.signInWithProvider(appleProvider).then((value) async {
-//       var fromToken = await FirebaseMessaging.instance.getToken();
-//       print("THis is apple token$fromToken");
-//       socialLogin(provider: "apple", token: fromToken!, context: context).then((value) async {
-//         if (value.status == true) {
-//           SharedPreferences pref = await SharedPreferences.getInstance();
-//           pref.setString('user_info', jsonEncode(value));
-//           showToast(value.message);
-//           Get.offAllNamed(MyRouters.bottomNavbar);
-//         } else {
-//           showToast(value.message);
-//         }
-//       });
-//     });
-//   }
-//
-//
-//
-// }

@@ -585,12 +585,12 @@ class CommonButton1 extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           gradient: const LinearGradient(
-              // begin: Alignment.topCenter,
-              // end: Alignment.bottomCenter,
               colors: [
-               Color(0xFF7ED957),
-                Color(0xff6BD13F)]
-          ),
+                Color(0xFF7ED957),
+                Color(0xff6BD13F)
+              ]
+
+          )
       ),
       child: ElevatedButton(
           onPressed: onPressed,

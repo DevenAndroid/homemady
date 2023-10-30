@@ -56,6 +56,7 @@ class Data {
   String? status;
   String? time;
   String? time1;
+  String? date;
   String? distance;
   String? discountOff;
   bool? wishlist;
@@ -69,6 +70,7 @@ class Data {
         this.price,
         this.time,
         this.time1,
+        this.date,
         this.content,
         this.image,
         this.cookUnitDays,
@@ -88,6 +90,7 @@ class Data {
     subTitle = json['sub_title'];
     name = json['name'];
     price = json['price'];
+    date = json['Date'];
     distance = json['distance'];
     time = json['Time'];
     time1 = json['Time1'];
@@ -113,6 +116,7 @@ class Data {
     data['price'] = price;
     data['distance'] = distance;
     data['Time'] = time;
+    data['Date'] = date;
     data['Time1'] = time1;
     data['content'] = content;
     data['image'] = image;

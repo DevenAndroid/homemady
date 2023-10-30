@@ -996,7 +996,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                     addWidth(4),
                                     Expanded(
                                       child: Text(
-                                        'Can cook more units by: 30th June 2023',
+                                        'Can cook more units by: ${filterDataController.filterModel.value.data![index].date.toString()}',
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w300, fontSize: 11, color: const Color(0xFF364A4F)),
                                       ),

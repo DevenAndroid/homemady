@@ -598,7 +598,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       addWidth(10),
                                       GestureDetector(
                                         onTap: () {
-                                          //_showDialogCategory();
                                           if(selectedDate != "Available Now" ||  isAvailableSelected == true){
                                           showUploadWindow();
                                             // Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);

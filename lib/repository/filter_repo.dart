@@ -27,7 +27,7 @@ Future<FilterProductModel> filterDataRepo({required DateTime pickDate,required k
   await http.get(Uri.parse(url), headers: headers);
 
 
-  // print("size data  Repository...${response.body}");
+  print("Pick date and search Repository...${response.body}");
   if (response.statusCode == 200) {
     return FilterProductModel.fromJson(jsonDecode(response.body));
   } else {

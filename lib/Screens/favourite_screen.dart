@@ -54,6 +54,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
   @override
   Widget build(BuildContext context) {
 
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
       return
         Scaffold(
         appBar: backAppBar(title: 'My Favorites', context: context),
@@ -352,7 +354,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                             ))
                                                     )
                                                 ),
-                                                controller1.model.value.data!.store![index].award!.isNotEmpty ?
+                                                controller1.model.value.data!.store![index].award!.isNotEmpty || controller1.model.value.data!.store![index].sustainablePackagingStatus == true?
                                                 Positioned(
                                                     top: 14,
                                                     // bottom: 0,
@@ -360,9 +362,78 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                     right: 15,
                                                     //   bottom: 0,
                                                     child: Row(
-                                                      children:  [
+                                                      children: [
+                                                        Row(
+                                                          children:  [
+                                                            ...List.generate(controller1.model.value.data!.store![index].award!.length, (index1){
+                                                              return  InkWell(
+                                                                onTap: (){
+                                                                  showGeneralDialog(
+                                                                      context: context,
+                                                                      barrierDismissible: true,
+                                                                      barrierColor: const Color(0xFF000000).withOpacity(0.58),
+                                                                      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                                      pageBuilder: (BuildContext context,Animation first, Animation second){
+                                                                        return  Stack(
+                                                                          children: [
+                                                                            Center(child: CachedNetworkImage(
+                                                                              imageUrl:     controller1.model.value.data!.store![index].award![index1].image.toString(),
+                                                                              //fit: BoxFit.cover,
+                                                                              height: height * .7,
+                                                                              width: width * .7,
+                                                                              errorWidget: (_, __, ___) => Image.asset(
+                                                                                'assets/images/topChef.png',
+                                                                                // fit: BoxFit.cover,
+                                                                                height: 40,
+                                                                                width: 40,
+                                                                              ),
+                                                                              placeholder: (_, __) =>
+                                                                              const Center(child: CircularProgressIndicator()),
+                                                                            )),
+                                                                            Positioned(
+                                                                              right: 22,
+                                                                              top: 100,
+                                                                              child: GestureDetector(
+                                                                                onTap:(){
+                                                                                  Get.back();
+                                                                                },
+                                                                                child: Container(
+                                                                                    padding: const EdgeInsets.all(10),
+                                                                                    height: 50,
+                                                                                    decoration: const BoxDecoration(
+                                                                                        color: Colors.white,
+                                                                                        shape: BoxShape.circle
+                                                                                    ),
+                                                                                    child:  const Icon(Icons.clear)
+                                                                                ),
+                                                                              ),)
+                                                                          ],
+                                                                        );
+                                                                      }
+                                                                  );
+                                                                },
+                                                                child:    CachedNetworkImage(
+                                                                  imageUrl:     controller1.model.value.data!.store![index].award![index1].image.toString(),
+                                                                  //fit: BoxFit.cover,
+                                                                  height: 70,
+                                                                  width: 70,
+                                                                  errorWidget: (_, __, ___) => Image.asset(
+                                                                    'assets/images/topChef.png',
+                                                                    // fit: BoxFit.cover,
+                                                                    height: 40,
+                                                                    width: 40,
+                                                                  ),
+                                                                  placeholder: (_, __) =>
+                                                                  const Center(child: CircularProgressIndicator()),
+                                                                ),);
+                                                            })
 
-                                                        InkWell(
+
+
+                                                          ],
+                                                        ),
+                                                        if(controller1.model.value.data!.store![index].sustainablePackagingStatus == true)
+                                                          InkWell(
                                                             onTap: (){
                                                               showGeneralDialog(
                                                                   context: context,
@@ -372,84 +443,45 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                                   pageBuilder: (BuildContext context,Animation first, Animation second){
                                                                     return  Stack(
                                                                       children: [
-                                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
+                                                                        Center(
+                                                                          child: Image.asset(
+                                                                            'assets/images/leavesIcon.png',
+                                                                            // fit: BoxFit.cover,
+                                                                            height: height * .3,
+                                                                            // width: width * .4,
+                                                                          ),),
                                                                         Positioned(
-                                                                          right: 18,
-                                                                          top: 30,
-                                                                          child: Container(
-                                                                              padding: const EdgeInsets.all(10),
-                                                                              height: 80,
-                                                                              decoration: const BoxDecoration(
-                                                                                  color: Colors.white,
-                                                                                  shape: BoxShape.circle
-                                                                              ),
-                                                                              child:  const Icon(Icons.clear)
+                                                                          right: 20,
+                                                                          top: 100,
+                                                                          child: GestureDetector(
+                                                                            onTap: (){
+                                                                              Get.back();
+                                                                            },
+                                                                            child: Container(
+                                                                                padding: const EdgeInsets.all(10),
+                                                                                height: 50,
+                                                                                decoration: const BoxDecoration(
+                                                                                    color: Colors.white,
+                                                                                    shape: BoxShape.circle
+                                                                                ),
+                                                                                child:  const Icon(Icons.clear)
+                                                                            ),
                                                                           ),)
                                                                       ],
                                                                     );
                                                                   }
                                                               );
                                                             },
-                                                            child: CachedNetworkImage(
-                                                              imageUrl:   controller1.model.value.data!.store![index].award![0].image.toString(),
-                                                              //fit: BoxFit.cover,
-                                                              height: 40,
-                                                              width: 40,
-                                                              errorWidget: (_, __, ___) => Image.asset(
-                                                                'assets/images/topChef.png',
-                                                                // fit: BoxFit.cover,
-                                                                height: 40,
-                                                                width: 40,
-                                                              ),
-                                                              placeholder: (_, __) =>
-                                                              const Center(child: CircularProgressIndicator()),
-                                                            )),
-                                                        InkWell(
-                                                            onTap: (){
-                                                              showGeneralDialog(
-                                                                  context: context,
-                                                                  barrierDismissible: true,
-                                                                  barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                                  pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                                    return  Stack(
-                                                                      children: [
-                                                                        Center(child: Image.asset('assets/images/dialogboximg.png')),
-                                                                        Positioned(
-                                                                          right: 18,
-                                                                          top: 50,
-                                                                          child: Container(
-                                                                              padding: const EdgeInsets.all(10),
-                                                                              height: 50,
-                                                                              decoration: const BoxDecoration(
-                                                                                  color: Colors.white,
-                                                                                  shape: BoxShape.circle
-                                                                              ),
-                                                                              child:  const Icon(Icons.clear)
-                                                                          ),)
-                                                                      ],
-                                                                    );
-                                                                  }
-                                                              );
-                                                            },
-                                                            child: CachedNetworkImage(
-                                                              imageUrl:   controller1.model.value.data!.store![index].award![0].image.toString(),
-                                                              //fit: BoxFit.cover,
-                                                              height: 40,
-                                                              width: 40,
-                                                              errorWidget: (_, __, ___) => Image.asset(
-                                                                'assets/images/topChef.png',
-                                                                // fit: BoxFit.cover,
-                                                                height: 40,
-                                                                width: 40,
-                                                              ),
-                                                              placeholder: (_, __) =>
-                                                              const Center(child: CircularProgressIndicator()),
-                                                            )),
-
+                                                            child: Image.asset(
+                                                              'assets/images/leavesIcon.png',
+                                                              // fit: BoxFit.cover,
+                                                              height: 65,
+                                                              width: 65,
+                                                            ),
+                                                          )
                                                       ],
                                                     )
-                                                ):  const SizedBox()
+                                                ) : const SizedBox(),
                                               ],
                                             ),
                                           ),

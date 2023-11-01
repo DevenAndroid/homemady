@@ -491,7 +491,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                 controller.model.value.data!.storeDetails!.award!.isNotEmpty ||
                                         controller.model.value.data!.storeDetails!.sustainablePackagingStatus == true
                                     ? Positioned(
-                                        top: height * .240,
+                                        top: height * .220,
                                         // bottom: 0,
                                         left: 10,
                                         // right: 15,
@@ -555,8 +555,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                           .model.value.data!.storeDetails!.award![index1].image
                                                           .toString(),
                                                       //fit: BoxFit.cover,
-                                                      height: 40,
-                                                      width: 40,
+                                                      height: 70,
+                                                      width: 70,
                                                       errorWidget: (_, __, ___) => Image.asset(
                                                         'assets/images/topChef.png',
                                                         // fit: BoxFit.cover,
@@ -614,8 +614,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 child: Image.asset(
                                                   'assets/images/leavesIcon.png',
                                                   // fit: BoxFit.cover,
-                                                  height: 35,
-                                                  width: 35,
+                                                  height: 65,
+                                                  width: 65,
                                                 ),
                                               )
                                           ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/Screens/subscription_screen.dart';
+import 'package:homemady/Screens/thankyou_screen2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/subscription_list_controller.dart';
 import '../controller/user_profile_controller.dart';
@@ -244,9 +245,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
-                              // controller.model.value.data![0].status == "Active" ?
-                              //     showToast("your have already subscribed") :
-                              Get.toNamed(SubscriptionScreen.subscriptionScreen);
+                             if( controller.model.value.data![0].status == "Active"){
+                               Get.toNamed(ThankYouScreen2.thankYouScreen2);
+                             }
+                             else{
+                               Get.toNamed(SubscriptionScreen.subscriptionScreen);
+                             }
+
+
                               // }
                             }),
                         const Divider(

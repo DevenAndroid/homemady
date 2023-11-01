@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,10 +16,11 @@ Future<TimeSlotModel> timeSlotListData({required pickDate, required mobileTime})
     HttpHeaders.acceptHeader: 'application/json',
     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
-  // log('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status');
+
   final response =
   await http.get(Uri.parse("${ApiUrl.timeSlotUrl}?date=$pickDate&mobile_time=$mobileTime"), headers: headers);
-  // print("size data  Repository...${response.body}");
+  log("${ApiUrl.timeSlotUrl}?date=$pickDate&mobile_time=$mobileTime");
+  print("Time slot data  Repository...${response.body}");
   if (response.statusCode == 200) {
     return TimeSlotModel.fromJson(jsonDecode(response.body));
   } else {

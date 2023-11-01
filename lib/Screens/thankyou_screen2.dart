@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../controller/subscription_list_controller.dart';
 import '../routers/routers.dart';
 import '../widgets/dimenestion.dart';
 
@@ -13,6 +14,15 @@ class ThankYouScreen2 extends StatefulWidget {
 }
 
 class _ThankYouScreen2State extends State<ThankYouScreen2> {
+
+  final controller = Get.put(SubscriptionListController());
+
+  @override
+  void initState() {
+    super.initState();
+    controller.getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +47,8 @@ class _ThankYouScreen2State extends State<ThankYouScreen2> {
                     opacity: const AlwaysStoppedAnimation(.80),
                   ),
                 ),
+                // Lottie.network(
+                //     'https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/Mobilo/A.json'),
                 SizedBox(
                   height: AddSize.size30,
                 ),
@@ -47,6 +59,16 @@ class _ThankYouScreen2State extends State<ThankYouScreen2> {
                     color: const Color(0xFF423E5E),
                   ),
                 ),
+
+                controller.model.value.data![0].status == "Active" ?
+                Text('You are already subscribed',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF5E6F71),
+                  ),
+                ):
                 Text('Your Subscription Plan Purchased\n Successfully',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(

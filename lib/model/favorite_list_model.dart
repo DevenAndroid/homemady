@@ -59,73 +59,86 @@ class Store {
   dynamic id;
   dynamic name;
   dynamic distance;
+  dynamic time;
+  dynamic time1;
   dynamic image;
   List<Award>? award;
   dynamic rating;
-  dynamic time;
-  dynamic time1;
   dynamic countReviewData;
   dynamic cookName;
-  dynamic collection;
+  dynamic description;
   bool? wishlist;
+  bool? canDeliver;
+  bool? sustainablePackagingStatus;
   dynamic profileImage;
+  dynamic collection;
 
   Store(
       {this.id,
         this.name,
         this.distance,
-        this.image,
-        this.award,
         this.time,
         this.time1,
+        this.image,
+        this.award,
         this.rating,
-        this.collection,
         this.countReviewData,
         this.cookName,
+        this.description,
         this.wishlist,
-        this.profileImage});
+        this.canDeliver,
+        this.sustainablePackagingStatus,
+        this.profileImage,
+        this.collection});
 
   Store.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     distance = json['distance'];
+    time = json['Time'];
+    time1 = json['Time1'];
     image = json['image'];
     if (json['award'] != null) {
       award = <Award>[];
       json['award'].forEach((v) {
-        award!.add(Award.fromJson(v));
+        award!.add(new Award.fromJson(v));
       });
     }
     rating = json['rating'];
-    time = json['Time'];
-    time1 = json['Time1'];
-    collection = json['collection'];
     countReviewData = json['count_review_Data'];
     cookName = json['Cook name'];
+    description = json['description'];
     wishlist = json['wishlist'];
+    canDeliver = json['can_deliver'];
+    sustainablePackagingStatus = json['sustainable_packaging_status'];
     profileImage = json['profile image'];
+    collection = json['collection'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['collection'] = collection;
-    data['distance'] = distance;
-    data['Time'] = time;
-    data['Time1'] = time1;
-    data['image'] = image;
-    if (award != null) {
-      data['award'] = award!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['distance'] = this.distance;
+    data['Time'] = this.time;
+    data['Time1'] = this.time1;
+    data['image'] = this.image;
+    if (this.award != null) {
+      data['award'] = this.award!.map((v) => v.toJson()).toList();
     }
-    data['rating'] = rating;
-    data['count_review_Data'] = countReviewData;
-    data['Cook name'] = cookName;
-    data['wishlist'] = wishlist;
-    data['profile image'] = profileImage;
+    data['rating'] = this.rating;
+    data['count_review_Data'] = this.countReviewData;
+    data['Cook name'] = this.cookName;
+    data['description'] = this.description;
+    data['wishlist'] = this.wishlist;
+    data['can_deliver'] = this.canDeliver;
+    data['sustainable_packaging_status'] = this.sustainablePackagingStatus;
+    data['profile image'] = this.profileImage;
+    data['collection'] = this.collection;
     return data;
   }
 }
+
 
 class Award {
   dynamic title;

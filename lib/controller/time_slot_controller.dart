@@ -1,5 +1,6 @@
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../model/time_slot_model.dart';
 import '../repository/time_slot_repo.dart';
 
@@ -11,11 +12,11 @@ class TimeSlotController extends GetxController{
   RxString giveTime = "".obs;
 
 
+
   Future getTimeSlotData() async {
-    DateTime now = DateTime.now();
-    String formattedTime = "${now.hour}:${now.minute}:${now.second}";
+    String currentTime= DateFormat("hh:mm a").format(DateTime.now()).toString();
     isDataLoading=false;
-    await timeSlotListData(pickDate: sendDate.value, mobileTime: formattedTime).then((value){
+    await timeSlotListData(pickDate: sendDate.value, mobileTime: currentTime).then((value){
       isDataLoading=true;
       timeSlotModel.value=value;
     });

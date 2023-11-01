@@ -285,6 +285,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                 position: LatLng(double.parse((latLongModel.latitude ?? 0.0).toString()), double.parse((latLongModel.longitude ?? 0.0).toString()), ),
                 infoWindow: const InfoWindow(
                   title: "driver",
+
                 ),
               icon: driverIcon,
               ),

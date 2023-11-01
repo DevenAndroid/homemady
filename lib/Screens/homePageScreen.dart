@@ -97,7 +97,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     }
 
     //192.168.1.28      54.204.238.132
-    io.Socket socket = io.io('http://3.25.233.116:3001/app', <String, dynamic>{
+    io.Socket socket = io.io('http://79.125.89.222:3001/app', <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false,
       "extraHeaders": {"access_token":user.authToken.toString()},
@@ -265,8 +265,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   showChooseDate(index) {
     RxInt refreshInt = 0.obs;
-    DateTime now = DateTime.now();
-    String formattedTime = "${now.hour}:${now.minute}:${now.second}";
+    // DateTime now = DateTime.now();
+    // String formattedTime = "${now.hour}:${now.minute}:${now.second}";
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -296,14 +296,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           var itemdata = timeSlotController.timeSlotModel.value.data![index];
                           return GestureDetector(
                             onTap: () {
-                              print("helloo");
-                              timeSlotController.giveTime.value = formattedTime;
-                              timeSlotController.getTimeSlotData();
-                              print(formattedTime);
+                              // print("helloo");
+                              // print(DateFormat("hh:mm a").format(DateTime.now()));
+                              // timeSlotController.giveTime.value = formattedTime;
+                              // timeSlotController.getTimeSlotData();
+                              // print(formattedTime);
 
                               currentIndex = index;
                               refreshInt.value = DateTime.now().millisecondsSinceEpoch;
-                              timeSlotController.giveTime.value = formattedTime;
+                              // timeSlotController.giveTime.value = formattedTime;
                               timeSlotController.getTimeSlotData();
                             },
                             child: Container(
@@ -375,6 +376,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         FocusManager.instance.primaryFocus!.unfocus();
       },
       child: Scaffold(
+
           appBar: AppBar(
             title: Row(
               children: [
@@ -573,7 +575,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                                                   // if(selectedDate != "Available Now" ||  isAvailableSelected == true) {
                                                   //   // filterDataController.storeSearchController.text = "";
-                                                  //   filterDataController.getFilterData();
+                                                   filterDataController.getFilterData();
                                                   if(filterDataController.storeSearchController.text.isNotEmpty) {
                                                     Get.toNamed(SearchScreenData.searchScreen,);
                                                   }
@@ -594,7 +596,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               },
                                               onChanged: (val) {
                                                 isValue.value = true;
-                                                // searchController.getSearchData();
+                                                 searchController.getSearchData();
                                                 //Get.toNamed(SearchScreenData.searchScreen,);
                                                 // Get.toNamed(SearchScreenData.searchScreen);
                                               },
@@ -809,6 +811,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 child: InkWell(
                                                   onTap: () async {
                                                     FocusManager.instance.primaryFocus!.unfocus();
+
                                                     showChooseDate(context);
                                                     // showDate();
                                                     pickedDate = await showDatePicker(
@@ -1157,8 +1160,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                               child:    CachedNetworkImage(
                                                                                 imageUrl:     homeController.model.value.data!.stores![index].award![index1].image.toString(),
                                                                                 //fit: BoxFit.cover,
-                                                                                height: 40,
-                                                                                width: 40,
+                                                                                height: 70,
+                                                                                width: 70,
                                                                                 errorWidget: (_, __, ___) => Image.asset(
                                                                                   'assets/images/topChef.png',
                                                                                   // fit: BoxFit.cover,
@@ -1277,8 +1280,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                           child: Image.asset(
                                                                             'assets/images/leavesIcon.png',
                                                                             // fit: BoxFit.cover,
-                                                                            height: 35,
-                                                                            width: 35,
+                                                                            height: 65,
+                                                                            width: 65,
                                                                           ),
                                                                         )
                                                                     ],
@@ -1681,13 +1684,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                               const Center(child: CircularProgressIndicator()),
                                                                             ),
                                                                           ),
-                                                                          /*ClipRRect(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    child: Image.asset(
-                                                      'assets/images/Rectangle 23007.png',fit: BoxFit.cover,
-                                                      height: 140,width: AddSize.screenWidth,
-                                                    ),
-                                                  ),*/
+
                                                                           addHeight(6),
                                                                           Text(
                                                                             filterProductCategoryController.filterDataModel.value.data![index].name.toString().capitalizeFirst.toString(),
@@ -1813,8 +1810,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                     child:    CachedNetworkImage(
                                                                                       imageUrl:     filterProductCategoryController.filterDataModel.value.data![index].award![index1].image.toString(),
                                                                                       //fit: BoxFit.cover,
-                                                                                      height: 40,
-                                                                                      width: 40,
+                                                                                      height: 70,
+                                                                                      width: 70,
                                                                                       errorWidget: (_, __, ___) => Image.asset(
                                                                                         'assets/images/topChef.png',
                                                                                         // fit: BoxFit.cover,
@@ -1873,8 +1870,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                 child: Image.asset(
                                                                                   'assets/images/leavesIcon.png',
                                                                                   // fit: BoxFit.cover,
-                                                                                  height: 35,
-                                                                                  width: 35,
+                                                                                  height: 65,
+                                                                                  width: 65,
                                                                                 ),
                                                                               )
                                                                           ],

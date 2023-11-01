@@ -662,8 +662,8 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                           child:    CachedNetworkImage(
                                                                             imageUrl:     featuredFilterController.model.value.data![index].award![index1].image.toString(),
                                                                             //fit: BoxFit.cover,
-                                                                            height: 40,
-                                                                            width: 40,
+                                                                            height: 70,
+                                                                            width: 70,
                                                                             errorWidget: (_, __, ___) => Image.asset(
                                                                               'assets/images/topChef.png',
                                                                               // fit: BoxFit.cover,
@@ -722,67 +722,14 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                                     child: Image.asset(
                                                                       'assets/images/leavesIcon.png',
                                                                       // fit: BoxFit.cover,
-                                                                      height: 35,
-                                                                      width: 35,
+                                                                      height: 65,
+                                                                      width: 65,
                                                                     ),
                                                                   )
                                                                 ],
                                                               )
                                                           ) : const SizedBox(),
-                                                          //
-                                                          // featuredFilterController.model.value.data![index].sustainablePackagingStatus!  ?
-                                                          // Positioned(
-                                                          //   top: 14,
-                                                          //   // bottom: 0,
-                                                          //   left:   featuredFilterController.model.value.data![index].award!.isNotEmpty  ? 100 : 15,
-                                                          //   //right: 15,
-                                                          //   child: InkWell(
-                                                          //     onTap: (){
-                                                          //       showGeneralDialog(
-                                                          //           context: context,
-                                                          //           barrierDismissible: true,
-                                                          //           barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                          //           barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                          //           pageBuilder: (BuildContext context,Animation first, Animation second){
-                                                          //             return  Stack(
-                                                          //               children: [
-                                                          //                 Center(
-                                                          //                   child: Image.asset(
-                                                          //                     'assets/images/leavesIcon.png',
-                                                          //                     // fit: BoxFit.cover,
-                                                          //                     height: height * .3,
-                                                          //                     // width: width * .4,
-                                                          //                   ),),
-                                                          //                 Positioned(
-                                                          //                   right: 20,
-                                                          //                   top: 100,
-                                                          //                   child: GestureDetector(
-                                                          //                     onTap: (){
-                                                          //                       Get.back();
-                                                          //                     },
-                                                          //                     child: Container(
-                                                          //                         padding: const EdgeInsets.all(10),
-                                                          //                         height: 50,
-                                                          //                         decoration: const BoxDecoration(
-                                                          //                             color: Colors.white,
-                                                          //                             shape: BoxShape.circle
-                                                          //                         ),
-                                                          //                         child:  const Icon(Icons.clear)
-                                                          //                     ),
-                                                          //                   ),)
-                                                          //               ],
-                                                          //             );
-                                                          //           }
-                                                          //       );
-                                                          //     },
-                                                          //     child: Image.asset(
-                                                          //       'assets/images/leavesIcon.png',
-                                                          //       // fit: BoxFit.cover,
-                                                          //       height: 35,
-                                                          //       width: 35,
-                                                          //     ),
-                                                          //   ),
-                                                          // ) : const SizedBox()
+
                                                         ],
                                                       ),
                                                     ),

@@ -83,7 +83,7 @@ class _OtpForgotScreenState extends State<OtpForgotScreen> {
                     fontSize: 24,
                   ),),
                   addHeight(18),
-                  Text('Enter the OTP Send to Your Email',style: GoogleFonts.poppins(
+                  Text('Enter the OTP Send to Your Phone no.',style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontWeight: FontWeight.w300,
                     fontSize: 16,

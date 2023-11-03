@@ -336,44 +336,25 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                     color: const Color(0xFF04666E),
                                                                   ),
                                                                   addWidth(10),
-                                                                  Text(
-                                                                    '${filterProductCategoryController.filterDataModel.value.data![index].collection.toString()} ',
-                                                                    style: GoogleFonts.poppins(
-                                                                        fontWeight: FontWeight.w400,
-                                                                        fontSize: 12,
-                                                                        color: const Color(0xFF606573)),
-                                                                  ),
-                                                                  filterProductCategoryController.filterDataModel.value.data![index].collection == 'Collection Only' ||
-                                                                      filterProductCategoryController.filterDataModel.value.data![index].collection == 'Both Delivery & Collection' ?
-                                                                  const SizedBox() :
-                                                                  Text(
-                                                                    '${filterProductCategoryController.filterDataModel.value.data![index].time ?? ''.toString()} - ${filterProductCategoryController.filterDataModel.value.data![index].time1 ?? ''.toString()} mins',
-                                                                    style: GoogleFonts.poppins(
-                                                                        fontWeight: FontWeight.w400,
-                                                                        fontSize: 12,
-                                                                        color: const Color(0xFF606573)),
-                                                                  ),
-                                                                  const SizedBox(width: 4,),
-                                                                  filterProductCategoryController.filterDataModel.value.data![index].collection == 'Collection Only' ?
-                                                                  const SizedBox() :
-                                                                  Padding(
-                                                                    padding: const EdgeInsets.only(bottom: 5),
+
+                                                                  Expanded(
                                                                     child: Text(
-                                                                      '.',
+                                                                      '${filterProductCategoryController.filterDataModel.value.data![index].collection.toString()} ${
+                                                                          filterProductCategoryController.filterDataModel.value.data![index].collection ==
+                                                                              'Collection Only' ||
+                                                                              filterProductCategoryController.filterDataModel.value.data![index].collection ==
+                                                                                  'Both Delivery & Collection' ? "" :
+                                                                          '${filterProductCategoryController.filterDataModel.value.data![index].time ?? ''.toString()} - '
+                                                                              '${filterProductCategoryController.filterDataModel.value.data![index].time1 ?? ''.toString()} mins'}  ${
+                                                                          filterProductCategoryController.filterDataModel.value.data![index].collection ==
+                                                                              'Collection Only' ? "" : '.'}  ${"${filterProductCategoryController.filterDataModel.value.data![index].distance.toString()} km"}',
                                                                       style: GoogleFonts.poppins(
                                                                           fontWeight: FontWeight.w400,
                                                                           fontSize: 12,
                                                                           color: const Color(0xFF606573)),
                                                                     ),
                                                                   ),
-                                                                  const SizedBox(width: 4,),
-                                                                  Text(
-                                                                    "${filterProductCategoryController.filterDataModel.value.data![index].distance.toString()} km",
-                                                                    style: GoogleFonts.poppins(
-                                                                        fontWeight: FontWeight.w400,
-                                                                        fontSize: 12,
-                                                                        color: const Color(0xFF606573)),
-                                                                  ),
+                                                                  addWidth(110),
                                                                 ],
                                                               )
                                                             ],
@@ -1402,12 +1383,14 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Chinese',
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 18,
-                                color: const Color(0xFF425159),
+                            Expanded(
+                              child: Text(
+                                'Chinese',
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 18,
+                                  color: const Color(0xFF425159),
+                                ),
                               ),
                             ),
                             Obx(() {
@@ -1426,12 +1409,14 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Vegetarian',
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 18,
-                                color: const Color(0xFF425159),
+                            Expanded(
+                              child: Text(
+                                'Vegetarian',
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 18,
+                                  color: const Color(0xFF425159),
+                                ),
                               ),
                             ),
                             Obx(() {

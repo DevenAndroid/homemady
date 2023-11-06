@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:ui' as ui;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
@@ -15,14 +18,21 @@ import 'package:homemady/widgets/app_assets.dart';
 import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../controller/location_controller.dart';
 import '../controller/order_tracking_controller.dart';
+import '../model/lat_long_ model.dart';
+import '../model/model_verify_otp.dart';
 import '../model/my_address_model.dart';
 import '../widgets/custome_size.dart';
 import 'homePageScreen.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
+LatlongModel latLongModel = LatlongModel();
+
+io.Socket? socket1;
 
 class OrderTrackingScreen extends StatefulWidget {
   const OrderTrackingScreen({Key? key}) : super(key: key);
@@ -46,6 +56,71 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   BitmapDescriptor driverIcon = BitmapDescriptor.defaultMarker;
   //  final addressController = Get.put(MyAddressController());
   // Rx<AddressData> addressModel = AddressData().obs;
+
+
+
+  connectToServer() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+    log("THis is token for socket${user.authToken}");
+    if (socket1 != null) {
+      socket1!.disconnect();
+      socket1!.dispose();
+      socket1 = null;
+    }
+
+    //192.168.1.28      54.204.238.132
+    io.Socket socket = io.io('http://79.125.89.222:3001/app', <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false,
+      "extraHeaders": {"access_token": user.authToken.toString()},
+    });
+
+    socket.onError((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('==================  onError $data');
+      }
+    });
+    socket.onDisconnect((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('==================  onDisconnect $data');
+      }
+    });
+    socket.onConnecting((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('onConnecting $data');
+      }
+    });
+
+    socket.onConnectTimeout((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('onConnectTimeout $data');
+      }
+    });
+    socket.connect();
+    socket1 = socket;
+    socket.onConnect((data) {
+      if (kDebugMode) {
+        if (kDebugMode) print('==================  onConnect $data');
+        socket1!.on("result", (data) {
+          log("kkkkkkkk 1111$data");
+          getLatLongFrom(data);
+          // latLongModel=LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
+        });
+        //socket1!.on("result", data );
+        // socket.io.hasListeners("get_data");
+        // onlineOffline();
+        // socket1!.emit("event",lat,long);
+      }
+    });
+  }
+
+  getLatLongFrom(dynamic data) {
+    log("rrrrrrrrrrr  11111$data");
+    latLongModel = LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
+    log("rrrrrrrrrrr  11111${latLongModel.latitude}");
+    log("rrrrrrrrrrr  11111${latLongModel.longitude}");
+  }
 
 
 
@@ -161,6 +236,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    connectToServer();
     orderTrackingController.getOrderTrackingDetails();
     setCustomMarkerIcon();
     getPolyPoints();

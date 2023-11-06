@@ -57,6 +57,7 @@ class Data {
   String? time;
   String? time1;
   String? date;
+  dynamic special_offer;
   String? distance;
   String? discountOff;
   bool? wishlist;
@@ -72,6 +73,7 @@ class Data {
         this.time1,
         this.date,
         this.content,
+        this.special_offer,
         this.image,
         this.cookUnitDays,
         this.sizeQuantity,
@@ -90,6 +92,7 @@ class Data {
     subTitle = json['sub_title'];
     name = json['name'];
     price = json['price'];
+    special_offer = json['special_offer'];
     date = json['Date'];
     distance = json['distance'];
     time = json['Time'];

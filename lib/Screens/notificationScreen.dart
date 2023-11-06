@@ -4,11 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
-
 import '../controller/notification_controller.dart';
 import '../controller/order_details_controller.dart';
 import '../repository/notification_repo.dart';
-
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -17,14 +15,16 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+
   final controller = Get.put(NotificationController());
   final orderDetailsController = Get.put(OrderDetailsController());
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller.getData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {

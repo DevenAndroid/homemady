@@ -1024,6 +1024,29 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                     ),
                                   ],
                                 ),
+                                if(filterDataController.filterModel.value.data![index].special_offer == true)
+                                  ...[
+                                    addHeight(4),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        addWidth(80),
+                                        Image.asset(
+                                          'assets/images/helpimg.png',
+                                          height: 13,
+                                        ),
+                                        addWidth(4),
+                                        Text(
+                                          'Special Offer',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 11,
+                                              color: const Color(0xFF364A4F)),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                               ],
                             ),
                           ),

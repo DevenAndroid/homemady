@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'favorite_list_model.dart';
 
 class VendorStoreSingleModel {
@@ -183,10 +185,13 @@ class LatestProducts {
   dynamic spiciness;
   dynamic allergens;
   dynamic exclude;
+  dynamic special_offer;
 
   dynamic avgRating;
   // RxInt buttonCount = 0.obs;
   int productCount = 0;
+
+
   LatestProducts(
       {this.id,
         this.sKU,
@@ -198,6 +203,7 @@ class LatestProducts {
         this.maxQty,
         this.price,
         this.content,
+        this.special_offer,
         this.sizeQuantity,
         this.image,
         this.subTitle,
@@ -212,7 +218,9 @@ class LatestProducts {
         this.avgRating});
 
   LatestProducts.fromJson(Map<String, dynamic> json) {
+    log("message....      $json");
     id = json['id'];
+    special_offer = json['special_offer'] ?? false;
     sKU = json['SKU'];
     name = json['name'];
     qty = json['qty'];

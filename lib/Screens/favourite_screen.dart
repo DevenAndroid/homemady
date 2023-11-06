@@ -985,6 +985,29 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                               ),
                                             ],
                                           ),
+                                          if(controller1.model.value.data!.product![index].special_offer == true)
+                                          ...[
+                                          addHeight(4),
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              addWidth(80),
+                                              Image.asset(
+                                                'assets/images/helpimg.png',
+                                                height: 13,
+                                              ),
+                                              addWidth(4),
+                                              Text(
+                                                'Special Offer',
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 11,
+                                                    color: const Color(0xFF364A4F)),
+                                              ),
+                                            ],
+                                          ),
+                                          ],
                                         ],
                                       ),
                                     ),

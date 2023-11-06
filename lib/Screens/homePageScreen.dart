@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:badges/badges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Badge;
@@ -31,10 +30,6 @@ import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
 import 'myAddressScreen.dart';
-
-LatlongModel latLongModel = LatlongModel();
-
-io.Socket? socket1;
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -84,74 +79,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   String selectedDate = 'Available Now';
 
-  connectToServer() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
-    log("THis is token for socket${user.authToken}");
-    if (socket1 != null) {
-      socket1!.disconnect();
-      socket1!.dispose();
-    }
-
-    //192.168.1.28      54.204.238.132
-    io.Socket socket = io.io('http://79.125.89.222:3001/app', <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false,
-      "extraHeaders": {"access_token": user.authToken.toString()},
-    });
-
-    socket.onError((data) {
-      if (kDebugMode) {
-        if (kDebugMode) print('==================  onError $data');
-      }
-    });
-    socket.onDisconnect((data) {
-      if (kDebugMode) {
-        if (kDebugMode) print('==================  onDisconnect $data');
-      }
-    });
-    socket.onConnecting((data) {
-      if (kDebugMode) {
-        if (kDebugMode) print('onConnecting $data');
-      }
-    });
-
-    socket.onConnectTimeout((data) {
-      if (kDebugMode) {
-        if (kDebugMode) print('onConnectTimeout $data');
-      }
-    });
-    socket.connect();
-    socket1 = socket;
-    socket.onConnect((data) {
-      if (kDebugMode) {
-        if (kDebugMode) print('==================  onConnect $data');
-        socket1!.on("result", (data) {
-          log("kkkkkkkk 1111$data");
-          getLatLongFrom(data);
-          // latLongModel=LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
-        });
-        //socket1!.on("result", data );
-        // socket.io.hasListeners("get_data");
-        // onlineOffline();
-        // socket1!.emit("event",lat,long);
-      }
-    });
-  }
-
-  getLatLongFrom(dynamic data) {
-    log("rrrrrrrrrrr  11111$data");
-    latLongModel = LatlongModel.fromJson(jsonDecode(jsonEncode(data)));
-    log("rrrrrrrrrrr  11111${latLongModel.latitude}");
-    log("rrrrrrrrrrr  11111${latLongModel.longitude}");
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    connectToServer();
-
     // connectToServer();
     locationController.checkGps(context);
 

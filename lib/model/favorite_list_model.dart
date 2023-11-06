@@ -180,6 +180,7 @@ class Product {
   dynamic allergens;
   dynamic discountOff;
   dynamic avgRating;
+  dynamic special_offer;
   dynamic productCount = 0;
 
   Product(
@@ -192,6 +193,7 @@ class Product {
         this.date,
         this.image,
         this.cookUnitDays,
+        this.special_offer,
         this.qty,
         this.subTitle,
         this.sizeQuantity,
@@ -208,6 +210,7 @@ class Product {
     sKU = json['SKU'];
     name = json['name'];
     date = json['Date'];
+    special_offer = json['special_offer'] ?? false;
     price = json['price'];
     content = json['content'];
     exclude = json['exclude'];

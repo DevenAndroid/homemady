@@ -97,7 +97,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     }
 
     //192.168.1.28      54.204.238.132
-    io.Socket socket = io.io('http://79.125.89.222:3001/app', <String, dynamic>{
+    io.Socket socket = io.io('http://54.73.186.185:3001/app', <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false,
       "extraHeaders": {"access_token":user.authToken.toString()},

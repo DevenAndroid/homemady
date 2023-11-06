@@ -34,7 +34,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int currentIndex = 0;
   RxInt currentIndex12 = 0.obs;
   RxBool currentIndex1 = false.obs;
-   bool isActive = false;
+  bool isActive = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,16 +110,16 @@ class CustomIndicator extends StatelessWidget {
 
 class OnboardContent extends StatelessWidget {
   final String image, title, description;
-  String description1;
-  String description2;
-  String description3;
-  String des1;
-  String des22;
-  String des2;
+  final String description1;
+  final String description2;
+  final String description3;
+  final String des1;
+  final String des22;
+  final String des2;
   final int indexValue;
-  PageController controller = PageController();
+  final PageController controller;
 
-   OnboardContent(
+   const OnboardContent(
       {Key? key,
         required this.controller,
         required this.image,

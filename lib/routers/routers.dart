@@ -53,9 +53,9 @@ class MyRouters {
   static var notificationScreen = "/notificationScreen";
   static var homePageScreen = "/homePageScreen";
   static var thankYouScreen = "/thankYouScreen";
-  static var myCartScreen = "/myCartScreen";
-  static var homeDetailsScreen = "/homeDetailsScreen";
-  static var checkOutScreen = "/checkOutScreen";
+  // static var myCartScreen = "/myCartScreen";
+  // static var homeDetailsScreen = "/homeDetailsScreen";
+  // static var checkOutScreen = "/checkOutScreen";
   // static var myAddressScreen = "/myAddressScreen";
   static var myOrderScreen = "/myOrderScreen";
   static var bottomNavbar = "/bottomNavbar";
@@ -90,9 +90,9 @@ class MyRouters {
   GetPage(name: '/notificationScreen', page: () => const NotificationScreen()),
   GetPage(name: '/homePageScreen', page: () => const HomePageScreen()),
   GetPage(name: '/thankYouScreen', page: () => const ThankYouScreen()),
-  GetPage(name: '/myCartScreen', page: () => const MyCartScreen()),
-  GetPage(name: '/homeDetailsScreen', page: () => const HomeDetailsScreen()),
-  GetPage(name: '/checkOutScreen', page: () => const CheckOutScreen()),
+  // GetPage(name: '/myCartScreen', page: () => const MyCartScreen()),
+  // GetPage(name: '/homeDetailsScreen', page: () => const HomeDetailsScreen()),
+  // GetPage(name: '/checkOutScreen', page: () => const CheckOutScreen()),
  // GetPage(name: carteScreen.carteScreenPage, page: () => const CarteScreen()),
  //  GetPage(name: '/myOrderScreen', page: () =>  MyOrderScreen()),
   GetPage(name: '/bottomNavbar', page: () => const BottomNavbar()),

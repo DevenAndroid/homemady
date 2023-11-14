@@ -45,6 +45,8 @@ class Data {
         sliderData!.add(SliderData.fromJson(v));
       });
     }
+    sliderData ??= [];
+    sliderData = sliderData!.where((element) => element.storeId.toString().isNotEmpty).toList();
     if (json['stores'] != null) {
       stores = <Stores>[];
       json['stores'].forEach((v) {
@@ -76,7 +78,7 @@ class SliderData {
 
   SliderData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    storeId = json['store_id'];
+    storeId = json['store_id'] ?? "";
     title = json['title'];
     link = json['link'];
     image = json['image'];

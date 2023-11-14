@@ -18,6 +18,7 @@ import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../routers/routers.dart';
 import '../widgets/dimenestion.dart';
+import 'homedetails_Screen.dart';
 
 class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({Key? key}) : super(key: key);
@@ -184,9 +185,12 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: InkWell(
                                                     onTap: (){
-                                                      Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                        controller1.model.value.data!.store![index].id.toString()
-                                                      ]);
+                                                      Get.to(()=> HomeDetailsScreen(
+                                                        storeId: controller1.model.value.data!.store![index].id.toString(),
+                                                      ));
+                                                      // Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                      //   controller1.model.value.data!.store![index].id.toString()
+                                                      // ]);
                                                     },
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment

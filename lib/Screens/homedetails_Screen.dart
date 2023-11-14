@@ -22,7 +22,8 @@ import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
-  const HomeDetailsScreen({Key? key}) : super(key: key);
+  const HomeDetailsScreen({Key? key, required this.storeId}) : super(key: key);
+  final String storeId;
 
   @override
   State<HomeDetailsScreen> createState() => _HomeDetailsScreenState();
@@ -123,9 +124,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
 
   @override
   void initState() {
-    getDataSubscription();
-    initDeepLinkData();
     super.initState();
+    controller.storeId = widget.storeId;
+    initDeepLinkData();
     tabControllerGG = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.getData();

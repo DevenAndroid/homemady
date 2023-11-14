@@ -14,12 +14,12 @@ class VendorSingleStoreController extends GetxController{
   RxBool isDataLoading = false.obs;
   RxString vendorStoreId = ''.obs;
   RxString filterId = '2'.obs;
-  //RxString storeKeyword = '4'.obs;
+  String storeId = "";
 
 
   getData(){
     isDataLoading.value = false;
-    singleStoreData(id: Get.arguments[0], filterId: filterId.value, ).then((value1) {
+    singleStoreData(id: storeId, filterId: filterId.value, ).then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

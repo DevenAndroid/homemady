@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../Screens/mycart_Screen.dart';
 import '../controller/my_cart_controller.dart';
 import '../routers/routers.dart';
 import '../widgets/app_theme.dart';
@@ -68,7 +69,8 @@ addCartSection(){
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(MyRouters.myCartScreen,);
+                    // Get.toNamed(MyRouters.myCartScreen,);
+                    Get.to(()=> const MyCartScreen());
                   },
                   style: ElevatedButton.styleFrom(
                       minimumSize:

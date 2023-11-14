@@ -23,8 +23,8 @@ Future<MyCartListModel> myCartRepo() async {
     final response =
     await http.get(Uri.parse(ApiUrl.myCartApi), headers: headers);
 
+      log("My Cart Data...     ${response.body}");
     if (response.statusCode == 200) {
-      log("My Cart Data...${response.body}");
       return MyCartListModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

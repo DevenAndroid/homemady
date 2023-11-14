@@ -20,6 +20,7 @@ import '../widgets/app_theme.dart';
 import '../widgets/custome_textfiled.dart';
 import 'customer_order_tracking_screen.dart';
 import 'homePageScreen.dart';
+import 'homedetails_Screen.dart';
 
 class StoreListScreen extends StatefulWidget {
   final Function(bool gg) performAction;
@@ -386,10 +387,14 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                             padding: const EdgeInsets.all(8.0),
                                                             child: InkWell(
                                                               onTap: () {
-                                                                Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                                  featuredFilterController.model.value.data![index].id
-                                                                      .toString()
-                                                                ]);
+                                                                Get.to(()=> HomeDetailsScreen(
+                                                                  storeId: featuredFilterController.model.value.data![index].id
+                                                                      .toString(),
+                                                                ));
+                                                                // Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                                //   featuredFilterController.model.value.data![index].id
+                                                                //       .toString()
+                                                                // ]);
                                                               },
                                                               child: Column(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -787,10 +792,14 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                             padding: const EdgeInsets.all(8.0),
                                                             child: InkWell(
                                                               onTap: () {
-                                                                Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                                  featuredFilterController.model.value.data![index].id
-                                                                      .toString()
-                                                                ]);
+                                                                Get.to(()=> HomeDetailsScreen(
+                                                                  storeId: featuredFilterController.model.value.data![index].id
+                                                                      .toString(),
+                                                                ));
+                                                                // Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                                //   featuredFilterController.model.value.data![index].id
+                                                                //       .toString()
+                                                                // ]);
                                                               },
                                                               child: Column(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1164,10 +1173,14 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                                             padding: const EdgeInsets.all(8.0),
                                                             child: InkWell(
                                                               onTap: () {
-                                                                Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                                  featuredFilterController.model.value.data![index].id
-                                                                      .toString()
-                                                                ]);
+                                                                Get.to(()=> HomeDetailsScreen(
+                                                                  storeId: featuredFilterController.model.value.data![index].id
+                                                                      .toString(),
+                                                                ));
+                                                                // Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                                //   featuredFilterController.model.value.data![index].id
+                                                                //       .toString()
+                                                                // ]);
                                                               },
                                                               child: Column(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,

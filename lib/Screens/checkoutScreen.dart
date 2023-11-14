@@ -19,10 +19,11 @@ import '../widgets/app_theme.dart';
 import '../widgets/dimenestion.dart';
 import 'coupon_list_screen.dart';
 import 'myAddressScreen.dart';
+import 'mycart_Screen.dart';
 
 class CheckOutScreen extends StatefulWidget {
-  const CheckOutScreen({Key? key}) : super(key: key);
-
+  const CheckOutScreen({Key? key, required this.collectionOnly}) : super(key: key);
+  final bool collectionOnly;
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
 }
@@ -657,7 +658,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         const Spacer(),
                                         InkWell(
                                           onTap: () {
-                                            Get.toNamed(MyRouters.myCartScreen);
+                                            // Get.toNamed(MyRouters.myCartScreen);
+                                            Get.to(()=> const MyCartScreen());
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.only(top: 8.0),
@@ -740,18 +742,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   ),
                                 ),
                                 addWidth(5),
-                                Container(
-                                  height: 60,
-                                  width: 57,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(14),
-                                      border: Border.all(color: const Color(0xFFF2F2F2))),
-                                  child: Center(
-                                      child: Image.asset(
-                                    'assets/images/mastercard.png',
-                                    height: 36,
-                                  )),
-                                ),
+                                // Container(
+                                //   height: 60,
+                                //   width: 57,
+                                //   decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(14),
+                                //       border: Border.all(color: const Color(0xFFF2F2F2))),
+                                //   child: Center(
+                                //       child: Image.asset(
+                                //     'assets/images/mastercard.png',
+                                //     height: 36,
+                                //   )),
+                                // ),
                                 /*  addWidth(5),
                                 Container(
                                   height: 60,

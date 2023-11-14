@@ -19,6 +19,7 @@ import '../controller/user_profile_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
+import 'homedetails_Screen.dart';
 
 class FilterProductScreen extends StatefulWidget {
   final String filterId;
@@ -288,9 +289,12 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                         padding: const EdgeInsets.all(8.0),
                                                         child: GestureDetector(
                                                           onTap: () {
-                                                            Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                              filterProductCategoryController.filterDataModel.value.data![index].id.toString()
-                                                            ]);
+                                                            Get.to(()=> HomeDetailsScreen(
+                                                              storeId: filterProductCategoryController.filterDataModel.value.data![index].id.toString()
+                                                            ));
+                                                            // Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                            //   filterProductCategoryController.filterDataModel.value.data![index].id.toString()
+                                                            // ]);
                                                           },
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,

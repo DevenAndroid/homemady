@@ -14,6 +14,7 @@ import '../routers/routers.dart';
 import '../widgets/custome_size.dart';
 import '../widgets/custome_textfiled.dart';
 import '../widgets/dimenestion.dart';
+import 'homedetails_Screen.dart';
 
 class HomeFilterScreen extends StatefulWidget {
   const HomeFilterScreen({Key? key}) : super(key: key);
@@ -259,9 +260,12 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                        homeController.model.value.data!.stores![index].id.toString()
-                                      ]);
+                                      Get.to(()=> HomeDetailsScreen(
+                                          storeId: homeController.model.value.data!.stores![index].id.toString()
+                                      ));
+                                      // Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                      //   homeController.model.value.data!.stores![index].id.toString()
+                                      // ]);
                                     },
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,

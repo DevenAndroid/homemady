@@ -6,6 +6,7 @@ import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 
+import '../Screens/mycart_Screen.dart';
 import '../controller/my_order_controller.dart';
 import '../controller/order_details_controller.dart';
 import '../repository/my_cart_repo.dart';
@@ -219,7 +220,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                     reOrderRepo(context: context, id: controller.model.value.data![index].orderId.toString()).then((value){
                                       if(value.status==true){
                                         showToast(value.message);
-                                        Get.toNamed(MyRouters.myCartScreen);
+                                        Get.to(()=> const MyCartScreen());
                                       }
                                       else{
                                         showToast(value.message);

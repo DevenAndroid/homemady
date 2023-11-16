@@ -9,8 +9,7 @@ import '../resources/api_urls.dart';
 
 Future<OrderDetailsModel> orderDetailsRepo({required id}) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-  ModelVerifyOtp? user =
-  ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+  ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
@@ -18,12 +17,9 @@ Future<OrderDetailsModel> orderDetailsRepo({required id}) async {
   };
 
   // try {
-  final response = await http.get(
-      Uri.parse("${ApiUrl.orderDetailsUrl}?order_id=$id"),
-      headers: headers);
+  final response = await http.get(Uri.parse("${ApiUrl.orderDetailsUrl}?order_id=$id"), headers: headers);
   log("Order Details...${response.body}");
   if (response.statusCode == 200) {
-    log("Order Details...${response.body}");
     return OrderDetailsModel.fromJson(jsonDecode(response.body));
   } else {
     throw Exception(response.body);

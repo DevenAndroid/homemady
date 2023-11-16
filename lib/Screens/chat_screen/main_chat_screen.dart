@@ -23,28 +23,48 @@ import '../../widgets/dimenestion.dart';
 import '../orderDetailsScreen.dart';
 import 'chat_bubble.dart';
 
-class ChatScreen1 extends StatefulWidget {
-  const ChatScreen1({Key? key}) : super(key: key);
-  static var chatScreen1 = '/chatScreen1';
+class MainChatScreen extends StatefulWidget {
+  MainChatScreen({
+    Key? key,
+    required this.roomId,
+    required this.orderId,
+    required this.senderId,
+    required this.receiverId,
+    required this.receiverName,
+    required this.receiverImage,
+    this.customer,
+    this.vendor,
+    this.driver,
+
+  }) : super(key: key);
+  final String roomId;
+  final String orderId;
+  final String senderId;
+  final String receiverId;
+  final String receiverName;
+  final String receiverImage;
+  Map? customer;
+  Map? vendor;
+  Map? driver;
 
   @override
-  State<ChatScreen1> createState() => _ChatScreen1State();
+  State<MainChatScreen> createState() => _MainChatScreenState();
 }
 
-class _ChatScreen1State extends State<ChatScreen1> {
-  String chatRoomId = "";
-  String senderID = "";
-  OrderDetail orderDetails = OrderDetail();
+class _MainChatScreenState extends State<MainChatScreen> {
+  // String chatRoomId = "";
+  // String senderID = "";
   FirebaseService service = FirebaseService();
   final TextEditingController messageController = TextEditingController();
-  RxInt refreshInt = 0.obs;
-  bool fromApi = false;
+  // RxInt refreshInt = 0.obs;
+  // bool fromApi = false;
 
   File pickedImage = File("");
   RxString profileImage = "".obs;
   File image2 = File("");
   File? selectedImage;
   String? base64Image;
+
   List imageTypes = [
     "jpeg",
     "jpg",
@@ -59,155 +79,46 @@ class _ChatScreen1State extends State<ChatScreen1> {
     "vnd.adobe.photoshop",
     "xcf",
   ];
-  pickImage(ImageSource imageType) async {
-    try {
-      final photo =
-      await ImagePicker().pickImage(source: imageType, imageQuality: 30);
-      if (photo == null) return;
-      final tempImage = File(photo.path);
-      pickedImage = tempImage;
-      pickedImage = tempImage;
-      profileImage.value= pickedImage.path;
-      // print( "22222222222222222  ${profileImage.value.toString()}");
-      // print( "2111111111111111  ${pickedImage.path.toString()}");
-      //List<int> imageBytes = pickedImage.readAsBytesSync();
-      //profileImage.value = base64Encode(imageBytes);
-      Get.back();
-      refreshInt.value = DateTime.now().microsecondsSinceEpoch;
-    } catch (error) {
-      debugPrint(error.toString());
-    }
-  }
-  getRooInfo() {
-    service.getRoomInfo(roomId: chatRoomId).then((value) {
-      if (value == null) return;
-      orderDetails = value;
-      fromApi = true;
-      updateMyLastSeen();
-      refreshInt.value = DateTime.now().millisecondsSinceEpoch;
-    });
-  }
 
-  getUnreadMessages(DateTime time) {
-    service.getUnreadMessages(roomId: chatRoomId, lastTime: time);
-  }
+  // getUnreadMessages(DateTime time) {
+  //   service.getUnreadMessages(roomId: chatRoomId, lastTime: time);
+  // }
 
-  updateMyLastSeen() {
-    service.updateLastSeen(roomId: chatRoomId, myId: profileController.myProfileID.toString());
-  }
+  // updateMyLastSeen() {
+  //   service.updateLastSeen(roomId: chatRoomId, myId: profileController.myProfileID.toString());
+  // }
 
   final profileController = Get.put(UserProfileController());
 
-  String get userName => profileController.myProfileID1 == orderDetails.user!.id.toString()
-      ? orderDetails.vendor!.storeName.toString()
-      : orderDetails.user!.name.toString();
+  // String get otherUserId => orderDetails.vendor!.id.toString();
 
-  String get otherUserId => orderDetails.vendor!.id.toString();
+  // String get myUserId1 => profileController.myProfileID1;
 
-  String get myUserId1 => profileController.myProfileID1;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   if (Get.arguments != null) {
+  //     chatRoomId = Get.arguments[0];
+  //     senderID = Get.arguments[1];
+  //     // orderDetails = Get.arguments[2] ?? const OrderDetailsScreen();
+  //     getRooInfo();
+  //     listenToChanges();
+  //   }
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    if (Get.arguments != null) {
-      chatRoomId = Get.arguments[0];
-      senderID = Get.arguments[1];
-      orderDetails = Get.arguments[2] ?? const OrderDetailsScreen();
-      getRooInfo();
-      listenToChanges();
-    }
-  }
-
-  late StreamSubscription<DocumentSnapshot<Map<String, dynamic>>> lastSeenSubscription;
+  // late StreamSubscription<DocumentSnapshot<Map<String, dynamic>>> lastSeenSubscription;
 
   RxInt lastTimeByOther = 0.obs;
   DateTime? lastTimeByOtherTime;
 
-  listenToChanges() {
-    lastSeenSubscription = service.getRoomInfoStream(roomId: chatRoomId).listen((event) {
-      log("events....    ${event.data()}");
-      lastTimeByOther.value = event.data()!["last_time_$otherUserId"];
-      log("events.........    ${lastTimeByOther.value}   gggg");
-      log("events.........    $otherUserId   gggg");
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    if (fromApi == true) {
-      lastSeenSubscription.cancel();
-      Future.delayed(const Duration(seconds: 1)).then((value) {
-        updateMyLastSeen();
-      });
-    }
-  }
-
-  void imagePickerOption() {
-    Get.bottomSheet(
-      SingleChildScrollView(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(15.0),
-            topRight: Radius.circular(15.0),
-          ),
-          child: Container(
-            color: Colors.white,
-            height: 250,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    "Pic Image From",
-                    style: TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor),
-                    onPressed: () {
-                      pickImage(ImageSource.camera);
-                      //Navigator.pop(context);
-                    },
-                    icon:  const Icon(Icons.camera,color: Colors.white,),
-                    label: const Text("CAMERA",style: TextStyle( color:Colors.white),),
-                  ),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor),
-                    onPressed: () {
-                      //Navigator.pop(context);
-                      pickImage(ImageSource.gallery);
-                    },
-                    icon: const Icon(Icons.image,color: Colors.white),
-                    label: const Text("GALLERY",style: TextStyle( color: Colors.white)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor),
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: const Icon(Icons.close,color: Colors.white),
-                    label: const Text("CANCEL",style: TextStyle( color: Colors.white)),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // listenToChanges() {
+  //   lastSeenSubscription = service.getRoomInfoStream(roomId: chatRoomId).listen((event) {
+  //     log("events....    ${event.data()}");
+  //     lastTimeByOther.value = event.data()!["last_time_$otherUserId"];
+  //     log("events.........    ${lastTimeByOther.value}   gggg");
+  //     log("events.........    $otherUserId   gggg");
+  //   });
+  // }
 
   Future<void> chooseImage(type) async {
     var image;
@@ -243,16 +154,30 @@ class _ChatScreen1State extends State<ChatScreen1> {
             log("55555555555${value.data!.image.toString()}");
             service
                 .sendMessage(
-                roomId: chatRoomId,
+                roomId: widget.roomId,
                 message: value.data!.image.toString(),
-                senderId: senderID,
+                senderId: widget.senderId,
                 messageType: MessageType.withImage,
-                orderDetail: orderDetails,
-                allowSet: !fromApi)
-                .then((value) {
-              messageController.clear();
-            });
-
+                usersInfo: {
+                  if(widget.customer != null)
+                    "customer": widget.customer,
+                  if(widget.vendor != null)
+                    "vendor": widget.vendor,
+                  if(widget.driver != null)
+                    "driver": widget.driver,
+                }, receiverId: widget.receiverId
+            );
+            // service
+            //     .sendMessage(
+            //     roomId: chatRoomId,
+            //     message: value.data!.image.toString(),
+            //     senderId: senderID,
+            //     messageType: MessageType.withImage,
+            //     orderDetail: orderDetails,
+            //     allowSet: !fromApi)
+            //     .then((value) {
+            //   messageController.clear();
+            // });
           } else {
             log("55555555555${value.data!.image.toString()}");
 
@@ -262,9 +187,9 @@ class _ChatScreen1State extends State<ChatScreen1> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
     return Theme(
       data: ThemeData(useMaterial3: true, dividerColor: Colors.transparent, backgroundColor: Colors.transparent),
       child: Scaffold(
@@ -295,60 +220,37 @@ class _ChatScreen1State extends State<ChatScreen1> {
                 },
                 child: const Icon(Icons.arrow_back)),
           ),
-          title: Obx(() {
-            if (refreshInt.value > 0) {}
-            bool showUser = true;
-            if (orderDetails.user != null) {
-              showUser = orderDetails.user!.id.toString() == senderID;
-            }
-            return Row(
-              children: [
-                orderDetails.user != null
-                    ? Image.network(
-                        showUser ? orderDetails.user!.profileImage.toString() : orderDetails.vendor!.storeImage,
-                        height: 30,
-                        width: 30,
-                        errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                      )
-                    : Image.asset(
-                        'assets/images/chatPerson.png',
-                        height: 30,
-                        width: 30,
-                      ),
-                InkWell(
-                  onTap: () {
-                    // Get.toNamed(ChatInformationScreen.chatInformation);
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      orderDetails.user != null
-                          ? Text(userName,
-                              style: TextStyle(
-                                  fontSize: AddSize.font14,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xFF1F2124)))
-                          : Text('',
-                              style: TextStyle(
-                                  fontSize: AddSize.font14,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xFF1F2124))),
-                      Text(DateFormat("hh:mm a").format(DateTime.fromMillisecondsSinceEpoch(lastTimeByOther.value)),
-                          style: TextStyle(
-                              fontSize: AddSize.font10, fontWeight: FontWeight.w300, color: const Color(0xFF1F2124))),
-                      // Text('last seen recently',style: TextStyle(fontSize: AddSize.font8,fontWeight: FontWeight.w400,color: Color(0xFF303D48))),
-                    ],
-                  ),
+          title: Row(
+            children: [
+              Image.network(
+                widget.receiverImage.toString(),
+                height: 30,
+                width: 30,
+                errorBuilder: (_, __, ___) => const Icon(Icons.person),
+              ),
+              InkWell(
+                onTap: () {
+                  // Get.toNamed(ChatInformationScreen.chatInformation);
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.receiverName,
+                        style: TextStyle(fontSize: AddSize.font14, fontWeight: FontWeight.w500, color: const Color(0xFF1F2124))),
+                    Text(DateFormat("hh:mm a").format(DateTime.fromMillisecondsSinceEpoch(lastTimeByOther.value)),
+                        style: TextStyle(fontSize: AddSize.font10, fontWeight: FontWeight.w300, color: const Color(0xFF1F2124))),
+                    // Text('last seen recently',style: TextStyle(fontSize: AddSize.font8,fontWeight: FontWeight.w400,color: Color(0xFF303D48))),
+                  ],
                 ),
-              ],
-            );
-          }),
+              ),
+            ],
+          ),
         ),
         body: Column(
           children: [
             Expanded(
               child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: service.getMessagesList(roomId: chatRoomId),
+                  stream: service.getMessagesList(roomId: widget.roomId),
                   builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                     if (snapshot.hasData) {
                       List<MessageModel> messagesList = [];
@@ -375,13 +277,12 @@ class _ChatScreen1State extends State<ChatScreen1> {
                             return Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: ChatBubble(
-                                isMe: profileController.myProfileID == messagesList[index].senderId.toString(),
+                                isMe: widget.senderId == messagesList[index].senderId.toString(),
                                 highlightTime: DateTime.tryParse(messagesList[index].highlightDate),
                                 message: messagesList[index].textMessage.toString(),
                                 sentTime: messagesList[index].messageSentTime,
                                 messageSeen: messagesList[index].messageSentTime != null && lastTimeByOther.value != 0
-                                    ? lastTimeByOther.value >
-                                        messagesList[index].messageSentTime!.microsecondsSinceEpoch
+                                    ? lastTimeByOther.value > messagesList[index].messageSentTime!.microsecondsSinceEpoch
                                     : false,
                                 messageType: messagesList[index].messageType.toString(),
                               ),
@@ -415,21 +316,20 @@ class _ChatScreen1State extends State<ChatScreen1> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap:(){
+                    onTap: () {
                       // pickImage(ImageSource.gallery);
                       chooseImage('Gallery');
-
-            },
+                    },
                     child: Image.asset(
                       'assets/images/add-square.png',
                       height: 28,
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       // imagePickerOption();
                       chooseImage('camera');
-                     },
+                    },
                     child: Image.asset(
                       'assets/images/camera1.png',
                       height: 28,
@@ -445,17 +345,24 @@ class _ChatScreen1State extends State<ChatScreen1> {
                         child: GestureDetector(
                             onTap: () {
                               if (messageController.text.trim().isEmpty) return;
+                              String kk = messageController.text.trim();
+                              messageController.clear();
                               service
                                   .sendMessage(
-                                      roomId: chatRoomId,
-                                      message: messageController.text.trim(),
-                                      senderId: profileController.myProfileID,
+                                      roomId: widget.roomId,
+                                      message: kk,
+                                  receiverId: widget.receiverId,
+                                      senderId: widget.senderId,
                                       messageType: MessageType.simpleMessage,
-                                      orderDetail: orderDetails,
-                                      allowSet: !fromApi)
-                                  .then((value) {
-                                messageController.clear();
-                              });
+                                      usersInfo: {
+                                        if(widget.customer != null)
+                                        "customer": widget.customer,
+                                        if(widget.vendor != null)
+                                        "vendor": widget.vendor,
+                                        if(widget.driver != null)
+                                        "driver": widget.driver,
+                                      }
+                              );
                             },
                             child: Image.asset(
                               'assets/images/PaperPlaneRight.png',
@@ -464,10 +371,6 @@ class _ChatScreen1State extends State<ChatScreen1> {
                       ),
                     ),
                   ),
-                /*  Image.asset(
-                    'assets/images/Group 1727.png',
-                    height: 48,
-                  ),*/
                 ],
               ),
             ),
@@ -477,12 +380,12 @@ class _ChatScreen1State extends State<ChatScreen1> {
     );
   }
 }
+
 class FileCompressionApi {
   //Compressing the picked image
   static Future<File?> compressImage(File file) async {
     try {
-      final compressedFile = await FlutterNativeImage.compressImage(file.path,
-          quality: 50, percentage: 10);
+      final compressedFile = await FlutterNativeImage.compressImage(file.path, quality: 50, percentage: 10);
       return compressedFile;
     } catch (e) {
       return null; //If any error occurs during compression, the process is stopped.

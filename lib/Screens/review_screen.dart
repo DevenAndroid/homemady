@@ -19,8 +19,6 @@ class ReviewScreen extends StatefulWidget {
 }
 
 class _ReviewScreenState extends State<ReviewScreen> {
-  final orderDetailsController = Get.put(OrderDetailsController());
-  final _formKey = GlobalKey<FormState>();
 
   final controller = Get.put(OrderDetailsController());
   String ratingvalue1 = '';
@@ -303,7 +301,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       Get.back();
                       Get.back();
                       controller.feedbackController.clear();
-                      orderDetailsController.getData();
                       showToast(value.message.toString());
                      // Get.toNamed(MyRouters.thankYouScreen);
                     }

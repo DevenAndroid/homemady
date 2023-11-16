@@ -6,6 +6,7 @@ import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import '../Screens/customer_order_tracking_screen.dart';
+import '../Screens/orderDetailsScreen.dart';
 import '../controller/my_order_controller.dart';
 import '../controller/order_details_controller.dart';
 import '../controller/order_tracking_controller.dart';
@@ -52,8 +53,9 @@ class _ActiveScreenState extends State<ActiveScreen> {
                 children: [
                   InkWell(
                     onTap: (){
-                      orderDetailsController.id.value = controller.model.value.data![index].orderId.toString();
-                      Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
+                      // orderDetailsController.id.value = controller.model.value.data![index].orderId.toString();
+                      // Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
+                      Get.to(()=> OrderDetailsScreen(storeID: controller.model.value.data![index].orderId.toString()));
                     },
                     child:
                     controller.isDataLoading.value ?

@@ -96,6 +96,8 @@ class OrderDetail {
     user = json['user'] != null ? User.fromJson(json['user']) : null;
     vendor =
     json['vendor'] != null ? Vendor.fromJson(json['vendor']) : null;
+    driver =
+    json['driver'] != null ? Driver.fromJson(json['driver']) : null;
     user = json['driver'] != null ? User.fromJson(json['driver']) : null;
     address =
     json['address'] != null ? Address.fromJson(json['address']) : null;
@@ -291,70 +293,114 @@ class User {
 }
 
 class Driver {
-  dynamic driverId;
-  dynamic dob;
-  dynamic name;
-  dynamic phone;
-  dynamic ppsNo;
-  dynamic vehicleType;
-  dynamic address;
-  dynamic vehicleName;
-  dynamic vehicleModel;
-  dynamic vehicleMake;
-  dynamic vehicleColor;
-  dynamic ppsCardImage;
-  dynamic licenceFrontImage;
-  dynamic licenceBackImage;
+  int? id;
+  bool? isDriver;
+  bool? isVendor;
+  String? latitude;
+  String? longitude;
+  String? location;
+  String? name;
+  String? lastName;
+  String? email;
+  String? countryCode;
+  String? phone;
+  // List<Null>? defaultAddress;
+  String? walletBalance;
+  String? earnedBalance;
+  String? profileImage;
+  String? referalCode;
+  bool? isDriverOnline;
+  bool? isVendorOnline;
+  int? deliveryRange;
+  bool? selfDelivery;
+  bool? asDriverVerified;
+  bool? asVendorVerified;
+  bool? isProfileComplete;
 
   Driver(
-      {this.driverId,
-        this.dob,
+      {this.id,
+        this.isDriver,
+        this.isVendor,
+        this.latitude,
+        this.longitude,
+        this.location,
         this.name,
+        this.lastName,
+        this.email,
+        this.countryCode,
         this.phone,
-        this.ppsNo,
-        this.vehicleType,
-        this.address,
-        this.vehicleName,
-        this.vehicleModel,
-        this.vehicleMake,
-        this.vehicleColor,
-        this.ppsCardImage,
-        this.licenceFrontImage,
-        this.licenceBackImage});
+        // this.defaultAddress,
+        this.walletBalance,
+        this.earnedBalance,
+        this.profileImage,
+        this.referalCode,
+        this.isDriverOnline,
+        this.isVendorOnline,
+        this.deliveryRange,
+        this.selfDelivery,
+        this.asDriverVerified,
+        this.asVendorVerified,
+        this.isProfileComplete});
 
   Driver.fromJson(Map<String, dynamic> json) {
-    driverId = json['driverId'];
-    dob = json['dob'];
+    id = json['id'];
+    isDriver = json['is_driver'];
+    isVendor = json['is_vendor'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    location = json['location'];
     name = json['name'];
+    lastName = json['last_name'];
+    email = json['email'];
+    countryCode = json['country_code'];
     phone = json['phone'];
-    ppsNo = json['pps_no'];
-    vehicleType = json['vehicle_type'];
-    address = json['address'];
-    vehicleName = json['vehicle_name'];
-    vehicleModel = json['vehicle_model'];
-    vehicleMake = json['vehicle_make'];
-    vehicleColor = json['vehicle_color'];
-    ppsCardImage = json['pps_card_image'];
-    licenceFrontImage = json['licence_front_image'];
-    licenceBackImage = json['licence_back_image'];
+    // if (json['default_address '] != null) {
+    //   defaultAddress = <Null>[];
+    //   json['default_address '].forEach((v) {
+    //     defaultAddress!.add(new Null.fromJson(v));
+    //   });
+    // }
+    walletBalance = json['wallet_balance'];
+    earnedBalance = json['earned_balance'];
+    profileImage = json['profile_image'];
+    referalCode = json['referal_code'];
+    isDriverOnline = json['is_driver_online'];
+    isVendorOnline = json['is_vendor_online'];
+    deliveryRange = json['delivery_range'];
+    selfDelivery = json['self_delivery'];
+    asDriverVerified = json['as_driver_verified'];
+    asVendorVerified = json['as_vendor_verified'];
+    isProfileComplete = json['is_profile_complete'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['driverId'] = driverId;
-    data['dob'] = dob;
-    data['name'] = name;
-    data['phone'] = phone;
-    data['pps_no'] = ppsNo;
-    data['vehicle_type'] = vehicleType;
-    data['address'] = address;
-    data['vehicle_name'] = vehicleName;
-    data['vehicle_model'] = vehicleModel;
-    data['vehicle_make'] = vehicleMake;
-    data['vehicle_color'] = vehicleColor;
-    data['pps_card_image'] = ppsCardImage;
-    data['licence_front_image'] = licenceFrontImage;
-    data['licence_back_image'] = licenceBackImage;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['is_driver'] = this.isDriver;
+    data['is_vendor'] = this.isVendor;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
+    data['location'] = this.location;
+    data['name'] = this.name;
+    data['last_name'] = this.lastName;
+    data['email'] = this.email;
+    data['country_code'] = this.countryCode;
+    data['phone'] = this.phone;
+    // if (this.defaultAddress != null) {
+    //   data['default_address '] =
+    //       this.defaultAddress!.map((v) => v.toJson()).toList();
+    // }
+    data['wallet_balance'] = this.walletBalance;
+    data['earned_balance'] = this.earnedBalance;
+    data['profile_image'] = this.profileImage;
+    data['referal_code'] = this.referalCode;
+    data['is_driver_online'] = this.isDriverOnline;
+    data['is_vendor_online'] = this.isVendorOnline;
+    data['delivery_range'] = this.deliveryRange;
+    data['self_delivery'] = this.selfDelivery;
+    data['as_driver_verified'] = this.asDriverVerified;
+    data['as_vendor_verified'] = this.asVendorVerified;
+    data['is_profile_complete'] = this.isProfileComplete;
     return data;
   }
 }

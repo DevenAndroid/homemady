@@ -9,6 +9,7 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 
 import '../controller/order_details_controller.dart';
+import 'orderDetailsScreen.dart';
 
 
 class ThankYouScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                      style: GoogleFonts.ramaraja(
                        fontSize: 65,
                        fontWeight: FontWeight.w400,
-                       color: Color(0xFF423E5E),
+                       color: const Color(0xFF423E5E),
                      ),
                      ),
                    ),
@@ -64,7 +65,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                      style: GoogleFonts.poppins(
                        fontSize: 14,
                        fontWeight: FontWeight.w300,
-                       color: Color(0xFF5E6F71),
+                       color: const Color(0xFF5E6F71),
                      ),
                    ),
                    addHeight(25),
@@ -93,7 +94,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                              style: GoogleFonts.poppins(
                                fontSize: 16,
                                fontWeight: FontWeight.w600,
-                               color: Color(0xFF1A2E33),
+                               color: const Color(0xFF1A2E33),
                              ),
                            ),
 
@@ -101,7 +102,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                              style: GoogleFonts.poppins(
                                fontSize: 14,
                                fontWeight: FontWeight.w400,
-                               color: Color(0xFF486769),
+                               color: const Color(0xFF486769),
                              ),
                            ),
                          ],
@@ -111,9 +112,9 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                    addHeight(140),
                    InkWell(
                      onTap: () {
-                       orderDetailsController.id.value=Get.arguments[0].toString();
-                       print("Order details order id is ${ orderDetailsController.id.value}");
-                       Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
+                       Get.to(()=> OrderDetailsScreen(
+                         storeID: Get.arguments[0].toString(),
+                       ));
                      },
                      child: Container(
                        height: 55,

@@ -7,6 +7,7 @@ import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 
 import '../Screens/mycart_Screen.dart';
+import '../Screens/orderDetailsScreen.dart';
 import '../controller/my_order_controller.dart';
 import '../controller/order_details_controller.dart';
 import '../repository/my_cart_repo.dart';
@@ -21,16 +22,11 @@ class CompleteScreen extends StatefulWidget {
 
 class _CompleteScreenState extends State<CompleteScreen> {
   final controller = Get.put(MyOrderController());
-  final orderDetailsController = Get.put(OrderDetailsController());
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
       controller.getData();
-      orderDetailsController.getData();
-      // Add Your Code here.
-
     });
   }
   @override
@@ -51,8 +47,11 @@ class _CompleteScreenState extends State<CompleteScreen> {
                   controller.model.value.data![index].deliveryStatus == 'Completed' ?
                   GestureDetector(
                     onTap: (){
-                      orderDetailsController.id.value = controller.model.value.data![index].orderId.toString();
-                      Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
+                      // orderDetailsController.id.value = controller.model.value.data![index].orderId.toString();
+                      // Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
+                      Get.to(()=> OrderDetailsScreen(
+                        storeID: controller.model.value.data![index].orderId.toString(),
+                      ));
                     },
                     child: Container(
                       decoration: BoxDecoration(

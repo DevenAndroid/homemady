@@ -11,7 +11,7 @@ import '../controller/user_profile_controller.dart';
 import '../routers/routers.dart';
 import '../widgets/app_theme.dart';
 import 'myAddressScreen.dart';
-import 'notification2.dart';
+import 'chat_screen/chatting_list_screen.dart';
 
 class CustomDrawer extends StatefulWidget {
 
@@ -282,7 +282,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
-                              Get.toNamed(NotificationScreen2.notificationScreen2);
+                              Get.toNamed(ChattingListScreen.notificationScreen2);
                               // }
                             }),
                         const Divider(

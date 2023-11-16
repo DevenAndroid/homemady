@@ -16,7 +16,7 @@ class FirebaseService{
   Stream<QuerySnapshot<Map<String, dynamic>>> getMessagesList({
     required String roomId,
   }){
-    return fireStore.collection(messageCollection).doc(roomId).collection("messages").orderBy("message_sent_time", descending: true).snapshots();
+    return fireStore.collection(messageCollection).doc(roomId).collection("messages").orderBy("message_sent_time", descending: true).limit(150).snapshots();
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getRoomInfoStream({
@@ -83,11 +83,13 @@ class FirebaseService{
     required String roomId,
     required String message,
     required String senderId,
+    required String receiverId,
     required MessageType messageType,
-    required OrderDetail orderDetail,
-    required bool allowSet
+    Map<String, dynamic>? usersInfo,
   }) async {
+
     DateTime currentTime = DateTime.now();
+
     Map<String, dynamic> map = {};
     map["text_message"] = message;
     map["sender_id"] = senderId;
@@ -96,22 +98,25 @@ class FirebaseService{
 
     await fireStore.collection(messageCollection).doc(roomId)
         .collection("messages").add(map).then((value) async {
-      log("Message Sent........");
-
-      Map<String, dynamic> map1 = {};
-      map1["last_message"] = message;
-      map1["last_message_time"] = currentTime;
-      map1["last_message_sender"] = senderId;
-      if(orderDetail.user != null){
-        map1["order_details"] = orderDetail.toJson();
-        map1["creators"] = [senderId,orderDetail.vendor!.id.toString()];
-      }
-      if(allowSet == true) {
-        await fireStore.collection(messageCollection).doc(roomId).set(map1).then((value) {
-          log("Message Updated");
-        });
-      } else {
+      final item = await fireStore.collection(messageCollection).doc(roomId).get();
+      if(item.exists){
+        Map<String, dynamic> map1 = {};
+        map1["last_message"] = message;
+        map1["last_message_time"] = currentTime;
+        map1["last_message_sender"] = senderId;
+        map1["creators"] = [senderId, receiverId];
         await fireStore.collection(messageCollection).doc(roomId).update(map1).then((value) {
+        log("Message Updated");
+      });
+      }
+      else {
+        Map<String, dynamic> map1 = {};
+        map1["last_message"] = message;
+        map1["last_message_time"] = currentTime;
+        map1["last_message_sender"] = senderId;
+        map1["usersInfo"] = usersInfo;
+        map1["creators"] = [senderId, receiverId];
+        await fireStore.collection(messageCollection).doc(roomId).set(map1).then((value) {
           log("Message Updated");
         });
       }

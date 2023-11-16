@@ -12,19 +12,16 @@ class OrderDetailsController extends GetxController{
 
   Rx<OrderDetailsModel> model = OrderDetailsModel().obs;
   RxBool isDataLoading = false.obs;
-  RxString id = ''.obs;
+  // RxString id = ''.obs;
   final TextEditingController feedbackController= TextEditingController();
 
-  getData(){
+  getData(String orderId){
     isDataLoading.value = false;
-    if(Get.arguments != null){
-      log(Get.arguments[0].toString());
-      orderDetailsRepo(id: Get.arguments[0].toString()).then((value) {
+      log(orderId);
+      orderDetailsRepo(id: orderId).then((value) {
         isDataLoading.value = true;
         model.value = value;
       });
-    }
-
   }
 
 }

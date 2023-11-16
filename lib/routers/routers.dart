@@ -27,14 +27,14 @@ import 'package:homemady/Screens/splash_screen.dart';
 import 'package:homemady/Screens/thankyou_Screen.dart';
 import 'package:homemady/myorderScreens/activeScreen.dart';
 import 'package:homemady/widgets/customeNavbar.dart';
-import '../Screens/chat_screen/chat_screen.dart';
+import '../Screens/chat_screen/main_chat_screen.dart';
 import '../Screens/coupon_list_screen.dart';
 import '../Screens/customer_order_tracking_screen.dart';
 import '../Screens/faqs_screen.dart';
 import '../Screens/help_center_screen.dart';
 import '../Screens/home_filter_screen.dart';
 import '../Screens/login_screen.dart';
-import '../Screens/notification2.dart';
+import '../Screens/chat_screen/chatting_list_screen.dart';
 import '../Screens/search_screen_data.dart';
 import '../Screens/store_review_screen.dart';
 import '../Screens/subscription_history.dart';
@@ -61,7 +61,7 @@ class MyRouters {
   static var bottomNavbar = "/bottomNavbar";
   static var activeScreen = "/activeScreen";
   static var myProfileScreen = "/myProfileScreen";
-  static var orderDetailsScreen = "/orderDetailsScreen";
+  // static var orderDetailsScreen = "/orderDetailsScreen";
   static var emailVerificationScreen = "/emailVerificationScreen";
   static var changePasswordScreen = "/changePasswordScreen";
   static var emailVerificationScreen2 = "/emailVerificationScreen2";
@@ -98,7 +98,7 @@ class MyRouters {
   GetPage(name: '/bottomNavbar', page: () => const BottomNavbar()),
   GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
   GetPage(name: '/myProfileScreen', page: () => const MyProfileScreen()),
-  GetPage(name: '/orderDetailsScreen', page: () => const OrderDetailsScreen()),
+  // GetPage(name: '/orderDetailsScreen', page: () => const OrderDetailsScreen()),
   GetPage(name: '/emailVerificationScreen', page: () => const EmailVerificationScreen()),
   GetPage(name: '/changePasswordScreen', page: () => const ChangePasswordScreen()),
   GetPage(name: '/emailVerificationScreen2', page: () => const EmailVerificationScreen2()),
@@ -118,8 +118,8 @@ class MyRouters {
   GetPage(name: CarteScreen.carteScreenPage, page: () => const CarteScreen()),
   GetPage(name: SearchScreenData.searchScreen, page: () => const SearchScreenData()),
   // GetPage(name: FilterProductScreen.filterProductScreen, page: () => const FilterProductScreen()),
-    GetPage(name: NotificationScreen2.notificationScreen2, page: () => const NotificationScreen2()),
-    GetPage(name: ChatScreen1.chatScreen1, page: () => const ChatScreen1()),
+    GetPage(name: ChattingListScreen.notificationScreen2, page: () => const ChattingListScreen()),
+    // GetPage(name: MainChatScreen.chatScreen1, page: () => const MainChatScreen()),
     GetPage(name: HomeFilterScreen.homeFilterScreen, page: () => const HomeFilterScreen()),
     GetPage(name: SubscriptionScreen.subscriptionScreen, page: () => const  SubscriptionScreen()),
     GetPage(name: SubscriptionHistoryScreen.subscriptionHistoryScreen, page: () => const  SubscriptionHistoryScreen()),

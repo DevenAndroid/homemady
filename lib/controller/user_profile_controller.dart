@@ -23,7 +23,7 @@ class UserProfileController extends GetxController {
   RxBool isDataLoading = false.obs;
   RxInt refreshInt = 0.obs;
   Rx<File> image = File("").obs;
-  String myProfileID = "";
+  // String myProfileID = "";
   RxString countryCode = "".obs;
   RxString initialCode = "".obs;
   String get myProfileID1 => model.value.data!.id.toString();

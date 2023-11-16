@@ -43,6 +43,7 @@ class FirebaseService{
   Stream<QuerySnapshot<Map<String, dynamic>>> getRoomsListStream({
     required String profileID,
   }){
+    print("profileID...   "+profileID);
     return fireStore.collection(messageCollection).where("creators", arrayContains: profileID)
         .orderBy("last_message_time", descending: true).snapshots();
   }
@@ -106,7 +107,7 @@ class FirebaseService{
         map1["last_message_sender"] = senderId;
         map1["creators"] = [senderId, receiverId];
         await fireStore.collection(messageCollection).doc(roomId).update(map1).then((value) {
-        log("Message Updated");
+        log("Message Updated...     $map1");
       });
       }
       else {
@@ -117,7 +118,7 @@ class FirebaseService{
         map1["usersInfo"] = usersInfo;
         map1["creators"] = [senderId, receiverId];
         await fireStore.collection(messageCollection).doc(roomId).set(map1).then((value) {
-          log("Message Updated");
+          log("Message Updated...     $map1");
         });
       }
 

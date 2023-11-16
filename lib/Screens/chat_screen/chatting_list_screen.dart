@@ -28,7 +28,19 @@ class ChattingListScreenState extends State<ChattingListScreen> {
   final DateFormat dateFormat1 = DateFormat("hh:mm a");
 
   final profileController = Get.put(UserProfileController());
-  String get myUserID => profileController.myProfileID;
+  // String get myUserID => profileController.myProfileID;
+
+  String myId = "";
+
+  getId() async {
+    String? myUserId = await getMyUserId();
+    myId = myUserId!;
+  }
+  @override
+  void initState() {
+    super.initState();
+    getId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +99,7 @@ class ChattingListScreenState extends State<ChattingListScreen> {
             Expanded(
               child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                   // stream: FirebaseService().getRoomsListStream(profileID: profileController.myProfileID),
-                  stream: FirebaseService().getRoomsListStream(profileID: myUserID.toString()),
+                  stream: FirebaseService().getRoomsListStream(profileID: myId),
                   builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                     if (snapshot.hasData) {
                       List<ChatDataModel> gg = snapshot.data!.docs.map((e) => ChatDataModel.fromMap(e.data())).toList();
@@ -100,15 +112,16 @@ class ChattingListScreenState extends State<ChattingListScreen> {
                               padding: const EdgeInsets.only(top: 10),
                               // physics: BouncingScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
+                                return SizedBox();
                                 final chatData = gg[index];
                                 OrderDetail orderDetail = OrderDetail.fromJson(chatData.order_details!);
-                                String displayName = myUserID != orderDetail.vendor!.id.toString()
+                                String displayName = myId != orderDetail.vendor!.id.toString()
                                     ? orderDetail.vendor!.storeName.toString()
                                     : orderDetail.user!.name.toString();
-                                String displayImage = myUserID != orderDetail.vendor!.id.toString()
+                                String displayImage = myId != orderDetail.vendor!.id.toString()
                                     ? orderDetail.vendor!.storeImage.toString()
                                     : orderDetail.user!.profileImage.toString();
-                                String otherID = myUserID != orderDetail.vendor!.id.toString()
+                                String otherID = myId != orderDetail.vendor!.id.toString()
                                     ? orderDetail.vendor!.id.toString()
                                     : orderDetail.user!.id.toString();
                                 int otherTime = chatData.completeData!["last_time_$otherID"] ?? 0;
@@ -117,7 +130,7 @@ class ChattingListScreenState extends State<ChattingListScreen> {
                                 // log("other TIme.....     ${chatData.completeData!}");
 
                                 String roomId = FirebaseService().createChatRoom(
-                                    user1: profileController.myProfileID.convertToNum.toInt(),
+                                    user1: myId.convertToNum.toInt(),
                                     user2: orderDetail.vendor!.id!.toString().convertToNum.toInt());
 
                                 return InkWell(

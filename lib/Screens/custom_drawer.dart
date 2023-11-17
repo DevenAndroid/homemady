@@ -282,7 +282,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               color: Color(0xFF4F535E),
                             ),
                             onTap: () async {
-                              Get.toNamed(ChattingListScreen.notificationScreen2);
+                              String? myUserId = await getMyUserId();
+                              Get.to(()=> ChattingListScreen(
+                                myUserId: myUserId!,
+                              ));
                               // }
                             }),
                         const Divider(

@@ -118,7 +118,6 @@ class MyRouters {
   GetPage(name: CarteScreen.carteScreenPage, page: () => const CarteScreen()),
   GetPage(name: SearchScreenData.searchScreen, page: () => const SearchScreenData()),
   // GetPage(name: FilterProductScreen.filterProductScreen, page: () => const FilterProductScreen()),
-    GetPage(name: ChattingListScreen.notificationScreen2, page: () => const ChattingListScreen()),
     // GetPage(name: MainChatScreen.chatScreen1, page: () => const MainChatScreen()),
     GetPage(name: HomeFilterScreen.homeFilterScreen, page: () => const HomeFilterScreen()),
     GetPage(name: SubscriptionScreen.subscriptionScreen, page: () => const  SubscriptionScreen()),

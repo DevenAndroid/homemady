@@ -11,10 +11,8 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../controller/order_details_controller.dart';
 import '../controller/user_profile_controller.dart';
-import '../model/order_details_model.dart';
 import '../service/firebase_service.dart';
 import 'chat_screen/main_chat_screen.dart';
 

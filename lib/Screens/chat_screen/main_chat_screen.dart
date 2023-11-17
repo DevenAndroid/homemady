@@ -24,7 +24,7 @@ import '../orderDetailsScreen.dart';
 import 'chat_bubble.dart';
 
 class MainChatScreen extends StatefulWidget {
-  MainChatScreen({
+  const MainChatScreen({
     Key? key,
     required this.roomId,
     required this.orderId,
@@ -43,21 +43,17 @@ class MainChatScreen extends StatefulWidget {
   final String receiverId;
   final String receiverName;
   final String receiverImage;
-  Map? customer;
-  Map? vendor;
-  Map? driver;
+  final Map? customer;
+  final Map? vendor;
+  final Map? driver;
 
   @override
   State<MainChatScreen> createState() => _MainChatScreenState();
 }
 
 class _MainChatScreenState extends State<MainChatScreen> {
-  // String chatRoomId = "";
-  // String senderID = "";
   FirebaseService service = FirebaseService();
   final TextEditingController messageController = TextEditingController();
-  // RxInt refreshInt = 0.obs;
-  // bool fromApi = false;
 
   File pickedImage = File("");
   RxString profileImage = "".obs;
@@ -80,45 +76,10 @@ class _MainChatScreenState extends State<MainChatScreen> {
     "xcf",
   ];
 
-  // getUnreadMessages(DateTime time) {
-  //   service.getUnreadMessages(roomId: chatRoomId, lastTime: time);
-  // }
-
-  // updateMyLastSeen() {
-  //   service.updateLastSeen(roomId: chatRoomId, myId: profileController.myProfileID.toString());
-  // }
-
   final profileController = Get.put(UserProfileController());
-
-  // String get otherUserId => orderDetails.vendor!.id.toString();
-
-  // String get myUserId1 => profileController.myProfileID1;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   if (Get.arguments != null) {
-  //     chatRoomId = Get.arguments[0];
-  //     senderID = Get.arguments[1];
-  //     // orderDetails = Get.arguments[2] ?? const OrderDetailsScreen();
-  //     getRooInfo();
-  //     listenToChanges();
-  //   }
-  // }
-
-  // late StreamSubscription<DocumentSnapshot<Map<String, dynamic>>> lastSeenSubscription;
 
   RxInt lastTimeByOther = 0.obs;
   DateTime? lastTimeByOtherTime;
-
-  // listenToChanges() {
-  //   lastSeenSubscription = service.getRoomInfoStream(roomId: chatRoomId).listen((event) {
-  //     log("events....    ${event.data()}");
-  //     lastTimeByOther.value = event.data()!["last_time_$otherUserId"];
-  //     log("events.........    ${lastTimeByOther.value}   gggg");
-  //     log("events.........    $otherUserId   gggg");
-  //   });
-  // }
 
   Future<void> chooseImage(type) async {
     var image;
@@ -155,6 +116,7 @@ class _MainChatScreenState extends State<MainChatScreen> {
             service
                 .sendMessage(
                 roomId: widget.roomId,
+                orderID: widget.orderId,
                 message: value.data!.image.toString(),
                 senderId: widget.senderId,
                 messageType: MessageType.withImage,
@@ -340,35 +302,33 @@ class _MainChatScreenState extends State<MainChatScreen> {
                     child: CommonTextFieldWidgetSearch1(
                       controller: messageController,
                       hint: 'Type messages...',
-                      suffix: Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: GestureDetector(
-                            onTap: () {
-                              if (messageController.text.trim().isEmpty) return;
-                              String kk = messageController.text.trim();
-                              messageController.clear();
-                              service
-                                  .sendMessage(
-                                      roomId: widget.roomId,
-                                      message: kk,
-                                  receiverId: widget.receiverId,
-                                      senderId: widget.senderId,
-                                      messageType: MessageType.simpleMessage,
-                                      usersInfo: {
-                                        if(widget.customer != null)
-                                        "customer": widget.customer,
-                                        if(widget.vendor != null)
-                                        "vendor": widget.vendor,
-                                        if(widget.driver != null)
-                                        "driver": widget.driver,
-                                      }
-                              );
-                            },
-                            child: Image.asset(
-                              'assets/images/PaperPlaneRight.png',
-                              height: 10,
-                            )),
-                      ),
+                      suffix: IconButton(
+                          onPressed: () {
+                            if (messageController.text.trim().isEmpty) return;
+                            String kk = messageController.text.trim();
+                            messageController.clear();
+                            service
+                                .sendMessage(
+                                orderID: widget.orderId,
+                                roomId: widget.roomId,
+                                message: kk,
+                                receiverId: widget.receiverId,
+                                senderId: widget.senderId,
+                                messageType: MessageType.simpleMessage,
+                                usersInfo: {
+                                  if(widget.customer != null)
+                                    "customer": widget.customer,
+                                  if(widget.vendor != null)
+                                    "vendor": widget.vendor,
+                                  if(widget.driver != null)
+                                    "driver": widget.driver,
+                                }
+                            );
+                          },
+                          icon: Image.asset(
+                            'assets/images/PaperPlaneRight.png',
+                            height: 25,
+                          )),
                     ),
                   ),
                 ],

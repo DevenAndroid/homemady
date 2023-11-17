@@ -43,9 +43,9 @@ class FirebaseService{
   Stream<QuerySnapshot<Map<String, dynamic>>> getRoomsListStream({
     required String profileID,
   }){
-    print("profileID...   "+profileID);
+    print("profileID...   $profileID");
     return fireStore.collection(messageCollection).where("creators", arrayContains: profileID)
-        .orderBy("last_message_time", descending: true).snapshots();
+        .orderBy("last_message_time", descending: true).limit(50).snapshots();
   }
 
   Future<OrderDetail?> getRoomInfo({
@@ -82,6 +82,7 @@ class FirebaseService{
 
   Future sendMessage({
     required String roomId,
+    required String orderID,
     required String message,
     required String senderId,
     required String receiverId,
@@ -95,7 +96,7 @@ class FirebaseService{
     map["text_message"] = message;
     map["sender_id"] = senderId;
     map["message_type"] = messageType.name;
-    map["message_sent_time"] = currentTime;
+    map["message_sent_time"] = currentTime.millisecondsSinceEpoch;
 
     await fireStore.collection(messageCollection).doc(roomId)
         .collection("messages").add(map).then((value) async {
@@ -103,7 +104,7 @@ class FirebaseService{
       if(item.exists){
         Map<String, dynamic> map1 = {};
         map1["last_message"] = message;
-        map1["last_message_time"] = currentTime;
+        map1["last_message_time"] = currentTime.millisecondsSinceEpoch;
         map1["last_message_sender"] = senderId;
         map1["creators"] = [senderId, receiverId];
         await fireStore.collection(messageCollection).doc(roomId).update(map1).then((value) {
@@ -113,7 +114,9 @@ class FirebaseService{
       else {
         Map<String, dynamic> map1 = {};
         map1["last_message"] = message;
-        map1["last_message_time"] = currentTime;
+        map1["roomId"] = roomId;
+        map1["orderID"] = orderID;
+        map1["last_message_time"] = currentTime.millisecondsSinceEpoch;
         map1["last_message_sender"] = senderId;
         map1["usersInfo"] = usersInfo;
         map1["creators"] = [senderId, receiverId];

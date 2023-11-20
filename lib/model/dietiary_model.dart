@@ -25,7 +25,8 @@ class DietiartyModel {
 }
 
 class Data {
-  RxString selected = "".obs;
+  Set<String> selectedIds = {};
+  // RxString selected = "".obs;
   List<Dietary>? dietary;
   List<Dietary>? selectedItems=[];
 

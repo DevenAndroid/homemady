@@ -36,9 +36,9 @@ BuildContext? context}) async {
       types.add("filter_category=$filterCategory");
     }
 
-    if (categoryType != "") {
-      types.add("category_type=$categoryType");
-    }
+    // if (categoryType != "") {
+    //   types.add("category_type=category");
+    // }
 
     if (dietaries != "") {
       types.add("dietaries=$dietaries");
@@ -49,6 +49,8 @@ BuildContext? context}) async {
     if (types.isNotEmpty) {
       url = "$url?${types.join("&")}";
     }
+
+    log("Generated Url .....      ${url}");
 
 
     http.Response response =

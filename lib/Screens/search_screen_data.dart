@@ -78,316 +78,710 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                     },
                   )),
             ),
+            // Dialog(
+            //   child: Padding(
+            //       padding: EdgeInsets.symmetric(
+            //         horizontal: AddSize.padding16,
+            //       ),
+            //       child:
+            //       SizedBox(
+            //         height: height * .6,
+            //         child: Column(
+            //           children: [
+            //             Expanded(
+            //               child: Padding(
+            //                 padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            //                 child: SingleChildScrollView(
+            //                   physics: const BouncingScrollPhysics(),
+            //                   child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            //                     Text(
+            //                       "Cuisine:",
+            //                       style: GoogleFonts.poppins(
+            //                         fontWeight: FontWeight.w500,
+            //                         fontSize: 19,
+            //                         color: const Color(0xFF425159),
+            //                       ),
+            //                     ),
+            //                     const SizedBox(
+            //                       height: 6,
+            //                     ),
+            //                     categoryController.isDataLoading ?
+            //                     ListView.builder(
+            //                         shrinkWrap: true,
+            //                         itemCount: categoryController.categoryModel.value.data!.category!.length,
+            //                         physics: const NeverScrollableScrollPhysics(),
+            //                         itemBuilder: (context, index) {
+            //                           final category = categoryController.categoryModel.value.data!.category![index];
+            //                           return InkWell(
+            //                             onTap: () {
+            //                               if(categoryController
+            //                                   .categoryModel.value.data!.selectedID.value != category.id.toString()) {
+            //                                 categoryController
+            //                                     .categoryModel.value.data!.selectedID.value = category.id.toString();
+            //                               } else {
+            //                                 categoryController
+            //                                     .categoryModel.value.data!.selectedID.value = "";
+            //                               }
+            //                             },
+            //                             child: Column(
+            //                               mainAxisSize: MainAxisSize.min,
+            //                               children: [
+            //                                 Row(
+            //                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                                   children: [
+            //                                     Expanded(
+            //                                       child: Text(
+            //                                         category.name.toString(),
+            //                                         style: GoogleFonts.poppins(
+            //                                           fontWeight: FontWeight.w300,
+            //                                           fontSize: 18,
+            //                                           color: const Color(0xFF425159),
+            //                                         ),
+            //                                       ),
+            //                                     ),
+            //                                     Obx(() {
+            //                                       return Checkbox(
+            //                                           side: const BorderSide(color: Colors.black, width: 2),
+            //                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+            //                                           value: categoryController
+            //                                               .categoryModel.value.data!.selectedID.value== category.id.toString(),
+            //                                           onChanged: (value) {
+            //                                             if(categoryController
+            //                                                 .categoryModel.value.data!.selectedID.value != category.id.toString()) {
+            //                                               categoryController
+            //                                                   .categoryModel.value.data!.selectedID.value = category.id.toString();
+            //                                             } else {
+            //                                               categoryController
+            //                                                   .categoryModel.value.data!.selectedID.value = "";
+            //                                             }
+            //                                           });
+            //                                     })
+            //                                   ],
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           );
+            //                         }):const Padding(
+            //                       padding: EdgeInsets.only(top: 80),
+            //                       child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+            //                     ),
+            //                     categoryController.isDataLoading ?
+            //                     ListView.builder(
+            //                         shrinkWrap: true,
+            //                         itemCount: categoryController.categoryModel.value.data!.secondaryCategory!.length,
+            //                         physics: const NeverScrollableScrollPhysics(),
+            //                         itemBuilder: (context, index) {
+            //                           final item = categoryController.categoryModel.value.data!.secondaryCategory![index];
+            //                           return InkWell(
+            //                             onTap: () {
+            //                               if(categoryController
+            //                                   .categoryModel.value.data!.selectedID.value != item.id.toString()) {
+            //                                 categoryController
+            //                                     .categoryModel.value.data!.selectedID.value = item.id.toString();
+            //                               } else {
+            //                                 categoryController
+            //                                     .categoryModel.value.data!.selectedID.value = "";
+            //                               }
+            //                             },
+            //                             child: Column(
+            //                               mainAxisSize: MainAxisSize.min,
+            //                               children: [
+            //                                 Row(
+            //                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                                   children: [
+            //                                     Text(
+            //                                       item.name.toString(),
+            //                                       style: GoogleFonts.poppins(
+            //                                         fontWeight: FontWeight.w300,
+            //                                         fontSize: 18,
+            //                                         color: const Color(0xFF425159),
+            //                                       ),
+            //                                     ),
+            //                                     Obx(() {
+            //                                       return Checkbox(
+            //                                           side: const BorderSide(color: Colors.black, width: 2),
+            //                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+            //                                           value: categoryController
+            //                                               .categoryModel.value.data!.selectedID.value == item.id.toString(),
+            //                                           onChanged: (value) {
+            //                                             if(categoryController
+            //                                                 .categoryModel.value.data!.selectedID.value != item.id.toString()) {
+            //                                               categoryController
+            //                                                   .categoryModel.value.data!.selectedID.value = item.id.toString();
+            //                                             } else {
+            //                                               categoryController
+            //                                                   .categoryModel.value.data!.selectedID.value = "";
+            //                                             }
+            //                                           });
+            //                                     })
+            //                                   ],
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           );
+            //                         }):const Padding(
+            //                       padding: EdgeInsets.only(top: 80),
+            //                       child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+            //                     ),
+            //                     categoryController.isDataLoading ?
+            //                     ListView.builder(
+            //                         shrinkWrap: true,
+            //                         itemCount: categoryController.categoryModel.value.data!.tertiaryCategory!.length,
+            //                         physics: const NeverScrollableScrollPhysics(),
+            //                         itemBuilder: (context, index) {
+            //                           final item = categoryController.categoryModel.value.data!.tertiaryCategory![index];
+            //                           return InkWell(
+            //                             onTap: () {
+            //                               if(categoryController.categoryModel.value.data!.selectedID.value != item.id.toString()) {
+            //                                 categoryController.categoryModel.value.data!.selectedID.value = item.id.toString();
+            //                               } else {
+            //                                 categoryController.categoryModel.value.data!.selectedID.value = "";
+            //                               }
+            //                             },
+            //                             child: Column(
+            //                               mainAxisSize: MainAxisSize.min,
+            //                               children: [
+            //                                 Row(
+            //                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                                   children: [
+            //                                     Text(
+            //                                       item.name.toString(),
+            //                                       style: GoogleFonts.poppins(
+            //                                         fontWeight: FontWeight.w300,
+            //                                         fontSize: 18,
+            //                                         color: const Color(0xFF425159),
+            //                                       ),
+            //                                     ),
+            //                                     Obx(() {
+            //                                       return Checkbox(
+            //                                           side: const BorderSide(color: Colors.black, width: 2),
+            //                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+            //                                           value:  categoryController.categoryModel.value.data!.selectedID.value == item.id.toString(),
+            //                                           onChanged: (value) {
+            //                                             if(categoryController.categoryModel.value.data!.selectedID.value != item.id.toString()) {
+            //                                               categoryController.categoryModel.value.data!.selectedID.value = item.id.toString();
+            //                                             } else {
+            //                                               categoryController.categoryModel.value.data!.selectedID.value = "";
+            //                                             }
+            //                                           });
+            //                                     })
+            //                                   ],
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           );
+            //                         }):const Padding(
+            //                       padding: EdgeInsets.only(top: 80),
+            //                       child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+            //                     ),
+            //
+            //                     Text(
+            //                       "Dietary:",
+            //                       style: GoogleFonts.poppins(
+            //                         fontWeight: FontWeight.w500,
+            //                         fontSize: 19,
+            //                         color: const Color(0xFF425159),
+            //                       ),
+            //                     ),
+            //                     const SizedBox(
+            //                       height: 6,
+            //                     ),
+            //                     categoryController.isDataLoading ?
+            //                     ListView.builder(
+            //                         shrinkWrap: true,
+            //                         itemCount: categoryController.dietiaryModel.value.data!.dietary!.length,
+            //                         physics: const NeverScrollableScrollPhysics(),
+            //                         itemBuilder: (context, index) {
+            //                           final item = categoryController.dietiaryModel.value.data!.dietary![index];
+            //                           return InkWell(
+            //                             onTap: () {
+            //                               //  homeController.chooseDietaries.value = categoryController.dietiaryModel.value.data!.dietary![index].id.toString();
+            //                               //  // homeController.categoryType.value = categoryController.dietiaryModel.value.data!.dietary![index].categoryType.toString();
+            //                               //  print("Filter  Dietiary category id is ${homeController.filterCategoryId.value}");
+            //                               // // print("Filter category type is ${homeController.categoryType.value }");
+            //                               //  homeController.getData();
+            //                               //  setState(() {});
+            //                             },
+            //                             child: Column(
+            //                               mainAxisSize: MainAxisSize.min,
+            //                               children: [
+            //                                 Row(
+            //                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                                   children: [
+            //                                     Text(
+            //                                       item.title.toString(),
+            //                                       style: GoogleFonts.poppins(
+            //                                         fontWeight: FontWeight.w300,
+            //                                         fontSize: 18,
+            //                                         color: const Color(0xFF425159),
+            //                                       ),
+            //                                     ),
+            //                                     Obx(() {
+            //                                       return Checkbox(
+            //                                           side: const BorderSide(color: Colors.black, width: 2),
+            //                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+            //                                           value: categoryController.dietiaryModel.value.data!.selected.value == item.id.toString(),
+            //                                           onChanged: (value) {
+            //                                             if(categoryController.dietiaryModel.value.data!.selected.value != item.id.toString()) {
+            //                                               categoryController.dietiaryModel.value.data!.selected.value =
+            //                                                   item.id.toString();
+            //                                             } else {
+            //                                               categoryController.dietiaryModel.value.data!.selected.value = "";
+            //                                             }
+            //                                           });
+            //                                     })
+            //                                   ],
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           );
+            //                         }):const Padding(
+            //                       padding: EdgeInsets.only(top: 80),
+            //                       child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
+            //                     ),
+            //
+            //
+            //
+            //                     // SizedBox(height: 15,),
+            //                   ]),
+            //                 ),
+            //               ),
+            //             ),
+            //             Center(
+            //               child: Padding(
+            //                   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //                   child: SizedBox(
+            //                     // width: 160,
+            //                     height: 40,
+            //                     child: ElevatedButton(
+            //                       child: const Text("Submit",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
+            //                       onPressed: () {
+            //                         String filterCategory = "";
+            //                         String categoryType = "";
+            //                         for (var element in categoryController.categoryModel.value.data!.allCategory) {
+            //                           if(categoryController.categoryModel.value.data!.selectedID.value == element.id.toString()){
+            //                             filterCategory = element.id.toString();
+            //                             categoryType = element.categoryType.toString();
+            //                             break;
+            //                           }
+            //                         }
+            //                         homeController.getData(
+            //                             filterCategory: filterCategory,
+            //                             categoryType: categoryType,
+            //                             chooseDietaries: categoryController.dietiaryModel.value.data!.selected.value,
+            //                             context: context
+            //                         ).then((value){
+            //
+            //                           //if() {
+            //                           Get.toNamed(HomeFilterScreen.homeFilterScreen);
+            //                           //Get.back();
+            //                           //}
+            //                         });
+            //                         // Get.back();
+            //
+            //                         // setState(() {});
+            //                       },
+            //                     ),
+            //                   )),
+            //             ),
+            //             const SizedBox(height: 5,),
+            //           ],
+            //         ),
+            //       )),
+            // ),
+
             Dialog(
-              child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AddSize.padding16,
-                  ),
-                  child:
-                  SizedBox(
-                    height: height * .6,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                            child: SingleChildScrollView(
-                              physics: const BouncingScrollPhysics(),
-                              child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text(
-                                  "Cuisine:",
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 19,
-                                    color: const Color(0xFF425159),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 6,
-                                ),
-                                categoryController.isDataLoading ?
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: categoryController.categoryModel.value.data!.category!.length,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      final category = categoryController.categoryModel.value.data!.category![index];
-                                      return InkWell(
-                                        onTap: () {
-                                          if(categoryController
-                                              .categoryModel.value.data!.selectedID.value != category.id.toString()) {
-                                            categoryController
-                                                .categoryModel.value.data!.selectedID.value = category.id.toString();
-                                          } else {
-                                            categoryController
-                                                .categoryModel.value.data!.selectedID.value = "";
-                                          }
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: StatefulBuilder(
+                builder: (context, newState) {
+                  return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AddSize.padding16,
+                      ),
+                      child: SizedBox(
+                        height: height * .6,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(),
+                                  child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                    Text(
+                                      "Cuisine:",
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 19,
+                                        color: const Color(0xFF425159),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    categoryController.isDataLoading
+                                        ? ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: categoryController.categoryModel.value.data!.category!.length,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final category = categoryController.categoryModel.value.data!.category![index];
+                                          return InkWell(
+                                            onTap: () {
+                                              if(categoryController.categoryModel.value.data!.selectedIds
+                                                  .value.contains(category.id.toString())){
+                                                categoryController.categoryModel.value.data!.selectedIds
+                                                    .value.remove(category.id.toString());
+                                              } else {
+                                                categoryController.categoryModel.value.data!.selectedIds
+                                                    .value.add(category.id.toString());
+                                              }
+                                              newState((){});
+                                              // if (categoryController.categoryModel.value.data!.selectedID.value !=
+                                              //     category.id.toString()) {
+                                              //   categoryController.categoryModel.value.data!.selectedID.value = category.id.toString();
+                                              // } else {
+                                              //   categoryController.categoryModel.value.data!.selectedID.value = "";
+                                              // }
+                                            },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    category.name.toString(),
-                                                    style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w300,
-                                                      fontSize: 18,
-                                                      color: const Color(0xFF425159),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        category.name.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w300,
+                                                          fontSize: 18,
+                                                          color: const Color(0xFF425159),
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
+                                                    Obx(() {
+                                                      return Checkbox(
+                                                          side: const BorderSide(color: Colors.black, width: 2),
+                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                                          value: categoryController.categoryModel.value.data!.selectedIds
+                                                              .value.contains(category.id.toString()),
+                                                          onChanged: (value) {
+                                                            if(categoryController.categoryModel.value.data!.selectedIds
+                                                                .value.contains(category.id.toString())){
+                                                              categoryController.categoryModel.value.data!.selectedIds
+                                                                  .value.remove(category.id.toString());
+                                                            } else {
+                                                              categoryController.categoryModel.value.data!.selectedIds
+                                                                  .value.add(category.id.toString());
+                                                            }
+                                                            newState((){});
+                                                          });
+                                                    })
+                                                  ],
                                                 ),
-                                                Obx(() {
-                                                  return Checkbox(
-                                                      side: const BorderSide(color: Colors.black, width: 2),
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                                      value: categoryController
-                                                          .categoryModel.value.data!.selectedID.value== category.id.toString(),
-                                                      onChanged: (value) {
-                                                        if(categoryController
-                                                            .categoryModel.value.data!.selectedID.value != category.id.toString()) {
-                                                          categoryController
-                                                              .categoryModel.value.data!.selectedID.value = category.id.toString();
-                                                        } else {
-                                                          categoryController
-                                                              .categoryModel.value.data!.selectedID.value = "";
-                                                        }
-                                                      });
-                                                })
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }):const Padding(
-                                  padding: EdgeInsets.only(top: 80),
-                                  child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
-                                ),
-                                categoryController.isDataLoading ?
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: categoryController.categoryModel.value.data!.secondaryCategory!.length,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      final item = categoryController.categoryModel.value.data!.secondaryCategory![index];
-                                      return InkWell(
-                                        onTap: () {
-                                          if(categoryController
-                                              .categoryModel.value.data!.selectedID.value != item.id.toString()) {
-                                            categoryController
-                                                .categoryModel.value.data!.selectedID.value = item.id.toString();
-                                          } else {
-                                            categoryController
-                                                .categoryModel.value.data!.selectedID.value = "";
-                                          }
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          );
+                                        })
+                                        : const Padding(
+                                      padding: EdgeInsets.only(top: 80),
+                                      child: Center(
+                                          child: Text(
+                                            'No Cooks available',
+                                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
+                                          )),
+                                    ),
+                                    categoryController.isDataLoading
+                                        ? ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: categoryController.categoryModel.value.data!.secondaryCategory!.length,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final item = categoryController.categoryModel.value.data!.secondaryCategory![index];
+                                          return InkWell(
+                                            onTap: () {
+                                              if(categoryController.categoryModel.value.data!.selectedIds
+                                                  .value.contains(item.id.toString())){
+                                                categoryController.categoryModel.value.data!.selectedIds
+                                                    .value.remove(item.id.toString());
+                                              } else {
+                                                categoryController.categoryModel.value.data!.selectedIds
+                                                    .value.add(item.id.toString());
+                                              }
+                                              newState((){});
+                                              // if (categoryController.categoryModel.value.data!.selectedID.value !=
+                                              //     item.id.toString()) {
+                                              //   categoryController.categoryModel.value.data!.selectedID.value = item.id.toString();
+                                              // } else {
+                                              //   categoryController.categoryModel.value.data!.selectedID.value = "";
+                                              // }
+                                            },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Text(
-                                                  item.name.toString(),
-                                                  style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 18,
-                                                    color: const Color(0xFF425159),
-                                                  ),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      item.name.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 18,
+                                                        color: const Color(0xFF425159),
+                                                      ),
+                                                    ),
+                                                    Obx(() {
+                                                      return Checkbox(
+                                                          side: const BorderSide(color: Colors.black, width: 2),
+                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                                          value: categoryController.categoryModel.value.data!.selectedIds
+                                                              .value.contains(item.id.toString()),
+                                                          onChanged: (value) {
+                                                            if(categoryController.categoryModel.value.data!.selectedIds
+                                                                .value.contains(item.id.toString())){
+                                                              categoryController.categoryModel.value.data!.selectedIds
+                                                                  .value.remove(item.id.toString());
+                                                            } else {
+                                                              categoryController.categoryModel.value.data!.selectedIds
+                                                                  .value.add(item.id.toString());
+                                                            }
+                                                            newState((){});
+                                                          });
+                                                    })
+                                                  ],
                                                 ),
-                                                Obx(() {
-                                                  return Checkbox(
-                                                      side: const BorderSide(color: Colors.black, width: 2),
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                                      value: categoryController
-                                                          .categoryModel.value.data!.selectedID.value == item.id.toString(),
-                                                      onChanged: (value) {
-                                                        if(categoryController
-                                                            .categoryModel.value.data!.selectedID.value != item.id.toString()) {
-                                                          categoryController
-                                                              .categoryModel.value.data!.selectedID.value = item.id.toString();
-                                                        } else {
-                                                          categoryController
-                                                              .categoryModel.value.data!.selectedID.value = "";
-                                                        }
-                                                      });
-                                                })
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }):const Padding(
-                                  padding: EdgeInsets.only(top: 80),
-                                  child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
-                                ),
-                                categoryController.isDataLoading ?
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: categoryController.categoryModel.value.data!.tertiaryCategory!.length,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      final item = categoryController.categoryModel.value.data!.tertiaryCategory![index];
-                                      return InkWell(
-                                        onTap: () {
-                                          if(categoryController.categoryModel.value.data!.selectedID.value != item.id.toString()) {
-                                            categoryController.categoryModel.value.data!.selectedID.value = item.id.toString();
-                                          } else {
-                                            categoryController.categoryModel.value.data!.selectedID.value = "";
-                                          }
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          );
+                                        })
+                                        : const Padding(
+                                      padding: EdgeInsets.only(top: 80),
+                                      child: Center(
+                                          child: Text(
+                                            'No Cooks available',
+                                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
+                                          )),
+                                    ),
+                                    categoryController.isDataLoading
+                                        ? ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: categoryController.categoryModel.value.data!.tertiaryCategory!.length,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final item = categoryController.categoryModel.value.data!.tertiaryCategory![index];
+                                          return InkWell(
+                                            onTap: () {
+                                              if(categoryController.categoryModel.value.data!.selectedIds
+                                                  .value.contains(item.id.toString())){
+                                                categoryController.categoryModel.value.data!.selectedIds
+                                                    .value.remove(item.id.toString());
+                                              } else {
+                                                categoryController.categoryModel.value.data!.selectedIds
+                                                    .value.add(item.id.toString());
+                                              }
+                                              newState((){});
+                                              // if (categoryController.categoryModel.value.data!.selectedID.value != item.id.toString()) {
+                                              //   categoryController.categoryModel.value.data!.selectedID.value = item.id.toString();
+                                              // } else {
+                                              //   categoryController.categoryModel.value.data!.selectedID.value = "";
+                                              // }
+                                            },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Text(
-                                                  item.name.toString(),
-                                                  style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 18,
-                                                    color: const Color(0xFF425159),
-                                                  ),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      item.name.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 18,
+                                                        color: const Color(0xFF425159),
+                                                      ),
+                                                    ),
+                                                    Obx(() {
+                                                      return Checkbox(
+                                                          side: const BorderSide(color: Colors.black, width: 2),
+                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                                          value: categoryController.categoryModel.value.data!.selectedIds
+                                                              .value.contains(item.id.toString()),
+                                                          onChanged: (value) {
+                                                            if(categoryController.categoryModel.value.data!.selectedIds
+                                                                .value.contains(item.id.toString())){
+                                                              categoryController.categoryModel.value.data!.selectedIds
+                                                                  .value.remove(item.id.toString());
+                                                            } else {
+                                                              categoryController.categoryModel.value.data!.selectedIds
+                                                                  .value.add(item.id.toString());
+                                                            }
+                                                            newState((){});
+                                                          });
+                                                    })
+                                                  ],
                                                 ),
-                                                Obx(() {
-                                                  return Checkbox(
-                                                      side: const BorderSide(color: Colors.black, width: 2),
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                                      value:  categoryController.categoryModel.value.data!.selectedID.value == item.id.toString(),
-                                                      onChanged: (value) {
-                                                        if(categoryController.categoryModel.value.data!.selectedID.value != item.id.toString()) {
-                                                          categoryController.categoryModel.value.data!.selectedID.value = item.id.toString();
-                                                        } else {
-                                                          categoryController.categoryModel.value.data!.selectedID.value = "";
-                                                        }
-                                                      });
-                                                })
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }):const Padding(
-                                  padding: EdgeInsets.only(top: 80),
-                                  child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
-                                ),
+                                          );
+                                        })
+                                        : const Padding(
+                                      padding: EdgeInsets.only(top: 80),
+                                      child: Center(
+                                          child: Text(
+                                            'No Cooks available',
+                                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
+                                          )),
+                                    ),
 
-                                Text(
-                                  "Dietary:",
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 19,
-                                    color: const Color(0xFF425159),
+                                    Text(
+                                      "Dietary:",
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 19,
+                                        color: const Color(0xFF425159),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    categoryController.isDataLoading
+                                        ? ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: categoryController.dietiaryModel.value.data!.dietary!.length,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final item = categoryController.dietiaryModel.value.data!.dietary![index];
+                                          return InkWell(
+                                            onTap: () {
+                                              if(categoryController.dietiaryModel.value.data!.selectedIds.contains(item.id.toString())){
+                                                categoryController.dietiaryModel.value.data!.selectedIds.remove(item.id.toString());
+                                              } else {
+                                                categoryController.dietiaryModel.value.data!.selectedIds.add(item.id.toString());
+                                              }
+                                              newState((){});
+
+                                              //  homeController.chooseDietaries.value = categoryController.dietiaryModel.value.data!.dietary![index].id.toString();
+                                              //  // homeController.categoryType.value = categoryController.dietiaryModel.value.data!.dietary![index].categoryType.toString();
+                                              //  print("Filter  Dietiary category id is ${homeController.filterCategoryId.value}");
+                                              // // print("Filter category type is ${homeController.categoryType.value }");
+                                              //  homeController.getData();
+                                              //  setState(() {});
+                                            },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      item.title.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 18,
+                                                        color: const Color(0xFF425159),
+                                                      ),
+                                                    ),
+                                                    Obx(() {
+                                                      return Checkbox(
+                                                          side: const BorderSide(color: Colors.black, width: 2),
+                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                                                          value: categoryController.dietiaryModel.value.data!.selectedIds.contains(item.id.toString()),
+                                                          onChanged: (value) {
+                                                            if(categoryController.dietiaryModel.value.data!.selectedIds.contains(item.id.toString())){
+                                                              categoryController.dietiaryModel.value.data!.selectedIds.remove(item.id.toString());
+                                                            } else {
+                                                              categoryController.dietiaryModel.value.data!.selectedIds.add(item.id.toString());
+                                                            }
+                                                            newState((){});
+                                                          });
+                                                    })
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        })
+                                        : const Padding(
+                                      padding: EdgeInsets.only(top: 80),
+                                      child: Center(
+                                          child: Text(
+                                            'No Cooks available',
+                                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
+                                          )),
+                                    ),
+
+                                    // SizedBox(height: 15,),
+                                  ]),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  // width: 160,
+                                  height: 40,
+                                  child: ElevatedButton(
+                                    child: const Text(
+                                      "Clear All",
+                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                                    ),
+                                    onPressed: () {
+                                      categoryController.dietiaryModel.value.data!.selectedIds.clear();
+                                      categoryController.categoryModel.value.data!.selectedIds.clear();
+                                      newState((){});
+                                      setState(() {});
+                                    },
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 6,
+                                SizedBox(
+                                  // width: 160,
+                                  height: 40,
+                                  child: ElevatedButton(
+                                    child: const Text(
+                                      "Submit",
+                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                                    ),
+                                    onPressed: () {
+                                      // sortedFilter = false;
+                                      // String filterCategory = "";
+                                      // String categoryType = "";
+                                      // for (var element in categoryController.categoryModel.value.data!.allCategory) {
+                                      //   if (categoryController.categoryModel.value.data!.selectedID.value == element.id.toString()) {
+                                      //     filterCategory = element.id.toString();
+                                      //     categoryType = element.categoryType.toString();
+                                      //     break;
+                                      //   }
+                                      // }
+                                      homeController
+                                          .getData(
+                                          filterCategory: categoryController.categoryModel.value.data!.selectedIds
+                                              .value.toList().join(","),
+                                          // categoryType: ,
+                                          chooseDietaries: categoryController.dietiaryModel.value.data!.selectedIds.toList().join(","),
+                                          context: context)
+                                          .then((value) {
+                                        //if() {
+                                        // Get.toNamed(HomeFilterScreen.homeFilterScreen);
+                                        //Get.back();
+                                        //}
+                                      });
+                                      Get.back();
+
+                                      setState(() {});
+                                    },
+                                  ),
                                 ),
-                                categoryController.isDataLoading ?
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: categoryController.dietiaryModel.value.data!.dietary!.length,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      final item = categoryController.dietiaryModel.value.data!.dietary![index];
-                                      return InkWell(
-                                        onTap: () {
-                                          //  homeController.chooseDietaries.value = categoryController.dietiaryModel.value.data!.dietary![index].id.toString();
-                                          //  // homeController.categoryType.value = categoryController.dietiaryModel.value.data!.dietary![index].categoryType.toString();
-                                          //  print("Filter  Dietiary category id is ${homeController.filterCategoryId.value}");
-                                          // // print("Filter category type is ${homeController.categoryType.value }");
-                                          //  homeController.getData();
-                                          //  setState(() {});
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  item.title.toString(),
-                                                  style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 18,
-                                                    color: const Color(0xFF425159),
-                                                  ),
-                                                ),
-                                                Obx(() {
-                                                  return Checkbox(
-                                                      side: const BorderSide(color: Colors.black, width: 2),
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                                                      value: categoryController.dietiaryModel.value.data!.selected.value == item.id.toString(),
-                                                      onChanged: (value) {
-                                                        if(categoryController.dietiaryModel.value.data!.selected.value != item.id.toString()) {
-                                                          categoryController.dietiaryModel.value.data!.selected.value =
-                                                              item.id.toString();
-                                                        } else {
-                                                          categoryController.dietiaryModel.value.data!.selected.value = "";
-                                                        }
-                                                      });
-                                                })
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }):const Padding(
-                                  padding: EdgeInsets.only(top: 80),
-                                  child: Center(child: Text('No Cooks available',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.black),)),
-                                ),
-
-
-
-                                // SizedBox(height: 15,),
-                              ]),
+                              ],
                             ),
-                          ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                          ],
                         ),
-                        Center(
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: SizedBox(
-                                // width: 160,
-                                height: 40,
-                                child: ElevatedButton(
-                                  child: const Text("Submit",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
-                                  onPressed: () {
-                                    String filterCategory = "";
-                                    String categoryType = "";
-                                    for (var element in categoryController.categoryModel.value.data!.allCategory) {
-                                      if(categoryController.categoryModel.value.data!.selectedID.value == element.id.toString()){
-                                        filterCategory = element.id.toString();
-                                        categoryType = element.categoryType.toString();
-                                        break;
-                                      }
-                                    }
-                                    homeController.getData(
-                                        filterCategory: filterCategory,
-                                        categoryType: categoryType,
-                                        chooseDietaries: categoryController.dietiaryModel.value.data!.selected.value,
-                                        context: context
-                                    ).then((value){
-
-                                      //if() {
-                                      Get.toNamed(HomeFilterScreen.homeFilterScreen);
-                                      //Get.back();
-                                      //}
-                                    });
-                                    // Get.back();
-
-                                    // setState(() {});
-                                  },
-                                ),
-                              )),
-                        ),
-                        const SizedBox(height: 5,),
-                      ],
-                    ),
-                  )),
+                      ));
+                }
+              ),
             ),
           ],
         );
@@ -483,8 +877,6 @@ class _SearchScreenDataState extends State<SearchScreenData> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus!.unfocus();

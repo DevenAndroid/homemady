@@ -55,7 +55,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'poppinsSans',
           primarySwatch: Colors.green,
+          useMaterial3: false
         ),
+        themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         getPages:MyRouters.route,

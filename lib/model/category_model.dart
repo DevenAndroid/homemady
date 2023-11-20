@@ -35,7 +35,8 @@ class Data {
 
 
 
-  RxString selectedID = "".obs;
+  // RxString selectedID = "".obs;
+  RxSet<String> selectedIds = <String>{}.obs;
   List<Category>? category;
   List<Category>? secondaryCategory;
   List<Category>? tertiaryCategory;

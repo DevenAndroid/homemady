@@ -15,9 +15,10 @@ import '../controller/order_details_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../service/firebase_service.dart';
 import 'chat_screen/main_chat_screen.dart';
+import 'review_screen.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
-  const OrderDetailsScreen({Key? key, required this.storeID}) : super(key: key);
+  const OrderDetailsScreen({super.key, required this.storeID});
   final String storeID;
   @override
   State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
@@ -376,35 +377,42 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with TickerProv
             children: [driverDetails(), vendorDetails()],
           )),
       bottomNavigationBar: Obx(() {
-        return controller.model.value.orderDetail != null
-            ? controller.model.value.orderDetail!.deliveryStatus == "Completed" &&
-                    controller.model.value.orderDetail!.feedback == false
-                ? InkWell(
-                    onTap: () {
-                      Get.toNamed(MyRouters.reviewScreen);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 56,
-                        width: AddSize.screenWidth / 1.1,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFFFF6B6B)),
-                        child: Center(
-                          child: Text(
-                            'Send Feedback For Order',
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+        if (controller.model.value.orderDetail != null) {
+          if (controller.model.value.orderDetail!.deliveryStatus == "Completed" &&
+              controller.model.value.orderDetail!.feedback == false) {
+            return InkWell(
+              onTap: () {
+                // Get.toNamed(MyRouters.reviewScreen);
+                Get.to(() => ReviewScreen(
+                      orderId: controller.model.value.orderDetail!.orderId.toString(),
+                    ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  height: 56,
+                  width: AddSize.screenWidth / 1.1,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFFFF6B6B)),
+                  child: Center(
+                    child: Text(
+                      'Send Feedback For Order',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                  )
-                : const SizedBox()
-            : const SizedBox();
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return const SizedBox();
+          }
+        } else {
+          return const SizedBox();
+        }
       }),
     );
   }
@@ -567,25 +575,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with TickerProv
                                     user1: myUserId.convertToNum.toInt(),
                                     user2: controller.model.value.orderDetail!.driver!.id.toString().convertToNum.toInt());
                                 log(roomId);
-                                Get.to(()=> MainChatScreen(
-                                  roomId: roomId,
-                                  orderId: controller.model.value.orderDetail!.orderId.toString(),
-                                  receiverId: controller.model.value.orderDetail!.driver!.id.toString(),
-                                  receiverName: controller.model.value.orderDetail!.driver!.name.toString(),
-                                  receiverImage: controller.model.value.orderDetail!.driver!.profileImage.toString(),
-                                  senderId: myUserId,
-                                  customer: {
-                                    "user_id": profileController.model.value.data!.id.toString(),
-                                    "user_name": profileController.model.value.data!.name.toString(),
-                                    "user_image": profileController.model.value.data!.profileImage.toString(),
-                                  },
-                                  driver: {
-                                    "user_id": controller.model.value.orderDetail!.driver!.id.toString(),
-                                    "user_name": controller.model.value.orderDetail!.driver!.name.toString(),
-                                    "user_image": controller.model.value.orderDetail!.driver!.profileImage.toString(),
-                                  },
-                                )
-                                );
+                                Get.to(() => MainChatScreen(
+                                      roomId: roomId,
+                                      orderId: controller.model.value.orderDetail!.orderId.toString(),
+                                      receiverId: controller.model.value.orderDetail!.driver!.id.toString(),
+                                      receiverName: controller.model.value.orderDetail!.driver!.name.toString(),
+                                      receiverImage: controller.model.value.orderDetail!.driver!.profileImage.toString(),
+                                      senderId: myUserId,
+                                      customer: {
+                                        "user_id": profileController.model.value.data!.id.toString(),
+                                        "user_name": profileController.model.value.data!.name.toString(),
+                                        "user_image": profileController.model.value.data!.profileImage.toString(),
+                                      },
+                                      driver: {
+                                        "user_id": controller.model.value.orderDetail!.driver!.id.toString(),
+                                        "user_name": controller.model.value.orderDetail!.driver!.name.toString(),
+                                        "user_image": controller.model.value.orderDetail!.driver!.profileImage.toString(),
+                                      },
+                                    ));
                               },
                               child: const Text('Need any help?', style: TextStyle())),
                         ],
@@ -1201,25 +1208,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with TickerProv
                                       user1: myUserId.convertToNum.toInt(),
                                       user2: controller.model.value.orderDetail!.vendor!.storeId.toString().convertToNum.toInt());
                                   log(roomId);
-                                  Get.to(()=> MainChatScreen(
-                                    roomId: roomId,
-                                    orderId: controller.model.value.orderDetail!.orderId.toString(),
-                                    receiverId: controller.model.value.orderDetail!.vendor!.storeId.toString(),
-                                    receiverName: controller.model.value.orderDetail!.vendor!.storeName.toString(),
-                                    receiverImage: controller.model.value.orderDetail!.vendor!.storeImage.toString(),
-                                    senderId: myUserId,
-                                    customer: {
-                                      "user_id": profileController.model.value.data!.id.toString(),
-                                      "user_name": profileController.model.value.data!.name.toString(),
-                                      "user_image": profileController.model.value.data!.profileImage.toString(),
-                                    },
-                                    vendor: {
-                                      "user_id": controller.model.value.orderDetail!.vendor!.storeId.toString(),
-                                      "user_name": controller.model.value.orderDetail!.vendor!.storeName.toString(),
-                                      "user_image": controller.model.value.orderDetail!.vendor!.storeImage.toString(),
-                                    },
-                                  )
-                                  );
+                                  Get.to(() => MainChatScreen(
+                                        roomId: roomId,
+                                        orderId: controller.model.value.orderDetail!.orderId.toString(),
+                                        receiverId: controller.model.value.orderDetail!.vendor!.storeId.toString(),
+                                        receiverName: controller.model.value.orderDetail!.vendor!.storeName.toString(),
+                                        receiverImage: controller.model.value.orderDetail!.vendor!.storeImage.toString(),
+                                        senderId: myUserId,
+                                        customer: {
+                                          "user_id": profileController.model.value.data!.id.toString(),
+                                          "user_name": profileController.model.value.data!.name.toString(),
+                                          "user_image": profileController.model.value.data!.profileImage.toString(),
+                                        },
+                                        vendor: {
+                                          "user_id": controller.model.value.orderDetail!.vendor!.storeId.toString(),
+                                          "user_name": controller.model.value.orderDetail!.vendor!.storeName.toString(),
+                                          "user_image": controller.model.value.orderDetail!.vendor!.storeImage.toString(),
+                                        },
+                                      ));
                                 },
                                 child: const Text('Need any help?', style: TextStyle())),
                           ],

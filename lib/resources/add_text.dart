@@ -46,9 +46,11 @@ String? validateEmail(String? email) {
 
 addCartSection(){
   final myCartController = Get.put(MyCartListController());
-  return BottomAppBar(
+  return Card(
       elevation: 0,
+      margin: EdgeInsets.zero,
       color: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
       child: Obx(() {
         return myCartController.isDataLoading.value
             ? Column(
@@ -75,8 +77,8 @@ addCartSection(){
                   style: ElevatedButton.styleFrom(
                       minimumSize:
                       Size(double.maxFinite, AddSize.size30 * 2),
-                      // primary: AppTheme.primaryColor,
-                      foregroundColor: Colors.transparent,
+                      primary: Color(0xFF68C541),
+                      // foregroundColor: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -134,7 +136,7 @@ addCartSection(){
               ),
             ),
             SizedBox(
-              height: AddSize.size20,
+              height: 20,
             ),
           ],
         )

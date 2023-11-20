@@ -148,11 +148,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
     // var storeId="2";
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Obx(() {
-        return Scaffold(
-          body: controller.isDataLoading.value && controller.model.value.data != null
-              ? VerticalScrollableTabView(
+    return Obx(() {
+      return Scaffold(
+        body: controller.isDataLoading.value && controller.model.value.data != null
+            ? SafeArea(
+              child: VerticalScrollableTabView(
                   physics: const BouncingScrollPhysics(),
                   autoScrollController: autoController,
                   // scrollbarThumbVisibility: true,
@@ -677,15 +677,15 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                           indicatorSize: TabBarIndicatorSize.tab,
                         )),
                   ],
-                )
-              : const Center(child: CircularProgressIndicator()),
-          bottomNavigationBar:
-              myCartController.isDataLoading.value && myCartController.model.value.data!.cartItems!.isNotEmpty
-                  ? addCartSection()
-                  : null,
-        );
-      }),
-    );
+                ),
+            )
+            : const Center(child: CircularProgressIndicator()),
+        bottomNavigationBar:
+            myCartController.isDataLoading.value && myCartController.model.value.data!.cartItems!.isNotEmpty
+                ? addCartSection()
+                : null,
+      );
+    });
   }
 
   // Future<void> _showSimpleDialog3(BuildContext context) async {

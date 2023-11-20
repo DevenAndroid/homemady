@@ -8,7 +8,6 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/my_order_controller.dart';
 
-
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({Key? key, required this.performAction}) : super(key: key);
   final Function(bool gg) performAction;
@@ -16,7 +15,7 @@ class MyOrderScreen extends StatefulWidget {
   State<MyOrderScreen> createState() => _MyOrderScreenState();
 }
 
-class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderStateMixin{
+class _MyOrderScreenState extends State<MyOrderScreen> with TickerProviderStateMixin {
   RxBool isSelect = false.obs;
 
   late TabController tabController;
@@ -37,32 +36,30 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: backAppBar(title: 'My Orders', context: context,performAction: (bool sd) {
-        widget.performAction(sd);
-      }),
-      body:
-          Column(
+      appBar: backAppBar(
+          title: 'My Orders',
+          context: context,
+          performAction: (bool sd) {
+            widget.performAction(sd);
+          }),
+      body: Column(
         children: [
-           addHeight(20),
+          addHeight(20),
           Stack(
             children: [
               Positioned.fill(
                   bottom: 2,
                   child: Container(
                       decoration: const BoxDecoration(
-                        border: Border(
-                          bottom:
-                          BorderSide(color: Color(0xFFD9D9D9), width: 1.0),
-                        ),
-                      ))),
+                    border: Border(
+                      bottom: BorderSide(color: Color(0xFFD9D9D9), width: 1.0),
+                    ),
+                  ))),
               TabBar(
                 indicatorSize: TabBarIndicatorSize.label,
                 labelColor: const Color(0xff7ED957),
                 physics: const BouncingScrollPhysics(),
-                labelStyle: const TextStyle(
-                    color: Color(0xff7ED957),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+                labelStyle: const TextStyle(color: Color(0xff7ED957), fontSize: 16, fontWeight: FontWeight.w500),
                 controller: tabController,
                 unselectedLabelColor: const Color(0xFF9B9B9B),
                 indicator: const UnderlineTabIndicator(
@@ -73,35 +70,25 @@ class _MyOrderScreenState extends State<MyOrderScreen>  with TickerProviderState
                 ),
                 tabs: const [
                   Tab(
-                   text: '   Active   ',
+                    text: '   Active   ',
                   ),
                   Tab(
-                   text: '  Completed  ',
+                    text: '  Completed  ',
                   ),
                   Tab(
-                   text: '  Cancelled  ',
+                    text: '  Cancelled  ',
                   ),
-
                 ],
               ),
             ],
-
           ),
           addHeight(20),
-    Expanded(
+          Expanded(
             child: TabBarView(
                 physics: const BouncingScrollPhysics(),
                 controller: tabController,
-                children: const[
-                  ActiveScreen(),
-                  CompleteScreen(),
-                  CancelledScreen()
-
-
-            ]),
+                children: const [ActiveScreen(), CompleteScreen(), CancelledScreen()]),
           ),
-
-
         ],
       ),
     );

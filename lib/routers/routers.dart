@@ -71,7 +71,7 @@ class MyRouters {
   static var chooseAddress = "/chooseAddress";
   static var chatScreen = "/chatScreen";
   static var chatMessageScreen = "/chatMessageScreen";
-  static var reviewScreen = "/reviewScreen";
+  // static var reviewScreen = "/reviewScreen";
   static var favouriteScreen = "/favouriteScreen";
   static var referAndEarn = "/referAndEarn";
   static var privacyPolicy = "/privacyPolicy";
@@ -108,7 +108,7 @@ class MyRouters {
   GetPage(name: '/chooseAddress', page: () => const ChooseAddress()),
   GetPage(name: '/chatScreen', page: () => const ChatScreen()),
   GetPage(name: '/chatMessageScreen', page: () => const ChatMessageScreen()),
-  GetPage(name: '/reviewScreen', page: () => const ReviewScreen()),
+  // GetPage(name: '/reviewScreen', page: () => const ReviewScreen()),
   GetPage(name: '/favouriteScreen', page: () => const FavouriteScreen()),
   GetPage(name: '/referAndEarn', page: () => const ReferAndEarn()),
   GetPage(name: '/privacyPolicy', page: () => const PrivacyPolicy()),

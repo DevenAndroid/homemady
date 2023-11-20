@@ -12,8 +12,8 @@ import 'package:homemady/widgets/editprofiletextfiled.dart';
 import '../controller/order_details_controller.dart';
 
 class ReviewScreen extends StatefulWidget {
-  const ReviewScreen({Key? key}) : super(key: key);
-
+  const ReviewScreen({super.key, required this.orderId});
+  final String orderId;
   @override
   State<ReviewScreen> createState() => _ReviewScreenState();
 }
@@ -27,11 +27,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
   String ratingvalue4 = '';
   String ratingvalue5 = '';
   double fullRating = 0;
-  final bool _isValue = false;
-  final bool _isValue1 = false;
-  final bool _isValue2 = false;
-  final bool _isValue3 = false;
-  final bool _isValue4 = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -40,9 +35,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
       },
       child: Scaffold(
         appBar: backAppBar(title: 'Send Feedback', context: context),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +102,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           fontSize: 16
                       ),),
                     ),
-
+          
                   ],
                 ),
                 SizedBox(
@@ -194,7 +189,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           fontSize: 16
                       ),),
                     ),
-
+          
                   ],
                 ),
                 SizedBox(
@@ -238,7 +233,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           fontSize: 16
                       ),),
                     ),
-
+          
                   ],
                 ),
                 SizedBox(
@@ -286,10 +281,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   maxLines: 10,
                 ),
                 addHeight(25),
-
+          
                 CommonButton(title: 'Publish Feedback',onPressed: (){
                   ratingReviewRepo(
-                      orderId: controller.model.value.orderDetail!.orderId.toString(),
+                      orderId: widget.orderId,
                       review:controller.feedbackController.text,
                       foodQuality: ratingvalue1.toString(),
                       foodQuantity: ratingvalue2.toString(),
@@ -305,11 +300,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
                      // Get.toNamed(MyRouters.thankYouScreen);
                     }
                     else {
-
+          
                      // showToast(value.message.toString());
                     }
                   });
-
+          
                   // print("object");
                 },),
                 addHeight(25),

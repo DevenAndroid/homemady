@@ -24,7 +24,7 @@ class OrderDetailsScreen extends StatefulWidget {
   State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
 }
 
-class _OrderDetailsScreenState extends State<OrderDetailsScreen> with TickerProviderStateMixin {
+class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTickerProviderStateMixin {
   late TabController tabController;
   final controller = Get.put(OrderDetailsController());
   final profileController = Get.put(UserProfileController());

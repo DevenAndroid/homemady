@@ -27,7 +27,6 @@ import '../model/lat_long_ model.dart';
 import '../model/model_verify_otp.dart';
 import '../model/my_address_model.dart';
 import '../widgets/custome_size.dart';
-import 'homePageScreen.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 LatlongModel latLongModel = LatlongModel();
@@ -35,8 +34,9 @@ LatlongModel latLongModel = LatlongModel();
 io.Socket? socket1;
 
 class OrderTrackingScreen extends StatefulWidget {
-  const OrderTrackingScreen({Key? key}) : super(key: key);
-  static var orderTrackingScreen = "/orderTrackingScreen";
+  const OrderTrackingScreen({super.key, required this.orderId});
+  final String orderId;
+  // static var orderTrackingScreen = "/orderTrackingScreen";
 
   @override
   State<OrderTrackingScreen> createState() => _OrderTrackingScreenState();
@@ -45,13 +45,9 @@ class OrderTrackingScreen extends StatefulWidget {
 class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   PolylinePoints polylinePoints = PolylinePoints();
 
-  
   final orderTrackingController = Get.put(OrderTrackingController());
   final locationController = Get.put(LocationController());
   Rx<AddressData> addressModel = AddressData().obs;
-  final _formKey = GlobalKey<FormState>();
-  static  LatLng destination = const LatLng(26.9059, 75.7727);
-  static const LatLng sourceDestination = LatLng(26.9059, 75.7727);
   BitmapDescriptor customerIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor driverIcon = BitmapDescriptor.defaultMarker;
   //  final addressController = Get.put(MyAddressController());
@@ -122,17 +118,12 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     log("rrrrrrrrrrr  11111${latLongModel.longitude}");
   }
 
-
-
-  final RxBool _isValue = false.obs;
   RxBool customTip = false.obs;
   RxString selectedChip = "Home".obs;
   final TextEditingController searchController = TextEditingController();
   final Completer<GoogleMapController> googleMapController = Completer();
   GoogleMapController? mapController;
 
-  String? _currentAddress;
-  String? _address = "";
   Position? _currentPosition;
 
 
@@ -192,12 +183,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     await placemarkFromCoordinates(
         _currentPosition!.latitude, _currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
       setState(() {
-        _currentAddress =
-        '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
-        _address =
-        '${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
       });
     }).catchError((e) {
       debugPrint(e.toString());
@@ -234,10 +220,9 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     connectToServer();
-    orderTrackingController.getOrderTrackingDetails();
+    orderTrackingController.getOrderTrackingDetails(widget.orderId);
     setCustomMarkerIcon();
     getPolyPoints();
     _getCurrentPosition();
@@ -312,7 +297,6 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   Widget build(BuildContext context) {
 
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
         mapController!.dispose();
@@ -488,7 +472,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                 physics: const BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                   itemCount: orderTrackingController.orderTrackingModel.value.data!.length,
-                                  itemBuilder: (BuildContext, index){
+                                  itemBuilder: (BuildContext context, index){
                                     return  Column(
                                       children: [
                                         IntrinsicHeight(

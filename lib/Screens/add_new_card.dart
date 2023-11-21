@@ -11,9 +11,10 @@ import '../controller/my_cart_controller.dart';
 import '../repository/checkout_order_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/dimenestion.dart';
+import 'thankyou_Screen.dart';
 
 class AddNewCardScreen extends StatefulWidget {
-  const AddNewCardScreen({Key? key}) : super(key: key);
+  const AddNewCardScreen({super.key});
 
   @override
   State<AddNewCardScreen> createState() => _AddNewCardScreenState();
@@ -267,16 +268,19 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                             myCartController.getData();
                             getSavedDetailsController.getSavedCardData();
                            // print('Order id====' + value2.data!.orderId);
-                            Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                              value2.data!.orderDetail!.orderId,
-                              value2.data!.orderDetail!.placedAt,
-                              value2.data!.orderDetail!.stateTax,
-                              value2.data!.orderDetail!.muncipalTax,
-                              value2.data!.orderDetail!.grandTotal,
-                             // value2.data!.or,
-                              // value2.data!.card,
-                              value2.data!.orderDetail!.itemTotal,
-                            ]);
+                            Get.offAll(()=> ThankYouScreen(
+                              orderId: value2.data!.orderDetail!.orderId.toString(),
+                            ));
+                            // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                            //   value2.data!.orderDetail!.orderId,
+                            //   value2.data!.orderDetail!.placedAt,
+                            //   value2.data!.orderDetail!.stateTax,
+                            //   value2.data!.orderDetail!.muncipalTax,
+                            //   value2.data!.orderDetail!.grandTotal,
+                            //  // value2.data!.or,
+                            //   // value2.data!.card,
+                            //   value2.data!.orderDetail!.itemTotal,
+                            // ]);
                           }
                         });
                       });

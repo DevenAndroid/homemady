@@ -102,12 +102,12 @@ class CartItems {
     spiciness = json['spiciness'];
     subTitle = json['subTitle'];
     price = json['price'];
-    selfDelivery = json['self_delivery'];
     cartItemQty = json['cart_item_qty'];
     distance = json['distance'];
     totalPrice = json['total_price'];
     image = json['image'];
     productQty = json['product_qty'];
+    selfDelivery = json['self_delivery'];
     collectionStatus = json['collection_status'];
   }
 

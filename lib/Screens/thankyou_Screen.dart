@@ -1,19 +1,16 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
-
-import '../controller/order_details_controller.dart';
 import 'orderDetailsScreen.dart';
 
 
 class ThankYouScreen extends StatefulWidget {
-  const ThankYouScreen({Key? key}) : super(key: key);
+  const ThankYouScreen({super.key, required this.orderId});
+  final String orderId;
 
   @override
   State<ThankYouScreen> createState() => _ThankYouScreenState();
@@ -21,15 +18,7 @@ class ThankYouScreen extends StatefulWidget {
 
 
 class _ThankYouScreenState extends State<ThankYouScreen> {
-  final orderDetailsController =Get.put(OrderDetailsController());
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print(Get.arguments[0]);
-  }
-  String text = '';
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -51,7 +40,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                    addHeight(15),
                    GestureDetector(
                      onTap: (){
-                       log(Get.arguments[0]);
+                       // log(Get.arguments[0]);
                      },
                      child: Text('Thank You!',
                      style: GoogleFonts.ramaraja(
@@ -61,7 +50,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                      ),
                      ),
                    ),
-                   Text('Your Order Has Been Successfull',
+                   Text('Your Order Has Been Successfully',
                      style: GoogleFonts.poppins(
                        fontSize: 14,
                        fontWeight: FontWeight.w300,
@@ -98,7 +87,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                              ),
                            ),
 
-                           Text("#${Get.arguments[0].toString()}",
+                           Text("#${widget.orderId.toString()}",
                              style: GoogleFonts.poppins(
                                fontSize: 14,
                                fontWeight: FontWeight.w400,
@@ -113,7 +102,7 @@ class _ThankYouScreenState extends State<ThankYouScreen> {
                    InkWell(
                      onTap: () {
                        Get.to(()=> OrderDetailsScreen(
-                         storeID: Get.arguments[0].toString(),
+                         storeID: widget.orderId,
                        ));
                      },
                      child: Container(

@@ -6,11 +6,10 @@ import '../repository/order_tracking_repo.dart';
 class OrderTrackingController extends GetxController{
   bool isDataLoading=false;
   Rx<OrderTrackingModel> orderTrackingModel = OrderTrackingModel().obs;
-  RxString orderIdTracking="".obs;
 
-  Future getOrderTrackingDetails() async {
+  Future getOrderTrackingDetails(String orderId) async {
     isDataLoading=false;
-    await orderTrackingRepo(orderId: orderIdTracking.value).then((value){
+    await orderTrackingRepo(orderId: orderId).then((value){
       isDataLoading=true;
       orderTrackingModel.value=value;
     });

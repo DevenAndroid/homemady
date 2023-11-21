@@ -20,9 +20,10 @@ import '../widgets/dimenestion.dart';
 import 'coupon_list_screen.dart';
 import 'myAddressScreen.dart';
 import 'mycart_Screen.dart';
+import 'thankyou_Screen.dart';
 
 class CheckOutScreen extends StatefulWidget {
-  const CheckOutScreen({Key? key, required this.collectionOnly}) : super(key: key);
+  const CheckOutScreen({super.key, required this.collectionOnly});
   final bool collectionOnly;
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -48,7 +49,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       profileController.getData();
@@ -140,7 +140,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   )
                                 ],
                               ),
-
                             if (myCartController.model.value.data!.cartItems![0].collectionStatus == true &&
                                 myCartController.model.value.data!.cartItems![0].selfDelivery == false)
                               Row(
@@ -158,7 +157,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   )
                                 ],
                               ),
-
                             if (myCartController.model.value.data!.cartItems![0].collectionStatus == false &&
                                 myCartController.model.value.data!.cartItems![0].selfDelivery == true)
                               Row(
@@ -176,6 +174,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   )
                                 ],
                               ),
+
+
+
+
+
+
+
+
                             if (myCartController.model.value.data!.cartItems![0].collectionStatus == false &&
                                 myCartController.model.value.data!.cartItems![0].selfDelivery == false)
                               Row(
@@ -1068,16 +1074,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         // showToast(value2.message.toString());
                                         myCartController.getData();
                                         // print('Order id====' + value2.data!.orderId);
-                                        Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                                          value2.data!.orderDetail!.orderId,
-                                          value2.data!.orderDetail!.placedAt,
-                                          value2.data!.orderDetail!.stateTax,
-                                          value2.data!.orderDetail!.muncipalTax,
-                                          value2.data!.orderDetail!.grandTotal,
-                                          // value2.data!.or,
-                                          // value2.data!.card,
-                                          value2.data!.orderDetail!.itemTotal,
-                                        ]);
+                                        Get.offAll(()=> ThankYouScreen(
+                                          orderId: value2.data!.orderDetail!.orderId.toString(),
+                                        ));
+                                        // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                                        //   value2.data!.orderDetail!.orderId,
+                                        //   value2.data!.orderDetail!.placedAt,
+                                        //   value2.data!.orderDetail!.stateTax,
+                                        //   value2.data!.orderDetail!.muncipalTax,
+                                        //   value2.data!.orderDetail!.grandTotal,
+                                        //   // value2.data!.or,
+                                        //   // value2.data!.card,
+                                        //   value2.data!.orderDetail!.itemTotal,
+                                        // ]);
                                       } else {
                                         showToast("Please select the card for payment");
                                       }
@@ -1109,16 +1118,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       // showToast(value2.message.toString());
                                       myCartController.getData();
                                       // print('Order id====' + value2.data!.orderId);
-                                      Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                                        value2.data!.orderDetail!.orderId,
-                                        value2.data!.orderDetail!.placedAt,
-                                        value2.data!.orderDetail!.stateTax,
-                                        value2.data!.orderDetail!.muncipalTax,
-                                        value2.data!.orderDetail!.grandTotal,
-                                        // value2.data!.or,
-                                        // value2.data!.card,
-                                        value2.data!.orderDetail!.itemTotal,
-                                      ]);
+                                      Get.offAll(()=> ThankYouScreen(
+                                        orderId: value2.data!.orderDetail!.orderId.toString(),
+                                      ));
+                                      // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                                      //   value2.data!.orderDetail!.orderId,
+                                      //   value2.data!.orderDetail!.placedAt,
+                                      //   value2.data!.orderDetail!.stateTax,
+                                      //   value2.data!.orderDetail!.muncipalTax,
+                                      //   value2.data!.orderDetail!.grandTotal,
+                                      //   // value2.data!.or,
+                                      //   // value2.data!.card,
+                                      //   value2.data!.orderDetail!.itemTotal,
+                                      // ]);
                                     } else {
                                       showToast("Please select the card for payment");
                                     }

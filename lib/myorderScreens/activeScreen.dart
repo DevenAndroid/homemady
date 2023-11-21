@@ -234,12 +234,11 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                 controller.model.value.data![index].deliveryStatus == 'Accepted' ?
                                 GestureDetector(
                                   onTap: (){
-                                    orderTrackingController.orderIdTracking.value = controller.model.value.data![index].orderId.toString();
-                                    Get.toNamed(OrderTrackingScreen.orderTrackingScreen);
+                                    // orderTrackingController.orderIdTracking.value = controller.model.value.data![index].orderId.toString();
+                                    // Get.toNamed(OrderTrackingScreen.orderTrackingScreen);
+                                    Get.to(()=> OrderTrackingScreen(orderId: controller.model.value.data![index].orderId.toString(),));
                                   },
                                   child: Container(
-                                    // height: 30,
-                                    // width: 132,
                                     decoration:  BoxDecoration(
                                         borderRadius: BorderRadius.circular(14),
                                         color: const Color(0xFF7ED957)

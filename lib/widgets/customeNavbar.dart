@@ -10,6 +10,7 @@ import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/myOrderScreen.dart';
 import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../Screens/custom_drawer.dart';
@@ -27,10 +28,6 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   final profileController = Get.put(UserProfileController());
-
-  int currentDrawer = 0;
-  int selectedTab = 0;
-  // RxInt currentIndex = 0.obs;
 
   updateInt(){
     profileController.currentIndex.value = 0;
@@ -78,9 +75,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }
 
   showNotificationDialog(RemoteMessage remoteMessage){
-    FirebaseMessaging.instance.getToken().then((value) {
-      log("FCM Token...      ${value}");
-    });
     showSimpleNotification(
         GestureDetector(
           onTap: (){},
@@ -140,9 +134,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 6),
+                        padding: const EdgeInsets.only(left: 10, ),
                         child: Text(
-                          remoteMessage.notification!.title ?? "",
+                          DateFormat("EEEE, dd MMMM yyyy hh:mm a").format(DateTime.now()),
                           style: GoogleFonts.poppins(
                             fontSize: 11,
                             fontWeight: FontWeight.w400,
@@ -151,13 +145,24 @@ class _BottomNavbarState extends State<BottomNavbar> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 2),
+                        padding: const EdgeInsets.only(left: 10),
                         child: Text(
                           remoteMessage.notification!.body ?? "",
                           style: GoogleFonts.poppins(
                             fontSize: 16,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             color: const Color(0xff000000),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          remoteMessage.notification!.title ?? "",
+                          style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey.shade600,
                           ),
                         ),
                       ),
@@ -199,6 +204,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
     //     body: "This is body",
     //   )
     // )));
+    // FirebaseMessaging.instance.getToken().then((value) {
+    //   log("My Token....      ${value}");
+    // });
     return WillPopScope(
       onWillPop: ()async{
         if(profileController.currentIndex.value != 0){

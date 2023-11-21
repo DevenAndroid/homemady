@@ -52,7 +52,7 @@ class MyRouters {
   static var otpScreen = "/otpScreen";
   static var notificationScreen = "/notificationScreen";
   static var homePageScreen = "/homePageScreen";
-  static var thankYouScreen = "/thankYouScreen";
+  // static var thankYouScreen = "/thankYouScreen";
   // static var myCartScreen = "/myCartScreen";
   // static var homeDetailsScreen = "/homeDetailsScreen";
   // static var checkOutScreen = "/checkOutScreen";
@@ -89,13 +89,13 @@ class MyRouters {
   GetPage(name: '/otpScreen', page: () => const OtpScreen()),
   GetPage(name: '/notificationScreen', page: () => const NotificationScreen()),
   GetPage(name: '/homePageScreen', page: () => const HomePageScreen()),
-  GetPage(name: '/thankYouScreen', page: () => const ThankYouScreen()),
+  // GetPage(name: '/thankYouScreen', page: () => const ThankYouScreen()),
   // GetPage(name: '/myCartScreen', page: () => const MyCartScreen()),
   // GetPage(name: '/homeDetailsScreen', page: () => const HomeDetailsScreen()),
   // GetPage(name: '/checkOutScreen', page: () => const CheckOutScreen()),
  // GetPage(name: carteScreen.carteScreenPage, page: () => const CarteScreen()),
  //  GetPage(name: '/myOrderScreen', page: () =>  MyOrderScreen()),
-  GetPage(name: '/bottomNavbar', page: () => const BottomNavbar()),
+  GetPage(name: bottomNavbar, page: () => const BottomNavbar()),
   GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
   GetPage(name: '/myProfileScreen', page: () => const MyProfileScreen()),
   // GetPage(name: '/orderDetailsScreen', page: () => const OrderDetailsScreen()),
@@ -125,7 +125,7 @@ class MyRouters {
     GetPage(name: ThankYouScreen2.thankYouScreen2, page: () => const  ThankYouScreen2()),
     GetPage(name: CouponsScreen.couponsScreen, page: () => const  CouponsScreen()),
     GetPage(name: StoreReviewScreen.storeReviewScreen, page: () => const  StoreReviewScreen()),
-    GetPage(name: OrderTrackingScreen.orderTrackingScreen, page: () => const  OrderTrackingScreen()),
+    // GetPage(name: OrderTrackingScreen.orderTrackingScreen, page: () => const  OrderTrackingScreen()),
 
   ];
 }

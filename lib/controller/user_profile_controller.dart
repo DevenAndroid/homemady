@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:homemady/service/firebase_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,6 +44,7 @@ class UserProfileController extends GetxController {
       model.value = value1;
       refreshInt.value = DateTime.now().millisecondsSinceEpoch;
       if (isDataLoading.value && model.value.data != null) {
+        FirebaseService.updateUserFcmToken(value1.data!.id.toString());
         refreshInt.value = DateTime.now().millisecondsSinceEpoch;
         nameController.text = model.value.data!.name.toString();
         emailController.text = model.value.data!.email.toString();

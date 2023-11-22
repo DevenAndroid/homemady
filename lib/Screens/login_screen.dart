@@ -39,22 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   String roleText = 'customer';
   var obscureText1 = true;
-  ClientInformation? _clientInfo;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getClientInformation();
-  }
-  Future<void> _getClientInformation() async {
-    ClientInformation? info;
-    try {
-      info = await ClientInformation.fetch();
-    } on PlatformException {}
-    if (!mounted) return;
-    setState(() {
-      _clientInfo = info!;
-    });
+    // _getClientInformation();
   }
 
 

@@ -25,7 +25,7 @@ import 'chat_bubble.dart';
 
 class MainChatScreen extends StatefulWidget {
   const MainChatScreen({
-    Key? key,
+    super.key,
     required this.roomId,
     required this.orderId,
     required this.senderId,
@@ -36,7 +36,7 @@ class MainChatScreen extends StatefulWidget {
     this.vendor,
     this.driver,
 
-  }) : super(key: key);
+  });
   final String roomId;
   final String orderId;
   final String senderId;
@@ -119,6 +119,7 @@ class _MainChatScreenState extends State<MainChatScreen> {
                 orderID: widget.orderId,
                 message: value.data!.image.toString(),
                 senderId: widget.senderId,
+                fcmTokens: fcmTokens,
                 messageType: MessageType.withImage,
                 usersInfo: {
                   if(widget.customer != null)
@@ -148,6 +149,16 @@ class _MainChatScreenState extends State<MainChatScreen> {
         });
       });
     }
+  }
+
+  List<String> fcmTokens = [];
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseService().availableFCMTokens(widget.receiverId.toString()).then((value) {
+      fcmTokens = value;
+    });
   }
 
   @override
@@ -311,6 +322,7 @@ class _MainChatScreenState extends State<MainChatScreen> {
                                 .sendMessage(
                                 orderID: widget.orderId,
                                 roomId: widget.roomId,
+                                fcmTokens: fcmTokens,
                                 message: kk,
                                 receiverId: widget.receiverId,
                                 senderId: widget.senderId,

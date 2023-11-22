@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +31,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
   @override
   void initState() {
     super.initState();
+    if(profileController.model.value.data == null){
+      profileController.getData();
+    }
     controller.getData(widget.storeID);
     tabController = TabController(length: 2, vsync: this);
   }
@@ -570,6 +572,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                 if (myUserId == null) {
                                   showToast("User Not Found");
                                   return;
+                                }
+                                if(profileController.model.value.data == null){
+                                  await profileController.getData();
                                 }
                                 String roomId = FirebaseService().createChatRoom(
                                     user1: myUserId.convertToNum.toInt(),
@@ -1208,6 +1213,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                       user1: myUserId.convertToNum.toInt(),
                                       user2: controller.model.value.orderDetail!.vendor!.storeId.toString().convertToNum.toInt());
                                   log(roomId);
+                                  if(profileController.model.value.data == null){
+                                    await profileController.getData();
+                                  }
                                   Get.to(() => MainChatScreen(
                                         roomId: roomId,
                                         orderId: controller.model.value.orderDetail!.orderId.toString(),

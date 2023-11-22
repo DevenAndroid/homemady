@@ -21,6 +21,7 @@ import 'custome_size.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});
+  static var bottomNavbar = "/bottomNavbar";
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
@@ -41,8 +42,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   onMessage(RemoteMessage event) {
     log("Notification received..........   onMessage        ${event.toMap()}");
-    NotificationService()
-        .showNotificationWithRemoteMessage(remoteMessage: event);
+    // NotificationService()
+    //     .showNotificationWithRemoteMessage(remoteMessage: event);
     showNotificationDialog(event);
   }
 
@@ -204,9 +205,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
     //     body: "This is body",
     //   )
     // )));
-    // FirebaseMessaging.instance.getToken().then((value) {
-    //   log("My Token....      ${value}");
-    // });
+    FirebaseMessaging.instance.getToken().then((value) {
+      print("My Token....      ${value}");
+    });
     return WillPopScope(
       onWillPop: ()async{
         if(profileController.currentIndex.value != 0){

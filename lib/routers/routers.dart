@@ -58,7 +58,7 @@ class MyRouters {
   // static var checkOutScreen = "/checkOutScreen";
   // static var myAddressScreen = "/myAddressScreen";
   static var myOrderScreen = "/myOrderScreen";
-  static var bottomNavbar = "/bottomNavbar";
+  static var bottomNavbar = BottomNavbar.bottomNavbar;
   static var activeScreen = "/activeScreen";
   static var myProfileScreen = "/myProfileScreen";
   // static var orderDetailsScreen = "/orderDetailsScreen";

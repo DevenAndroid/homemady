@@ -73,7 +73,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         behavior: HitTestBehavior.translucent,
         child: Scaffold(
           appBar: backAppBar(title: 'Checkout', context: context),
-          body: SingleChildScrollView(
+          body: myCartController.isDataLoading.value == false ? const Center(child: CircularProgressIndicator(),) : SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.all(12.0),

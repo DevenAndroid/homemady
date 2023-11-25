@@ -496,7 +496,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                                   keyboardType: TextInputType.number,
                                                   hint: "€ Enter tip amount",
                                                   controller: tipController,
-                                                  validator: MultiValidator([RequiredValidator(errorText: 'Tip is required')]),
+                                                  validator: MultiValidator([RequiredValidator(errorText: 'Tip is required')]).call,
                                                   suffix: IconButton(
                                                       onPressed: () {},
                                                       icon: const Icon(
@@ -683,6 +683,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               child: CommonButton(
                                 title: 'Checkout',
                                 onPressed: () {
+                                  controller.isDataLoading.value = false;
                                   Get.to(()=> CheckOutScreen(
                                     collectionOnly: collectionOnly,
                                   ));

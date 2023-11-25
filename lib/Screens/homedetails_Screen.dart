@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
 import 'package:homemady/Screens/store_review_screen.dart';
 import 'package:homemady/routers/routers.dart';
+import 'package:homemady/service/generate_deep_link_url.dart';
 import 'package:homemady/singlecookDetails/carte.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
@@ -16,13 +18,16 @@ import 'package:share_plus/share_plus.dart';
 
 import '../controller/my_cart_controller.dart';
 import '../controller/review_screen_controller.dart';
+import '../controller/user_profile_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../model/My_Cart_Model.dart';
 import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
+import '../service/firebase_service.dart';
+import 'chat_screen/main_chat_screen.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
-  const HomeDetailsScreen({Key? key, required this.storeId}) : super(key: key);
+  const HomeDetailsScreen({super.key, required this.storeId});
   final String storeId;
 
   @override
@@ -33,108 +38,38 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
   final controller = Get.put(VendorSingleStoreController());
   final myCartController = Get.put(MyCartListController());
   final storeReviewController = Get.put(StoreRevierwController());
-  Rx<CartItems> model = CartItems().obs;
-  int tabIndex = 0;
-
   final RxBool isSelect = false.obs;
   late TabController tabControllerGG;
-  String? referralLink;
-  BranchContentMetaData metadata = BranchContentMetaData();
-  BranchUniversalObject? buo;
-  BranchLinkProperties lp = BranchLinkProperties();
+  final autoController = AutoScrollController();
   BranchEvent? eventStandard;
   BranchEvent? eventCustom;
-  StreamController<String> controllerData = StreamController<String>();
-  StreamController<String> controllerInitSession = StreamController<String>();
-  StreamController<String> controllerUrl = StreamController<String>();
-  void onShare(code) async {
+
+  String? sharingStoreId;
+
+  void onShare() async {
+    await generateLink();
+    if (!mounted) return;
+    if (sharingStoreId == null) return;
     final box = context.findRenderObject() as RenderBox?;
-    await Share.share(code, subject: "link", sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+    await Share.share(sharingStoreId!, subject: "link", sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
   }
 
-  getDataSubscription() {
-    generateLink(
-        BranchUniversalObject(
-            canonicalIdentifier: 'flutter/branch',
-            canonicalUrl: '',
-            title: '',
-            contentDescription: '',
-            contentMetadata: BranchContentMetaData()..addCustomMetadata('referralCode', 47),
-            keywords: ['Plugin', 'Branch', 'Flutter'],
-            publiclyIndex: true,
-            locallyIndex: true,
-            expirationDateInMilliSec: DateTime.now().add(const Duration(days: 365)).millisecondsSinceEpoch),
-        BranchLinkProperties(
-            channel: 'facebook',
-            feature: 'sharing',
-            stage: 'new share',
-            campaign: 'campaign',
-            tags: ['one', 'two', 'three']));
-    // Get.toNamed(ThankuScreen.thanku);
-    setState(() {});
-  }
-
-  void initDeepLinkData() {
-    metadata = BranchContentMetaData()
-      ..addCustomMetadata('referralCode', 47)
-      //--optional Custom Metadata
-      ..contentSchema = BranchContentSchema.COMMERCE_PRODUCT
-      ..price = 50.99
-      ..currencyType = BranchCurrencyType.BRL
-      ..quantity = 50
-      ..sku = 'sku'
-      ..productName = 'productName'
-      ..productBrand = 'productBrand'
-      ..productCategory = BranchProductCategory.ELECTRONICS
-      ..productVariant = 'productVariant'
-      ..condition = BranchCondition.NEW
-      ..rating = 100
-      ..ratingAverage = 50
-      ..ratingMax = 100
-      ..ratingCount = 2
-      ..setAddress(street: 'street', city: 'city', region: 'ES', country: 'Brazil', postalCode: '99999-987')
-      ..setLocation(31.4521685, -114.7352207);
-
-    buo = BranchUniversalObject(
-        canonicalIdentifier: 'flutter/branch',
-        canonicalUrl: '',
-        title: '',
-        contentDescription: '',
-        contentMetadata: metadata,
-        keywords: ['Plugin', 'Branch', 'Flutter'],
-        publiclyIndex: true,
-        locallyIndex: true,
-        expirationDateInMilliSec: DateTime.now().add(const Duration(days: 365)).millisecondsSinceEpoch);
-
-    lp = BranchLinkProperties(
-        channel: 'facebook', feature: 'sharing', stage: 'new share', campaign: 'campaign', tags: ['one', 'two', 'three'])
-      ..addControlParam('\$uri_redirect_mode', '1');
-  }
-
-  void generateLink(BranchUniversalObject? buo, BranchLinkProperties lp) async {
-    BranchResponse response = await FlutterBranchSdk.getShortUrl(buo: buo!, linkProperties: lp);
-    if (response.success) {
-      controllerUrl.sink.add('${response.result}');
-      referralLink = response.result;
-      setState(() {});
-    } else {
-      controllerUrl.sink.add('Error : ${response.errorCode} - ${response.errorMessage}');
-    }
+  Future<String?> generateLink() async {
+    sharingStoreId ??= await getDeepLinkUrl(parameters: {"shared_store_id" : widget.storeId});
+    return sharingStoreId;
   }
 
   @override
   void initState() {
     super.initState();
     controller.storeId = widget.storeId;
-    initDeepLinkData();
+    generateLink();
     tabControllerGG = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.getData();
       controller.getStoreKeywordListData();
     });
   }
-
-  final autoController = AutoScrollController();
 
   @override
   void dispose() {
@@ -152,7 +87,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
       return Scaffold(
         body: controller.isDataLoading.value && controller.model.value.data != null
             ? SafeArea(
-              child: VerticalScrollableTabView(
+                child: VerticalScrollableTabView(
                   physics: const BouncingScrollPhysics(),
                   autoScrollController: autoController,
                   // scrollbarThumbVisibility: true,
@@ -193,22 +128,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                       addHeight(20),
                                       if (controller.model.value.data?.storeDetails != null)
                                         Text(
-                                          controller.model.value.data!.storeDetails!.storeName
-                                              .toString()
-                                              .capitalizeFirst
-                                              .toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w600, fontSize: 20, color: Color(0xFF21283D)),
+                                          controller.model.value.data!.storeDetails!.storeName.toString().capitalizeFirst.toString(),
+                                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Color(0xFF21283D)),
                                         ),
                                       addHeight(10),
                                       if (controller.model.value.data?.storeDetails != null)
                                         Text(
-                                          controller.model.value.data!.storeDetails!.description
-                                              .toString()
-                                              .capitalizeFirst
-                                              .toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w300, fontSize: 12, color: Color(0xFF364A4F)),
+                                          controller.model.value.data!.storeDetails!.description.toString().capitalizeFirst.toString(),
+                                          style: const TextStyle(fontWeight: FontWeight.w300, fontSize: 12, color: Color(0xFF364A4F)),
                                         ),
                                       addHeight(20),
                                       const Divider(
@@ -240,8 +167,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                   )),
                                             addWidth(7),
                                             if (controller.model.value.data?.storeDetails != null)
-                                              Text(
-                                                  '(${controller.model.value.data!.storeDetails!.reviewCount.toString()} reviews)',
+                                              Text('(${controller.model.value.data!.storeDetails!.reviewCount.toString()} reviews)',
                                                   style: const TextStyle(
                                                     fontSize: 13,
                                                     color: Color(0xFF4E5F64),
@@ -281,8 +207,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 if (controller.model.value.data?.storeDetails != null)
-                                                  Text(
-                                                      "${controller.model.value.data!.storeDetails!.distance.toString()} Km",
+                                                  Text("${controller.model.value.data!.storeDetails!.distance.toString()} Km",
                                                       style: GoogleFonts.poppins(
                                                         fontSize: 16,
                                                         color: const Color(0xFF1A2E33),
@@ -313,8 +238,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 // if(controller.model.value.data!.storeDetails!.time != null)
                                                 Expanded(
                                                   child: Text(
-                                                      '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 10} - ' ''
-                                                              '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 15} mins',
+                                                      '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 10} - '
+                                                      ''
+                                                      '${int.parse(controller.model.value.data!.storeDetails!.time.toString()) + 15} mins',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         color: Color(0xFF4E5F64),
@@ -339,13 +265,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 ),
                                                 addWidth(7),
                                                 Expanded(
-                                                  child:
-                                                      Text(controller.model.value.data!.storeDetails!.collection.toString(),
-                                                          style: const TextStyle(
-                                                            fontSize: 14,
-                                                            color: Color(0xFF4E5F64),
-                                                            fontWeight: FontWeight.w400,
-                                                          )),
+                                                  child: Text(controller.model.value.data!.storeDetails!.collection.toString(),
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color: Color(0xFF4E5F64),
+                                                        fontWeight: FontWeight.w400,
+                                                      )),
                                                 ),
                                               ],
                                             ),
@@ -370,8 +295,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 child: ClipRRect(
                                                   borderRadius: BorderRadius.circular(100),
                                                   child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        controller.model.value.data!.storeDetails!.profileImage.toString(),
+                                                    imageUrl: controller.model.value.data!.storeDetails!.profileImage.toString(),
                                                     fit: BoxFit.cover,
                                                     height: 55,
                                                     width: 55,
@@ -408,49 +332,76 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                     right: 14,
                                     child: Row(
                                       children: [
-                                        Container(
-                                            height: 35,
-                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 14),
-                                              child: Center(
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    Get.toNamed(MyRouters.homePageScreen);
+                                        GestureDetector(
+                                          onTap: () async {
+                                            String? myUserId = await getMyUserId();
+                                            if (myUserId == null) {
+                                              showToast("User Not Found");
+                                              return;
+                                            }
+                                            String roomId = FirebaseService().createChatRoom(
+                                                user1: myUserId.convertToNum.toInt(),
+                                                user2: controller.model.value.data!.storeDetails!.id.toString().convertToNum.toInt());
+                                            log(roomId);
+                                            final profileController = Get.put(UserProfileController());
+
+                                            Get.to(() => MainChatScreen(
+                                                  roomId: roomId,
+                                                  orderId: "orderId",
+                                                  receiverId: controller.model.value.data!.storeDetails!.id.toString(),
+                                                  receiverName: controller.model.value.data!.storeDetails!.storeName.toString(),
+                                                  receiverImage: controller.model.value.data!.storeDetails!.storeImage.toString(),
+                                                  senderId: myUserId,
+                                                  customer: {
+                                                    "user_id": profileController.model.value.data!.id.toString(),
+                                                    "user_name": profileController.model.value.data!.name.toString(),
+                                                    "user_image": profileController.model.value.data!.profileImage.toString(),
                                                   },
-                                                  child: const Icon(
-                                                    Icons.search,
+                                                  vendor: {
+                                                    "user_id": controller.model.value.data!.storeDetails!.id.toString(),
+                                                    "user_name": controller.model.value.data!.storeDetails!.storeName.toString(),
+                                                    "user_image": controller.model.value.data!.storeDetails!.storeImage.toString(),
+                                                  },
+                                                ));
+                                          },
+                                          behavior: HitTestBehavior.translucent,
+                                          child: Container(
+                                              height: 35,
+                                              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 14),
+                                                child: Center(
+                                                  child: Icon(
+                                                    Icons.chat,
                                                     color: Color(0xFF54C523),
+                                                    size: 20,
                                                   ),
                                                 ),
-                                              ),
-                                            )),
-                                        Container(
-                                            height: 35,
-                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 14),
-                                              child: Center(
-                                                child: GestureDetector(
-                                                  onTap: () async {
-                                                    //await Share.share('HomeMady ');
-                                                    onShare(referralLink);
-                                                  },
-                                                  child: const Icon(
+                                              )),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            onShare();
+                                          },
+                                          behavior: HitTestBehavior.translucent,
+                                          child: Container(
+                                              height: 35,
+                                              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 14),
+                                                child: Center(
+                                                  child: Icon(
                                                     Icons.share_outlined,
                                                     color: Color(0xFF54C523),
                                                     size: 20,
                                                   ),
                                                 ),
-                                              ),
-                                            )),
+                                              )),
+                                        ),
                                         if (controller.model.value.data != null)
                                           InkWell(
                                             onTap: () {
-
-                                              wishlistRepo(
-                                                      productId: '',
-                                                      id: controller.model.value.data!.storeDetails!.id.toString())
+                                              wishlistRepo(productId: '', id: controller.model.value.data!.storeDetails!.id.toString())
                                                   .then((value) {
                                                 if (value.status == true) {
                                                   showToast(value.message);
@@ -461,8 +412,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                             child: controller.model.value.data!.storeDetails!.wishlist!
                                                 ? Container(
                                                     height: 35,
-                                                    decoration:
-                                                        const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                    decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                                                     child: const Padding(
                                                       padding: EdgeInsets.symmetric(horizontal: 14),
                                                       child: Center(
@@ -474,8 +424,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                     ))
                                                 : Container(
                                                     height: 35,
-                                                    decoration:
-                                                        const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                                                    decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                                                     child: const Padding(
                                                       padding: EdgeInsets.symmetric(horizontal: 14),
                                                       child: Center(
@@ -501,18 +450,15 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                           children: [
                                             Row(
                                               children: [
-                                                ...List.generate(controller.model.value.data!.storeDetails!.award!.length,
-                                                    (index1) {
+                                                ...List.generate(controller.model.value.data!.storeDetails!.award!.length, (index1) {
                                                   return InkWell(
                                                     onTap: () {
                                                       showGeneralDialog(
                                                           context: context,
                                                           barrierDismissible: true,
                                                           barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                          barrierLabel:
-                                                              MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                          pageBuilder:
-                                                              (BuildContext context, Animation first, Animation second) {
+                                                          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                          pageBuilder: (BuildContext context, Animation first, Animation second) {
                                                             return Stack(
                                                               children: [
                                                                 Center(
@@ -552,9 +498,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                           });
                                                     },
                                                     child: CachedNetworkImage(
-                                                      imageUrl: controller
-                                                          .model.value.data!.storeDetails!.award![index1].image
-                                                          .toString(),
+                                                      imageUrl:
+                                                          controller.model.value.data!.storeDetails!.award![index1].image.toString(),
                                                       //fit: BoxFit.cover,
                                                       height: 70,
                                                       width: 70,
@@ -564,25 +509,21 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                         height: 40,
                                                         width: 40,
                                                       ),
-                                                      placeholder: (_, __) =>
-                                                          const Center(child: CircularProgressIndicator()),
+                                                      placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
                                                     ),
                                                   );
                                                 })
                                               ],
                                             ),
-                                            if (controller.model.value.data!.storeDetails!.sustainablePackagingStatus ==
-                                                true)
+                                            if (controller.model.value.data!.storeDetails!.sustainablePackagingStatus == true)
                                               InkWell(
                                                 onTap: () {
                                                   showGeneralDialog(
                                                       context: context,
                                                       barrierDismissible: true,
                                                       barrierColor: const Color(0xFF000000).withOpacity(0.58),
-                                                      barrierLabel:
-                                                          MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                                      pageBuilder:
-                                                          (BuildContext context, Animation first, Animation second) {
+                                                      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                      pageBuilder: (BuildContext context, Animation first, Animation second) {
                                                         return Stack(
                                                           children: [
                                                             Center(
@@ -678,12 +619,10 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                         )),
                   ],
                 ),
-            )
+              )
             : const Center(child: CircularProgressIndicator()),
         bottomNavigationBar:
-            myCartController.isDataLoading.value && myCartController.model.value.data!.cartItems!.isNotEmpty
-                ? addCartSection()
-                : null,
+            myCartController.isDataLoading.value && myCartController.model.value.data!.cartItems!.isNotEmpty ? addCartSection() : null,
       );
     });
   }

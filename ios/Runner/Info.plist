@@ -33,6 +33,16 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.homemady.ios</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>Homemady</string>
+			</array>
+		</dict>
+		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.583798062201-l2up8jrvqp9et8vrofk5e51brvhgdosl</string>
@@ -58,8 +68,6 @@
 	<string>Allow this to access photos to update profile.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-
-
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

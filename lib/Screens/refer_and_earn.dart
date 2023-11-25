@@ -23,93 +23,12 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
   final shareController = Get.put(DeepLinkingController());
   final controller = Get.put(ReferAndEranController());
   final key = GlobalKey<ScaffoldState>();
-  final String _copy = "YAF5KJHGCX45YTUY";
   BranchContentMetaData metadata = BranchContentMetaData();
   BranchUniversalObject? buo;
   BranchLinkProperties lp = BranchLinkProperties();
-  StreamController<String> controllerUrl = StreamController<String>();
- // String? = controller.model.value.data!.referCode.toString();
-  void onShare(code,BuildContext context) async {
-    final box = context.findRenderObject() as RenderBox?;
-    await Share.share(code,
-        subject: "link",
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
-  }
-  getDataSubscription() {
-    generateLink(
-        BranchUniversalObject(
-            canonicalIdentifier: 'flutter/branch',
-            canonicalUrl: '',
-            title: '',
-            contentDescription: '',
-            contentMetadata: BranchContentMetaData()..addCustomMetadata('referralCode', 47),
-            keywords: ['Plugin', 'Branch', 'Flutter'],
-            publiclyIndex: true,
-            locallyIndex: true,
-            expirationDateInMilliSec: DateTime.now().add(const Duration(days: 365)).millisecondsSinceEpoch),
-        BranchLinkProperties(
-            channel: 'facebook',
-            feature: 'sharing',
-            stage: 'new share',
-            campaign: 'campaign',
-            tags: ['one', 'two', 'three']));
-    // Get.toNamed(ThankuScreen.thanku);
-    setState(() {});
-  }
-  void initDeepLinkData() {
-    metadata = BranchContentMetaData()
-      ..addCustomMetadata('referralCode', 47)
-    //--optional Custom Metadata
-      ..contentSchema = BranchContentSchema.COMMERCE_PRODUCT
-      ..price = 50.99
-      ..currencyType = BranchCurrencyType.BRL
-      ..quantity = 50
-      ..sku = 'sku'
-      ..productName = 'productName'
-      ..productBrand = 'productBrand'
-      ..productCategory = BranchProductCategory.ELECTRONICS
-      ..productVariant = 'productVariant'
-      ..condition = BranchCondition.NEW
-      ..rating = 100
-      ..ratingAverage = 50
-      ..ratingMax = 100
-      ..ratingCount = 2
-      ..setAddress(street: 'street', city: 'city', region: 'ES', country: 'Brazil', postalCode: '99999-987')
-      ..setLocation(31.4521685, -114.7352207);
-
-    buo = BranchUniversalObject(
-        canonicalIdentifier: 'flutter/branch',
-        canonicalUrl: '',
-        title: '',
-        contentDescription: '',
-        contentMetadata: metadata,
-        keywords: ['Plugin', 'Branch', 'Flutter'],
-        publiclyIndex: true,
-        locallyIndex: true,
-        expirationDateInMilliSec: DateTime.now().add(const Duration(days: 365)).millisecondsSinceEpoch);
-
-    lp = BranchLinkProperties(
-        channel: 'facebook',
-        feature: 'sharing',
-        stage: 'new share',
-        campaign: 'campaign',
-        tags: ['one', 'two', 'three'])
-      ..addControlParam('\$uri_redirect_mode', '1');
-  }
-  void generateLink(BranchUniversalObject? buo, BranchLinkProperties lp) async {
-    BranchResponse response = await FlutterBranchSdk.getShortUrl(buo: buo!, linkProperties: lp);
-    if (response.success) {
-      controllerUrl.sink.add('${response.result}');
-      controller.model.value.data!.referCode = response.result;
-      setState(() {});
-    } else {
-      controllerUrl.sink.add('Error : ${response.errorCode} - ${response.errorMessage}');
-    }
-  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller.getData();
   }
@@ -174,7 +93,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                       height: height * .005,
                     ),
                     Text(
-                      "For every new user your refer",
+                      "For every new user you refer",
                       style: Theme
                           .of(context)
                           .textTheme

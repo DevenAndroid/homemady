@@ -806,7 +806,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Saved Card',
+                                    'Saved Cards',
                                     style: GoogleFonts.alegreyaSans(
                                         fontSize: 18, fontWeight: FontWeight.w800, color: const Color(0xff000000)),
                                   ),

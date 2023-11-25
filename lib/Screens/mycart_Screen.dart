@@ -438,7 +438,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                  "Thank your delivery partner by leaving them a tip 100% of the tip will go your delivery partner.",
+                                                  "Thank your delivery partner by leaving them a tip 100% of the tip will go to your delivery partner.",
                                                   style: TextStyle(
                                                       color: AppTheme.blackcolor,
                                                       fontSize: AddSize.font14,

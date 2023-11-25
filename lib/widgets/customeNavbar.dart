@@ -1,9 +1,10 @@
-
 import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/Screens/homePageScreen.dart';
@@ -15,6 +16,7 @@ import 'package:overlay_support/overlay_support.dart';
 
 import '../Screens/custom_drawer.dart';
 import '../Screens/featured_store_list.dart';
+import '../Screens/homedetails_Screen.dart';
 import '../controller/user_profile_controller.dart';
 import '../service/notification_service.dart';
 import 'custome_size.dart';
@@ -30,12 +32,10 @@ class BottomNavbar extends StatefulWidget {
 class _BottomNavbarState extends State<BottomNavbar> {
   final profileController = Get.put(UserProfileController());
 
-  updateInt(){
+  updateInt() {
     profileController.currentIndex.value = 0;
     setState(() {});
   }
-
-
 
   late StreamSubscription<RemoteMessage> streamSubscription;
   late StreamSubscription<RemoteMessage> streamSubscriptionOnOpen;
@@ -50,7 +50,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   onMessageOpenApp(RemoteMessage event) {
     log("Notification received..........   onMessageOpenApp        ${event.toMap()}");
     Map<dynamic, dynamic> map = event.data;
-    if(map["order_id"] != null){
+    if (map["order_id"] != null) {
       // final orderController = Get.put(MyOrderDetailsController());
       // // orderController.id.value = map["order_id"].toString();
       // Get.to(()=> DriverDeliveryOrderDetails(orderId: map["order_id"].toString(),));
@@ -60,7 +60,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   onBackground(RemoteMessage? event) {
     if (event == null) return;
     Map<dynamic, dynamic> map = event.data;
-    if(map["order_id"] != null){
+    if (map["order_id"] != null) {
       // final orderController = Get.put(MyOrderDetailsController());
       // // orderController.id.value = map["order_id"].toString();
       // Get.to(()=> DriverDeliveryOrderDetails(orderId: map["order_id"].toString(),));
@@ -70,15 +70,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   notificationHandler() {
     streamSubscription = FirebaseMessaging.onMessage.listen(onMessage);
-    streamSubscriptionOnOpen =
-        FirebaseMessaging.onMessageOpenedApp.listen(onMessageOpenApp);
+    streamSubscriptionOnOpen = FirebaseMessaging.onMessageOpenedApp.listen(onMessageOpenApp);
     FirebaseMessaging.instance.getInitialMessage().then(onBackground);
   }
 
-  showNotificationDialog(RemoteMessage remoteMessage){
+  showNotificationDialog(RemoteMessage remoteMessage) {
     showSimpleNotification(
         GestureDetector(
-          onTap: (){},
+          onTap: () {},
           behavior: HitTestBehavior.translucent,
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -120,8 +119,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   child: CircleAvatar(
                     backgroundColor: const Color(0xff7ED957),
                     child: Text(
-                      remoteMessage.notification!.title == null ? 
-                      'B' : remoteMessage.notification!.title.toString().substring(0,1),
+                      remoteMessage.notification!.title == null ? 'B' : remoteMessage.notification!.title.toString().substring(0, 1),
                       style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ),
@@ -135,7 +133,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, ),
+                        padding: const EdgeInsets.only(
+                          left: 10,
+                        ),
                         child: Text(
                           DateFormat("EEEE, dd MMMM yyyy hh:mm a").format(DateTime.now()),
                           style: GoogleFonts.poppins(
@@ -176,18 +176,36 @@ class _BottomNavbarState extends State<BottomNavbar> {
         ),
         background: Colors.transparent,
         elevation: 50,
-        contentPadding: EdgeInsets.zero
-    );
+        contentPadding: EdgeInsets.zero);
   }
+
+  StreamSubscription<Map<dynamic, dynamic>>? branchStream;
+
+  void listenDynamicLinks() async {
+    branchStream ??= FlutterBranchSdk.listSession().listen((data) async {
+      log("branch response.....     $data");
+      if(data["shared_store_id"] != null){
+        Get.to(()=> HomeDetailsScreen(
+            storeId: data["shared_store_id"].toString()
+        ));
+      }
+    },
+        onError: (error) {
+          if (kDebugMode) {
+            print('InitSession error: ${error.toString()}');
+          }
+        });
+  }
+
 
   @override
   void initState() {
     super.initState();
     notificationHandler();
+    listenDynamicLinks();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       profileController.getData();
     });
-
   }
 
   @override
@@ -195,76 +213,88 @@ class _BottomNavbarState extends State<BottomNavbar> {
     super.dispose();
     streamSubscription.cancel();
     streamSubscriptionOnOpen.cancel();
+    if(branchStream != null){
+      branchStream!.cancel();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(const Duration(seconds: 1)).then((value) => showNotificationDialog(const RemoteMessage(
-    //   notification: RemoteNotification(
-    //     title: "This is title",
-    //     body: "This is body",
-    //   )
-    // )));
-    FirebaseMessaging.instance.getToken().then((value) {
-      print("My Token....      ${value}");
-    });
+    if (kDebugMode) {
+      FirebaseMessaging.instance.getToken().then((value) {
+        if (kDebugMode) {
+          print("My Token....      $value");
+        }
+      });
+    }
     return WillPopScope(
-      onWillPop: ()async{
-        if(profileController.currentIndex.value != 0){
+      onWillPop: () async {
+        if (profileController.currentIndex.value != 0) {
           profileController.currentIndex.value = 0;
           return false;
         }
         return true;
       },
       child: Obx(() {
-        return Scaffold(key: profileController.scaffoldKey,
+        return Scaffold(
+            key: profileController.scaffoldKey,
             drawer: const CustomDrawer(),
-          body: [
-            const HomePageScreen(),
-            StoreListScreen(performAction: (fds){
-              updateInt();
-            }),
-             MyOrderScreen(performAction:(fds){
-               updateInt();
-             }),
-            const MyProfileScreen(),
-          ][profileController.currentIndex.value],
-          extendBody: true,
-          backgroundColor: Colors.white,
-          bottomNavigationBar:  ConvexAppBar(
+            body: [
+              const HomePageScreen(),
+              StoreListScreen(performAction: (fds) {
+                updateInt();
+              }),
+              MyOrderScreen(performAction: (fds) {
+                updateInt();
+              }),
+              const MyProfileScreen(),
+            ][profileController.currentIndex.value],
+            extendBody: true,
             backgroundColor: Colors.white,
-              color: const Color(0xFF4E5B5F),
-              height: 52,
-              top: -18,
-              activeColor: const Color(0xFF68C541),
-              onTap: (int index) => profileController.currentIndex.value = index,
-              items: [
-              TabItem(
-                  icon : Image.asset('assets/images/navbarhome.png',color: const Color(0xFF4E5B5F).withOpacity(0.60),),
-                  title: 'Home',
-                activeIcon: Padding(
-                  padding: const EdgeInsets.all(13.0),
-                  child: Image.asset('assets/images/navbarhome.png',),
-                ),
-                ),
-                TabItem(
-                  icon:  Image.asset('assets/images/featured_ic_video_icon.png'),
-                  title: 'Featured',
-                  activeIcon: Padding(
-                    padding: const EdgeInsets.all(13.0),
-                    child: Image.asset('assets/images/featured_ic_video_icon.png',color: Colors.white,),
+            bottomNavigationBar: ConvexAppBar(
+                backgroundColor: Colors.white,
+                color: const Color(0xFF4E5B5F),
+                height: 52,
+                top: -18,
+                activeColor: const Color(0xFF68C541),
+                onTap: (int index) => profileController.currentIndex.value = index,
+                items: [
+                  TabItem(
+                    icon: Image.asset(
+                      'assets/images/navbarhome.png',
+                      color: const Color(0xFF4E5B5F).withOpacity(0.60),
+                    ),
+                    title: 'Home',
+                    activeIcon: Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: Image.asset(
+                        'assets/images/navbarhome.png',
+                      ),
+                    ),
                   ),
-                ),
-                TabItem(
-                  icon : Image.asset('assets/images/order_icon1.png'),
-                  title: 'Orders',
-                  activeIcon: Padding(
-                    padding: const EdgeInsets.all(13.0),
-                    child: Image.asset('assets/images/order_icon1.png',color: Colors.white,),
+                  TabItem(
+                    icon: Image.asset('assets/images/featured_ic_video_icon.png'),
+                    title: 'Featured',
+                    activeIcon: Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: Image.asset(
+                        'assets/images/featured_ic_video_icon.png',
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-              ]
-        ));
+                  TabItem(
+                    icon: Image.asset('assets/images/order_icon1.png'),
+                    title: 'Orders',
+                    activeIcon: Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: Image.asset(
+                        'assets/images/order_icon1.png',
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ]));
       }),
     );
   }

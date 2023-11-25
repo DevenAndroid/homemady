@@ -285,65 +285,68 @@ class _MainChatScreenState extends State<MainChatScreen> {
                   ],
                   color: Colors.white,
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // pickImage(ImageSource.gallery);
-                      chooseImage('Gallery');
-                    },
-                    child: Image.asset(
-                      'assets/images/add-square.png',
-                      height: 28,
+              child: SafeArea(
+                top: false,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // pickImage(ImageSource.gallery);
+                        chooseImage('Gallery');
+                      },
+                      child: Image.asset(
+                        'assets/images/add-square.png',
+                        height: 28,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // imagePickerOption();
-                      chooseImage('camera');
-                    },
-                    child: Image.asset(
-                      'assets/images/camera1.png',
-                      height: 28,
+                    GestureDetector(
+                      onTap: () {
+                        // imagePickerOption();
+                        chooseImage('camera');
+                      },
+                      child: Image.asset(
+                        'assets/images/camera1.png',
+                        height: 28,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 260,
-                    child: CommonTextFieldWidgetSearch1(
-                      controller: messageController,
-                      hint: 'Type messages...',
-                      suffix: IconButton(
-                          onPressed: () {
-                            if (messageController.text.trim().isEmpty) return;
-                            String kk = messageController.text.trim();
-                            messageController.clear();
-                            service
-                                .sendMessage(
-                                orderID: widget.orderId,
-                                roomId: widget.roomId,
-                                fcmTokens: fcmTokens,
-                                message: kk,
-                                receiverId: widget.receiverId,
-                                senderId: widget.senderId,
-                                messageType: MessageType.simpleMessage,
-                                usersInfo: {
-                                  if(widget.customer != null)
-                                    "customer": widget.customer,
-                                  if(widget.vendor != null)
-                                    "vendor": widget.vendor,
-                                  if(widget.driver != null)
-                                    "driver": widget.driver,
-                                }
-                            );
-                          },
-                          icon: Image.asset(
-                            'assets/images/PaperPlaneRight.png',
-                            height: 25,
-                          )),
+                    SizedBox(
+                      width: 260,
+                      child: CommonTextFieldWidgetSearch1(
+                        controller: messageController,
+                        hint: 'Type messages...',
+                        suffix: IconButton(
+                            onPressed: () {
+                              if (messageController.text.trim().isEmpty) return;
+                              String kk = messageController.text.trim();
+                              messageController.clear();
+                              service
+                                  .sendMessage(
+                                  orderID: widget.orderId,
+                                  roomId: widget.roomId,
+                                  fcmTokens: fcmTokens,
+                                  message: kk,
+                                  receiverId: widget.receiverId,
+                                  senderId: widget.senderId,
+                                  messageType: MessageType.simpleMessage,
+                                  usersInfo: {
+                                    if(widget.customer != null)
+                                      "customer": widget.customer,
+                                    if(widget.vendor != null)
+                                      "vendor": widget.vendor,
+                                    if(widget.driver != null)
+                                      "driver": widget.driver,
+                                  }
+                              );
+                            },
+                            icon: Image.asset(
+                              'assets/images/PaperPlaneRight.png',
+                              height: 25,
+                            )),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

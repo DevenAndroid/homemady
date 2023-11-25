@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:homemady/routers/routers.dart';
@@ -35,6 +37,10 @@ Future<void> main() async {
     sound: true
   );
   await NotificationService().initializeNotification();
+  await FlutterBranchSdk.init();
+  if(kDebugMode){
+    FlutterBranchSdk.validateSDKIntegration();
+  }
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   Stripe.publishableKey = stripeApiKey;
   runApp(const MyApp());

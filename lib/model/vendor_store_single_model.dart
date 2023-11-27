@@ -45,6 +45,8 @@ class Data {
         latestProducts!.add(LatestProducts.fromJson(v));
       });
     }
+    latestProducts ??= [];
+    latestProducts!.removeWhere((element) => element.qty == 0);
     /*if (json['Reviews'] != null) {
       reviews = <Null>[];
       json['Reviews'].forEach((v) {

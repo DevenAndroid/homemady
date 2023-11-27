@@ -28,16 +28,15 @@ class _CarteScreenState extends State<CarteScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     //  if(widget.data == null)return;
   }
 
   @override
   Widget build(BuildContext context) {
-    return controller.isDataLoading.value && controller.model.value.data != null
-        ? controller.model.value.data!.latestProducts!.isNotEmpty
-            ? Column(
+    if (controller.isDataLoading.value && controller.model.value.data != null) {
+      if (controller.model.value.data!.latestProducts!.isNotEmpty) {
+        return Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(13.0),
@@ -552,18 +551,22 @@ class _CarteScreenState extends State<CarteScreen> {
                     ),
                   ),
                 ],
-              )
-            : const Padding(
+              );
+      } else {
+        return const Padding(
                 padding: EdgeInsets.only(top: 80),
                 child: Center(
                     child: Text(
                   'No Meals available',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
                 )),
-              )
-        : const Center(
+              );
+      }
+    } else {
+      return const Center(
             child: CircularProgressIndicator(
             color: AppTheme.primaryColor,
           ));
+    }
   }
 }

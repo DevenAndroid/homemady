@@ -174,6 +174,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
             ),
           ),
         ),
+        slideDismiss: true,
+        duration: const Duration(seconds: 15),
         background: Colors.transparent,
         elevation: 50,
         contentPadding: EdgeInsets.zero);

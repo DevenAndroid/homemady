@@ -522,12 +522,14 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    Text(
-                                                      item.name.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 18,
-                                                        color: const Color(0xFF425159),
+                                                    Expanded(
+                                                      child: Text(
+                                                        item.name.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w300,
+                                                          fontSize: 18,
+                                                          color: const Color(0xFF425159),
+                                                        ),
                                                       ),
                                                     ),
                                                     Obx(() {
@@ -592,12 +594,14 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    Text(
-                                                      item.name.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 18,
-                                                        color: const Color(0xFF425159),
+                                                    Expanded(
+                                                      child: Text(
+                                                        item.name.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w300,
+                                                          fontSize: 18,
+                                                          color: const Color(0xFF425159),
+                                                        ),
                                                       ),
                                                     ),
                                                     Obx(() {
@@ -673,12 +677,14 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    Text(
-                                                      item.title.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 18,
-                                                        color: const Color(0xFF425159),
+                                                    Expanded(
+                                                      child: Text(
+                                                        item.title.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w300,
+                                                          fontSize: 18,
+                                                          color: const Color(0xFF425159),
+                                                        ),
                                                       ),
                                                     ),
                                                     Obx(() {

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -20,7 +21,9 @@ Future<TimeSlotModel> timeSlotListData({required pickDate, required mobileTime})
   final response =
   await http.get(Uri.parse("${ApiUrl.timeSlotUrl}?date=$pickDate&mobile_time=$mobileTime"), headers: headers);
   log("${ApiUrl.timeSlotUrl}?date=$pickDate&mobile_time=$mobileTime");
-  print("Time slot data  Repository...${response.body}");
+  if (kDebugMode) {
+    print("Time slot data  Repository...${response.body}");
+  }
   if (response.statusCode == 200) {
     return TimeSlotModel.fromJson(jsonDecode(response.body));
   } else {

@@ -219,6 +219,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                           ),),
                                                         addHeight(6),
                                                         Row(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Image.asset(
                                                               'assets/images/truckimg.png',
@@ -227,29 +228,27 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                             ),
                                                             addWidth(10),
                                                             Text(
-                                                              '${controller1.model.value.data!.store![index].collection.toString()} ',
+                                                              '${controller1.model.value.data!.store![index].collection.toString()} '
+                                                                  '${
+                                                                  controller1.model.value.data!.store![index].collection != 'Collection Only' ?
+                                                                  '(${controller1.model.value.data!.store![index].time ?? ''.toString()} mins)\n'
+                                                                      '${controller1.model.value.data!.store![index].distance ?? ''.toString()} km' : ""
+                                                              }',
                                                               style: GoogleFonts.poppins(
                                                                   fontWeight: FontWeight.w400,
                                                                   fontSize: 12,
                                                                   color: const Color(0xFF606573)),
                                                             ),
-                                                            controller1.model.value.data!.store![index].collection == 'Collection Only' ?
-                                                            const SizedBox() :
-                                                            Text(
-                                                              '${controller1.model.value.data!.store![index].time ?? ''.toString()} mins',
-                                                              style: GoogleFonts.poppins(
-                                                                  fontWeight: FontWeight.w400,
-                                                                  fontSize: 12,
-                                                                  color: const Color(0xFF606573)),
-                                                            ),
-                                                            addWidth(5),
-                                                            Text(
-                                                              '${controller1.model.value.data!.store![index].distance ?? ''.toString()} km',
-                                                              style: GoogleFonts.poppins(
-                                                                  fontWeight: FontWeight.w400,
-                                                                  fontSize: 12,
-                                                                  color: const Color(0xFF606573)),
-                                                            ),
+                                                            // controller1.model.value.data!.store![index].collection == 'Collection Only' ?
+                                                            // const SizedBox() :
+                                                            // Text(
+                                                            //   '${controller1.model.value.data!.store![index].time ?? ''.toString()} mins\n'
+                                                            //       '${controller1.model.value.data!.store![index].distance ?? ''.toString()} km',
+                                                            //   style: GoogleFonts.poppins(
+                                                            //       fontWeight: FontWeight.w400,
+                                                            //       fontSize: 12,
+                                                            //       color: const Color(0xFF606573)),
+                                                            // ),
                                                           ],
                                                         )
                                                       ],
@@ -723,7 +722,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                         ),
                                                         addWidth(4),
                                                         Expanded(
-                                                          child: Text(controller1.model.value.data!.product![index].spiciness ?? ''.toString(),
+                                                          child: Text((controller1.model.value.data!.product![index].spiciness ?? '').toString(),
                                                           //  controller1.model.value.data!.product![index],'
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w500,

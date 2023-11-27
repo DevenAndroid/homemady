@@ -1465,12 +1465,14 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          category[index].name.toString(),
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 18,
-                                            color: const Color(0xFF425159),
+                                        Expanded(
+                                          child: Text(
+                                            category[index].name.toString(),
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 18,
+                                              color: const Color(0xFF425159),
+                                            ),
                                           ),
                                         ),
                                         // Obx(() {

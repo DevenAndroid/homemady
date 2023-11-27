@@ -166,12 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         validator: MultiValidator([
                           RequiredValidator(
                               errorText: 'Please Enter The Password'),
-                          // MinLengthValidator(8,
-                          //     errorText:
-                          //     'Password must be at least 8 digits long'),
-
-
-                        ]),
+                        ]).call,
                       ),
                     ),
                     SizedBox(
@@ -393,7 +388,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   signInWithGoogle() async {
     await GoogleSignIn().signOut();
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn().catchError((e){
+      throw Exception(e);
+    });
+    log(googleUser!.email.toString());
     final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
     final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,

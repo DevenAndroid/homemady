@@ -17,18 +17,18 @@ class VendorSingleStoreController extends GetxController{
   String storeId = "";
 
 
-  getData(){
+  Future getData() async {
     isDataLoading.value = false;
-    singleStoreData(id: storeId, filterId: filterId.value, ).then((value1) {
+    await singleStoreData(id: storeId, filterId: filterId.value, ).then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });
     //loginRepo().
   }
 
-  getStoreKeywordListData(){
+  Future getStoreKeywordListData() async {
     isDataLoading.value = false;
-    storeKeywordListData().then((value1) {
+    await storeKeywordListData().then((value1) {
       isDataLoading.value = true;
       storeKeywordModel.value = value1;
     });

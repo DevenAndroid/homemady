@@ -401,7 +401,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 child: const Icon(Icons.arrow_back, color: Colors.black),
                                               ),
                                             )),
-                                        Spacer(),
+                                        const Spacer(),
                                         if (controller.isDataLoading.value && controller.model.value.data != null)
                                           Row(
                                             children: [

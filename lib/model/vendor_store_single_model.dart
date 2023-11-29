@@ -185,7 +185,7 @@ class LatestProducts {
   dynamic discountOff;
   dynamic wishlist;
   dynamic spiciness;
-  dynamic allergens;
+  List<Allergen>? allergen = [];
   dynamic exclude;
   dynamic special_offer;
 
@@ -214,7 +214,7 @@ class LatestProducts {
         this.wishlist,
         this.sizeId,
         this.spiciness,
-        this.allergens,
+        this.allergen,
         this.discountOff,
         this.exclude,
         this.avgRating});
@@ -233,7 +233,16 @@ class LatestProducts {
     maxQty = json['max_qty'];
     price = json['price'];
     date = json['Date'];
-    allergens = json['allergens'];
+    try {
+      if (json['allergens'] != null) {
+        allergen = <Allergen>[];
+        json['allergens'].forEach((v) {
+          allergen!.add(new Allergen.fromJson(v));
+        });
+      }
+    } catch(e){}
+    allergen ??= [];
+    // allergens = json['allergens'];qweqe
     sizeQuantity = json['size_quantity'];
     content = json['content'];
     wishlist = json['wishlist'];
@@ -260,7 +269,6 @@ class LatestProducts {
     data['max_qty'] = maxQty;
     data['sub_title'] = subTitle;
     data['price'] = price;
-    data['allergens'] = allergens;
     data['content'] = content;
     data['image'] = image;
     data['size_quantity'] = sizeQuantity;
@@ -270,6 +278,28 @@ class LatestProducts {
     data['discount_off'] = discountOff;
     data['avg_rating'] = avgRating;
     data['exclude'] = exclude;
+    return data;
+  }
+}
+
+
+
+class Allergen {
+  int? id;
+  String? title;
+  bool selected = false;
+
+  Allergen({this.id, this.title});
+
+  Allergen.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['title'] = this.title;
     return data;
   }
 }

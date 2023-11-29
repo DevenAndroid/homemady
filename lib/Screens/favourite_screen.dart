@@ -734,6 +734,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                     ),
                                                     addHeight(4),
                                                     Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
                                                           'Allergens :',
@@ -745,7 +746,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                         addWidth(4),
                                                         Expanded(
                                                           child: Text(
-                                                            controller1.model.value.data!.product![index].allergens ?? ''.toString(),
+                                                            // controller1.model.value.data!.product![index].allergen.map((e) => null),
+                                                            controller1.model.value.data!.product![index].allergen!.map((e) => e.title.toString().capitalize!).join(", "),
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w500,
                                                                 fontSize: 10,

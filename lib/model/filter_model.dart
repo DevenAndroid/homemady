@@ -1,3 +1,5 @@
+import 'package:homemady/model/vendor_store_single_model.dart';
+
 class FilterProductModel {
   bool? status;
   String? message;
@@ -51,7 +53,8 @@ class Data {
   String? sizeQuantity;
   String? sizeId;
   String? spiciness;
-  String? allergens;
+  // String? allergens;
+  List<Allergen>? allergen = [];
   bool? inMenu;
   String? status;
   String? time;
@@ -66,6 +69,7 @@ class Data {
   Data(
       {this.id,
         this.sKU,
+        this.allergen,
         this.subTitle,
         this.name,
         this.price,
@@ -80,7 +84,6 @@ class Data {
         this.sizeId,
         this.distance,
         this.spiciness,
-        this.allergens,
         this.inMenu,
         this.status,
         this.discountOff,
@@ -103,7 +106,15 @@ class Data {
     sizeQuantity = json['size_quantity'];
     sizeId = json['size_id'];
     spiciness = json['spiciness'];
-    allergens = json['allergens'];
+    try {
+      if (json['allergens'] != null) {
+        allergen = <Allergen>[];
+        json['allergens'].forEach((v) {
+          allergen!.add(new Allergen.fromJson(v));
+        });
+      }
+    } catch(e){}
+    allergen ??= [];
     inMenu = json['in_menu'];
     status = json['status'];
     discountOff = json['discount_off'];
@@ -127,7 +138,7 @@ class Data {
     data['size_quantity'] = sizeQuantity;
     data['size_id'] = sizeId;
     data['spiciness'] = spiciness;
-    data['allergens'] = allergens;
+    // data['allergens'] = allergens;
     data['in_menu'] = inMenu;
     data['status'] = status;
     data['discount_off'] = discountOff;

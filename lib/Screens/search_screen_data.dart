@@ -1226,6 +1226,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                           ),
                                           addHeight(4),
                                           Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Allergens :',
@@ -1237,7 +1238,8 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                               addWidth(4),
                                               Expanded(
                                                 child: Text(
-                                                  filterDataController.filterModel.value.data![index].allergens ?? ''.toString(),
+                                                  // filterDataController.filterModel.value.data![index].allergens ?? ''.toString(),
+                                                  filterDataController.filterModel.value.data![index].allergen!.map((e) => e.title.toString().capitalize!).join(", "),
                                                   style: GoogleFonts.poppins(
                                                       fontWeight: FontWeight.w500,
                                                       fontSize: 10,

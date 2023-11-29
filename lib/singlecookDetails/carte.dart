@@ -275,6 +275,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                   ),
                                   addHeight(4),
                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Allergens :',
@@ -286,10 +287,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                       addWidth(4),
                                       Expanded(
                                         child: Text(
-                                          model.data!.latestProducts![index].allergens
-                                              .toString()
-                                              .capitalizeFirst
-                                              .toString(),
+                                          model.data!.latestProducts![index].allergen!.map((e) => e.title.toString().capitalize!).join(", "),
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 10,

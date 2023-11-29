@@ -1,3 +1,5 @@
+import 'vendor_store_single_model.dart';
+
 class FavoriteListModel {
   bool? status;
   String? message;
@@ -101,7 +103,7 @@ class Store {
     if (json['award'] != null) {
       award = <Award>[];
       json['award'].forEach((v) {
-        award!.add(new Award.fromJson(v));
+        award!.add(Award.fromJson(v));
       });
     }
     rating = json['rating'];
@@ -116,7 +118,7 @@ class Store {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     data['distance'] = this.distance;
@@ -177,7 +179,7 @@ class Product {
   dynamic date;
   dynamic status;
   dynamic spiciness;
-  dynamic allergens;
+  List<Allergen>? allergen = [];
   dynamic discountOff;
   dynamic avgRating;
   dynamic special_offer;
@@ -201,7 +203,7 @@ class Product {
         this.inMenu,
         this.status,
         this.spiciness,
-        this.allergens,
+        this.allergen,
         this.discountOff,
         this.avgRating});
 
@@ -224,7 +226,15 @@ class Product {
     status = json['status'];
     discountOff = json['discount_off'];
     spiciness = json['spiciness'];
-    allergens = json['allergens'];
+    try {
+      if (json['allergens'] != null) {
+        allergen = <Allergen>[];
+        json['allergens'].forEach((v) {
+          allergen!.add(Allergen.fromJson(v));
+        });
+      }
+    } catch(e){}
+    allergen ??= [];
     avgRating = json['avg_rating'];
   }
 
@@ -246,7 +256,6 @@ class Product {
     data['sub_title'] = subTitle;
     data['status'] = status;
     data['spiciness'] = spiciness;
-    data['allergens'] = allergens;
     data['discount_off'] = discountOff;
     data['avg_rating'] = avgRating;
     return data;

@@ -10,7 +10,7 @@ import '../resources/api_urls.dart';
 import '../widgets/new_helper.dart';
 
 Future<FilterProductCategoryModel> filterProductCategoryRepo({
-  required distance, required BuildContext context
+  required filter, required BuildContext context
 }) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context).insert(loader);
@@ -26,8 +26,8 @@ Future<FilterProductCategoryModel> filterProductCategoryRepo({
 
 
   try {
-    final response = await http.get(Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$distance"), headers: headers);
-    log("Url issss...${ApiUrl.filterProductCategoryUrl}?filter=$distance");
+    final response = await http.get(Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$filter"), headers: headers);
+    log("Url issss...${ApiUrl.filterProductCategoryUrl}?filter=$filter");
     if (response.statusCode == 200) {
       NewHelper.hideLoader(loader);
       log("sort stores by category...${response.body}");

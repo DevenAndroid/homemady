@@ -281,6 +281,7 @@ class _CompleteScreenState extends State<CompleteScreen> {
                                           ),
                                           Text(
                                             "You do not have an active order at this time",
+                                            textAlign: TextAlign.center,
                                             style: GoogleFonts.dmSans(
                                                 fontWeight: FontWeight.w700, color: const Color(0xff747474), fontSize: 22),
                                           ),

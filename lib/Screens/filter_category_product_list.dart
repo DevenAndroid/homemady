@@ -23,8 +23,7 @@ import 'homedetails_Screen.dart';
 
 class FilterProductScreen extends StatefulWidget {
   final String filterId;
-  const FilterProductScreen({Key? key, required this.filterId}) : super(key: key);
-  // static var filterProductScreen="/filterProductScreen";
+  const FilterProductScreen({super.key, required this.filterId});
 
   @override
   State<FilterProductScreen> createState() => _FilterProductScreenState();
@@ -65,13 +64,11 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      filterProductCategoryController.getFilterCategoryData(distance: widget.filterId, context: context);
+      filterProductCategoryController.getFilterCategoryData(filter: widget.filterId, context: context);
       myCartController.getData();
       categoryController.getCategoryData();
       timeSlotController.getTimeSlotData();
       myAddressController.getData();
-
-      int currnetIndex = -1;
       _decrement();
       _increment();
     });
@@ -653,7 +650,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                     .then((value) {
                                                                   if (value.status == true) {
                                                                     showToast(value.message);
-                                                                    filterProductCategoryController.getFilterCategoryData(distance: widget.filterId, context: context);
+                                                                    filterProductCategoryController.getFilterCategoryData(filter: widget.filterId, context: context);
                                                                   }
                                                                 });
                                                               },

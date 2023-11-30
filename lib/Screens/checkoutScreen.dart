@@ -60,7 +60,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  @override
   bool value = false;
   bool value2 = false;
   @override
@@ -191,9 +190,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         unselectedWidgetColor: Colors.green,
                                       ),
                                       child: addRadioButton(0)),
-                                  addWidth(5),
                                   Text(
                                     'Delivery',
+                                    style: GoogleFonts.poppins(
+                                        color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
+                                  ),
+                                  addWidth(40),
+                                  Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.green,
+                                      ),
+                                      child: addRadioButton(1)),
+                                  addWidth(5),
+                                  Text(
+                                    'Pickup',
                                     style: GoogleFonts.poppins(
                                         color: const Color(0xFF000000), fontWeight: FontWeight.w300, fontSize: 16),
                                   )
@@ -1227,6 +1237,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         // Get.toNamed(MyRouters.addNewCardScreen);
                       },
                     ),
+                    addHeight(25),
                   ],
                 ),
               ),

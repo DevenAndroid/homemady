@@ -10,8 +10,12 @@ import '../model/homepage_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 
-Future<HomePageModel> homeData({required filterCategory, required categoryType, required dietaries ,required filter,
-BuildContext? context}) async {
+Future<HomePageModel> homeData(
+    {required filterCategory,
+    required categoryType,
+    required dietaries,
+    required filter,
+    BuildContext? context}) async {
   OverlayEntry? loader;
   try {
     if (context != null) {
@@ -20,8 +24,7 @@ BuildContext? context}) async {
     }
 
     SharedPreferences pref = await SharedPreferences.getInstance();
-    ModelVerifyOtp? user =
-    ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+    ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.acceptHeader: 'application/json',
@@ -50,11 +53,9 @@ BuildContext? context}) async {
       url = "$url?${types.join("&")}";
     }
 
-    log("Generated Url .....      ${url}");
+    log("Generated Url .....      $url");
 
-
-    http.Response response =
-    await http.get(Uri.parse(url), headers: headers);
+    http.Response response = await http.get(Uri.parse(url), headers: headers);
 
     if (context != null) {
       Helpers.hideLoader(loader!);
@@ -64,14 +65,12 @@ BuildContext? context}) async {
       log("<<<<<<<HomePageData=======>${response.body}");
       return HomePageModel.fromJson(json.decode(response.body));
     } else {
-
       if (context != null) {
         Helpers.hideLoader(loader!);
       }
       throw Exception(response.body);
     }
-  } catch(e){
-
+  } catch (e) {
     if (context != null) {
       Helpers.hideLoader(loader!);
     }

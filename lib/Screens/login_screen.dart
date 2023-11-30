@@ -20,7 +20,7 @@ import 'dart:io';
 
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -28,7 +28,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  // final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   String removeFirstLetter(String input) {
     if(input.isEmpty)return input;
     if(input.substring(0,1) != "0") return input;
@@ -39,13 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   String roleText = 'customer';
   var obscureText1 = true;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // _getClientInformation();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +120,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                Padding(padding:  const EdgeInsets.symmetric(horizontal: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
                     Container(
@@ -189,7 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-
                         Container(
                           width: 152,
                           height: 50,
@@ -220,12 +213,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-
                         if(Platform.isAndroid)
                         GestureDetector(
-                          onTap: (){
-                             signInWithGoogle();
-                          },
+                          onTap: signInWithGoogle,
                           child: Container(
                             width: 152,
                             height: 50,
@@ -257,7 +247,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-
                         if(Platform.isIOS)
                           GestureDetector(
                             onTap: (){
@@ -391,7 +380,9 @@ class _LoginScreenState extends State<LoginScreen> {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn().catchError((e){
       throw Exception(e);
     });
+
     log(googleUser!.email.toString());
+
     final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
     final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,

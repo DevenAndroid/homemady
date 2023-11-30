@@ -110,11 +110,10 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
           appBar: backAppBar(context: context, title: 'My Address'),
           body:
           myAddressController.isDataLoading.value ? myAddressController.model.value.data!.isNotEmpty ?
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                addHeight(30),
-                ListView.builder(
+          Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   itemCount: myAddressController.model.value.data!.length,
@@ -334,19 +333,18 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                     );
                   },
                 ),
-                addHeight(173),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: CommonButton(
-                    title: 'Add Address',
-                    onPressed: () {
-                      Get.toNamed(MyRouters.chooseAddress);
-                    },
-                  ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: CommonButton(
+                  title: 'Add Address',
+                  onPressed: () {
+                    Get.toNamed(MyRouters.chooseAddress);
+                  },
                 ),
-                addHeight(30)
-              ],
-            ),
+              ),
+              addHeight(30)
+            ],
           ):
           Center(
             child: Padding(

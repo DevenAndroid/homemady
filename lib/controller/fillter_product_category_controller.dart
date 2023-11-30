@@ -19,12 +19,12 @@ class FilterProductCategoryController extends GetxController {
   String id = "";
 
   getFilterCategoryData({
-    required String distance, required BuildContext context
+    required String filter, required BuildContext context
   }) async {
     isDataLoading.value = false;
-    if(distance.isEmpty)return;
+    if(filter.isEmpty)return;
     await filterProductCategoryRepo(
-        distance: distance, context: context
+        filter: filter, context: context
     ).then((value) {
       filterDataModel.value = value;
       isDataLoading.value = true;

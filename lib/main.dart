@@ -22,9 +22,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   log("Handling a background message: ${message.messageId}");
 }
 
-
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.requestPermission(

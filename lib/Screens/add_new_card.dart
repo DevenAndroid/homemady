@@ -225,84 +225,87 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
         ),*/
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: ElevatedButton(
-              onPressed: () {
-                if (controller.details.complete == false) {
-                  showToast("Fill the card details correctly");
-                }
-                else {
-                  Stripe.instance.createToken(const CreateTokenParams.card(params: CardTokenParams())).then((value) {
-                    log(value.toString());
-                    log('token--${value.id}');
-                    {
+          child: SafeArea(
+            top: false,
+            child: ElevatedButton(
+                onPressed: () {
+                  if (controller.details.complete == false) {
+                    showToast("Fill the card details correctly");
+                  }
+                  else {
+                    Stripe.instance.createToken(const CreateTokenParams.card(params: CardTokenParams())).then((value) {
+                      log(value.toString());
                       log('token--${value.id}');
-                      saveCardDetailsRepo(stripeToken: value.id.toString(), context: context).then((value){
-                        if(value.status==true){
-                          showToast(value.message);
-                          myCartController.getData();
-                          getSavedDetailsController.getSavedCardData();
-                          Get.back();
-                        }
-                        else{
-                          showToast(value.message);
-                        }
-                      });
-                      log('order id--${value.id}');
-                      // check
-                      checkOut(
-                          payment_type: 'online',
-                          context: context,
-                          deliveryInstruction: Get.arguments[2],
-                          specialRequest: Get.arguments[1],
-                          delivery_type: Get.arguments[0] )
-                          .then((value1) {
-                        log('Token iddddddddddddddddddddd${value.id}');
-                        payment(
-                                orderId: value1.data!.orderId.toString(),
-                                token: value.id.toString(),
-                                amount: value1.data!.grandTotal,
-                                context: context)
-                            .then((value2) {
-                          if (value2.status == true) {
-                           // showToast(value2.message.toString());
+                      {
+                        log('token--${value.id}');
+                        saveCardDetailsRepo(stripeToken: value.id.toString(), context: context).then((value){
+                          if(value.status==true){
+                            showToast(value.message);
                             myCartController.getData();
                             getSavedDetailsController.getSavedCardData();
-                           // print('Order id====' + value2.data!.orderId);
-                            Get.offAll(()=> ThankYouScreen(
-                              orderId: value2.data!.orderDetail!.orderId.toString(),
-                            ));
-                            // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                            //   value2.data!.orderDetail!.orderId,
-                            //   value2.data!.orderDetail!.placedAt,
-                            //   value2.data!.orderDetail!.stateTax,
-                            //   value2.data!.orderDetail!.muncipalTax,
-                            //   value2.data!.orderDetail!.grandTotal,
-                            //  // value2.data!.or,
-                            //   // value2.data!.card,
-                            //   value2.data!.orderDetail!.itemTotal,
-                            // ]);
+                            Get.back();
+                          }
+                          else{
+                            showToast(value.message);
                           }
                         });
-                      });
-                      // out
-                    }
-                  });
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(10),
-                  backgroundColor: const  Color(0xff7ED957),
-                  minimumSize: const Size(double.maxFinite, 62),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-                  textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-              child: Text(
-                "SAVE",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700, fontSize: 20),
-              )),
+                        log('order id--${value.id}');
+                        // check
+                        checkOut(
+                            payment_type: 'online',
+                            context: context,
+                            deliveryInstruction: Get.arguments[2],
+                            specialRequest: Get.arguments[1],
+                            delivery_type: Get.arguments[0] )
+                            .then((value1) {
+                          log('Token iddddddddddddddddddddd${value.id}');
+                          payment(
+                                  orderId: value1.data!.orderId.toString(),
+                                  token: value.id.toString(),
+                                  amount: value1.data!.grandTotal,
+                                  context: context)
+                              .then((value2) {
+                            if (value2.status == true) {
+                             // showToast(value2.message.toString());
+                              myCartController.getData();
+                              getSavedDetailsController.getSavedCardData();
+                             // print('Order id====' + value2.data!.orderId);
+                              Get.offAll(()=> ThankYouScreen(
+                                orderId: value2.data!.orderDetail!.orderId.toString(),
+                              ));
+                              // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                              //   value2.data!.orderDetail!.orderId,
+                              //   value2.data!.orderDetail!.placedAt,
+                              //   value2.data!.orderDetail!.stateTax,
+                              //   value2.data!.orderDetail!.muncipalTax,
+                              //   value2.data!.orderDetail!.grandTotal,
+                              //  // value2.data!.or,
+                              //   // value2.data!.card,
+                              //   value2.data!.orderDetail!.itemTotal,
+                              // ]);
+                            }
+                          });
+                        });
+                        // out
+                      }
+                    });
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(10),
+                    backgroundColor: const  Color(0xff7ED957),
+                    minimumSize: const Size(double.maxFinite, 62),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+                    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                child: Text(
+                  "SAVE",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700, fontSize: 20),
+                )),
+          ),
         ),
       ),
     );

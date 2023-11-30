@@ -16,15 +16,19 @@ class FilterProductCategoryController extends GetxController {
   final searchController1 = TextEditingController();
   RxString name = ''.obs;
 
-  String id = "";
+  String filterId = "";
 
-  getFilterCategoryData({
-    required String filter, required BuildContext context
+  Future getFilterCategoryData({
+    required String filter,
+    required String categoryId,
+    required BuildContext context
   }) async {
     isDataLoading.value = false;
     if(filter.isEmpty)return;
+    filterId = filter;
     await filterProductCategoryRepo(
-        filter: filter, context: context
+        filter: filter, context: context,
+      product_option_id: categoryId
     ).then((value) {
       filterDataModel.value = value;
       isDataLoading.value = true;

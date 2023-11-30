@@ -201,7 +201,6 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     }
   }
 
-
   setCustomMarkerIcon() {
     BitmapDescriptor.fromAssetImage(
         ImageConfiguration.empty, "assets/images/track_icon.png")
@@ -222,7 +221,9 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   void initState() {
     super.initState();
     connectToServer();
-    orderTrackingController.getOrderTrackingDetails(widget.orderId);
+    orderTrackingController.getOrderTrackingDetails(widget.orderId).then((value) {
+      setState(() {});
+    });
     setCustomMarkerIcon();
     getPolyPoints();
     _getCurrentPosition();
@@ -237,8 +238,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       "AIzaSyDgfjvvO5nK84Bh9jNVbdQ3ja8B6RNyf3k",
       // const PointLatLng(26.9059, 75.7727),
-        PointLatLng(double.parse(latLongModel.latitude.toString()), double.parse(latLongModel.longitude.toString()) ),
-      PointLatLng(double.parse(locationController.lat.toString()), double.parse(locationController.long.toString())),
+        PointLatLng(double.tryParse(latLongModel.latitude.toString()) ?? 0, double.tryParse(latLongModel.longitude.toString()) ??0 ),
+      PointLatLng(double.tryParse(locationController.lat.toString()) ?? 0, double.tryParse(locationController.long.toString()) ?? 0),
     );
     if (result.points.isNotEmpty) {
       for (var point in result.points) {
@@ -246,8 +247,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
           LatLng(point.latitude, point.longitude),
         );
       }
-      setState(() {});
     }
+      setState(() {});
 
   }
 

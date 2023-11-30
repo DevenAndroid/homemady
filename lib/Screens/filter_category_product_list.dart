@@ -57,14 +57,16 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
   RxBool selectIcon = false.obs;
   int currentDrawer = 0;
   RxInt count = 0.obs;
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   String selectedDate = 'Deliver Now';
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      filterProductCategoryController.getFilterCategoryData(filter: widget.filterId, context: context);
+      filterProductCategoryController.getFilterCategoryData(
+          filter: widget.filterId,
+          categoryId: (currentIndex+2).toString(),
+          context: context);
       myCartController.getData();
       categoryController.getCategoryData();
       timeSlotController.getTimeSlotData();
@@ -650,7 +652,7 @@ class _FilterProductScreenState extends State<FilterProductScreen> {
                                                                     .then((value) {
                                                                   if (value.status == true) {
                                                                     showToast(value.message);
-                                                                    filterProductCategoryController.getFilterCategoryData(filter: widget.filterId, context: context);
+                                                                    filterProductCategoryController.getFilterCategoryData(filter: widget.filterId, context: context,categoryId: (currentIndex+2).toString());
                                                                   }
                                                                 });
                                                               },

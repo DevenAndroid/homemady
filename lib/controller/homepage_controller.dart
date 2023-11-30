@@ -18,7 +18,7 @@ class HomePageController extends GetxController {
     String? filter = '2',
    BuildContext? context
   }) async{
-    isDataLoading.value = false;
+    // isDataLoading.value = false;
   await  homeData(
       filterCategory: filterCategory ?? "",
       categoryType: categoryType ?? "",

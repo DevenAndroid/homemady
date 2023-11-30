@@ -233,11 +233,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () async {
-                            if (controller.model.value.data![0].status == "Active") {
-                              Get.toNamed(ThankYouScreen2.thankYouScreen2);
-                            } else {
+                            // if (controller.model.value.data![0].status == "Active") {
+                            //   Get.toNamed(ThankYouScreen2.thankYouScreen2);
+                            // } else {
                               Get.toNamed(SubscriptionScreen.subscriptionScreen);
-                            }
+                            // }
 
                             // }
                           }),

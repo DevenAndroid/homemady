@@ -10,9 +10,9 @@ class SubscriptionListController extends GetxController{
   Rx<SubscriptionListModel> model = SubscriptionListModel().obs;
   RxBool isDataLoading = false.obs;
 
-  getData(){
+  Future getData() async {
     isDataLoading.value = false;
-    subscriptionListData().then((value1) {
+    await subscriptionListData().then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

@@ -116,16 +116,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
 // filter product category wise
-  void _scrollListener1() {
-    if (scrollController1.position.pixels == scrollController1.position.maxScrollExtent) {
-      // filterProductCategoryController.page.value = filterProductCategoryController.page.value + 1;
-      // filterProductCategoryController.getFilterCategoryData();
-    } else {
-      if (kDebugMode) {
-        print("Not calling");
-      }
-    }
-  }
 
   void _increment() {
     setState(() {
@@ -395,7 +385,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     child: Container(
                       height: 42,
                       width: 42,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFF7ED957)),
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFF7ED957)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset(
@@ -425,38 +416,35 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         return homeController.getData();
                       },
                       child: SingleChildScrollView(
-                          // physics: const AlwaysScrollableScrollPhysics(),
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 14, top: 18),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 14, top: 6),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Hello',
-                                          style: GoogleFonts.poppins(
-                                              color: const Color(0xFF676767), fontWeight: FontWeight.w300, fontSize: 16),
-                                        ),
-                                        Text(
-                                          profileController.model.value.data!.name.toString().capitalizeFirst.toString(),
-                                          style: GoogleFonts.poppins(
-                                              color: const Color(0xFF353535), fontWeight: FontWeight.w600, fontSize: 22),
-                                        ),
-                                      ],
+                                    Text(
+                                      'Hello',
+                                      style: GoogleFonts.poppins(
+                                          color: const Color(0xFF676767),
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 16),
                                     ),
-                                    // l
+                                    Text(
+                                      profileController.model.value.data!.name
+                                          .toString()
+                                          .capitalizeFirst
+                                          .toString(),
+                                      style: GoogleFonts.poppins(
+                                          color: const Color(0xFF353535),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 22),
+                                    ),
                                   ],
                                 ),
-                                addHeight(20),
+                                addHeight(16),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -485,9 +473,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               onTap: () {
                                                 // print(formattedTime);
                                                 FocusManager.instance.primaryFocus!.unfocus();
-
-                                                // if(selectedDate != "Available Now" ||  isAvailableSelected == true) {
-                                                //   // filterDataController.storeSearchController.text = "";
                                                 filterDataController.getFilterData();
                                                 if (filterDataController.storeSearchController.text.isNotEmpty) {
                                                   Get.toNamed(
@@ -506,19 +491,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               ),
                                             ),
                                             onSubmited: (val1) {
-                                              Get.toNamed(
-                                                SearchScreenData.searchScreen,
-                                              );
+                                              Get.toNamed(SearchScreenData.searchScreen,);
                                             },
                                             onChanged: (val) {
                                               isValue.value = true;
                                               searchController.getSearchData();
-                                              //Get.toNamed(SearchScreenData.searchScreen,);
-                                              // Get.toNamed(SearchScreenData.searchScreen);
                                             },
                                           )),
                                     ),
-                                    addWidth(10),
+                                    addWidth(8),
                                     GestureDetector(
                                       onTap: () {
                                         if (selectedDate != "Available Now" || isAvailableSelected == true) {
@@ -555,7 +536,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         ),
                                       ),
                                     ),
-                                    addWidth(5),
+                                    addWidth(8),
                                     GestureDetector(
                                       onTap: () {
                                         _showSimpleDialog1();
@@ -612,7 +593,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   // ]);
 
                                                   Get.to(() => HomeDetailsScreen(
-                                                      storeId: homeController.model.value.data!.sliderData![index].storeId
+                                                      storeId: homeController
+                                                          .model.value.data!.sliderData![index].storeId
                                                           .toString()));
                                                 },
                                                 child: Container(
@@ -624,7 +606,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   child: ClipRRect(
                                                     borderRadius: BorderRadius.circular(15),
                                                     child: CachedNetworkImage(
-                                                      imageUrl: homeController.model.value.data!.sliderData![index].image
+                                                      imageUrl: homeController
+                                                          .model.value.data!.sliderData![index].image
                                                           .toString(),
                                                       fit: BoxFit.cover,
                                                       errorWidget: (_, __, ___) => Image.asset(
@@ -661,10 +644,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 height: 44,
                                                 decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(4),
-                                                    border: selectedDate == 'Available Now' && isAvailableSelected == false
-                                                        ? Border.all(color: const Color(0xff7ED957), width: 2)
-                                                        : Border.all(
-                                                            color: const Color(0xFF717171).withOpacity(0.22), width: 1)),
+                                                    border:
+                                                        selectedDate == 'Available Now' && isAvailableSelected == false
+                                                            ? Border.all(color: const Color(0xff7ED957), width: 2)
+                                                            : Border.all(
+                                                                color: const Color(0xFF717171).withOpacity(0.22),
+                                                                width: 1)),
                                                 child: Row(
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -740,7 +725,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                         ),
                                                         textButtonTheme: TextButtonThemeData(
                                                           style: TextButton.styleFrom(
-                                                            foregroundColor: const Color(0xFF7ED957), // button text color
+                                                            foregroundColor:
+                                                                const Color(0xFF7ED957), // button text color
                                                           ),
                                                         ),
                                                       ),
@@ -760,7 +746,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     String formattedDate = DateFormat('yyyy/MM/dd').format(value);
                                                     setState(() {
                                                       // var selectedDate=formattedDate;
-                                                      selectedDate = formattedDate; //set output date to TextField value.
+                                                      selectedDate =
+                                                          formattedDate; //set output date to TextField value.
                                                       log("Seleted Date for slot is    $selectedDate");
                                                     });
                                                   }
@@ -933,13 +920,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                             ClipRRect(
                                                                               borderRadius: BorderRadius.circular(8),
                                                                               child: CachedNetworkImage(
-                                                                                imageUrl: homeController
-                                                                                    .model.value.data!.stores![index].image
+                                                                                imageUrl: homeController.model.value
+                                                                                    .data!.stores![index].image
                                                                                     .toString(),
                                                                                 fit: BoxFit.cover,
                                                                                 height: 150,
                                                                                 width: AddSize.screenWidth,
-                                                                                errorWidget: (_, __, ___) => Image.asset(
+                                                                                errorWidget: (_, __, ___) =>
+                                                                                    Image.asset(
                                                                                   'assets/images/Rectangle 23007.png',
                                                                                   fit: BoxFit.cover,
                                                                                   height: 150,
@@ -970,7 +958,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                             ),
                                                                             addHeight(6),
                                                                             Row(
-                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              crossAxisAlignment:
+                                                                                  CrossAxisAlignment.start,
                                                                               children: [
                                                                                 Image.asset(
                                                                                   'assets/images/truckimg.png',
@@ -989,9 +978,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                       ),
                                                                     ),
 
-                                                                    homeController.model.value.data!.stores![index].award!
-                                                                                .isNotEmpty ||
-                                                                            homeController.model.value.data!.stores![index]
+                                                                    homeController.model.value.data!.stores![index]
+                                                                                .award!.isNotEmpty ||
+                                                                            homeController
+                                                                                    .model
+                                                                                    .value
+                                                                                    .data!
+                                                                                    .stores![index]
                                                                                     .sustainablePackagingStatus ==
                                                                                 true
                                                                         ? Positioned(
@@ -1017,17 +1010,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                           showGeneralDialog(
                                                                                               context: context,
                                                                                               barrierDismissible: true,
-                                                                                              barrierColor:
-                                                                                                  const Color(0xFF000000)
-                                                                                                      .withOpacity(0.58),
+                                                                                              barrierColor: const Color(
+                                                                                                      0xFF000000)
+                                                                                                  .withOpacity(0.58),
                                                                                               barrierLabel:
-                                                                                                  MaterialLocalizations.of(
-                                                                                                          context)
+                                                                                                  MaterialLocalizations
+                                                                                                          .of(context)
                                                                                                       .modalBarrierDismissLabel,
-                                                                                              pageBuilder:
-                                                                                                  (BuildContext context,
-                                                                                                      Animation first,
-                                                                                                      Animation second) {
+                                                                                              pageBuilder: (BuildContext
+                                                                                                      context,
+                                                                                                  Animation first,
+                                                                                                  Animation second) {
                                                                                                 return Stack(
                                                                                                   children: [
                                                                                                     Center(
@@ -1038,22 +1031,27 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                                               .model
                                                                                                               .value
                                                                                                               .data!
-                                                                                                              .stores![index]
-                                                                                                              .award![index1]
+                                                                                                              .stores![
+                                                                                                                  index]
+                                                                                                              .award![
+                                                                                                                  index1]
                                                                                                               .image
                                                                                                               .toString(),
                                                                                                       //fit: BoxFit.cover,
-                                                                                                      height: height * .7,
+                                                                                                      height:
+                                                                                                          height * .7,
                                                                                                       width: width * .7,
-                                                                                                      errorWidget:
-                                                                                                          (_, __, ___) =>
-                                                                                                              Image.asset(
+                                                                                                      errorWidget: (_,
+                                                                                                              __,
+                                                                                                              ___) =>
+                                                                                                          Image.asset(
                                                                                                         'assets/images/topChef.png',
                                                                                                         // fit: BoxFit.cover,
                                                                                                         height: 40,
                                                                                                         width: 40,
                                                                                                       ),
-                                                                                                      placeholder: (_, __) =>
+                                                                                                      placeholder: (_,
+                                                                                                              __) =>
                                                                                                           const Center(
                                                                                                               child:
                                                                                                                   CircularProgressIndicator()),
@@ -1061,14 +1059,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                                     Positioned(
                                                                                                       right: 22,
                                                                                                       top: 100,
-                                                                                                      child: GestureDetector(
+                                                                                                      child:
+                                                                                                          GestureDetector(
                                                                                                         onTap: () {
                                                                                                           Get.back();
                                                                                                         },
                                                                                                         child: Container(
                                                                                                             padding:
                                                                                                                 const EdgeInsets
-                                                                                                                    .all(10),
+                                                                                                                    .all(
+                                                                                                                    10),
                                                                                                             height: 50,
                                                                                                             decoration: const BoxDecoration(
                                                                                                                 color: Colors
@@ -1103,9 +1103,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                             height: 40,
                                                                                             width: 40,
                                                                                           ),
-                                                                                          placeholder: (_, __) => const Center(
-                                                                                              child:
-                                                                                                  CircularProgressIndicator()),
+                                                                                          placeholder: (_, __) =>
+                                                                                              const Center(
+                                                                                                  child:
+                                                                                                      CircularProgressIndicator()),
                                                                                         ),
                                                                                       );
                                                                                     })
@@ -1191,9 +1192,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                               MaterialLocalizations.of(
                                                                                                       context)
                                                                                                   .modalBarrierDismissLabel,
-                                                                                          pageBuilder: (BuildContext context,
-                                                                                              Animation first,
-                                                                                              Animation second) {
+                                                                                          pageBuilder:
+                                                                                              (BuildContext context,
+                                                                                                  Animation first,
+                                                                                                  Animation second) {
                                                                                             return Stack(
                                                                                               children: [
                                                                                                 Center(
@@ -1207,23 +1209,24 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                                 Positioned(
                                                                                                   right: 20,
                                                                                                   top: 100,
-                                                                                                  child: GestureDetector(
+                                                                                                  child:
+                                                                                                      GestureDetector(
                                                                                                     onTap: () {
                                                                                                       Get.back();
                                                                                                     },
                                                                                                     child: Container(
                                                                                                         padding:
-                                                                                                            const EdgeInsets
-                                                                                                                .all(10),
+                                                                                                            const EdgeInsets.all(
+                                                                                                                10),
                                                                                                         height: 50,
-                                                                                                        decoration:
-                                                                                                            const BoxDecoration(
-                                                                                                                color: Colors
-                                                                                                                    .white,
-                                                                                                                shape: BoxShape
-                                                                                                                    .circle),
+                                                                                                        decoration: const BoxDecoration(
+                                                                                                            color: Colors
+                                                                                                                .white,
+                                                                                                            shape: BoxShape
+                                                                                                                .circle),
                                                                                                         child: const Icon(
-                                                                                                            Icons.clear)),
+                                                                                                            Icons
+                                                                                                                .clear)),
                                                                                                   ),
                                                                                                 )
                                                                                               ],
@@ -1285,17 +1288,23 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                           // height: 20,
                                                                                           // width: 20,
                                                                                         ),
-                                                                                        placeholder: (_, __) => const Center(
-                                                                                            child:
-                                                                                                CircularProgressIndicator()),
+                                                                                        placeholder: (_, __) =>
+                                                                                            const Center(
+                                                                                                child:
+                                                                                                    CircularProgressIndicator()),
                                                                                       ),
                                                                                     ),
                                                                                   ),
                                                                                 )),
                                                                             addHeight(3),
                                                                             Text(
-                                                                              (homeController.model.value.data!
-                                                                                          .stores![index].cookName!.isEmpty
+                                                                              (homeController
+                                                                                          .model
+                                                                                          .value
+                                                                                          .data!
+                                                                                          .stores![index]
+                                                                                          .cookName!
+                                                                                          .isEmpty
                                                                                       ? 'Test'
                                                                                       : homeController.model.value.data!
                                                                                           .stores![index].cookName)
@@ -1308,8 +1317,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                   color: const Color(0xFF21283D)),
                                                                             ),
                                                                             Row(
-                                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              crossAxisAlignment:
+                                                                                  CrossAxisAlignment.center,
+                                                                              mainAxisAlignment:
+                                                                                  MainAxisAlignment.center,
                                                                               children: [
                                                                                 const Icon(
                                                                                   Icons.star,
@@ -1343,8 +1354,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                         child: InkWell(
                                                                             onTap: () {
                                                                               wishlistRepo(
-                                                                                      id: homeController.model.value.data!
-                                                                                          .stores![index].id
+                                                                                      id: homeController.model.value
+                                                                                          .data!.stores![index].id
                                                                                           .toString(),
                                                                                       productId: '')
                                                                                   .then((value) {
@@ -1363,7 +1374,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                         color: Colors.white),
                                                                                     child: const Padding(
                                                                                         padding: EdgeInsets.only(
-                                                                                            left: 10, right: 10, top: 3),
+                                                                                            left: 10,
+                                                                                            right: 10,
+                                                                                            top: 3),
                                                                                         child: Icon(
                                                                                           Icons.favorite,
                                                                                           color: Color(0xFF7ED957),
@@ -1375,7 +1388,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                         color: Colors.white),
                                                                                     child: const Padding(
                                                                                         padding: EdgeInsets.only(
-                                                                                            left: 10, right: 10, top: 3),
+                                                                                            left: 10,
+                                                                                            right: 10,
+                                                                                            top: 3),
                                                                                         child: Icon(
                                                                                           Icons.favorite_outline,
                                                                                           color: Color(0xFF7ED957),
@@ -1588,7 +1603,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           child: Text(
                                                         'No Cooks available',
                                                         style: TextStyle(
-                                                            fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
+                                                            fontSize: 15,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: Colors.black),
                                                       )),
                                                     )
                                             ],
@@ -1599,147 +1616,270 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               children: [
                                                 SizedBox(
                                                     // height: 140,
-                                                    child: filterProductCategoryController.filterDataModel.value.data != null
-                                                        ? ListView.builder(
-                                                            shrinkWrap: true,
-                                                            itemCount: filterProductCategoryController
-                                                                .filterDataModel.value.data!.length,
-                                                            physics: const NeverScrollableScrollPhysics(),
-                                                            itemBuilder: (context, index) {
-                                                              return Column(
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsets.only(right: 8.0),
-                                                                    child: Container(
-                                                                      decoration: BoxDecoration(
-                                                                        color: Colors.white,
-                                                                        borderRadius: BorderRadius.circular(10),
-                                                                        boxShadow: [
-                                                                          BoxShadow(
-                                                                            color: const Color(0xFF37C666).withOpacity(0.15),
-                                                                            offset: const Offset(
-                                                                              .3,
-                                                                              .3,
-                                                                            ),
-                                                                            blurRadius: 20.0,
-                                                                            spreadRadius: 1.0,
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      child: Stack(
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding: const EdgeInsets.all(8.0),
-                                                                            child: GestureDetector(
-                                                                              onTap: () {
-                                                                                Get.to(() => HomeDetailsScreen(
-                                                                                    storeId: filterProductCategoryController
-                                                                                        .filterDataModel
-                                                                                        .value
-                                                                                        .data![index]
-                                                                                        .id
-                                                                                        .toString()));
-                                                                                // Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
-                                                                                //   filterProductCategoryController
-                                                                                //       .filterDataModel.value.data![index].id
-                                                                                //       .toString()
-                                                                                // ]);
-                                                                              },
-                                                                              child: Column(
-                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                children: [
-                                                                                  ClipRRect(
-                                                                                    borderRadius: BorderRadius.circular(8),
-                                                                                    child: CachedNetworkImage(
-                                                                                      imageUrl:
-                                                                                          filterProductCategoryController
-                                                                                              .filterDataModel
-                                                                                              .value
-                                                                                              .data![index]
-                                                                                              .image
-                                                                                              .toString(),
-                                                                                      fit: BoxFit.cover,
-                                                                                      height: 150,
-                                                                                      width: AddSize.screenWidth,
-                                                                                      errorWidget: (_, __, ___) =>
-                                                                                          Image.asset(
-                                                                                        'assets/images/Rectangle 23007.png',
-                                                                                        fit: BoxFit.cover,
-                                                                                        height: 150,
-                                                                                        width: AddSize.screenWidth,
-                                                                                      ),
-                                                                                      placeholder: (_, __) => const Center(
-                                                                                          child:
-                                                                                              CircularProgressIndicator()),
-                                                                                    ),
-                                                                                  ),
-                                                                                  addHeight(6),
-                                                                                  Text(
-                                                                                    filterProductCategoryController
-                                                                                        .filterDataModel
-                                                                                        .value
-                                                                                        .data![index]
-                                                                                        .name
-                                                                                        .toString()
-                                                                                        .capitalizeFirst
-                                                                                        .toString(),
-                                                                                    style: GoogleFonts.poppins(
-                                                                                        fontWeight: FontWeight.w700,
-                                                                                        fontSize: 16,
-                                                                                        color: const Color(0xFF21283D)),
-                                                                                  ),
-                                                                                  addHeight(6),
-                                                                                  Row(
-                                                                                    children: [
-                                                                                      Image.asset(
-                                                                                        'assets/images/truckimg.png',
-                                                                                        height: 22,
-                                                                                        color: const Color(0xFF04666E),
-                                                                                      ),
-                                                                                      addWidth(10),
-                                                                                      Expanded(
-                                                                                        child: buildTextFilter(index),
-                                                                                      ),
-                                                                                      addWidth(110),
-                                                                                    ],
-                                                                                  )
-                                                                                ],
+                                                    child:
+                                                        filterProductCategoryController.filterDataModel.value.data !=
+                                                                null
+                                                            ? ListView.builder(
+                                                                shrinkWrap: true,
+                                                                itemCount: filterProductCategoryController
+                                                                    .filterDataModel.value.data!.length,
+                                                                physics: const NeverScrollableScrollPhysics(),
+                                                                itemBuilder: (context, index) {
+                                                                  return Column(
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: const EdgeInsets.only(right: 8.0),
+                                                                        child: Container(
+                                                                          decoration: BoxDecoration(
+                                                                            color: Colors.white,
+                                                                            borderRadius: BorderRadius.circular(10),
+                                                                            boxShadow: [
+                                                                              BoxShadow(
+                                                                                color: const Color(0xFF37C666)
+                                                                                    .withOpacity(0.15),
+                                                                                offset: const Offset(
+                                                                                  .3,
+                                                                                  .3,
+                                                                                ),
+                                                                                blurRadius: 20.0,
+                                                                                spreadRadius: 1.0,
                                                                               ),
-                                                                            ),
+                                                                            ],
                                                                           ),
-                                                                          if (filterProductCategoryController.filterDataModel
-                                                                                  .value.data![index].award !=
-                                                                              null)
-                                                                            filterProductCategoryController
-                                                                                        .filterDataModel
-                                                                                        .value
-                                                                                        .data![index]
-                                                                                        .award!
-                                                                                        .isNotEmpty ||
-                                                                                    filterProductCategoryController
+                                                                          child: Stack(
+                                                                            children: [
+                                                                              Padding(
+                                                                                padding: const EdgeInsets.all(8.0),
+                                                                                child: GestureDetector(
+                                                                                  onTap: () {
+                                                                                    Get.to(() => HomeDetailsScreen(
+                                                                                        storeId:
+                                                                                            filterProductCategoryController
+                                                                                                .filterDataModel
+                                                                                                .value
+                                                                                                .data![index]
+                                                                                                .id
+                                                                                                .toString()));
+                                                                                    // Get.toNamed(MyRouters.homeDetailsScreen, arguments: [
+                                                                                    //   filterProductCategoryController
+                                                                                    //       .filterDataModel.value.data![index].id
+                                                                                    //       .toString()
+                                                                                    // ]);
+                                                                                  },
+                                                                                  child: Column(
+                                                                                    crossAxisAlignment:
+                                                                                        CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      ClipRRect(
+                                                                                        borderRadius:
+                                                                                            BorderRadius.circular(8),
+                                                                                        child: CachedNetworkImage(
+                                                                                          imageUrl:
+                                                                                              filterProductCategoryController
+                                                                                                  .filterDataModel
+                                                                                                  .value
+                                                                                                  .data![index]
+                                                                                                  .image
+                                                                                                  .toString(),
+                                                                                          fit: BoxFit.cover,
+                                                                                          height: 150,
+                                                                                          width: AddSize.screenWidth,
+                                                                                          errorWidget: (_, __, ___) =>
+                                                                                              Image.asset(
+                                                                                            'assets/images/Rectangle 23007.png',
+                                                                                            fit: BoxFit.cover,
+                                                                                            height: 150,
+                                                                                            width: AddSize.screenWidth,
+                                                                                          ),
+                                                                                          placeholder: (_, __) =>
+                                                                                              const Center(
+                                                                                                  child:
+                                                                                                      CircularProgressIndicator()),
+                                                                                        ),
+                                                                                      ),
+                                                                                      addHeight(6),
+                                                                                      Text(
+                                                                                        filterProductCategoryController
                                                                                             .filterDataModel
                                                                                             .value
                                                                                             .data![index]
-                                                                                            .sustainablePackagingStatus ==
-                                                                                        true
-                                                                                ? Positioned(
-                                                                                    top: 14,
-                                                                                    // bottom: 0,
-                                                                                    left: 10,
-                                                                                    right: 15,
-                                                                                    //   bottom: 0,
-                                                                                    child: Row(
-                                                                                      children: [
-                                                                                        Row(
+                                                                                            .name
+                                                                                            .toString()
+                                                                                            .capitalizeFirst
+                                                                                            .toString(),
+                                                                                        style: GoogleFonts.poppins(
+                                                                                            fontWeight: FontWeight.w700,
+                                                                                            fontSize: 16,
+                                                                                            color: const Color(
+                                                                                                0xFF21283D)),
+                                                                                      ),
+                                                                                      addHeight(6),
+                                                                                      Row(
+                                                                                        children: [
+                                                                                          Image.asset(
+                                                                                            'assets/images/truckimg.png',
+                                                                                            height: 22,
+                                                                                            color:
+                                                                                                const Color(0xFF04666E),
+                                                                                          ),
+                                                                                          addWidth(10),
+                                                                                          Expanded(
+                                                                                            child:
+                                                                                                buildTextFilter(index),
+                                                                                          ),
+                                                                                          addWidth(110),
+                                                                                        ],
+                                                                                      )
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              if (filterProductCategoryController
+                                                                                      .filterDataModel
+                                                                                      .value
+                                                                                      .data![index]
+                                                                                      .award !=
+                                                                                  null)
+                                                                                filterProductCategoryController
+                                                                                            .filterDataModel
+                                                                                            .value
+                                                                                            .data![index]
+                                                                                            .award!
+                                                                                            .isNotEmpty ||
+                                                                                        filterProductCategoryController
+                                                                                                .filterDataModel
+                                                                                                .value
+                                                                                                .data![index]
+                                                                                                .sustainablePackagingStatus ==
+                                                                                            true
+                                                                                    ? Positioned(
+                                                                                        top: 14,
+                                                                                        // bottom: 0,
+                                                                                        left: 10,
+                                                                                        right: 15,
+                                                                                        //   bottom: 0,
+                                                                                        child: Row(
                                                                                           children: [
-                                                                                            ...List.generate(
-                                                                                                filterProductCategoryController
+                                                                                            Row(
+                                                                                              children: [
+                                                                                                ...List.generate(
+                                                                                                    filterProductCategoryController
+                                                                                                        .filterDataModel
+                                                                                                        .value
+                                                                                                        .data![index]
+                                                                                                        .award!
+                                                                                                        .length,
+                                                                                                    (index1) {
+                                                                                                  return InkWell(
+                                                                                                    onTap: () {
+                                                                                                      showGeneralDialog(
+                                                                                                          context:
+                                                                                                              context,
+                                                                                                          barrierDismissible:
+                                                                                                              true,
+                                                                                                          barrierColor: const Color(
+                                                                                                                  0xFF000000)
+                                                                                                              .withOpacity(
+                                                                                                                  0.58),
+                                                                                                          barrierLabel: MaterialLocalizations.of(
+                                                                                                                  context)
+                                                                                                              .modalBarrierDismissLabel,
+                                                                                                          pageBuilder: (BuildContext
+                                                                                                                  context,
+                                                                                                              Animation
+                                                                                                                  first,
+                                                                                                              Animation
+                                                                                                                  second) {
+                                                                                                            return Stack(
+                                                                                                              children: [
+                                                                                                                Center(
+                                                                                                                    child:
+                                                                                                                        CachedNetworkImage(
+                                                                                                                  imageUrl: filterProductCategoryController
+                                                                                                                      .filterDataModel
+                                                                                                                      .value
+                                                                                                                      .data![index]
+                                                                                                                      .award![index1]
+                                                                                                                      .image
+                                                                                                                      .toString(),
+                                                                                                                  //fit: BoxFit.cover,
+                                                                                                                  height:
+                                                                                                                      height * .7,
+                                                                                                                  width:
+                                                                                                                      width * .7,
+                                                                                                                  errorWidget: (_, __, ___) =>
+                                                                                                                      Image.asset(
+                                                                                                                    'assets/images/topChef.png',
+                                                                                                                    // fit: BoxFit.cover,
+                                                                                                                    height:
+                                                                                                                        40,
+                                                                                                                    width:
+                                                                                                                        40,
+                                                                                                                  ),
+                                                                                                                  placeholder: (_, __) =>
+                                                                                                                      const Center(child: CircularProgressIndicator()),
+                                                                                                                )),
+                                                                                                                Positioned(
+                                                                                                                  right:
+                                                                                                                      22,
+                                                                                                                  top:
+                                                                                                                      100,
+                                                                                                                  child:
+                                                                                                                      GestureDetector(
+                                                                                                                    onTap:
+                                                                                                                        () {
+                                                                                                                      Get.back();
+                                                                                                                    },
+                                                                                                                    child: Container(
+                                                                                                                        padding: const EdgeInsets.all(10),
+                                                                                                                        height: 50,
+                                                                                                                        decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                                                                                                        child: const Icon(Icons.clear)),
+                                                                                                                  ),
+                                                                                                                )
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          });
+                                                                                                    },
+                                                                                                    child:
+                                                                                                        CachedNetworkImage(
+                                                                                                      imageUrl: filterProductCategoryController
+                                                                                                          .filterDataModel
+                                                                                                          .value
+                                                                                                          .data![index]
+                                                                                                          .award![
+                                                                                                              index1]
+                                                                                                          .image
+                                                                                                          .toString(),
+                                                                                                      //fit: BoxFit.cover,
+                                                                                                      height: 70,
+                                                                                                      width: 70,
+                                                                                                      errorWidget: (_,
+                                                                                                              __,
+                                                                                                              ___) =>
+                                                                                                          Image.asset(
+                                                                                                        'assets/images/topChef.png',
+                                                                                                        // fit: BoxFit.cover,
+                                                                                                        height: 40,
+                                                                                                        width: 40,
+                                                                                                      ),
+                                                                                                      placeholder: (_,
+                                                                                                              __) =>
+                                                                                                          const Center(
+                                                                                                              child:
+                                                                                                                  CircularProgressIndicator()),
+                                                                                                    ),
+                                                                                                  );
+                                                                                                })
+                                                                                              ],
+                                                                                            ),
+                                                                                            if (filterProductCategoryController
                                                                                                     .filterDataModel
                                                                                                     .value
                                                                                                     .data![index]
-                                                                                                    .award!
-                                                                                                    .length, (index1) {
-                                                                                              return InkWell(
+                                                                                                    .sustainablePackagingStatus ==
+                                                                                                true)
+                                                                                              InkWell(
                                                                                                 onTap: () {
                                                                                                   showGeneralDialog(
                                                                                                       context: context,
@@ -1751,9 +1891,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                                               .withOpacity(
                                                                                                                   0.58),
                                                                                                       barrierLabel:
-                                                                                                          MaterialLocalizations
-                                                                                                                  .of(
-                                                                                                                      context)
+                                                                                                          MaterialLocalizations.of(
+                                                                                                                  context)
                                                                                                               .modalBarrierDismissLabel,
                                                                                                       pageBuilder:
                                                                                                           (BuildContext
@@ -1765,359 +1904,266 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                                                         return Stack(
                                                                                                           children: [
                                                                                                             Center(
-                                                                                                                child:
-                                                                                                                    CachedNetworkImage(
-                                                                                                              imageUrl: filterProductCategoryController
-                                                                                                                  .filterDataModel
-                                                                                                                  .value
-                                                                                                                  .data![
-                                                                                                                      index]
-                                                                                                                  .award![
-                                                                                                                      index1]
-                                                                                                                  .image
-                                                                                                                  .toString(),
-                                                                                                              //fit: BoxFit.cover,
-                                                                                                              height:
-                                                                                                                  height *
-                                                                                                                      .7,
-                                                                                                              width:
-                                                                                                                  width * .7,
-                                                                                                              errorWidget: (_,
-                                                                                                                      __,
-                                                                                                                      ___) =>
-                                                                                                                  Image
-                                                                                                                      .asset(
-                                                                                                                'assets/images/topChef.png',
+                                                                                                              child: Image
+                                                                                                                  .asset(
+                                                                                                                'assets/images/leavesIcon.png',
                                                                                                                 // fit: BoxFit.cover,
-                                                                                                                height: 40,
-                                                                                                                width: 40,
+                                                                                                                height:
+                                                                                                                    height *
+                                                                                                                        .3,
+                                                                                                                // width: width * .4,
                                                                                                               ),
-                                                                                                              placeholder: (_,
-                                                                                                                      __) =>
-                                                                                                                  const Center(
-                                                                                                                      child:
-                                                                                                                          CircularProgressIndicator()),
-                                                                                                            )),
+                                                                                                            ),
                                                                                                             Positioned(
-                                                                                                              right: 22,
+                                                                                                              right: 20,
                                                                                                               top: 100,
                                                                                                               child:
                                                                                                                   GestureDetector(
-                                                                                                                onTap: () {
+                                                                                                                onTap:
+                                                                                                                    () {
                                                                                                                   Get.back();
                                                                                                                 },
                                                                                                                 child: Container(
-                                                                                                                    padding: const EdgeInsets
-                                                                                                                        .all(
+                                                                                                                    padding: const EdgeInsets.all(
                                                                                                                         10),
                                                                                                                     height:
                                                                                                                         50,
-                                                                                                                    decoration: const BoxDecoration(
-                                                                                                                        color: Colors
-                                                                                                                            .white,
-                                                                                                                        shape: BoxShape
-                                                                                                                            .circle),
-                                                                                                                    child: const Icon(
-                                                                                                                        Icons
-                                                                                                                            .clear)),
+                                                                                                                    decoration:
+                                                                                                                        const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                                                                                                    child: const Icon(Icons.clear)),
                                                                                                               ),
                                                                                                             )
                                                                                                           ],
                                                                                                         );
                                                                                                       });
                                                                                                 },
-                                                                                                child: CachedNetworkImage(
-                                                                                                  imageUrl:
-                                                                                                      filterProductCategoryController
+                                                                                                child: Image.asset(
+                                                                                                  'assets/images/leavesIcon.png',
+                                                                                                  // fit: BoxFit.cover,
+                                                                                                  height: 65,
+                                                                                                  width: 65,
+                                                                                                ),
+                                                                                              )
+                                                                                          ],
+                                                                                        ))
+                                                                                    : const SizedBox(),
+                                                                              Positioned(
+                                                                                  bottom: 10,
+                                                                                  right: 20,
+                                                                                  //   bottom: 0,
+                                                                                  child: Column(
+                                                                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                          height: 55,
+                                                                                          // width: 30,
+                                                                                          decoration:
+                                                                                              const BoxDecoration(
+                                                                                                  shape:
+                                                                                                      BoxShape.circle,
+                                                                                                  color: Colors.white),
+                                                                                          child: Padding(
+                                                                                            padding:
+                                                                                                const EdgeInsets.all(4),
+                                                                                            child:
+                                                                                                // Image.asset('assets/images/avtarImg.png'),
+
+                                                                                                SizedBox(
+                                                                                              height: 50,
+                                                                                              width: 50,
+                                                                                              child: ClipRRect(
+                                                                                                borderRadius:
+                                                                                                    BorderRadius
+                                                                                                        .circular(50),
+                                                                                                child:
+                                                                                                    CachedNetworkImage(
+                                                                                                  imageUrl: filterProductCategoryController
+                                                                                                          .isDataLoading
+                                                                                                          .value
+                                                                                                      ? filterProductCategoryController
                                                                                                           .filterDataModel
                                                                                                           .value
                                                                                                           .data![index]
-                                                                                                          .award![index1]
-                                                                                                          .image
-                                                                                                          .toString(),
-                                                                                                  //fit: BoxFit.cover,
-                                                                                                  height: 70,
-                                                                                                  width: 70,
+                                                                                                          .profileImage
+                                                                                                          .toString()
+                                                                                                      : 'assets/images/avtarImg.png',
+                                                                                                  // height: 40,
+                                                                                                  fit: BoxFit.cover,
                                                                                                   errorWidget:
                                                                                                       (_, __, ___) =>
                                                                                                           Image.asset(
-                                                                                                    'assets/images/topChef.png',
-                                                                                                    // fit: BoxFit.cover,
-                                                                                                    height: 40,
-                                                                                                    width: 40,
+                                                                                                    'assets/images/dummyPerson.png',
+                                                                                                    fit: BoxFit.cover,
+                                                                                                    // height: 20,
+                                                                                                    // width: 20,
                                                                                                   ),
-                                                                                                  placeholder: (_, __) =>
+                                                                                                  placeholder: (_,
+                                                                                                          __) =>
                                                                                                       const Center(
                                                                                                           child:
                                                                                                               CircularProgressIndicator()),
                                                                                                 ),
-                                                                                              );
-                                                                                            })
-                                                                                          ],
-                                                                                        ),
-                                                                                        if (filterProductCategoryController
-                                                                                                .filterDataModel
-                                                                                                .value
-                                                                                                .data![index]
-                                                                                                .sustainablePackagingStatus ==
-                                                                                            true)
-                                                                                          InkWell(
-                                                                                            onTap: () {
-                                                                                              showGeneralDialog(
-                                                                                                  context: context,
-                                                                                                  barrierDismissible: true,
-                                                                                                  barrierColor:
-                                                                                                      const Color(0xFF000000)
-                                                                                                          .withOpacity(0.58),
-                                                                                                  barrierLabel:
-                                                                                                      MaterialLocalizations
-                                                                                                              .of(context)
-                                                                                                          .modalBarrierDismissLabel,
-                                                                                                  pageBuilder:
-                                                                                                      (BuildContext context,
-                                                                                                          Animation first,
-                                                                                                          Animation second) {
-                                                                                                    return Stack(
-                                                                                                      children: [
-                                                                                                        Center(
-                                                                                                          child: Image.asset(
-                                                                                                            'assets/images/leavesIcon.png',
-                                                                                                            // fit: BoxFit.cover,
-                                                                                                            height:
-                                                                                                                height * .3,
-                                                                                                            // width: width * .4,
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                        Positioned(
-                                                                                                          right: 20,
-                                                                                                          top: 100,
-                                                                                                          child:
-                                                                                                              GestureDetector(
-                                                                                                            onTap: () {
-                                                                                                              Get.back();
-                                                                                                            },
-                                                                                                            child: Container(
-                                                                                                                padding:
-                                                                                                                    const EdgeInsets
-                                                                                                                        .all(
-                                                                                                                        10),
-                                                                                                                height: 50,
-                                                                                                                decoration: const BoxDecoration(
-                                                                                                                    color: Colors
-                                                                                                                        .white,
-                                                                                                                    shape: BoxShape
-                                                                                                                        .circle),
-                                                                                                                child: const Icon(
-                                                                                                                    Icons
-                                                                                                                        .clear)),
-                                                                                                          ),
-                                                                                                        )
-                                                                                                      ],
-                                                                                                    );
-                                                                                                  });
-                                                                                            },
-                                                                                            child: Image.asset(
-                                                                                              'assets/images/leavesIcon.png',
-                                                                                              // fit: BoxFit.cover,
-                                                                                              height: 65,
-                                                                                              width: 65,
+                                                                                              ),
                                                                                             ),
-                                                                                          )
-                                                                                      ],
-                                                                                    ))
-                                                                                : const SizedBox(),
-                                                                          Positioned(
-                                                                              bottom: 10,
-                                                                              right: 20,
-                                                                              //   bottom: 0,
-                                                                              child: Column(
-                                                                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Container(
-                                                                                      height: 55,
-                                                                                      // width: 30,
-                                                                                      decoration: const BoxDecoration(
-                                                                                          shape: BoxShape.circle,
-                                                                                          color: Colors.white),
-                                                                                      child: Padding(
-                                                                                        padding: const EdgeInsets.all(4),
-                                                                                        child:
-                                                                                            // Image.asset('assets/images/avtarImg.png'),
-
-                                                                                            SizedBox(
-                                                                                          height: 50,
-                                                                                          width: 50,
-                                                                                          child: ClipRRect(
-                                                                                            borderRadius:
-                                                                                                BorderRadius.circular(50),
-                                                                                            child: CachedNetworkImage(
-                                                                                              imageUrl: filterProductCategoryController
-                                                                                                      .isDataLoading.value
-                                                                                                  ? filterProductCategoryController
+                                                                                          )),
+                                                                                      addHeight(3),
+                                                                                      if (filterProductCategoryController
+                                                                                              .filterDataModel
+                                                                                              .value
+                                                                                              .data![index]
+                                                                                              .cookName !=
+                                                                                          null)
+                                                                                        Text(
+                                                                                          (filterProductCategoryController
                                                                                                       .filterDataModel
                                                                                                       .value
                                                                                                       .data![index]
-                                                                                                      .profileImage
-                                                                                                      .toString()
-                                                                                                  : 'assets/images/avtarImg.png',
-                                                                                              // height: 40,
-                                                                                              fit: BoxFit.cover,
-                                                                                              errorWidget: (_, __, ___) =>
-                                                                                                  Image.asset(
-                                                                                                'assets/images/dummyPerson.png',
-                                                                                                fit: BoxFit.cover,
-                                                                                                // height: 20,
-                                                                                                // width: 20,
-                                                                                              ),
-                                                                                              placeholder: (_, __) =>
-                                                                                                  const Center(
-                                                                                                      child:
-                                                                                                          CircularProgressIndicator()),
-                                                                                            ),
-                                                                                          ),
+                                                                                                      .cookName!
+                                                                                                      .isEmpty
+                                                                                                  ? 'Test'
+                                                                                                  : filterProductCategoryController
+                                                                                                      .filterDataModel
+                                                                                                      .value
+                                                                                                      .data![index]
+                                                                                                      .cookName)
+                                                                                              .toString()
+                                                                                              .capitalizeFirst
+                                                                                              .toString(),
+                                                                                          style: GoogleFonts.poppins(
+                                                                                              fontWeight:
+                                                                                                  FontWeight.w500,
+                                                                                              fontSize: 12,
+                                                                                              color: const Color(
+                                                                                                  0xFF21283D)),
                                                                                         ),
-                                                                                      )),
-                                                                                  addHeight(3),
-                                                                                  if (filterProductCategoryController
-                                                                                          .filterDataModel
-                                                                                          .value
-                                                                                          .data![index]
-                                                                                          .cookName !=
-                                                                                      null)
-                                                                                    Text(
-                                                                                      (filterProductCategoryController
-                                                                                                  .filterDataModel
-                                                                                                  .value
-                                                                                                  .data![index]
-                                                                                                  .cookName!
-                                                                                                  .isEmpty
-                                                                                              ? 'Test'
-                                                                                              : filterProductCategoryController
-                                                                                                  .filterDataModel
-                                                                                                  .value
-                                                                                                  .data![index]
-                                                                                                  .cookName)
-                                                                                          .toString()
-                                                                                          .capitalizeFirst
-                                                                                          .toString(),
-                                                                                      style: GoogleFonts.poppins(
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                          fontSize: 12,
-                                                                                          color: const Color(0xFF21283D)),
-                                                                                    ),
-                                                                                  Row(
-                                                                                    crossAxisAlignment:
-                                                                                        CrossAxisAlignment.center,
-                                                                                    mainAxisAlignment:
-                                                                                        MainAxisAlignment.center,
-                                                                                    children: [
-                                                                                      const Icon(
-                                                                                        Icons.star,
-                                                                                        color: Color(0xFFFFC529),
-                                                                                        size: 14,
-                                                                                      ),
-                                                                                      addWidth(3),
-                                                                                      Text(
-                                                                                        filterProductCategoryController
-                                                                                            .filterDataModel
-                                                                                            .value
-                                                                                            .data![index]
-                                                                                            .rating
-                                                                                            .toString(),
-                                                                                        style: GoogleFonts.poppins(
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            fontSize: 11,
-                                                                                            color: const Color(0xFF6A7080)),
-                                                                                      ),
-                                                                                      Text(
-                                                                                        '(${(filterProductCategoryController.filterDataModel.value.data![index].countReviewData).toString()})',
-                                                                                        style: GoogleFonts.poppins(
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            fontSize: 11,
-                                                                                            color: const Color(0xFF6A7080)),
-                                                                                      ),
-                                                                                    ],
-                                                                                  )
-                                                                                ],
-                                                                              )),
-                                                                          Positioned(
-                                                                              top: 16,
-                                                                              right: 10,
-                                                                              child: InkWell(
-                                                                                  onTap: () {
-                                                                                    wishlistRepo(
-                                                                                            id: filterProductCategoryController
+                                                                                      Row(
+                                                                                        crossAxisAlignment:
+                                                                                            CrossAxisAlignment.center,
+                                                                                        mainAxisAlignment:
+                                                                                            MainAxisAlignment.center,
+                                                                                        children: [
+                                                                                          const Icon(
+                                                                                            Icons.star,
+                                                                                            color: Color(0xFFFFC529),
+                                                                                            size: 14,
+                                                                                          ),
+                                                                                          addWidth(3),
+                                                                                          Text(
+                                                                                            filterProductCategoryController
                                                                                                 .filterDataModel
                                                                                                 .value
                                                                                                 .data![index]
-                                                                                                .id
+                                                                                                .rating
                                                                                                 .toString(),
-                                                                                            productId: '')
-                                                                                        .then((value) {
-                                                                                      if (value.status == true) {
-                                                                                        showToast(value.message);
-                                                                                        filterProductCategoryController
-                                                                                            .getFilterCategoryData(
-                                                                                                distance: "",
-                                                                                                context: context);
-                                                                                      }
-                                                                                    });
-                                                                                  },
-                                                                                  child: filterProductCategoryController
-                                                                                          .filterDataModel
-                                                                                          .value
-                                                                                          .data![index]
-                                                                                          .wishlist!
-                                                                                      ? Container(
-                                                                                          height: 33,
-                                                                                          decoration: const BoxDecoration(
-                                                                                              shape: BoxShape.circle,
-                                                                                              color: Colors.white),
-                                                                                          child: const Padding(
-                                                                                              padding: EdgeInsets.only(
-                                                                                                  left: 10,
-                                                                                                  right: 10,
-                                                                                                  top: 3),
-                                                                                              child: Icon(
-                                                                                                Icons.favorite,
-                                                                                                color: Color(0xFF7ED957),
-                                                                                              )))
-                                                                                      : Container(
-                                                                                          height: 33,
-                                                                                          decoration: const BoxDecoration(
-                                                                                              shape: BoxShape.circle,
-                                                                                              color: Colors.white),
-                                                                                          child: const Padding(
-                                                                                              padding: EdgeInsets.only(
-                                                                                                  left: 10,
-                                                                                                  right: 10,
-                                                                                                  top: 3),
-                                                                                              child: Icon(
-                                                                                                Icons.favorite_outline,
-                                                                                                color: Color(0xFF7ED957),
-                                                                                              ))))),
-                                                                        ],
+                                                                                            style: GoogleFonts.poppins(
+                                                                                                fontWeight:
+                                                                                                    FontWeight.w500,
+                                                                                                fontSize: 11,
+                                                                                                color: const Color(
+                                                                                                    0xFF6A7080)),
+                                                                                          ),
+                                                                                          Text(
+                                                                                            '(${(filterProductCategoryController.filterDataModel.value.data![index].countReviewData).toString()})',
+                                                                                            style: GoogleFonts.poppins(
+                                                                                                fontWeight:
+                                                                                                    FontWeight.w500,
+                                                                                                fontSize: 11,
+                                                                                                color: const Color(
+                                                                                                    0xFF6A7080)),
+                                                                                          ),
+                                                                                        ],
+                                                                                      )
+                                                                                    ],
+                                                                                  )),
+                                                                              Positioned(
+                                                                                  top: 16,
+                                                                                  right: 10,
+                                                                                  child: InkWell(
+                                                                                      onTap: () {
+                                                                                        wishlistRepo(
+                                                                                                id: filterProductCategoryController
+                                                                                                    .filterDataModel
+                                                                                                    .value
+                                                                                                    .data![index]
+                                                                                                    .id
+                                                                                                    .toString(),
+                                                                                                productId: '')
+                                                                                            .then((value) {
+                                                                                          if (value.status == true) {
+                                                                                            showToast(value.message);
+                                                                                            filterProductCategoryController
+                                                                                                .getFilterCategoryData(
+                                                                                                    distance: "",
+                                                                                                    context: context);
+                                                                                          }
+                                                                                        });
+                                                                                      },
+                                                                                      child: filterProductCategoryController
+                                                                                              .filterDataModel
+                                                                                              .value
+                                                                                              .data![index]
+                                                                                              .wishlist!
+                                                                                          ? Container(
+                                                                                              height: 33,
+                                                                                              decoration:
+                                                                                                  const BoxDecoration(
+                                                                                                      shape: BoxShape
+                                                                                                          .circle,
+                                                                                                      color:
+                                                                                                          Colors.white),
+                                                                                              child: const Padding(
+                                                                                                  padding:
+                                                                                                      EdgeInsets.only(
+                                                                                                          left: 10,
+                                                                                                          right: 10,
+                                                                                                          top: 3),
+                                                                                                  child: Icon(
+                                                                                                    Icons.favorite,
+                                                                                                    color: Color(
+                                                                                                        0xFF7ED957),
+                                                                                                  )))
+                                                                                          : Container(
+                                                                                              height: 33,
+                                                                                              decoration:
+                                                                                                  const BoxDecoration(
+                                                                                                      shape: BoxShape
+                                                                                                          .circle,
+                                                                                                      color:
+                                                                                                          Colors.white),
+                                                                                              child: const Padding(
+                                                                                                  padding:
+                                                                                                      EdgeInsets.only(
+                                                                                                          left: 10,
+                                                                                                          right: 10,
+                                                                                                          top: 3),
+                                                                                                  child: Icon(
+                                                                                                    Icons
+                                                                                                        .favorite_outline,
+                                                                                                    color: Color(
+                                                                                                        0xFF7ED957),
+                                                                                                  ))))),
+                                                                            ],
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                    height: 15,
-                                                                  )
-                                                                ],
-                                                              );
-                                                            },
-                                                          )
-                                                        : const Padding(
-                                                            padding: EdgeInsets.only(top: 80),
-                                                            child: Center(
-                                                                child: Text(
-                                                              'No Cooks available',
-                                                              style: TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight: FontWeight.w700,
-                                                                  color: Colors.black),
-                                                            )),
-                                                          )),
+                                                                      const SizedBox(
+                                                                        height: 15,
+                                                                      )
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              )
+                                                            : const Padding(
+                                                                padding: EdgeInsets.only(top: 80),
+                                                                child: Center(
+                                                                    child: Text(
+                                                                  'No Cooks available',
+                                                                  style: TextStyle(
+                                                                      fontSize: 15,
+                                                                      fontWeight: FontWeight.w700,
+                                                                      color: Colors.black),
+                                                                )),
+                                                              )),
                                               ],
                                             ),
                                           ),
@@ -2130,9 +2176,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 addHeight(20),
                               ],
                             ),
-                          ),
-                        ],
-                      )),
+                          )),
                     )
                   : const Center(child: CircularProgressIndicator()),
             );
@@ -2294,12 +2338,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       categoryController.isDataLoading
                                           ? ListView.builder(
                                               shrinkWrap: true,
-                                              itemCount:
-                                                  categoryController.categoryModel.value.data!.secondaryCategory!.length,
+                                              itemCount: categoryController
+                                                  .categoryModel.value.data!.secondaryCategory!.length,
                                               physics: const NeverScrollableScrollPhysics(),
                                               itemBuilder: (context, index) {
-                                                final item =
-                                                    categoryController.categoryModel.value.data!.secondaryCategory![index];
+                                                final item = categoryController
+                                                    .categoryModel.value.data!.secondaryCategory![index];
                                                 return InkWell(
                                                   onTap: () {
                                                     if (categoryController.categoryModel.value.data!.selectedIds.value
@@ -2379,8 +2423,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   categoryController.categoryModel.value.data!.tertiaryCategory!.length,
                                               physics: const NeverScrollableScrollPhysics(),
                                               itemBuilder: (context, index) {
-                                                final item =
-                                                    categoryController.categoryModel.value.data!.tertiaryCategory![index];
+                                                final item = categoryController
+                                                    .categoryModel.value.data!.tertiaryCategory![index];
                                                 return InkWell(
                                                   onTap: () {
                                                     if (categoryController.categoryModel.value.data!.selectedIds.value
@@ -2470,7 +2514,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               itemCount: categoryController.dietiaryModel.value.data!.dietary!.length,
                                               physics: const NeverScrollableScrollPhysics(),
                                               itemBuilder: (context, index) {
-                                                final item = categoryController.dietiaryModel.value.data!.dietary![index];
+                                                final item =
+                                                    categoryController.dietiaryModel.value.data!.dietary![index];
                                                 return InkWell(
                                                   onTap: () {
                                                     if (categoryController.dietiaryModel.value.data!.selectedIds
@@ -2518,10 +2563,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                   if (categoryController
                                                                       .dietiaryModel.value.data!.selectedIds
                                                                       .contains(item.id.toString())) {
-                                                                    categoryController.dietiaryModel.value.data!.selectedIds
+                                                                    categoryController
+                                                                        .dietiaryModel.value.data!.selectedIds
                                                                         .remove(item.id.toString());
                                                                   } else {
-                                                                    categoryController.dietiaryModel.value.data!.selectedIds
+                                                                    categoryController
+                                                                        .dietiaryModel.value.data!.selectedIds
                                                                         .add(item.id.toString());
                                                                   }
                                                                   newState(() {});
@@ -2588,12 +2635,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     // }
                                     homeController
                                         .getData(
-                                            filterCategory: categoryController.categoryModel.value.data!.selectedIds.value
+                                            filterCategory: categoryController
+                                                .categoryModel.value.data!.selectedIds.value
                                                 .toList()
                                                 .join(","),
                                             // categoryType: ,
-                                            chooseDietaries:
-                                                categoryController.dietiaryModel.value.data!.selectedIds.toList().join(","),
+                                            chooseDietaries: categoryController.dietiaryModel.value.data!.selectedIds
+                                                .toList()
+                                                .join(","),
                                             context: context)
                                         .then((value) {
                                       //if() {
@@ -2648,7 +2697,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                   child: SingleChildScrollView(
-                    child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    child:
+                        Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Row(

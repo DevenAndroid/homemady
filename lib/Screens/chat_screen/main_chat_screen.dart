@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/resources/helper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -169,6 +170,7 @@ class _MainChatScreenState extends State<MainChatScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
+          centerTitle: true,
           surfaceTintColor: Colors.white,
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: Colors.white,
@@ -185,39 +187,26 @@ class _MainChatScreenState extends State<MainChatScreen> {
               height: AddSize.size10,
             ),
           ),
-          leading: Padding(
-            padding: const EdgeInsets.all(16),
-            child: InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: const Icon(Icons.arrow_back)),
-          ),
-          title: Row(
-            children: [
-              Image.network(
-                widget.receiverImage.toString(),
-                height: 30,
-                width: 30,
-                errorBuilder: (_, __, ___) => const Icon(Icons.person),
-              ),
-              InkWell(
-                onTap: () {
-                  // Get.toNamed(ChatInformationScreen.chatInformation);
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(widget.receiverName,
-                        style: TextStyle(fontSize: AddSize.font14, fontWeight: FontWeight.w500, color: const Color(0xFF1F2124))),
-                    // Text(DateFormat("hh:mm a").format(DateTime.fromMillisecondsSinceEpoch(lastTimeByOther.value)),
-                    //     style: TextStyle(fontSize: AddSize.font10, fontWeight: FontWeight.w300, color: const Color(0xFF1F2124))),
-                    // Text('last seen recently',style: TextStyle(fontSize: AddSize.font8,fontWeight: FontWeight.w400,color: Color(0xFF303D48))),
-                  ],
+          actions: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(1000),
+              child: SizedBox(
+                height: 32,
+                width: 32,
+                child: Image.network(
+                  widget.receiverImage.toString(),
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => const Icon(Icons.person),
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(width: 15,)
+          ],
+          title: Text(widget.receiverName,
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.w500
+          ),),
         ),
         body: Column(
           children: [

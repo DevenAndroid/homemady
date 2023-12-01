@@ -132,7 +132,6 @@ class Stores {
     name = json['name'];
     distance = json['distance'];
     collection = json['collection'];
-    time = json['Time'];
     sustainablePackagingStatus = json['sustainable_packaging_status'];
     image = json['image'];
     if (json['award'] != null) {
@@ -145,6 +144,7 @@ class Stores {
     countReviewData = json['count_review_Data'];
     cookName = json['Cook name'];
     wishlist = json['wishlist'];
+    time = json['Time'];
     time1 = json['Time1'];
     profileImage = json['profile image'];
   }

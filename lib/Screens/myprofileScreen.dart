@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/controller/my_order_controller.dart';
 import 'package:homemady/widgets/app_assets.dart';
 import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/custome_size.dart';
@@ -483,7 +484,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           ) : const Center(child:  CircularProgressIndicator()) ;
         }),
       ),
-    );
+    ).manageNotification();
   }
 
 }

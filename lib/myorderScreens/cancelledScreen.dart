@@ -7,7 +7,7 @@ import 'package:homemady/widgets/custome_size.dart';
 import '../controller/my_order_controller.dart';
 
 class CancelledScreen extends StatefulWidget {
-  const CancelledScreen({Key? key}) : super(key: key);
+  const CancelledScreen({super.key});
 
   @override
   State<CancelledScreen> createState() => _CancelledScreenState();
@@ -17,12 +17,9 @@ class _CancelledScreenState extends State<CancelledScreen> {
   final controller = Get.put(MyOrderController());
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
       controller.getData();
-      // Add Your Code here.
-
     });
   }
   @override

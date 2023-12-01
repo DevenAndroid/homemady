@@ -9,9 +9,9 @@ class ReferAndEranController extends GetxController{
   Rx<ReferAndEarnModel> model = ReferAndEarnModel().obs;
 
 
-  getData(){
+  Future getData() async {
     isDataLoading.value = false;
-    referAndEarnData().then((value) {
+    await referAndEarnData().then((value) {
       isDataLoading.value = true;
       model.value = value;
     });

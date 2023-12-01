@@ -44,7 +44,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> with TickerProviderStateM
           }),
       body: Column(
         children: [
-          addHeight(20),
+          const SizedBox(height: 5,),
           Stack(
             children: [
               Positioned.fill(
@@ -82,7 +82,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> with TickerProviderStateM
               ),
             ],
           ),
-          addHeight(20),
+          addHeight(16),
           Expanded(
             child: TabBarView(
                 physics: const BouncingScrollPhysics(),

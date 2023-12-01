@@ -44,6 +44,8 @@ class Data {
   dynamic id;
   dynamic name;
   dynamic distance;
+  dynamic time;
+  dynamic time1;
   dynamic image;
   List<Award>? award;
   dynamic rating;
@@ -59,6 +61,8 @@ class Data {
         this.name,
         this.distance,
         this.image,
+        this.time,
+        this.time1,
         this.award,
         this.rating,
         this.collection,
@@ -70,6 +74,8 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    time = json['Time'];
+    time1 = json['Time1'];
     name = json['name'];
     distance = json['distance'];
     collection = json['collection'];

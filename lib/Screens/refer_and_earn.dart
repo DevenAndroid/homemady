@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/controller/referandearn_controller.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/widgets/app_theme.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:share_plus/share_plus.dart';
@@ -30,7 +32,9 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
   @override
   void initState() {
     super.initState();
-    controller.getData();
+    controller.getData().then((value) {
+      setState(() {});
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -137,38 +141,35 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
-                                // onTap: () {
-                                //   Clipboard.setData(
-                                //       ClipboardData(text: controller.referAndEarnModel.value.data!.referCode.toString()
-                                //        //   text: controller.referAndEarnModel.value.data!.referCode.toString()
-                                //       ))
-                                //       .then((value) =>
-                                //       Fluttertoast.showToast(
-                                //           msg: "Copied",
-                                //           gravity: ToastGravity.CENTER));
-                                // },
-                                child: Row(children: [
-                                  Image.asset('assets/images/Copied.png',height: 21,),
-                                  // Image(
-                                  //     height: height * .03,
-                                  //     width: width * .05,
-                                  //     fit: BoxFit.cover,
-                                  //     image: const AssetImage(
-                                  //         AppAssets.shareIcon1)),
-                                  SizedBox(
-                                    width: width * .04,
-                                  ),
+                              Row(children: [
+                                IconButton(
+                                  onPressed: () async {
+                                    await Clipboard.setData(ClipboardData(text: controller.model.value.data!.referCode.toString()));
+                                    showToast("Refer copied");
+                                  },
+                                    visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
+                                    padding: EdgeInsets.zero,
+                                    icon: Image.asset('assets/images/Copied.png',height: 21,)),
+                                // Image(
+                                //     height: height * .03,
+                                //     width: width * .05,
+                                //     fit: BoxFit.cover,
+                                //     image: const AssetImage(
+                                //         AppAssets.shareIcon1)),
+                                SizedBox(
+                                  width: width * .04,
+                                ),
 
-                                  /*Text(controller.referAndEarnModel.value.data!.referCode.toString(),
-                                        style: TextStyle(
-                                            color: Colors.grey.shade500,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500)),*/
-                                  Text(controller.model.value.data!.referCode.toString(),style: TextStyle(
-                                      color: const Color(0xFF7F8492),fontSize: AddSize.size16,fontWeight: FontWeight.w400),),
-                                ]),
-                              ),
+                                /*Text(controller.referAndEarnModel.value.data!.referCode.toString(),
+                                      style: TextStyle(
+                                          color: Colors.grey.shade500,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500)),*/
+                                SelectionArea(
+                                  child: Text(controller.model.value.data!.referCode.toString(),style: TextStyle(
+                                      color: Colors.grey.shade800,fontSize: AddSize.size16,fontWeight: FontWeight.w400),),
+                                ),
+                              ]),
                               GestureDetector(
                                 onTap: () {
                                   shareController.generateLink("",referralCode: controller.model.value.data!.referCode.toString());
@@ -250,11 +251,15 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
                                 fontSize: 18),
                           )),
                     ),
+                    SizedBox(
+                      height: height * .04,
+                    ),
                   ],
                 ),
               ),
             ),
-          ): const Center(child: CircularProgressIndicator())
+          ):
+          const Center(child: CircularProgressIndicator())
         //)
         //     :Center(child: CircularProgressIndicator());
         //  }

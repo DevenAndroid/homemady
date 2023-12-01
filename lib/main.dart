@@ -10,6 +10,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'service/custome_notification_headers.dart';
 import 'service/notification_service.dart';
 
  const String stripeApiKey =
@@ -44,11 +45,18 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+    CustomNotificationHeaders customNotificationHeaders = CustomNotificationHeaders();
+  @override
   Widget build(BuildContext context) {
+    // customNotificationHeaders.context = context;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -56,6 +64,7 @@ class MyApp extends StatelessWidget {
     return OverlaySupport.global(
       child: GetMaterialApp(
         title: 'Homemady',
+        key: snackBarKey,
         theme: ThemeData(
           fontFamily: 'poppinsSans',
           primarySwatch: Colors.green,

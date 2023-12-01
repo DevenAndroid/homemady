@@ -4,7 +4,6 @@ import 'package:homemady/Screens/address_select.dart';
 import 'package:homemady/Screens/change_password_screen.dart';
 import 'package:homemady/Screens/chat_message.dart';
 import 'package:homemady/Screens/chat_screen.dart';
-import 'package:homemady/Screens/checkoutScreen.dart';
 import 'package:homemady/Screens/email_verification2.dart';
 import 'package:homemady/Screens/email_verification_screen.dart';
 import 'package:homemady/Screens/favourite_screen.dart';
@@ -59,7 +58,7 @@ class MyRouters {
   // static var myAddressScreen = "/myAddressScreen";
   static var myOrderScreen = "/myOrderScreen";
   static var bottomNavbar = BottomNavbar.bottomNavbar;
-  static var activeScreen = "/activeScreen";
+  // static var activeScreen = "/activeScreen";
   static var myProfileScreen = "/myProfileScreen";
   // static var orderDetailsScreen = "/orderDetailsScreen";
   static var emailVerificationScreen = "/emailVerificationScreen";
@@ -96,7 +95,7 @@ class MyRouters {
  // GetPage(name: carteScreen.carteScreenPage, page: () => const CarteScreen()),
  //  GetPage(name: '/myOrderScreen', page: () =>  MyOrderScreen()),
   GetPage(name: bottomNavbar, page: () => const BottomNavbar()),
-  GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
+  // GetPage(name: '/activeScreen', page: () => const ActiveScreen()),
   GetPage(name: '/myProfileScreen', page: () => const MyProfileScreen()),
   // GetPage(name: '/orderDetailsScreen', page: () => const OrderDetailsScreen()),
   GetPage(name: '/emailVerificationScreen', page: () => const EmailVerificationScreen()),

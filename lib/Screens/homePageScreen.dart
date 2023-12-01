@@ -49,8 +49,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final locationController = Get.put(LocationController());
 
   bool? sortedFilter = false;
-  String dateInput11 = "";
-  RxBool isValue = false.obs;
   String? selectedCategory;
   bool? isAvailableSelected = false;
   int currentIndex = 0;
@@ -69,11 +67,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
   bool? isFilterOff = false;
 
   final scrollController = ScrollController();
-  final scrollController1 = ScrollController();
-  RxBool isSelect = false.obs;
-  RxBool selectIcon = false.obs;
-  int currentDrawer = 0;
-  RxInt count = 0.obs;
   // final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String selectedDate = 'Available Now';
@@ -97,9 +90,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
       timeSlotController.getTimeSlotData();
       myAddressController.getData();
       controller.getStoreKeywordListData();
-
-      _decrement();
-      _increment();
     });
   }
 
@@ -112,20 +102,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
         print("Dont call");
       }
     }
-  }
-
-// filter product category wise
-
-  void _increment() {
-    setState(() {
-      count++;
-    });
-  }
-
-  void _decrement() {
-    setState(() {
-      count--;
-    });
   }
 
   DateTime? pickedDate;
@@ -405,7 +381,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
             //toolbarHeight: 70,
           ),
           body: RefreshIndicator(onRefresh: () async {
+
+            selectedDate = 'Available Now';
             await profileController.getData();
+            setState(() {});
           }, child: Obx(() {
             return SafeArea(
               child: homeController.isDataLoading.value && profileController.isDataLoading.value
@@ -488,7 +467,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           );
                                         },
                                         onChanged: (val) {
-                                          isValue.value = true;
                                           searchController.getSearchData();
                                         },
                                       )),
@@ -913,32 +891,28 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                     child: Column(
                                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                                       children: [
-                                                                        ClipRRect(
-                                                                          borderRadius: BorderRadius.circular(8),
-                                                                          child: CachedNetworkImage(
-                                                                            imageUrl: homeController
-                                                                                .model.value.data!.stores![index].image
-                                                                                .toString(),
-                                                                            fit: BoxFit.cover,
-                                                                            height: 150,
-                                                                            width: AddSize.screenWidth,
-                                                                            errorWidget: (_, __, ___) => Image.asset(
-                                                                              'assets/images/Rectangle 23007.png',
+                                                                        SizedBox(
+                                                                          height: 150,
+                                                                          child: ClipRRect(
+                                                                            borderRadius: BorderRadius.circular(8),
+                                                                            child: CachedNetworkImage(
+                                                                              imageUrl: homeController
+                                                                                  .model.value.data!.stores![index].image
+                                                                                  .toString(),
                                                                               fit: BoxFit.cover,
                                                                               height: 150,
                                                                               width: AddSize.screenWidth,
+                                                                              errorWidget: (_, __, ___) => Image.asset(
+                                                                                'assets/images/Rectangle 23007.png',
+                                                                                fit: BoxFit.cover,
+                                                                                height: 150,
+                                                                                width: AddSize.screenWidth,
+                                                                              ),
+                                                                              placeholder: (_, __) => const Center(
+                                                                                  child: CircularProgressIndicator()),
                                                                             ),
-                                                                            placeholder: (_, __) => const Center(
-                                                                                child: CircularProgressIndicator()),
                                                                           ),
                                                                         ),
-                                                                        /*ClipRRect(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    child: Image.asset(
-                                                      'assets/images/Rectangle 23007.png',fit: BoxFit.cover,
-                                                      height: 140,width: AddSize.screenWidth,
-                                                    ),
-                                                  ),*/
                                                                         addHeight(6),
                                                                         Text(
                                                                           homeController
@@ -1230,100 +1204,100 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                                     : const SizedBox(),
 
                                                                 Positioned(
-                                                                    bottom: 10,
                                                                     right: 20,
+                                                                    top: 150-20,
                                                                     //   bottom: 0,
-                                                                    child: Column(
-                                                                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                      children: [
-                                                                        Container(
-                                                                            height: 55,
-                                                                            // width: 30,
-                                                                            decoration: const BoxDecoration(
-                                                                                shape: BoxShape.circle,
-                                                                                color: Colors.white),
-                                                                            child: Padding(
-                                                                              padding: const EdgeInsets.all(4),
-                                                                              child:
-                                                                                  // Image.asset('assets/images/avtarImg.png'),
-
-                                                                                  SizedBox(
-                                                                                height: 50,
-                                                                                width: 50,
-                                                                                child: ClipRRect(
-                                                                                  borderRadius:
-                                                                                      BorderRadius.circular(50),
-                                                                                  child: CachedNetworkImage(
-                                                                                    imageUrl: homeController
-                                                                                            .isDataLoading.value
-                                                                                        ? homeController
-                                                                                            .model
-                                                                                            .value
-                                                                                            .data!
-                                                                                            .stores![index]
-                                                                                            .profileImage
-                                                                                            .toString()
-                                                                                        : 'assets/images/avtarImg.png',
-                                                                                    // height: 40,
-                                                                                    fit: BoxFit.cover,
-                                                                                    errorWidget: (_, __, ___) =>
-                                                                                        Image.asset(
-                                                                                      'assets/images/dummyPerson.png',
+                                                                    child: SizedBox(
+                                                                      width: 100,
+                                                                      child: Column(
+                                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                                        children: [
+                                                                          Container(
+                                                                              height: 55,
+                                                                              decoration: const BoxDecoration(
+                                                                                  shape: BoxShape.circle,
+                                                                                  color: Colors.white),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.all(4),
+                                                                                child: SizedBox(
+                                                                                  height: 50,
+                                                                                  width: 50,
+                                                                                  child: ClipRRect(
+                                                                                    borderRadius:
+                                                                                        BorderRadius.circular(50),
+                                                                                    child: CachedNetworkImage(
+                                                                                      imageUrl: homeController
+                                                                                              .isDataLoading.value
+                                                                                          ? homeController
+                                                                                              .model
+                                                                                              .value
+                                                                                              .data!
+                                                                                              .stores![index]
+                                                                                              .profileImage
+                                                                                              .toString()
+                                                                                          : 'assets/images/avtarImg.png',
+                                                                                      // height: 40,
                                                                                       fit: BoxFit.cover,
-                                                                                      // height: 20,
-                                                                                      // width: 20,
+                                                                                      errorWidget: (_, __, ___) =>
+                                                                                          Image.asset(
+                                                                                        'assets/images/dummyPerson.png',
+                                                                                        fit: BoxFit.cover,
+                                                                                        // height: 20,
+                                                                                        // width: 20,
+                                                                                      ),
+                                                                                      placeholder: (_, __) => const Center(
+                                                                                          child:
+                                                                                              CircularProgressIndicator()),
                                                                                     ),
-                                                                                    placeholder: (_, __) => const Center(
-                                                                                        child:
-                                                                                            CircularProgressIndicator()),
                                                                                   ),
                                                                                 ),
+                                                                              )),
+                                                                          addHeight(3),
+                                                                          Text(
+                                                                            (homeController.model.value.data!
+                                                                                        .stores![index].cookName!.isEmpty
+                                                                                    ? 'Test'
+                                                                                    : homeController.model.value.data!
+                                                                                        .stores![index].cookName)
+                                                                                .toString()
+                                                                                .capitalizeFirst
+                                                                                .toString(),
+                                                                            maxLines: 1,
+                                                                            style: GoogleFonts.poppins(
+                                                                                fontWeight: FontWeight.w500,
+                                                                                fontSize: 11,
+                                                                                color: const Color(0xFF21283D)),
+                                                                          ),
+                                                                          Row(
+                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                            children: [
+                                                                              const Icon(
+                                                                                Icons.star,
+                                                                                color: Color(0xFFFFC529),
+                                                                                size: 14,
                                                                               ),
-                                                                            )),
-                                                                        addHeight(3),
-                                                                        Text(
-                                                                          (homeController.model.value.data!
-                                                                                      .stores![index].cookName!.isEmpty
-                                                                                  ? 'Test'
-                                                                                  : homeController.model.value.data!
-                                                                                      .stores![index].cookName)
-                                                                              .toString()
-                                                                              .capitalizeFirst
-                                                                              .toString(),
-                                                                          style: GoogleFonts.poppins(
-                                                                              fontWeight: FontWeight.w500,
-                                                                              fontSize: 12,
-                                                                              color: const Color(0xFF21283D)),
-                                                                        ),
-                                                                        Row(
-                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                          children: [
-                                                                            const Icon(
-                                                                              Icons.star,
-                                                                              color: Color(0xFFFFC529),
-                                                                              size: 14,
-                                                                            ),
-                                                                            addWidth(3),
-                                                                            Text(
-                                                                              homeController.model.value.data!
-                                                                                  .stores![index].rating
-                                                                                  .toString(),
-                                                                              style: GoogleFonts.poppins(
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontSize: 11,
-                                                                                  color: const Color(0xFF6A7080)),
-                                                                            ),
-                                                                            Text(
-                                                                              '(${(homeController.model.value.data!.stores![index].countReviewData).toString()})',
-                                                                              style: GoogleFonts.poppins(
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontSize: 11,
-                                                                                  color: const Color(0xFF6A7080)),
-                                                                            ),
-                                                                          ],
-                                                                        )
-                                                                      ],
+                                                                              addWidth(3),
+                                                                              Text(
+                                                                                homeController.model.value.data!
+                                                                                    .stores![index].rating
+                                                                                    .toString(),
+                                                                                style: GoogleFonts.poppins(
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    fontSize: 11,
+                                                                                    color: const Color(0xFF6A7080)),
+                                                                              ),
+                                                                              Text(
+                                                                                '(${(homeController.model.value.data!.stores![index].countReviewData).toString()})',
+                                                                                style: GoogleFonts.poppins(
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    fontSize: 11,
+                                                                                    color: const Color(0xFF6A7080)),
+                                                                              ),
+                                                                            ],
+                                                                          )
+                                                                        ],
+                                                                      ),
                                                                     )),
                                                                 Positioned(
                                                                     top: 16,

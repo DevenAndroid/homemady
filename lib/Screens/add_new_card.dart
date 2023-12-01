@@ -30,12 +30,9 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
   CardFormEditController controller = CardFormEditController();
   final getSavedDetailsController = Get.put(SavedCardDetailsController());
   final myCartController = Get.put(MyCartListController());
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //log(Get.arguments[0]);
-  }
+
+  bool apiHitted = false;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -81,148 +78,6 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
             ],
           ),
         ),
-
-        /*SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Form(
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Text('Name',style: GoogleFonts.poppins(
-                     color: const Color(0xFF535353),
-                     fontWeight: FontWeight.w400,
-                     fontSize: 16,
-                   ),),
-                  addHeight(7.0),
-                  EditProfileTextFieldWidget(
-                    hint: 'Arlene Mccoy',
-                    onTap: (){},
-                  ),
-                  addHeight(20.0),
-                  Text('Card Number',style: GoogleFonts.poppins(
-                    color: const Color(0xFF535353),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                  ),),
-                  addHeight(7.0),
-                  EditProfileTextFieldWidget(
-                    hint: '4561 456892 3521',
-                    onTap: (){},
-                    suffix: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/images/master_card.png',height: 20,),
-                      ],
-                    ),
-                  ),
-                  addHeight(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Expires ',style: GoogleFonts.poppins(
-                              color: const Color(0xFF535353),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),),
-                            addHeight(7),
-                            EditProfileTextFieldWidget(
-                              hint: '02/12',
-                              onTap: (){},
-                            ),
-                          ],
-                        ),
-                      ),
-                      addWidth(29.88),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('CVV ',style: GoogleFonts.poppins(
-                              color: const Color(0xFF535353),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),),
-                            addHeight(7),
-                            EditProfileTextFieldWidget(
-                              hint: '5135',
-                              onTap: (){},
-                            ),
-                          ],
-                        ),
-                      ),
-
-
-                    ],
-                  ),
-                  addHeight(20),
-                  Row(
-                    children: [
-                      Transform.scale(
-                        scale: 1.0,
-                        child: Theme(
-                          data: ThemeData(
-                              checkboxTheme: CheckboxThemeData(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                              ),
-                              unselectedWidgetColor: checkboxColor.value == false
-                                  ? Color(0xFF64646F)
-                                  : Color(0xFF64646F)
-                          ),
-                          child: Checkbox(
-                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              value: value,
-                              activeColor: Color(0xFF7ED957),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  value = newValue!;
-                                  checkboxColor.value = !newValue!;
-                                });
-                              }),
-                        ),
-                      ),
-                      Text(
-                          'Securely save card and details',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: const Color(0xFF878787))),
-                    ],
-                  ),
-                  addHeight(200),
-                  CommonButton(title: 'Save',onPressed: (){
-                    if (value != true) {
-                      setState(() {
-                        showErrorMessage = true;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  "Agree to our terms of Service"),
-                            ));
-                      }
-                      );
-                    }
-                    else {
-                      setState(() {
-                        showErrorMessage = false;
-                        // Get.toNamed(MyRouters.emailVerificationScreen);
-                      });
-                    }
-                  }),
-                ],
-              ),
-            ),
-          ),
-        ),*/
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: SafeArea(
@@ -233,13 +88,14 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                     showToast("Fill the card details correctly");
                   }
                   else {
+                    if(apiHitted == true)return;
+                    apiHitted = true;
                     Stripe.instance.createToken(const CreateTokenParams.card(params: CardTokenParams())).then((value) {
-                      log(value.toString());
-                      log('token--${value.id}');
-                      {
                         log('token--${value.id}');
                         saveCardDetailsRepo(stripeToken: value.id.toString(), context: context).then((value){
+                          apiHitted = false;
                           if(value.status==true){
+                            apiHitted = false;
                             showToast(value.message);
                             myCartController.getData();
                             getSavedDetailsController.getSavedCardData();
@@ -248,46 +104,46 @@ class _AddNewCardScreenState extends State<AddNewCardScreen> {
                           else{
                             showToast(value.message);
                           }
+                        }).catchError((e){
+                          apiHitted = false;
                         });
                         log('order id--${value.id}');
                         // check
-                        checkOut(
-                            payment_type: 'online',
-                            context: context,
-                            deliveryInstruction: Get.arguments[2],
-                            specialRequest: Get.arguments[1],
-                            delivery_type: Get.arguments[0] )
-                            .then((value1) {
-                          log('Token iddddddddddddddddddddd${value.id}');
-                          payment(
-                                  orderId: value1.data!.orderId.toString(),
-                                  token: value.id.toString(),
-                                  amount: value1.data!.grandTotal,
-                                  context: context)
-                              .then((value2) {
-                            if (value2.status == true) {
-                             // showToast(value2.message.toString());
-                              myCartController.getData();
-                              getSavedDetailsController.getSavedCardData();
-                             // print('Order id====' + value2.data!.orderId);
-                              Get.offAll(()=> ThankYouScreen(
-                                orderId: value2.data!.orderDetail!.orderId.toString(),
-                              ));
-                              // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                              //   value2.data!.orderDetail!.orderId,
-                              //   value2.data!.orderDetail!.placedAt,
-                              //   value2.data!.orderDetail!.stateTax,
-                              //   value2.data!.orderDetail!.muncipalTax,
-                              //   value2.data!.orderDetail!.grandTotal,
-                              //  // value2.data!.or,
-                              //   // value2.data!.card,
-                              //   value2.data!.orderDetail!.itemTotal,
-                              // ]);
-                            }
-                          });
-                        });
-                        // out
-                      }
+                        // checkOut(
+                        //     payment_type: 'online',
+                        //     context: context,
+                        //     deliveryInstruction: Get.arguments[2],
+                        //     specialRequest: Get.arguments[1],
+                        //     delivery_type: Get.arguments[0] )
+                        //     .then((value1) {
+                        //   log('Token iddddddddddddddddddddd${value.id}');
+                        //   payment(
+                        //           orderId: value1.data!.orderId.toString(),
+                        //           token: value.id.toString(),
+                        //           amount: value1.data!.grandTotal,
+                        //           context: context)
+                        //       .then((value2) {
+                        //     if (value2.status == true) {
+                        //      // showToast(value2.message.toString());
+                        //       myCartController.getData();
+                        //       getSavedDetailsController.getSavedCardData();
+                        //      // print('Order id====' + value2.data!.orderId);
+                        //       Get.offAll(()=> ThankYouScreen(
+                        //         orderId: value2.data!.orderDetail!.orderId.toString(),
+                        //       ));
+                        //       // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                        //       //   value2.data!.orderDetail!.orderId,
+                        //       //   value2.data!.orderDetail!.placedAt,
+                        //       //   value2.data!.orderDetail!.stateTax,
+                        //       //   value2.data!.orderDetail!.muncipalTax,
+                        //       //   value2.data!.orderDetail!.grandTotal,
+                        //       //  // value2.data!.or,
+                        //       //   // value2.data!.card,
+                        //       //   value2.data!.orderDetail!.itemTotal,
+                        //       // ]);
+                        //     }
+                        //   });
+                        // });
                     });
                   }
                 },

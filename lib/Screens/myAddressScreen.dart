@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/controller/my_order_controller.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
@@ -332,6 +333,8 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                       ),
                     );
                   },
+                ).manageNotification(
+                  safeArea: false
                 ),
               ),
               Padding(
@@ -356,7 +359,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                 },
               ),
             ),
-          ) :
+          ).manageNotification() :
          const Center(child: CircularProgressIndicator(color: Colors.green,))
         ),
       );

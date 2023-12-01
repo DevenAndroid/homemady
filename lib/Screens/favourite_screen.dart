@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/controller/my_order_controller.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -21,7 +22,7 @@ import '../widgets/dimenestion.dart';
 import 'homedetails_Screen.dart';
 
 class FavouriteScreen extends StatefulWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
+  const FavouriteScreen({super.key});
 
   @override
   State<FavouriteScreen> createState() => _FavouriteScreenState();
@@ -227,28 +228,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                               color: const Color(0xFF04666E),
                                                             ),
                                                             addWidth(10),
-                                                            Text(
-                                                              '${controller1.model.value.data!.store![index].collection.toString()} '
-                                                                  '${
-                                                                  controller1.model.value.data!.store![index].collection != 'Collection Only' ?
-                                                                  '(${controller1.model.value.data!.store![index].time ?? ''.toString()} mins)\n'
-                                                                      '${controller1.model.value.data!.store![index].distance ?? ''.toString()} km' : ""
-                                                              }',
-                                                              style: GoogleFonts.poppins(
-                                                                  fontWeight: FontWeight.w400,
-                                                                  fontSize: 12,
-                                                                  color: const Color(0xFF606573)),
-                                                            ),
-                                                            // controller1.model.value.data!.store![index].collection == 'Collection Only' ?
-                                                            // const SizedBox() :
-                                                            // Text(
-                                                            //   '${controller1.model.value.data!.store![index].time ?? ''.toString()} mins\n'
-                                                            //       '${controller1.model.value.data!.store![index].distance ?? ''.toString()} km',
-                                                            //   style: GoogleFonts.poppins(
-                                                            //       fontWeight: FontWeight.w400,
-                                                            //       fontSize: 12,
-                                                            //       color: const Color(0xFF606573)),
-                                                            // ),
+                                                            Expanded(child: buildText(index)),
+                                                            const SizedBox(width: 80,)
                                                           ],
                                                         )
                                                       ],
@@ -273,7 +254,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                 //     )
                                                 // ),
                                                 Positioned(
-                                                    bottom: 10,
+                                                  top: 130,
                                                     right: 20,
                                                     //   bottom: 0,
                                                     child: Column(
@@ -1040,6 +1021,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
 
                 ],
               )
+          ).manageNotification(
+              safeArea: false
           ):
           const Center(child: CircularProgressIndicator(color: Colors.green,));
         }),
@@ -1049,4 +1032,27 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
               : null,
       );
   }
+  Text buildText(int index) {
+    final item = controller1.model.value.data!.store![index];
+    return Text(
+      '${item.collection.toString()} '
+          '${item.collection != 'Collection Only' ? "(${item.time ?? ''.toString()} - ${item.time1 ?? ''.toString()} min)\nDistance: ${"${item.distance.toString()} km"}" : ""}',
+      style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 12, color: const Color(0xFF606573)),
+    );
+  }
+
+  // Text buildText(int index) {
+  //   return Text(
+  //                                                           '${controller1.model.value.data!.store![index].collection.toString()} '
+  //                                                               '${
+  //                                                               controller1.model.value.data!.store![index].collection != 'Collection Only' ?
+  //                                                               '(${controller1.model.value.data!.store![index].time ?? ''.toString()} mins)\n'
+  //                                                                   '${controller1.model.value.data!.store![index].distance ?? ''.toString()} km' : ""
+  //                                                           }',
+  //                                                           style: GoogleFonts.poppins(
+  //                                                               fontWeight: FontWeight.w400,
+  //                                                               fontSize: 12,
+  //                                                               color: const Color(0xFF606573)),
+  //                                                         );
+  // }
 }

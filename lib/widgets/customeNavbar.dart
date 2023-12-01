@@ -11,6 +11,9 @@ import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/myOrderScreen.dart';
 import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:homemady/controller/my_order_controller.dart';
+import 'package:homemady/resources/helper.dart';
+import 'package:homemady/widgets/app_theme.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -18,6 +21,7 @@ import '../Screens/custom_drawer.dart';
 import '../Screens/featured_store_list.dart';
 import '../Screens/homedetails_Screen.dart';
 import '../controller/user_profile_controller.dart';
+import '../service/custome_notification_headers.dart';
 import '../service/notification_service.dart';
 import 'custome_size.dart';
 
@@ -119,7 +123,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   child: CircleAvatar(
                     backgroundColor: const Color(0xff7ED957),
                     child: Text(
-                      remoteMessage.notification!.title == null ? 'B' : remoteMessage.notification!.title.toString().substring(0, 1),
+                      remoteMessage.notification!.title == null
+                          ? 'B'
+                          : remoteMessage.notification!.title.toString().substring(0, 1),
                       style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ),
@@ -186,19 +192,17 @@ class _BottomNavbarState extends State<BottomNavbar> {
   void listenDynamicLinks() async {
     branchStream ??= FlutterBranchSdk.listSession().listen((data) async {
       log("branch response.....     $data");
-      if(data["shared_store_id"] != null){
-        Get.to(()=> HomeDetailsScreen(
-            storeId: data["shared_store_id"].toString()
-        ));
+      if (data["shared_store_id"] != null) {
+        Get.to(() => HomeDetailsScreen(storeId: data["shared_store_id"].toString()));
       }
-    },
-        onError: (error) {
-          if (kDebugMode) {
-            print('InitSession error: ${error.toString()}');
-          }
-        });
+    }, onError: (error) {
+      if (kDebugMode) {
+        print('InitSession error: ${error.toString()}');
+      }
+    });
   }
 
+  CustomNotificationHeaders customNotificationHeaders = CustomNotificationHeaders();
 
   @override
   void initState() {
@@ -215,7 +219,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     super.dispose();
     streamSubscription.cancel();
     streamSubscriptionOnOpen.cancel();
-    if(branchStream != null){
+    if (branchStream != null) {
       branchStream!.cancel();
     }
   }
@@ -223,7 +227,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     if (kDebugMode) {
+      log("main context available....    $snackBarKey");
       FirebaseMessaging.instance.getToken().then((value) {
+        // showLoaderAndHideIt(const RemoteMessage(
+        //   notification: RemoteNotification(
+        //     title: "kartik",
+        //     body: "Ghosh"
+        //   )
+        // ));
         if (kDebugMode) {
           print("My Token....      $value");
         }
@@ -250,7 +261,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 updateInt();
               }),
               const MyProfileScreen(),
-            ][profileController.currentIndex.value],
+            ][profileController.currentIndex.value].manageNotification(),
             extendBody: true,
             backgroundColor: Colors.white,
             bottomNavigationBar: ConvexAppBar(

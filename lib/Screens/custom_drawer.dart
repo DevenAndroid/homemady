@@ -16,8 +16,8 @@ import 'chat_screen/chatting_list_screen.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();

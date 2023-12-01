@@ -43,8 +43,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   late StreamSubscription<RemoteMessage> streamSubscription;
   late StreamSubscription<RemoteMessage> streamSubscriptionOnOpen;
+  final controller = Get.put(MyOrderController());
 
   onMessage(RemoteMessage event) {
+    controller.getData();
     log("Notification received..........   onMessage        ${event.toMap()}");
     // NotificationService()
     //     .showNotificationWithRemoteMessage(remoteMessage: event);
@@ -52,6 +54,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }
 
   onMessageOpenApp(RemoteMessage event) {
+    controller.getData();
     log("Notification received..........   onMessageOpenApp        ${event.toMap()}");
     Map<dynamic, dynamic> map = event.data;
     if (map["order_id"] != null) {
@@ -209,6 +212,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     super.initState();
     notificationHandler();
     listenDynamicLinks();
+    controller.getData();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       profileController.getData();
     });

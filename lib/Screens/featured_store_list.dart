@@ -624,7 +624,7 @@ class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
                                                 ),
                                                 Row(
                                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.end,
                                                   children: [
                                                     const Icon(
                                                       Icons.star,

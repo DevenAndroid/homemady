@@ -421,7 +421,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                       const SizedBox(
                                         height: 6,
                                       ),
-                                      categoryController.isDataLoading
+                                      categoryController.categoryModel.value.data != null
                                           ? ListView.builder(
                                               shrinkWrap: true,
                                               itemCount: categoryController.categoryModel.value.data!.category!.length,
@@ -501,7 +501,8 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                                     fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
                                               )),
                                             ),
-                                      categoryController.isDataLoading
+                                      categoryController
+                                          .categoryModel.value.data != null
                                           ? ListView.builder(
                                               shrinkWrap: true,
                                               itemCount: categoryController
@@ -582,7 +583,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                                     fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
                                               )),
                                             ),
-                                      categoryController.isDataLoading
+                                      categoryController.categoryModel.value.data != null
                                           ? ListView.builder(
                                               shrinkWrap: true,
                                               itemCount:
@@ -674,7 +675,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                       const SizedBox(
                                         height: 6,
                                       ),
-                                      categoryController.isDataLoading
+                                      categoryController.dietiaryModel.value.data != null
                                           ? ListView.builder(
                                               shrinkWrap: true,
                                               itemCount: categoryController.dietiaryModel.value.data!.dietary!.length,
@@ -801,14 +802,7 @@ class _SearchScreenDataState extends State<SearchScreenData> {
                                     // }
                                     homeController
                                         .getData(
-                                            filterCategory: categoryController
-                                                .categoryModel.value.data!.selectedIds.value
-                                                .toList()
-                                                .join(","),
-                                            // categoryType: ,
-                                            chooseDietaries: categoryController.dietiaryModel.value.data!.selectedIds
-                                                .toList()
-                                                .join(","),
+                                      filter: "2",
                                             context: context)
                                         .then((value) {
                                       //if() {

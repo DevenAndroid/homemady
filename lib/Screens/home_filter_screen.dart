@@ -406,7 +406,7 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
                                         ),
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
                                             const Icon(
                                               Icons.star,
@@ -448,7 +448,9 @@ class _HomeFilterScreenState extends State<HomeFilterScreen> {
                                               .then((value) {
                                             if (value.status == true) {
                                             showToast(value.message);
-                                              homeController.getData();
+                                              homeController.getData(
+                                                filter: "2"
+                                              );
                                             }
                                           });
                                         },

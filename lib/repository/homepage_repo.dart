@@ -11,10 +11,10 @@ import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 
 Future<HomePageModel> homeData(
-    {required filterCategory,
-    required categoryType,
-    required dietaries,
-    required filter,
+    {required String filterCategory,
+    // required categoryType,
+    required String dietaries,
+    required String filter,
     BuildContext? context}) async {
   OverlayEntry? loader;
   try {
@@ -38,11 +38,6 @@ Future<HomePageModel> homeData(
     if (filterCategory != "") {
       types.add("filter_category=$filterCategory");
     }
-
-    // if (categoryType != "") {
-    //   types.add("category_type=category");
-    // }
-
     if (dietaries != "") {
       types.add("dietaries=$dietaries");
     }

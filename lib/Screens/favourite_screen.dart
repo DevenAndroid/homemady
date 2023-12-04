@@ -282,8 +282,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>  with TickerProviderS
                                                         Row(
                                                           crossAxisAlignment: CrossAxisAlignment
                                                               .center,
-                                                          mainAxisAlignment: MainAxisAlignment
-                                                              .center,
+                                                          mainAxisAlignment: MainAxisAlignment.end,
                                                           children: [
                                                             const Icon(Icons.star,
                                                               color: Color(0xFFFFC529),

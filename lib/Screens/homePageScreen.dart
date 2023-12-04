@@ -385,7 +385,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             selectedDate = 'Available Now';
             await profileController.getData();
             setState(() {});
-          }, child: Obx(() {
+          },
+              child: Obx(() {
             return SafeArea(
               child: homeController.isDataLoading.value && profileController.isDataLoading.value
                   ? RefreshIndicator(

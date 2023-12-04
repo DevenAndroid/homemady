@@ -35,7 +35,7 @@ extension ManageNotification on Widget {
             if (controller.model.value.data!.first.deliveryStatus != 'Cancelled' &&
                 controller.model.value.data!.first.deliveryStatus != 'Completed')
               Positioned(
-                  top: 0,
+                  bottom: 0,
                   right: 0,
                   left: 0,
                   child: SafeArea(

@@ -50,8 +50,6 @@ class _ActiveScreenState extends State<ActiveScreen> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      // orderDetailsController.id.value = controller.model.value.data![index].orderId.toString();
-                                      // Get.toNamed(MyRouters.orderDetailsScreen,arguments: [orderDetailsController.id.value]);
                                       Get.to(() => OrderDetailsScreen(
                                           storeID: controller.model.value.data![index].orderId.toString()));
                                     },

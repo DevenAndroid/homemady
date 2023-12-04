@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Screens/orderDetailsScreen.dart';
 import '../model/my_order_model.dart';
 import '../repository/my_order_repo.dart';
 import '../widgets/custome_size.dart';
@@ -45,14 +46,17 @@ extension ManageNotification on Widget {
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
                           ).copyWith(bottom: 20),
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 5,
-                            surfaceTintColor: Colors.transparent,
-                            child: Hero(
-                              tag: "notification_tag",
+                          child: Hero(
+                            tag: "notification_tag",
+                            child: Material(
+                              color: Colors.transparent,
+                              elevation: 5,
+                              surfaceTintColor: Colors.transparent,
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Get.to(() => OrderDetailsScreen(
+                                      storeID: controller.model.value.data!.first.orderId.toString()));
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),

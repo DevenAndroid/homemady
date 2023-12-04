@@ -183,34 +183,38 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 152,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF37C666).withOpacity(0.10),
-                                offset: const Offset(.1, .1,
+                        GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: signInWithFacebook,
+                          child: Container(
+                            width: 152,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF37C666).withOpacity(0.10),
+                                  offset: const Offset(.1, .1,
+                                  ),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 1.0,
                                 ),
-                                blurRadius: 20.0,
-                                spreadRadius: 1.0,
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.facebook,color: Colors.blue,size: 30,),
-                              addWidth(10),
-                              const Text('Facebook',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color:  Color(0xFF4C5369)
-                                ),)
-                            ],
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.facebook,color: Colors.blue,size: 30,),
+                                addWidth(10),
+                                const Text('Facebook',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color:  Color(0xFF4C5369)
+                                  ),)
+                              ],
+                            ),
                           ),
                         ),
                         if(Platform.isAndroid)
@@ -394,6 +398,22 @@ class _LoginScreenState extends State<LoginScreen> {
     var fromToken = await FirebaseMessaging.instance.getToken();
 
     socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+      if (value.status == true) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('user_info', jsonEncode(value));
+        showToast(value.message);
+        Get.offAllNamed(MyRouters.bottomNavbar);
+      } else {
+        showToast(value.message);
+      }
+    });
+  }
+  signInWithFacebook() async {
+    final facAuth = FacebookAuthProvider();
+    facAuth.addScope("email");
+    final item = await FirebaseAuth.instance.signInWithProvider(facAuth);
+    if(!mounted)return;
+    socialLogin(provider: "google", token: item.credential!.accessToken!, context: context).then((value) async {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));

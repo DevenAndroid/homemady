@@ -10,10 +10,11 @@ import '../model/homepage_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 
-Future<HomePageModel> homeData(
-    {required String filterCategory,
-    // required categoryType,
-    required String dietaries,
+Future<HomePageModel> homeData({
+  required String primariy_category,
+  required String secondary_category,
+  required String tertiary_category,
+  required String dietaries,
     required String filter,
     BuildContext? context}) async {
   OverlayEntry? loader;
@@ -35,15 +36,13 @@ Future<HomePageModel> homeData(
     String url = ApiUrl.homePageApi;
     List<String> types = [];
 
-    if (filterCategory != "") {
-      types.add("filter_category=$filterCategory");
-    }
-    if (dietaries != "") {
-      types.add("dietaries=$dietaries");
-    }
-    if (filter != "") {
-      types.add("filter=$filter");
-    }
+    // primariy_category=50,53&secondary_category=2,3,4&dietaries=4,3,5&keyword=store&filter=2&tertiary_category=26,27,28
+    if(primariy_category.isNotEmpty)types.add("primariy_category=$primariy_category");
+    if(secondary_category.isNotEmpty)types.add("secondary_category=$secondary_category");
+    if(tertiary_category.isNotEmpty)types.add("tertiary_category=$tertiary_category");
+    if(filter.isNotEmpty)types.add("filter=$filter");
+    if(dietaries.isNotEmpty)types.add("dietaries=$dietaries");
+
     if (types.isNotEmpty) {
       url = "$url?${types.join("&")}";
     }

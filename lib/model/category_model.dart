@@ -37,9 +37,9 @@ class Data {
 
   // RxString selectedID = "".obs;
   RxSet<String> selectedIds = <String>{}.obs;
-  List<Category>? category;
-  List<Category>? secondaryCategory;
-  List<Category>? tertiaryCategory;
+  List<Category>? category = [];
+  List<Category>? secondaryCategory = [];
+  List<Category>? tertiaryCategory = [];
   List<Category>? selectedContacts = [];
   // List<Category>? selectedContacts1 = [];
   // List<Category>? selectedContacts2 = [];
@@ -65,6 +65,10 @@ class Data {
         tertiaryCategory!.add(Category.fromJson(v));
       });
     }
+    category ??= [];
+    secondaryCategory ??= [];
+    tertiaryCategory ??= [];
+
   }
 
   Map<String, dynamic> toJson() {

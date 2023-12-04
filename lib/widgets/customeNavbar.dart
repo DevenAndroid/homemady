@@ -12,17 +12,13 @@ import 'package:homemady/Screens/myOrderScreen.dart';
 import 'package:homemady/Screens/myprofileScreen.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:homemady/controller/my_order_controller.dart';
-import 'package:homemady/resources/helper.dart';
-import 'package:homemady/widgets/app_theme.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
-
 import '../Screens/custom_drawer.dart';
 import '../Screens/featured_store_list.dart';
 import '../Screens/homedetails_Screen.dart';
 import '../controller/user_profile_controller.dart';
 import '../service/custome_notification_headers.dart';
-import '../service/notification_service.dart';
 import 'custome_size.dart';
 
 class BottomNavbar extends StatefulWidget {

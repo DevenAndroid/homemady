@@ -7,44 +7,39 @@ import 'category_controller.dart';
 class HomePageController extends GetxController {
   Rx<HomePageModel> model = HomePageModel().obs;
   RxBool isDataLoading = false.obs;
-  final storeSearchController=TextEditingController();
+  final storeSearchController = TextEditingController();
 
   final categoryController = Get.put(CategoryController());
-  // RxString filterCategoryId="".obs;
-  // RxString categoryType="".obs;
-  // RxString chooseDietaries="".obs;
 
- Future getData({
-    // String? filterCategory,
-    // String? categoryType,
-    // String? chooseDietaries,
-    required String filter,
-   BuildContext? context
-  }) async{
-    // isDataLoading.value = false;
-
-   // filterCategory: categoryController
-   //     .categoryModel.value.data!.selectedIds.value
-   //     .toList()
-   //     .join(","),
-   // // categoryType: ,
-   // chooseDietaries: categoryController.dietiaryModel.value.data!.selectedIds
-   //     .toList()
-   //     .join(","),
-  await homeData(
-      filterCategory: categoryController
-          .categoryModel.value.data != null ?
-      categoryController
-          .categoryModel.value.data!.selectedIds.value
-          .toList()
-          .join(",") : "",
-      dietaries: categoryController.dietiaryModel.value.data != null ?
-      categoryController.dietiaryModel.value.data!.selectedIds
-          .toList()
-          .join(",") : "",
-      filter: filter,
-    context: context
-    ).then((value1) {
+  Future getData({required String filter, BuildContext? context}) async {
+    String primary = "";
+    String sec = "";
+    String tert = "";
+    if (categoryController.categoryModel.value.data != null) {
+      Set<String> selectedIds = categoryController.categoryModel.value.data!.selectedIds.value;
+      primary = categoryController.categoryModel.value.data!.category!
+          .where((element) => selectedIds.contains(element.id.toString()))
+          .map((e) => e.id.toString())
+          .join(",");
+      sec = categoryController.categoryModel.value.data!.secondaryCategory!
+          .where((element) => selectedIds.contains(element.id.toString()))
+          .map((e) => e.id.toString())
+          .join(",");
+      tert = categoryController.categoryModel.value.data!.tertiaryCategory!
+          .where((element) => selectedIds.contains(element.id.toString()))
+          .map((e) => e.id.toString())
+          .join(",");
+    }
+    await homeData(
+            primariy_category: primary,
+            secondary_category: sec,
+            tertiary_category: tert,
+            dietaries: categoryController.dietiaryModel.value.data != null
+                ? categoryController.dietiaryModel.value.data!.selectedIds.toList().join(",")
+                : "",
+            filter: filter,
+            context: context)
+        .then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

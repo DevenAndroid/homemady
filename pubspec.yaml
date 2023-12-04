@@ -27,8 +27,8 @@ dependencies:
   form_field_validator: ^1.1.0
   flutter_stripe:
   intl: ^0.17.0
-  http: ^0.13.0
-  google_sign_in: ^6.0.0
+  http: ^1.1.2
+  google_sign_in: ^6.1.6
   flutter_slidable:
   fluttertoast:
   image_picker:
@@ -37,20 +37,27 @@ dependencies:
   share_plus:
 #  push: ^1.0.0
   readmore: ^2.2.0
-  flutter_polyline_points: ^1.0.0
+#  flutter_polyline_points: ^1.0.0
   dotted_border:
-  firebase_core: ^2.19.0
-  firebase_auth: ^4.11.1
-  cloud_firestore: ^4.11.0
-  firebase_messaging: ^14.2.0
+  firebase_core: ^2.24.0
+  firebase_auth: ^4.15.0
+  cloud_firestore: ^4.13.3
+  firebase_messaging: ^14.7.6
   file_picker:
 #  flutter_google_places:
-  flutter_google_places_hoc081098: ^1.2.0
+  flutter_google_places_hoc081098: ^2.0.0-beta.1
 #  google_places_flutter: ^2.0.6
 #  google_api_headers: ^2.0.3
   geocoding: ^2.1.1
   google_maps_flutter: ^2.5.0
-  google_maps_webservice: ^0.0.20-nullsafety.5
+  google_maps_webservice:
+    git:
+       url: https://github.com/Sobitandra/google_maps_webservice_custom_plugin.git
+       ref: nullsafety
+  flutter_polyline_points:
+    git:
+       url: https://github.com/Sobitandra/flutter_polyline_points_custom_plugin.git
+       ref: master
   geolocator: ^10.1.0
   convex_bottom_bar: ^3.2.0
   url_launcher:
@@ -72,6 +79,7 @@ dependencies:
   lottie: ^2.7.0
   flutter_local_notifications: ^16.1.0
   overlay_support: ^2.1.0
+  flutter_facebook_auth: ^6.0.3
 
 
 dev_dependencies:

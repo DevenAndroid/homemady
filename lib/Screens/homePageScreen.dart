@@ -251,6 +251,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   Future onRefresh() async {
     selectedDate = 'Available Now';
+    sortedFilter = false;
+    currentIndex = 0;
+    categoryController.dietiaryModel.value.data!.selectedIds.clear();
+    categoryController.categoryModel.value.data!.selectedIds.clear();
+
+    filterProductCategoryController
+        .getFilterCategoryData(
+        filter: filterProductCategoryController.filterId,
+        categoryId: (currentIndex + 2).toString(),
+        context: context)
+        .then((value) {
+      setState(() {});
+    });
     await profileController.getData();
     await homeController.getData(filter: (currentIndex + 2).toString());
     setState(() {});

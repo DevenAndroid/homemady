@@ -333,8 +333,6 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                       ),
                     );
                   },
-                ).manageNotification(
-                  safeArea: false
                 ),
               ),
               Padding(
@@ -359,7 +357,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                 },
               ),
             ),
-          ).manageNotification() :
+          ) :
          const Center(child: CircularProgressIndicator(color: Colors.green,))
         ),
       );

@@ -484,7 +484,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           ) : const Center(child:  CircularProgressIndicator()) ;
         }),
       ),
-    ).manageNotification();
+    );
   }
 
 }

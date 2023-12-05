@@ -31,7 +31,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
   @override
   void initState() {
     super.initState();
-    if(profileController.model.value.data == null){
+    if (profileController.model.value.data == null) {
       profileController.getData();
     }
     controller.getData(widget.storeID);
@@ -111,26 +111,34 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                             Text(
                                               'Order ID: ${controller.model.value.orderDetail!.orderId!.toString()}',
                                               style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w600, fontSize: 15, color: const Color(0xFF7ED957)),
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  color: const Color(0xFF7ED957)),
                                             ),
                                             Text(
                                               controller.model.value.orderDetail!.placedAt!.toString(),
                                               style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w400, fontSize: 11, color: const Color(0xFF303C5E)),
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: const Color(0xFF303C5E)),
                                             ),
                                             addHeight(10),
                                             controller.model.value.orderDetail!.deliveryTime != null
                                                 ? Text(
                                                     'Delivery Time',
                                                     style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF1A2E33)),
+                                                        fontWeight: FontWeight.w600,
+                                                        fontSize: 14,
+                                                        color: const Color(0xFF1A2E33)),
                                                   )
                                                 : const SizedBox(),
                                             controller.model.value.orderDetail!.deliveryTime != null
                                                 ? Text(
                                                     controller.model.value.orderDetail!.deliveryTime!.toString(),
                                                     style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w400, fontSize: 11, color: const Color(0xFF303C5E)),
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 11,
+                                                        color: const Color(0xFF303C5E)),
                                                   )
                                                 : const SizedBox(),
                                             controller.model.value.orderDetail!.specialRequets != ''
@@ -143,7 +151,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                       Text(
                                                         'Special Request',
                                                         style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF1A2E33)),
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 14,
+                                                            color: const Color(0xFF1A2E33)),
                                                       ),
                                                       Text(
                                                         controller.model.value.orderDetail!.specialRequets!
@@ -151,7 +161,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                             .capitalizeFirst
                                                             .toString(),
                                                         style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w400, fontSize: 11, color: const Color(0xFF303C5E)),
+                                                            fontWeight: FontWeight.w400,
+                                                            fontSize: 11,
+                                                            color: const Color(0xFF303C5E)),
                                                       ),
                                                     ],
                                                   )
@@ -163,7 +175,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                       Text(
                                                         'Instruction for delivery',
                                                         style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF1A2E33)),
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 14,
+                                                            color: const Color(0xFF1A2E33)),
                                                       ),
                                                       Text(
                                                         controller.model.value.orderDetail!.instructionForDelivery!
@@ -171,7 +185,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                             .capitalizeFirst
                                                             .toString(),
                                                         style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w400, fontSize: 11, color: const Color(0xFF303C5E)),
+                                                            fontWeight: FontWeight.w400,
+                                                            fontSize: 11,
+                                                            color: const Color(0xFF303C5E)),
                                                       ),
                                                     ],
                                                   )
@@ -183,8 +199,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                       Container(
                                         // height: 25,
                                         // width: 100,
-                                        decoration:
-                                            BoxDecoration(borderRadius: BorderRadius.circular(6), color: const Color(0xFF7ED957)),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(6), color: const Color(0xFF7ED957)),
                                         child: Center(
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
@@ -235,8 +251,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                               ClipRRect(
                                                 borderRadius: BorderRadius.circular(10),
                                                 child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      controller.model.value.orderDetail!.orderItems![index].productImage.toString(),
+                                                  imageUrl: controller
+                                                      .model.value.orderDetail!.orderItems![index].productImage
+                                                      .toString(),
                                                   fit: BoxFit.cover,
                                                   height: 80,
                                                   width: 75,
@@ -246,7 +263,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                     height: 80,
                                                     width: 60,
                                                   ),
-                                                  placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                                                  placeholder: (_, __) =>
+                                                      const Center(child: CircularProgressIndicator()),
                                                 ),
                                               ),
                                               // CachedNetworkImage(imageUrl: controller.model.value.orderDetail!.orderItems![index]..toString(),)
@@ -260,12 +278,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                        controller.model.value.orderDetail!.orderItems![index].productName
+                                                        controller
+                                                            .model.value.orderDetail!.orderItems![index].productName
                                                             .toString()
                                                             .capitalizeFirst
                                                             .toString(),
                                                         style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w600, fontSize: 18, color: const Color(0xFF1A2E33)),
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 18,
+                                                            color: const Color(0xFF1A2E33)),
                                                       ),
                                                       addHeight(1),
                                                       Row(
@@ -275,7 +296,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w400,
                                                                 fontSize: 12,
-                                                                color: const Color(0xff486769b5).withOpacity(0.71)),
+                                                                color: const Color(0xff486769).withOpacity(0.71)),
                                                           ),
                                                         ],
                                                       ),
@@ -286,15 +307,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w400,
                                                                 fontSize: 12,
-                                                                color: const Color(0xff486769b5).withOpacity(0.71)),
+                                                                color: const Color(0xff486769).withOpacity(0.71)),
                                                           ),
                                                           addWidth(3),
                                                           Text(
-                                                            controller.model.value.orderDetail!.orderItems![index].sizeId.toString(),
+                                                            controller
+                                                                .model.value.orderDetail!.orderItems![index].sizeId
+                                                                .toString(),
                                                             style: GoogleFonts.poppins(
                                                                 fontWeight: FontWeight.w400,
                                                                 fontSize: 12,
-                                                                color: const Color(0xff486769b5).withOpacity(0.71)),
+                                                                color: const Color(0xff486769).withOpacity(0.71)),
                                                           ),
                                                         ],
                                                       ),
@@ -302,7 +325,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                       Text(
                                                         '€ ${controller.model.value.orderDetail!.orderItems![index].price.toString()}',
                                                         style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w600, fontSize: 16, color: const Color(0xFF70CC49)),
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 16,
+                                                            color: const Color(0xFF70CC49)),
                                                       ),
                                                     ],
                                                   ),
@@ -356,18 +381,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                       // },
                                       unselectedLabelColor: const Color(0xFF909090),
                                       labelColor: const Color(0xFF1A2E33),
-                                      labelStyle: const TextStyle(color: Color(0xFF1A2E33), fontSize: 16, fontWeight: FontWeight.w500),
-                                      unselectedLabelStyle:
-                                          const TextStyle(color: Color(0xFF909090), fontSize: 16, fontWeight: FontWeight.w500),
+                                      labelStyle: const TextStyle(
+                                          color: Color(0xFF1A2E33), fontSize: 16, fontWeight: FontWeight.w500),
+                                      unselectedLabelStyle: const TextStyle(
+                                          color: Color(0xFF909090), fontSize: 16, fontWeight: FontWeight.w500),
                                       controller: tabController,
                                       indicatorSize: TabBarIndicatorSize.tab,
-                                      indicator:
-                                          const BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF7ED957), width: 5))),
+                                      indicator: const BoxDecoration(
+                                          border: Border(bottom: BorderSide(color: Color(0xFF7ED957), width: 5))),
                                     ),
                                   )),
                             ],
                           )
-                        : const SizedBox(),
+                        : const SizedBox.shrink(),
                   ),
                 );
               })
@@ -459,11 +485,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                       children: [
                                         const Text(
                                           "Driver Name",
-                                          style: TextStyle(color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
+                                          style: TextStyle(
+                                              color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
                                         ),
                                         Text(
                                           controller.model.value.orderDetail!.driver!.name.toString(),
-                                          style: const TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                          style:
+                                              const TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                         ),
                                       ],
                                     ),
@@ -490,23 +518,27 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                       children: [
                                         const Text(
                                           "Driver Number",
-                                          style: TextStyle(color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
+                                          style: TextStyle(
+                                              color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
                                         ),
                                         Text(
                                           controller.model.value.orderDetail!.driver!.phone.toString(),
-                                          style: const TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                          style:
+                                              const TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                         ),
                                       ],
                                     ),
                                   ]),
                                   GestureDetector(
                                     onTap: () {
-                                      _makingPhoneCall("tel:+91${controller.model.value.orderDetail!.driver!.phone.toString()}");
+                                      _makingPhoneCall(
+                                          "tel:+91${controller.model.value.orderDetail!.driver!.phone.toString()}");
                                     },
                                     child: Container(
                                         height: AddSize.size45,
                                         width: AddSize.size45,
-                                        decoration: const ShapeDecoration(color: Color(0xFF71E189), shape: CircleBorder()),
+                                        decoration:
+                                            const ShapeDecoration(color: Color(0xFF71E189), shape: CircleBorder()),
                                         child: const Center(
                                             child: Icon(
                                           Icons.phone,
@@ -527,11 +559,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                           children: [
                                             const Text(
                                               "Delivery Address",
-                                              style: TextStyle(color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
+                                              style: TextStyle(
+                                                  color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
                                             ),
                                             Text(
-                                              controller.model.value.orderDetail!.address!.location.toString(),
-                                              style: const TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                              controller.model.value.orderDetail!.address != null
+                                                  ? controller.model.value.orderDetail!.address!.location.toString()
+                                                  : "No Available",
+                                              style: const TextStyle(
+                                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                             ),
                                             const SizedBox(
                                               width: 5,
@@ -548,7 +584,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                     child: Container(
                                       height: AddSize.size45,
                                       width: AddSize.size45,
-                                      decoration: const ShapeDecoration(color: Color(0xFF7ED957), shape: CircleBorder()),
+                                      decoration:
+                                          const ShapeDecoration(color: Color(0xFF7ED957), shape: CircleBorder()),
                                       child: const Center(
                                           child: Icon(
                                         Icons.location_on,
@@ -559,6 +596,214 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                 ],
                               ),
                             ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFF37C666).withOpacity(0.10),
+                                offset: const Offset(
+                                  .1,
+                                  .1,
+                                ),
+                                blurRadius: 20.0,
+                                spreadRadius: 1.0,
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Payment:',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                    ),
+                                    const Spacer(),
+                                    Container(
+                                      height: 25,
+                                      width: 52,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF7ED957),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          controller.model.value.orderDetail!.orderType.toString(),
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                addHeight(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Order Type:',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                    ),
+                                    const Spacer(),
+                                    controller.model.value.orderDetail!.deliveryType == "D"
+                                        ? Text(
+                                            'Delivery',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xff486769)),
+                                          )
+                                        : Text(
+                                            'Pick Up',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xff486769)),
+                                          ),
+                                  ],
+                                ),
+                                addHeight(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Subtotal:',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      '€ ${controller.model.value.orderDetail!.itemTotal.toString()}',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                    ),
+                                  ],
+                                ),
+                                addHeight(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Tip for Delivery partner:',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      '€ ${controller.model.value.orderDetail!.tipAmount.toString()}',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                    ),
+                                  ],
+                                ),
+                                addHeight(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Small Order Fee:',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      "€ ${controller.model.value.orderDetail!.minOrderCharge.toString()}",
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                    ),
+                                  ],
+                                ),
+                                addHeight(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Service charge:',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      "€ ${controller.model.value.orderDetail!.serviceCharge.toString()}",
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                    ),
+                                  ],
+                                ),
+                                addHeight(10),
+                                if (controller.model.value.orderDetail!.couponDiscount != null)
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Coupon discount:',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        "€ ${controller.model.value.orderDetail!.couponDiscount!.discountedPrice.toString()}",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                      ),
+                                    ],
+                                  ),
+                                if (controller.model.value.orderDetail!.couponDiscount != null) addHeight(10),
+                                controller.model.value.orderDetail!.deliveryCharges != 0
+                                    ? Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Delivery:',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: const Color(0xff1A2E33)),
+                                          ),
+                                          const Spacer(),
+                                          Text(
+                                            "€ ${controller.model.value.orderDetail!.deliveryCharges.toString()}",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xff486769)),
+                                          ),
+                                        ],
+                                      )
+                                    : const SizedBox(),
+                                addHeight(10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Total:',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 15, fontWeight: FontWeight.w700, color: const Color(0xff6BC744)),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      '€ ${controller.model.value.orderDetail!.grandTotal.toString()}',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff6BC744)),
+                                    ),
+                                  ],
+                                ),
+                                addHeight(20)
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -573,19 +818,21 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                   showToast("User Not Found");
                                   return;
                                 }
-                                if(profileController.model.value.data == null){
+                                if (profileController.model.value.data == null) {
                                   await profileController.getData();
                                 }
                                 String roomId = FirebaseService().createChatRoom(
                                     user1: myUserId.convertToNum.toInt(),
-                                    user2: controller.model.value.orderDetail!.driver!.id.toString().convertToNum.toInt());
+                                    user2:
+                                        controller.model.value.orderDetail!.driver!.id.toString().convertToNum.toInt());
                                 log(roomId);
                                 Get.to(() => MainChatScreen(
                                       roomId: roomId,
                                       orderId: controller.model.value.orderDetail!.orderId.toString(),
                                       receiverId: controller.model.value.orderDetail!.driver!.id.toString(),
                                       receiverName: controller.model.value.orderDetail!.driver!.name.toString(),
-                                      receiverImage: controller.model.value.orderDetail!.driver!.profileImage.toString(),
+                                      receiverImage:
+                                          controller.model.value.orderDetail!.driver!.profileImage.toString(),
                                       senderId: myUserId,
                                       customer: {
                                         "user_id": profileController.model.value.data!.id.toString(),
@@ -595,7 +842,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                       driver: {
                                         "user_id": controller.model.value.orderDetail!.driver!.id.toString(),
                                         "user_name": controller.model.value.orderDetail!.driver!.name.toString(),
-                                        "user_image": controller.model.value.orderDetail!.driver!.profileImage.toString(),
+                                        "user_image":
+                                            controller.model.value.orderDetail!.driver!.profileImage.toString(),
                                       },
                                     ));
                               },
@@ -664,7 +912,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                 Text(
                                                   'Payment:',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: const Color(0xff1A2E33)),
                                                 ),
                                                 const Spacer(),
                                                 Container(
@@ -678,7 +928,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                     child: Text(
                                                       controller.model.value.orderDetail!.orderType.toString(),
                                                       style: GoogleFonts.poppins(
-                                                          color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
+                                                          color: Colors.white,
+                                                          fontSize: 13,
+                                                          fontWeight: FontWeight.w500),
                                                     ),
                                                   ),
                                                 )
@@ -691,19 +943,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                 Text(
                                                   'Order Type:',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: const Color(0xff1A2E33)),
                                                 ),
                                                 const Spacer(),
                                                 controller.model.value.orderDetail!.deliveryType == "D"
                                                     ? Text(
                                                         'Delivery',
                                                         style: GoogleFonts.poppins(
-                                                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: const Color(0xff486769)),
                                                       )
                                                     : Text(
                                                         'Pick Up',
                                                         style: GoogleFonts.poppins(
-                                                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: const Color(0xff486769)),
                                                       ),
                                               ],
                                             ),
@@ -714,13 +972,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                 Text(
                                                   'Subtotal:',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: const Color(0xff1A2E33)),
                                                 ),
                                                 const Spacer(),
                                                 Text(
                                                   '€ ${controller.model.value.orderDetail!.itemTotal.toString()}',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(0xff486769)),
                                                 ),
                                               ],
                                             ),
@@ -731,13 +993,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                 Text(
                                                   'Tip for Delivery partner:',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: const Color(0xff1A2E33)),
                                                 ),
                                                 const Spacer(),
                                                 Text(
                                                   '€ ${controller.model.value.orderDetail!.tipAmount.toString()}',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(0xff486769)),
                                                 ),
                                               ],
                                             ),
@@ -748,13 +1014,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                 Text(
                                                   'Small Order Fee:',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: const Color(0xff1A2E33)),
                                                 ),
                                                 const Spacer(),
                                                 Text(
                                                   "€ ${controller.model.value.orderDetail!.minOrderCharge.toString()}",
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(0xff486769)),
                                                 ),
                                               ],
                                             ),
@@ -765,13 +1035,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                 Text(
                                                   'Service charge:',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: const Color(0xff1A2E33)),
                                                 ),
                                                 const Spacer(),
                                                 Text(
                                                   "€ ${controller.model.value.orderDetail!.serviceCharge.toString()}",
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(0xff486769)),
                                                 ),
                                               ],
                                             ),
@@ -783,18 +1057,23 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                   Text(
                                                     'Coupon discount:',
                                                     style: GoogleFonts.poppins(
-                                                        fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: const Color(0xff1A2E33)),
                                                   ),
                                                   const Spacer(),
                                                   if (controller.model.value.orderDetail!.couponDiscount != null)
                                                     Text(
                                                       "€ ${controller.model.value.orderDetail!.couponDiscount!.discountedPrice.toString()}",
                                                       style: GoogleFonts.poppins(
-                                                          fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: const Color(0xff486769)),
                                                     ),
                                                 ],
                                               ),
-                                            if (controller.model.value.orderDetail!.couponDiscount != null) addHeight(10),
+                                            if (controller.model.value.orderDetail!.couponDiscount != null)
+                                              addHeight(10),
                                             controller.model.value.orderDetail!.deliveryCharges != 0
                                                 ? Row(
                                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -802,13 +1081,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                       Text(
                                                         'Delivery:',
                                                         style: GoogleFonts.poppins(
-                                                            fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                            fontSize: 16,
+                                                            fontWeight: FontWeight.w600,
+                                                            color: const Color(0xff1A2E33)),
                                                       ),
                                                       const Spacer(),
                                                       Text(
                                                         "€ ${controller.model.value.orderDetail!.deliveryCharges.toString()}",
                                                         style: GoogleFonts.poppins(
-                                                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: const Color(0xff486769)),
                                                       ),
                                                     ],
                                                   )
@@ -820,13 +1103,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                 Text(
                                                   'Total:',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 15, fontWeight: FontWeight.w700, color: const Color(0xff6BC744)),
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: const Color(0xff6BC744)),
                                                 ),
                                                 const Spacer(),
                                                 Text(
                                                   '€ ${controller.model.value.orderDetail!.grandTotal.toString()}',
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff6BC744)),
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(0xff6BC744)),
                                                 ),
                                               ],
                                             ),
@@ -891,14 +1178,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                           children: [
                                             const Text(
                                               "Home Name",
-                                              style: TextStyle(color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
+                                              style: TextStyle(
+                                                  color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
                                             ),
                                             Text(
                                               controller.model.value.orderDetail!.vendor!.storeName
                                                   .toString()
                                                   .capitalizeFirst
                                                   .toString(),
-                                              style: const TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                              style: const TextStyle(
+                                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                             ),
                                           ],
                                         ),
@@ -906,7 +1195,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                       Container(
                                         height: AddSize.size45,
                                         width: AddSize.size45,
-                                        decoration: const ShapeDecoration(color: Color(0xFFFE7E73), shape: CircleBorder()),
+                                        decoration:
+                                            const ShapeDecoration(color: Color(0xFFFE7E73), shape: CircleBorder()),
                                         child: const Center(
                                             child: Icon(
                                           Icons.person_rounded,
@@ -925,23 +1215,27 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                           children: [
                                             const Text(
                                               "Home Number",
-                                              style: TextStyle(color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
+                                              style: TextStyle(
+                                                  color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
                                             ),
                                             Text(
                                               controller.model.value.orderDetail!.vendor!.phone.toString(),
-                                              style: const TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                              style: const TextStyle(
+                                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                             ),
                                           ],
                                         ),
                                       ]),
                                       GestureDetector(
                                         onTap: () {
-                                          _makingPhoneCall("tel:+91 ${controller.model.value.orderDetail!.vendor!.phone.toString()}");
+                                          _makingPhoneCall(
+                                              "tel:+91 ${controller.model.value.orderDetail!.vendor!.phone.toString()}");
                                         },
                                         child: Container(
                                             height: AddSize.size45,
                                             width: AddSize.size45,
-                                            decoration: const ShapeDecoration(color: Color(0xFF71E189), shape: CircleBorder()),
+                                            decoration:
+                                                const ShapeDecoration(color: Color(0xFF71E189), shape: CircleBorder()),
                                             child: const Center(
                                                 child: Icon(
                                               Icons.phone,
@@ -962,12 +1256,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                               children: [
                                                 const Text(
                                                   "Home Address",
-                                                  style:
-                                                      TextStyle(color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
+                                                  style: TextStyle(
+                                                      color: Color(0xff486769),
+                                                      fontWeight: FontWeight.w300,
+                                                      fontSize: 14),
                                                 ),
                                                 Text(
                                                   controller.model.value.orderDetail!.vendor!.location.toString(),
-                                                  style: const TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                                  style: const TextStyle(
+                                                      height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                                 ),
                                                 const SizedBox(
                                                   width: 5,
@@ -979,13 +1276,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          openMap(double.parse(controller.model.value.orderDetail!.vendor!.latitude.toString()),
-                                              double.parse(controller.model.value.orderDetail!.vendor!.longitude.toString()));
+                                          openMap(
+                                              double.parse(
+                                                  controller.model.value.orderDetail!.vendor!.latitude.toString()),
+                                              double.parse(
+                                                  controller.model.value.orderDetail!.vendor!.longitude.toString()));
                                         },
                                         child: Container(
                                           height: AddSize.size45,
                                           width: AddSize.size45,
-                                          decoration: const ShapeDecoration(color: Color(0xFF7ED957), shape: CircleBorder()),
+                                          decoration:
+                                              const ShapeDecoration(color: Color(0xFF7ED957), shape: CircleBorder()),
                                           child: const Center(
                                               child: Icon(
                                             Icons.location_on,
@@ -1042,7 +1343,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                         child: Center(
                                           child: Text(
                                             controller.model.value.orderDetail!.orderType.toString(),
-                                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
+                                            style: GoogleFonts.poppins(
+                                                color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
                                           ),
                                         ),
                                       )
@@ -1062,12 +1364,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                           ? Text(
                                               'Delivery',
                                               style: GoogleFonts.poppins(
-                                                  fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(0xff486769)),
                                             )
                                           : Text(
                                               'Pick Up',
                                               style: GoogleFonts.poppins(
-                                                  fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(0xff486769)),
                                             ),
                                     ],
                                   ),
@@ -1147,13 +1453,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                         Text(
                                           'Coupon discount:',
                                           style: GoogleFonts.poppins(
-                                              fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color(0xff1A2E33)),
                                         ),
                                         const Spacer(),
                                         Text(
                                           "€ ${controller.model.value.orderDetail!.couponDiscount!.discountedPrice.toString()}",
                                           style: GoogleFonts.poppins(
-                                              fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff486769)),
                                         ),
                                       ],
                                     ),
@@ -1165,13 +1475,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                             Text(
                                               'Delivery:',
                                               style: GoogleFonts.poppins(
-                                                  fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xff1A2E33)),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: const Color(0xff1A2E33)),
                                             ),
                                             const Spacer(),
                                             Text(
                                               "€ ${controller.model.value.orderDetail!.deliveryCharges.toString()}",
                                               style: GoogleFonts.poppins(
-                                                  fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff486769)),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(0xff486769)),
                                             ),
                                           ],
                                         )
@@ -1211,9 +1525,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                   }
                                   String roomId = FirebaseService().createChatRoom(
                                       user1: myUserId.convertToNum.toInt(),
-                                      user2: controller.model.value.orderDetail!.vendor!.storeId.toString().convertToNum.toInt());
+                                      user2: controller.model.value.orderDetail!.vendor!.storeId
+                                          .toString()
+                                          .convertToNum
+                                          .toInt());
                                   log(roomId);
-                                  if(profileController.model.value.data == null){
+                                  if (profileController.model.value.data == null) {
                                     await profileController.getData();
                                   }
                                   Get.to(() => MainChatScreen(
@@ -1221,7 +1538,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                         orderId: controller.model.value.orderDetail!.orderId.toString(),
                                         receiverId: controller.model.value.orderDetail!.vendor!.storeId.toString(),
                                         receiverName: controller.model.value.orderDetail!.vendor!.storeName.toString(),
-                                        receiverImage: controller.model.value.orderDetail!.vendor!.storeImage.toString(),
+                                        receiverImage:
+                                            controller.model.value.orderDetail!.vendor!.storeImage.toString(),
                                         senderId: myUserId,
                                         customer: {
                                           "user_id": profileController.model.value.data!.id.toString(),
@@ -1231,7 +1549,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                         vendor: {
                                           "user_id": controller.model.value.orderDetail!.vendor!.storeId.toString(),
                                           "user_name": controller.model.value.orderDetail!.vendor!.storeName.toString(),
-                                          "user_image": controller.model.value.orderDetail!.vendor!.storeImage.toString(),
+                                          "user_image":
+                                              controller.model.value.orderDetail!.vendor!.storeImage.toString(),
                                         },
                                       ));
                                 },

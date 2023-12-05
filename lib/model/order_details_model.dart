@@ -43,7 +43,7 @@ class OrderDetail {
   User? user;
   Vendor? vendor;
   Driver? driver;
-  dynamic address;
+  Address? address;
   dynamic orderType;
   dynamic deliveryStatus;
   dynamic feedback;

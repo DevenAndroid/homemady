@@ -258,9 +258,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
     filterProductCategoryController
         .getFilterCategoryData(
-        filter: filterProductCategoryController.filterId,
-        categoryId: (currentIndex + 2).toString(),
-        context: context)
+            filter: filterProductCategoryController.filterId,
+            categoryId: (currentIndex + 2).toString(),
+            context: context)
         .then((value) {
       setState(() {});
     });
@@ -2070,8 +2070,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
                                               )),
                                             ),
-                                      categoryController
-                                          .categoryModel.value.data != null
+                                      categoryController.categoryModel.value.data != null
                                           ? ListView.builder(
                                               shrinkWrap: true,
                                               itemCount: categoryController

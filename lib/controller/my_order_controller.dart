@@ -117,7 +117,7 @@ extension ManageNotification on Widget {
                                             Padding(
                                               padding: const EdgeInsets.only(left: 10),
                                               child: Text(
-                                                controller.model.value.data!.first.deliveryStatus.toString(),
+                                                "Order ${controller.model.value.data!.first.deliveryStatus}",
                                                 style: GoogleFonts.poppins(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w500,

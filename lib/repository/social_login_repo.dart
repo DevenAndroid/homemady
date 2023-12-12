@@ -10,6 +10,7 @@ import '../resources/helper.dart';
 
 Future<SocialLoginModel> socialLogin(
     {required String provider,required String token,
+      required String role,
       required BuildContext context}) async {
 
   OverlayEntry loader = Helpers.overlayLoader(context);
@@ -22,6 +23,7 @@ Future<SocialLoginModel> socialLogin(
       .instance
       .getToken();
   map['device_token'] = fcmToken;
+  map['role'] = role;
 
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',

@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  String roleText = 'customer';
+  String roleText = '2';
   var obscureText1 = true;
 
   @override
@@ -387,17 +387,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
     log(googleUser!.email.toString());
 
-    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
     );
     final value = await FirebaseAuth.instance.signInWithCredential(credential);
-    log(value.credential!.accessToken!);
-    //log(value.additionalUserInfo.a);
-    var fromToken = await FirebaseMessaging.instance.getToken();
 
-    socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+    log("Tokenisss -------${value.credential!.accessToken}");
+    return;
+    //log(value.additionalUserInfo.a);
+    socialLogin(provider: "google", token: value.credential!.accessToken!, context: context, role: roleText).then((value) async {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
@@ -413,7 +413,7 @@ class _LoginScreenState extends State<LoginScreen> {
     facAuth.addScope("email");
     final item = await FirebaseAuth.instance.signInWithProvider(facAuth);
     if(!mounted)return;
-    socialLogin(provider: "google", token: item.credential!.accessToken!, context: context).then((value) async {
+    socialLogin(provider: "google", token: item.credential!.accessToken!, context: context,role: roleText).then((value) async {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
@@ -434,7 +434,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .then((value) async {
 
       log("Tokenisss -------${value.credential!.accessToken}");
-      socialLogin( provider: "apple", token: value.credential!.accessToken!, context: context, )
+      socialLogin( provider: "apple", token: value.credential!.accessToken!, context: context, role: roleText)
           .then((value1) async {
         if (value1.status == true) {
           SharedPreferences pref = await SharedPreferences.getInstance();

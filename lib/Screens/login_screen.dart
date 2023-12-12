@@ -395,9 +395,14 @@ class _LoginScreenState extends State<LoginScreen> {
     final value = await FirebaseAuth.instance.signInWithCredential(credential);
 
     log("Tokenisss -------${value.credential!.accessToken}");
-    return;
+    // return;
     //log(value.additionalUserInfo.a);
-    socialLogin(provider: "google", token: value.credential!.accessToken!, context: context, role: roleText).then((value) async {
+    socialLogin(
+        provider: "google",
+        token: value.credential!.accessToken!,
+        context: context,
+        role: roleText
+    ).then((value) async {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));

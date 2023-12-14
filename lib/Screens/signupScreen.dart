@@ -40,7 +40,7 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
   TextEditingController referController = TextEditingController();
-  final TextEditingController countryCodeController = TextEditingController(text: "353");
+  final TextEditingController countryCodeController = TextEditingController(text: "+353");
   StreamSubscription<Map>? streamSubscription;
   void listenDynamicLinks() async {
     streamSubscription = FlutterBranchSdk.initSession().listen((data) async {
@@ -58,7 +58,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     listenDynamicLinks();
   }

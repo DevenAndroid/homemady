@@ -77,6 +77,7 @@ class CartItems {
   dynamic image;
   dynamic productQty;
   bool? collectionStatus;
+  bool? deliveryStatus;
   bool? selfDelivery;
 
   int productCount = 0;
@@ -89,6 +90,7 @@ class CartItems {
         this.selfDelivery,
         this.cartItemQty,
         this.distance,
+        this.deliveryStatus,
         this.subTitle,
         this.totalPrice,
         this.collectionStatus,
@@ -109,6 +111,7 @@ class CartItems {
     productQty = json['product_qty'];
     selfDelivery = json['self_delivery'];
     collectionStatus = json['collection_status'];
+    deliveryStatus = json['delivery_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -126,6 +129,7 @@ class CartItems {
     data['image'] = image;
     data['product_qty'] = productQty;
     data['collection_status'] = collectionStatus;
+    data['delivery_status'] = deliveryStatus;
     return data;
   }
 }

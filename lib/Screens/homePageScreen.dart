@@ -56,11 +56,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   List<ItemDropDown> items = <ItemDropDown>[
     const ItemDropDown('sustainable_packaging', 'Sustainable Packaging'),
-    const ItemDropDown('quickest_delivery', 'Quickest Delivery'),
     const ItemDropDown('distance', 'Distance'),
     const ItemDropDown('top_chef', 'Top Chefs'),
     const ItemDropDown('rating', 'Rating'),
     const ItemDropDown('collection_only', 'Collection Only'),
+    const ItemDropDown('quickest_delivery', 'Quickest Delivery'),
   ];
 
   bool? isChoosedFilterOption = false;

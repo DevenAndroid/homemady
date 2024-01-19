@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -181,81 +182,48 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: screenHeight * .03,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children: [
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: signInWithFacebook,
-                          child: Container(
-                            width: 152,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF37C666).withOpacity(0.10),
-                                  offset: const Offset(.1, .1,
-                                  ),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 1.0,
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.facebook,color: Colors.blue,size: 30,),
-                                addWidth(10),
-                                const Text('Facebook',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color:  Color(0xFF4C5369)
-                                  ),)
-                              ],
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   behavior: HitTestBehavior.translucent,
+                        //   onTap:(){
+                        //     signInFaceBook();
+                        //   },
+                        //   child: Container(
+                        //     width: 152,
+                        //     height: 50,
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.white,
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       boxShadow: [
+                        //         BoxShadow(
+                        //           color: const Color(0xFF37C666).withOpacity(0.10),
+                        //           offset: const Offset(.1, .1,
+                        //           ),
+                        //           blurRadius: 20.0,
+                        //           spreadRadius: 1.0,
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         const Icon(Icons.facebook,color: Colors.blue,size: 30,),
+                        //         addWidth(10),
+                        //         const Text('Facebook',
+                        //           style: TextStyle(
+                        //               fontSize: 15,
+                        //               fontWeight: FontWeight.w600,
+                        //               color:  Color(0xFF4C5369)
+                        //           ),)
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         if(Platform.isAndroid)
-                        GestureDetector(
-                          onTap: signInWithGoogle,
-                          child: Container(
-                            width: 152,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF37C666).withOpacity(0.10),
-                                  offset: const Offset(.1, .1,
-                                  ),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 1.0,
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/images/google.png',height: 25,),
-                                addWidth(10),
-                                const Text('Google',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color:  Color(0xFF4C5369)
-                                  ),)
-                              ],
-                            ),
-                          ),
-                        ),
-                        if(Platform.isIOS)
-                          GestureDetector(
-                            onTap: (){
-                              loginWithApple();
-                            },
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: signInWithGoogle,
                             child: Container(
                               width: 152,
                               height: 50,
@@ -275,15 +243,55 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/images/apple.png',height: 25,),
+                                  Image.asset('assets/images/google.png',height: 25,),
                                   addWidth(10),
-                                  const Text('Apple',
+                                  const Text('Google',
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w600,
                                         color:  Color(0xFF4C5369)
                                     ),)
                                 ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        addWidth(10),
+                        if(Platform.isIOS)
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: (){
+                                loginWithApple();
+                              },
+                              child: Container(
+                                width: 152,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF37C666).withOpacity(0.10),
+                                      offset: const Offset(.1, .1,
+                                      ),
+                                      blurRadius: 20.0,
+                                      spreadRadius: 1.0,
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('assets/images/apple.png',height: 25,),
+                                    addWidth(10),
+                                    const Text('Apple',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color:  Color(0xFF4C5369)
+                                      ),)
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -458,4 +466,30 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     });
   }
+
+  // signInFaceBook() async {
+  //   final LoginResult loginResult = await FacebookAuth.instance
+  //       .login(permissions: ["public_profile", "email"], loginBehavior: LoginBehavior.webOnly);
+  //   print("qqqqqqqqqqqq");
+  //   final OAuthCredential oAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+  //   final value = await FirebaseAuth.instance.signInWithCredential(oAuthCredential).then((value1) async {
+  //     // socialFacebook(context: context, email: value1.user!.email.toString(), name:  value1.user!.displayName.toString(),deviceType: signInController.deviceType.toString()).then((value) async {
+  //     //   if (value.status == true) {
+  //     //     SharedPreferences pref = await SharedPreferences.getInstance();
+  //     //     pref.setString('user_info', jsonEncode(value));
+  //     //     pref.setString('cookie', value.data!.token.toString());
+  //     //     showToast(value.msg.toString());
+  //     //     pref.setBool('isLoggedIn', true);
+  //     //     Get.offAllNamed(MyRouters.bottomNavbar);
+  //     //   } else {
+  //     //     showToast(value.msg.toString());
+  //     //   }
+  //     // });
+  //     Get.offAllNamed(MyRouters.bottomNavbar);
+  //   }).catchError((FirebaseAuthException? e) {
+  //     showToast(e.toString());
+  //     throw Exception(e!.message);
+  //   });
+  //   log("Firebase response.... ${value.toString()}");
+  // }
 }

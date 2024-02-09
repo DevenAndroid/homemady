@@ -88,7 +88,7 @@ class _EmailVerificationScreen2State extends State<EmailVerificationScreen2> {
                                     color: Colors.white
                                 ),
                                 child: CommonTextFieldWidget(
-                                  hint: 'Phone Number',
+                                  hint: 'Enter email',
                                   controller: emailController,
                                   // validator: MultiValidator([
                                   //   EmailValidator(
@@ -101,6 +101,7 @@ class _EmailVerificationScreen2State extends State<EmailVerificationScreen2> {
                               ),
                               addHeight(25),
                               CommonButton(title: 'Send',onPressed: (){
+                                print("HEEEEEE");
                                 if(_formKey.currentState!.validate()){
                                   forgotPasswordRepo(email: emailController.text, context: context, roleText: '2').then((value) {
                                     if(value.status == true){

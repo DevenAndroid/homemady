@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'dart:io' as io;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -10,6 +10,9 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:salesiq_mobilisten/launcher.dart';
+import 'package:salesiq_mobilisten/salesiq_mobilisten.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import 'service/custome_notification_headers.dart';
 import 'service/notification_service.dart';
 
@@ -24,6 +27,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
+
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.requestPermission(

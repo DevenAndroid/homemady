@@ -18,7 +18,7 @@ Future<ResendOtpModel> resendOtpRepo(
   SharedPreferences pref = await SharedPreferences.getInstance();
   //print("These are details.....${pref}");
   var map = <String, dynamic>{};
-  map['phone'] = email;
+  map['email'] = email;
   map['role'] = roleText;
   // map['device_id'] = pref.getString('deviceId');
   // map['device_token'] = fcmToken;
@@ -32,7 +32,7 @@ Future<ResendOtpModel> resendOtpRepo(
 
     http.Response response = await http.post(Uri.parse(ApiUrl.resendOtpUrl),
         body: jsonEncode(map), headers: headers);
-
+log(response.body);
     if (response.statusCode == 200||response.statusCode == 400) {
       NewHelper.hideLoader(loader);
       return ResendOtpModel.fromJson(json.decode(response.body));

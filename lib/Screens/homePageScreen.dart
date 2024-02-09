@@ -10,6 +10,10 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:intl/intl.dart';
+import 'package:salesiq_mobilisten/launcher.dart';
+import 'dart:io' as io;
+import 'package:salesiq_mobilisten/salesiq_mobilisten.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import '../controller/category_controller.dart';
 import '../controller/fillter_product_category_controller.dart';
 import '../controller/filter_controller.dart';
@@ -36,6 +40,9 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
+
+
+
   final categoryController = Get.put(CategoryController());
   final homeController = Get.put(HomePageController());
   final profileController = Get.put(UserProfileController());
@@ -56,11 +63,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   List<ItemDropDown> items = <ItemDropDown>[
     const ItemDropDown('sustainable_packaging', 'Sustainable Packaging'),
-    const ItemDropDown('quickest_delivery', 'Quickest Delivery'),
     const ItemDropDown('distance', 'Distance'),
     const ItemDropDown('top_chef', 'Top Chefs'),
     const ItemDropDown('rating', 'Rating'),
     const ItemDropDown('collection_only', 'Collection Only'),
+    const ItemDropDown('quickest_delivery', 'Quickest Delivery'),
   ];
 
   bool? isChoosedFilterOption = false;
@@ -72,9 +79,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   String selectedDate = 'Available Now';
 
+
+
   @override
   void initState() {
     super.initState();
+
     locationController.checkGps(context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -2541,3 +2551,4 @@ class ItemDropDown {
 
   const ItemDropDown(this.id, this.name);
 }
+

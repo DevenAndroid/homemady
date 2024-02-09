@@ -1,7 +1,7 @@
 class ForgotPasswordModel {
   bool? status;
   String? message;
-  int? data;
+  dynamic data;
 
   ForgotPasswordModel({this.status, this.message, this.data});
 

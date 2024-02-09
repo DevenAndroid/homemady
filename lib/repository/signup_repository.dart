@@ -55,7 +55,7 @@ Future<ModelCommonResponse> register(
 Future<ModelVerifyOtp> verifyOTPPassword(
     userEmail, otp,roleText, BuildContext context) async {
   var map = <String, dynamic>{};
-  map["phone"] = userEmail;
+  map["email"] = userEmail;
   map["otp"] = otp;
   map["role"] = roleText;
   OverlayEntry loader = NewHelper.overlayLoader(context);

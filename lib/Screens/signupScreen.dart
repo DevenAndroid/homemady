@@ -160,7 +160,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 'enter a valid email address'),
                             RequiredValidator(
                                 errorText: 'Please enter a email')
-                          ]),
+                          ]).call,
                         ),
                       ),
                       addHeight(20),
@@ -377,7 +377,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               ).then((value){
                                 if(value.status==true){
                                   showToast(value.message);
-                                  Get.toNamed(MyRouters.otpScreen,arguments: [phoneController.text]);
+                                  Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text]);
                                 }else{
                                   showToast(value.message);
                                 }

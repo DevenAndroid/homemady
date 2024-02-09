@@ -18,7 +18,9 @@ Future<ForgotPasswordModel> forgotPasswordRepo(
   SharedPreferences pref = await SharedPreferences.getInstance();
   //print("These are details.....${pref}");
   var map = <String, dynamic>{};
-  map['phone'] = email;
+  map['email'] = email;
+
+
   //map['role'] = roleText;
 
   log("Forgot password Data map$map");
@@ -28,10 +30,11 @@ Future<ForgotPasswordModel> forgotPasswordRepo(
       HttpHeaders.acceptHeader: 'application/json',
     };
 
-    http.Response response = await http.get(Uri.parse('${ApiUrl.forgotPasswordUrl}?phone=$email&role=$roleText'),
+    http.Response response = await http.get(Uri.parse('${ApiUrl.forgotPasswordUrl}?email=$email&role=$roleText'),
          headers: headers);
 
     if (response.statusCode == 200||response.statusCode == 400) {
+      log(" RESPONSESSS $response");
       NewHelper.hideLoader(loader);
       return ForgotPasswordModel.fromJson(json.decode(response.body));
     } else {

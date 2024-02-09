@@ -175,6 +175,8 @@ class _OtpForgotScreenState extends State<OtpForgotScreen> {
                             if(value.status == true){
                               showToast(value.message.toString());
                               // Get.toNamed(MyRouters.otpScreen);
+                            }else{
+                              showToast(value.message.toString());
                             }
                           });
                         },

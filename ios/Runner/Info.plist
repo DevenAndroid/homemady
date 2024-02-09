@@ -98,5 +98,7 @@
 		<string>j1tmk.app.link</string>
 		<string>j1tmk-alternate.app.link</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>would you like to access to store image/vedios in your photo library</string>
 </dict>
 </plist>

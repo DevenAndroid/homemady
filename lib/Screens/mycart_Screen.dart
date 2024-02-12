@@ -769,7 +769,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           height: 10,
                         ),
                         const Text(
-                          "No Product",
+                          "No products added yet",
                           style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xff000000), fontSize: 22),
                         ),
                       ],

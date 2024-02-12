@@ -1,4 +1,5 @@
-import 'dart:io' as io;
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:homemady/widgets/custome_size.dart';
@@ -6,6 +7,7 @@ import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:salesiq_mobilisten/launcher.dart';
 import 'package:salesiq_mobilisten/salesiq_mobilisten.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../routers/routers.dart';
 
 
@@ -90,12 +92,12 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
             addHeight(15),
             InkWell(
               onTap: (){
-                if (io.Platform.isIOS || io.Platform.isAndroid) {
+                if (Platform.isIOS || Platform.isAndroid) {
                   String appKey;
                   String accessKey;
-                  if (io.Platform.isIOS) {
+                  if (Platform.isIOS) {
                     appKey = "CXSxB2zDTR92eCpY2B9Ar7fJpCdLj5EA4xwT0nLKXx7WU5yivlXE6U5XBR8ptcf%2B";
-                    accessKey = "czr96nQAmUQn%2BokFyAG44hRqx8e2B8kEBn1b2iIYIe0cmuClIQs86k1y3ez0XUib%2F0feVTWmuweRAaJSWUUbBAvkuOmxi0ahpYvNZh4A8NP%2FN6rB8C9yUC37acWIuqhzwGvDn17nOuM%3D";
+                    accessKey = "czr96nQAmURlIp0QfhdgmKwx0KfVWpqqjymaXq0fDdDsbRADfg%2Fb3l2jov6QDmeC7trYc%2FHkd3cfnrlsdo4FyGjRy5sJGueCoizmImVkEkmSQ3Ke1FwZ%2Bw%3D%3D";
                   } else {
                     appKey = "CXSxB2zDTR92eCpY2B9Ar7fJpCdLj5EA4xwT0nLKXx7WU5yivlXE6U5XBR8ptcf%2B";
                     accessKey = "czr96nQAmUQn%2BokFyAG44hRqx8e2B8kEBn1b2iIYIe0cmuClIQs86k1y3ez0XUib%2F0feVTWmuweRAaJSWUUbBAvkuOmxi0ahpYvNZh4A8NP%2FN6rB8C9yUC37acWIuqhzwGvDn17nOuM%3D";

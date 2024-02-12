@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -182,13 +181,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: screenHeight * .03,
                     ),
                     Row(
-
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // GestureDetector(
                         //   behavior: HitTestBehavior.translucent,
-                        //   onTap:(){
-                        //     signInFaceBook();
-                        //   },
+                        //   onTap: signInWithFacebook,
                         //   child: Container(
                         //     width: 152,
                         //     height: 50,
@@ -421,22 +418,22 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     });
   }
-  signInWithFacebook() async {
-    final facAuth = FacebookAuthProvider();
-    facAuth.addScope("email");
-    final item = await FirebaseAuth.instance.signInWithProvider(facAuth);
-    if(!mounted)return;
-    socialLogin(provider: "google", token: item.credential!.accessToken!, context: context,role: roleText).then((value) async {
-      if (value.status == true) {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setString('user_info', jsonEncode(value));
-        showToast(value.message);
-        Get.offAllNamed(MyRouters.bottomNavbar);
-      } else {
-        showToast(value.message);
-      }
-    });
-  }
+  // signInWithFacebook() async {
+  //   final facAuth = FacebookAuthProvider();
+  //   facAuth.addScope("email");
+  //   final item = await FirebaseAuth.instance.signInWithProvider(facAuth);
+  //   if(!mounted)return;
+  //   socialLogin(provider: "google", token: item.credential!.accessToken!, context: context,role: roleText).then((value) async {
+  //     if (value.status == true) {
+  //       SharedPreferences pref = await SharedPreferences.getInstance();
+  //       pref.setString('user_info', jsonEncode(value));
+  //       showToast(value.message);
+  //       Get.offAllNamed(MyRouters.bottomNavbar);
+  //     } else {
+  //       showToast(value.message);
+  //     }
+  //   });
+  // }
 
   loginWithApple() async {
     log("Hello from apple ");
@@ -466,30 +463,4 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     });
   }
-
-  // signInFaceBook() async {
-  //   final LoginResult loginResult = await FacebookAuth.instance
-  //       .login(permissions: ["public_profile", "email"], loginBehavior: LoginBehavior.webOnly);
-  //   print("qqqqqqqqqqqq");
-  //   final OAuthCredential oAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-  //   final value = await FirebaseAuth.instance.signInWithCredential(oAuthCredential).then((value1) async {
-  //     // socialFacebook(context: context, email: value1.user!.email.toString(), name:  value1.user!.displayName.toString(),deviceType: signInController.deviceType.toString()).then((value) async {
-  //     //   if (value.status == true) {
-  //     //     SharedPreferences pref = await SharedPreferences.getInstance();
-  //     //     pref.setString('user_info', jsonEncode(value));
-  //     //     pref.setString('cookie', value.data!.token.toString());
-  //     //     showToast(value.msg.toString());
-  //     //     pref.setBool('isLoggedIn', true);
-  //     //     Get.offAllNamed(MyRouters.bottomNavbar);
-  //     //   } else {
-  //     //     showToast(value.msg.toString());
-  //     //   }
-  //     // });
-  //     Get.offAllNamed(MyRouters.bottomNavbar);
-  //   }).catchError((FirebaseAuthException? e) {
-  //     showToast(e.toString());
-  //     throw Exception(e!.message);
-  //   });
-  //   log("Firebase response.... ${value.toString()}");
-  // }
 }

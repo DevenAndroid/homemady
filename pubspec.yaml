@@ -77,7 +77,6 @@ dependencies:
   client_information: ^2.1.4
   dotted_decoration: ^2.0.0
   flutter_native_image:
-  salesiq_mobilisten: ^5.0.0
   lottie: ^2.7.0
   flutter_local_notifications: ^16.2.0
   overlay_support: ^2.1.0

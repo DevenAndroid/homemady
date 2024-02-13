@@ -149,6 +149,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                       addHeight(15),
                                       InkWell(
                                         onTap: () {
+                                          log("ID IS" +controller.model.value.data!.storeDetails!.id.toString());
                                           storeReviewController.vendorId.value =
                                               controller.model.value.data!.storeDetails!.id.toString();
                                           Get.toNamed(StoreReviewScreen.storeReviewScreen);

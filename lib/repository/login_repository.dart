@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:homemady/model/common_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/model_verify_otp.dart';
@@ -81,3 +82,5 @@ Future<ModelVerifyOtp> profileRepo() async {
     throw Exception(e.toString());
   }
 }
+
+

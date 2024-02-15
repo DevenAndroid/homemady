@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/Screens/subscription_screen.dart';
 import 'package:homemady/Screens/thankyou_screen2.dart';
+import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/service/firebase_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/subscription_list_controller.dart';
 import '../controller/user_profile_controller.dart';
+import '../repository/apply_coupon_repo.dart';
 import '../routers/routers.dart';
 import '../widgets/app_theme.dart';
 import 'myAddressScreen.dart';
@@ -279,6 +281,29 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ),
                       _drawerTile(
                           active: true,
+                          title: "Delete Account",
+                          icon: const ImageIcon(
+                            AssetImage('assets/images/delete_user.png'),
+                            size: 22,
+                            color: Color(0xFF4F535E),
+                          ),
+                          onTap: () async {
+                            deleteUserAccount().then((value){
+                              if(value.status == true){
+                                showToast(value.message);
+                                Get.toNamed(MyRouters.loginScreen);
+                              }else{
+                                showToast(value.message);
+                              }
+                            });
+
+                            // }
+                          }),
+                      const Divider(
+                        height: 1,
+                      ),
+                      _drawerTile(
+                          active: true,
                           title: "Help Center",
                           icon: const ImageIcon(
                             AssetImage('assets/images/helpICon.png'),
@@ -289,6 +314,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             Get.toNamed(MyRouters.helpCenterScreen);
                             // }
                           }),
+
                       const Divider(
                         height: 1,
                       ),

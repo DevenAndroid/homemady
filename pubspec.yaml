@@ -32,6 +32,7 @@ dependencies:
   flutter_slidable:
   fluttertoast:
   image_picker:
+  salesiq_mobilisten: ^5.0.0
 #  vertical_scrollable_tabview:
   scroll_to_index:
   share_plus:

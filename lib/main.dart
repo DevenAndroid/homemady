@@ -10,8 +10,6 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:salesiq_mobilisten/launcher.dart';
-import 'package:salesiq_mobilisten/salesiq_mobilisten.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'service/custome_notification_headers.dart';
 import 'service/notification_service.dart';

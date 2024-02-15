@@ -60,3 +60,24 @@ Future<ModelCommonResponse> removeCoupons(
     throw Exception(response.body);
   }
 }
+
+Future<ModelCommonResponse> deleteUserAccount() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(preferences.getString("user_info")!));
+
+ try{
+   final header={
+     HttpHeaders.contentTypeHeader: 'application/json',
+     HttpHeaders.acceptHeader: 'application/json',
+     HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
+   };
+   http.Response data = await http.get(Uri.parse(ApiUrl.deleteUserAccount), headers: header);
+   if(data.statusCode==200 || data.statusCode==400){
+     return ModelCommonResponse.fromJson(jsonDecode(data.body));
+   }else{
+     throw Exception(data.body);
+   }
+ }catch(e){
+   throw Exception(e.toString());
+ }
+}

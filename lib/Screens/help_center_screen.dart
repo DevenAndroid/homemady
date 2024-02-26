@@ -92,6 +92,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
             addHeight(15),
             InkWell(
               onTap: (){
+                print("aaaaa...........");
                 if (Platform.isIOS || Platform.isAndroid) {
                   String appKey;
                   String accessKey;

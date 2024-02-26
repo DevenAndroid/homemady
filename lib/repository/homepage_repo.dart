@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:homemady/resources/helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/homepage_model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
+import '../routers/routers.dart';
 
 Future<HomePageModel> homeData({
   required String primariy_category,
@@ -58,10 +61,11 @@ Future<HomePageModel> homeData({
     if (response.statusCode == 200) {
       log("<<<<<<<HomePageData=======>${response.body}");
       return HomePageModel.fromJson(json.decode(response.body));
-    } else {
-      if (context != null) {
-        Helpers.hideLoader(loader!);
-      }
+    }    else if(response.statusCode == 401){
+      Get.offAllNamed(MyRouters.loginScreen);
+      throw Exception(response.body);
+    }
+    else {
       throw Exception(response.body);
     }
   } catch (e) {

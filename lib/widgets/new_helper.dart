@@ -21,6 +21,13 @@ class NewHelper {
       throw Exception(e);
     }
   }
+  // class NewHelper {
+  //
+  // }
+  Future<XFile?> addFilePicker1() async {
+  XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  return image;
+  }
 
   Future<List<File>?> addFilePickerList() async {
     try {

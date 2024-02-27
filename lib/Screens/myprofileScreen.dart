@@ -80,24 +80,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                   fontSize: AddSize.font14)),
 
                           onPressed: () {
-                            NewHelper()
-                                .addImagePicker(
-                                imageSource: ImageSource.gallery)
-                                .then((value) {
-                              controller.image.value = value!;
-                              print(
-                                  controller.image.value);
-                              setState(() {});
-                              // print(controller.image.value.path);
-                            });
-                            /* NewHelper().addFilePicker().then((value) {
+                            NewHelper().addFilePicker().then((value) {
                               controller.image.value = value!;
                               try {
-                                print("Image urlll is..${image.value}");
+                                // print("Image urlll is..${image.value}");
                               } catch (e, s) {
-                                print(s);
+                                // print(s);
                               }
-                            });*/
+                            });
                             Get.back();
                           },
                         ),

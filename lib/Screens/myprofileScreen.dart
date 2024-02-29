@@ -80,15 +80,27 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                   fontSize: AddSize.font14)),
 
                           onPressed: () {
-                            NewHelper().addFilePicker().then((value) {
-                              controller.image.value = value!;
-                              try {
-                                // print("Image urlll is..${image.value}");
-                              } catch (e, s) {
-                                // print(s);
-                              }
-                            });
-                            Get.back();
+                            if(Platform.isAndroid){
+
+                              NewHelper().addFilePicker().then((value) {
+                                controller.image.value = value!;
+                                try {
+                                  // print("Image urlll is..${image.value}");
+                                } catch (e, s) {
+                                  // print(s);
+                                }
+                              });
+                              Get.back();
+                            }else{
+                              NewHelper().getGalleryImage().then((value){
+                                if(value == null)return;
+                                controller.image.value = value!;
+                                setState(() {});
+                              });
+                              Get.back();
+
+                            }
+
                           },
                         ),
                         TextButton(

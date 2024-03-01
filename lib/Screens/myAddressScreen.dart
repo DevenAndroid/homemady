@@ -13,6 +13,7 @@ import '../controller/user_profile_controller.dart';
 import '../repository/choose_order_address_repo.dart';
 import '../repository/remove_address_repo.dart';
 import '../resources/add_text.dart';
+import '../widgets/customeNavbar.dart';
 class MyAddressScreen extends StatefulWidget {
   const MyAddressScreen({Key? key}) : super(key: key);
 
@@ -108,7 +109,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
           FocusManager.instance.primaryFocus!.unfocus();
         },
         child: Scaffold(
-          appBar: backAppBar(context: context, title: 'My Address'),
+          appBar: backAppBar(context: context, title: 'My Address '),
           body:
           myAddressController.isDataLoading.value ? myAddressController.model.value.data!.isNotEmpty ?
           Column(
@@ -137,17 +138,28 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
 
                           children: [
                             InkWell(
-                              onTap: (){
+                              onTap: () async {
                                 currentIndex = index;
-                                chooseOrderAddress(context: context,addressId: myAddressController.model.value.data![index].id.toString()).then((value) {
+                                await chooseOrderAddress(context: context,addressId: myAddressController.model.value.data![index].id.toString()).then((value) {
                                   if(value.status == true){
 
                                     myCartController.getData();
                                     profileController.getData().then((value) {
                                       profileController.address.value = profileController.model.value.data!.defaultAddress![0].addressType.toString();
                                     });
+
+
                                     showToast(value.message.toString());
-                                    Get.back();
+                                    // Get.back();
+                                    Future.delayed(Duration(
+                                        microseconds: 25
+                                    ),()
+                                    {
+                                      Get.back();
+                                      Get.back();
+                                      // Get.back();
+                                    }
+                                    );
 
                                   }
                                 });

@@ -204,8 +204,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () {
-                            Get.to(() => const MyAddressScreen());
+                            // Get.toNamed(MyRouters.myAddressScreen);
+
                             // Get.back();
+                            Future.delayed(Duration(
+                                microseconds: 25
+                            ),()
+                            {
+                              Get.back();
+                              Get.to(() => const MyAddressScreen());
+                              // Get.back();
+                            }
+                            );
                             // widget.onItemTapped(1);
                           }),
                       const Divider(

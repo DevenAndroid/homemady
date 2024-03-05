@@ -34,6 +34,7 @@ import '../Screens/help_center_screen.dart';
 import '../Screens/home_filter_screen.dart';
 import '../Screens/login_screen.dart';
 import '../Screens/chat_screen/chatting_list_screen.dart';
+import '../Screens/myAddressScreen.dart';
 import '../Screens/search_screen_data.dart';
 import '../Screens/store_review_screen.dart';
 import '../Screens/subscription_history.dart';
@@ -78,6 +79,7 @@ class MyRouters {
   static var helpCenterScreen = "/helpCenterScreen";
   static var faqsScreen = "/faqsScreen";
   static var carteScreenPage="/carteScreenPage";
+  static var myAddressScreen="/myAddressScreen";
 
 
   static var route = [
@@ -113,6 +115,7 @@ class MyRouters {
   GetPage(name: '/privacyPolicy', page: () => const PrivacyPolicy()),
   GetPage(name: '/feedBackScreen', page: () => const FeedBackScreen()),
   GetPage(name: '/helpCenterScreen', page: () => const HelpCenterScreen()),
+  GetPage(name: '/myAddressScreen', page: () => const MyAddressScreen()),
   GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
   // GetPage(name: CarteScreen.carteScreenPage, page: () => const CarteScreen()),
   GetPage(name: SearchScreenData.searchScreen, page: () => const SearchScreenData()),

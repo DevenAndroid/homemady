@@ -21,18 +21,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _getClientInformation();
+    // _getClientInformation();
     Timer(const Duration(seconds: 3), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
-      if (pref.getString('user_info') != null) {
-
+      String? userInfo = pref.getString('user_info');
+      if (userInfo != null) { // User found, navigate to home screen
         Get.offAllNamed(MyRouters.bottomNavbar);
-      }
-      else{
-        Get.offAllNamed(MyRouters.onBoardingScreen);
-      }
-    }
-    );
+      } else { // No user found, navigate to onboarding or login screen
+          Get.offAllNamed(MyRouters.onBoardingScreen);     }
+
+        // if (pref.getString('user_info') != null) {
+        //
+        //   Get.offAllNamed(MyRouters.bottomNavbar);
+        // }
+        // else{
+        //   Get.offAllNamed(MyRouters.onBoardingScreen);
+        // }
+
+    });
 
   }
   Future<void> _getClientInformation() async {

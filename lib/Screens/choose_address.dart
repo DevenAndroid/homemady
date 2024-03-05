@@ -260,8 +260,8 @@ class _ChooseAddressState extends State<ChooseAddress> {
                                   ),
                                   EditProfileTextFieldWidget(
                                     controller: deliveryInstructionController,
-                                    hint: "Delivery Instruction's",
-                                    label: "Delivery Instruction's",
+                                    hint: "Delivery Instructions",
+                                    label: "Delivery Instructions",
                                     validator: MultiValidator([
                                       RequiredValidator(
                                           errorText: 'Recipient’s name'),

@@ -39,6 +39,7 @@ class OrderDetail {
   dynamic minOrderCharge;
   dynamic specialRequets;
   dynamic deliveryTime;
+  dynamic orderTimeSlot;
   dynamic instructionForDelivery;
   User? user;
   Vendor? vendor;
@@ -66,6 +67,7 @@ class OrderDetail {
         this.specialRequets,
         this.serviceCharge,
         this.driver,
+        this.orderTimeSlot,
         this.address,
         this.deliveryTime,
         this.instructionForDelivery,
@@ -102,6 +104,7 @@ class OrderDetail {
     address =
     json['address'] != null ? Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
+    orderTimeSlot = json['order_time_slot'];
     deliveryStatus = json['delivery_status'];
     if (json['order_items'] != null) {
       orderItems = <OrderItems>[];
@@ -146,6 +149,7 @@ class OrderDetail {
     }
     data['order_type'] = orderType;
     data['delivery_status'] = deliveryStatus;
+    data['order_time_slot'] = orderTimeSlot;
     data['feedback'] = feedback;
     if (orderItems != null) {
       data['order_items'] = orderItems!.map((v) => v.toJson()).toList();

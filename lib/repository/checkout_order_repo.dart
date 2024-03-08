@@ -17,6 +17,8 @@ Future<CheckoutOrderModel> checkOut(
       required order_date,
       required deliveryInstruction,
       required specialRequest,
+       required order_placed_date_time,
+       required order_time_slot,
       required BuildContext context}) async {
   var map = <String, dynamic>{};
   map['payment_type'] = payment_type;
@@ -24,6 +26,8 @@ Future<CheckoutOrderModel> checkOut(
   map['order_date'] = order_date;
   map['instruction_for_delivery'] = deliveryInstruction;
   map['special_request'] = specialRequest;
+   map['order_placed_date_time'] = order_placed_date_time;
+   map['order_time_slot'] = order_time_slot;
  // map['note'] = note;
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context).insert(loader);

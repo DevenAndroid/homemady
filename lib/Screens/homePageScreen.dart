@@ -156,7 +156,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
       return null;
     });
   }
-
   showChooseDate(index) {
     RxInt refreshInt = 0.obs;
     // DateTime now = DateTime.now();
@@ -197,6 +196,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               // print(formattedTime);
 
                               currentIndex = index;
+                              homeController.timeSlot = "${itemdata.startTime}-${itemdata.endTime}";
                               refreshInt.value = DateTime.now().millisecondsSinceEpoch;
                               // timeSlotController.giveTime.value = formattedTime;
                               timeSlotController.getTimeSlotData();
@@ -236,6 +236,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             onPressed: () {
                               timeSlotController.sendDate.value =  homeController.selectedDate ;
                               timeSlotController.getTimeSlotData();
+                              // print("Seleted Date"+ timeSlotController.getTimeSlotData());
                               Get.back();
                               FocusManager.instance.primaryFocus!.unfocus();
                             },

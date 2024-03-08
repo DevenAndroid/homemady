@@ -141,6 +141,37 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                         color: const Color(0xFF303C5E)),
                                                   )
                                                 : const SizedBox(),
+
+                                            controller.model.value.orderDetail!.orderTimeSlot != null
+                                                ? Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const SizedBox(
+                                                  height: 3,
+                                                ),
+                                                Text(
+                                                  'Order and Time Slot',
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 14,
+                                                      color: const Color(0xFF1A2E33)),
+                                                ),
+                                                Text(
+                                                  controller.model.value.orderDetail!.orderTimeSlot!
+                                                      .toString()
+                                                      .capitalizeFirst
+                                                      .toString(),
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w400,
+                                                      fontSize: 11,
+                                                      color: const Color(0xFF303C5E)),
+                                                ),
+                                              ],
+                                            )
+                                                : const SizedBox(),
+
+
+
                                             controller.model.value.orderDetail!.specialRequets != ''
                                                 ? Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,

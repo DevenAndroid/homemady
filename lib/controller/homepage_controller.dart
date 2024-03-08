@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../model/homepage_model.dart';
 import '../repository/homepage_repo.dart';
 import 'category_controller.dart';
@@ -10,7 +11,9 @@ class HomePageController extends GetxController {
   final storeSearchController = TextEditingController();
 
   final categoryController = Get.put(CategoryController());
-  String selectedDate = 'Available Now';
+  String? timeSlot;
+  // String currentTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
+  String selectedDate = DateFormat("hh:mm a").format(DateTime.now()).toString();
   Future getData({required String filter, BuildContext? context}) async {
     String primary = "";
     String sec = "";

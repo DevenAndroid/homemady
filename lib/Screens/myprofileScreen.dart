@@ -82,13 +82,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                           onPressed: () {
                             if(Platform.isAndroid){
 
-                              NewHelper().addFilePicker().then((value) {
+                              NewHelper().getGalleryImage().then((value){
+                                if(value == null)return;
                                 controller.image.value = value!;
-                                try {
-                                  // print("Image urlll is..${image.value}");
-                                } catch (e, s) {
-                                  // print(s);
-                                }
+                                setState(() {});
                               });
                               Get.back();
                             }else{

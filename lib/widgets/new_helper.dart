@@ -12,23 +12,23 @@ class NewHelper {
 
 
   Future<File?> getGalleryImage() async {
-    final picker=ImagePicker();
-    try{
-      final pickedImage= await picker.pickImage(source: ImageSource.gallery);
-      if(pickedImage != null){
+    final picker = ImagePicker();
+    try {
+      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
         return File(pickedImage.path);
       }
-      else{
+      else {
         return null;
       }
-
-    }catch(error){
+    } catch (error) {
       print("$error");
     }
   }
+
   Future addFilePicker() async {
     try {
-      final item = await FilePicker.platform.pickFiles(type: FileType.custom,allowedExtensions: ['jpg','png','jpeg'],);
+      final item = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['jpg', 'png', 'jpeg'],);
       if (item == null) {
         return null;
       } else {
@@ -38,12 +38,13 @@ class NewHelper {
       throw Exception(e);
     }
   }
+
   // class NewHelper {
   //
   // }
   Future<XFile?> addFilePicker1() async {
-  XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  return image;
+    XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    return image;
   }
 
   Future<List<File>?> addFilePickerList() async {
@@ -63,9 +64,8 @@ class NewHelper {
     }
   }
 
-  Future<File?> addImagePicker(
-      {ImageSource imageSource = ImageSource.gallery,
-        int imageQuality = 50}) async {
+  Future<File?> addImagePicker({ImageSource imageSource = ImageSource.gallery,
+    int imageQuality = 50}) async {
     try {
       final item = await ImagePicker()
           .pickImage(source: imageSource, imageQuality: imageQuality);
@@ -78,15 +78,18 @@ class NewHelper {
       throw Exception(e);
     }
   }
+
   static OverlayEntry overlayLoader(context) {
     OverlayEntry loader = OverlayEntry(builder: (context) {
-      final size = MediaQuery.of(context).size;
+      final size = MediaQuery
+          .of(context)
+          .size;
       return Positioned(
         height: size.height,
         width: size.width,
         top: 0,
         left: 0,
-        child:  Material(
+        child: Material(
           color: AppTheme.primaryColor.withOpacity(0.02),
           //color:  Color(0xFF7ED957),
           child: const CupertinoActivityIndicator(
@@ -97,6 +100,7 @@ class NewHelper {
     });
     return loader;
   }
+
   static hideLoader(OverlayEntry loader) {
     Timer(const Duration(milliseconds: 250), () {
       try {

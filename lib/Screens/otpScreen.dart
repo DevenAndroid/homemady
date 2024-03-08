@@ -29,8 +29,10 @@ class _OtpScreenState extends State<OtpScreen> {
     // TODO: implement initState
     super.initState();
     text = Get.arguments[0];
+
   }
   String text = '';
+  // String text1 = '';
   TextEditingController otpController = TextEditingController();
   final formKey99 = GlobalKey<FormState>();
   @override

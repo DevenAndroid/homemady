@@ -10,7 +10,7 @@ class HomePageController extends GetxController {
   final storeSearchController = TextEditingController();
 
   final categoryController = Get.put(CategoryController());
-
+  String selectedDate = 'Available Now';
   Future getData({required String filter, BuildContext? context}) async {
     String primary = "";
     String sec = "";

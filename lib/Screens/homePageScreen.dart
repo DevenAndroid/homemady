@@ -77,7 +77,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   // final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  String selectedDate = 'Available Now';
+
 
 
 
@@ -150,7 +150,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         // showChooseDate(context);
         String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate!);
         setState(() {
-          selectedDate = formattedDate;
+          homeController.selectedDate  = formattedDate;
         });
       }
       return null;
@@ -234,7 +234,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
-                              timeSlotController.sendDate.value = selectedDate;
+                              timeSlotController.sendDate.value =  homeController.selectedDate ;
                               timeSlotController.getTimeSlotData();
                               Get.back();
                               FocusManager.instance.primaryFocus!.unfocus();
@@ -260,7 +260,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   Future onRefresh() async {
-    selectedDate = 'Available Now';
+    homeController.selectedDate  = 'Available Now';
     sortedFilter = false;
     currentIndex = 0;
     categoryController.dietiaryModel.value.data!.selectedIds.clear();
@@ -498,7 +498,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   addWidth(8),
                                   GestureDetector(
                                     onTap: () {
-                                      if (selectedDate != "Available Now" || isAvailableSelected == true) {
+                                      if ( homeController.selectedDate  != "Available Now" || isAvailableSelected == true) {
                                         showUploadWindow();
                                         // Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);
                                       } else {
@@ -625,7 +625,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         Expanded(
                                           child: InkWell(
                                             onTap: () {
-                                              if (selectedDate == 'Available Now') {
+                                              if ( homeController.selectedDate  == 'Available Now') {
                                                 filterDataController.sendDate = DateTime.now();
                                                 filterDataController.getFilterData();
                                               } else {
@@ -637,7 +637,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(4),
                                                   border:
-                                                      selectedDate == 'Available Now' && isAvailableSelected == false
+                                                  homeController.selectedDate  == 'Available Now' && isAvailableSelected == false
                                                           ? Border.all(color: const Color(0xff7ED957), width: 2)
                                                           : Border.all(
                                                               color: const Color(0xFF717171).withOpacity(0.22),
@@ -646,7 +646,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-                                                  selectedDate == 'Available Now' && isAvailableSelected == false
+                                                  homeController.selectedDate  == 'Available Now' && isAvailableSelected == false
                                                       ? GestureDetector(
                                                           onTap: () {
                                                             isAvailableSelected = !isAvailableSelected!;
@@ -668,7 +668,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                             color: const Color(0xFF262626).withOpacity(0.62),
                                                           ),
                                                         ),
-                                                  selectedDate == 'Available Now' && isAvailableSelected == false
+                                                  homeController.selectedDate == 'Available Now' && isAvailableSelected == false
                                                       ? GestureDetector(
                                                           onTap: () {
                                                             isAvailableSelected = !isAvailableSelected!;
@@ -684,7 +684,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           ),
                                                         )
                                                       : Text(
-                                                          selectedDate,
+                                                    homeController.selectedDate ,
                                                           style: GoogleFonts.poppins(
                                                             color: const Color(0xFF262626).withOpacity(0.62),
                                                             fontSize: 16,
@@ -737,8 +737,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   String formattedDate = DateFormat('yyyy/MM/dd').format(value);
                                                   setState(() {
                                                     // var selectedDate=formattedDate;
-                                                    selectedDate = formattedDate; //set output date to TextField value.
-                                                    log("Seleted Date for slot is    $selectedDate");
+                                                    homeController.selectedDate = formattedDate; //set output date to TextField value.
+                                                    print("Seleted Date"+homeController.selectedDate);
                                                   });
                                                 }
                                                 return null;
@@ -748,8 +748,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 // showChooseDate(context);
                                                 String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate!);
                                                 setState(() {
-                                                  selectedDate = formattedDate;
-                                                  log("Seleted Date     $selectedDate");
+                                                  homeController.selectedDate = formattedDate;
+                                                  print("Seleted Date"+homeController.selectedDate);
                                                 });
                                               }
                                             },
@@ -759,7 +759,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   borderRadius: BorderRadius.circular(4),
                                                   color: const Color(0xFF7ED957),
                                                 ),
-                                                child: selectedDate == 'Available Now'
+                                                child:  homeController.selectedDate  == 'Available Now'
                                                     ? Row(
                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                         mainAxisAlignment: MainAxisAlignment.center,

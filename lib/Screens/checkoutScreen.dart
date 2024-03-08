@@ -7,6 +7,7 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 
 import '../controller/get_saved_card_details_controller.dart';
+import '../controller/homepage_controller.dart';
 import '../controller/my_address_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/user_profile_controller.dart';
@@ -31,6 +32,7 @@ class CheckOutScreen extends StatefulWidget {
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   final myAddressController = Get.put(MyAddressController());
+  final homeController = Get.put(HomePageController());
   final getSavedDetailsController = Get.put(SavedCardDetailsController());
   final myCartController = Get.put(MyCartListController());
   final profileController = Get.put(UserProfileController());
@@ -44,6 +46,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   RxBool checkboxColor2 = false.obs;
 
   String? selectedMethod;
+
   RxString? selectedSavedCard = "".obs;
   List method = ["D", "P"];
 
@@ -1064,8 +1067,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           context: context,
                                           payment_type: 'online',
                                           deliveryInstruction: deliveryInstructionController.text,
+
                                           specialRequest: specialRequestController.text,
-                                          delivery_type: selectedMethod)
+                                          delivery_type: selectedMethod, order_date: homeController.selectedDate)
                                       .then((value1) {
                                     // log('Token iddddddddddddddddddddd'+value.id.toString());
                                     payment(
@@ -1080,6 +1084,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         // print('Order id====' + value2.data!.orderId);
                                         Get.offAll(()=> ThankYouScreen(
                                           orderId: value2.data!.orderDetail!.orderId.toString(),
+
                                         ));
                                         // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
                                         //   value2.data!.orderDetail!.orderId,
@@ -1107,15 +1112,23 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 checkOut(
                                         context: context,
                                         payment_type: 'online',
+
+
                                         deliveryInstruction: deliveryInstructionController.text,
                                         specialRequest: specialRequestController.text,
-                                        delivery_type: selectedMethod)
+
+
+                                        delivery_type: selectedMethod,
+                                  order_date:homeController.selectedDate,
+                                )
                                     .then((value1) {
                                   // log('Token iddddddddddddddddddddd'+value.id.toString());
                                   payment(
                                           orderId: value1.data!.orderId.toString(),
                                           token: selectedSavedCard!.value,
                                           amount: value1.data!.grandTotal,
+
+
                                           context: context)
                                       .then((value2) {
                                     if (value2.status == true) {
@@ -1124,6 +1137,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       // print('Order id====' + value2.data!.orderId);
                                       Get.offAll(()=> ThankYouScreen(
                                         orderId: value2.data!.orderDetail!.orderId.toString(),
+
                                       ));
                                       // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
                                       //   value2.data!.orderDetail!.orderId,

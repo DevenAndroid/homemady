@@ -4,10 +4,12 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
  import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/routers/routers.dart';
@@ -15,8 +17,12 @@ import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/custome_textfiled.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../repository/login_repository.dart';
+import '../repository/resend_otp_repo.dart';
 import '../repository/social_login_repo.dart';
 import 'dart:io';
+
+import '../widgets/new_helper.dart';
+import 'otpScreen.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -39,6 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   String roleText = '2';
   var obscureText1 = true;
+  String text ="";
+  String currentMessage ="";
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +90,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: screenHeight * .03,
                           ),
+
+                          currentMessage==""?SizedBox():
+                          RichText(
+                            text: TextSpan(
+                              text: 'You are not verify ? ', style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              fontFamily: 'poppinsSans',
+                              color:  Color(0xFF333848),
+                            ),
+                              children:  <TextSpan>[
+                                TextSpan(
+
+                                    recognizer: TapGestureRecognizer()..onTap=(){
+                                      resendOtpRepo(email: text, context: context, roleText: '2').then((value) {
+                                        if(value.status == true){
+                                          // showToast(value.message.toString());
+
+                                          Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text.toString()]);
+                                        }
+                                      });
+                                    },
+                                    text: 'Resend OTP', style: TextStyle(fontWeight: FontWeight.bold,   color: Colors.redAccent)),
+
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10,),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child:  Container(
@@ -163,6 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ]).call,
                       ),
                     ),
+
                     SizedBox(
                       height: screenHeight * .03,
                     ),
@@ -341,6 +379,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           else if(value.status==false){
 
                             showToast(value.message);
+                            if(value.message=="You are not verified"){
+                              currentMessage=value.message!;
+                              setState(() {
+
+                              });
+                            }
                           }
                         });
 

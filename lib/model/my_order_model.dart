@@ -43,6 +43,7 @@ class Data {
   dynamic orderType;
   dynamic deliveryDistance;
   dynamic deliveryType;
+  dynamic orderDate;
   dynamic deliveryStatus;
   dynamic itemCount;
   List<OrderItems>? orderItems;
@@ -65,6 +66,7 @@ class Data {
         this.address,
         this.orderType,
         this.deliveryType,
+        this.orderDate,
         this.deliveryStatus,
         this.itemCount,
         this.orderItems,
@@ -89,6 +91,7 @@ class Data {
     json['address'] != null ? Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
     deliveryType = json['delivery_type'];
+    orderDate = json['order_date'];
     deliveryStatus = json['delivery_status'];
     itemCount = json['item_count'];
     if (json['order_items'] != null) {
@@ -123,6 +126,7 @@ class Data {
       data['address'] = address!.toJson();
     }
     data['order_type'] = orderType;
+    data['order_date'] = this.orderDate;
     data['delivery_type'] = deliveryType;
     data['delivery_status'] = deliveryStatus;
     data['item_count'] = itemCount;

@@ -14,12 +14,14 @@ import '../resources/helper.dart';
 Future<CheckoutOrderModel> checkOut(
     {required payment_type,
       required delivery_type,
+      required order_date,
       required deliveryInstruction,
       required specialRequest,
       required BuildContext context}) async {
   var map = <String, dynamic>{};
   map['payment_type'] = payment_type;
   map['delivery_type'] = delivery_type;
+  map['order_date'] = order_date;
   map['instruction_for_delivery'] = deliveryInstruction;
   map['special_request'] = specialRequest;
  // map['note'] = note;

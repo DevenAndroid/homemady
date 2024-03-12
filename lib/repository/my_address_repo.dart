@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,7 @@ Future<MyAddressModel> myAddressRepo() async {
     final response =
     await http.get(Uri.parse(ApiUrl.myAddressUrl), headers: headers);
     if (response.statusCode == 200) {
+      log("My addresss" + response.body);
       return MyAddressModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

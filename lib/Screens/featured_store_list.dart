@@ -308,7 +308,8 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
               );
             })
           ];
-        }, body: Obx(() {
+        },
+            body: Obx(() {
           return featuredFilterController.isDataLoading.value
               ? featuredFilterController.model.value.data!.isNotEmpty
                   ? TabBarView(

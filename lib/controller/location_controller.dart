@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:homemady/controller/user_profile_controller.dart';
 import '../repository/update_location_repo.dart';
 
 class LocationController extends GetxController {
+  final profileController = Get.put(UserProfileController());
   RxBool servicestatus = false.obs;
   RxBool haspermission = false.obs;
   late LocationPermission permission;
@@ -87,10 +89,12 @@ class LocationController extends GetxController {
         .then((value) async {
       locality.value = value.last.locality!;
       country.value = 'Country : ${value.last.country}';
-      await updateLocation(
-        latitude: lat.toString(),
-        longitude: long.toString(),
-      );
+        if(profileController.model.value.data!.longitude == null && profileController.model.value.data!.longitude == null){
+          await updateLocation(
+            latitude: lat.toString(),
+            longitude: long.toString(),
+          );
+      }
       //     .then((value) {
       //   log("+++++++++${value.message!}");
       //   if(value.status == true){
@@ -106,19 +110,19 @@ class LocationController extends GetxController {
     });
   }
 
-  getApiLocation() async {
-    log("Getting user location.........");
-    await placemarkFromCoordinates(
-        double.parse(lat.value == '' ? "0" : lat.value),
-        double.parse(long.value == '' ? "0" : long.value))
-        .then((value) {
-      locality.value = 'Locality: ${value.first.locality}';
-      country.value = 'Country : ${value.last.country}';
-      log(value.map((e) => e.locality).toList().toString());
-      log(locality.value);
-      log(country.value);
-    });
-  }
+  // getApiLocation() async {
+  //   log("Getting user location.........");
+  //   await placemarkFromCoordinates(
+  //       double.parse(lat.value == '' ? "0" : lat.value),
+  //       double.parse(long.value == '' ? "0" : long.value))
+  //       .then((value) {
+  //     locality.value = 'Locality: ${value.first.locality}';
+  //     country.value = 'Country : ${value.last.country}';
+  //     log(value.map((e) => e.locality).toList().toString());
+  //     log(locality.value);
+  //     log(country.value);
+  //   });
+  // }
 
 
 
@@ -126,6 +130,7 @@ class LocationController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    profileController.getData();
     checkGps(Get.context);
   }
 }

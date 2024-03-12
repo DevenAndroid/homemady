@@ -84,7 +84,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   void initState() {
     super.initState();
-
+    FocusManager.instance.primaryFocus!.unfocus();
     locationController.checkGps(context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -266,7 +266,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     currentIndex = 0;
     categoryController.dietiaryModel.value.data!.selectedIds.clear();
     categoryController.categoryModel.value.data!.selectedIds.clear();
-
     filterProductCategoryController
         .getFilterCategoryData(
             filter: filterProductCategoryController.filterId,
@@ -275,7 +274,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
         .then((value) {
       setState(() {});
     });
-    await profileController.getData();
+    await profileController.getData().then((value) {
+      profileController.address.value = profileController.model.value.data!.defaultAddress![0].addressType.toString();
+    });
     await homeController.getData(filter: (currentIndex + 2).toString());
     setState(() {});
   }
@@ -465,9 +466,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         child: CommonTextFieldWidget1(
                                           hint: 'Search Your Food',
                                           controller: filterDataController.storeSearchController,
+
                                           prefix: InkWell(
                                             onTap: () {
-                                              // print(formattedTime);
                                               FocusManager.instance.primaryFocus!.unfocus();
                                               filterDataController.getFilterData();
                                               if (filterDataController.storeSearchController.text.isNotEmpty) {
@@ -475,10 +476,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   SearchScreenData.searchScreen,
                                                 );
                                               }
-                                              // }
-                                              // else{
-                                              //   showToast("Please search meals");
-                                              // }
                                             },
                                             child: Icon(
                                               Icons.search,
@@ -504,6 +501,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         // Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);
                                       } else {
                                         showToast("Please pick a date");
+                                        FocusManager.instance.primaryFocus!.unfocus();
                                       }
                                     },
                                     child: Container(
@@ -820,6 +818,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                             InkWell(
                                               onTap: () {
+                                                FocusManager.instance.primaryFocus!.unfocus();
                                                 currentIndex = index;
                                                 if (sortedFilter == true) {
                                                   filterProductCategoryController

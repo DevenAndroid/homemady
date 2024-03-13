@@ -156,15 +156,31 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with SingleTick
                                                       fontSize: 14,
                                                       color: const Color(0xFF1A2E33)),
                                                 ),
-                                                Text(
-                                                  controller.model.value.orderDetail!.orderTimeSlot!
-                                                      .toString()
-                                                      .capitalizeFirst
-                                                      .toString(),
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w400,
-                                                      fontSize: 11,
-                                                      color: const Color(0xFF303C5E)),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      controller.model.value.orderDetail!.orderTimeSlot!
+                                                          .toString()
+                                                          .capitalizeFirst
+                                                          .toString(),
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w400,
+                                                          fontSize: 11,
+                                                          color: const Color(0xFF303C5E)),
+                                                    ),
+                                                    const SizedBox(width: 10,),
+                                                    Text(
+                                                      controller.model.value.orderDetail!.orderDate!
+                                                          .toString()
+                                                          .capitalizeFirst
+                                                          .toString(),
+                                                      style: GoogleFonts.poppins(
+                                                          fontWeight: FontWeight.w400,
+                                                          fontSize: 11,
+                                                          color: const Color(0xFF303C5E)),
+                                                    ),
+
+                                                  ],
                                                 ),
                                               ],
                                             )

@@ -104,6 +104,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
     });
   }
 
+
+
   void _scrollListener() {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       searchController.page.value = searchController.page.value + 1;
@@ -260,7 +262,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
+
+
   Future onRefresh() async {
+
     homeController.selectedDate  = 'Available Now';
     sortedFilter = false;
     currentIndex = 0;
@@ -285,6 +290,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    homeController.getData(filter: (currentIndex + 2).toString());
+
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus!.unfocus();
@@ -929,7 +936,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                             onTap: () {
-                                              Get.to(() => HomeDetailsScreen(
+                                              Get.to(() =>
+                                                  HomeDetailsScreen(
                                                   storeId: filterProductCategoryController
                                                       .filterDataModel.value.data![index].id
                                                       .toString()));

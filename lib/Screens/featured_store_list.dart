@@ -436,12 +436,12 @@ class FeatureTodayTabScreen extends StatefulWidget {
 class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
   final featuredFilterController = Get.put(FeaturedFilterController());
 
-  // @override
-  // void initState() {
-  //   super.initState();
-    // featuredFilterController.filterId.value = widget.filterId;
-    // featuredFilterController.getData();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    featuredFilterController.filterId.value = widget.filterId;
+    featuredFilterController.getData();
+  }
 
   @override
   Widget build(BuildContext context) {

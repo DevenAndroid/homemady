@@ -40,6 +40,7 @@ class OrderDetail {
   dynamic specialRequets;
   dynamic deliveryTime;
   dynamic orderTimeSlot;
+  dynamic orderDate;
   dynamic instructionForDelivery;
   User? user;
   Vendor? vendor;
@@ -68,6 +69,7 @@ class OrderDetail {
         this.serviceCharge,
         this.driver,
         this.orderTimeSlot,
+        this.orderDate,
         this.address,
         this.deliveryTime,
         this.instructionForDelivery,
@@ -105,6 +107,7 @@ class OrderDetail {
     json['address'] != null ? Address.fromJson(json['address']) : null;
     orderType = json['order_type'];
     orderTimeSlot = json['order_time_slot'];
+    orderDate = json['order_date'];
     deliveryStatus = json['delivery_status'];
     if (json['order_items'] != null) {
       orderItems = <OrderItems>[];
@@ -148,6 +151,7 @@ class OrderDetail {
       data['address'] = address!.toJson();
     }
     data['order_type'] = orderType;
+    data['order_date'] = this.orderDate;
     data['delivery_status'] = deliveryStatus;
     data['order_time_slot'] = orderTimeSlot;
     data['feedback'] = feedback;

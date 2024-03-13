@@ -152,7 +152,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                   // profileController.currentIndex.value = 0;
                                                   // Get.back();
                                                   Navigator.pushReplacement(
-                                                      context, MaterialPageRoute(builder: (context) => BottomNavbar()));
+                                                      context, MaterialPageRoute(builder: (context) => const BottomNavbar()));
 
                                                   // Get.back();
                                                 });

@@ -51,6 +51,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   bool showValidation = false;
   RxBool checkboxColor = false.obs;
   RxBool checkboxColor2 = false.obs;
+  bool? isAvailableSelected = false;
+
 
   String? selectedMethod;
 
@@ -1128,57 +1130,52 @@ getDate(){
                             title: 'Place Order'.toUpperCase(),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                // if (getSavedDetailsController.savedDetailsModel.value.data!.isEmpty) {
-                                //   showToast("Please add card");
-                                //   return;
-                                // }
-                                // if (selectedSavedCard == null) {
-                                //   showToast("Please select card");
-                                //   return;
-                                // }
                                 if (selectedMethod != null) {
                                   if (selectedMethod == "D") {
                                     if (myCartController.model.value.data!.orderAddress != null) {
                                       if (selectedSavedCard!.value != "") {
-                                        checkOut(
-                                                context: context,
-                                                payment_type: 'online',
-                                                deliveryInstruction: deliveryInstructionController.text,
-                                                specialRequest: specialRequestController.text,
-                                                delivery_type: selectedMethod,
-                                                order_date: homeController.selectedDate,
-                                                order_placed_date_time: "$currentTime $year-$month-$day",
-                                               order_time_slot: homeController.timeSlot)
-                                            .then((value1) {
-                                          // log('Token iddddddddddddddddddddd'+value.id.toString());
-                                          payment(
-                                                  orderId: value1.data!.orderId.toString(),
-                                                  token: selectedSavedCard!.value,
-                                                  amount: value1.data!.grandTotal,
-                                                  context: context)
-                                              .then((value2) {
-                                            if (value2.status == true) {
-                                              // showToast(value2.message.toString());
-                                              myCartController.getData();
-                                              // print('Order id====' + value2.data!.orderId);
-                                              Get.offAll(() => ThankYouScreen(
-                                                    orderId: value2.data!.orderDetail!.orderId.toString(),
-                                                  ));
-                                              // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
-                                              //   value2.data!.orderDetail!.orderId,
-                                              //   value2.data!.orderDetail!.placedAt,
-                                              //   value2.data!.orderDetail!.stateTax,
-                                              //   value2.data!.orderDetail!.muncipalTax,
-                                              //   value2.data!.orderDetail!.grandTotal,
-                                              //   // value2.data!.or,
-                                              //   // value2.data!.card,
-                                              //   value2.data!.orderDetail!.itemTotal,
-                                              // ]);
-                                            } else {
-                                              showToast("Please select the card for payment");
-                                            }
+                                          checkOut(
+                                              context: context,
+                                              payment_type: 'online',
+                                              deliveryInstruction: deliveryInstructionController.text,
+                                              specialRequest: specialRequestController.text,
+                                              delivery_type: selectedMethod,
+                                              order_date: homeController.selectedDate == 'Available Now' ? DateTime.now().toString() : homeController.selectedDate,
+                                              order_placed_date_time: "$currentTime $year-$month-$day",
+                                              order_time_slot: homeController.timeSlot
+                                          )
+                                              .then((value1) {
+                                            // log('Token iddddddddddddddddddddd'+value.id.toString());
+                                            payment(
+                                                orderId: value1.data!.orderId.toString(),
+                                                token: selectedSavedCard!.value,
+                                                amount: value1.data!.grandTotal,
+                                                context: context)
+                                                .then((value2) {
+                                              if (value2.status == true) {
+                                                // showToast(value2.message.toString());
+                                                myCartController.getData();
+                                                // print('Order id====' + value2.data!.orderId);
+                                                Get.offAll(() =>
+                                                    ThankYouScreen(
+                                                      orderId: value2.data!.orderDetail!.orderId.toString(),
+                                                    ));
+                                                // Get.offAllNamed(MyRouters.thankYouScreen, arguments: [
+                                                //   value2.data!.orderDetail!.orderId,
+                                                //   value2.data!.orderDetail!.placedAt,
+                                                //   value2.data!.orderDetail!.stateTax,
+                                                //   value2.data!.orderDetail!.muncipalTax,
+                                                //   value2.data!.orderDetail!.grandTotal,
+                                                //   // value2.data!.or,
+                                                //   // value2.data!.card,
+                                                //   value2.data!.orderDetail!.itemTotal,
+                                                // ]);
+                                              } else {
+                                                showToast("Please select the card for payment");
+                                              }
+                                            });
                                           });
-                                        });
+
                                       } else {
                                         showToast("Please select the card for payment");
                                       }
@@ -1193,7 +1190,7 @@ getDate(){
                                         deliveryInstruction: deliveryInstructionController.text,
                                         specialRequest: specialRequestController.text,
                                         delivery_type: selectedMethod,
-                                        order_date: homeController.selectedDate,
+                                        order_date: homeController.selectedDate == 'Available Now' ? DateTime.now().toString() : homeController.selectedDate,
                                         order_placed_date_time: "$currentTime $year-$month-$day", order_time_slot: homeController.timeSlot,
                                       ).then((value1) {
                                         print("hjkjvhdfkgh" + currentTime);

@@ -122,7 +122,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   child: CircleAvatar(
                     backgroundColor: const Color(0xff7ED957),
                     child: Text(
-                      remoteMessage.notification!.title == null ? 'B' : remoteMessage.notification!.title.toString().substring(0, 1),
+                      remoteMessage.notification!.title == null
+                          ? 'B'
+                          : remoteMessage.notification!.title.toString().substring(0, 1),
                       style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ),
@@ -259,8 +261,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 updateInt();
               }),
               const MyProfileScreen(),
-            ][profileController.currentIndex.value]
-                .manageNotification(),
+            ][profileController.currentIndex.value].manageNotification(),
             extendBody: true,
             backgroundColor: Colors.white,
             bottomNavigationBar: ConvexAppBar(

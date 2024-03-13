@@ -14,7 +14,7 @@ class HomePageController extends GetxController {
   String? timeSlot;
   // String currentTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String selectedDate = DateFormat("hh:mm a").format(DateTime.now()).toString();
-  Future getData({required String filter, BuildContext? context}) async {
+  Future getData({required String filter, BuildContext? context,latitude,longitude}) async {
     String primary = "";
     String sec = "";
     String tert = "";
@@ -41,7 +41,7 @@ class HomePageController extends GetxController {
                 ? categoryController.dietiaryModel.value.data!.selectedIds.toList().join(",")
                 : "",
             filter: filter,
-            context: context)
+            context: context, longitude: longitude, latitude: latitude)
         .then((value1) {
       isDataLoading.value = true;
       model.value = value1;

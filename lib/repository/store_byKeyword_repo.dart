@@ -7,13 +7,13 @@ import '../model/storebykeyword_model.dart';
 import '../resources/api_urls.dart';
 
 Future<StorebyKeywords> storeKeywordListData() async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  ModelVerifyOtp? user =
-  ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+  // SharedPreferences pref = await SharedPreferences.getInstance();
+  // ModelVerifyOtp? user =
+  // ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
+    // HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
 
   final response =

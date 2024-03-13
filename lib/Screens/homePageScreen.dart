@@ -92,7 +92,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       profileController.getData();
       scrollController.addListener((_scrollListener));
       // scrollController1.addListener((_scrollListener1));
-      homeController.getData(filter: (currentIndex + 2).toString());
+      homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
       filterProductCategoryController.getFilterCategoryData(
           filter: "", context: context, categoryId: (currentIndex + 2).toString());
       myCartController.getData();
@@ -282,7 +282,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
     await profileController.getData().then((value) {
       profileController.address.value = profileController.model.value.data!.defaultAddress![0].addressType.toString();
     });
-    await homeController.getData(filter: (currentIndex + 2).toString());
+    // await homeController.getData(filter: (currentIndex + 2).toString());
+    homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
+
     setState(() {});
   }
 
@@ -290,7 +292,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    homeController.getData(filter: (currentIndex + 2).toString());
+    // homeController.getData(filter: (currentIndex + 2).toString());
+    homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
+
 
     return GestureDetector(
       onTap: () {
@@ -425,7 +429,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             return RefreshIndicator(
                 onRefresh: onRefresh,
                 child: SafeArea(
-                  child: homeController.isDataLoading.value && profileController.isDataLoading.value
+                  child: homeController.isDataLoading.value
                       ? SingleChildScrollView(
                           padding: const EdgeInsets.only(left: 14, top: 6),
                           physics: const BouncingScrollPhysics(),
@@ -441,11 +445,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     style: GoogleFonts.poppins(
                                         color: const Color(0xFF676767), fontWeight: FontWeight.w300, fontSize: 16),
                                   ),
-                                  Text(
-                                    profileController.model.value.data!.name.toString().capitalizeFirst.toString(),
-                                    style: GoogleFonts.poppins(
-                                        color: const Color(0xFF353535), fontWeight: FontWeight.w600, fontSize: 22),
-                                  ),
+                                  // Text(
+                                  //   profileController.model.value.data!.name.toString().capitalizeFirst.toString(),
+                                  //   style: GoogleFonts.poppins(
+                                  //       color: const Color(0xFF353535), fontWeight: FontWeight.w600, fontSize: 22),
+                                  // ),
                                 ],
                               ),
                               addHeight(16),
@@ -837,12 +841,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     setState(() {});
                                                   });
                                                 } else {
-                                                  homeController.getData(
-                                                      context: context, filter: (currentIndex + 2).toString()
-                                                      // filter: controller
-                                                      //     .storeKeywordModel.value.data!.productOption![index].id
-                                                      //     .toString()
-                                                      );
+                                                  // homeController.getData(
+                                                  //     context: context, filter: (currentIndex + 2).toString()
+                                                  //     // filter: controller
+                                                  //     //     .storeKeywordModel.value.data!.productOption![index].id
+                                                  //     //     .toString()
+                                                  //     );
+                                                  homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
+
                                                 }
                                                 setState(() {});
                                               },
@@ -1700,7 +1706,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             .then((value) {
                                           if (value.status == true) {
                                             showToast(value.message);
-                                            homeController.getData(filter: (currentIndex + 2).toString());
+                                            // homeController.getData(filter: (currentIndex + 2).toString());
+                                            homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
+
                                           }
                                         });
                                       },

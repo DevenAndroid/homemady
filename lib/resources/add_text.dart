@@ -76,8 +76,7 @@ addCartSection(){
                   },
                   style: ElevatedButton.styleFrom(
                       minimumSize:
-                      Size(double.maxFinite, AddSize.size30 * 2),
-                      primary: Color(0xFF68C541),
+                      Size(double.maxFinite, AddSize.size30 * 2), backgroundColor: Color(0xFF68C541),
                       // foregroundColor: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(

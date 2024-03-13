@@ -24,7 +24,9 @@ class ChattingListScreenState extends State<ChattingListScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Theme(
-        data: ThemeData(useMaterial3: true, dividerColor: Colors.transparent, backgroundColor: Colors.transparent),
+        data: ThemeData(useMaterial3: true, dividerColor: Colors.transparent,
+            // backgroundColor: Colors.transparent
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

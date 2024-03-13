@@ -14,6 +14,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import '../controller/category_controller.dart';
 import '../controller/featured_filter_controller.dart';
 import '../controller/filter_controller.dart';
+import '../controller/location_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../model/featured_filter_ model.dart';
 import '../repository/wishlist_repo.dart';
@@ -40,16 +41,16 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
   String? selectedDate = "";
   late TabController tabController;
   DateTime? pickedDate;
-
+  final locationController = Get.put(LocationController());
   @override
   void initState() {
     super.initState();
     featuredFilterController.filterId.value = "2";
-    featuredFilterController.getData();
+    featuredFilterController.getData(locationController.lat,locationController.long);
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
       featuredFilterController.filterId.value = (tabController.index+2).toString();
-      featuredFilterController.getData();
+      featuredFilterController.getData(locationController.lat,locationController.long);
     });
   }
 
@@ -122,7 +123,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                               selectedDate = formattedDate; //set output date to TextField value.
                                               log("Seleted Date     $selectedDate");
                                               featuredFilterController.sendDate.value = selectedDate!;
-                                              featuredFilterController.getData();
+                                              featuredFilterController.getData(locationController.lat,locationController.long);
                                             });
                                           }
                                           return null;
@@ -135,7 +136,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                             selectedDate = formattedDate;
                                             log("Seleted Date     $selectedDate");
                                             featuredFilterController.sendDate.value = selectedDate!;
-                                            featuredFilterController.getData();
+                                            featuredFilterController.getData(locationController.lat,locationController.long);
                                           });
                                         }
                                       },
@@ -223,7 +224,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                       featuredFilterController.sendDate.value = "";
                                       featuredFilterController.status.value = "";
                                       featuredFilterController.filterId.value = "";
-                                      featuredFilterController.getData();
+                                      featuredFilterController.getData(locationController.lat,locationController.long);
                                     },
                                     child: Container(
                                       height: 40,
@@ -376,7 +377,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                               child: InkWell(
                                 onTap: () {
                                   featuredFilterController.status.value = "3";
-                                  featuredFilterController.getData();
+                                  featuredFilterController.getData(locationController.lat,locationController.long);
                                   Get.back();
                                 },
                                 child: Text(
@@ -397,7 +398,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                               child: InkWell(
                                 onTap: () {
                                   featuredFilterController.status.value = "1";
-                                  featuredFilterController.getData();
+                                  featuredFilterController.getData(locationController.lat,locationController.long);
                                   Get.back();
                                 },
                                 child: Text(
@@ -435,12 +436,14 @@ class FeatureTodayTabScreen extends StatefulWidget {
 
 class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
   final featuredFilterController = Get.put(FeaturedFilterController());
+  final locationController = Get.put(LocationController());
+
 
   @override
   void initState() {
     super.initState();
     featuredFilterController.filterId.value = widget.filterId;
-    featuredFilterController.getData();
+    featuredFilterController.getData(locationController.lat,locationController.long);
   }
 
   @override
@@ -667,7 +670,7 @@ class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
                                                     .then((value) {
                                                   if (value.status == true) {
                                                     showToast(value.message);
-                                                    featuredFilterController.getData();
+                                                    featuredFilterController.getData(locationController.lat,locationController.long);
                                                   }
                                                 });
                                               },

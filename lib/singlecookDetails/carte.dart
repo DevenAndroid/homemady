@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
+import '../controller/location_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../model/my_cart_model.dart';
@@ -27,11 +28,12 @@ class _CarteScreenState extends State<CarteScreen> {
   final controller = Get.put(VendorSingleStoreController());
   final cartListController = Get.put(MyCartListController());
   bool apiLoaded = false;
+  final locationController = Get.put(LocationController());
 
   VendorStoreSingleModel model = VendorStoreSingleModel();
 
   Future getData() async {
-    await singleStoreData(id: controller.storeId, filterId: widget.filterId).then((value1) {
+    await singleStoreData(id: controller.storeId, filterId: widget.filterId, latitude: locationController.lat, longitude: locationController.long).then((value1) {
       apiLoaded = true;
       model = value1;
       setState(() {});
@@ -130,7 +132,7 @@ class _CarteScreenState extends State<CarteScreen> {
                                                           .then((value) {
                                                         if (value.status == true) {
                                                           showToast(value.message);
-                                                          controller.getData();
+                                                          controller.getData(locationController.lat,locationController.long);
                                                         }
                                                       });
                                                     },

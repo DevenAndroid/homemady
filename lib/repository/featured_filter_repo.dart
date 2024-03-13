@@ -8,21 +8,22 @@ import '../model/featured_filter_ model.dart';
 import '../model/model_verify_otp.dart';
 import '../resources/api_urls.dart';
 
-Future<FeaturedFilterModel> featuredFilterRepo({required filter, required pickDate,required status}) async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  ModelVerifyOtp? user =
-  ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+Future<FeaturedFilterModel> featuredFilterRepo(
+    {required filter, required pickDate, required status, required latitude, required longitude}) async {
+  // SharedPreferences pref = await SharedPreferences.getInstance();
+  // ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
 
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
+    // HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
-  log(user.authToken.toString());
-  http.Response response =
-  await http.get(Uri.parse('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status'), headers: headers);
+  // log(user.authToken.toString());
+  http.Response response = await http.get(
+      Uri.parse('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status'),
+      headers: headers);
   // log("<<<<<<<Featured Filter Repo data=======>${response.body}");
-  log('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status');
+  log('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status&latitude=$latitude&longitude=$longitude');
   if (response.statusCode == 200) {
     log("<<<<<<<Featured Filter Repo data=======>${response.body}");
     return FeaturedFilterModel.fromJson(json.decode(response.body));

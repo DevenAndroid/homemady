@@ -17,9 +17,9 @@ class VendorSingleStoreController extends GetxController{
   String storeId = "";
 
 
-  Future getData() async {
+  Future getData(latitude,longitude) async {
     isDataLoading.value = false;
-    await singleStoreData(id: storeId, filterId: filterId.value, ).then((value1) {
+    await singleStoreData(id: storeId, filterId: filterId.value, latitude: latitude, longitude: longitude).then((value1) {
       isDataLoading.value = true;
       model.value = value1;
     });

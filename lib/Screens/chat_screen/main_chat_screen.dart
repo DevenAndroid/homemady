@@ -165,7 +165,9 @@ class _MainChatScreenState extends State<MainChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(useMaterial3: true, dividerColor: Colors.transparent, backgroundColor: Colors.transparent),
+      data: ThemeData(useMaterial3: true, dividerColor: Colors.transparent,
+          // backgroundColor: Colors.transparent
+      ),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,

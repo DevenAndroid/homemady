@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:share_plus/share_plus.dart';
+import '../controller/location_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/review_screen_controller.dart';
 import '../controller/user_profile_controller.dart';
@@ -36,6 +37,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
   late TabController tabControllerGG;
   final autoController = AutoScrollController();
   final ScrollController scrollController = ScrollController();
+  final locationController = Get.put(LocationController());
 
   String? sharingStoreId;
 
@@ -65,7 +67,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
   }
 
   loadApis() async {
-    await controller.getData();
+    await controller.getData(locationController.lat,locationController.long);
     await controller.getStoreKeywordListData();
     setState(() {});
   }
@@ -404,7 +406,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                           .then((value) {
                                                         if (value.status == true) {
                                                           showToast(value.message);
-                                                          controller.getData();
+                                                          controller.getData(locationController.lat,locationController.long);
                                                         }
                                                       });
                                                     },

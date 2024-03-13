@@ -19,6 +19,8 @@ Future<HomePageModel> homeData({
   required String tertiary_category,
   required String dietaries,
     required String filter,
+    required String longitude,
+    required String latitude,
     BuildContext? context}) async {
   OverlayEntry? loader;
   try {
@@ -27,17 +29,18 @@ Future<HomePageModel> homeData({
       Overlay.of(context).insert(loader);
     }
 
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
+      // HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
     };
-    log(user.authToken.toString());
+    // log(user.authToken.toString());
 
     String url = ApiUrl.homePageApi;
     List<String> types = [];
+    log("Generated Url 11.....      $url");
 
     // primariy_category=50,53&secondary_category=2,3,4&dietaries=4,3,5&keyword=store&filter=2&tertiary_category=26,27,28
     if(primariy_category.isNotEmpty)types.add("primariy_category=$primariy_category");
@@ -45,7 +48,8 @@ Future<HomePageModel> homeData({
     if(tertiary_category.isNotEmpty)types.add("tertiary_category=$tertiary_category");
     if(filter.isNotEmpty)types.add("filter=$filter");
     if(dietaries.isNotEmpty)types.add("dietaries=$dietaries");
-
+    if(longitude.isNotEmpty)types.add("longitude=$longitude");
+    if(latitude.isNotEmpty)types.add("latitude=$latitude");
     if (types.isNotEmpty) {
       url = "$url?${types.join("&")}";
     }

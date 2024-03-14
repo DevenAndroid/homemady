@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../controller/location_controller.dart';
 import '../routers/routers.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,12 +17,16 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  final locationController = Get.put(LocationController(),permanent: true);
+
+
 
 
   @override
   void initState() {
     super.initState();
     // _getClientInformation();
+    locationController.getLocation();
     Timer(const Duration(seconds: 3), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       String? userInfo = pref.getString('user_info');

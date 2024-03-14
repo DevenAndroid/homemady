@@ -18,12 +18,10 @@ Future<FeaturedFilterModel> featuredFilterRepo(
     HttpHeaders.acceptHeader: 'application/json',
     // HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
-  // log(user.authToken.toString());
   http.Response response = await http.get(
-      Uri.parse('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status'),
+      Uri.parse('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status&latitude=$latitude&longitude=$longitude'),
       headers: headers);
-  // log("<<<<<<<Featured Filter Repo data=======>${response.body}");
-  log('${ApiUrl.featuredFilterUrl}?filter=$filter&pick_date=$pickDate&status=$status&latitude=$latitude&longitude=$longitude');
+   log("<<<<<<<Featured Filter Repo data=======>${response.body}");
   if (response.statusCode == 200) {
     log("<<<<<<<Featured Filter Repo data=======>${response.body}");
     return FeaturedFilterModel.fromJson(json.decode(response.body));

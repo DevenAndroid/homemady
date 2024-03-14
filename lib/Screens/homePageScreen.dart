@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:salesiq_mobilisten/launcher.dart';
 import 'dart:io' as io;
 import 'package:salesiq_mobilisten/salesiq_mobilisten.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import '../controller/category_controller.dart';
 import '../controller/fillter_product_category_controller.dart';
@@ -29,6 +30,7 @@ import '../repository/wishlist_repo.dart';
 import '../resources/add_text.dart';
 import '../widgets/app_theme.dart';
 import 'homedetails_Screen.dart';
+import 'login_screen.dart';
 import 'myAddressScreen.dart';
 import 'mycart_Screen.dart';
 
@@ -40,9 +42,6 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-
-
-
   final categoryController = Get.put(CategoryController());
   final homeController = Get.put(HomePageController());
   final profileController = Get.put(UserProfileController());
@@ -61,6 +60,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
   int currentIndex = 0;
   List categoryItemList = ['A\' la Carte', 'Catering', 'Meal Prep'];
 
+
+  bool isUserlogin = false;
+
+  Future<bool> isUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user_info') != null) {
+      isUserlogin = true;
+    } else {
+      isUserlogin = false;
+    }
+    return isUserlogin;
+  }
   List<ItemDropDown> items = <ItemDropDown>[
     const ItemDropDown('sustainable_packaging', 'Sustainable Packaging'),
     const ItemDropDown('distance', 'Distance'),
@@ -77,22 +88,23 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   // final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
-
-
+  final LocationController locationController1 = Get.find();
 
   @override
   void initState() {
     super.initState();
     FocusManager.instance.primaryFocus!.unfocus();
     locationController.checkGps(context);
-
+    isUserLoggedIn();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       filterDataController.getFilterData();
       profileController.getData();
       scrollController.addListener((_scrollListener));
       // scrollController1.addListener((_scrollListener1));
-      homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
+      homeController.getData(
+          filter: (currentIndex + 2).toString(),
+          latitude: locationController.lat.value,
+          longitude: locationController.long.value);
       filterProductCategoryController.getFilterCategoryData(
           filter: "", context: context, categoryId: (currentIndex + 2).toString());
       myCartController.getData();
@@ -102,9 +114,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
       myAddressController.getData();
       controller.getStoreKeywordListData();
     });
+    print("Longitude: ${locationController1.long.value}");
   }
-
-
 
   void _scrollListener() {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
@@ -152,12 +163,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
         // showChooseDate(context);
         String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate!);
         setState(() {
-          homeController.selectedDate  = formattedDate;
+          homeController.selectedDate = formattedDate;
         });
       }
       return null;
     });
   }
+
   showChooseDate(index) {
     RxInt refreshInt = 0.obs;
     // DateTime now = DateTime.now();
@@ -236,7 +248,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
-                              timeSlotController.sendDate.value =  homeController.selectedDate ;
+                              timeSlotController.sendDate.value = homeController.selectedDate;
                               timeSlotController.getTimeSlotData();
                               // print("Seleted Date"+ timeSlotController.getTimeSlotData());
                               Get.back();
@@ -262,11 +274,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
-
-
   Future onRefresh() async {
-
-    homeController.selectedDate  = 'Available Now';
+    homeController.selectedDate = 'Available Now';
     sortedFilter = false;
     currentIndex = 0;
     categoryController.dietiaryModel.value.data!.selectedIds.clear();
@@ -283,7 +292,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
       profileController.address.value = profileController.model.value.data!.defaultAddress![0].addressType.toString();
     });
     // await homeController.getData(filter: (currentIndex + 2).toString());
-    homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
+    homeController.getData(
+        filter: (currentIndex + 2).toString(),
+        latitude: locationController.lat.value,
+        longitude: locationController.long.value);
 
     setState(() {});
   }
@@ -293,8 +305,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     // homeController.getData(filter: (currentIndex + 2).toString());
-    homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
 
+    homeController.getData(
+        filter: (currentIndex + 2).toString(),
+        latitude: locationController.lat.value,
+        longitude: locationController.long.value);
+
+    log('message123manish'+locationController.lat.value.toString());
+    log('message123manish'+locationController.long.value.toString());
 
     return GestureDetector(
       onTap: () {
@@ -352,7 +370,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       ),
                       addHeight(3),
                       GestureDetector(onTap: () {
-                        Get.to(() => const MyAddressScreen(), arguments: 'home');
+                        if(isUserlogin == true){
+                          Get.to(() => const MyAddressScreen(), arguments: 'home');
+                        }else{
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => LoginScreen()),
+                          );
+                        }
                       }, child: Obx(() {
                         if (profileController.refreshInt.value > 0) {}
                         if (homeController.isDataLoading.value && profileController.isDataLoading.value) {}
@@ -440,10 +465,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Hello',
-                                    style: GoogleFonts.poppins(
-                                        color: const Color(0xFF676767), fontWeight: FontWeight.w300, fontSize: 16),
+                                  InkWell(
+                                    onTap: (){
+                                      print("tttttttt" + locationController.lat.value.toString());
+
+                                    },
+                                    child: Text(
+                                      'Hello',
+                                      style: GoogleFonts.poppins(
+                                          color: const Color(0xFF676767), fontWeight: FontWeight.w300, fontSize: 16),
+                                    ),
                                   ),
                                   // Text(
                                   //   profileController.model.value.data!.name.toString().capitalizeFirst.toString(),
@@ -477,7 +508,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         child: CommonTextFieldWidget1(
                                           hint: 'Search Your Food',
                                           controller: filterDataController.storeSearchController,
-
                                           prefix: InkWell(
                                             onTap: () {
                                               FocusManager.instance.primaryFocus!.unfocus();
@@ -507,7 +537,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   addWidth(8),
                                   GestureDetector(
                                     onTap: () {
-                                      if ( homeController.selectedDate  != "Available Now" || isAvailableSelected == true) {
+                                      if (homeController.selectedDate != "Available Now" ||
+                                          isAvailableSelected == true) {
                                         showUploadWindow();
                                         // Get.toNamed(SearchScreenData.searchScreen, arguments: [selectedDate]);
                                       } else {
@@ -635,7 +666,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         Expanded(
                                           child: InkWell(
                                             onTap: () {
-                                              if ( homeController.selectedDate  == 'Available Now') {
+                                              if (homeController.selectedDate == 'Available Now') {
                                                 filterDataController.sendDate = DateTime.now();
                                                 filterDataController.getFilterData();
                                               } else {
@@ -646,17 +677,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               height: 44,
                                               decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(4),
-                                                  border:
-                                                  homeController.selectedDate  == 'Available Now' && isAvailableSelected == false
-                                                          ? Border.all(color: const Color(0xff7ED957), width: 2)
-                                                          : Border.all(
-                                                              color: const Color(0xFF717171).withOpacity(0.22),
-                                                              width: 1)),
+                                                  border: homeController.selectedDate == 'Available Now' &&
+                                                          isAvailableSelected == false
+                                                      ? Border.all(color: const Color(0xff7ED957), width: 2)
+                                                      : Border.all(
+                                                          color: const Color(0xFF717171).withOpacity(0.22), width: 1)),
                                               child: Row(
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-                                                  homeController.selectedDate  == 'Available Now' && isAvailableSelected == false
+                                                  homeController.selectedDate == 'Available Now' &&
+                                                          isAvailableSelected == false
                                                       ? GestureDetector(
                                                           onTap: () {
                                                             isAvailableSelected = !isAvailableSelected!;
@@ -678,7 +709,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                             color: const Color(0xFF262626).withOpacity(0.62),
                                                           ),
                                                         ),
-                                                  homeController.selectedDate == 'Available Now' && isAvailableSelected == false
+                                                  homeController.selectedDate == 'Available Now' &&
+                                                          isAvailableSelected == false
                                                       ? GestureDetector(
                                                           onTap: () {
                                                             isAvailableSelected = !isAvailableSelected!;
@@ -694,7 +726,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                           ),
                                                         )
                                                       : Text(
-                                                    homeController.selectedDate ,
+                                                          homeController.selectedDate,
                                                           style: GoogleFonts.poppins(
                                                             color: const Color(0xFF262626).withOpacity(0.62),
                                                             fontSize: 16,
@@ -747,8 +779,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   String formattedDate = DateFormat('yyyy/MM/dd').format(value);
                                                   setState(() {
                                                     // var selectedDate=formattedDate;
-                                                    homeController.selectedDate = formattedDate; //set output date to TextField value.
-                                                    print("Seleted Date"+homeController.selectedDate);
+                                                    homeController.selectedDate =
+                                                        formattedDate; //set output date to TextField value.
+                                                    print("Seleted Date" + homeController.selectedDate);
                                                   });
                                                 }
                                                 return null;
@@ -759,7 +792,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate!);
                                                 setState(() {
                                                   homeController.selectedDate = formattedDate;
-                                                  print("Seleted Date"+homeController.selectedDate);
+                                                  print("Seleted Date" + homeController.selectedDate);
                                                 });
                                               }
                                             },
@@ -769,7 +802,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                   borderRadius: BorderRadius.circular(4),
                                                   color: const Color(0xFF7ED957),
                                                 ),
-                                                child:  homeController.selectedDate  == 'Available Now'
+                                                child: homeController.selectedDate == 'Available Now'
                                                     ? Row(
                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -841,14 +874,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     setState(() {});
                                                   });
                                                 } else {
-                                                  // homeController.getData(
-                                                  //     context: context, filter: (currentIndex + 2).toString()
-                                                  //     // filter: controller
-                                                  //     //     .storeKeywordModel.value.data!.productOption![index].id
-                                                  //     //     .toString()
-                                                  //     );
-                                                  homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
 
+                                                  homeController.getData(
+                                                      filter: (currentIndex + 2).toString(),
+                                                      latitude: locationController.lat.value,
+                                                      longitude: locationController.long.value);
                                                 }
                                                 setState(() {});
                                               },
@@ -942,8 +972,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                             onTap: () {
-                                              Get.to(() =>
-                                                  HomeDetailsScreen(
+                                              Get.to(() => HomeDetailsScreen(
                                                   storeId: filterProductCategoryController
                                                       .filterDataModel.value.data![index].id
                                                       .toString()));
@@ -1707,8 +1736,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           if (value.status == true) {
                                             showToast(value.message);
                                             // homeController.getData(filter: (currentIndex + 2).toString());
-                                            homeController.getData(filter: (currentIndex + 2).toString(),latitude: locationController.lat.value,longitude: locationController.long.value);
-
+                                            homeController.getData(
+                                                filter: (currentIndex + 2).toString(),
+                                                latitude: locationController.lat.value,
+                                                longitude: locationController.long.value);
                                           }
                                         });
                                       },
@@ -2567,4 +2598,3 @@ class ItemDropDown {
 
   const ItemDropDown(this.id, this.name);
 }
-

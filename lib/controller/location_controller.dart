@@ -13,7 +13,8 @@ class LocationController extends GetxController {
   RxBool haspermission = false.obs;
   late LocationPermission permission;
   late Position position;
-  RxString long = "".obs, lat = "".obs;
+  RxString long = "".obs;
+      RxString  lat = "".obs;
   var locality = 'No location set'.obs;
   var country = 'Getting Country..'.obs;
   late StreamSubscription<Position> positionStream;
@@ -89,24 +90,7 @@ class LocationController extends GetxController {
         .then((value) async {
       locality.value = value.last.locality!;
       country.value = 'Country : ${value.last.country}';
-      //   if(profileController.model.value.data!.longitude == null && profileController.model.value.data!.longitude == null){
-      //     await updateLocation(
-      //       latitude: lat.toString(),
-      //       longitude: long.toString(),
-      //     );
-      // }
-      //     .then((value) {
-      //   log("+++++++++${value.message!}");
-      //   if(value.status == true){
-      //     final homepageController1 = Get.put(HomePageController1());
-      //     homepageController1.getHomePageData().then((value) {
-      //       final storeController = Get.put(StoreController());
-      //       storeController.isPaginationLoading.value = true;
-      //       storeController.loadMore.value = true;
-      //       storeController.getData(isFirstTime: true);
-      //     });
-      //   }
-      // });
+      print("fffffffff"+long.value.toString());
     });
   }
 

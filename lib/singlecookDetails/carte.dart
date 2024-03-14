@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/Screens/login_screen.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/location_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
@@ -33,7 +35,12 @@ class _CarteScreenState extends State<CarteScreen> {
   VendorStoreSingleModel model = VendorStoreSingleModel();
 
   Future getData() async {
-    await singleStoreData(id: controller.storeId, filterId: widget.filterId, latitude: locationController.lat, longitude: locationController.long).then((value1) {
+    await singleStoreData(
+            id: controller.storeId,
+            filterId: widget.filterId,
+            latitude: locationController.lat,
+            longitude: locationController.long)
+        .then((value1) {
       apiLoaded = true;
       model = value1;
       setState(() {});
@@ -44,6 +51,19 @@ class _CarteScreenState extends State<CarteScreen> {
   void initState() {
     super.initState();
     getData();
+    isUserLoggedIn();
+  }
+
+  bool isUserlogin = false;
+
+  Future<bool> isUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user_info') != null) {
+      isUserlogin = true;
+    } else {
+      isUserlogin = false;
+    }
+    return isUserlogin;
   }
 
   @override
@@ -60,14 +80,18 @@ class _CarteScreenState extends State<CarteScreen> {
                   itemCount: model.data!.latestProducts!.length,
                   itemBuilder: (context, index) {
                     String productID = model.data!.latestProducts![index].id.toString().trim();
-                    model.data!.latestProducts![index].productCount = int.tryParse((cartListController
-                                    .model.value.data!.cartItems!
-                                    .firstWhere((element) => element.productId.toString() == productID,
-                                        orElse: () => CartItems())
-                                    .cartItemQty ??
-                                "")
-                            .toString()) ??
-                        0;
+
+                    if (isUserlogin == true) {
+                      model.data!.latestProducts![index].productCount = int.tryParse((cartListController
+                                      .model.value.data!.cartItems!
+                                      .firstWhere((element) => element.productId.toString() == productID,
+                                          orElse: () => CartItems())
+                                      .cartItemQty ??
+                                  "")
+                              .toString()) ??
+                          0;
+                    }
+
                     final product = model.data!.latestProducts![index];
                     return Column(
                       children: [
@@ -132,7 +156,8 @@ class _CarteScreenState extends State<CarteScreen> {
                                                           .then((value) {
                                                         if (value.status == true) {
                                                           showToast(value.message);
-                                                          controller.getData(locationController.lat,locationController.long);
+                                                          controller.getData(
+                                                              locationController.lat, locationController.long);
                                                         }
                                                       });
                                                     },
@@ -382,34 +407,41 @@ class _CarteScreenState extends State<CarteScreen> {
                                                       ),
                                                       InkWell(
                                                         onTap: () {
-                                                          // buttonCount.value++;
-                                                          if (product.productCount <
-                                                              model.data!.latestProducts![index].qty) {
-                                                            model.data!.latestProducts![index].qty == 0
-                                                                ? showToast('Out of Stock')
-                                                                : addToCartRepo(
-                                                                        product_id: model
-                                                                            .data!.latestProducts![index].id
-                                                                            .toString(),
-                                                                        qty: product.productCount + 1,
-                                                                        //model.data!.latestProducts![index].buttonCount.value,
-                                                                        context: context)
-                                                                    .then((value1) {
-                                                                    if (value1.status == true) {
-                                                                      model.data!.latestProducts![index].value = true;
-                                                                      // model.data!.latestProducts![index].buttonCount.value++;
-                                                                      showToast(value1.message.toString());
-                                                                      // controller.increaseQty();
-                                                                      cartListController.getData().then((value) {
-                                                                        setState(() {});
-                                                                      });
-                                                                    }
-                                                                  });
-                                                            // }
+                                                          if (isUserlogin == true) {
+                                                            if (product.productCount <
+                                                                model.data!.latestProducts![index].qty) {
+                                                              model.data!.latestProducts![index].qty == 0
+                                                                  ? showToast('Out of Stock')
+                                                                  : addToCartRepo(
+                                                                          product_id: model
+                                                                              .data!.latestProducts![index].id
+                                                                              .toString(),
+                                                                          qty: product.productCount + 1,
+                                                                          //model.data!.latestProducts![index].buttonCount.value,
+                                                                          context: context)
+                                                                      .then((value1) {
+                                                                      if (value1.status == true) {
+                                                                        model.data!.latestProducts![index].value = true;
+                                                                        // model.data!.latestProducts![index].buttonCount.value++;
+                                                                        showToast(value1.message.toString());
+                                                                        // controller.increaseQty();
+                                                                        cartListController.getData().then((value) {
+                                                                          setState(() {});
+                                                                        });
+                                                                      }
+                                                                    });
+                                                              // }
+                                                            } else {
+                                                              showToast('You have reached the product limit');
+                                                              //showToast('Out of stock');
+                                                            }
                                                           } else {
-                                                            showToast('You have reached the product limit');
-                                                            //showToast('Out of stock');
+                                                            Navigator.pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                            );
                                                           }
+                                                          // buttonCount.value++;
                                                         },
                                                         child: Container(
                                                           decoration: BoxDecoration(

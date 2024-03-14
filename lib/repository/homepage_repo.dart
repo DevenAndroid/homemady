@@ -41,6 +41,7 @@ Future<HomePageModel> homeData({
     String url = ApiUrl.homePageApi;
     List<String> types = [];
     log("Generated Url 11.....      $url");
+    log("Generated Url 11.....      $longitude");
 
     // primariy_category=50,53&secondary_category=2,3,4&dietaries=4,3,5&keyword=store&filter=2&tertiary_category=26,27,28
     if(primariy_category.isNotEmpty)types.add("primariy_category=$primariy_category");

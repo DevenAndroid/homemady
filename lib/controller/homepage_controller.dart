@@ -43,6 +43,7 @@ class HomePageController extends GetxController {
             filter: filter,
             context: context, longitude: longitude, latitude: latitude)
         .then((value1) {
+          print("manishhhhh"+latitude);
       isDataLoading.value = true;
       model.value = value1;
     });

@@ -85,7 +85,7 @@ class MyRouters {
   static var route = [
   GetPage(name: '/', page: () => const SplashScreen()),
   GetPage(name: '/onBoardingScreen', page: () =>  const OnBoardingScreen()),
-  GetPage(name: '/loginScreen', page: () => const LoginScreen()),
+  // GetPage(name: '/loginScreen', page: () => const LoginScreen()),
   GetPage(name: '/signupScreen', page: () => const SignupScreen()),
   GetPage(name: '/otpScreen', page: () => const OtpScreen()),
   GetPage(name: '/notificationScreen', page: () => const NotificationScreen()),

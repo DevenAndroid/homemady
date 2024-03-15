@@ -23,7 +23,7 @@ dependencies:
   get: ^4.6.6
   shared_preferences: ^2.2.2
   cached_network_image: ^3.3.0
-  google_fonts:
+  google_fonts: ^5.1.0
   form_field_validator: ^1.1.0
   flutter_stripe:
   salesiq_mobilisten: ^5.0.0

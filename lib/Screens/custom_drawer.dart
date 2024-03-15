@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/Screens/login_screen.dart';
 import 'package:homemady/Screens/subscription_screen.dart';
 import 'package:homemady/Screens/thankyou_screen2.dart';
 import 'package:homemady/resources/add_text.dart';
 import 'package:homemady/service/firebase_service.dart';
+import 'package:homemady/widgets/customeNavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/subscription_list_controller.dart';
 import '../controller/user_profile_controller.dart';
@@ -29,10 +31,21 @@ class _CustomDrawerState extends State<CustomDrawer> {
   final profileController = Get.put(UserProfileController());
   final controller = Get.put(SubscriptionListController());
 
+  bool isUserlogin = false;
+
+  Future<void> checkUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isUserlogin = prefs.getString('user_info') != null;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     controller.getData();
+    checkUserLoggedIn();
+
   }
 
   @override
@@ -143,7 +156,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         padding: const EdgeInsets.only(right: 15, top: 15, bottom: 12, left: 15),
                         child: InkWell(
                           onTap: () {
-                            Get.toNamed(MyRouters.favouriteScreen);
+                            if(isUserlogin){
+                              Get.toNamed(MyRouters.favouriteScreen);
+                            }else{
+                              Get.to(const LoginScreen());
+                            }
+
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -312,6 +330,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       const Divider(
                         height: 1,
                       ),
+
                       _drawerTile(
                           active: true,
                           title: "Help Center",
@@ -328,22 +347,37 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       const Divider(
                         height: 1,
                       ),
-                      _drawerTile(
-                          active: true,
-                          title: "Logout",
-                          icon: const ImageIcon(
-                            AssetImage('assets/images/logout.png'),
-                            size: 22,
-                            color: Color(0xFF4F535E),
-                          ),
-                          onTap: () async {
-                            SharedPreferences pref = await SharedPreferences.getInstance();
-                            pref.clear();
-                            if (profileController.model.value.data != null) {
-                              FirebaseService.removeFcmToken(profileController.model.value.data!.id.toString());
-                            }
-                            Get.offAllNamed(MyRouters.loginScreen);
-                          }),
+                      isUserlogin
+                          ? _drawerTile(
+                        active: true,
+                        title: "Logout",
+                        icon: const ImageIcon(
+                          AssetImage('assets/images/logout.png'),
+                          size: 22,
+                          color: Color(0xFF4F535E),
+                        ),
+                        onTap: () async {
+                          SharedPreferences pref = await SharedPreferences.getInstance();
+                          pref.clear();
+                          if (profileController.model.value.data != null) {
+                            FirebaseService.removeFcmToken(profileController.model.value.data!.id.toString());
+                          }
+                          checkUserLoggedIn();
+                          Get.offAllNamed(MyRouters.loginScreen);
+                        },
+                      )
+                          : _drawerTile(
+                        active: true,
+                        title: "Login",
+                        icon: const ImageIcon(
+                          AssetImage('assets/images/logout.png'),
+                          size: 22,
+                          color: Color(0xFF4F535E),
+                        ),
+                        onTap: () {
+                          Get.to(LoginScreen());
+                        },
+                      ),
                     ],
                   ),
                 ),

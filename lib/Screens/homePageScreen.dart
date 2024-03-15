@@ -92,7 +92,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   void initState() {
     super.initState();
-
+    homeController.selectedDate = 'Available Now';
     // log("Longitude1234: ${locationController.long.value}");
 
     FocusManager.instance.primaryFocus!.unfocus();
@@ -174,6 +174,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
         String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate!);
         setState(() {
           homeController.selectedDate = formattedDate;
+          setState(() {
+
+          });
         });
       }
       return null;
@@ -262,6 +265,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             onPressed: () {
                               timeSlotController.sendDate.value = homeController.selectedDate;
                               timeSlotController.getTimeSlotData();
+                              setState(() {
+
+                              });
                               // print("Seleted Date"+ timeSlotController.getTimeSlotData());
                               Get.back();
                               FocusManager.instance.primaryFocus!.unfocus();

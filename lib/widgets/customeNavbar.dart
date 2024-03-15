@@ -17,6 +17,7 @@ import 'package:overlay_support/overlay_support.dart';
 import '../Screens/custom_drawer.dart';
 import '../Screens/featured_store_list.dart';
 import '../Screens/homedetails_Screen.dart';
+import '../controller/homepage_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../service/custome_notification_headers.dart';
 import 'custome_size.dart';
@@ -31,7 +32,7 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   final profileController = Get.put(UserProfileController());
-
+  final homeController = Get.put(HomePageController());
   updateInt() {
     profileController.currentIndex.value = 0;
     setState(() {});
@@ -206,12 +207,18 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   void initState() {
     super.initState();
+    log("fgfhgfhh");
     notificationHandler();
     listenDynamicLinks();
     controller.getData();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      profileController.getData();
-    });
+      profileController.getData().then((value){
+        homeController.getData(
+            filter: "2".toString(),
+            latitude: profileController.model.value.data!.latitude,
+            longitude: profileController.model.value.data!.longitude);
+      });
+      });
   }
 
   @override

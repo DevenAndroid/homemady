@@ -148,9 +148,10 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                 showToast(value.message.toString());
                                                 log('manish${value.message.toString()}');
                                                 Future.delayed(const Duration(microseconds: 25), () {
-                                                  // final profileController = Get.put(UserProfileController());
-                                                  // profileController.currentIndex.value = 0;
-                                                  // Get.back();
+
+                                                  // // final profileController = Get.put(UserProfileController());
+                                                  // // profileController.currentIndex.value = 0;
+                                                  // // Get.back();
                                                   Navigator.pushReplacement(
                                                       context, MaterialPageRoute(builder: (context) => const BottomNavbar()));
 

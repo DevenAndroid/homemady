@@ -91,6 +91,14 @@ class LocationController extends GetxController {
       locality.value = value.last.locality!;
       country.value = 'Country : ${value.last.country}';
       print("fffffffff"+long.value.toString());
+
+      if(profileController.model.value.data!.longitude == null && profileController.model.value.data!.longitude == null){
+        await updateLocation(
+          latitude: lat.toString(),
+          longitude: long.toString(),
+        );
+      }
+      print("aaaaaaaaaa"+long.value.toString());
     });
   }
 

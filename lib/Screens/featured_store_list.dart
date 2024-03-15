@@ -6,11 +6,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/controller/user_profile_controller.dart';
 import 'package:homemady/routers/routers.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:homemady/widgets/dimenestion.dart';
 import 'package:intl/intl.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/category_controller.dart';
 import '../controller/featured_filter_controller.dart';
 import '../controller/filter_controller.dart';
@@ -42,18 +44,43 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
   late TabController tabController;
   DateTime? pickedDate;
   final locationController = Get.put(LocationController());
+  final profileController = Get.put(UserProfileController());
+  bool isUserlogin = false;
+
+  Future<bool> isUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user_info') != null) {
+      isUserlogin = true;
+    } else {
+      isUserlogin = false;
+    }
+    return isUserlogin;
+  }
   @override
   void initState() {
     super.initState();
+    isUserLoggedIn();
 
     featuredFilterController.filterId.value = "2";
-    featuredFilterController.getData(locationController.lat.value,locationController.long.value);
+    if (isUserlogin == true) {
+      featuredFilterController.getData(
+          profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+    } else {
+      featuredFilterController.getData(
+          locationController.lat.value, locationController.long.value);
+    }
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
-      featuredFilterController.filterId.value = (tabController.index+2).toString();
-      featuredFilterController.getData(locationController.lat.value,locationController.long.value);
-      print("rtrtrtrttrtr"+locationController.lat.value.toString());
-      print("rtrtrtrttrtr"+locationController.long.value.toString());
+      featuredFilterController.filterId.value = (tabController.index + 2).toString();
+      if (isUserlogin == true) {
+        featuredFilterController.getData(
+            profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+      } else {
+        featuredFilterController.getData(
+            locationController.lat.value, locationController.long.value);
+      }
+      print("rtrtrtrttrtr" + locationController.lat.value.toString());
+      print("rtrtrtrttrtr" + locationController.long.value.toString());
     });
   }
 
@@ -65,8 +92,13 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    featuredFilterController.getData(locationController.lat.value,locationController.long.value);
-
+    if (isUserlogin == true) {
+      featuredFilterController.getData(
+          profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+    } else {
+      featuredFilterController.getData(
+          locationController.lat.value, locationController.long.value);
+    }
 
     return Scaffold(
         appBar: backAppBar(
@@ -129,7 +161,13 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                               selectedDate = formattedDate; //set output date to TextField value.
                                               log("Seleted Date     $selectedDate");
                                               featuredFilterController.sendDate.value = selectedDate!;
-                                              featuredFilterController.getData(locationController.lat.value,locationController.long.value);
+                                              if (isUserlogin == true) {
+                                                featuredFilterController.getData(
+                                                    profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+                                              } else {
+                                                featuredFilterController.getData(
+                                                    locationController.lat.value, locationController.long.value);
+                                              }
                                             });
                                           }
                                           return null;
@@ -142,7 +180,13 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                             selectedDate = formattedDate;
                                             log("Seleted Date     $selectedDate");
                                             featuredFilterController.sendDate.value = selectedDate!;
-                                            featuredFilterController.getData(locationController.lat.value,locationController.long.value);
+                                            if (isUserlogin == true) {
+                                              featuredFilterController.getData(
+                                                  profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+                                            } else {
+                                              featuredFilterController.getData(
+                                                  locationController.lat.value, locationController.long.value);
+                                            }
                                           });
                                         }
                                       },
@@ -230,7 +274,13 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                                       featuredFilterController.sendDate.value = "";
                                       featuredFilterController.status.value = "";
                                       featuredFilterController.filterId.value = "";
-                                      featuredFilterController.getData(locationController.lat.value,locationController.long.value);
+                                      if (isUserlogin == true) {
+                                        featuredFilterController.getData(
+                                            profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+                                      } else {
+                                        featuredFilterController.getData(
+                                            locationController.lat.value, locationController.long.value);
+                                      }
                                     },
                                     child: Container(
                                       height: 40,
@@ -315,8 +365,7 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
               );
             })
           ];
-        },
-            body: Obx(() {
+        }, body: Obx(() {
           return featuredFilterController.isDataLoading.value
               ? featuredFilterController.model.value.data!.isNotEmpty
                   ? TabBarView(
@@ -383,7 +432,13 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                               child: InkWell(
                                 onTap: () {
                                   featuredFilterController.status.value = "3";
-                                  featuredFilterController.getData(locationController.lat.value,locationController.long.value);
+                                  if (isUserlogin == true) {
+                                    featuredFilterController.getData(
+                                        profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+                                  } else {
+                                    featuredFilterController.getData(
+                                        locationController.lat.value, locationController.long.value);
+                                  }
                                   Get.back();
                                 },
                                 child: Text(
@@ -404,7 +459,13 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
                               child: InkWell(
                                 onTap: () {
                                   featuredFilterController.status.value = "1";
-                                  featuredFilterController.getData(locationController.lat.value,locationController.long.value);
+                                  if (isUserlogin == true) {
+                                    featuredFilterController.getData(
+                                        profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+                                  } else {
+                                    featuredFilterController.getData(
+                                        locationController.lat.value, locationController.long.value);
+                                  }
                                   Get.back();
                                 },
                                 child: Text(
@@ -443,13 +504,32 @@ class FeatureTodayTabScreen extends StatefulWidget {
 class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
   final featuredFilterController = Get.put(FeaturedFilterController());
   final locationController = Get.put(LocationController());
+  final profileController = Get.put(UserProfileController());
+  bool isUserlogin = false;
 
-
+  Future<bool> isUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user_info') != null) {
+      isUserlogin = true;
+    } else {
+      isUserlogin = false;
+    }
+    return isUserlogin;
+  }
   @override
   void initState() {
     super.initState();
+    isUserLoggedIn();
+
+
     featuredFilterController.filterId.value = widget.filterId;
-    featuredFilterController.getData(locationController.lat.value,locationController.long.value);
+    if (isUserlogin == true) {
+      featuredFilterController.getData(
+          profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+    } else {
+      featuredFilterController.getData(
+          locationController.lat.value, locationController.long.value);
+    }
   }
 
   @override
@@ -549,7 +629,9 @@ class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
                                                   ),
                                                   addWidth(10),
                                                   Expanded(child: buildText(index)),
-                                                  const SizedBox(width: 100,)
+                                                  const SizedBox(
+                                                    width: 100,
+                                                  )
                                                 ],
                                               )
                                             ],
@@ -578,7 +660,7 @@ class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
                                       //       ],
                                       //     )),
                                       Positioned(
-                                          top: 150-20,
+                                          top: 150 - 20,
                                           right: 20,
                                           //   bottom: 0,
                                           child: SizedBox(
@@ -676,7 +758,13 @@ class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
                                                     .then((value) {
                                                   if (value.status == true) {
                                                     showToast(value.message);
-                                                    featuredFilterController.getData(locationController.lat.value,locationController.long.value);
+                                                    if (isUserlogin == true) {
+                                                      featuredFilterController.getData(
+                                                          profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+                                                    } else {
+                                                      featuredFilterController.getData(
+                                                          locationController.lat.value, locationController.long.value);
+                                                    }
                                                   }
                                                 });
                                               },
@@ -866,7 +954,7 @@ class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
     final item = featuredFilterController.model.value.data![index];
     return Text(
       '${item.collection.toString()} '
-          '${item.collection != 'Collection Only' ? "(${item.time ?? ''.toString()} - ${item.time1 ?? ''.toString()} min)\nDistance: ${"${item.distance.toString()} km"}" : ""}',
+      '${item.collection != 'Collection Only' ? "(${item.time ?? ''.toString()} - ${item.time1 ?? ''.toString()} min)\nDistance: ${"${item.distance.toString()} km"}" : ""}',
       style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 12, color: const Color(0xFF606573)),
     );
   }

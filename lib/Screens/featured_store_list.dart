@@ -79,8 +79,6 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
         featuredFilterController.getData(
             locationController.lat.value, locationController.long.value);
       }
-      print("rtrtrtrttrtr" + locationController.lat.value.toString());
-      print("rtrtrtrttrtr" + locationController.long.value.toString());
     });
   }
 
@@ -92,13 +90,13 @@ class _StoreListScreenState extends State<StoreListScreen> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    if (isUserlogin == true) {
-      featuredFilterController.getData(
-          profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
-    } else {
-      featuredFilterController.getData(
-          locationController.lat.value, locationController.long.value);
-    }
+    // if (isUserlogin == true) {
+    //   featuredFilterController.getData(
+    //       profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+    // } else {
+    //   featuredFilterController.getData(
+    //       locationController.lat.value, locationController.long.value);
+    // }
 
     return Scaffold(
         appBar: backAppBar(
@@ -519,17 +517,17 @@ class _FeatureTodayTabScreenState extends State<FeatureTodayTabScreen> {
   @override
   void initState() {
     super.initState();
-    isUserLoggedIn();
-
-
-    featuredFilterController.filterId.value = widget.filterId;
-    if (isUserlogin == true) {
-      featuredFilterController.getData(
-          profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
-    } else {
-      featuredFilterController.getData(
-          locationController.lat.value, locationController.long.value);
-    }
+    // isUserLoggedIn();
+    //
+    //
+    // featuredFilterController.filterId.value = widget.filterId;
+    // if (isUserlogin == true) {
+    //   featuredFilterController.getData(
+    //       profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+    // } else {
+    //   featuredFilterController.getData(
+    //       locationController.lat.value, locationController.long.value);
+    // }
   }
 
   @override

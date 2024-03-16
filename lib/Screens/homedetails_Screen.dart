@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:homemady/Screens/login_screen.dart';
 import 'package:homemady/Screens/store_review_screen.dart';
 import 'package:homemady/singlecookDetails/carte.dart';
 import 'package:homemady/widgets/dimenestion.dart';
@@ -10,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:homemady/widgets/custome_size.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/location_controller.dart';
 import '../controller/my_cart_controller.dart';
 import '../controller/review_screen_controller.dart';
@@ -39,6 +41,17 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
   final ScrollController scrollController = ScrollController();
   final locationController = Get.put(LocationController());
 
+  bool isUserlogin = false;
+
+  Future<bool> isUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user_info') != null) {
+      isUserlogin = true;
+    } else {
+      isUserlogin = false;
+    }
+    return isUserlogin;
+  }
   String? sharingStoreId;
 
   void onShare() async {
@@ -399,16 +412,21 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 if (controller.model.value.data != null)
                                                   InkWell(
                                                     onTap: () {
-                                                      wishlistRepo(
-                                                              productId: '',
-                                                              id: controller.model.value.data!.storeDetails!.id
-                                                                  .toString())
-                                                          .then((value) {
-                                                        if (value.status == true) {
-                                                          showToast(value.message);
-                                                          controller.getData(locationController.lat,locationController.long);
-                                                        }
-                                                      });
+                                                      if(isUserlogin){
+                                                        wishlistRepo(
+                                                            productId: '',
+                                                            id: controller.model.value.data!.storeDetails!.id
+                                                                .toString())
+                                                            .then((value) {
+                                                          if (value.status == true) {
+                                                            showToast(value.message);
+                                                            controller.getData(locationController.lat,locationController.long);
+                                                          }
+                                                        });
+                                                      }else{
+                                                        Get.to(const LoginScreen());
+                                                      }
+
                                                     },
                                                     child: controller.model.value.data!.storeDetails!.wishlist!
                                                         ? Container(

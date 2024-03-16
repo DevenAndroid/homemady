@@ -114,9 +114,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
       profileController.getData();
       scrollController.addListener((_scrollListener));
       // scrollController1.addListener((_scrollListener1));
+       if(isUserlogin) {
+         filterProductCategoryController.getFilterCategoryData(
+             filter: "",
+             context: context,
+             categoryId: (currentIndex + 2).toString(),
+             latitude: profileController.model.value.data!.latitude,
+             longitude: profileController.model.value.data!.longitude);
+       }else {
+         filterProductCategoryController.getFilterCategoryData(
+             filter: "",
+             context: context,
+             categoryId: (currentIndex + 2).toString(),
+             latitude: locationController.lat.value,
+             longitude: locationController.long.value);
+       }
 
-      filterProductCategoryController.getFilterCategoryData(
-          filter: "", context: context, categoryId: (currentIndex + 2).toString());
       myCartController.getData();
       categoryController.getCategoryData();
       categoryController.getDietaryData();
@@ -1322,7 +1335,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                       filterProductCategoryController.getFilterCategoryData(
                                                           filter: "",
                                                           categoryId: (currentIndex + 2).toString(),
-                                                          context: context);
+                                                          context: context,
+                                                          latitude: profileController.model.value.data!.latitude,
+                                                          longitude: profileController.model.value.data!.longitude
+                                                      );
+                                                      filterProductCategoryController.getFilterCategoryData(
+                                                          filter: "",
+                                                          categoryId: (currentIndex + 2).toString(),
+                                                          context: context,
+                                                          latitude: locationController.lat.value,
+                                                          longitude: locationController.long.value
+                                                      );
                                                     }
                                                   });
                                                 },
@@ -2597,7 +2620,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 filterProductCategoryController.getFilterCategoryData(
                                     filter: items[index].id,
                                     categoryId: (currentIndex + 2).toString(),
-                                    context: context);
+                                    context: context,
+                                    latitude: profileController.model.value.data!.latitude,
+                                    longitude: profileController.model.value.data!.longitude
+                                );
+                                filterProductCategoryController.getFilterCategoryData(
+                                    filter: items[index].id,
+                                    categoryId: (currentIndex + 2).toString(),
+                                    context: context,
+                                    latitude: locationController.lat.value,
+                                    longitude: locationController.long.value
+                                );
                                 Get.back();
                                 // Get.off(()=> FilterProductScreen(filterId: items[index].id,));
                               },

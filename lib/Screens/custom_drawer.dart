@@ -144,9 +144,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () {
-                            profileController.currentIndex.value = 2;
-                            Get.toNamed(MyRouters.bottomNavbar);
-                            Get.back();
+                            if(isUserlogin){
+                              profileController.currentIndex.value = 2;
+                              Get.toNamed(MyRouters.bottomNavbar);
+                              Get.back();
+                            }else{
+                              Get.to(const LoginScreen());
+                            }
+
                             // }
                           }),
                       const Divider(
@@ -193,7 +198,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () async {
-                            Get.toNamed(MyRouters.myProfileScreen);
+                            if(isUserlogin){
+                              Get.toNamed(MyRouters.myProfileScreen);
+                            }else
+                              {
+                                Get.to(LoginScreen());
+                              }
                           }),
                       const Divider(
                         height: 1,
@@ -207,7 +217,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () {
-                            Get.toNamed(MyRouters.notificationScreen);
+                            if(isUserlogin){
+                              Get.toNamed(MyRouters.notificationScreen);
+                            }
+                            else{
+                              Get.to(LoginScreen());
+                            }
                             // }
                           }),
                       const Divider(
@@ -222,18 +237,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () {
-                            // Get.toNamed(MyRouters.myAddressScreen);
-
+                        if(isUserlogin){
+                          Future.delayed(Duration(
+                              microseconds: 25
+                          ),()
+                          {
+                            Get.back();
+                            Get.to(() => const MyAddressScreen());
                             // Get.back();
-                            Future.delayed(Duration(
-                                microseconds: 25
-                            ),()
-                            {
-                              Get.back();
-                              Get.to(() => const MyAddressScreen());
-                              // Get.back();
-                            }
-                            );
+                          }
+                          );
+                        }else{
+                          Get.to(LoginScreen());
+                        }
+
                             // widget.onItemTapped(1);
                           }),
                       const Divider(
@@ -248,7 +265,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () async {
-                            Get.toNamed(MyRouters.referAndEarn);
+                            if(isUserlogin) {
+                              Get.toNamed(MyRouters.referAndEarn);
+                            }else{
+                              Get.to(LoginScreen());
+                            }
                             // }
                           }),
                       const Divider(
@@ -263,13 +284,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () async {
-                            // if (controller.model.value.data![0].status == "Active") {
-                            //   Get.toNamed(ThankYouScreen2.thankYouScreen2);
-                            // } else {
-                              Get.toNamed(SubscriptionScreen.subscriptionScreen);
-                            // }
+                           if(isUserlogin) {
+                             Get.toNamed(SubscriptionScreen.subscriptionScreen);
+                           }else{
+                             Get.to(LoginScreen());
+                           }
 
-                            // }
                           }),
                       const Divider(
                         height: 1,
@@ -298,16 +318,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             color: Color(0xFF4F535E),
                           ),
                           onTap: () async {
-                            String? myUserId = await getMyUserId();
-                            Get.to(() => ChattingListScreen(
-                                  myUserId: myUserId!,
-                                ));
-                            // }
+                            if(isUserlogin) {
+                              String? myUserId = await getMyUserId();
+                              Get.to(() =>
+                                  ChattingListScreen(
+                                    myUserId: myUserId!,
+                                  ));
+                            }else{
+                              Get.to(LoginScreen());
+                            }
                           }),
                       const Divider(
                         height: 1,
                       ),
-                      _drawerTile(
+                      isUserlogin ? _drawerTile(
                           active: true,
                           title: "Delete Account",
                           icon: const ImageIcon(
@@ -326,7 +350,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             });
 
                             // }
-                          }),
+                          }) : const SizedBox(),
                       const Divider(
                         height: 1,
                       ),

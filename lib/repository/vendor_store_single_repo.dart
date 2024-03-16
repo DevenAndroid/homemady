@@ -9,17 +9,22 @@ import '../model/vendor_store_single_model.dart';
 import '../resources/api_urls.dart';
 
 Future<VendorStoreSingleModel> singleStoreData({required id, required filterId,required latitude, required longitude}) async {
-  // SharedPreferences pref = await SharedPreferences.getInstance();
-  // ModelVerifyOtp? user =
-  // ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
- /* var map = <String,dynamic>{};
-  map ['id']='id';*/
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  String? userInfo = pref.getString('user_info');
+  ModelVerifyOtp? user;
+
+  if (userInfo != null) {
+    user = ModelVerifyOtp.fromJson(jsonDecode(userInfo));
+  }
 
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
-    // HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
+
+  if (user != null) {
+    headers[HttpHeaders.authorizationHeader] = 'Bearer ${user.authToken}';
+  }
   // log(user.authToken.toString());
   http.Response response =
   await http.get(Uri.parse('${ApiUrl.singleStoreApi}/$id?filter=$filterId&latitude=$latitude&longitude=$longitude'), headers: headers);

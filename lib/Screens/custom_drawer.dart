@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homemady/Screens/homePageScreen.dart';
 import 'package:homemady/Screens/login_screen.dart';
 import 'package:homemady/Screens/subscription_screen.dart';
 import 'package:homemady/Screens/thankyou_screen2.dart';
@@ -30,6 +31,7 @@ class CustomDrawer extends StatefulWidget {
 class _CustomDrawerState extends State<CustomDrawer> {
   final profileController = Get.put(UserProfileController());
   final controller = Get.put(SubscriptionListController());
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   bool isUserlogin = false;
 
@@ -386,8 +388,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           if (profileController.model.value.data != null) {
                             FirebaseService.removeFcmToken(profileController.model.value.data!.id.toString());
                           }
-                          checkUserLoggedIn();
-                          Get.offAllNamed(MyRouters.loginScreen);
+                          //checkUserLoggedIn();
+                        Get.offAllNamed(MyRouters.bottomNavbar);
+
                         },
                       )
                           : _drawerTile(

@@ -10,34 +10,48 @@ import '../resources/api_urls.dart';
 import '../widgets/new_helper.dart';
 
 Future<FilterProductCategoryModel> filterProductCategoryRepo({
-  required filter, required BuildContext context,required product_option_id,required latitude, required longitude
+  required filter,
+  required BuildContext context,
+  required product_option_id,
+  required latitude,
+  required longitude,
 }) async {
   OverlayEntry loader = NewHelper.overlayLoader(context);
   Overlay.of(context).insert(loader);
 
   SharedPreferences pref = await SharedPreferences.getInstance();
-  ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+  String? userInfo = pref.getString('user_info');
+  ModelVerifyOtp? user;
+
+  if (userInfo != null) {
+    user = ModelVerifyOtp.fromJson(jsonDecode(userInfo));
+  }
 
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
 
+  if (user != null) {
+    headers[HttpHeaders.authorizationHeader] = 'Bearer ${user.authToken}';
+  }
 
   try {
-    final response = await http.get(Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$filter&product_option_id=$product_option_id&latitude=$latitude&longitude=$longitude")
-        , headers: headers);
-    // log("Url issss...   ${"${ApiUrl.filterProductCategoryUrl}?filter=$filter&product_option_id=$product_option_id"}");
+    final response = await http.get(
+      Uri.parse("${ApiUrl.filterProductCategoryUrl}?filter=$filter&product_option_id=$product_option_id&latitude=$latitude&longitude=$longitude"),
+      headers: headers,
+    );
+
     if (response.statusCode == 200) {
       NewHelper.hideLoader(loader);
       log("sort stores by category...${response.body}");
       return FilterProductCategoryModel.fromJson(jsonDecode(response.body));
     } else {
       NewHelper.hideLoader(loader);
-      throw Exception(response.body);
+      throw Exception('Failed to load data: ${response.statusCode}');
     }
   } catch (e) {
-    throw Exception(e.toString());
+    NewHelper.hideLoader(loader);
+    throw Exception('Error: $e');
   }
 }

@@ -52,6 +52,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
     }
     return isUserlogin;
   }
+
   String? sharingStoreId;
 
   void onShare() async {
@@ -68,9 +69,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
     return sharingStoreId;
   }
 
+  final profileController = Get.put(UserProfileController());
+
   @override
   void initState() {
     super.initState();
+    isUserLoggedIn();
     controller.storeId = widget.storeId;
     generateLink();
     tabControllerGG = TabController(length: 3, vsync: this);
@@ -80,7 +84,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
   }
 
   loadApis() async {
-    await controller.getData(locationController.lat,locationController.long);
+    if (isUserlogin) {
+      await controller.getData(
+          profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+    } else {
+      await controller.getData(locationController.lat.value, locationController.long.value);
+    }
     await controller.getStoreKeywordListData();
     setState(() {});
   }
@@ -164,7 +173,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                       addHeight(15),
                                       InkWell(
                                         onTap: () {
-                                          log("ID IS" +controller.model.value.data!.storeDetails!.id.toString());
+                                          log("ID IS" + controller.model.value.data!.storeDetails!.id.toString());
                                           storeReviewController.vendorId.value =
                                               controller.model.value.data!.storeDetails!.id.toString();
                                           Get.toNamed(StoreReviewScreen.storeReviewScreen);
@@ -412,21 +421,25 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 if (controller.model.value.data != null)
                                                   InkWell(
                                                     onTap: () {
-                                                      if(!isUserlogin){
+                                                      if (isUserlogin) {
                                                         wishlistRepo(
-                                                            productId: '',
-                                                            id: controller.model.value.data!.storeDetails!.id
-                                                                .toString())
-                                                            .then((value) {
+                                                                productId: '',
+                                                                id: controller.model.value.data!.storeDetails!.id
+                                                                    .toString())
+                                                            .then((value) async {
                                                           if (value.status == true) {
                                                             showToast(value.message);
-                                                            controller.getData(locationController.lat,locationController.long);
+                                                            if (isUserlogin) {
+                                                               controller.getData(
+                                                                  profileController.model.value.data!.latitude, profileController.model.value.data!.longitude);
+                                                            } else {
+                                                               controller.getData(locationController.lat.value, locationController.long.value);
+                                                            }
                                                           }
                                                         });
-                                                      }else{
+                                                      } else {
                                                         Get.to(const LoginScreen());
                                                       }
-
                                                     },
                                                     child: controller.model.value.data!.storeDetails!.wishlist!
                                                         ? Container(

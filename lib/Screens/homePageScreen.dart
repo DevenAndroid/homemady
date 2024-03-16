@@ -446,8 +446,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   }),
                   child: GestureDetector(
                     onTap: () {
-                      // Get.toNamed(MyRouters.myCartScreen);
-                      Get.to(() => const MyCartScreen());
+                      if(isUserlogin) {
+                        Get.to(() => const MyCartScreen());
+                      }else{
+                        Get.to(() => const LoginScreen());
+
+                      }
                     },
                     child: Container(
                       height: 42,
@@ -1324,30 +1328,38 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             right: 10,
                                             child: InkWell(
                                                 onTap: () {
-                                                  wishlistRepo(
-                                                          id: filterProductCategoryController
-                                                              .filterDataModel.value.data![index].id
-                                                              .toString(),
-                                                          productId: '')
-                                                      .then((value) {
-                                                    if (value.status == true) {
-                                                      showToast(value.message);
-                                                      filterProductCategoryController.getFilterCategoryData(
-                                                          filter: "",
-                                                          categoryId: (currentIndex + 2).toString(),
-                                                          context: context,
-                                                          latitude: profileController.model.value.data!.latitude,
-                                                          longitude: profileController.model.value.data!.longitude
-                                                      );
-                                                      filterProductCategoryController.getFilterCategoryData(
-                                                          filter: "",
-                                                          categoryId: (currentIndex + 2).toString(),
-                                                          context: context,
-                                                          latitude: locationController.lat.value,
-                                                          longitude: locationController.long.value
-                                                      );
-                                                    }
-                                                  });
+
+                                                  if(isUserlogin) {
+                                                    wishlistRepo(
+                                                        id: filterProductCategoryController
+                                                            .filterDataModel.value.data![index].id
+                                                            .toString(),
+                                                        productId: '')
+                                                        .then((value) {
+                                                      if (value.status == true) {
+                                                        showToast(value.message);
+                                                        if(isUserlogin) {
+                                                          filterProductCategoryController.getFilterCategoryData(
+                                                              filter: "",
+                                                              categoryId: (currentIndex + 2).toString(),
+                                                              context: context,
+                                                              latitude: profileController.model.value.data!.latitude,
+                                                              longitude: profileController.model.value.data!.longitude
+                                                          );
+                                                        }else {
+                                                          filterProductCategoryController.getFilterCategoryData(
+                                                              filter: "",
+                                                              categoryId: (currentIndex + 2).toString(),
+                                                              context: context,
+                                                              latitude: locationController.lat.value,
+                                                              longitude: locationController.long.value
+                                                          );
+                                                        }
+                                                      }
+                                                    });
+                                                  }else{
+                                                    Get.to(const LoginScreen());
+                                                  }
                                                 },
                                                 child: filterProductCategoryController
                                                         .filterDataModel.value.data![index].wishlist!
@@ -1807,7 +1819,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         }
 
                                       },
-                                      child: homeController.model.value.data!.stores![index].wishlist!
+                                      child: homeController.model.value.data!.stores![index].wishlist! == true
                                           ? Container(
                                               height: 33,
                                               decoration:
@@ -2617,20 +2629,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 setState(() {
                                   sortedFilter = true;
                                 });
+                                if(isUserlogin){
                                 filterProductCategoryController.getFilterCategoryData(
                                     filter: items[index].id,
                                     categoryId: (currentIndex + 2).toString(),
                                     context: context,
                                     latitude: profileController.model.value.data!.latitude,
                                     longitude: profileController.model.value.data!.longitude
-                                );
+                                );}else
+                                  {
                                 filterProductCategoryController.getFilterCategoryData(
                                     filter: items[index].id,
                                     categoryId: (currentIndex + 2).toString(),
                                     context: context,
                                     latitude: locationController.lat.value,
                                     longitude: locationController.long.value
-                                );
+                                );}
                                 Get.back();
                                 // Get.off(()=> FilterProductScreen(filterId: items[index].id,));
                               },

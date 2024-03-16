@@ -8,6 +8,7 @@ import 'package:homemady/widgets/dimenestion.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/location_controller.dart';
 import '../controller/my_cart_controller.dart';
+import '../controller/user_profile_controller.dart';
 import '../controller/vendor_single_store_controller.dart';
 import '../model/my_cart_model.dart';
 import '../model/vendor_store_single_model.dart';
@@ -33,18 +34,26 @@ class _CarteScreenState extends State<CarteScreen> {
   final locationController = Get.put(LocationController());
 
   VendorStoreSingleModel model = VendorStoreSingleModel();
+  final profileController = Get.put(UserProfileController());
 
   Future getData() async {
-    await singleStoreData(
+    isUserlogin
+        ? await singleStoreData(
             id: controller.storeId,
             filterId: widget.filterId,
-            latitude: locationController.lat,
-            longitude: locationController.long)
-        .then((value1) {
-      apiLoaded = true;
-      model = value1;
-      setState(() {});
-    });
+            latitude: profileController.model.value.data!.latitude,
+            longitude: profileController.model.value.data!.longitude,
+          )
+        : await singleStoreData(
+                id: controller.storeId,
+                filterId: widget.filterId,
+                latitude: locationController.lat.value,
+                longitude: locationController.long.value)
+            .then((value1) {
+            apiLoaded = true;
+            model = value1;
+            setState(() {});
+          });
   }
 
   @override
@@ -156,8 +165,14 @@ class _CarteScreenState extends State<CarteScreen> {
                                                           .then((value) {
                                                         if (value.status == true) {
                                                           showToast(value.message);
-                                                          controller.getData(
-                                                              locationController.lat, locationController.long);
+                                                          if (isUserlogin) {
+                                                            controller.getData(
+                                                                profileController.model.value.data!.latitude,
+                                                                profileController.model.value.data!.longitude);
+                                                          } else {
+                                                            controller.getData(locationController.lat.value,
+                                                                locationController.long.value);
+                                                          }
                                                         }
                                                       });
                                                     },

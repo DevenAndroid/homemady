@@ -29,14 +29,22 @@ Future<HomePageModel> homeData({
       Overlay.of(context).insert(loader);
     }
 
-    // SharedPreferences pref = await SharedPreferences.getInstance();
-    // ModelVerifyOtp? user = ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? userInfo = pref.getString('user_info');
+    ModelVerifyOtp? user;
+
+    if (userInfo != null) {
+      user = ModelVerifyOtp.fromJson(jsonDecode(userInfo));
+    }
+
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.acceptHeader: 'application/json',
-      // HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
     };
-    // log(user.authToken.toString());
+
+    if (user != null) {
+      headers[HttpHeaders.authorizationHeader] = 'Bearer ${user.authToken}';
+    }
 
     String url = ApiUrl.homePageApi;
     List<String> types = [];

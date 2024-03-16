@@ -412,7 +412,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> with TickerProvid
                                                 if (controller.model.value.data != null)
                                                   InkWell(
                                                     onTap: () {
-                                                      if(isUserlogin){
+                                                      if(!isUserlogin){
                                                         wishlistRepo(
                                                             productId: '',
                                                             id: controller.model.value.data!.storeDetails!.id

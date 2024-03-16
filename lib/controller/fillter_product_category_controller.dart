@@ -18,17 +18,23 @@ class FilterProductCategoryController extends GetxController {
 
   String filterId = "";
 
-  Future getFilterCategoryData({
+  Future getFilterCategoryData(
+      {
     required String filter,
     required String categoryId,
-    required BuildContext context
+    required BuildContext context,
+    longitude,
+        latitude,
+
   }) async {
     isDataLoading.value = false;
     if(filter.isEmpty)return;
     filterId = filter;
     await filterProductCategoryRepo(
         filter: filter, context: context,
-      product_option_id: categoryId
+      product_option_id: categoryId,
+      longitude: longitude ,
+      latitude: latitude,
     ).then((value) {
       filterDataModel.value = value;
       isDataLoading.value = true;

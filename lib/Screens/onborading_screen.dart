@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:homemady/widgets/customeNavbar.dart';
 import '../routers/routers.dart';
 import '../widgets/app_theme.dart';
 import '../widgets/custome_size.dart';
 import '../widgets/onborading_list.dart';
-import 'login_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               itemBuilder: (context, index) {
                 if (OnBoardingData.length == index) {
                   loginLoaded = true;
-                  return const LoginScreen();
+                  return const BottomNavbar();
                 }
 
                 loginLoaded = false;
@@ -322,7 +322,8 @@ class OnboardContent extends StatelessWidget {
               onPressed: () {
                 controller.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
                 if (indexValue == 2) {
-                  Get.toNamed(MyRouters.bottomNavbar);
+                  Get.to(MyRouters.bottomNavbar);
+                  // Get.toNamed(MyRouters.bottomNavbar);
                 }
               },
               style: ElevatedButton.styleFrom(

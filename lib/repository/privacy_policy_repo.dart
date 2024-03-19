@@ -9,14 +9,22 @@ import '../resources/api_urls.dart';
 
 Future<PrivacyPolicyModel> privacyPolicyData({required slug}) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-  ModelVerifyOtp? user =
-  ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+  String? userInfo = pref.getString('user_info');
+  ModelVerifyOtp? user;
+
+  if (userInfo != null) {
+    user = ModelVerifyOtp.fromJson(jsonDecode(userInfo));
+  }
+
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   };
-  log(user.authToken.toString());
+
+  if (user != null) {
+    headers[HttpHeaders.authorizationHeader] = 'Bearer ${user.authToken}';
+  }
+  // log(user.authToken.toString());
   http.Response response =
   await http.get(Uri.parse('${ApiUrl.privacyPolicyUrl}?slug=privacy-policy'), headers: headers);
   log("<<<<<<<PrivacyPolicyData=======>${response.body}");

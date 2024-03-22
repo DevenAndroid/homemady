@@ -45,6 +45,7 @@ dependencies:
   firebase_auth: ^4.15.2
   cloud_firestore: ^4.13.5
   firebase_messaging: ^14.7.8
+  package_info_plus:
   file_picker:
 #  flutter_google_places:
   flutter_google_places_hoc081098: ^2.0.0-beta.1

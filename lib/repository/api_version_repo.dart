@@ -9,13 +9,10 @@ import '../model/privacy_policy_model.dart';
 import '../resources/api_urls.dart';
 
 Future<ModelAppVersion> getUpdateVersion({versioncode, type}) async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  ModelVerifyOtp? user =
-  ModelVerifyOtp.fromJson(jsonDecode(pref.getString('user_info')!));
+
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${user.authToken}'
   }; // log(user.authToken.toString());
   http.Response response =
   await http.get(Uri.parse("http://52.50.121.179/api/get-app-version?version_code=$versioncode&type=$type"), headers: headers);
